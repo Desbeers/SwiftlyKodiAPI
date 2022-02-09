@@ -15,7 +15,9 @@ extension KodiClient {
         let request = VideoLibraryGetMovies()
         do {
             let result = try await sendRequest(request: request)
-            return result.movies
+            return result.movies.sorted {
+                $0.sortOrder < $1.sortOrder
+            }
         } catch {
             /// There are no songs in the library
             print("Loading movies failed with error: \(error)")
@@ -63,7 +65,7 @@ extension KodiClient {
 }
 
 /// The struct for a movie item
-public struct MovieItem: KodiVideoItem, Codable, Identifiable, Hashable {
+public struct MovieItem: KodiMediaItem, Codable, Identifiable, Hashable {
     /// Make it indentifiable
     public var id = UUID()
     /// # Metadata we get from Kodi

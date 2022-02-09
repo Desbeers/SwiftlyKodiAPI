@@ -7,8 +7,12 @@
 
 import Foundation
 
-/// A protocol to define a video item in the library: movie, tv episide, music video
-public protocol KodiVideoItem: Codable {
+/// A protocol to define a media item in the Kodi Library:
+/// - Movie
+/// - TV show
+/// - TV episide
+/// - Music video
+public protocol KodiMediaItem: Codable {
     /// The ID of the item
     var id: UUID { get }
     /// The title of the item
@@ -29,7 +33,7 @@ public protocol KodiVideoItem: Codable {
     var file: String { get }
 }
 
-public extension KodiVideoItem {
+public extension KodiMediaItem {
     /// The optional poster for the item
     var poster: String {
         if let posterArt = art["poster"] {
