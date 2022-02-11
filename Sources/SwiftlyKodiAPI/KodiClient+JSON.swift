@@ -71,10 +71,6 @@ extension KodiClient {
 
     /// The sort methods for JSON requests
     enum SortMethod: String {
-        /// Order descending
-        case descending = "descending"
-        /// Order ascending
-        case ascending = "ascending"
         ///  Order by last played
         case lastPlayed = "lastplayed"
         ///  Order by play count
@@ -89,10 +85,13 @@ extension KodiClient {
         case title = "title"
         ///  Order by label
         case label = "label"
-        /// Nicer that using rawValue
-        func string() -> String {
-            return self.rawValue
-        }
     }
     
+    /// The sort order for JSON requests
+    enum SortOrder: String {
+        /// Order descending
+        case descending
+        /// Order ascending
+        case ascending
+    }
 }

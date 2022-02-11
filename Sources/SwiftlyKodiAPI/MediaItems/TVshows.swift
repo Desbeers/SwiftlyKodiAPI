@@ -29,8 +29,7 @@ extension KodiClient {
         var parameters: Data {
             /// The parameters we ask for
             var params = Params()
-            params.sort.method = KodiClient.SortMethod.title.string()
-            params.sort.order = KodiClient.SortMethod.ascending.string()
+            params.sort = sort(method: .title, order: .ascending)
             return buildParams(params: params)
         }
         /// The request struct
@@ -58,7 +57,7 @@ extension KodiClient {
 }
 
 /// The struct for a TV show item
-public struct TVshowItem: KodiMediaItem, Codable, Identifiable, Hashable {
+public struct TVshowItem: KodiMediaProtocol, Identifiable, Hashable {
     /// Make it indentifiable
     public var id = UUID()
     /// # Metadata we get from Kodi

@@ -30,8 +30,7 @@ extension KodiClient {
         /// The JSON creator
         var parameters: Data {
             var params = Params()
-            params.sort.method = KodiClient.SortMethod.label.string()
-            params.sort.order = KodiClient.SortMethod.ascending.string()
+            params.sort = sort(method: .label, order: .ascending)
             return buildParams(params: params)
         }
         /// The request struct

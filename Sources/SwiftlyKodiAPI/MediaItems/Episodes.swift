@@ -65,7 +65,7 @@ extension KodiClient {
 }
 
 /// The struct for a TV show episode item
-public struct EpisodeItem: KodiMediaItem, Codable, Identifiable, Hashable {
+public struct EpisodeItem: KodiMediaProtocol, Identifiable, Hashable {
     /// Make it indentifiable
     public var id = UUID()
     /// # Metadata we get from Kodi

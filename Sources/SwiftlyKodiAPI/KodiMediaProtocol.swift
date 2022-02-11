@@ -7,12 +7,15 @@
 
 import Foundation
 
-/// A protocol to define a media item in the Kodi Library:
+/// A protocol for a media item in the Kodi Library
+///
+/// The following media items do confirm to this protocol:
+///
 /// - Movie
 /// - TV show
 /// - TV episide
 /// - Music video
-public protocol KodiMediaItem: Codable {
+public protocol KodiMediaProtocol: Codable {
     /// The ID of the item
     var id: UUID { get }
     /// The title of the item
@@ -29,11 +32,12 @@ public protocol KodiMediaItem: Codable {
     var year: Int { get }
     /// The art for the item
     var art: [String: String] { get }
-    /// The internal Kodi location of the item
+    /// The internal Kodi file location of the item;
+    /// use ``fileURL`` to get the full URL
     var file: String { get }
 }
 
-public extension KodiMediaItem {
+public extension KodiMediaProtocol {
     /// The optional poster for the item
     var poster: String {
         if let posterArt = art["poster"] {
@@ -56,7 +60,7 @@ public extension KodiMediaItem {
     var genres: String {
         return genre.joined(separator: "・")
     }
-    /// The full URL to a Kodi vidieo item
+    /// The full Kodi file location of the item
     var fileURL: URL {
         return URL(string: file.kodiFileUrl(media: .file))!
     }
