@@ -51,7 +51,8 @@ extension KodiClient {
                 "set",
                 "setid",
                 "playcount",
-                "runtime"
+                "runtime",
+                "cast"
             ]
             /// The sort order
             var sort = KodiClient.SortFields()
@@ -93,11 +94,13 @@ public struct MovieItem: KodiMediaProtocol, Identifiable, Hashable {
     public var setID: Int = 0
     /// Playcount of the movie
     public var playCount: Int = 0
+    /// An array with cast of the movie
+    public var cast: [ActorItem] = []
     /// # Coding keys
     /// All the coding keys for a movie item
     enum CodingKeys: String, CodingKey {
         /// The keys
-        case title, file, tagline, genre, art, year, premiered, set, runtime
+        case title, file, tagline, genre, art, year, premiered, set, runtime, cast
         /// lowerCamelCase
         case setID = "setid"
         /// lowerCamelCase

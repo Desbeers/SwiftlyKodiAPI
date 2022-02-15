@@ -51,7 +51,8 @@ extension KodiClient {
                 "file",
                 "showtitle",
                 "firstaired",
-                "runtime"
+                "runtime",
+                "cast"
             ]
             /// The sort order
             /// var sort = KodiClient.SortFields()
@@ -86,6 +87,8 @@ public struct EpisodeItem: KodiMediaProtocol, Identifiable, Hashable {
     public var episode: Int = 0
     /// Runtime of the movie
     public var runtime: Int = 0
+    /// An array with cast of the episode
+    public var cast: [ActorItem] = []
     
     /// Year of release, does not exist for Episodes but required by Protocol
     public var year: Int = 2022
@@ -97,7 +100,7 @@ public struct EpisodeItem: KodiMediaProtocol, Identifiable, Hashable {
     /// All the coding keys for a episode item
     public enum CodingKeys: String, CodingKey {
         /// The keys
-        case file, season, episode, art, runtime
+        case file, season, episode, art, runtime, cast
         /// lowerCamelCase
         case playCount = "playcount"
         /// Use the 'showtitle' as the title

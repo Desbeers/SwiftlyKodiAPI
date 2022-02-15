@@ -26,6 +26,8 @@ public protocol KodiMediaProtocol: Codable {
     var genre: [String] { get }
     /// The decription of the item
     var description: String { get }
+    /// The cast of the item
+    var cast: [ActorItem] { get }
     /// premiered
     var premiered: String { get }
     /// Year of release
@@ -40,6 +42,10 @@ public protocol KodiMediaProtocol: Codable {
 }
 
 public extension KodiMediaProtocol {
+    /// Make it indentifiable
+    var id: UUID {
+        return UUID()
+    }
     /// The optional poster for the item
     var poster: String {
         if let posterArt = art["poster"] {

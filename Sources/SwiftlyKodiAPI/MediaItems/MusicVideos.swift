@@ -76,6 +76,8 @@ public struct MusicVideoItem: KodiMediaProtocol, Identifiable, Hashable {
     public var genre: [String] = [""]
     /// Location of the music video
     public var file: String = ""
+    /// An array with cast of the movie
+    public var cast: [ActorItem] = []
     /// Art of the music video
     public var art: [String: String] = [:]
     /// Release year of the music video

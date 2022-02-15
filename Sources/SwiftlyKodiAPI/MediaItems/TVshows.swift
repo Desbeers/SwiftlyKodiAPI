@@ -81,6 +81,8 @@ public struct TVshowItem: KodiMediaProtocol, Identifiable, Hashable {
     var playCount: Int = 0
     /// Runtime of the music video
     public var runtime: Int = 0
+    /// An array with cast of the movie
+    public var cast: [ActorItem] = []
     /// # Coding keys
     /// All the coding keys for a tvshow item
     enum CodingKeys: String, CodingKey {
