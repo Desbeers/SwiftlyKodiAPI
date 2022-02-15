@@ -11,24 +11,22 @@ extension KodiClient {
     
     /// Get all the movies from the Kodi host
     /// - Returns: All the `MovieItem`'s
-    public func getMovies() async -> [MovieItem] {
-        let request = VideoLibraryGetMovies()
+    public func getMovieSets() async -> [MovieSetItem] {
+        let request = VideoLibraryGetMovieSets()
         do {
             let result = try await sendRequest(request: request)
-            return result.movies.sorted {
-                $0.sortOrder < $1.sortOrder
-            }
+            return result.sets
         } catch {
-            /// There are no songs in the library
-            print("Loading movies failed with error: \(error)")
-            return [MovieItem]()
+            /// There are no sets in the library
+            print("Loading movie sets failed with error: \(error)")
+            return [MovieSetItem]()
         }
     }
     
     /// Retrieve all movies (Kodi API)
-    struct VideoLibraryGetMovies: KodiAPI {
+    struct VideoLibraryGetMovieSets: KodiAPI {
         /// Method
-        var method = Method.videoLibraryGetMovies
+        var method = Method.videoLibraryGetMovieSets
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
@@ -41,17 +39,9 @@ extension KodiClient {
             /// The properties that we ask from Kodi
             let properties = [
                 "title",
-                "file",
-                "tagline",
-                "plot",
-                "genre",
-                "art",
-                "year",
-                "premiered",
-                "set",
-                "setid",
                 "playcount",
-                "runtime"
+                "art",
+                "plot"
             ]
             /// The sort order
             var sort = KodiClient.SortFields()
@@ -59,19 +49,19 @@ extension KodiClient {
         /// The response struct
         struct Response: Decodable {
             /// The list of movies
-            let movies: [MovieItem]
+            let sets: [MovieSetItem]
         }
     }
 }
 
 /// The struct for a movie item
-public struct MovieItem: KodiMediaProtocol, Identifiable, Hashable {
+public struct MovieSetItem: KodiMediaProtocol, Identifiable, Hashable {
     /// Make it indentifiable
     public var id = UUID()
     /// # Metadata we get from Kodi
     /// Title of the movie
     public var title: String = ""
-    /// Location of the movie
+    /// Location of the set
     public var file: String = ""
     /// Tagline of the movie
     var tagline: String = ""
@@ -85,19 +75,19 @@ public struct MovieItem: KodiMediaProtocol, Identifiable, Hashable {
     public var year: Int = 0
     /// Premiered date of the movie
     public var premiered: String = ""
-    /// Runtime of the movie
-    public var runtime: Int = 0
     /// Optional set name of the movie
     public var set: String = ""
-    /// Optional set ID  of the movie
+    /// ID  of the set
     public var setID: Int = 0
     /// Playcount of the movie
     public var playCount: Int = 0
+    /// Runtime of the music video
+    public var runtime: Int = 0
     /// # Coding keys
     /// All the coding keys for a movie item
     enum CodingKeys: String, CodingKey {
         /// The keys
-        case title, file, tagline, genre, art, year, premiered, set, runtime
+        case title, art
         /// lowerCamelCase
         case setID = "setid"
         /// lowerCamelCase
@@ -105,12 +95,15 @@ public struct MovieItem: KodiMediaProtocol, Identifiable, Hashable {
         /// Use 'plot' as description
         case description = "plot"
     }
+    /// # Not in use
+    /// Required by protocol
+    public var subtitle: String? = nil
     /// # Calculated stuff
-    /// Subtitle of the movie; we use the tagline here
-    public var subtitle: String? {
-        return tagline.isEmpty ? nil : tagline
-    }
-    public var sortOrder: String {
-        return set.isEmpty ? title : set
-    }
+//    /// Subtitle of the movie; we use the tagline here
+//    public var subtitle: String? {
+//        return tagline.isEmpty ? nil : tagline
+//    }
+//    public var sortOrder: String {
+//        return set.isEmpty ? title : set
+//    }
 }

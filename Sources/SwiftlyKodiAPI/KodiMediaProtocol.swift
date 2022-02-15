@@ -30,6 +30,8 @@ public protocol KodiMediaProtocol: Codable {
     var premiered: String { get }
     /// Year of release
     var year: Int { get }
+    /// Runtime of the item
+    var runtime: Int { get }
     /// The art for the item
     var art: [String: String] { get }
     /// The internal Kodi file location of the item;
@@ -46,11 +48,17 @@ public extension KodiMediaProtocol {
         if let posterArt = art["season.poster"] {
             return posterArt.kodiFileUrl(media: .art)
         }
+        if let posterArt = art["thumbnail"] {
+            return posterArt.kodiFileUrl(media: .art)
+        }
         return ""
     }
     /// The optional fanart for the item
     var fanart: String? {
         if let posterArt = art["fanart"] {
+            return posterArt.kodiFileUrl(media: .art)
+        }
+        if let posterArt = art["tvshow.fanart"] {
             return posterArt.kodiFileUrl(media: .art)
         }
         return nil
@@ -76,4 +84,17 @@ public extension KodiMediaProtocol {
         let components = Calendar.current.dateComponents([.year], from: releaseDate)
         return components.year?.description ?? "0000"
     }
+    /// Details
+    var details: String {
+        var details = genre
+        details.append(releaseYear)
+        return details.joined(separator: "・")
+    }
+    /// Duration
+    var duration: String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.unitsStyle = .brief
+
+        return formatter.string(from: TimeInterval(runtime))!    }
 }

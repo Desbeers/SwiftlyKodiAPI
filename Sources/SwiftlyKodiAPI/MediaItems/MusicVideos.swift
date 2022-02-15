@@ -45,7 +45,8 @@ extension KodiClient {
                 "premiered",
                 "art",
                 "playcount",
-                "plot"
+                "plot",
+                "runtime"
             ]
             /// The sort order
             var sort = KodiClient.SortFields()
@@ -63,8 +64,8 @@ public struct MusicVideoItem: KodiMediaProtocol, Identifiable, Hashable {
     /// Make it indentifiable
     public var id = UUID()
     /// # Metadata we get from Kodi
-    /// Title of the music video
-    public var title: String = ""
+//    /// Title of the music video
+//    public var title: String = ""
     /// Artist of the music video
     public var artist: [String] = []
     /// Album of the music video
@@ -83,21 +84,28 @@ public struct MusicVideoItem: KodiMediaProtocol, Identifiable, Hashable {
     public var premiered: String = ""
     /// Playcount of the music video
     public var playCount: Int = 0
+    /// Runtime of the music video
+    public var runtime: Int = 0
     /// # Coding keys
     /// All the coding keys for a music video item
     enum CodingKeys: String, CodingKey {
         /// The keys
-        case title, artist, album, file, art, year, premiered, genre
+        case artist, album, file, art, year, premiered, genre, runtime
         /// lowerCamelCase
         case playCount = "playcount"
+        /// Use title as subtitle
+        case subtitle = "title"
         /// Use 'plot' as description
         case description = "plot"
     }
     /// # Calculated stuff
     /// Subtitle of the music video; we use the genres here
-    public var subtitle: String? {
+    public var title: String {
         return artist.joined(separator: "・")
     }
+    /// This is the title of the music video
+    public var subtitle: String?
+    
     /// The sort order of the music video
     public var sortOrder: String {
         return artist.first!

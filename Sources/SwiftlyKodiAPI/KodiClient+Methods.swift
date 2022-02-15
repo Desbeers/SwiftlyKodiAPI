@@ -106,6 +106,7 @@ extension KodiClient {
         case filesGetDirectory = "Files.GetDirectory"
         
         case videoLibraryGetMovies = "VideoLibrary.GetMovies"
+        case videoLibraryGetMovieSets = "VideoLibrary.GetMovieSets"
         case videoLibraryGetGenres = "VideoLibrary.GetGenres"
         case videoLibraryGetTVShows = "VideoLibrary.GetTVShows"
         case videoLibraryGetEpisodes = "VideoLibrary.GetEpisodes"

@@ -43,17 +43,20 @@ public struct HostItem: Codable, Identifiable, Hashable {
 
 public struct KodiMediaFilter: Hashable, Equatable {
     public var title: String?
+    public var subtitle: String?
     public var movieSetID: Int?
     public var genre: String?
     public var search: String?
     public var media: KodiClient.KodiMedia
     public init(title: String? = nil,
+                subtitle: String? = nil,
                 movieSetID: Int? = nil,
                 genre: String? = nil,
                 search: String? = nil,
                 media: KodiClient.KodiMedia = .movies
     ) {
         self.title = title
+        self.subtitle = subtitle
         self.movieSetID = movieSetID
         self.genre = genre
         self.search = search
