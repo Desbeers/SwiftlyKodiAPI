@@ -104,5 +104,6 @@ public extension KodiItem {
         formatter.allowedUnits = [.hour, .minute]
         formatter.unitsStyle = .brief
 
-        return formatter.string(from: TimeInterval(runtime))!    }
+        return formatter.string(from: TimeInterval(runtime))!
+    }
 }

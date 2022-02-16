@@ -24,6 +24,21 @@ extension KodiClient {
             debugJsonResponse(data: data)
             throw APIError.invalidData
         }
+        //debugJsonResponse(data: data)
+        return decoded.result
+    }
+    
+    func sendRequest2<T: KodiAPI>(request: T) async throws -> T.Response {
+        let (data, response) = try await urlSession.data(for: request.urlRequest)
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+                  throw APIError.responseUnsuccessful
+              }
+        guard let decoded = try? JSONDecoder().decode(BaseResponse<T.Response>.self, from: data) else {
+            debugJsonResponse(data: data)
+            throw APIError.invalidData
+        }
+        debugJsonResponse(data: data)
         return decoded.result
     }
     
@@ -49,8 +64,16 @@ extension KodiClient {
     
     /// Base for response struct
     struct BaseResponse<T: Decodable>: Decodable {
+        var method: String
         /// The result variable of a response
         var result: T
+        /// Coding Keys
+        enum CodingKeys: String, CodingKey {
+            /// The keys
+            case result
+            /// ID is a reserved word
+            case method = "id"
+        }
     }
     
     /// List of possible errors

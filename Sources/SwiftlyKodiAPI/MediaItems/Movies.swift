@@ -53,7 +53,9 @@ extension KodiClient {
                 "setid",
                 "playcount",
                 "runtime",
-                "cast"
+                "cast",
+                //"items",
+                //"type"
             ]
             /// The sort order
             var sort = KodiClient.SortFields()

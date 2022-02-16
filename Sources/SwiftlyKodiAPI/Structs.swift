@@ -49,7 +49,7 @@ public struct KodiMediaFilter: Hashable, Equatable {
     public var setMovies: [MovieItem]?
     public var genre: String?
     public var search: String?
-    public var media: KodiClient.KodiMedia
+    public var media: KodiMedia
     public init(title: String? = nil,
                 subtitle: String? = nil,
                 setID: Int? = nil,
@@ -57,7 +57,7 @@ public struct KodiMediaFilter: Hashable, Equatable {
                 setMovies: [MovieItem]? = nil,
                 genre: String? = nil,
                 search: String? = nil,
-                media: KodiClient.KodiMedia = .movie
+                media: KodiMedia = .movie
     ) {
         self.title = title
         self.subtitle = subtitle
