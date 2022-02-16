@@ -12,7 +12,7 @@ extension KodiClient {
     /// Get all genres from the Kodi host
     /// - Parameter reload: Force a reload or else it will try to load it from the  cache
     /// - Returns: True when loaded; else false
-    public func getGenres(type: GenreType) async -> [GenreItem] {
+    public func getGenres(type: KodiMedia) async -> [GenreItem] {
         if type == .all {
             return await getAllGenres()
         } else {
@@ -44,24 +44,19 @@ extension KodiClient {
     /// Retrieve all genres (Kodi API)
     struct VideoLibraryGetGenres: KodiAPI {
         /// Argument
-        var type: GenreType
+        var type: KodiMedia
         /// Method
         var method = Method.videoLibraryGetGenres
         /// The JSON creator
         var parameters: Data {
             var params = Params()
-            if type == .tvshow {
-                params.type = "tvshow"
-            }
-            if type == .musicvideo {
-                params.type = "musicvideo"
-            }
+            params.type = type.rawValue
             params.sort = sort(method: .label, order: .ascending)
             return buildParams(params: params)
         }
         /// The request struct
         struct Params: Encodable {
-            var type: String = "movie"
+            var type: String = ""
             /// Sort order
             var sort = KodiClient.SortFields()
         }
@@ -97,6 +92,7 @@ public struct GenreItem: Codable, Identifiable, Hashable {
         case genreID = "genreid"
     }
 }
+
 
 public enum GenreType: String, CaseIterable {
     case all = "All"

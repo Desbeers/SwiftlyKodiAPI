@@ -60,7 +60,7 @@ extension KodiClient {
 }
 
 /// The struct for a movie item
-public struct MusicVideoItem: KodiMediaProtocol, Identifiable, Hashable {
+public struct MusicVideoItem: KodiItem, Identifiable, Hashable {
     /// Make it indentifiable
     public var id = UUID()
     /// # Metadata we get from Kodi
@@ -85,16 +85,14 @@ public struct MusicVideoItem: KodiMediaProtocol, Identifiable, Hashable {
     /// Premiered date of the music video
     public var premiered: String = ""
     /// Playcount of the music video
-    public var playCount: Int = 0
+    public var playcount: Int = 0
     /// Runtime of the music video
     public var runtime: Int = 0
     /// # Coding keys
     /// All the coding keys for a music video item
     enum CodingKeys: String, CodingKey {
         /// The keys
-        case artist, album, file, art, year, premiered, genre, runtime
-        /// lowerCamelCase
-        case playCount = "playcount"
+        case artist, album, file, art, year, premiered, genre, runtime, playcount
         /// Use title as subtitle
         case subtitle = "title"
         /// Use 'plot' as description

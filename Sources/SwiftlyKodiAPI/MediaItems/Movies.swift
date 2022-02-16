@@ -41,6 +41,7 @@ extension KodiClient {
             /// The properties that we ask from Kodi
             let properties = [
                 "title",
+                "sorttitle",
                 "file",
                 "tagline",
                 "plot",
@@ -66,12 +67,14 @@ extension KodiClient {
 }
 
 /// The struct for a movie item
-public struct MovieItem: KodiMediaProtocol, Identifiable, Hashable {
+public struct MovieItem: KodiItem, Identifiable, Hashable {
     /// Make it indentifiable
     public var id = UUID()
     /// # Metadata we get from Kodi
     /// Title of the movie
     public var title: String = ""
+    /// Sort title of the movie
+    public var sortTitle: String = ""
     /// Location of the movie
     public var file: String = ""
     /// Tagline of the movie
@@ -90,21 +93,21 @@ public struct MovieItem: KodiMediaProtocol, Identifiable, Hashable {
     public var runtime: Int = 0
     /// Optional set name of the movie
     public var set: String = ""
-    /// Optional set ID  of the movie
+    /// Optional set ID  of the movie; 0 if not in a set
     public var setID: Int = 0
     /// Playcount of the movie
-    public var playCount: Int = 0
+    public var playcount: Int = 0
     /// An array with cast of the movie
     public var cast: [ActorItem] = []
     /// # Coding keys
     /// All the coding keys for a movie item
     enum CodingKeys: String, CodingKey {
         /// The keys
-        case title, file, tagline, genre, art, year, premiered, set, runtime, cast
+        case title, file, tagline, genre, art, year, premiered, set, runtime, cast, playcount
         /// lowerCamelCase
         case setID = "setid"
         /// lowerCamelCase
-        case playCount = "playcount"
+        case sortTitle = "sorttitle"
         /// Use 'plot' as description
         case description = "plot"
     }
@@ -114,6 +117,9 @@ public struct MovieItem: KodiMediaProtocol, Identifiable, Hashable {
         return tagline.isEmpty ? nil : tagline
     }
     public var sortOrder: String {
-        return set.isEmpty ? title : set
+        return set.isEmpty ? sortTitle.isEmpty ? title : sortTitle : set
+    }
+    public var sortSet: String {
+        sortTitle.isEmpty ? title : sortTitle
     }
 }

@@ -67,7 +67,7 @@ extension KodiClient {
 }
 
 /// The struct for a TV show episode item
-public struct EpisodeItem: KodiMediaProtocol, Identifiable, Hashable {
+public struct EpisodeItem: KodiItem, Identifiable, Hashable {
     /// Make it indentifiable
     public var id = UUID()
     /// # Metadata we get from Kodi
@@ -81,7 +81,7 @@ public struct EpisodeItem: KodiMediaProtocol, Identifiable, Hashable {
     /// The description of the episode; Kodi names it 'plot'
     /// - Note: The `CodingKeys` will take care of the mapping
     public var description: String = ""
-    public var playCount: Int = 0
+    public var playcount: Int = 0
     public var season: Int = 0
     
     public var episode: Int = 0
@@ -100,9 +100,7 @@ public struct EpisodeItem: KodiMediaProtocol, Identifiable, Hashable {
     /// All the coding keys for a episode item
     public enum CodingKeys: String, CodingKey {
         /// The keys
-        case file, season, episode, art, runtime, cast
-        /// lowerCamelCase
-        case playCount = "playcount"
+        case file, season, episode, art, runtime, cast, playcount
         /// Use the 'showtitle' as the title
         case title = "showtitle"
         /// Use the 'episode title' as the subtitle

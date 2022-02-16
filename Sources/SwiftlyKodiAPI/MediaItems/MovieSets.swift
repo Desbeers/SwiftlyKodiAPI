@@ -55,7 +55,7 @@ extension KodiClient {
 }
 
 /// The struct for a movie item
-public struct MovieSetItem: KodiMediaProtocol, Identifiable, Hashable {
+public struct MovieSetItem: KodiItem, Identifiable, Hashable {
     /// Make it indentifiable
     public var id = UUID()
     /// # Metadata we get from Kodi
@@ -80,7 +80,7 @@ public struct MovieSetItem: KodiMediaProtocol, Identifiable, Hashable {
     /// ID  of the set
     public var setID: Int = 0
     /// Playcount of the movie
-    public var playCount: Int = 0
+    public var playcount: Int = 0
     /// Runtime of the music video
     public var runtime: Int = 0
     /// An array with cast of the movie
@@ -89,11 +89,9 @@ public struct MovieSetItem: KodiMediaProtocol, Identifiable, Hashable {
     /// All the coding keys for a movie item
     enum CodingKeys: String, CodingKey {
         /// The keys
-        case title, art
+        case title, art, playcount
         /// lowerCamelCase
         case setID = "setid"
-        /// lowerCamelCase
-        case playCount = "playcount"
         /// Use 'plot' as description
         case description = "plot"
     }

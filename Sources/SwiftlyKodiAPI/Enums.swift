@@ -14,11 +14,12 @@ public extension KodiClient {
         case file = "vfs"
     }
     
-    enum KodiMedia: Equatable {
+    enum KodiMedia: String, Equatable {
         case all
-        case movies
+        case movie
         case movieSet
-        case tvshows
+        case tvshow
+        case musicvideo
         // case documentaires
         // case concerts
         // case cabaret

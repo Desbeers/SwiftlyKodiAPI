@@ -15,7 +15,7 @@ import Foundation
 /// - TV show
 /// - TV episide
 /// - Music video
-public protocol KodiMediaProtocol: Codable {
+public protocol KodiItem: Codable {
     /// The ID of the item
     var id: UUID { get }
     /// The title of the item
@@ -26,6 +26,8 @@ public protocol KodiMediaProtocol: Codable {
     var genre: [String] { get }
     /// The decription of the item
     var description: String { get }
+    /// The playcount of the item
+    var playcount: Int { get }
     /// The cast of the item
     var cast: [ActorItem] { get }
     /// premiered
@@ -41,7 +43,7 @@ public protocol KodiMediaProtocol: Codable {
     var file: String { get }
 }
 
-public extension KodiMediaProtocol {
+public extension KodiItem {
     /// Make it indentifiable
     var id: UUID {
         return UUID()
