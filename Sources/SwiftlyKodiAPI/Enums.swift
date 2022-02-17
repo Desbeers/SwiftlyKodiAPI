@@ -12,6 +12,7 @@ public enum KodiMedia: String, Equatable {
     case movie
     case movieSet
     case tvshow
+    case episode
     case musicvideo
     // case documentaires
     // case concerts

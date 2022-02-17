@@ -24,6 +24,40 @@ extension String {
     }
 }
 
+extension Array where Element == GenericItem {
+    func uniqueSet() -> [GenericItem] {
+        var knownSets = Set<Int>()
+        return self.filter { element -> Bool in
+            let set = element.setID
+            if set == 0 || !knownSets.contains(set) {
+                knownSets.insert(set)
+                return true
+            }
+            /// This set is already in the list
+            return false
+        }
+    }
+}
+
+extension Array where Element == GenericItem {
+    
+    /// Standard sorting for movies; sets will be included in alphabetic orther
+    func sortBySetAndTitle() -> [GenericItem] {
+        return self.sorted {
+            $0.sortBySetAndTitle < $1.sortBySetAndTitle
+        }
+    }
+    
+    /// First sort by year, than by title. Used insde moviesets en music videos from a specific artist
+    func sortByYearAndTitle() -> [GenericItem] {
+        return self.sorted {
+            $0.releaseDate == $1.releaseDate ?
+            $0.sortByTitle.localizedStandardCompare($1.sortByTitle) == .orderedAscending :
+            $0.releaseDate < $1.releaseDate
+        }
+    }
+}
+
 extension Sequence {
     func unique<T: Hashable>(by taggingHandler: (_ element: Self.Iterator.Element) -> T) -> [Self.Iterator.Element] {
         var knownTags = Set<T>()

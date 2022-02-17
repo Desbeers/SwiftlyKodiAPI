@@ -21,7 +21,7 @@ public protocol KodiItem: Codable {
     /// The title of the item
     var title: String { get }
     /// The subtitle of the item, optional
-    var subtitle: String? { get }
+    var subtitle: String { get }
     /// The genres of the item, an array
     var genre: [String] { get }
     /// The decription of the item

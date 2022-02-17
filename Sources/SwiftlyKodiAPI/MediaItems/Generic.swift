@@ -8,26 +8,32 @@
 import Foundation
 
 extension GenericItem {
-//    /// The kind of media
-//    public enum Media: String, Equatable {
-//        case movie
-//        case movieSet
-//        case tvshow
-//        case episode
-//        case musicvideo
-//    }
     /// The coding keys
     enum CodingKeys: String, CodingKey {
         /// The public keys
-        case title, subtitle, description, details, art, year, premiered, runtime
-        /// The internal keys
-        case plot, tagline, genre, artist
+        case title, subtitle, description, episode, season, cast, playcount
+        /// Camel Case
+        case setName = "set"
+        /// # The public ID's
+        /// Camel Case
+        case movieID = "movieid"
+        /// Camel Case
+        case setID = "setid"
+        /// Camel Case
+        case tvshowID = "tvshowid"
+        /// Camel Case
+        case episodeID = "episodeid"
+        /// Camel Case
+        case musicvideoID = "musicvideoid"
+        /// # The internal keys
+        /// Keys that are not exposed outside of the package
+        case plot, tagline, genre, artist, showtitle, year, premiered, firstaired, art, runtime, sorttitle, file
     }
 }
 
 /// A struct that can be a movie, TV show, episode or Music Video
-public struct GenericItem: Codable, Identifiable {
-    
+public struct GenericItem: KodiItem, Codable, Identifiable {
+
     /// Make it indentifiable
     public var id = UUID()
     
@@ -39,7 +45,7 @@ public struct GenericItem: Codable, Identifiable {
     /// - TV show: The TV show title
     /// - Episode: The TV show title
     /// - Music Video: The artist name
-    public var title: String
+    public var title: String = ""
     
     /// The subtitle of the item
     /// - Movie: The tagline
@@ -53,38 +59,111 @@ public struct GenericItem: Codable, Identifiable {
     /// - TV show: The plot
     /// - Episode: The plot
     /// - Music Video: The plot
-    public var description: String
+    public var description: String = ""
     
     /// The details of the item
     /// - Movie: Genre + Year
     /// - TV show: Genre + Year
     /// - Episode: Episode number + Premiered
     /// - Music Video: Genre + Year
-    public var details: String = ""
+    public var details: String {
+        return genre.joined(separator: "・")
+    }
+    
+    /// The playcount of the item
+    public var playcount: Int = 0
+    
+    /// The cast of the item (movie and episode)
+    public var cast: [ActorItem] = []
+    
+    /// # Episode stuff
+    
+    public var episode: Int = 0
+    public var season: Int = 0
+    
+    /// # Calculated stuff
+    
+    /// The full release date of the item
+    public var releaseDate: Date {
+        let date = premiered.isEmpty ? year.description + "-01-01" : premiered
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: date) ?? Date()
+    }
+    /// The release year of the item
+    public var releaseYear: String {
+        let components = Calendar.current.dateComponents([.year], from: releaseDate)
+        return components.year?.description ?? "0000"
+    }
+    
+    /// Duration of the item
+    public var duration: String  {
+        return runtimeToDuration(runtime: runtime)
+    }
+    
+    /// The poster of the item
+    public var poster: String {
+        if let posterArt = art["poster"] {
+            return posterArt.kodiFileUrl(media: .art)
+        }
+        if let posterArt = art["season.poster"] {
+            return posterArt.kodiFileUrl(media: .art)
+        }
+        if let posterArt = art["thumbnail"] {
+            return posterArt.kodiFileUrl(media: .art)
+        }
+        return ""
+    }
+    
+    /// The optional fanart for the item
+    public var fanart: String? {
+        if let posterArt = art["fanart"] {
+            return posterArt.kodiFileUrl(media: .art)
+        }
+        if let posterArt = art["tvshow.fanart"] {
+            return posterArt.kodiFileUrl(media: .art)
+        }
+        return nil
+    }
+    
+    /// The full Kodi file location of the item
+    public var fileURL: URL {
+        return URL(string: file.kodiFileUrl(media: .file))!
+    }
+    
+    /// # ID's of items
+
+    /// The movie ID
+    public var movieID: Int = 0
+    
+    /// The set ID
+    public var setID: Int = 0
+    
+    /// Optional set name (movie)
+    public var setName: String = ""
+    
+    /// The TV show ID
+    public var tvshowID: Int = 0
+    
+    /// The episode ID
+    public var episodeID: Int = 0
+    
+    /// The music video ID
+    public var musicvideoID: Int = 0
+    
+    /// # Internal variables
     
     /// Art of the item
     public var art: [String: String] = [:]
     
-    /// Year of release of the item
-    public var year: Int = 0
-    
-    /// Premiered date of the item
-    public var premiered: String = ""
-    
-    /// Duration of the item
-    public var duration: String = ""
-    
-    
-    /// # Internal variables
-    
     /// Location of the item
-    var file: String = ""
+    public var file: String = ""
     
     /// Plot of the item
     var plot: String = ""
     
     /// Genre for the item
-    var genre: [String] = []
+    public var genre: [String] = []
     
     /// Tagline of the item (movie)
     var tagline: String = ""
@@ -93,8 +172,31 @@ public struct GenericItem: Codable, Identifiable {
     var artist: String = ""
     
     /// Runtime of the item
-    var runtime: Int = 0
+    public var runtime: Int = 0
     
+    /// Title of a TV show (episode)
+    var showtitle: String = ""
+    
+    /// Year of release of the item
+    public var year: Int = 0
+    
+    /// Premiered date of the item
+    public var premiered: String = ""
+    
+    /// First aired date of the item (episode)
+    var firstaired: String = ""
+    
+    /// The sorttitle of the item; can be empty
+    var sorttitle: String = ""
+    
+    /// # Sorting
+    
+    var sortBySetAndTitle: String {
+        return setName.isEmpty ? sorttitle.isEmpty ? title : sorttitle : setName
+    }
+    var sortByTitle: String {
+        sorttitle.isEmpty ? title : sorttitle
+    }
 }
 
 extension GenericItem {
@@ -102,25 +204,48 @@ extension GenericItem {
     /// - Note: See https://sarunw.com/posts/how-to-preserve-memberwise-initializer/
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-    
+
         title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
-        /// Subtitle is different for each media kind
-        subtitle = try container.decodeIfPresent(String.self, forKey: .tagline) ?? ""
-        subtitle = try container.decodeIfPresent([String].self, forKey: .artist)?.joined(separator: "・") ?? ""
-        
+        sorttitle = try container.decodeIfPresent(String.self, forKey: .sorttitle) ?? ""
+
+        /// # Subtitle is different for each media kind
+        /// Movie subtitle
+        subtitle = try container.decodeIfPresent(String.self, forKey: .tagline) ??
+        /// Episode subtitle
+        container.decodeIfPresent(String.self, forKey: .showtitle) ??
+        /// Music Video subtitle
+        container.decodeIfPresent([String].self, forKey: .artist)?.joined(separator: "・") ?? ""
+
         description = try container.decodeIfPresent(String.self, forKey: .plot) ?? ""
         genre = try container.decodeIfPresent([String].self, forKey: .genre) ?? []
+        cast = try container.decodeIfPresent([ActorItem].self, forKey: .cast) ?? []
+        playcount = try container.decodeIfPresent(Int.self, forKey: .playcount) ?? 0
+        setName = try container.decodeIfPresent(String.self, forKey: .setName) ?? ""
+        file = try container.decodeIfPresent(String.self, forKey: .file) ?? ""
+        
+        /// # Dates
+        year = try container.decodeIfPresent(Int.self, forKey: .year) ?? 0
+        /// Movies and TV shows
+        premiered = try container.decodeIfPresent(String.self, forKey: .premiered) ??
+        /// Episodes
+        container.decodeIfPresent(String.self, forKey: .firstaired) ?? ""
         
         
+        art = try container.decodeIfPresent([String: String].self, forKey: .art) ?? [:]
+        
+        /// # Episode stuff
+        episode = try container.decodeIfPresent(Int.self, forKey: .episode) ?? 0
+        season = try container.decodeIfPresent(Int.self, forKey: .season) ?? 0
+
+        /// # ID of items
+        movieID = try container.decodeIfPresent(Int.self, forKey: .movieID) ?? 0
+        setID = try container.decodeIfPresent(Int.self, forKey: .setID) ?? 0
+        tvshowID = try container.decodeIfPresent(Int.self, forKey: .tvshowID) ?? 0
+        episodeID = try container.decodeIfPresent(Int.self, forKey: .episodeID) ?? 0
+        musicvideoID = try container.decodeIfPresent(Int.self, forKey: .musicvideoID) ?? 0
+
         runtime = try container.decodeIfPresent(Int.self, forKey: .runtime) ?? 0
-        
-        
-        /// Calculated stuff
-        details = genre.joined(separator: "・")
-        
-        duration = runtimeToDuration(runtime: runtime)
-        
-        
+
     }
     
     func runtimeToDuration(runtime: Int) -> String {
@@ -128,200 +253,5 @@ extension GenericItem {
         formatter.allowedUnits = [.hour, .minute]
         formatter.unitsStyle = .brief
         return formatter.string(from: TimeInterval(runtime))!
-    }
-}
-
-extension KodiClient {
-    
-    /// Get all the movies from the Kodi host
-    /// - Returns: All the `MovieItem`'s
-    public func getGenerics() async -> [GenericItem] {
-        var items: [GenericItem] = []
-        let movies = VideoLibraryGetGenericMovies()
-        let tvshows = VideoLibraryGetGenericTVShows()
-        //let episodes = VideoLibraryGetGenericEpisodes()
-        let musicvideos = VideoLibraryGetGenericMusicVideos()
-        do {
-            let movieList = try await sendRequest2(request: movies)
-            items += setMediaKind(media: movieList.movies, kind: .movie)
-            let tvshowList = try await sendRequest2(request: tvshows)
-            items += setMediaKind(media: tvshowList.tvshows, kind: .tvshow)
-            //let episodeList = try await sendRequest(request: episodes)
-            //items += setMediaKind(media: episodeList.episodes, kind: .episodes)
-            let musicvideoList = try await sendRequest2(request: musicvideos)
-            items += setMediaKind(media: musicvideoList.musicvideos, kind: .musicvideo)
-        } catch {
-            /// There are no songs in the library
-            print("Loading movies failed with error: \(error)")
-            return [GenericItem]()
-        }
-        return items
-    }
-    
-    func setMediaKind(media: [GenericItem], kind: KodiMedia) -> [GenericItem] {
-        var items: [GenericItem] = []
-        for item in media {
-            var newItem = item
-            newItem.media = kind
-            items.append(newItem)
-        }
-        return items
-    }
-    
-    /// Retrieve all movies (Kodi API)
-    struct VideoLibraryGetGenericMovies: KodiAPI {
-        /// Method
-        var method = Method.videoLibraryGetMovies
-        /// The JSON creator
-        var parameters: Data {
-            /// The parameters we ask for
-            var params = Params()
-            params.sort = sort(method: .title, order: .ascending)
-            return buildParams(params: params)
-        }
-        /// The request struct
-        struct Params: Encodable {
-            /// The properties that we ask from Kodi
-            let properties = [
-                "title",
-                "sorttitle",
-                "file",
-                "tagline",
-                "plot",
-                "genre",
-                "art",
-                "year",
-                "premiered",
-                "set",
-                "setid",
-                "playcount",
-                "runtime",
-                "cast",
-                //"items",
-                //"type"
-            ]
-            /// The sort order
-            var sort = KodiClient.SortFields()
-        }
-        /// The response struct
-        struct Response: Decodable {
-            /// The list of movies
-            let movies: [GenericItem]
-        }
-    }
-    
-    /// Retrieve all TV shows (Kodi API)
-    struct VideoLibraryGetGenericTVShows: KodiAPI {
-        /// Method
-        var method = Method.videoLibraryGetTVShows
-        /// The JSON creator
-        var parameters: Data {
-            /// The parameters we ask for
-            var params = Params()
-            params.sort = sort(method: .title, order: .ascending)
-            return buildParams(params: params)
-        }
-        /// The request struct
-        struct Params: Encodable {
-            /// The properties that we ask from Kodi
-            let properties = [
-                "title",
-                "sorttitle",
-                "file",
-                "plot",
-                "genre",
-                "art",
-                "year",
-                "premiered",
-                "playcount"
-            ]
-            /// The sort order
-            var sort = KodiClient.SortFields()
-        }
-        /// The response struct
-        struct Response: Decodable {
-            /// The list of TV shows
-            let tvshows: [GenericItem]
-        }
-    }
-    
-    /// Retrieve all episodes of a TV show (Kodi API)
-    struct VideoLibraryGetGenericEpisodes: KodiAPI {
-        /// TV show ID argument
-        let tvshowID: Int
-        /// Method
-        var method = Method.videoLibraryGetEpisodes
-        /// The JSON creator
-        var parameters: Data {
-            /// The parameters we ask for
-            var params = Params()
-            params.tvshowid = tvshowID
-            /// params.sort.method = KodiClient.SortMethod.title.string()
-            /// params.sort.order = KodiClient.SortMethod.ascending.string()
-            return buildParams(params: params)
-        }
-        /// The request struct
-        struct Params: Encodable {
-            /// The TV show ID
-            var tvshowid: Int = -1
-            /// The properties that we ask from Kodi
-            let properties = [
-                "title",
-                "plot",
-                "playcount",
-                "season",
-                "episode",
-                "art",
-                "file",
-                "showtitle",
-                "firstaired",
-                "runtime",
-                "cast"
-            ]
-            /// The sort order
-            /// var sort = KodiClient.SortFields()
-        }
-        /// The response struct
-        struct Response: Decodable {
-            /// The list of movies
-            let episodes: [GenericItem]
-        }
-    }
-    
-    /// Retrieve all songs (Kodi API)
-    struct VideoLibraryGetGenericMusicVideos: KodiAPI {
-        /// Method
-        var method = Method.videoLibraryGetMusicVideos
-        /// The JSON creator
-        var parameters: Data {
-            /// The parameters we ask for
-            var params = Params()
-            params.sort = sort(method: .artist, order: .ascending)
-            return buildParams(params: params)
-        }
-        /// The request struct
-        struct Params: Encodable {
-            /// The properties that we ask from Kodi
-            let properties = [
-                "title",
-                "artist",
-                "album",
-                "genre",
-                "file",
-                "year",
-                "premiered",
-                "art",
-                "playcount",
-                "plot",
-                "runtime"
-            ]
-            /// The sort order
-            var sort = KodiClient.SortFields()
-        }
-        /// The response struct
-        struct Response: Decodable {
-            /// The list of music videos
-            let musicvideos: [GenericItem]
-        }
     }
 }

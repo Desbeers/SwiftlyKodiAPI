@@ -9,17 +9,15 @@ import Foundation
 
 extension KodiClient {
     
-    public func getTVshows() async -> [TVshowItem] {
+    func getTVshows() async -> [GenericItem] {
         let request = VideoLibraryGetTVShows()
         do {
             let result = try await sendRequest(request: request)
-            return result.tvshows.sorted {
-                $0.sortOrder < $1.sortOrder
-            }
+            return setMediaKind(media: result.tvshows, kind: .tvshow)
         } catch {
             /// There are no songs in the library
             print("Loading TV shows failed with error: \(error)")
-            return [TVshowItem]()
+            return [GenericItem]()
         }
     }
     
@@ -53,58 +51,8 @@ extension KodiClient {
         }
         /// The response struct
         struct Response: Decodable {
-            /// The list of movies
-            let tvshows: [TVshowItem]
+            /// The list of TV shows
+            let tvshows: [GenericItem]
         }
-    }
-}
-
-/// The struct for a TV show item
-public struct TVshowItem: KodiItem, Identifiable, Hashable {
-    /// Make it indentifiable
-    public var id = UUID()
-    /// # Metadata we get from Kodi
-    /// The ID of the TV show
-    public var tvshowID: Int = 0
-    /// Title of the TV show
-    public var title: String = ""
-    /// Sort title of the TV show
-    public var sortTitle: String = ""
-    /// The description of the TV show  (is actually the plot)
-    public var description: String = ""
-    /// Location of the TV show
-    public var file: String = ""
-    /// An array with the movie genres
-    public var genre: [String] = [""]
-    /// Art of the TV show
-    public var art: [String: String] = [:]
-    /// Year of release of the TV show
-    public var year: Int = 0
-    /// The remiered date of the TV show
-    public var premiered: String = ""
-    /// Playcount of the TV show
-    public var playcount: Int = 0
-    /// Runtime of the music video
-    public var runtime: Int = 0
-    /// An array with cast of the movie
-    public var cast: [ActorItem] = []
-    /// # Coding keys
-    /// All the coding keys for a tvshow item
-    enum CodingKeys: String, CodingKey {
-        /// The keys
-        case title, file, genre, art, premiered, playcount
-        /// lowerCamelCase
-        case tvshowID = "tvshowid"
-        /// Use the 'plot' as description
-        case description = "plot"
-        /// lowerCamelCase
-        case sortTitle = "sorttitle"
-    }
-    /// # Calculated stuff
-    /// Subtitle of the TV show; not in use
-    public var subtitle: String?
-    /// Sort order of the TV show
-    public var sortOrder: String {
-        sortTitle.isEmpty ? title : sortTitle
     }
 }

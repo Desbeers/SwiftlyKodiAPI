@@ -28,20 +28,6 @@ extension KodiClient {
         return decoded.result
     }
     
-    func sendRequest2<T: KodiAPI>(request: T) async throws -> T.Response {
-        let (data, response) = try await urlSession.data(for: request.urlRequest)
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
-                  throw APIError.responseUnsuccessful
-              }
-        guard let decoded = try? JSONDecoder().decode(BaseResponse<T.Response>.self, from: data) else {
-            debugJsonResponse(data: data)
-            throw APIError.invalidData
-        }
-        debugJsonResponse(data: data)
-        return decoded.result
-    }
-    
     /// Send a message to the host, not caring about the response
     /// - Parameter request: The full URL request
     func sendMessage<T: KodiAPI>(

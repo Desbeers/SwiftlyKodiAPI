@@ -9,19 +9,19 @@ import Foundation
 
 extension KodiClient {
     
-    public func getMusicVideos() async -> [MusicVideoItem] {
+    func getMusicVideos() async -> [GenericItem] {
         let request = VideoLibraryGetMusicVideos()
         do {
             let result = try await sendRequest(request: request)
-            return result.musicvideos
+            return setMediaKind(media: result.musicvideos, kind: .musicvideo)
         } catch {
-            /// There are no songs in the library
-            print("Loading movies failed with error: \(error)")
-            return [MusicVideoItem]()
+            /// There are no music videos in the library
+            print("Loading music videos failed with error: \(error)")
+            return [GenericItem]()
         }
     }
     
-    /// Retrieve all songs (Kodi API)
+    /// Retrieve all music videos (Kodi API)
     struct VideoLibraryGetMusicVideos: KodiAPI {
         /// Method
         var method = Method.videoLibraryGetMusicVideos
@@ -54,60 +54,7 @@ extension KodiClient {
         /// The response struct
         struct Response: Decodable {
             /// The list of music videos
-            let musicvideos: [MusicVideoItem]
+            let musicvideos: [GenericItem]
         }
-    }
-}
-
-/// The struct for a movie item
-public struct MusicVideoItem: KodiItem, Identifiable, Hashable {
-    /// Make it indentifiable
-    public var id = UUID()
-    /// # Metadata we get from Kodi
-//    /// Title of the music video
-//    public var title: String = ""
-    /// Artist of the music video
-    public var artist: [String] = []
-    /// Album of the music video
-    public var album: String = ""
-    /// Description of the music video (is actually the plot)
-    public var description: String = ""
-    /// An array with the music video genres
-    public var genre: [String] = [""]
-    /// Location of the music video
-    public var file: String = ""
-    /// An array with cast of the movie
-    public var cast: [ActorItem] = []
-    /// Art of the music video
-    public var art: [String: String] = [:]
-    /// Release year of the music video
-    public var year: Int = 0
-    /// Premiered date of the music video
-    public var premiered: String = ""
-    /// Playcount of the music video
-    public var playcount: Int = 0
-    /// Runtime of the music video
-    public var runtime: Int = 0
-    /// # Coding keys
-    /// All the coding keys for a music video item
-    enum CodingKeys: String, CodingKey {
-        /// The keys
-        case artist, album, file, art, year, premiered, genre, runtime, playcount
-        /// Use title as subtitle
-        case subtitle = "title"
-        /// Use 'plot' as description
-        case description = "plot"
-    }
-    /// # Calculated stuff
-    /// Subtitle of the music video; we use the genres here
-    public var title: String {
-        return artist.joined(separator: "・")
-    }
-    /// This is the title of the music video
-    public var subtitle: String?
-    
-    /// The sort order of the music video
-    public var sortOrder: String {
-        return artist.first!
     }
 }

@@ -30,6 +30,9 @@ public final class KodiClient {
     /// The active host
     public var host = HostItem()
     
+    /// The VideoLibrary
+    @Published var library: [GenericItem] = []
+    
     // MARK: Init
     
     /// Private init to make sure we have only one instance
@@ -40,9 +43,35 @@ public final class KodiClient {
         configuration.timeoutIntervalForRequest = 300
         configuration.timeoutIntervalForResource = 120
         self.urlSession = URLSession(configuration: configuration)
+        
+        Task {
+            let libraryItems = await getAllVideos()
+            library = libraryItems
+        }
     }
-    //    /// Black magic
-    //    convenience init() {
-    //        self.init(configuration: .ephemeral)
-    //    }
+}
+
+extension KodiClient {
+    
+    /// Get all the movies from the Kodi host
+    /// - Returns: All the `MovieItem`'s
+    func getAllVideos() async -> [GenericItem] {
+        var items: [GenericItem] = []
+        await items += getMovies()
+        let tvshows = await getTVshows()
+        items += tvshows
+        await items += getAllEpisodes(tvshows: tvshows)
+        await items += getMusicVideos()
+        return items
+    }
+    
+    func setMediaKind(media: [GenericItem], kind: KodiMedia) -> [GenericItem] {
+        var items: [GenericItem] = []
+        for item in media {
+            var newItem = item
+            newItem.media = kind
+            items.append(newItem)
+        }
+        return items
+    }
 }
