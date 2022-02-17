@@ -7,11 +7,11 @@
 
 import Foundation
 
-extension GenericItem {
+extension KodiItem {
     /// The coding keys
     enum CodingKeys: String, CodingKey {
         /// The public keys
-        case title, subtitle, description, episode, season, cast, playcount
+        case title, subtitle, description, episode, season, cast, playcount, setInfo
         /// Camel Case
         case setName = "set"
         /// # The public ID's
@@ -32,7 +32,7 @@ extension GenericItem {
 }
 
 /// A struct that can be a movie, TV show, episode or Music Video
-public struct GenericItem: KodiItem, Codable, Identifiable {
+public struct KodiItem: Codable, Identifiable {
 
     /// Make it indentifiable
     public var id = UUID()
@@ -75,6 +75,11 @@ public struct GenericItem: KodiItem, Codable, Identifiable {
     
     /// The cast of the item (movie and episode)
     public var cast: [ActorItem] = []
+
+    
+    /// The set info of the item (movie)
+    /// - Note: Will be filled in later
+    public var setInfo = MovieSetItem()
     
     /// # Episode stuff
     
@@ -82,6 +87,10 @@ public struct GenericItem: KodiItem, Codable, Identifiable {
     public var season: Int = 0
     
     /// # Calculated stuff
+    
+    public var genres: String {
+        return genre.joined(separator: "・")
+    }
     
     /// The full release date of the item
     public var releaseDate: Date {
@@ -199,7 +208,7 @@ public struct GenericItem: KodiItem, Codable, Identifiable {
     }
 }
 
-extension GenericItem {
+extension KodiItem {
     /// In an extension so we can still use the memberwise initializer.
     /// - Note: See https://sarunw.com/posts/how-to-preserve-memberwise-initializer/
     public init(from decoder: Decoder) throws {
@@ -253,5 +262,26 @@ extension GenericItem {
         formatter.allowedUnits = [.hour, .minute]
         formatter.unitsStyle = .brief
         return formatter.string(from: TimeInterval(runtime))!
+    }
+}
+
+extension KodiItem {
+    /// A struct for an actor that is part of the cast in a movie or TV episode
+    public struct ActorItem: Codable, Identifiable, Hashable {
+        /// Make it identifiable
+        public var id = UUID()
+        /// The name of the actor
+        public var name: String = ""
+        /// The order in the cast list
+        public var order: Int = 0
+        /// The role of the actor
+        public var role: String = ""
+        /// The optional thumbnail of the actor
+        public var thumbnail: String? = ""
+        /// Coding keys
+        enum CodingKeys: String, CodingKey {
+            /// The keys for this Actor Item
+            case name, order, role, thumbnail
+        }
     }
 }

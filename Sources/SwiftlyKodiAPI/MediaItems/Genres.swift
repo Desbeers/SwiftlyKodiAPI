@@ -1,18 +1,31 @@
 //
-//  KodiGenres.swift
-//  VideoPlayer
+//  Genres.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 02/02/2022.
+// © 2021 Nick Berendsen
 //
 
 import Foundation
 
 extension KodiClient {
-
+    
     /// Get all genres from the Kodi host
-    /// - Parameter reload: Force a reload or else it will try to load it from the  cache
-    /// - Returns: True when loaded; else false
-    public func getGenres(type: KodiMedia) async -> [GenreItem] {
+    /// - Returns: All ``GenreItem``'s from the Kodi host
+    func getAllGenres() async -> [GenreItem] {
+        /// Get the genres for all media types
+        let movieGenres = await getGenres(type: .movie)
+        let tvGenres = await getGenres(type: .tvshow)
+        let musicGenres = await getGenres(type: .musicvideo)
+        /// Combine them
+        let allGenres = movieGenres + tvGenres + musicGenres
+        /// Return them
+        return allGenres.unique { $0.genreID}
+    }
+
+    /// Get all genres from the Kodi host for a specific media type
+    /// - Parameter type: The type of Kodi Media
+    /// - Returns: All ``GenreItem``'s for the specific media type
+    func getGenres(type: KodiMedia) async -> [GenreItem] {
         if type == .all {
             return await getAllGenres()
         } else {
@@ -25,20 +38,6 @@ extension KodiClient {
                 return [GenreItem]()
             }
         }
-    }
-    
-    func getAllGenres() async -> [GenreItem] {
-        
-        let movieGenres = await getGenres(type: .movie)
-        let tvGenres = await getGenres(type: .tvshow)
-        let musicGenres = await getGenres(type: .musicvideo)
-        
-
-        
-        let allGenres = movieGenres + tvGenres + musicGenres
-        
-        return allGenres.unique { $0.genreID}
-
     }
     
     /// Retrieve all genres (Kodi API)
@@ -94,7 +93,7 @@ public struct GenreItem: Codable, Identifiable, Hashable {
 }
 
 
-public enum GenreType: String, CaseIterable {
+enum GenreType: String, CaseIterable {
     case all = "All"
     case movie = "Movies"
     case tvshow = "TV shows"

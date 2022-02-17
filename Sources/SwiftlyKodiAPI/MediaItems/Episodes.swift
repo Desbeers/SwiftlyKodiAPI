@@ -1,31 +1,31 @@
 //
-//  KodiEpisodes.swift
-//  VideoPlayer
+//  Episodes.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 06/02/2022.
+// © 2021 Nick Berendsen
 //
 
 import Foundation
 
 extension KodiClient {
     
-    func getAllEpisodes(tvshows: [GenericItem]) async -> [GenericItem] {
-        var episodes: [GenericItem] = []
+    func getAllEpisodes(tvshows: [KodiItem]) async -> [KodiItem] {
+        var episodes: [KodiItem] = []
         for tvshow in tvshows {
             episodes += await getEpisodes(tvshowID: tvshow.tvshowID)
         }
         return episodes
     }
     
-    func getEpisodes(tvshowID: Int) async -> [GenericItem] {
+    func getEpisodes(tvshowID: Int) async -> [KodiItem] {
         let request = VideoLibraryGetEpisodes(tvshowID: tvshowID)
         do {
             let result = try await sendRequest(request: request)
-            return setMediaKind(media: result.episodes, kind: .episode)
+            return setMediaKind(items: result.episodes, media: .episode)
         } catch {
             /// There are no episodes in the library
             print("Loading Episodes failed with error: \(error)")
-            return [GenericItem]()
+            return [KodiItem]()
         }
     }
     
@@ -69,7 +69,7 @@ extension KodiClient {
         /// The response struct
         struct Response: Decodable {
             /// The list of movies
-            let episodes: [GenericItem]
+            let episodes: [KodiItem]
         }
     }
 }

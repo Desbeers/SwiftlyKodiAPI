@@ -31,7 +31,10 @@ public final class KodiClient {
     public var host = HostItem()
     
     /// The VideoLibrary
-    @Published var library: [GenericItem] = []
+    @Published var library: [KodiItem] = []
+
+    /// The Genres
+    @Published public var genres: [GenreItem] = []
     
     // MARK: Init
     
@@ -47,6 +50,8 @@ public final class KodiClient {
         Task {
             let libraryItems = await getAllVideos()
             library = libraryItems
+            let genreItems = await getAllGenres()
+            genres = genreItems
         }
     }
 }
@@ -54,9 +59,9 @@ public final class KodiClient {
 extension KodiClient {
     
     /// Get all the movies from the Kodi host
-    /// - Returns: All the `MovieItem`'s
-    func getAllVideos() async -> [GenericItem] {
-        var items: [GenericItem] = []
+    /// - Returns: All the `MovieItem`'s from the Kodi host
+    func getAllVideos() async -> [KodiItem] {
+        var items: [KodiItem] = []
         await items += getMovies()
         let tvshows = await getTVshows()
         items += tvshows
@@ -65,13 +70,26 @@ extension KodiClient {
         return items
     }
     
-    func setMediaKind(media: [GenericItem], kind: KodiMedia) -> [GenericItem] {
-        var items: [GenericItem] = []
-        for item in media {
+    
+    /// Set the kind of media for the ``KodiItem``
+    ///
+    /// A ``KodiItem`` can be of the following type:
+    /// - Movie
+    /// - TV show
+    /// - Episode
+    /// - Music Video
+    ///
+    /// - Parameters:
+    ///   - item: The ``KodiItem``
+    ///   - media: The ``KodiMedia`` type for this ``KodiItem``
+    /// - Returns: The ``KodiItem``'s with the ``KodiMedia`` set
+    func setMediaKind(items: [KodiItem], media: KodiMedia) -> [KodiItem] {
+        var kodiItems: [KodiItem] = []
+        for item in items {
             var newItem = item
-            newItem.media = kind
-            items.append(newItem)
+            newItem.media = media
+            kodiItems.append(newItem)
         }
-        return items
+        return kodiItems
     }
 }

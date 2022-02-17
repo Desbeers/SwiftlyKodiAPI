@@ -9,15 +9,15 @@ import Foundation
 
 extension KodiClient {
     
-    func getMusicVideos() async -> [GenericItem] {
+    func getMusicVideos() async -> [KodiItem] {
         let request = VideoLibraryGetMusicVideos()
         do {
             let result = try await sendRequest(request: request)
-            return setMediaKind(media: result.musicvideos, kind: .musicvideo)
+            return setMediaKind(items: result.musicvideos, media: .musicvideo)
         } catch {
             /// There are no music videos in the library
             print("Loading music videos failed with error: \(error)")
-            return [GenericItem]()
+            return [KodiItem]()
         }
     }
     
@@ -54,7 +54,7 @@ extension KodiClient {
         /// The response struct
         struct Response: Decodable {
             /// The list of music videos
-            let musicvideos: [GenericItem]
+            let musicvideos: [KodiItem]
         }
     }
 }

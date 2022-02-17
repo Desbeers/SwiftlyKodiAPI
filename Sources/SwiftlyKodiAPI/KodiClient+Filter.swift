@@ -9,9 +9,9 @@ import Foundation
 
 extension KodiClient {
     
-    public func filter(_ filter: KodiFilter) async -> [GenericItem] {
+    public func filter(_ filter: KodiFilter) async -> [KodiItem] {
         
-        var items: [GenericItem] = []
+        var items: [KodiItem] = []
         
         switch filter.media {
         case .movie:
@@ -45,12 +45,13 @@ extension KodiClient {
         case .all:
             items = library
         default:
-            items = [GenericItem]()
+            items = [KodiItem]()
         }
         if let genre = filter.genre {
             items = items
                 .filter { $0.genre.contains(genre) }
                 .uniqueSet()
+                .sortBySetAndTitle()
         }
         return items
     }

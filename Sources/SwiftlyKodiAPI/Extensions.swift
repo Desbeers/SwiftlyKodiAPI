@@ -24,8 +24,8 @@ extension String {
     }
 }
 
-extension Array where Element == GenericItem {
-    func uniqueSet() -> [GenericItem] {
+extension Array where Element == KodiItem {
+    func uniqueSet() -> [KodiItem] {
         var knownSets = Set<Int>()
         return self.filter { element -> Bool in
             let set = element.setID
@@ -39,17 +39,17 @@ extension Array where Element == GenericItem {
     }
 }
 
-extension Array where Element == GenericItem {
+extension Array where Element == KodiItem {
     
     /// Standard sorting for movies; sets will be included in alphabetic orther
-    func sortBySetAndTitle() -> [GenericItem] {
+    func sortBySetAndTitle() -> [KodiItem] {
         return self.sorted {
             $0.sortBySetAndTitle < $1.sortBySetAndTitle
         }
     }
     
     /// First sort by year, than by title. Used insde moviesets en music videos from a specific artist
-    func sortByYearAndTitle() -> [GenericItem] {
+    func sortByYearAndTitle() -> [KodiItem] {
         return self.sorted {
             $0.releaseDate == $1.releaseDate ?
             $0.sortByTitle.localizedStandardCompare($1.sortByTitle) == .orderedAscending :
