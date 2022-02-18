@@ -25,9 +25,9 @@ final class AppState: ObservableObject {
     @Published var kodiMovies: [MovieItem] = []
     @Published var kodiGenres: [GenreItem] = []
     @Published var kodiTVshows: [TVshowItem] = []
-    @Published var kodiMusicVideos: [MusicVideoItem] = []
+    @Published var kodiMusicVideos: [MusicKodiItem] = []
     
-    let client: KodiClient = .shared
+    let client: KodiConnector = .shared
     
     init() {
         

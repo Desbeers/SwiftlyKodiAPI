@@ -2,15 +2,15 @@
 //  Movies.swift
 //  SwiftlyKodiAPI
 //
-// © 2021 Nick Berendsen
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 
-extension KodiClient {
+extension KodiConnector {
 
     /// Get all the movies from the Kodi host
-    /// - Returns: All the ``KodiItem``'s that is a movie
+    /// - Returns: All movies from the Kodi host
     func getMovies() async -> [KodiItem] {
         let request = VideoLibraryGetMovies()
         let movieSets = await getMovieSets()
@@ -23,10 +23,15 @@ extension KodiClient {
                 let movies = result.movies.filter { $0.setID == movieSet.setID} .sortByYearAndTitle()
                 for movie in movies {
                     var movieWithSet = movie
+                    /// Use the movie set playcount
+                    movieWithSet.playcount = movieSet.playcount
                     movieWithSet.setInfo = movieSet
                     movieWithSet.setInfo.movies = movies.map { $0.title}
                     .joined(separator: "・")
-                    movieWithSet.setInfo.details = "\(movies.count)"
+                    movieWithSet.setInfo.count = movies.count
+                    movieWithSet.setInfo.genres = movies.flatMap { $0.genre }
+                    .removingDuplicates()
+                    .joined(separator: "・")
                     movieItems.append(movieWithSet)
                 }
             }
@@ -67,11 +72,10 @@ extension KodiClient {
                 "playcount",
                 "runtime",
                 "cast",
-                //"items",
-                //"type"
+                "dateadded"
             ]
             /// The sort order
-            var sort = KodiClient.SortFields()
+            var sort = KodiConnector.SortFields()
         }
         /// The response struct
         struct Response: Decodable {
@@ -81,9 +85,11 @@ extension KodiClient {
     }
 }
 
-extension KodiClient {
+extension KodiConnector {
     
-    func getMovieSets() async -> [MovieSetItem] {
+    /// Get all the movie sets from the Kodi host
+    /// - Returns: All movie sets from the Kodi host
+    func getMovieSets() async -> [KodiItem.MovieSetItem] {
         let request = VideoLibraryGetMovieSets()
         do {
             let result = try await sendRequest(request: request)
@@ -91,11 +97,11 @@ extension KodiClient {
         } catch {
             /// There are no sets in the library
             print("Loading movie sets failed with error: \(error)")
-            return [MovieSetItem]()
+            return [KodiItem.MovieSetItem]()
         }
     }
     
-    /// Retrieve all movies (Kodi API)
+    /// Retrieve all movie sets (Kodi API)
     struct VideoLibraryGetMovieSets: KodiAPI {
         /// Method
         var method = Method.videoLibraryGetMovieSets
@@ -116,39 +122,12 @@ extension KodiClient {
                 "plot"
             ]
             /// The sort order
-            var sort = KodiClient.SortFields()
+            var sort = KodiConnector.SortFields()
         }
         /// The response struct
         struct Response: Decodable {
             /// The list of movies
-            let sets: [MovieSetItem]
+            let sets: [KodiItem.MovieSetItem]
         }
     }
-}
-
-public struct MovieSetItem: Codable {
-    public var setID: Int = 0
-    public var title: String = ""
-    public var playcount: Int = 0
-    public var art: [String: String] = [:]
-    public var description: String = ""
-    /// The coding keys
-    enum CodingKeys: String, CodingKey {
-        case title, playcount, art
-        /// Description is plot
-        case description = "plot"
-        /// Camel Case
-        case setID = "setid"
-    }
-    /// The poster of the movie set
-    public var poster: String {
-        if let posterArt = art["poster"] {
-            return posterArt.kodiFileUrl(media: .art)
-        }
-        return ""
-    }
-    /// The movie titles in the set
-    public var movies: String = ""
-    /// The details of the movies in the set
-    public var details: String = ""
 }

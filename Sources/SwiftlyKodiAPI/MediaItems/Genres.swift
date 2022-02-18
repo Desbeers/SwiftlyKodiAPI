@@ -2,15 +2,15 @@
 //  Genres.swift
 //  SwiftlyKodiAPI
 //
-// © 2021 Nick Berendsen
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 
-extension KodiClient {
+extension KodiConnector {
     
     /// Get all genres from the Kodi host
-    /// - Returns: All ``GenreItem``'s from the Kodi host
+    /// - Returns: All genres from the Kodi host
     func getAllGenres() async -> [GenreItem] {
         /// Get the genres for all media types
         let movieGenres = await getGenres(type: .movie)
@@ -24,7 +24,7 @@ extension KodiClient {
 
     /// Get all genres from the Kodi host for a specific media type
     /// - Parameter type: The type of Kodi Media
-    /// - Returns: All ``GenreItem``'s for the specific media type
+    /// - Returns: All genres for the specific media type
     func getGenres(type: KodiMedia) async -> [GenreItem] {
         if type == .all {
             return await getAllGenres()
@@ -57,7 +57,7 @@ extension KodiClient {
         struct Params: Encodable {
             var type: String = ""
             /// Sort order
-            var sort = KodiClient.SortFields()
+            var sort = KodiConnector.SortFields()
         }
         /// The response struct
         struct Response: Decodable {

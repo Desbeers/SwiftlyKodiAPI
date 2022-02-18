@@ -1,37 +1,29 @@
 //
-//  KodiClient.swift
-//  Kodio
+//  KodiConnector.swift
+//  SwiftlyKodiAPI
 //
-//  © 2021 Nick Berendsen
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 
-/// The KodiClient class
-///
-/// This class takes care of:
-/// - Connecting to Kodi
-/// - Checks the connection
-/// - Sending JSON requests
-/// - Receive notifications
-public final class KodiClient {
+/// The Class that provides the connection between Swift and the Kodi host
+public final class KodiConnector {
     
     // MARK: Constants and Variables
     
-    /// The shared instance of this KodiClient class
-    public static let shared = KodiClient()
+    /// The shared instance of this KodiConnector class
+    public static let shared = KodiConnector()
     /// The URL session
     let urlSession: URLSession
     /// The WebSocket task
     var webSocketTask: URLSessionWebSocketTask?
-    /// Bool if we are scanning the libraray on a host
-    var scanningLibrary = false
     
     /// The active host
     public var host = HostItem()
     
     /// The VideoLibrary
-    @Published var library: [KodiItem] = []
+    @Published public var library: [KodiItem] = []
 
     /// The Genres
     @Published public var genres: [GenreItem] = []
@@ -56,7 +48,7 @@ public final class KodiClient {
     }
 }
 
-extension KodiClient {
+extension KodiConnector {
     
     /// Get all the movies from the Kodi host
     /// - Returns: All the `MovieItem`'s from the Kodi host
@@ -67,6 +59,7 @@ extension KodiClient {
         items += tvshows
         await items += getAllEpisodes(tvshows: tvshows)
         await items += getMusicVideos()
+        await items += getArtists()
         return items
     }
     
@@ -84,12 +77,12 @@ extension KodiClient {
     ///   - media: The ``KodiMedia`` type for this ``KodiItem``
     /// - Returns: The ``KodiItem``'s with the ``KodiMedia`` set
     func setMediaKind(items: [KodiItem], media: KodiMedia) -> [KodiItem] {
-        var kodiItems: [KodiItem] = []
+        var KodiItems: [KodiItem] = []
         for item in items {
             var newItem = item
             newItem.media = media
-            kodiItems.append(newItem)
+            KodiItems.append(newItem)
         }
-        return kodiItems
+        return KodiItems
     }
 }

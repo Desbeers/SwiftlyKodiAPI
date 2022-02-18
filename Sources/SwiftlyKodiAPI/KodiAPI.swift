@@ -1,8 +1,8 @@
 //
 //  KodiAPI.swift
-//  Kodio
+//  SwiftlyKodiAPI
 //
-//  © 2021 Nick Berendsen
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
@@ -14,7 +14,7 @@ protocol KodiAPI {
     /// The httpBody for the request
     var parameters: Data { get }
     /// The method to use
-    var method: KodiClient.Method { get }
+    var method: KodiConnector.Method { get }
 }
 
 extension KodiAPI {
@@ -22,7 +22,7 @@ extension KodiAPI {
     /// Build the JSON parameters
     /// - Returns: `Data` formatted JSON request
     func buildParams<T: Encodable>(params: T) -> Data {
-        let parameters = KodiClient.BaseParameters(method: method.rawValue, params: params.self, id: method.rawValue)
+        let parameters = KodiConnector.BaseParameters(method: method.rawValue, params: params.self, id: method.rawValue)
         do {
             return try JSONEncoder().encode(parameters)
         } catch {
@@ -35,7 +35,7 @@ extension KodiAPI {
     
     /// Build the URL request
     var urlRequest: URLRequest {
-        let host = KodiClient.shared.host
+        let host = KodiConnector.shared.host
         var request = URLRequest(
             url: URL(string: "http://\(host.username):\(host.password)@\(host.ip):\(host.port)/jsonrpc")!
         )
@@ -54,7 +54,7 @@ extension KodiAPI {
     ///   - method: The ``SortMethod`` for the request
     ///   - order: The ``SortOrder`` for the request
     /// - Returns: An constructed ``SortFields``
-    func sort(method: KodiClient.SortMethod, order: KodiClient.SortOrder) -> KodiClient.SortFields {
-        return KodiClient.SortFields(method: method.rawValue, order: order.rawValue)
+    func sort(method: KodiConnector.SortMethod, order: KodiConnector.SortOrder) -> KodiConnector.SortFields {
+        return KodiConnector.SortFields(method: method.rawValue, order: order.rawValue)
     }
 }

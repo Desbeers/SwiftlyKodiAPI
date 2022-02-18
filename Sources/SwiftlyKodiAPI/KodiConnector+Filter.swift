@@ -1,13 +1,13 @@
 //
-//  File.swift
-//  
+//  KodiConnector+Filter.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 17/02/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 
-extension KodiClient {
+extension KodiConnector {
     
     public func filter(_ filter: KodiFilter) async -> [KodiItem] {
         
@@ -50,8 +50,10 @@ extension KodiClient {
         if let genre = filter.genre {
             items = items
                 .filter { $0.genre.contains(genre) }
-                .uniqueSet()
                 .sortBySetAndTitle()
+            if filter.setID == nil {
+                items = items.uniqueSet()
+            }
         }
         return items
     }

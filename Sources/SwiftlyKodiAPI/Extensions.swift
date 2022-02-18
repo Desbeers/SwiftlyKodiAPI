@@ -1,30 +1,16 @@
 //
-//  File.swift
-//  
+//  Extensions.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 10/02/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 
-extension String {
-    
-    // MARK: kodiFileUrl (function)
-    
-    /// Convert internal Kodi path to a full URL
-    /// - Returns: A string representing the full file URL
-    func kodiFileUrl(media: KodiClient.KodiFile) -> String {
-        let host = KodiClient.shared.host
-        /// Encoding
-        var allowed = CharacterSet.alphanumerics
-        allowed.insert(charactersIn: ":-._~") /// as per RFC 3986
-        /// Image URL
-        let kodiImageAddress = "http://\(host.username):\(host.password)@\(host.ip):\(host.port)/\(media.rawValue)/"
-        return kodiImageAddress + self.addingPercentEncoding(withAllowedCharacters: allowed)!
-    }
-}
-
 extension Array where Element == KodiItem {
+    
+    /// Filter the movies to have only one movie representing a set
+    /// - Returns: A list with movies without duplicated sets
     func uniqueSet() -> [KodiItem] {
         var knownSets = Set<Int>()
         return self.filter { element -> Bool in
@@ -39,16 +25,30 @@ extension Array where Element == KodiItem {
     }
 }
 
+extension Array where Element: Hashable {
+    func removingDuplicates() -> [Element] {
+        var addedDict = [Element: Bool]()
+
+        return filter {
+            addedDict.updateValue(true, forKey: $0) == nil
+        }
+    }
+
+    mutating func removeDuplicates() {
+        self = self.removingDuplicates()
+    }
+}
+
 extension Array where Element == KodiItem {
     
-    /// Standard sorting for movies; sets will be included in alphabetic orther
+    /// Standard sorting for movies; sets will be included in alphabetic order
     func sortBySetAndTitle() -> [KodiItem] {
         return self.sorted {
             $0.sortBySetAndTitle < $1.sortBySetAndTitle
         }
     }
     
-    /// First sort by year, than by title. Used insde moviesets en music videos from a specific artist
+    /// Sort first by year, than by title. Used insde moviesets and music videos from a specific artist
     func sortByYearAndTitle() -> [KodiItem] {
         return self.sorted {
             $0.releaseDate == $1.releaseDate ?

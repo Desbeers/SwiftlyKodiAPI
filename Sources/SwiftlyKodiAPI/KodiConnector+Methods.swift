@@ -1,24 +1,23 @@
-///
-/// KodiAPI.swift
-/// Kodio
-///
-/// © 2021 Nick Berendsen
-///
+//
+//  KodiConnector+Methods.swift
+//  SwiftlyKodiAPI
+//
+//  © 2022 Nick Berendsen
+//
 
 import Foundation
 
-// MARK: - Method (enum)
-
-extension KodiClient {
+extension KodiConnector {
     
     /// Kodi methods used by KodiAPI
     enum Method: String {
+        
+        /// # General
         
         /// Notify all other connected clients
         case notifyAll = "JSONRPC.NotifyAll"
         /// Custom notification
         case otherNewQueue = "Other.NewQueue"
-        
         /// Get host properties
         case applicationGetProperties = "Application.GetProperties"
         /// Quit the host
@@ -29,9 +28,25 @@ extension KodiClient {
         case applicationOnVolumeChanged = "Application.OnVolumeChanged"
         /// Toggle the mute
         case applicationSetMute = "Application.SetMute"
-        
         /// Set a setting on the host
         case settingsSetSettingvalue = "Settings.SetSettingvalue"
+        
+        /// # Video
+        
+        /// Get movies from the host
+        case videoLibraryGetMovies = "VideoLibrary.GetMovies"
+        /// Get movie sets from the host
+        case videoLibraryGetMovieSets = "VideoLibrary.GetMovieSets"
+        /// Get video genres from the host
+        case videoLibraryGetGenres = "VideoLibrary.GetGenres"
+        /// Get TV shows from the host
+        case videoLibraryGetTVShows = "VideoLibrary.GetTVShows"
+        /// Get episodes from the host
+        case videoLibraryGetEpisodes = "VideoLibrary.GetEpisodes"
+        /// Get music videeos from the host
+        case videoLibraryGetMusicVideos = "VideoLibrary.GetMusicVideos"
+        
+        /// # Audio
         
         /// Scan the library on the host
         case audioLibraryScan = "AudioLibrary.Scan"
@@ -50,12 +65,16 @@ extension KodiClient {
         /// Get genres from the host
         case audioLibraryGetGenres = "AudioLibrary.GetGenres"
         
+        /// ## Audio Notifications
+        
         /// Notification that the audio library has changed
         case audioLibraryOnUpdate = "AudioLibrary.OnUpdate"
         /// Notification that the audio library will be scanned
         case audioLibraryOnScanStarted = "AudioLibrary.OnScanStarted"
         /// Notification that the audio library has finnished scannning
         case audioLibraryOnScanFinished = "AudioLibrary.OnScanFinished"
+        
+        /// # Player
         
         /// Turn partymode on or off
         case playerSetPartymode = "Player.SetPartymode"
@@ -78,6 +97,8 @@ extension KodiClient {
         /// Notification that the player speed as changed on the host
         case playerOnSpeedChanged = "Player.OnSpeedChanged"
         
+        /// ## Player Notifications
+        
         /// Notification that the player starts playing on the host
         case playerOnPlay = "Player.OnPlay"
         /// Notification that the player has stopped on the host
@@ -91,6 +112,8 @@ extension KodiClient {
         /// Notification that the player starts playing on the host
         case playerOnAVStart = "Player.OnAVStart"
         
+        /// # Playlists
+        
         /// Clear the playlist on the host
         case playlistClear = "Playlist.Clear"
         /// Add an item to the playlist on the host
@@ -102,14 +125,9 @@ extension KodiClient {
         /// Get a list of items from a playlist on the host
         case playlistGetItems = "Playlist.GetItems"
         
+        /// # Files
+        
         /// Get a directory list from the host
         case filesGetDirectory = "Files.GetDirectory"
-        
-        case videoLibraryGetMovies = "VideoLibrary.GetMovies"
-        case videoLibraryGetMovieSets = "VideoLibrary.GetMovieSets"
-        case videoLibraryGetGenres = "VideoLibrary.GetGenres"
-        case videoLibraryGetTVShows = "VideoLibrary.GetTVShows"
-        case videoLibraryGetEpisodes = "VideoLibrary.GetEpisodes"
-        case videoLibraryGetMusicVideos = "VideoLibrary.GetMusicVideos"
     }
 }

@@ -1,13 +1,13 @@
 //
-//  JSON.swift
-//  Kodio
+//  KodiConnector+JSON.swift
+//  SwiftlyKodiAPI
 //
-//  © 2021 Nick Berendsen
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 
-extension KodiClient {
+extension KodiConnector {
     
     // MARK: JSON stuff
     

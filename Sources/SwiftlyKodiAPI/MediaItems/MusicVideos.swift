@@ -1,14 +1,16 @@
 //
-//  KodiMovies.swift
-//  VideoPlayer
+//  MusicVideos.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 01/02/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 
-extension KodiClient {
+extension KodiConnector {
     
+    /// Get all the music videos from the Kodi host
+    /// - Returns: All music videos from the Kodi host
     func getMusicVideos() async -> [KodiItem] {
         let request = VideoLibraryGetMusicVideos()
         do {
@@ -46,10 +48,11 @@ extension KodiClient {
                 "art",
                 "playcount",
                 "plot",
-                "runtime"
+                "runtime",
+                "dateadded"
             ]
             /// The sort order
-            var sort = KodiClient.SortFields()
+            var sort = KodiConnector.SortFields()
         }
         /// The response struct
         struct Response: Decodable {

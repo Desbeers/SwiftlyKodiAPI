@@ -1,6 +1,6 @@
 //
 //  Debug.swift
-//  Kodio
+//  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
 //

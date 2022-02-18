@@ -1,21 +1,23 @@
 //
-//  KodiTVshows.swift
-//  VideoPlayer
+//  TVshows.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 04/02/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 
-extension KodiClient {
-    
+extension KodiConnector {
+
+    /// Get all the TV shows from the Kodi host
+    /// - Returns: All TV shows from the Kodi host
     func getTVshows() async -> [KodiItem] {
         let request = VideoLibraryGetTVShows()
         do {
             let result = try await sendRequest(request: request)
             return setMediaKind(items: result.tvshows, media: .tvshow)
         } catch {
-            /// There are no songs in the library
+            /// There are no TV shows in the library
             print("Loading TV shows failed with error: \(error)")
             return [KodiItem]()
         }
@@ -44,10 +46,11 @@ extension KodiClient {
                 "art",
                 "year",
                 "premiered",
-                "playcount"
+                "playcount",
+                "dateadded"
             ]
             /// The sort order
-            var sort = KodiClient.SortFields()
+            var sort = KodiConnector.SortFields()
         }
         /// The response struct
         struct Response: Decodable {

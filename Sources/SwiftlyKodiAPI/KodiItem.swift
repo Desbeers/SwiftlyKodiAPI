@@ -1,39 +1,20 @@
 //
-//  File.swift
-//  
+//  KodiItem.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 16/02/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 
-extension KodiItem {
-    /// The coding keys
-    enum CodingKeys: String, CodingKey {
-        /// The public keys
-        case title, subtitle, description, episode, season, cast, playcount, setInfo
-        /// Camel Case
-        case setName = "set"
-        /// # The public ID's
-        /// Camel Case
-        case movieID = "movieid"
-        /// Camel Case
-        case setID = "setid"
-        /// Camel Case
-        case tvshowID = "tvshowid"
-        /// Camel Case
-        case episodeID = "episodeid"
-        /// Camel Case
-        case musicvideoID = "musicvideoid"
-        /// # The internal keys
-        /// Keys that are not exposed outside of the package
-        case plot, tagline, genre, artist, showtitle, year, premiered, firstaired, art, runtime, sorttitle, file
-    }
-}
-
-/// A struct that can be a movie, TV show, episode or Music Video
+/// A struct for a Kodi Library Item
+///
+/// This can be one of the following:
+/// - Movie
+/// - TV show
+/// - Episode
+/// - Music video
 public struct KodiItem: Codable, Identifiable {
-
     /// Make it indentifiable
     public var id = UUID()
     
@@ -64,26 +45,40 @@ public struct KodiItem: Codable, Identifiable {
     /// The details of the item
     /// - Movie: Genre + Year
     /// - TV show: Genre + Year
-    /// - Episode: Episode number + Premiered
+    /// - Episode: Episode number + Season number
     /// - Music Video: Genre + Year
     public var details: String {
-        return genre.joined(separator: "・")
+        var details: [String] = []
+        /// Check if it is an episode
+        if episode != 0 {
+            details.append("Episode \(episode)")
+            details.append("Season \(season)")
+        } else {
+            details = genre
+            details.append(releaseYear)
+        }
+        return details.joined(separator: "・")
     }
     
     /// The playcount of the item
     public var playcount: Int = 0
     
+    /// # Video stuff
+    
     /// The cast of the item (movie and episode)
     public var cast: [ActorItem] = []
 
+    ///# Movie stuff
     
-    /// The set info of the item (movie)
+    /// The set info of the item
     /// - Note: Will be filled in later
     public var setInfo = MovieSetItem()
     
-    /// # Episode stuff
+    /// # TV show and Episode stuff
     
+    /// The episode number of the TV show
     public var episode: Int = 0
+    /// The season of the TV show
     public var season: Int = 0
     
     /// # Calculated stuff
@@ -91,6 +86,8 @@ public struct KodiItem: Codable, Identifiable {
     public var genres: String {
         return genre.joined(separator: "・")
     }
+    
+    /// # Date stuff
     
     /// The full release date of the item
     public var releaseDate: Date {
@@ -105,8 +102,12 @@ public struct KodiItem: Codable, Identifiable {
         return components.year?.description ?? "0000"
     }
     
+    public var dateAdded: String = ""
+    
+    
+    
     /// Duration of the item
-    public var duration: String  {
+    public var duration: String {
         return runtimeToDuration(runtime: runtime)
     }
     
@@ -119,6 +120,9 @@ public struct KodiItem: Codable, Identifiable {
             return posterArt.kodiFileUrl(media: .art)
         }
         if let posterArt = art["thumbnail"] {
+            return posterArt.kodiFileUrl(media: .art)
+        }
+        if let posterArt = art["thumb"] {
             return posterArt.kodiFileUrl(media: .art)
         }
         return ""
@@ -163,34 +167,34 @@ public struct KodiItem: Codable, Identifiable {
     /// # Internal variables
     
     /// Art of the item
-    public var art: [String: String] = [:]
+    var art: [String: String] = [:]
     
     /// Location of the item
-    public var file: String = ""
+    var file: String = ""
     
     /// Plot of the item
     var plot: String = ""
     
     /// Genre for the item
-    public var genre: [String] = []
+    var genre: [String] = []
     
     /// Tagline of the item (movie)
     var tagline: String = ""
     
-    /// Tagline of the item (music video)
+    /// Artist of the item (artist or music video)
     var artist: String = ""
     
     /// Runtime of the item
-    public var runtime: Int = 0
+    var runtime: Int = 0
     
     /// Title of a TV show (episode)
     var showtitle: String = ""
     
     /// Year of release of the item
-    public var year: Int = 0
+    var year: Int = 0
     
     /// Premiered date of the item
-    public var premiered: String = ""
+    var premiered: String = ""
     
     /// First aired date of the item (episode)
     var firstaired: String = ""
@@ -209,8 +213,33 @@ public struct KodiItem: Codable, Identifiable {
 }
 
 extension KodiItem {
+    /// The coding keys
+    enum CodingKeys: String, CodingKey {
+        /// The public keys
+        case title, subtitle, description, episode, season, cast, playcount, setInfo
+        /// Camel Case
+        case setName = "set"
+        /// # The public ID's
+        /// Camel Case
+        case movieID = "movieid"
+        /// Camel Case
+        case setID = "setid"
+        /// Camel Case
+        case tvshowID = "tvshowid"
+        /// Camel Case
+        case episodeID = "episodeid"
+        /// Camel Case
+        case musicvideoID = "musicvideoid"
+        /// lowerCamelCase
+        case dateAdded = "dateadded"
+        /// # The internal keys
+        /// Keys that are not exposed outside of the package
+        case plot, tagline, genre, artist, showtitle, year, premiered, firstaired, art, runtime, sorttitle, file
+    }
+}
+
+extension KodiItem {
     /// In an extension so we can still use the memberwise initializer.
-    /// - Note: See https://sarunw.com/posts/how-to-preserve-memberwise-initializer/
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -221,27 +250,41 @@ extension KodiItem {
         /// Movie subtitle
         subtitle = try container.decodeIfPresent(String.self, forKey: .tagline) ??
         /// Episode subtitle
-        container.decodeIfPresent(String.self, forKey: .showtitle) ??
-        /// Music Video subtitle
-        container.decodeIfPresent([String].self, forKey: .artist)?.joined(separator: "・") ?? ""
+        container.decodeIfPresent(String.self, forKey: .showtitle) ?? ""
+//        /// Artist subtitle (artist)
+//        container.decodeIfPresent(String.self, forKey: .artist) ??
+//        /// Music Video subtitle (artist)
+//        container.decodeIfPresent([String].self, forKey: .artist)?.joined(separator: "・") ?? ""
 
-        description = try container.decodeIfPresent(String.self, forKey: .plot) ?? ""
+        if let artist = try? container.decodeIfPresent(String.self, forKey: .artist) {
+             self.subtitle = artist
+         }
+        if let artists = try? container.decodeIfPresent([String].self, forKey: .artist) {
+            self.subtitle = artists.joined(separator: "・")
+         }
+
+        /// Check first for plot
+        description = try container.decodeIfPresent(String.self, forKey: .plot) ??
+        /// else description
+        container.decodeIfPresent(String.self, forKey: .description) ?? ""
         genre = try container.decodeIfPresent([String].self, forKey: .genre) ?? []
         cast = try container.decodeIfPresent([ActorItem].self, forKey: .cast) ?? []
         playcount = try container.decodeIfPresent(Int.self, forKey: .playcount) ?? 0
         setName = try container.decodeIfPresent(String.self, forKey: .setName) ?? ""
         file = try container.decodeIfPresent(String.self, forKey: .file) ?? ""
-        
+
         /// # Dates
         year = try container.decodeIfPresent(Int.self, forKey: .year) ?? 0
         /// Movies and TV shows
         premiered = try container.decodeIfPresent(String.self, forKey: .premiered) ??
         /// Episodes
         container.decodeIfPresent(String.self, forKey: .firstaired) ?? ""
-        
-        
+        /// Date the item is added to Kodi
+        dateAdded = try container.decodeIfPresent(String.self, forKey: .dateAdded) ?? ""
+
+
         art = try container.decodeIfPresent([String: String].self, forKey: .art) ?? [:]
-        
+
         /// # Episode stuff
         episode = try container.decodeIfPresent(Int.self, forKey: .episode) ?? 0
         season = try container.decodeIfPresent(Int.self, forKey: .season) ?? 0
@@ -256,7 +299,9 @@ extension KodiItem {
         runtime = try container.decodeIfPresent(Int.self, forKey: .runtime) ?? 0
 
     }
-    
+}
+
+extension KodiItem {
     func runtimeToDuration(runtime: Int) -> String {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute]
@@ -266,6 +311,7 @@ extension KodiItem {
 }
 
 extension KodiItem {
+    
     /// A struct for an actor that is part of the cast in a movie or TV episode
     public struct ActorItem: Codable, Identifiable, Hashable {
         /// Make it identifiable
@@ -283,5 +329,43 @@ extension KodiItem {
             /// The keys for this Actor Item
             case name, order, role, thumbnail
         }
+    }
+}
+
+extension KodiItem {
+    
+    /// A struct for information about a Movie Set
+    public struct MovieSetItem: Codable {
+        /// The ID of the movie set
+        public var setID: Int = 0
+        /// The title of the movie set
+        public var title: String = ""
+        /// The playcount of the movie set
+        public var playcount: Int = 0
+        /// The art of the movie set
+        public var art: [String: String] = [:]
+        /// The description of the movie set
+        public var description: String = ""
+        /// The coding keys
+        enum CodingKeys: String, CodingKey {
+            case title, playcount, art
+            /// Description is plot
+            case description = "plot"
+            /// Camel Case
+            case setID = "setid"
+        }
+        /// The poster of the movie set
+        public var poster: String {
+            if let posterArt = art["poster"] {
+                return posterArt.kodiFileUrl(media: .art)
+            }
+            return ""
+        }
+        /// The movie titles in the set
+        public var movies: String = ""
+        /// The count of movies in the set
+        public var count: Int = 0
+        /// The genres of the movies in the set
+        public var genres: String = ""
     }
 }

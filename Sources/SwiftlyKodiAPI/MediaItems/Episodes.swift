@@ -2,13 +2,16 @@
 //  Episodes.swift
 //  SwiftlyKodiAPI
 //
-// © 2021 Nick Berendsen
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 
-extension KodiClient {
-    
+extension KodiConnector {
+
+    /// Get all Episodes from the Kodi host
+    /// - Parameter tvshows: All the TV shows
+    /// - Returns: All the episodes from the Kodi host
     func getAllEpisodes(tvshows: [KodiItem]) async -> [KodiItem] {
         var episodes: [KodiItem] = []
         for tvshow in tvshows {
@@ -17,6 +20,9 @@ extension KodiClient {
         return episodes
     }
     
+    /// Get all episodes from a specific TV shpw
+    /// - Parameter tvshowID: The ID of the TV show
+    /// - Returns: All episodes of the given TV show
     func getEpisodes(tvshowID: Int) async -> [KodiItem] {
         let request = VideoLibraryGetEpisodes(tvshowID: tvshowID)
         do {
@@ -40,8 +46,6 @@ extension KodiClient {
             /// The parameters we ask for
             var params = Params()
             params.tvshowid = tvshowID
-            /// params.sort.method = KodiClient.SortMethod.title.string()
-            /// params.sort.order = KodiClient.SortMethod.ascending.string()
             return buildParams(params: params)
         }
         /// The request struct
@@ -63,12 +67,10 @@ extension KodiClient {
                 "cast",
                 "tvshowid"
             ]
-            /// The sort order
-            /// var sort = KodiClient.SortFields()
         }
         /// The response struct
         struct Response: Decodable {
-            /// The list of movies
+            /// The list of episodes
             let episodes: [KodiItem]
         }
     }
