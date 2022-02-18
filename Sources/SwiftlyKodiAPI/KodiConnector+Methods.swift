@@ -65,7 +65,7 @@ extension KodiConnector {
         /// Get genres from the host
         case audioLibraryGetGenres = "AudioLibrary.GetGenres"
         
-        /// ## Audio Notifications
+        /// # Audio Notifications
         
         /// Notification that the audio library has changed
         case audioLibraryOnUpdate = "AudioLibrary.OnUpdate"
@@ -97,7 +97,7 @@ extension KodiConnector {
         /// Notification that the player speed as changed on the host
         case playerOnSpeedChanged = "Player.OnSpeedChanged"
         
-        /// ## Player Notifications
+        /// # Player Notifications
         
         /// Notification that the player starts playing on the host
         case playerOnPlay = "Player.OnPlay"

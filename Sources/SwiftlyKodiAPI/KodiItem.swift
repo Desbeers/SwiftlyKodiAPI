@@ -21,18 +21,20 @@ public struct KodiItem: Codable, Identifiable {
     /// The kind of media
     public var media: KodiMedia = .movie
     
+    /// # General stuff
+    
     /// The title of the item
     /// - Movie: The movie title
     /// - TV show: The TV show title
-    /// - Episode: The TV show title
+    /// - Episode: The name of the TV show
     /// - Music Video: The artist name
     public var title: String = ""
     
     /// The subtitle of the item
     /// - Movie: The tagline
     /// - TV show: *Not in use*
-    /// - Episode: The episode title
-    /// - Music Video: The track name
+    /// - Episode: The name of the TV show
+    /// - Music Video: The name of the track
     public var subtitle: String = ""
     
     /// The description of the item
@@ -60,43 +62,16 @@ public struct KodiItem: Codable, Identifiable {
         return details.joined(separator: "・")
     }
     
-    /// The playcount of the item
-    public var playcount: Int = 0
-    
-    /// # Video stuff
-    
-    /// The cast of the item (movie and episode)
-    public var cast: [ActorItem] = []
-
-    ///# Movie stuff
-    
-    /// The set info of the item
-    /// - Note: Will be filled in later
-    public var setInfo = MovieSetItem()
-    
-    /// # TV show and Episode stuff
-    
-    /// The episode number of the TV show
-    public var episode: Int = 0
-    /// The season of the TV show
-    public var season: Int = 0
-    
-    /// # Audio stuff
-    
-    /// Artist of the item (artist or music video)
-    /// - Note: JSON can give a String or an Array; the decoder takes care of that
-    ///         and we just keep it as Array because that is the most common
-    public var artist: [String] = []
-    
-    /// # Calculated stuff
-    
+    /// The genres of the item, as a combined String
     public var genres: String {
         return genre.joined(separator: "・")
     }
     
-    /// # Date stuff
+    /// # Date and Time stuff
     
     /// The full release date of the item
+    /// - Note: An episode has no release date, but a first-ared date.
+    ///         The JSON decoder takes care of the mapping
     public var releaseDate: Date {
         let date = premiered.isEmpty ? year.description + "-01-01" : premiered
         let dateFormatter = DateFormatter()
@@ -109,41 +84,53 @@ public struct KodiItem: Codable, Identifiable {
         return components.year?.description ?? "0000"
     }
     
+    /// The date the item was added to the Kodi database
     public var dateAdded: String = ""
     
-    
-    
-    /// Duration of the item
+    /// Duration of the item; presented as a formatted String
     public var duration: String {
         return runtimeToDuration(runtime: runtime)
     }
     
+    /// The playcount of the item
+    public var playcount: Int = 0
+    
+    /// # Video stuff
+    
+    /// The cast of the item (movie and episode)
+    public var cast: [ActorItem] = []
+
+    /// # Movie stuff
+
+    /// The set info of the movie
+    /// - Note: Will be filled in later
+    public var setInfo = MovieSetItem()
+    
+    /// # TV show and Episode stuff
+    
+    /// The episode number of the TV show
+    public var episode: Int = 0
+    
+    /// The season of the TV show
+    public var season: Int = 0
+    
+    /// # Audio stuff
+    
+    /// Artist of the item (artist or music video)
+    /// - Note: JSON can give a String or an Array; the decoder takes care of that
+    ///         and we just keep it as Array because that is the most common
+    public var artist: [String] = []
+    
+    /// # Art stuff
+    
     /// The poster of the item
     public var poster: String {
-        if let posterArt = art["poster"] {
-            return posterArt.kodiFileUrl(media: .art)
-        }
-        if let posterArt = art["season.poster"] {
-            return posterArt.kodiFileUrl(media: .art)
-        }
-        if let posterArt = art["thumbnail"] {
-            return posterArt.kodiFileUrl(media: .art)
-        }
-        if let posterArt = art["thumb"] {
-            return posterArt.kodiFileUrl(media: .art)
-        }
-        return ""
+        return getSpecificArt(art: art, type: .poster)
     }
     
     /// The optional fanart for the item
     public var fanart: String? {
-        if let posterArt = art["fanart"] {
-            return posterArt.kodiFileUrl(media: .art)
-        }
-        if let posterArt = art["tvshow.fanart"] {
-            return posterArt.kodiFileUrl(media: .art)
-        }
-        return nil
+        return getSpecificArt(art: art, type: .fanart)
     }
     
     /// The full Kodi file location of the item
@@ -252,23 +239,62 @@ extension KodiItem {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
-        sorttitle = try container.decodeIfPresent(String.self, forKey: .sorttitle) ?? ""
-
-        /// # Subtitle is different for each media kind
-        /// Movie subtitle
-        subtitle = try container.decodeIfPresent(String.self, forKey: .tagline) ??
-        /// Episode subtitle
-        container.decodeIfPresent(String.self, forKey: .showtitle) ?? ""
-//        /// Artist subtitle (artist)
-//        container.decodeIfPresent(String.self, forKey: .artist) ??
-//        /// Music Video subtitle (artist)
-//        container.decodeIfPresent([String].self, forKey: .artist)?.joined(separator: "・") ?? ""
-
-        /// # Artist stuff
-        ///
-        /// - Note: A JSON artist response can be a String or an Array
+        /// # General stuff
         
+        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
+        
+        sorttitle = try container.decodeIfPresent(String.self, forKey: .sorttitle) ?? ""
+        
+        /// - Note: Subtitle is different for each media kind
+        /// Movie subtitle is the tagline, if any..
+        subtitle = try container.decodeIfPresent(String.self, forKey: .tagline) ??
+        /// else the show title for an Episode
+        container.decodeIfPresent(String.self, forKey: .showtitle) ?? ""
+        
+        /// - Note: description can either be a plot or a real description
+        /// Check first for plot
+        description = try container.decodeIfPresent(String.self, forKey: .plot) ??
+        /// else for description
+        container.decodeIfPresent(String.self, forKey: .description) ?? ""
+        
+        genre = try container.decodeIfPresent([String].self, forKey: .genre) ?? []
+        
+        playcount = try container.decodeIfPresent(Int.self, forKey: .playcount) ?? 0
+        
+        file = try container.decodeIfPresent(String.self, forKey: .file) ?? ""
+        
+        /// # Date and Time stuff
+        
+        year = try container.decodeIfPresent(Int.self, forKey: .year) ?? 0
+        
+        /// - Note: Episodes  have no 'premiered' date but an 'firstaired' date
+        /// Check for Movies and TV shows first
+        premiered = try container.decodeIfPresent(String.self, forKey: .premiered) ??
+        /// else for Episodes
+        container.decodeIfPresent(String.self, forKey: .firstaired) ?? ""
+
+        dateAdded = try container.decodeIfPresent(String.self, forKey: .dateAdded) ?? ""
+
+        runtime = try container.decodeIfPresent(Int.self, forKey: .runtime) ?? 0
+
+        /// # Art
+        art = try container.decodeIfPresent([String: String].self, forKey: .art) ?? [:]
+
+        /// # Video Stuff
+        
+        setName = try container.decodeIfPresent(String.self, forKey: .setName) ?? ""
+
+        cast = try container.decodeIfPresent([ActorItem].self, forKey: .cast) ?? []
+        
+        /// # Episode stuff
+        
+        episode = try container.decodeIfPresent(Int.self, forKey: .episode) ?? 0
+        
+        season = try container.decodeIfPresent(Int.self, forKey: .season) ?? 0
+        
+        /// # Audio stuff
+
+        /// - Note: A JSON artist response can be a String or an Array
         if let artist = try? container.decodeIfPresent(String.self, forKey: .artist) {
             /// The artist is a String, so most probably from AudioLibrary.GetArtists; use it as title
             self.title = artist
@@ -281,47 +307,27 @@ extension KodiItem {
             self.artist = artists
         }
 
-        /// Check first for plot
-        description = try container.decodeIfPresent(String.self, forKey: .plot) ??
-        /// else description
-        container.decodeIfPresent(String.self, forKey: .description) ?? ""
-        genre = try container.decodeIfPresent([String].self, forKey: .genre) ?? []
-        cast = try container.decodeIfPresent([ActorItem].self, forKey: .cast) ?? []
-        playcount = try container.decodeIfPresent(Int.self, forKey: .playcount) ?? 0
-        setName = try container.decodeIfPresent(String.self, forKey: .setName) ?? ""
-        file = try container.decodeIfPresent(String.self, forKey: .file) ?? ""
-
-        /// # Date and Time stuff
-        year = try container.decodeIfPresent(Int.self, forKey: .year) ?? 0
-        /// Movies and TV shows
-        premiered = try container.decodeIfPresent(String.self, forKey: .premiered) ??
-        /// Episodes
-        container.decodeIfPresent(String.self, forKey: .firstaired) ?? ""
-        /// Date the item is added to Kodi
-        dateAdded = try container.decodeIfPresent(String.self, forKey: .dateAdded) ?? ""
-        /// The duration of the item
-        runtime = try container.decodeIfPresent(Int.self, forKey: .runtime) ?? 0
-
-        /// # Art
-        art = try container.decodeIfPresent([String: String].self, forKey: .art) ?? [:]
-
-        /// # Episode stuff
-        episode = try container.decodeIfPresent(Int.self, forKey: .episode) ?? 0
-        season = try container.decodeIfPresent(Int.self, forKey: .season) ?? 0
-
         /// # ID of items
+
         movieID = try container.decodeIfPresent(Int.self, forKey: .movieID) ?? 0
+
         setID = try container.decodeIfPresent(Int.self, forKey: .setID) ?? 0
+
         tvshowID = try container.decodeIfPresent(Int.self, forKey: .tvshowID) ?? 0
+
         episodeID = try container.decodeIfPresent(Int.self, forKey: .episodeID) ?? 0
+
         musicvideoID = try container.decodeIfPresent(Int.self, forKey: .musicvideoID) ?? 0
+
         artistID = try container.decodeIfPresent(Int.self, forKey: .artistID) ?? 0
-
-
     }
 }
 
 extension KodiItem {
+
+    /// Conver runtime in seconds to a formatted time String
+    /// - Parameter runtime: Time in minutes
+    /// - Returns: The time as a formatted String
     func runtimeToDuration(runtime: Int) -> String {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute]

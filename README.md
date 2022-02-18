@@ -16,33 +16,48 @@ It is currently very much work in progress. I'm going to use this package in my 
 
 ## Example
 
+### The Scene
+
+```swift
+import SwiftUI
+import SwiftlyKodiAPI
+
+@main
+struct VideoPlayerApp: App {
+    /// The KodiConnector model
+    @StateObject var kodi: KodiConnector  = .shared
+    /// The AppState model
+    @StateObject var appState = AppState()
+    /// The Scene
+    var body: some Scene {
+        WindowGroup {
+            Group {
+                if kodi.library.isEmpty {
+                    VStack {
+                        Text("Loading your library")
+                            .font(.title)
+                        ProgressView()
+                    }
+                } else {
+                    ContentView()
+                        .environmentObject(kodi)
+                }
+            }
+        }
+    }
+}
+```
+
+### The AppState class
+
 ```swift
 import Foundation
 import SwiftlyKodiAPI
 
 final class AppState: ObservableObject {
-
-    @Published var kodiMovies: [MovieItem] = []
-    @Published var kodiGenres: [GenreItem] = []
-    @Published var kodiTVshows: [TVshowItem] = []
-    @Published var kodiMusicVideos: [MusicKodiItem] = []
-    
-    let client: KodiConnector = .shared
-    
+    let kodi: KodiConnector = .shared
     init() {
-        
-        client.host = HostItem(ip: "127.0.0.1")
-        
-        Task { @MainActor in
-            let movies = await client.getMovies()
-            kodiMovies = movies
-            let genres = await client.getGenres()
-            kodiGenres = genres
-            let tvShows = await client.getTVshows()
-            kodiTVshows = tvShows
-            let musicVideos = await client.getMusicVideos()
-            kodiMusicVideos = musicVideos
-        }
+        kodi.connectToHost(kodiHost: HostItem(ip: "127.0.0.1"))
     }
 }
 ```

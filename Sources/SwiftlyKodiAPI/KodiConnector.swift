@@ -25,7 +25,7 @@ public final class KodiConnector: ObservableObject {
     /// The VideoLibrary
     @Published public var library: [KodiItem] = []
 
-    /// The Genres
+    /// All genres from the Kodi library
     @Published public var genres: [GenreItem] = []
     
     // MARK: Init
@@ -42,6 +42,9 @@ public final class KodiConnector: ObservableObject {
 }
 
 extension KodiConnector {
+
+    /// Connect to a Kodi host and load the library
+    /// - Parameter kodiHost: The host configuration
     public func connectToHost(kodiHost: HostItem) {
         host = kodiHost
         Task { @MainActor in
