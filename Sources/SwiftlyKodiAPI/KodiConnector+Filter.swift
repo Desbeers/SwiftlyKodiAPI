@@ -34,10 +34,9 @@ extension KodiConnector {
                 .filter { $0.media == .episode && $0.tvshowID == filter.tvshowID }
         case .musicvideo:
             if let artist = filter.artist {
-                /// Because of being a 'general' struct; the artist of a music video is the 'subtitle'
                 items = library
                     .filter { $0.media == .musicvideo }
-                    .filter { $0.subtitle == artist }
+                    .filter { $0.artist.contains(artist.first ?? "") }
                     .sorted { $0.releaseDate < $1.releaseDate }
             } else {
                 items = library.filter { $0.media == .musicvideo } .unique { $0.subtitle }
@@ -61,7 +60,7 @@ extension KodiConnector {
 }
 
 public struct KodiFilter {
-    public init(media: KodiMedia, title: String? = nil, subtitle: String? = nil, tvshowID: Int? = nil, setID: Int? = nil, artist: String? = nil, genre: String? = nil, search: String? = nil) {
+    public init(media: KodiMedia, title: String? = nil, subtitle: String? = nil, tvshowID: Int? = nil, setID: Int? = nil, artist: [String]? = nil, genre: String? = nil, search: String? = nil) {
         self.media = media
         self.title = title
         self.subtitle = subtitle
@@ -76,7 +75,7 @@ public struct KodiFilter {
     public var subtitle: String?
     public var tvshowID: Int?
     public var setID: Int?
-    public var artist: String?
+    public var artist: [String]?
     public var genre: String?
     public var search: String?
 

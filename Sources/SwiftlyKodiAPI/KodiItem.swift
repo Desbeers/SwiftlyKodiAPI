@@ -81,6 +81,13 @@ public struct KodiItem: Codable, Identifiable {
     /// The season of the TV show
     public var season: Int = 0
     
+    /// # Audio stuff
+    
+    /// Artist of the item (artist or music video)
+    /// - Note: JSON can give a String or an Array; the decoder takes care of that
+    ///         and we just keep it as Array because that is the most common
+    public var artist: [String] = []
+    
     /// # Calculated stuff
     
     public var genres: String {
@@ -164,6 +171,9 @@ public struct KodiItem: Codable, Identifiable {
     /// The music video ID
     public var musicvideoID: Int = 0
     
+    /// The artist ID
+    public var artistID: Int = 0
+    
     /// # Internal variables
     
     /// Art of the item
@@ -180,9 +190,6 @@ public struct KodiItem: Codable, Identifiable {
     
     /// Tagline of the item (movie)
     var tagline: String = ""
-    
-    /// Artist of the item (artist or music video)
-    var artist: String = ""
     
     /// Runtime of the item
     var runtime: Int = 0
@@ -230,6 +237,8 @@ extension KodiItem {
         case episodeID = "episodeid"
         /// Camel Case
         case musicvideoID = "musicvideoid"
+        /// Camel Case
+        case artistID = "artistid"
         /// lowerCamelCase
         case dateAdded = "dateadded"
         /// # The internal keys
@@ -256,12 +265,21 @@ extension KodiItem {
 //        /// Music Video subtitle (artist)
 //        container.decodeIfPresent([String].self, forKey: .artist)?.joined(separator: "・") ?? ""
 
+        /// # Artist stuff
+        ///
+        /// - Note: A JSON artist response can be a String or an Array
+        
         if let artist = try? container.decodeIfPresent(String.self, forKey: .artist) {
-             self.subtitle = artist
-         }
+            /// The artist is a String, so most probably from AudioLibrary.GetArtists; use it as title
+            self.title = artist
+            self.subtitle = ""
+            self.artist = [artist]
+        }
         if let artists = try? container.decodeIfPresent([String].self, forKey: .artist) {
+            /// The artist is an Array; use it as subtitle
             self.subtitle = artists.joined(separator: "・")
-         }
+            self.artist = artists
+        }
 
         /// Check first for plot
         description = try container.decodeIfPresent(String.self, forKey: .plot) ??
@@ -273,7 +291,7 @@ extension KodiItem {
         setName = try container.decodeIfPresent(String.self, forKey: .setName) ?? ""
         file = try container.decodeIfPresent(String.self, forKey: .file) ?? ""
 
-        /// # Dates
+        /// # Date and Time stuff
         year = try container.decodeIfPresent(Int.self, forKey: .year) ?? 0
         /// Movies and TV shows
         premiered = try container.decodeIfPresent(String.self, forKey: .premiered) ??
@@ -281,8 +299,10 @@ extension KodiItem {
         container.decodeIfPresent(String.self, forKey: .firstaired) ?? ""
         /// Date the item is added to Kodi
         dateAdded = try container.decodeIfPresent(String.self, forKey: .dateAdded) ?? ""
+        /// The duration of the item
+        runtime = try container.decodeIfPresent(Int.self, forKey: .runtime) ?? 0
 
-
+        /// # Art
         art = try container.decodeIfPresent([String: String].self, forKey: .art) ?? [:]
 
         /// # Episode stuff
@@ -295,8 +315,8 @@ extension KodiItem {
         tvshowID = try container.decodeIfPresent(Int.self, forKey: .tvshowID) ?? 0
         episodeID = try container.decodeIfPresent(Int.self, forKey: .episodeID) ?? 0
         musicvideoID = try container.decodeIfPresent(Int.self, forKey: .musicvideoID) ?? 0
+        artistID = try container.decodeIfPresent(Int.self, forKey: .artistID) ?? 0
 
-        runtime = try container.decodeIfPresent(Int.self, forKey: .runtime) ?? 0
 
     }
 }

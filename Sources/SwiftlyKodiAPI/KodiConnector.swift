@@ -8,7 +8,7 @@
 import Foundation
 
 /// The Class that provides the connection between Swift and the Kodi host
-public final class KodiConnector {
+public final class KodiConnector: ObservableObject {
     
     // MARK: Constants and Variables
     
@@ -20,7 +20,7 @@ public final class KodiConnector {
     var webSocketTask: URLSessionWebSocketTask?
     
     /// The active host
-    public var host = HostItem()
+    var host = HostItem()
     
     /// The VideoLibrary
     @Published public var library: [KodiItem] = []
@@ -38,8 +38,13 @@ public final class KodiConnector {
         configuration.timeoutIntervalForRequest = 300
         configuration.timeoutIntervalForResource = 120
         self.urlSession = URLSession(configuration: configuration)
-        
-        Task {
+    }
+}
+
+extension KodiConnector {
+    public func connectToHost(kodiHost: HostItem) {
+        host = kodiHost
+        Task { @MainActor in
             let libraryItems = await getAllVideos()
             library = libraryItems
             let genreItems = await getAllGenres()
