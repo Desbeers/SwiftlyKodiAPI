@@ -61,3 +61,32 @@ final class AppState: ObservableObject {
     }
 }
 ```
+
+### List all TV shows containing 'Comedy' genre
+
+```swift
+import SwiftUI
+import SwiftlyKodiAPI
+
+struct ContentView: View {
+    /// The KodiConnector model
+    @EnvironmentObject var kodi: KodiConnector
+    /// The list of TV shows
+    @State var tvshows: [KodiItem] = []
+    /// The View
+    var body: some View {
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                ForEach(tvshows) { tvshow in
+                    KodiItemView(item: tvshow)
+                }
+            }
+        }
+        .task {
+            let filter = KodiFilter(media: .tvshow, genre: "Comedy")
+            let tvshowItems = await kodi.filter(filter)
+            tvshows = tvshowItems
+        }
+    }
+}
+```
