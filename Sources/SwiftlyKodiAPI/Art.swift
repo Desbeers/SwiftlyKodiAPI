@@ -5,14 +5,14 @@
 //  © 2022 Nick Berendsen
 //
 
-import Foundation
+import SwiftUI
 
-enum KodiArt {
+public enum KodiArtType {
     case poster
     case fanart
 }
 
-func getSpecificArt(art: [String: String], type: KodiArt) -> String {
+func getSpecificArt(art: [String: String], type: KodiArtType) -> String {
     
     switch type {
         

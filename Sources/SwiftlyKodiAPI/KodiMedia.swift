@@ -7,12 +7,14 @@
 
 import Foundation
 
-/// The Kodi media items
+/// The Kodi media types
 public enum KodiMedia: String, Equatable {
     /// All items
     case all
     /// Movies
     case movie
+    /// Movie sets
+    case movieSet
     /// TV shows
     case tvshow
     /// Episodes
@@ -21,4 +23,21 @@ public enum KodiMedia: String, Equatable {
     case musicvideo
     /// Artists
     case artist
+    /// The method for updating the media item
+    var setDetailsMethod: KodiConnector.Method {
+        switch self {
+        case .movie:
+            return .videoLibrarySetMovieDetails
+        case .movieSet:
+            return .videoLibrarySetMovieSetDetails
+        case .tvshow:
+            return .videoLibrarySetTVShowDetails
+        case .episode:
+            return .videoLibrarySetEpisodeDetails
+        case .musicvideo:
+            return .videoLibrarySetMusicVideoDetails
+        default:
+            return .videoLibraryGetMovies
+        }
+    }
 }

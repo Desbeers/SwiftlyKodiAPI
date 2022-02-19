@@ -31,6 +31,7 @@ extension KodiConnector {
     /// Send a message to the host, not caring about the response
     /// - Parameter request: The full URL request
     func sendMessage<T: KodiAPI>(
+
         message: T
     ) {
         urlSession.dataTask(with: message.urlRequest).resume()

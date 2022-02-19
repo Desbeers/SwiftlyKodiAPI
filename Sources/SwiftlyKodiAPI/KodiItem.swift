@@ -14,7 +14,11 @@ import Foundation
 /// - TV show
 /// - Episode
 /// - Music video
-public struct KodiItem: Codable, Identifiable {
+public struct KodiItem: Codable, Identifiable, Equatable {
+    public static func == (lhs: KodiItem, rhs: KodiItem) -> Bool {
+        return lhs.playcount == rhs.playcount
+    }
+    
     /// Make it indentifiable
     public var id = UUID()
     
@@ -128,8 +132,8 @@ public struct KodiItem: Codable, Identifiable {
         return getSpecificArt(art: art, type: .poster)
     }
     
-    /// The optional fanart for the item
-    public var fanart: String? {
+    /// The fanart for the item
+    public var fanart: String {
         return getSpecificArt(art: art, type: .fanart)
     }
     
@@ -137,6 +141,9 @@ public struct KodiItem: Codable, Identifiable {
     public var fileURL: URL {
         return URL(string: file.kodiFileUrl(media: .file))!
     }
+    
+    /// Default SF symbol for the item
+    public var icon: String = "questionmark"
     
     /// # ID's of items
 

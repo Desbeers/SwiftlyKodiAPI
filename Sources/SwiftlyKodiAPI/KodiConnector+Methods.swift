@@ -43,8 +43,19 @@ extension KodiConnector {
         case videoLibraryGetTVShows = "VideoLibrary.GetTVShows"
         /// Get episodes from the host
         case videoLibraryGetEpisodes = "VideoLibrary.GetEpisodes"
-        /// Get music videeos from the host
+        /// Get music videos from the host
         case videoLibraryGetMusicVideos = "VideoLibrary.GetMusicVideos"
+        
+        /// Set details for a movie
+        case videoLibrarySetMovieDetails = "VideoLibrary.SetMovieDetails"
+        /// Set details for a movie set
+        case videoLibrarySetMovieSetDetails = "VideoLibrary.SetMovieSetDetails"
+        /// Set details for a TV show
+        case videoLibrarySetTVShowDetails = "VideoLibrary.SetTVShowDetails"
+        /// Set details for an episode
+        case videoLibrarySetEpisodeDetails = "VideoLibrary.SetEpisodeDetails"
+        /// Set details for a music video
+        case videoLibrarySetMusicVideoDetails = "VideoLibrary.SetMusicVideoDetails"
         
         /// # Audio
         

@@ -22,8 +22,5 @@ let package = Package(
         .target(
             name: "SwiftlyKodiAPI",
             dependencies: []),
-        .testTarget(
-            name: "SwiftlyKodiAPITests",
-            dependencies: ["SwiftlyKodiAPI"]),
     ]
 )

@@ -29,16 +29,29 @@ public final class KodiConnector: ObservableObject {
     @Published public var genres: [GenreItem] = []
     
     // MARK: Init
-    
+
     /// Private init to make sure we have only one instance
-    private init() {
+    private init(configuration: URLSessionConfiguration) {
         /// Network stuff
-        let configuration = URLSessionConfiguration.ephemeral
         configuration.waitsForConnectivity = true
         configuration.timeoutIntervalForRequest = 300
         configuration.timeoutIntervalForResource = 120
         self.urlSession = URLSession(configuration: configuration)
     }
+    /// Black magic
+    convenience init() {
+        self.init(configuration: .ephemeral)
+    }
+    
+//    /// Private init to make sure we have only one instance
+//    private init() {
+//        /// Network stuff
+//        let configuration = URLSessionConfiguration.ephemeral
+//        configuration.waitsForConnectivity = true
+//        configuration.timeoutIntervalForRequest = 300
+//        configuration.timeoutIntervalForResource = 120
+//        self.urlSession = URLSession(configuration: configuration)
+//    }
 }
 
 extension KodiConnector {
@@ -53,6 +66,14 @@ extension KodiConnector {
             let genreItems = await getAllGenres()
             genres = genreItems
         }
+    }
+
+    /// Reload the library from the Kodi host
+    @MainActor public func reloadHost() {
+        /// Empty the library
+        library = [KodiItem]()
+        /// Reload it
+        connectToHost(kodiHost: host)
     }
 }
 
