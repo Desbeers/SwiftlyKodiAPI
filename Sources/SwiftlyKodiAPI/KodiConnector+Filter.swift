@@ -64,10 +64,11 @@ extension KodiConnector {
 /// The struct for a Kodi filter that can be send to the ``KodiConnector/filter(_:)`` function to filter the library
 public struct KodiFilter {
     /// Public init is needed because this struct is in a package so doesn't give it 'for free'...
-    public init(media: KodiMedia, title: String? = nil, subtitle: String? = nil, tvshowID: Int? = nil, setID: Int? = nil, artist: [String]? = nil, genre: String? = nil, search: String? = nil) {
+    public init(media: KodiMedia, title: String? = nil, subtitle: String? = nil, fanart: String? = nil, tvshowID: Int? = nil, setID: Int? = nil, artist: [String]? = nil, genre: String? = nil, search: String? = nil) {
         self.media = media
         self.title = title
         self.subtitle = subtitle
+        self.fanart = fanart
         self.tvshowID = tvshowID
         self.setID = setID
         self.artist = artist
@@ -80,6 +81,8 @@ public struct KodiFilter {
     public var title: String?
     /// The subtitle that can be used in a View
     public var subtitle: String?
+    /// The fanart that can be used in a View
+    public var fanart: String?
     /// The TV show ID when filtering for episodes
     public var tvshowID: Int?
     /// The Movie Set ID when filtering for a movie set

@@ -55,13 +55,14 @@ public struct KodiItem: Codable, Identifiable, Equatable {
     /// - Music Video: Genre + Year
     public var details: String {
         var details: [String] = []
-        /// Check if it is an episode
-        if episode != 0 {
+        switch media {
+        case .episode:
             details.append("Episode \(episode)")
             details.append("Season \(season)")
-        } else {
+        default:
             details = genre
             details.append(releaseYear)
+            details.append(duration)
         }
         return details.joined(separator: "・")
     }
@@ -387,12 +388,13 @@ extension KodiItem {
             /// Camel Case
             case setID = "setid"
         }
-        /// The poster of the movie set
+        /// The poster of the set
         public var poster: String {
-            if let posterArt = art["poster"] {
-                return posterArt.kodiFileUrl(media: .art)
-            }
-            return ""
+            return getSpecificArt(art: art, type: .poster)
+        }
+        /// The fanart of the set
+        public var fanart: String {
+            return getSpecificArt(art: art, type: .fanart)
         }
         /// The movie titles in the set
         public var movies: String = ""
