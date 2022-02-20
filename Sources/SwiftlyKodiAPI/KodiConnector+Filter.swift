@@ -39,7 +39,7 @@ extension KodiConnector {
                     .sorted { $0.releaseDate < $1.releaseDate }
             } else {
                 /// Filter for one music video for earch artist to build an Artist View
-                items = library.filter { $0.media == .musicvideo } .unique { $0.subtitle }
+                items = library.filter { $0.media == .musicvideo } .unique { $0.artist }
             }
         case .all:
             items = library

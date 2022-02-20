@@ -254,9 +254,7 @@ extension KodiItem {
         
         /// - Note: Subtitle is different for each media kind
         /// Movie subtitle is the tagline, if any..
-        subtitle = try container.decodeIfPresent(String.self, forKey: .tagline) ??
-        /// else the show title for an Episode
-        container.decodeIfPresent(String.self, forKey: .showtitle) ?? ""
+        subtitle = try container.decodeIfPresent(String.self, forKey: .tagline) ?? ""
         
         /// - Note: description can either be a plot or a real description
         /// Check first for plot
@@ -293,7 +291,9 @@ extension KodiItem {
 
         cast = try container.decodeIfPresent([ActorItem].self, forKey: .cast) ?? []
         
-        /// # Episode stuff
+        /// # TV show stuff
+        
+        showtitle = try container.decodeIfPresent(String.self, forKey: .showtitle) ?? ""
         
         episode = try container.decodeIfPresent(Int.self, forKey: .episode) ?? 0
         
@@ -305,12 +305,12 @@ extension KodiItem {
         if let artist = try? container.decodeIfPresent(String.self, forKey: .artist) {
             /// The artist is a String, so most probably from AudioLibrary.GetArtists; use it as title
             self.title = artist
-            self.subtitle = ""
+            // self.subtitle = ""
             self.artist = [artist]
         }
         if let artists = try? container.decodeIfPresent([String].self, forKey: .artist) {
             /// The artist is an Array; use it as subtitle
-            self.subtitle = artists.joined(separator: "・")
+            // self.subtitle = artists.joined(separator: "・")
             self.artist = artists
         }
 
