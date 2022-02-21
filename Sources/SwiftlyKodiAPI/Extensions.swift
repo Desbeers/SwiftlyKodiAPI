@@ -26,7 +26,7 @@ extension Array where Element == KodiItem {
 }
 
 extension Array where Element: Hashable {
-    func removingDuplicates() -> [Element] {
+    public func removingDuplicates() -> [Element] {
         var addedDict = [Element: Bool]()
 
         return filter {
@@ -34,7 +34,7 @@ extension Array where Element: Hashable {
         }
     }
 
-    mutating func removeDuplicates() {
+    public mutating func removeDuplicates() {
         self = self.removingDuplicates()
     }
 }
@@ -59,7 +59,7 @@ extension Array where Element == KodiItem {
 }
 
 extension Sequence {
-    func unique<T: Hashable>(by taggingHandler: (_ element: Self.Iterator.Element) -> T) -> [Self.Iterator.Element] {
+    public func unique<T: Hashable>(by taggingHandler: (_ element: Self.Iterator.Element) -> T) -> [Self.Iterator.Element] {
         var knownTags = Set<T>()
         
         return self.filter { element -> Bool in

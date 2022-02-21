@@ -23,8 +23,6 @@ extension KodiConnector {
                 let movies = result.movies.filter { $0.setID == movieSet.setID} .sortByYearAndTitle()
                 for movie in movies {
                     var movieWithSet = movie
-                    /// Use the movie set playcount
-                    movieWithSet.playcount = movieSet.playcount
                     movieWithSet.setInfo = movieSet
                     movieWithSet.setInfo.movies = movies.map { $0.title}
                     .joined(separator: "・")

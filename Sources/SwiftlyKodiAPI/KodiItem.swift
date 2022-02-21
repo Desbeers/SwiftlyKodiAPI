@@ -56,9 +56,15 @@ public struct KodiItem: Codable, Identifiable, Equatable {
     public var details: String {
         var details: [String] = []
         switch media {
+        case .tvshow:
+            details = genre
+            details.append(releaseYear)
+            if !studio.isEmpty {
+                details += studio
+            }
         case .episode:
             details.append("Episode \(episode)")
-            details.append("Season \(season)")
+            details.append("Aired \(releaseDate.formatted(date: .abbreviated, time: .omitted))")
         default:
             details = genre
             details.append(releaseYear)
@@ -192,6 +198,9 @@ public struct KodiItem: Codable, Identifiable, Equatable {
     /// Title of a TV show (episode)
     var showtitle: String = ""
     
+    /// Studio of a TV show
+    var studio: [String] = []
+    
     /// Year of release of the item
     var year: Int = 0
     
@@ -218,7 +227,7 @@ extension KodiItem {
     /// The coding keys
     enum CodingKeys: String, CodingKey {
         /// The public keys
-        case title, subtitle, description, episode, season, cast, playcount, setInfo
+        case title, subtitle, description, episode, season, cast, playcount, setInfo, artist
         /// Camel Case
         case setName = "set"
         /// # The public ID's
@@ -238,7 +247,7 @@ extension KodiItem {
         case dateAdded = "dateadded"
         /// # The internal keys
         /// Keys that are not exposed outside of the package
-        case plot, tagline, genre, artist, showtitle, year, premiered, firstaired, art, runtime, sorttitle, file
+        case plot, tagline, genre, studio, showtitle, year, premiered, firstaired, art, runtime, sorttitle, file
     }
 }
 
@@ -299,6 +308,8 @@ extension KodiItem {
         episode = try container.decodeIfPresent(Int.self, forKey: .episode) ?? 0
         
         season = try container.decodeIfPresent(Int.self, forKey: .season) ?? 0
+        
+        studio = try container.decodeIfPresent([String].self, forKey: .studio) ?? []
         
         /// # Audio stuff
 
