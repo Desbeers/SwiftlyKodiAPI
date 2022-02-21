@@ -23,6 +23,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
     public var username: String
     /// Password of the host
     public var password: String
+    /// Init the Host struct
     public init(id: UUID = UUID(),
                 description: String = "Kodi",
                 ip: String = "192.168.11.200",

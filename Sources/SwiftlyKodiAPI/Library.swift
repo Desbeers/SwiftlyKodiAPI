@@ -8,7 +8,9 @@
 import Foundation
 
 extension KodiConnector {
-
+    
+    /// Mark a Video item as watched
+    /// - Parameter video: The Kodi video item that is watched
     @MainActor public func markVideoAsWatched(_ video: KodiItem) {
         print("Mark \(video.title) as watched")
         if let index = library.firstIndex(where: { $0.id == video.id }) {
@@ -17,6 +19,8 @@ extension KodiConnector {
         }
     }
     
+    /// Toggle the watched status of a Video item
+    /// - Parameter video: The Kodi video item to toggle
     @MainActor public func toggleWatchedState(_ video: KodiItem) {
         print("Toggle \(video.title) watched state")
         if let index = library.firstIndex(where: { $0.id == video.id }) {
@@ -25,6 +29,8 @@ extension KodiConnector {
         }
     }
     
+    /// Set the play count of a Kodi item
+    /// - Parameter item: The Kodi item
     func setPlaycount(_ item: KodiItem) {
         let message = LibrarySetPlaycount(item: item)
         sendMessage(message: message)
