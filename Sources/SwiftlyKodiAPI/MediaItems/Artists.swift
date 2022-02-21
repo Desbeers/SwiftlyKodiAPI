@@ -1,5 +1,5 @@
 //
-//  Episodes.swift
+//  Artists.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen

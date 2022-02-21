@@ -8,12 +8,6 @@
 import Foundation
 
 /// A struct for a Kodi Library Item
-///
-/// This can be one of the following:
-/// - Movie
-/// - TV show
-/// - Episode
-/// - Music video
 public struct KodiItem: Codable, Identifiable, Equatable {
     public static func == (lhs: KodiItem, rhs: KodiItem) -> Bool {
         return lhs.playcount == rhs.playcount
@@ -119,6 +113,9 @@ public struct KodiItem: Codable, Identifiable, Equatable {
     
     /// # TV show and Episode stuff
     
+    /// Title of a TV show (episode item)
+    public var showtitle: String = ""
+    
     /// The episode number of the TV show
     public var episode: Int = 0
     
@@ -194,9 +191,6 @@ public struct KodiItem: Codable, Identifiable, Equatable {
     
     /// Runtime of the item
     var runtime: Int = 0
-    
-    /// Title of a TV show (episode)
-    var showtitle: String = ""
     
     /// Studio of a TV show
     var studio: [String] = []

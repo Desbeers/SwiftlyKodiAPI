@@ -1,5 +1,5 @@
 //
-//  Host.swift
+//  KodiHost.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen

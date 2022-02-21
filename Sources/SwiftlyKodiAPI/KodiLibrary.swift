@@ -1,7 +1,7 @@
 //
-//  File 2.swift
+//  KodiMedia.swift
+//  SwiftlyKodiAPI
 //  
-//
 //  Created by Nick Berendsen on 18/02/2022.
 //
 
