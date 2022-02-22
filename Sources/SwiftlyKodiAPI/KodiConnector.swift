@@ -28,6 +28,9 @@ public final class KodiConnector: ObservableObject {
     /// All genres from the Kodi library
     @Published public var genres: [GenreItem] = []
     
+    /// All artists from the Kodi library
+    @Published public var artists: [KodiItem] = []
+    
     // MARK: Init
 
     /// Private init to make sure we have only one instance
@@ -65,6 +68,8 @@ extension KodiConnector {
             library = libraryItems
             let genreItems = await getAllGenres()
             genres = genreItems
+            let artistItems = await getArtists()
+            artists = artistItems
         }
     }
 
@@ -88,7 +93,6 @@ extension KodiConnector {
         items += tvshows
         await items += getAllEpisodes(tvshows: tvshows)
         await items += getMusicVideos()
-        await items += getArtists()
         return items
     }
     

@@ -23,8 +23,9 @@ extension KodiConnector {
                 items = library.filter { $0.media == .movie && $0.setID == setID }
                 .sortByYearAndTitle()
             } else {
-                items = library.filter { $0.media == .movie } .uniqueSet()
-                    .sortBySetAndTitle()
+                items = library.filter { $0.media == .movie }
+                .uniqueSet()
+                .sortBySetAndTitle()
             }
         case .tvshow:
             items = library.filter { $0.media == .tvshow}
