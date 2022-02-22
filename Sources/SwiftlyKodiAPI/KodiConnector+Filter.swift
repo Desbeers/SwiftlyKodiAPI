@@ -52,9 +52,9 @@ extension KodiConnector {
             items = items
                 .filter { $0.genre.contains(genre) }
                 .sortBySetAndTitle()
-//            if filter.setID == nil {
-//                items = items.uniqueSet()
-//            }
+            if filter.setID == nil {
+                items = items.uniqueSet()
+            }
         }
         /// That should be it!
         return items
