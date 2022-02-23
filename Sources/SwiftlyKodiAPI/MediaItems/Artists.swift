@@ -51,7 +51,7 @@ extension KodiConnector {
             /// The properties that we ask from Kodi
             let properties = [
                 "art",
-                "description",
+                "description"
                 //"isalbumartist",
                 //"songgenres"
             ]

@@ -84,7 +84,7 @@ extension KodiConnector {
         ///  Order by last played
         case lastPlayed = "lastplayed"
         ///  Order by play count
-        case playCount = "playcount"
+        case playcount = "playcount"
         ///  Order by year
         case year = "year"
         ///  Order by track

@@ -15,6 +15,15 @@ extension KodiConnector {
         let request = VideoLibraryGetTVShows()
         do {
             let result = try await sendRequest(request: request)
+            
+            for tvshow in result.tvshows {
+                /// Add this tv show to the Kodi library
+                kodiLibrary.append(KodiLibraryItem(title: tvshow.title,
+                                                   media: .tvshow,
+                                                   tvshowID: tvshow.tvshowID)
+                )
+            }
+            
             return setMediaKind(items: result.tvshows, media: .tvshow)
         } catch {
             /// There are no TV shows in the library

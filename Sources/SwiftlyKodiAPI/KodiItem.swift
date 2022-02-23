@@ -5,9 +5,9 @@
 //  © 2022 Nick Berendsen
 //
 
-import Foundation
+import SwiftUI
 
-/// A struct for a Kodi Library Item
+/// A struct for a Kodi item in the library
 public struct KodiItem: Codable, Identifiable, Equatable {
     public static func == (lhs: KodiItem, rhs: KodiItem) -> Bool {
         return lhs.playcount == rhs.playcount
@@ -221,7 +221,7 @@ extension KodiItem {
     /// The coding keys
     enum CodingKeys: String, CodingKey {
         /// The public keys
-        case title, subtitle, description, episode, season, cast, playcount, setInfo, artist
+        case title, subtitle, description, playcount, episode, season, cast, setInfo, artist
         /// Camel Case
         case setName = "set"
         /// # The public ID's
@@ -387,7 +387,7 @@ extension KodiItem {
         public var description: String = ""
         /// The coding keys
         enum CodingKeys: String, CodingKey {
-            case title, playcount, art
+            case title, art, playcount
             /// Description is plot
             case description = "plot"
             /// Camel Case

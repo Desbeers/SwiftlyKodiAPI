@@ -12,21 +12,22 @@ extension KodiConnector {
     /// Filter the Kodi library for specific items
     /// - Parameter filter: A struct with al the filter parameters
     /// - Returns: All Kodi media items confirming to the filter
-    public func filter(_ filter: KodiFilter) async -> [KodiItem] {
+    func filter(_ filter: KodiFilter) -> [KodiItem] {
         /// Start with an empty array
         var items: [KodiItem] = []
         
         switch filter.media {
         case .movie:
-            /// If `setID` is set it means we want movies from a specific set
-            if let setID = filter.setID {
-                items = library.filter { $0.media == .movie && $0.setID == setID }
-                .sortByYearAndTitle()
-            } else {
-                items = library.filter { $0.media == .movie }
-                .uniqueSet()
-                .sortBySetAndTitle()
-            }
+            return filterMovies(filter)
+//            /// If `setID` is set it means we want movies from a specific set
+//            if let setID = filter.setID {
+//                items = library.filter { $0.media == .movie && $0.setID == setID }
+//                .sortByYearAndTitle()
+//            } else {
+//                items = library.filter { $0.media == .movie }
+//                .uniqueSet()
+//                .sortBySetAndTitle()
+//            }
         case .tvshow:
             items = library.filter { $0.media == .tvshow}
         case .episode:

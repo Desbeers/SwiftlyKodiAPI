@@ -5,25 +5,7 @@
 //  © 2022 Nick Berendsen
 //
 
-import Foundation
-
-extension Array where Element == KodiItem {
-    
-    /// Filter the movies to have only one movie representing a set
-    /// - Returns: A list with movies without duplicated sets
-    func uniqueSet() -> [KodiItem] {
-        var knownSets = Set<Int>()
-        return self.filter { element -> Bool in
-            let set = element.setID
-            if set == 0 || !knownSets.contains(set) {
-                knownSets.insert(set)
-                return true
-            }
-            /// This set is already in the list
-            return false
-        }
-    }
-}
+import SwiftUI
 
 extension Array where Element: Hashable {
 
@@ -40,25 +22,6 @@ extension Array where Element: Hashable {
     /// Remove duplicates from an Array
     public mutating func removeDuplicates() {
         self = self.removingDuplicates()
-    }
-}
-
-extension Array where Element == KodiItem {
-    
-    /// Standard sorting for movies; sets will be included in alphabetic order
-    func sortBySetAndTitle() -> [KodiItem] {
-        return self.sorted {
-            $0.sortBySetAndTitle < $1.sortBySetAndTitle
-        }
-    }
-    
-    /// Sort first by year, than by title. Used insde moviesets and music videos from a specific artist
-    func sortByYearAndTitle() -> [KodiItem] {
-        return self.sorted {
-            $0.releaseDate == $1.releaseDate ?
-            $0.sortByTitle.localizedStandardCompare($1.sortByTitle) == .orderedAscending :
-            $0.releaseDate < $1.releaseDate
-        }
     }
 }
 
