@@ -17,10 +17,13 @@ extension KodiConnector {
             get: { self.library.first(where: { $0.id == item.id}) ?? item },
             set: {newValue in
                 if let index = self.library.firstIndex(where: { $0.id == item.id}) {
+                    print("Binding!!!")
                     /// Update the library
                     Task { @MainActor in
                         self.library[index] = newValue
                     }
+                } else {
+                    print("No binding...")
                 }
             })
     }
@@ -48,7 +51,7 @@ extension KodiConnector {
     
     /// Set the play count of a Kodi item
     /// - Parameter item: The Kodi item
-    func setPlaycount(_ item: KodiItem) {
+    public func setPlaycount(_ item: KodiItem) {
         let message = LibrarySetPlaycount(item: item)
         sendMessage(message: message)
     }
