@@ -13,48 +13,47 @@ extension KodiConnector {
     /// - Parameter filter: A struct with al the filter parameters
     /// - Returns: All Kodi media items confirming to the filter
     func filter(_ filter: KodiFilter) -> [KodiItem] {
-        /// Start with an empty array
-        var items: [KodiItem] = []
-        
+        /// Get the library
+        var items = library
+        /// Remove Kodi items that we don't need
+        if filter.media != .all {
+            items.removeAll(where: { $0.media != filter.media } )
+        }
+
         switch filter.media {
         case .movie:
-            return filterMovies(filter)
-//            /// If `setID` is set it means we want movies from a specific set
-//            if let setID = filter.setID {
-//                items = library.filter { $0.media == .movie && $0.setID == setID }
-//                .sortByYearAndTitle()
-//            } else {
-//                items = library.filter { $0.media == .movie }
-//                .uniqueSet()
-//                .sortBySetAndTitle()
-//            }
+            /// If `setID` is set it means we want movies from a specific set
+            if let setID = filter.setID {
+                items = items.filter { $0.setID == setID }
+                items.sortByYearAndTitle()
+            } else {
+                items.uniqueSet()
+                items.sortBySetAndTitle()
+            }
         case .tvshow:
-            items = library.filter { $0.media == .tvshow}
+            break
         case .episode:
-            items = library.filter { $0.media == .episode && $0.tvshowID == filter.tvshowID }
+            items = items.filter { $0.tvshowID == filter.tvshowID }
         case .musicvideo:
             /// If `artist` is set we filter music videos for this specific artist
             if let artist = filter.artist {
-                items = library
-                    .filter { $0.media == .musicvideo }
+                items = items
                     .filter { $0.artist.contains(artist.first ?? "") }
                     .sorted { $0.releaseDate < $1.releaseDate }
             } else {
                 /// Filter for one music video for earch artist to build an Artist View
-                items = library.filter { $0.media == .musicvideo } .unique { $0.artist }
+                items = items.unique { $0.artist }
             }
-        case .all:
-            items = library
         default:
-            items = [KodiItem]()
+            break
         }
         /// Now that filtering on media type is done, check if some additional fitereing is needed
         if let genre = filter.genre {
             items = items
                 .filter { $0.genre.contains(genre) }
-                .sortBySetAndTitle()
+            items.sortBySetAndTitle()
             if filter.setID == nil {
-                items = items.uniqueSet()
+                items.uniqueSet()
             }
         }
         /// That should be it!

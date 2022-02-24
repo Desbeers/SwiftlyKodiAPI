@@ -23,10 +23,12 @@ public final class KodiConnector: ObservableObject {
     var host = HostItem()
 
     /// The VideoLibrary
-    @Published public var kodiLibrary: [KodiLibraryItem] = []
-
-    /// The VideoLibrary
-    @Published public var library: [KodiItem] = []
+    @Published public var library: [KodiItem] = [] {
+        didSet {
+            print("Library got an update!")
+            objectWillChange.send()
+        }
+    }
 
     /// All genres from the Kodi library
     @Published public var genres: [GenreItem] = []
@@ -37,21 +39,9 @@ public final class KodiConnector: ObservableObject {
     /// Private library stuff
     
     @Published public var movies: [KodiItem] = []
+
     
     // MARK: Init
-
-//    /// Private init to make sure we have only one instance
-//    private init(configuration: URLSessionConfiguration) {
-//        /// Network stuff
-//        configuration.waitsForConnectivity = true
-//        configuration.timeoutIntervalForRequest = 300
-//        configuration.timeoutIntervalForResource = 120
-//        self.urlSession = URLSession(configuration: configuration)
-//    }
-//    /// Black magic
-//    convenience init() {
-//        self.init(configuration: .ephemeral)
-//    }
     
     /// Private init to make sure we have only one instance
     private init() {
@@ -71,9 +61,6 @@ extension KodiConnector {
     public func connectToHost(kodiHost: HostItem) {
         host = kodiHost
         Task { @MainActor in
-            
-            let movieItems = await getMovies()
-            movies = movieItems            
             let libraryItems = await getAllVideos()
             library = libraryItems
             let genreItems = await getAllGenres()
@@ -98,7 +85,7 @@ extension KodiConnector {
     /// - Returns: All the `MovieItem`'s from the Kodi host
     func getAllVideos() async -> [KodiItem] {
         var items: [KodiItem] = []
-        //await items += getMovies()
+        await items += getMovies()
         let tvshows = await getTVshows()
         items += tvshows
         await items += getAllEpisodes(tvshows: tvshows)

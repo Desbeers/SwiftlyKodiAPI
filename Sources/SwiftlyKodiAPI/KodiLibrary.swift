@@ -6,35 +6,6 @@
 
 import SwiftUI
 
-/// A struct for a Kodi Library item
-public struct KodiLibraryItem: Identifiable {
-    /// Make it indentifiable
-    public let id = UUID()
-    /// The title of the item
-    public var title: String = ""
-    /// The kind of media
-    public var media: KodiMedia = .all
-    /// The release date of the item
-    public var releaseDate: Date = Date()
-    /// The playcount of the item
-    public var playcount: Int = 0
-    /// # ID's
-    /// The Movie ID
-    public var movieID: Int = 0
-    /// The Movie Set ID
-    public var setID: Int = 0
-    /// The TV show ID
-    public var tvshowID: Int = 0
-    /// The Episode ID
-    public var episodeID: Int = 0
-    /// The Music Video ID
-    public var musicVideoID: Int = 0
-    /// The Artist ID
-    public var artistID: Int = 0
-    /// The Artists ID
-    public var artistsID: [Int] = []
-}
-
 extension KodiConnector {
     
     /// Get a Binding from a ``KodiItem`` to the Kodi library
@@ -43,10 +14,26 @@ extension KodiConnector {
     /// - Returns: A Binding to the Kodi library
     func getLibraryBinding(item: KodiItem) -> Binding<KodiItem> {
         return  Binding<KodiItem>(
-            get: {item},
+            get: {
+                if let index = self.library.firstIndex(where: { $0.id == item.id}) {
+                    print("Have binding for \(item.title)")
+                    return self.library[index]
+                } else {
+                    return item
+                }
+                
+                },
             set: {newValue in
                 if let index = self.library.firstIndex(where: { $0.id == item.id}) {
-                    self.library[index] = newValue
+                    print("Have binding for \(item.title)")
+                    print("Old Playcount: \(item.playcount)")
+                    print("New Playcount: \(newValue.playcount)")
+                    Task { @MainActor in
+                        self.library[index] = newValue
+                        self.objectWillChange.send()
+                    }
+                } else {
+                    print("No binding")
                 }
             })
     }
@@ -65,7 +52,7 @@ extension KodiConnector {
     /// - Parameter item: The Kodi video item to toggle
     @MainActor func toggleWatchedState(_ item: KodiItem) -> KodiItem {
         if let index = library.firstIndex(where: { $0.id == item.id }) {
-            library[index].playcount = item.playcount == 0 ? 1 : 0
+            //library[index].playcount = item.playcount == 0 ? 1 : 0
             setPlaycount(library[index])
             return library[index]
         }

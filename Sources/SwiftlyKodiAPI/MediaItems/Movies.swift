@@ -16,30 +16,12 @@ extension KodiConnector {
         let movieSets = await getMovieSets()
         do {
             let result = try await sendRequest(request: request)
-            
-            for movie in result.movies {
-                /// Add this tv show to the Kodi library
-                kodiLibrary.append(KodiLibraryItem(title: movie.title,
-                                                   media: .movie,
-                                                   movieID: movie.movieID,
-                                                   setID: movie.setID
-                                                  )
-                )
-            }
-            
-            /// FIX BELOW!!!!!
-            
             /// Get the movies that are not part of a set
             var movieItems = result.movies.filter { $0.setID == 0 }
             /// Add set information to the movies
             for movieSet in movieSets {
-                let movies = result.movies.filter { $0.setID == movieSet.setID} .sortByYearAndTitle()
-                
-                self.movies = result.movies
-                
+                let movies = result.movies.filter { $0.setID == movieSet.setID}
                 for movie in movies {
-                    
-                    
                     var movieWithSet = movie
                     movieWithSet.setInfo = movieSet
                     movieWithSet.setInfo.movies = movies.map { $0.title}
@@ -56,34 +38,6 @@ extension KodiConnector {
             /// There are no movies in the library
             print("Loading movies failed with error: \(error)")
             return [KodiItem]()
-        }
-    }
-    
-    func filterMovies(_ filter: KodiFilter) -> [KodiItem] {
-        if let setID = filter.setID {
-            print("Have Set")
-            print(setID)
-            let moviesID = kodiLibrary
-                .filter { $0.media == .movie && $0.setID == setID }
-                .map { $0.movieID }
-            
-            dump(moviesID)
-            
-            return movies
-                .filter {moviesID.contains($0.movieID)}
-                .sortByYearAndTitle()
-
-        } else {
-            
-            let moviesID = kodiLibrary
-                .filter { $0.media == .movie }
-                .map { $0.movieID }
-            
-
-            return movies
-                .filter {moviesID.contains($0.movieID)}
-                .uniqueSet()
-                .sortBySetAndTitle()
         }
     }
     
@@ -173,12 +127,5 @@ extension KodiConnector {
             /// The list of movies
             let sets: [KodiItem.MovieSetItem]
         }
-    }
-}
-
-extension Array where Element == KodiLibraryItem {
-
-    public func filter(_ filter: KodiFilter) -> [KodiItem] {
-        return KodiConnector.shared.filter(filter)
     }
 }
