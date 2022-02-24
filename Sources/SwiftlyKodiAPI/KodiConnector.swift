@@ -24,9 +24,13 @@ public final class KodiConnector: ObservableObject {
 
     /// The VideoLibrary
     @Published public var library: [KodiItem] = [] {
+        
+        willSet {
+            print("Library willSet an update!")
+        }
+        
         didSet {
-            print("Library got an update!")
-            objectWillChange.send()
+            print("Library didSet an update!")
         }
     }
 

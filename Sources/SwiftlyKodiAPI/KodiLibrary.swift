@@ -25,6 +25,17 @@ extension KodiConnector {
             })
     }
     
+//    /// Toggle the watched status of a Video item
+//    /// - Parameter item: The Kodi video item to toggle
+//    @MainActor public func toggleWatchedState(_ item: KodiItem) -> KodiItem {
+//        if let index = library.firstIndex(where: { $0.id == item.id }) {
+//            library[index].playcount = item.playcount == 0 ? 1 : 0
+//            setPlaycount(library[index])
+//            return library[index]
+//        }
+//        return item
+//    }
+    
     /// Mark a Video item as watched
     /// - Parameter video: The Kodi video item that is watched
     @MainActor public func markVideoAsWatched(_ video: KodiItem) {
@@ -34,17 +45,6 @@ extension KodiConnector {
             setPlaycount(library[index])
         }
     }
-    
-//    /// Toggle the watched status of a Video item
-//    /// - Parameter item: The Kodi video item to toggle
-//    @MainActor func toggleWatchedState(_ item: KodiItem) -> KodiItem {
-////        if let index = library.firstIndex(where: { $0.id == item.id }) {
-////            //library[index].playcount = item.playcount == 0 ? 1 : 0
-//            setPlaycount(item)
-////            return library[index]
-////        }
-////        return item
-//    }
     
     /// Set the play count of a Kodi item
     /// - Parameter item: The Kodi item
