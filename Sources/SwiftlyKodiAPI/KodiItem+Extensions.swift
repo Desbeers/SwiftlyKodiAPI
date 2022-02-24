@@ -17,10 +17,9 @@ extension KodiItem {
     
     /// Toggle the watched status of a Kodi item
     /// - Returns: A updated Kodi item
-    @MainActor mutating public func toggleWatchedState() {
-        
-        //self.playcount = self.playcount == 0 ? 1 : 0
-        self = KodiConnector.shared.toggleWatchedState(self)
+    mutating public func toggleWatchedState() {
+        self.playcount = self.playcount == 0 ? 1 : 0
+        KodiConnector.shared.setPlaycount(self)
     }
 }
 

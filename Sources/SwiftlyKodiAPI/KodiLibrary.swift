@@ -14,26 +14,13 @@ extension KodiConnector {
     /// - Returns: A Binding to the Kodi library
     func getLibraryBinding(item: KodiItem) -> Binding<KodiItem> {
         return  Binding<KodiItem>(
-            get: {
-                if let index = self.library.firstIndex(where: { $0.id == item.id}) {
-                    print("Have binding for \(item.title)")
-                    return self.library[index]
-                } else {
-                    return item
-                }
-                
-                },
+            get: { self.library.first(where: { $0.id == item.id}) ?? item },
             set: {newValue in
                 if let index = self.library.firstIndex(where: { $0.id == item.id}) {
-                    print("Have binding for \(item.title)")
-                    print("Old Playcount: \(item.playcount)")
-                    print("New Playcount: \(newValue.playcount)")
+                    /// Update the library
                     Task { @MainActor in
                         self.library[index] = newValue
-                        self.objectWillChange.send()
                     }
-                } else {
-                    print("No binding")
                 }
             })
     }
@@ -48,16 +35,16 @@ extension KodiConnector {
         }
     }
     
-    /// Toggle the watched status of a Video item
-    /// - Parameter item: The Kodi video item to toggle
-    @MainActor func toggleWatchedState(_ item: KodiItem) -> KodiItem {
-        if let index = library.firstIndex(where: { $0.id == item.id }) {
-            //library[index].playcount = item.playcount == 0 ? 1 : 0
-            setPlaycount(library[index])
-            return library[index]
-        }
-        return item
-    }
+//    /// Toggle the watched status of a Video item
+//    /// - Parameter item: The Kodi video item to toggle
+//    @MainActor func toggleWatchedState(_ item: KodiItem) -> KodiItem {
+////        if let index = library.firstIndex(where: { $0.id == item.id }) {
+////            //library[index].playcount = item.playcount == 0 ? 1 : 0
+//            setPlaycount(item)
+////            return library[index]
+////        }
+////        return item
+//    }
     
     /// Set the play count of a Kodi item
     /// - Parameter item: The Kodi item
