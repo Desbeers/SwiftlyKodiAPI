@@ -23,16 +23,7 @@ public final class KodiConnector: ObservableObject {
     var host = HostItem()
 
     /// The VideoLibrary
-    @Published public var library: [KodiItem] = [] {
-        
-        willSet {
-            print("Library willSet an update!")
-        }
-        
-        didSet {
-            print("Library didSet an update!")
-        }
-    }
+    @Published public var library: [KodiItem] = []
 
     /// All genres from the Kodi library
     @Published public var genres: [GenreItem] = []

@@ -16,25 +16,10 @@ extension KodiConnector {
         return  Binding<KodiItem>(
             get: { self.library.first(where: { $0.id == item.id}) ?? item },
             set: {newValue in
-                if let index = self.library.firstIndex(where: { $0.id == item.id}) {
-                    /// Update the library
-                    Task { @MainActor in
-                        self.library[index] = newValue
-                    }
-                }
-            })
+                /// Nothing to do...
+            }
+        )
     }
-    
-//    /// Toggle the watched status of a Video item
-//    /// - Parameter item: The Kodi video item to toggle
-//    @MainActor public func toggleWatchedState(_ item: KodiItem) -> KodiItem {
-//        if let index = library.firstIndex(where: { $0.id == item.id }) {
-//            library[index].playcount = item.playcount == 0 ? 1 : 0
-//            setPlaycount(library[index])
-//            return library[index]
-//        }
-//        return item
-//    }
     
     /// Mark a Video item as watched
     /// - Parameter video: The Kodi video item that is watched
@@ -49,8 +34,18 @@ extension KodiConnector {
     /// Set the play count of a Kodi item
     /// - Parameter item: The Kodi item
     func setPlaycount(_ item: KodiItem) {
+        /// Update the Kodi database
         let message = LibrarySetPlaycount(item: item)
         sendMessage(message: message)
+        debugPrint("Database update for \(item.title), playcount = \(item.playcount)")
+        /// Update our UI
+        if let index = self.library.firstIndex(where: { $0.id == item.id}) {
+            /// Update the library
+            Task { @MainActor in
+                self.library[index] = item
+                debugPrint("SwiftUI update for \(item.title), playcount = \(item.playcount)")
+            }
+        }
     }
     
     /// Update the given song with the given details (Kodi API)
