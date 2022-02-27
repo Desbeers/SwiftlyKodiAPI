@@ -14,7 +14,7 @@ public struct KodiItem: Codable, Identifiable, Equatable {
     }
     
     /// Make it indentifiable
-    public var id = UUID()
+    public var id: String = ""
     
     /// The kind of media
     public var media: KodiMedia = .movie

@@ -9,6 +9,8 @@ import Foundation
 
 /// The Kodi media types
 public enum KodiMedia: String, Equatable {
+    /// None
+    case none
     /// All items
     case all
     /// Movies

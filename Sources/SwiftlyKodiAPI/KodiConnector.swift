@@ -105,7 +105,30 @@ extension KodiConnector {
         var KodiItems: [KodiItem] = []
         for item in items {
             var newItem = item
-            newItem.media = media
+            switch media {
+            case .movie:
+                newItem.media = .movie
+                newItem.id = "movie-\(item.movieID)"
+            case .movieSet:
+                newItem.media = .movieSet
+                newItem.id = "movieSet-\(item.setID)"
+            case .tvshow:
+                newItem.media = .tvshow
+                newItem.id = "tvshow-\(item.tvshowID)"
+            case .episode:
+                newItem.media = .episode
+                newItem.subtitle = item.showtitle
+                newItem.id = "episode-\(item.episodeID)"
+            case .musicvideo:
+                newItem.media = .musicvideo
+                newItem.id = "musicvideo-\(item.musicvideoID)"
+            case .artist:
+                newItem.media = .artist
+                newItem.id = "artist-\(item.artistID)"
+            default:
+                newItem.media = .none
+                newItem.id = UUID().uuidString
+            }
             KodiItems.append(newItem)
         }
         return KodiItems
