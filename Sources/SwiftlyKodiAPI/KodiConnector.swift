@@ -117,11 +117,12 @@ extension KodiConnector {
                 newItem.id = "tvshow-\(item.tvshowID)"
             case .episode:
                 newItem.media = .episode
-                newItem.subtitle = item.showtitle
                 newItem.id = "episode-\(item.episodeID)"
+                newItem.subtitle = item.showtitle
             case .musicvideo:
                 newItem.media = .musicvideo
                 newItem.id = "musicvideo-\(item.musicvideoID)"
+                newItem.subtitle = item.artist.joined(separator: " & ")
             case .artist:
                 newItem.media = .artist
                 newItem.id = "artist-\(item.artistID)"

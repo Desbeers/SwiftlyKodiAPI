@@ -63,7 +63,7 @@ extension KodiConnector {
 }
 
 /// The struct for a Kodi filter that can be send to the ``KodiConnector/filter(_:)`` function to filter the library
-public struct KodiFilter: Equatable {
+public struct KodiFilter: Hashable, Equatable {
     /// Public init is needed because this struct is in a package so doesn't give it 'for free'...
     public init(media: KodiMedia, title: String? = nil, subtitle: String? = nil, fanart: String? = nil, tvshowID: Int? = nil, setID: Int? = nil, artist: [String]? = nil, genre: String? = nil, search: String? = nil) {
         self.media = media

@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// A struct for a Kodi item in the library
-public struct KodiItem: Codable, Identifiable, Equatable {
+public struct KodiItem: Codable, Identifiable, Equatable, Hashable {
     public static func == (lhs: KodiItem, rhs: KodiItem) -> Bool {
         return lhs.playcount == rhs.playcount
     }
@@ -374,7 +374,7 @@ extension KodiItem {
 extension KodiItem {
     
     /// A struct for information about a Movie Set
-    public struct MovieSetItem: Codable {
+    public struct MovieSetItem: Codable, Hashable {
         /// The ID of the movie set
         public var setID: Int = 0
         /// The title of the movie set
