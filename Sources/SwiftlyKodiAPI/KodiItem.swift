@@ -258,7 +258,7 @@ extension KodiItem {
         
         /// - Note: Subtitle is different for each media kind
         /// Movie subtitle is the tagline, if any..
-        subtitle = try container.decodeIfPresent(String.self, forKey: .tagline) ?? ""
+        tagline = try container.decodeIfPresent(String.self, forKey: .tagline) ?? ""
         
         /// - Note: description can either be a plot or a real description
         /// Check first for plot

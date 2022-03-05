@@ -13,7 +13,7 @@ extension KodiConnector {
     /// - Returns: All movies from the Kodi host
     func getMovies() async -> [KodiItem] {
         let request = VideoLibraryGetMovies()
-        let movieSets = await getMovieSets()
+        let movieSets = await getMovieSetsTMP()
         do {
             let result = try await sendRequest(request: request)
             /// Get the movies that are not part of a set
@@ -84,11 +84,27 @@ extension KodiConnector {
 }
 
 extension KodiConnector {
+
+    /// Get all the movie sets from the Kodi host
+    /// - Returns: All movie sets from the Kodi host
+    func getMovieSets() async -> [KodiItem] {
+        let request = VideoLibraryGetMovieSets()
+        do {
+            let result = try await sendRequest(request: request)
+            return setMediaKind(items: result.sets, media: .movieSet)
+            //return result.sets
+        } catch {
+            /// There are no sets in the library
+            print("Loading movie sets failed with error: \(error)")
+            return [KodiItem]()
+        }
+    }
+    
     
     /// Get all the movie sets from the Kodi host
     /// - Returns: All movie sets from the Kodi host
-    func getMovieSets() async -> [KodiItem.MovieSetItem] {
-        let request = VideoLibraryGetMovieSets()
+    func getMovieSetsTMP() async -> [KodiItem.MovieSetItem] {
+        let request = VideoLibraryGetMovieSetsTMP()
         do {
             let result = try await sendRequest(request: request)
             return result.sets
@@ -98,9 +114,39 @@ extension KodiConnector {
             return [KodiItem.MovieSetItem]()
         }
     }
-    
+
     /// Retrieve all movie sets (Kodi API)
     struct VideoLibraryGetMovieSets: KodiAPI {
+        /// Method
+        var method = Method.videoLibraryGetMovieSets
+        /// The JSON creator
+        var parameters: Data {
+            /// The parameters we ask for
+            var params = Params()
+            params.sort = sort(method: .title, order: .ascending)
+            return buildParams(params: params)
+        }
+        /// The request struct
+        struct Params: Encodable {
+            /// The properties that we ask from Kodi
+            let properties = [
+                "title",
+                "playcount",
+                "art",
+                "plot"
+            ]
+            /// The sort order
+            var sort = KodiConnector.SortFields()
+        }
+        /// The response struct
+        struct Response: Decodable {
+            /// The list of movies
+            let sets: [KodiItem]
+        }
+    }
+    
+    /// Retrieve all movie sets (Kodi API)
+    struct VideoLibraryGetMovieSetsTMP: KodiAPI {
         /// Method
         var method = Method.videoLibraryGetMovieSets
         /// The JSON creator
