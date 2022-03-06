@@ -12,9 +12,9 @@ extension KodiConnector {
     /// Filter the Kodi library for specific items
     /// - Parameter filter: A struct with al the filter parameters
     /// - Returns: All Kodi media items confirming to the filter
-    func filter(_ filter: KodiFilter) -> [KodiItem] {
+    func filter(_ filter: KodiFilter) -> [MediaItem] {
         /// Get the library
-        var items = library
+        var items = media
         /// Remove Kodi items that we don't need
         if filter.media != .all {
             items.removeAll(where: { $0.media != filter.media } )
@@ -24,7 +24,7 @@ extension KodiConnector {
         case .movie:
             /// If `setID` is set it means we want movies from a specific set
             if let setID = filter.setID {
-                items = items.filter { $0.setID == setID }
+                items = items.filter { $0.movieSetID == setID }
                 items.sortByYearAndTitle()
             } else {
                 items.uniqueSet()
@@ -38,11 +38,11 @@ extension KodiConnector {
             /// If `artist` is set we filter music videos for this specific artist
             if let artist = filter.artist {
                 items = items
-                    .filter { $0.artist.contains(artist.first ?? "") }
+                    .filter { $0.artists.contains(artist.first ?? "") }
                     .sorted { $0.releaseDate < $1.releaseDate }
             } else {
                 /// Filter for one music video for earch artist to build an Artist View
-                items = items.unique { $0.artist }
+                items = items.unique { $0.artists }
             }
         default:
             break
@@ -50,7 +50,7 @@ extension KodiConnector {
         /// Now that filtering on media type is done, check if some additional fitereing is needed
         if let genre = filter.genre {
             items = items
-                .filter { $0.genre.contains(genre) }
+                .filter { $0.genres.contains(genre) }
             items.sortBySetAndTitle()
             if filter.setID == nil {
                 items.uniqueSet()

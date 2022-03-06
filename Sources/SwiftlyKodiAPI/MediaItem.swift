@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MediaItem: Identifiable {
+public struct MediaItem: Identifiable, Equatable, Hashable {
     
     /// # General
     
@@ -18,15 +18,21 @@ public struct MediaItem: Identifiable {
     public var media: KodiMedia = .none
     /// The title of the item
     public var title: String = ""
+    /// The sorting title of the item
+    public var sorttitle: String = ""
     /// The subtitle of the item
     public var subtitle: String = ""
     /// The description of the item
     public var description: String = ""
+    /// The details of the item
+    public var details: String = ""
+    /// The genres for the item
+    public var genres: [String] = []
     
     /// # File
     
     /// The full URL of the item
-    public var file: String = ""
+    public var file: URL = URL(fileURLWithPath: "")
     /// The playcount of the item
     public var playcount: Int = 0
     /// Duration of the item; presented as a formatted String
@@ -50,7 +56,7 @@ public struct MediaItem: Identifiable {
     /// The movie ID
     public var movieID: Int = 0
     /// The set ID
-    public var setID: Int = 0
+    public var movieSetID: Int = 0
     /// The TV show ID
     public var tvshowID: Int = 0
     /// The episode ID
@@ -60,9 +66,35 @@ public struct MediaItem: Identifiable {
     /// The artist ID
     public var artistID: Int = 0
     
+    /// # Movies
+    
+    /// The title of the movie set a movie might belong
+    var movieSetTitle = ""
+    
+    /// # TV shows and Episodes
+    
+    /// The season number
+    public var season: Int = 0
+    /// The episode number
+    public var episode: Int = 0
+    
     /// # Music
     
     /// An array of artists
-    var artists: [String] = []
+    public var artists: [String] = []
     
+}
+
+
+// MARK: Sorting
+
+extension MediaItem {
+    
+    var sortByTitle: String {
+        sorttitle.isEmpty ? title : sorttitle
+    }
+    
+    var sortBySetAndTitle: String {
+        movieSetTitle.isEmpty ? sorttitle.isEmpty ? title : sorttitle : movieSetTitle
+    }
 }

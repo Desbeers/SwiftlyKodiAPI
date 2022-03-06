@@ -8,13 +8,13 @@ import SwiftUI
 
 extension KodiConnector {
     
-    /// Get a Binding from a ``KodiItem`` to the Kodi library
+    /// Get a Binding from a ``MediaItem`` to the Kodi library
     ///  n SwiftUI if yo fiter the library in a `ForEach` you can't use the 'normal' Binding $ anymore
-    /// - Parameter item: A Kodi item
+    /// - Parameter item: A Media item
     /// - Returns: A Binding to the Kodi library
-    func getLibraryBinding(item: KodiItem) -> Binding<KodiItem> {
-        return  Binding<KodiItem>(
-            get: { self.library.first(where: { $0.id == item.id}) ?? item },
+    func getLibraryBinding(item: MediaItem) -> Binding<MediaItem> {
+        return  Binding<MediaItem>(
+            get: { self.media.first(where: { $0.id == item.id}) ?? item },
             set: {newValue in
                 /// Nothing to do...
             }
@@ -23,26 +23,26 @@ extension KodiConnector {
     
     /// Mark a Video item as watched
     /// - Parameter video: The Kodi video item that is watched
-    @MainActor public func markVideoAsWatched(_ video: KodiItem) {
+    @MainActor public func markVideoAsWatched(_ video: MediaItem) {
         print("Mark \(video.title) as watched")
-        if let index = library.firstIndex(where: { $0.id == video.id }) {
-            library[index].playcount = video.playcount + 1
-            setPlaycount(library[index])
+        if let index = media.firstIndex(where: { $0.id == video.id }) {
+            media[index].playcount = video.playcount + 1
+            setPlaycount(media[index])
         }
     }
     
     /// Set the play count of a Kodi item
     /// - Parameter item: The Kodi item
-    func setPlaycount(_ item: KodiItem) {
+    func setPlaycount(_ item: MediaItem) {
         /// Update the Kodi database
         let message = LibrarySetPlaycount(item: item)
         sendMessage(message: message)
         debugPrint("Database update for \(item.title), playcount = \(item.playcount)")
         /// Update our UI
-        if let index = self.library.firstIndex(where: { $0.id == item.id}) {
+        if let index = self.media.firstIndex(where: { $0.id == item.id}) {
             /// Update the library
             Task { @MainActor in
-                self.library[index] = item
+                self.media[index] = item
                 debugPrint("SwiftUI update for \(item.title), playcount = \(item.playcount)")
             }
         }
@@ -51,7 +51,7 @@ extension KodiConnector {
     /// Update the given song with the given details (Kodi API)
     struct LibrarySetPlaycount: KodiAPI {
         /// Arguments
-        var item: KodiItem
+        var item: MediaItem
         /// Method
         var method: Method {
             return item.media.setDetailsMethod

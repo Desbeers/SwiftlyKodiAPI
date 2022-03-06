@@ -12,8 +12,8 @@ extension KodiConnector {
     /// Get all Episodes from the Kodi host
     /// - Parameter tvshows: All the TV shows
     /// - Returns: All the episodes from the Kodi host
-    func getAllEpisodes(tvshows: [KodiItem]) async -> [KodiItem] {
-        var episodes: [KodiItem] = []
+    func getAllEpisodes(tvshows: [MediaItem]) async -> [MediaItem] {
+        var episodes: [MediaItem] = []
         for tvshow in tvshows {
             episodes += await getEpisodes(tvshowID: tvshow.tvshowID)
         }
@@ -23,15 +23,15 @@ extension KodiConnector {
     /// Get all episodes from a specific TV shpw
     /// - Parameter tvshowID: The ID of the TV show
     /// - Returns: All episodes of the given TV show
-    func getEpisodes(tvshowID: Int) async -> [KodiItem] {
+    func getEpisodes(tvshowID: Int) async -> [MediaItem] {
         let request = VideoLibraryGetEpisodes(tvshowID: tvshowID)
         do {
             let result = try await sendRequest(request: request)
-            return setMediaKind(items: result.episodes, media: .episode)
+            return setMediaItem(items: result.episodes, media: .episode)
         } catch {
             /// There are no episodes in the library
             print("Loading Episodes failed with error: \(error)")
-            return [KodiItem]()
+            return [MediaItem]()
         }
     }
     

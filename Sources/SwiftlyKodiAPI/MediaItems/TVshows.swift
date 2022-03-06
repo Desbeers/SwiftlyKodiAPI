@@ -11,15 +11,15 @@ extension KodiConnector {
 
     /// Get all the TV shows from the Kodi host
     /// - Returns: All TV shows from the Kodi host
-    func getTVshows() async -> [KodiItem] {
+    func getTVshows() async -> [MediaItem] {
         let request = VideoLibraryGetTVShows()
         do {
             let result = try await sendRequest(request: request)
-            return setMediaKind(items: result.tvshows, media: .tvshow)
+            return setMediaItem(items: result.tvshows, media: .tvshow)
         } catch {
             /// There are no TV shows in the library
             print("Loading TV shows failed with error: \(error)")
-            return [KodiItem]()
+            return [MediaItem]()
         }
     }
     

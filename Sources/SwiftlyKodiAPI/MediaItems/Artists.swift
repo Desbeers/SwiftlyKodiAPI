@@ -11,27 +11,27 @@ extension KodiConnector {
 
     /// Get all artists from the Kodi host
     /// - Returns: All artists from the Kodi host
-    func getArtists() async -> [KodiItem] {
+    func getArtists() async -> [MediaItem] {
             let request = AudioLibraryGetArtists()
             do {
                 let result = try await sendRequest(request: request)
-                return setMediaKind(items: result.artists, media: .artist)
+                return setMediaItem(items: result.artists, media: .artist)
             } catch {
                 /// There are no artists in the library
                 print("Loading artists failed with error: \(error)")
-                return [KodiItem]()
+                return [MediaItem]()
             }
     }
     
     /// Get info about a specific artist
     /// - Parameter artist: The name of the artist; if more than one, the first will be used
     /// - Returns: An Artist item
-    public func getArtistInfo(artist: [String]) -> KodiItem {
-        if let artist = artists
-            .first(where: { $0.media == .artist && $0.artist.contains(artist.first ?? "")}) {
+    public func getArtistInfo(artist: [String]) -> MediaItem {
+        if let artist = media
+            .first(where: { $0.media == .artist && $0.artists.contains(artist.first ?? "")}) {
             return artist
         }
-        return KodiItem(description: "Unknown artist", artist: artist)
+        return MediaItem(id: UUID().uuidString, description: "Unknown artist", artists: artist)
     }
     
     /// Retrieve all artists (Kodi API)

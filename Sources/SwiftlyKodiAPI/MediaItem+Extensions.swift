@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-extension KodiItem {
+extension MediaItem {
 
     /// Get the binding from a Kodi item to the Kodi library
     /// - Returns: A Binding to the library
-    public func binding() -> Binding<KodiItem> {
+    public func binding() -> Binding<MediaItem> {
         return KodiConnector.shared.getLibraryBinding(item: self)
     }
     
@@ -28,14 +28,14 @@ extension KodiItem {
     }
 }
 
-extension Array where Element == KodiItem {
+extension Array where Element == MediaItem {
     
     /// Filter the movies to have only one movie representing a set
     /// - Returns: A list with movies without duplicated sets
     mutating func uniqueSet() {
         var knownSets = Set<Int>()
         self = self.filter { element -> Bool in
-            let set = element.setID
+            let set = element.movieSetID
             if set == 0 || !knownSets.contains(set) {
                 knownSets.insert(set)
                 return true
@@ -46,7 +46,7 @@ extension Array where Element == KodiItem {
     }
 
     /// Filter the Kodi library
-    public func filter(_ filter: KodiFilter) -> [KodiItem] {
+    public func filter(_ filter: KodiFilter) -> [MediaItem] {
         return KodiConnector.shared.filter(filter)
     }
     

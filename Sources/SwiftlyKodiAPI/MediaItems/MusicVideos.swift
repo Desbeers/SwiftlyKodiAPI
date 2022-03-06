@@ -11,15 +11,15 @@ extension KodiConnector {
     
     /// Get all the music videos from the Kodi host
     /// - Returns: All music videos from the Kodi host
-    func getMusicVideos() async -> [KodiItem] {
+    func getMusicVideos() async -> [MediaItem] {
         let request = VideoLibraryGetMusicVideos()
         do {
             let result = try await sendRequest(request: request)
-            return setMediaKind(items: result.musicvideos, media: .musicvideo)
+            return setMediaItem(items: result.musicvideos, media: .musicvideo)
         } catch {
             /// There are no music videos in the library
             print("Loading music videos failed with error: \(error)")
-            return [KodiItem]()
+            return [MediaItem]()
         }
     }
     

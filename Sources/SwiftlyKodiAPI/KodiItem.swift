@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// A struct for a Kodi item in the library
-public struct KodiItem: Codable, Identifiable, Equatable, Hashable {
+struct KodiItem: Codable, Identifiable, Equatable, Hashable {
     public static func == (lhs: KodiItem, rhs: KodiItem) -> Bool {
         return lhs.playcount == rhs.playcount
     }
@@ -106,10 +106,9 @@ public struct KodiItem: Codable, Identifiable, Equatable, Hashable {
     public var cast: [ActorItem] = []
 
     /// # Movie stuff
-
-    /// The set info of the movie
-    /// - Note: Will be filled in later
-    public var setInfo = MovieSetItem()
+    ///
+    // The optional title of the movie set
+    public var movieSetTitle: String = ""
     
     /// # TV show and Episode stuff
     
@@ -221,7 +220,7 @@ extension KodiItem {
     /// The coding keys
     enum CodingKeys: String, CodingKey {
         /// The public keys
-        case title, subtitle, description, playcount, episode, season, cast, setInfo, artist
+        case title, subtitle, description, playcount, episode, season, cast, artist
         /// Camel Case
         case setName = "set"
         /// # The public ID's
@@ -374,38 +373,38 @@ extension KodiItem {
 extension KodiItem {
     
     /// A struct for information about a Movie Set
-    public struct MovieSetItem: Codable, Hashable {
-        /// The ID of the movie set
-        public var setID: Int = 0
-        /// The title of the movie set
-        public var title: String = ""
-        /// The playcount of the movie set
-        public var playcount: Int = 0
-        /// The art of the movie set
-        public var art: [String: String] = [:]
-        /// The description of the movie set
-        public var description: String = ""
-        /// The coding keys
-        enum CodingKeys: String, CodingKey {
-            case title, art, playcount
-            /// Description is plot
-            case description = "plot"
-            /// Camel Case
-            case setID = "setid"
-        }
-        /// The poster of the set
-        public var poster: String {
-            return getSpecificArt(art: art, type: .poster)
-        }
-        /// The fanart of the set
-        public var fanart: String {
-            return getSpecificArt(art: art, type: .fanart)
-        }
-        /// The movie titles in the set
-        public var movies: String = ""
-        /// The count of movies in the set
-        public var count: Int = 0
-        /// The genres of the movies in the set
-        public var genres: String = ""
-    }
+//    public struct MovieSetItem: Codable, Hashable {
+//        /// The ID of the movie set
+//        public var setID: Int = 0
+//        /// The title of the movie set
+//        public var title: String = ""
+//        /// The playcount of the movie set
+//        public var playcount: Int = 0
+//        /// The art of the movie set
+//        public var art: [String: String] = [:]
+//        /// The description of the movie set
+//        public var description: String = ""
+//        /// The coding keys
+//        enum CodingKeys: String, CodingKey {
+//            case title, art, playcount
+//            /// Description is plot
+//            case description = "plot"
+//            /// Camel Case
+//            case setID = "setid"
+//        }
+//        /// The poster of the set
+//        public var poster: String {
+//            return getSpecificArt(art: art, type: .poster)
+//        }
+//        /// The fanart of the set
+//        public var fanart: String {
+//            return getSpecificArt(art: art, type: .fanart)
+//        }
+//        /// The movie titles in the set
+//        public var movies: String = ""
+//        /// The count of movies in the set
+//        public var count: Int = 0
+//        /// The genres of the movies in the set
+//        public var genres: String = ""
+//    }
 }
