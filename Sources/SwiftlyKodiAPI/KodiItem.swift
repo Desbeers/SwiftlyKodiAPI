@@ -8,16 +8,8 @@
 import SwiftUI
 
 /// A struct for a Kodi item in the library
-struct KodiItem: Codable, Identifiable, Equatable, Hashable {
-    public static func == (lhs: KodiItem, rhs: KodiItem) -> Bool {
-        return lhs.playcount == rhs.playcount
-    }
-    
-    /// Make it indentifiable
-    public var id: String = ""
-    
-    /// The kind of media
-    public var media: KodiMedia = .movie
+struct KodiItem: Codable {
+
     
     /// # General stuff
     
@@ -42,30 +34,7 @@ struct KodiItem: Codable, Identifiable, Equatable, Hashable {
     /// - Music Video: The plot
     public var description: String = ""
     
-    /// The details of the item
-    /// - Movie: Genre + Year
-    /// - TV show: Genre + Year
-    /// - Episode: Episode number + Season number
-    /// - Music Video: Genre + Year
-    public var details: String {
-        var details: [String] = []
-        switch media {
-        case .tvshow:
-            details = genre
-            details.append(releaseYear)
-            if !studio.isEmpty {
-                details += studio
-            }
-        case .episode:
-            details.append("Episode \(episode)")
-            details.append("Aired \(releaseDate.formatted(date: .abbreviated, time: .omitted))")
-        default:
-            details = genre
-            details.append(releaseYear)
-            details.append(duration)
-        }
-        return details.joined(separator: "・")
-    }
+
     
     /// The genres of the item, as a combined String
     public var genres: String {

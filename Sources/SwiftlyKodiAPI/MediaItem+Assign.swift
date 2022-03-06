@@ -21,12 +21,11 @@ extension KodiConnector {
     ///   - media: The ``KodiMedia`` type for this ``KodiItem``
     /// - Returns: The ``KodiItem``'s with the ``KodiMedia`` set
     func setMediaItem(items: [KodiItem], media: KodiMedia) -> [MediaItem] {
-        var MediaItems: [MediaItem] = []
+        var mediaItems: [MediaItem] = []
         for item in items {
             /// Basic stuff
             var mediaItem = MediaItem(media: media,
                                       description: item.description,
-                                      details: "DETAILS",
                                       genres: item.genre,
                                       file: item.fileURL,
                                       playcount: item.playcount,
@@ -38,33 +37,36 @@ extension KodiConnector {
                                       fanart: item.fanart
             )
             
+            /// Build the default`details`
+            let details = item.genre + [item.releaseYear] + [item.duration]
+            mediaItem.details = details.joined(separator: "・")
+            /// Add additional Media specific stuff
             switch media {
             case .movie:
-                
-                
+                /// # Movies
                 mediaItem.id = "movie-\(item.movieID)"
                 mediaItem.movieID = item.movieID
                 mediaItem.movieSetID = item.setID
                 mediaItem.title = item.title
                 mediaItem.subtitle = item.tagline
                 mediaItem.movieSetTitle = item.movieSetTitle
-                
             case .movieSet:
-
+                /// # Movie Set
                 mediaItem.id = "movieSet-\(item.setID)"
                 mediaItem.movieSetID = item.setID
                 mediaItem.title = item.title
                 mediaItem.subtitle = ""
-                
             case .tvshow:
-                
+                /// # TV Show
                 mediaItem.id = "tvshow-\(item.tvshowID)"
                 mediaItem.tvshowID = item.tvshowID
                 mediaItem.title = item.title
                 mediaItem.subtitle = ""
-                
+                /// Build the `details`
+                let details = item.genre + [item.releaseYear] + item.studio
+                mediaItem.details = details.joined(separator: "・")
             case .episode:
-                
+                /// # Episode
                 mediaItem.id = "episode-\(item.tvshowID)-\(item.season)-\(item.episode)"
                 mediaItem.episodeID = item.episodeID
                 mediaItem.tvshowID = item.tvshowID
@@ -72,30 +74,31 @@ extension KodiConnector {
                 mediaItem.subtitle = item.showtitle
                 mediaItem.season = item.season
                 mediaItem.episode = item.episode
-                
+                /// Build the `details
+                let details = ["Episode \(item.episode)"] + ["Aired \(item.releaseDate.formatted(date: .abbreviated, time: .omitted))"]
+                mediaItem.details = details.joined(separator: "・")
             case .musicvideo:
-                
+                /// # Music Video
                 mediaItem.id = "musicvideo-\(item.musicvideoID)"
                 mediaItem.musicvideoID = item.musicvideoID
                 mediaItem.title = item.title
                 mediaItem.subtitle = item.artist.joined(separator: " & ")
                 mediaItem.artists = item.artist
-                
             case .artist:
-                
+                /// # Artist
                 mediaItem.id = "artist-\(item.artistID)"
                 mediaItem.artistID = item.artistID
                 mediaItem.title = item.artist.joined(separator: " & ")
                 mediaItem.subtitle = ""
                 mediaItem.artists = item.artist
-                
             default:
+                /// # None
                 mediaItem.media = .none
                 mediaItem.id = UUID().uuidString
             }
             /// Add it to the media library
-            MediaItems.append(mediaItem)
+            mediaItems.append(mediaItem)
         }
-        return MediaItems
+        return mediaItems
     }
 }
