@@ -21,13 +21,21 @@ public final class KodiConnector: ObservableObject {
     
     /// The active host
     var host = HostItem()
-
+    
     /// The Meda Library
-    @Published public var media: [MediaItem] = []
-
+    @Published public var media: [MediaItem] = [] {
+        didSet {
+            debugPrint("Something set the media library")
+            
+            //            if !oldValue.isEmpty {
+            //                debugPrint(media.difference(from: oldValue))
+            //            }
+        }
+    }
+    
     /// All genres from the Kodi library
     @Published public var genres: [GenreItem] = []
-
+    
     
     // MARK: Init
     
@@ -43,25 +51,26 @@ public final class KodiConnector: ObservableObject {
 }
 
 extension KodiConnector {
-
+    
     /// Connect to a Kodi host and load the library
     /// - Parameter kodiHost: The host configuration
-    public func connectToHost(kodiHost: HostItem) {
+    @MainActor public func connectToHost(kodiHost: HostItem) async {
         host = kodiHost
-        Task { @MainActor in
-            let libraryItems = await getAllMedia()
-            media = libraryItems
-            let genreItems = await getAllGenres()
-            genres = genreItems
-        }
+        let libraryItems = await getAllMedia()
+        debugPrint("Loaded the library")
+        print(libraryItems.count)
+        media = libraryItems
+        let genreItems = await getAllGenres()
+        genres = genreItems
     }
-
+    
     /// Reload the library from the Kodi host
-    @MainActor public func reloadHost() {
+    @MainActor public func reloadHost() async {
+        debugPrint("Reloading the library")
         /// Empty the library
         media = [MediaItem]()
         /// Reload it
-        connectToHost(kodiHost: host)
+        await connectToHost(kodiHost: host)
     }
 }
 
@@ -71,8 +80,6 @@ extension KodiConnector {
     /// - Returns: All the `MovieItem`'s from the Kodi host
     func getAllMedia() async -> [MediaItem] {
         var items: [MediaItem] = []
-        let movieSets = await getMovieSets()
-        items += movieSets
         await items += getMovies()
         let tvshows = await getTVshows()
         items += tvshows

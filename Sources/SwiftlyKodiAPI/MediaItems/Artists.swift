@@ -31,7 +31,7 @@ extension KodiConnector {
             .first(where: { $0.media == .artist && $0.artists.contains(artist.first ?? "")}) {
             return artist
         }
-        return MediaItem(id: UUID().uuidString, description: "Unknown artist", artists: artist)
+        return MediaItem(description: "Unknown artist", artists: artist)
     }
     
     /// Retrieve all artists (Kodi API)

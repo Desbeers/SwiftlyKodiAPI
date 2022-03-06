@@ -7,6 +7,15 @@
 
 import Foundation
 
+/// An media item in the Kodi library
+///
+/// Anything inside the Kodi library is a ``MediaItem``;
+/// movies, tv shows, episodes, music videos, artists, albums, songs and genres.
+///
+/// Depending on the ``KodiMedia``, the variables will be empty or filled in.
+///
+/// - Tip: The are no `optionals`! When a variable is not found or empty,
+/// a String will be `""`, an Int will be `0` and an Array will be `[]`.
 public struct MediaItem: Identifiable, Equatable, Hashable {
     
     /// # General
@@ -14,6 +23,7 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     /// The indentifiation of the item
     /// - Note: tvOS doesn't like `UUID`'s for this for some unknown reason
     public var id: String = ""
+    //public let id = UUID().uuidString
     
     /// The kind of ``KodiMedia``
     public var media: KodiMedia = .none

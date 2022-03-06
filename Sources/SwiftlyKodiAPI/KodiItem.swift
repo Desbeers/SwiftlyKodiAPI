@@ -182,7 +182,7 @@ extension KodiItem {
         /// Camel Case
         case movieID = "movieid"
         /// Camel Case
-        case movieSetID = "movieSetID"
+        case movieSetID = "setid"
         /// Camel Case
         case tvshowID = "tvshowid"
         /// Camel Case
