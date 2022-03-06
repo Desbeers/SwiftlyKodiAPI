@@ -54,9 +54,10 @@ extension KodiConnector {
             /// The properties that we ask from Kodi
             let properties = [
                 "art",
-                "description"
-                //"isalbumartist",
-                //"songgenres"
+                "description",
+                "sortname",
+                "isalbumartist",
+                "songgenres"
             ]
             /// Sort order
             var sort = KodiConnector.SortFields()

@@ -73,6 +73,8 @@ extension KodiConnector {
     
     /// The sort fields for JSON requests
     struct SortFields: Encodable {
+        /// Sort by artist sort name
+        let useartistsortname = true
         /// The method
         var method: String = ""
         /// The order

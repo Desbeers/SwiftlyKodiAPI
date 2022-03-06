@@ -42,6 +42,7 @@ extension KodiConnector {
                 mediaItem.movieID = item.movieID
                 mediaItem.movieSetID = item.movieSetID
                 mediaItem.title = item.title
+                mediaItem.sorttitle = item.sorttitle
                 mediaItem.subtitle = item.tagline
                 mediaItem.movieSetTitle = item.movieSetTitle
             case .tvshow:
@@ -77,6 +78,7 @@ extension KodiConnector {
                 mediaItem.id = "artist-\(item.artistID)"
                 mediaItem.artistID = item.artistID
                 mediaItem.title = item.artist.joined(separator: " & ")
+                mediaItem.sorttitle = item.sortname
                 mediaItem.subtitle = ""
                 mediaItem.artists = item.artist
             default:

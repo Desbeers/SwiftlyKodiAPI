@@ -44,6 +44,14 @@ extension KodiConnector {
                 /// Filter for one music video for earch artist to build an Artist View
                 items = items.unique { $0.artists }
             }
+        case .musicVideoArtist:
+            let artists = media
+                .filter { $0.media == .musicvideo }
+                .unique { $0.artists }
+                .map { $0.artists}
+            let musicVideos = media
+                .filter { $0.media == .artist && artists.contains($0.artists)}
+            items = musicVideos.sorted { $0.sortByTitle < $1.sortByTitle}
         default:
             break
         }

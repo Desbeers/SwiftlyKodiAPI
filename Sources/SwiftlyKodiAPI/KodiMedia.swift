@@ -23,6 +23,8 @@ public enum KodiMedia: String, Equatable {
     case episode
     /// Music Videos
     case musicvideo
+    /// Music Video Artists
+    case musicVideoArtist
     /// Artists
     case artist
     /// Genres

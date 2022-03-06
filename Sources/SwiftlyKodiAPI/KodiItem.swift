@@ -159,7 +159,11 @@ struct KodiItem: Codable {
     var firstaired: String = ""
     
     /// The sorttitle of the item; can be empty
+    /// - Note: Kodi is using `sortname` for artists but that will be assigned to this one
     var sorttitle: String = ""
+
+    /// The sortname of an artist; can be empty
+    var sortname: String = ""
     
     /// # Sorting
     
@@ -195,7 +199,7 @@ extension KodiItem {
         case dateAdded = "dateadded"
         /// # The internal keys
         /// Keys that are not exposed outside of the package
-        case plot, tagline, genre, studio, showtitle, year, premiered, firstaired, art, runtime, sorttitle, file
+        case plot, tagline, genre, studio, showtitle, year, premiered, firstaired, art, runtime, sorttitle, sortname, file
     }
 }
 
@@ -269,6 +273,8 @@ extension KodiItem {
             self.artist = artists
         }
 
+        sortname = try container.decodeIfPresent(String.self, forKey: .sortname) ?? ""
+        
         /// # ID of items
 
         movieID = try container.decodeIfPresent(Int.self, forKey: .movieID) ?? 0
