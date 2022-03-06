@@ -43,6 +43,8 @@ func getSpecificArt(art: [String: String], type: KodiArtType) -> String {
         if let posterArt = art["tvshow.fanart"] {
             return posterArt.kodiFileUrl(media: .art)
         }
+        // Fallback to poster
+        return getSpecificArt(art: art, type: .poster)
     }
     return ""
 }
