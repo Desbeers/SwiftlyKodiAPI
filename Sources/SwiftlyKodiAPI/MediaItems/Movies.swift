@@ -33,6 +33,7 @@ extension KodiConnector {
                                         subtitle: "\(movies.count) movies",
                                         description: movieSet.description.isEmpty ? "Movie Set" : movieSet.description,
                                         playcount: movieSet.playcount,
+                                        fanart: movieSet.fanart,
                                         movieSetID: movieSet.movieSetID
                 )
                 /// Use the last movie poster for the set if the set has none

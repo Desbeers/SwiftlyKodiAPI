@@ -25,6 +25,8 @@ public enum KodiMedia: String, Equatable {
     case musicvideo
     /// Artists
     case artist
+    /// Genres
+    case genre
     /// The method for updating the media item
     var setDetailsMethod: KodiConnector.Method {
         switch self {

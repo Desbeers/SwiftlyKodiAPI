@@ -11,32 +11,51 @@ extension KodiConnector {
     
     /// Get all genres from the Kodi host
     /// - Returns: All genres from the Kodi host
-    func getAllGenres() async -> [GenreItem] {
+
+    func getAllGenres() async -> [MediaItem] {
+        
+        var genreItems = [MediaItem]()
+        
         /// Get the genres for all media types
         let movieGenres = await getGenres(type: .movie)
         let tvGenres = await getGenres(type: .tvshow)
         let musicGenres = await getGenres(type: .musicvideo)
         /// Combine them
-        let allGenres = movieGenres + tvGenres + musicGenres
+        let allGenres = (movieGenres + tvGenres + musicGenres).unique { $0.genreID}
+        /// Add them as MediaItem
+        for genre in allGenres {
+            genreItems.append(MediaItem(id: "genre-\(genre.genreID)",
+                                        media: .genre,
+                                        title: genre.label,
+                                        poster: genre.symbol)
+            )
+        }
         /// Return them
-        return allGenres.unique { $0.genreID}
+        return genreItems
     }
+    
+//    func getAllGenres() async -> [GenreItem] {
+//        /// Get the genres for all media types
+//        let movieGenres = await getGenres(type: .movie)
+//        let tvGenres = await getGenres(type: .tvshow)
+//        let musicGenres = await getGenres(type: .musicvideo)
+//        /// Combine them
+//        let allGenres = movieGenres + tvGenres + musicGenres
+//        /// Return them
+//        return allGenres.unique { $0.genreID}
+//    }
 
     /// Get all genres from the Kodi host for a specific media type
     /// - Parameter type: The type of Kodi Media
     /// - Returns: All genres for the specific media type
     func getGenres(type: KodiMedia) async -> [GenreItem] {
-        if type == .all {
-            return await getAllGenres()
-        } else {
         let request = VideoLibraryGetGenres(type: type)
-            do {
-                let result = try await sendRequest(request: request)
-                return result.genres
-            } catch {
-                print("Loading genres failed with error: \(error)")
-                return [GenreItem]()
-            }
+        do {
+            let result = try await sendRequest(request: request)
+            return result.genres
+        } catch {
+            print("Loading genres failed with error: \(error)")
+            return [GenreItem]()
         }
     }
     

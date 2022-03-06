@@ -23,20 +23,8 @@ public final class KodiConnector: ObservableObject {
     var host = HostItem()
     
     /// The Meda Library
-    @Published public var media: [MediaItem] = [] {
-        didSet {
-            debugPrint("Something set the media library")
-            
-            //            if !oldValue.isEmpty {
-            //                debugPrint(media.difference(from: oldValue))
-            //            }
-        }
-    }
-    
-    /// All genres from the Kodi library
-    @Published public var genres: [GenreItem] = []
-    
-    
+    @Published public var media: [MediaItem] = []
+
     // MARK: Init
     
     /// Private init to make sure we have only one instance
@@ -60,8 +48,8 @@ extension KodiConnector {
         debugPrint("Loaded the library")
         print(libraryItems.count)
         media = libraryItems
-        let genreItems = await getAllGenres()
-        genres = genreItems
+        //let genreItems = await getAllGenres()
+        //genres = genreItems
     }
     
     /// Reload the library from the Kodi host
@@ -85,9 +73,9 @@ extension KodiConnector {
         items += tvshows
         await items += getAllEpisodes(tvshows: tvshows)
         await items += getMusicVideos()
-        
         await items += getArtists()
-        
+        await items += getAllGenres()
+        /// That's all!
         return items
     }
 }
