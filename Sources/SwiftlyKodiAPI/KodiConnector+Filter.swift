@@ -40,10 +40,18 @@ extension KodiConnector {
                 items = items
                     .filter { $0.artists.contains(artist.first ?? "") }
                     .sorted { $0.releaseDate < $1.releaseDate }
-            } else {
-                /// Filter for one music video for earch artist to build an Artist View
-                items = items.unique { $0.artists }
             }
+            /// If `album` is set we filter music videos for this specific album
+            if let album = filter.album {
+                items = items
+                    .filter { $0.album == album}
+                    .sorted { $0.releaseDate < $1.releaseDate }
+            } else {
+                /// Reduce the list to one Music Video for each album
+                items.uniqueMusicVideoAlbum()
+                
+            }
+
         case .musicVideoArtist:
             let artists = media
                 .filter { $0.media == .musicvideo }
@@ -73,7 +81,7 @@ extension KodiConnector {
 /// The struct for a Kodi filter that can be send to the ``KodiConnector/filter(_:)`` function to filter the library
 public struct KodiFilter: Hashable, Equatable {
     /// Public init is needed because this struct is in a package so doesn't give it 'for free'...
-    public init(media: KodiMedia, title: String? = nil, subtitle: String? = nil, fanart: String? = nil, tvshowID: Int? = nil, setID: Int? = nil, artist: [String]? = nil, genre: String? = nil, search: String? = nil) {
+    public init(media: KodiMedia, title: String? = nil, subtitle: String? = nil, fanart: String? = nil, tvshowID: Int? = nil, setID: Int? = nil, artist: [String]? = nil, album: String? = nil, genre: String? = nil, search: String? = nil) {
         self.media = media
         self.title = title
         self.subtitle = subtitle
@@ -81,6 +89,7 @@ public struct KodiFilter: Hashable, Equatable {
         self.tvshowID = tvshowID
         self.setID = setID
         self.artist = artist
+        self.album = album
         self.genre = genre
         self.search = search
     }
@@ -98,6 +107,8 @@ public struct KodiFilter: Hashable, Equatable {
     public var setID: Int?
     /// The artist when filtering for a specific artist
     public var artist: [String]?
+    /// The album when filtering for a specific album
+    public var album: String?
     /// The genre when filtering for a specific genre
     public var genre: String?
     /// The search string

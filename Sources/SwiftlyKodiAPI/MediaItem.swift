@@ -116,6 +116,10 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     
     /// An array of artists
     public var artists: [String] = []
+    /// Album title
+    public var album: String = ""
+    /// Track number
+    public var track: Int = 0
     
 }
 

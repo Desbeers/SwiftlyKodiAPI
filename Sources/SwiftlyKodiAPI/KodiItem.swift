@@ -83,6 +83,12 @@ struct KodiItem: Codable {
     ///         and we just keep it as Array because that is the most common
     public var artist: [String] = []
     
+    /// Album
+    var album: String = ""
+    
+    /// Track
+    var track: Int = 0
+    
     /// # Art stuff
     
     /// The poster of the item
@@ -200,6 +206,8 @@ extension KodiItem {
         /// # The internal keys
         /// Keys that are not exposed outside of the package
         case plot, tagline, genre, studio, showtitle, year, premiered, firstaired, art, runtime, sorttitle, sortname, file
+        /// # Audio
+        case album, track
     }
 }
 
@@ -272,8 +280,15 @@ extension KodiItem {
         if let artists = try? container.decodeIfPresent([String].self, forKey: .artist) {
             self.artist = artists
         }
-
+        
+        /// Artist sort name
         sortname = try container.decodeIfPresent(String.self, forKey: .sortname) ?? ""
+        
+        /// Album
+        album = try container.decodeIfPresent(String.self, forKey: .album) ?? ""
+        
+        /// Track
+        track = try container.decodeIfPresent(Int.self, forKey: .track) ?? 0
         
         /// # ID of items
 

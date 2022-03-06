@@ -41,6 +41,7 @@ extension KodiConnector {
                 "title",
                 "artist",
                 "album",
+                "track",
                 "genre",
                 "file",
                 "year",

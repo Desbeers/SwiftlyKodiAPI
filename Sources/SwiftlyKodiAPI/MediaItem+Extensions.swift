@@ -45,6 +45,21 @@ extension Array where Element == MediaItem {
             return false
         }
     }
+    
+    /// Filter the music videos to have only one video representing an album
+    /// - Returns: A list with music videos without duplicated albums
+    mutating func uniqueMusicVideoAlbum() {
+        var knownAlbums = Set<String>()
+        self = self.filter { element -> Bool in
+            let album = element.album
+            if album == "" || !knownAlbums.contains(album) {
+                knownAlbums.insert(album)
+                return true
+            }
+            /// This set is already in the list
+            return false
+        }
+    }
 
     /// Filter the Kodi library
     public func filter(_ filter: KodiFilter) -> [MediaItem] {

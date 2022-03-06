@@ -73,6 +73,8 @@ extension KodiConnector {
                 mediaItem.title = item.title
                 mediaItem.subtitle = item.artist.joined(separator: " & ")
                 mediaItem.artists = item.artist
+                mediaItem.album = item.album
+                mediaItem.track = item.track
             case .artist:
                 /// # Artist
                 mediaItem.id = "artist-\(item.artistID)"
