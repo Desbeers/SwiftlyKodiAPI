@@ -13,19 +13,8 @@ struct KodiItem: Codable {
     
     /// # General stuff
     
-    /// The title of the item
-    /// - Movie: The movie title
-    /// - TV show: The TV show title
-    /// - Episode: The name of the TV show
-    /// - Music Video: The artist name
+    /// Title of the item
     public var title: String = ""
-    
-    /// The subtitle of the item
-    /// - Movie: The tagline
-    /// - TV show: *Not in use*
-    /// - Episode: The name of the TV show
-    /// - Music Video: The name of the track
-    public var subtitle: String = ""
     
     /// The description of the item
     /// - Movie: The plot
@@ -189,7 +178,7 @@ extension KodiItem {
     /// The coding keys
     enum CodingKeys: String, CodingKey {
         /// The public keys
-        case title, subtitle, description, playcount, episode, season, cast, artist
+        case title, description, playcount, episode, season, cast, artist
         /// Camel Case
         case setName = "set"
         /// # The public ID's
@@ -224,10 +213,6 @@ extension KodiItem {
         
         sorttitle = try container.decodeIfPresent(String.self, forKey: .sorttitle) ?? ""
         
-        /// - Note: Subtitle is different for each media kind
-        /// Movie subtitle is the tagline, if any..
-        tagline = try container.decodeIfPresent(String.self, forKey: .tagline) ?? ""
-        
         /// - Note: description can either be a plot or a real description
         /// Check first for plot
         description = try container.decodeIfPresent(String.self, forKey: .plot) ??
@@ -259,6 +244,8 @@ extension KodiItem {
 
         /// # Video Stuff
         
+        tagline = try container.decodeIfPresent(String.self, forKey: .tagline) ?? ""
+        
         setName = try container.decodeIfPresent(String.self, forKey: .setName) ?? ""
 
         cast = try container.decodeIfPresent([ActorItem].self, forKey: .cast) ?? []
@@ -279,12 +266,9 @@ extension KodiItem {
         if let artist = try? container.decodeIfPresent(String.self, forKey: .artist) {
             /// The artist is a String, so most probably from AudioLibrary.GetArtists; use it as title
             self.title = artist
-            // self.subtitle = ""
             self.artist = [artist]
         }
         if let artists = try? container.decodeIfPresent([String].self, forKey: .artist) {
-            /// The artist is an Array; use it as subtitle
-            // self.subtitle = artists.joined(separator: "・")
             self.artist = artists
         }
 

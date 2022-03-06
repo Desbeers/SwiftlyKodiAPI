@@ -14,18 +14,42 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     /// The indentifiation of the item
     /// - Note: tvOS doesn't like `UUID`'s for this for some unknown reason
     public var id: String = ""
+    
     /// The kind of ``KodiMedia``
     public var media: KodiMedia = .none
+    
     /// The title of the item
+    /// - Movie: Movie title
+    /// - Movie Set: Movie set name
+    /// - TV show: TV show name
+    /// - Episode: Episode title
+    /// - Music Video: Music Video title
+    /// - Artist: Artist name
+    /// - Album: Album title
+    /// - Song: Song title
+    /// - Genre: Genre label
     public var title: String = ""
-    /// The sorting title of the item
-    public var sorttitle: String = ""
+    
+    /// The sort title of the item
+    var sorttitle: String = ""
+    
     /// The subtitle of the item
+    /// - Movie: Movie tagline
+    /// - TV show: *Not in use*
+    /// - Episode: TV show name
+    /// - Music Video: Artist(s) name
+    /// - Artist: *Not in use*
+    /// - Album: Album artist(s)
+    /// - Song: Song artist(s)
+    /// - Genre: *Not in use*
     public var subtitle: String = ""
+    
     /// The description of the item
     public var description: String = ""
+    
     /// The details of the item
     public var details: String = ""
+    
     /// The genres for the item
     public var genres: [String] = []
     
