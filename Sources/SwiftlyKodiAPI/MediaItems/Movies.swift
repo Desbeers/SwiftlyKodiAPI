@@ -42,19 +42,12 @@ extension KodiConnector {
                                     .removingDuplicates()
                 setItem.genres = genres
                 setItem.details = genres.joined(separator: "・")
-                /// Add the set a a movie item
+                /// Add the set to the list of sets
                 setItems.append(setItem)
-                
-                
+                /// Now add some set info to the movies
                 for movie in movies {
                     var movieWithSet = movie
                     movieWithSet.movieSetTitle = movieSet.title
-//                    movieWithSet.setInfo.movies = movies.map { $0.title}
-//                    .joined(separator: "・")
-//                    movieWithSet.setInfo.count = movies.count
-//                    movieWithSet.setInfo.genres = movies.flatMap { $0.genre }
-//                    .removingDuplicates()
-//                    .joined(separator: "・")
                     movieItems.append(movieWithSet)
                 }
             }

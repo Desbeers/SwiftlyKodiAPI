@@ -44,12 +44,6 @@ extension KodiConnector {
                 mediaItem.title = item.title
                 mediaItem.subtitle = item.tagline
                 mediaItem.movieSetTitle = item.movieSetTitle
-            case .movieSet:
-                /// # Movie Set
-                mediaItem.id = "movieSet-\(item.movieSetID)"
-                mediaItem.movieSetID = item.movieSetID
-                mediaItem.title = item.title
-                mediaItem.subtitle = ""
             case .tvshow:
                 /// # TV Show
                 mediaItem.id = "tvshow-\(item.tvshowID)"
