@@ -17,10 +17,10 @@ extension KodiConnector {
         do {
             let result = try await sendRequest(request: request)
             /// Get the movies that are not part of a set
-            var movieItems = result.movies.filter { $0.setID == 0 }
+            var movieItems = result.movies.filter { $0.movieSetID == 0 }
             /// Add set information to the movies
             for movieSet in movieSets {
-                let movies = result.movies.filter { $0.setID == movieSet.movieSetID}
+                let movies = result.movies.filter { $0.movieSetID == movieSet.movieSetID}
                 for movie in movies {
                     var movieWithSet = movie
                     movieWithSet.movieSetTitle = movieSet.title

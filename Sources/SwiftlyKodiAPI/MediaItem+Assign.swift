@@ -8,18 +8,13 @@
 import Foundation
 
 extension KodiConnector {
-    /// Set the kind of media for the ``KodiItem``
-    ///
-    /// A ``KodiItem`` can be of the following type:
-    /// - Movie
-    /// - TV show
-    /// - Episode
-    /// - Music Video
+    
+    /// Set the variables for the ``MediaItem``
     ///
     /// - Parameters:
     ///   - item: The ``KodiItem``
     ///   - media: The ``KodiMedia`` type for this ``KodiItem``
-    /// - Returns: The ``KodiItem``'s with the ``KodiMedia`` set
+    /// - Returns: The ``MediaItem``'s with the variables set
     func setMediaItem(items: [KodiItem], media: KodiMedia) -> [MediaItem] {
         var mediaItems: [MediaItem] = []
         for item in items {
@@ -36,7 +31,6 @@ extension KodiConnector {
                                       poster: item.poster,
                                       fanart: item.fanart
             )
-            
             /// Build the default`details`
             let details = item.genre + [item.releaseYear] + [item.duration]
             mediaItem.details = details.joined(separator: "・")
@@ -46,14 +40,14 @@ extension KodiConnector {
                 /// # Movies
                 mediaItem.id = "movie-\(item.movieID)"
                 mediaItem.movieID = item.movieID
-                mediaItem.movieSetID = item.setID
+                mediaItem.movieSetID = item.movieSetID
                 mediaItem.title = item.title
                 mediaItem.subtitle = item.tagline
                 mediaItem.movieSetTitle = item.movieSetTitle
             case .movieSet:
                 /// # Movie Set
-                mediaItem.id = "movieSet-\(item.setID)"
-                mediaItem.movieSetID = item.setID
+                mediaItem.id = "movieSet-\(item.movieSetID)"
+                mediaItem.movieSetID = item.movieSetID
                 mediaItem.title = item.title
                 mediaItem.subtitle = ""
             case .tvshow:

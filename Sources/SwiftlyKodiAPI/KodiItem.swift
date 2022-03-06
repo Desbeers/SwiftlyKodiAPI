@@ -17,10 +17,7 @@ struct KodiItem: Codable {
     public var title: String = ""
     
     /// The description of the item
-    /// - Movie: The plot
-    /// - TV show: The plot
-    /// - Episode: The plot
-    /// - Music Video: The plot
+    /// - Note: This can be a 'real' description or a plot; both will be stored as 'description`
     public var description: String = ""
     
 
@@ -111,8 +108,8 @@ struct KodiItem: Codable {
     /// The movie ID
     public var movieID: Int = 0
     
-    /// The set ID
-    public var setID: Int = 0
+    /// The movie set ID
+    public var movieSetID: Int = 0
     
     /// Optional set name (movie)
     public var setName: String = ""
@@ -185,7 +182,7 @@ extension KodiItem {
         /// Camel Case
         case movieID = "movieid"
         /// Camel Case
-        case setID = "setid"
+        case movieSetID = "movieSetID"
         /// Camel Case
         case tvshowID = "tvshowid"
         /// Camel Case
@@ -276,7 +273,7 @@ extension KodiItem {
 
         movieID = try container.decodeIfPresent(Int.self, forKey: .movieID) ?? 0
 
-        setID = try container.decodeIfPresent(Int.self, forKey: .setID) ?? 0
+        movieSetID = try container.decodeIfPresent(Int.self, forKey: .movieSetID) ?? 0
 
         tvshowID = try container.decodeIfPresent(Int.self, forKey: .tvshowID) ?? 0
 
@@ -328,7 +325,7 @@ extension KodiItem {
     /// A struct for information about a Movie Set
 //    public struct MovieSetItem: Codable, Hashable {
 //        /// The ID of the movie set
-//        public var setID: Int = 0
+//        public var movieSetID: Int = 0
 //        /// The title of the movie set
 //        public var title: String = ""
 //        /// The playcount of the movie set
@@ -343,7 +340,7 @@ extension KodiItem {
 //            /// Description is plot
 //            case description = "plot"
 //            /// Camel Case
-//            case setID = "setid"
+//            case movieSetID = "movieSetID"
 //        }
 //        /// The poster of the set
 //        public var poster: String {
