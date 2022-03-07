@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// The struct of a Kodi host item
+/// The struct for host information to make a remote connection
 public struct HostItem: Codable, Identifiable, Hashable {
     /// Give it an ID
     public var id: UUID

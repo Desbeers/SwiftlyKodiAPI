@@ -1,5 +1,5 @@
 //
-//  KodiMedia.swift
+//  MediaType.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -7,11 +7,13 @@
 
 import Foundation
 
-/// The Kodi media types
-public enum KodiMedia: String, Equatable {
-    /// None
+/// All the media types
+///
+/// - Note: This `Enum` is used when loading and filtering the library
+public enum MediaType: String, Equatable {
+    /// Not a media type
     case none
-    /// All items
+    /// All media types
     case all
     /// Movies
     case movie
@@ -43,7 +45,8 @@ public enum KodiMedia: String, Equatable {
         case .musicvideo:
             return .videoLibrarySetMusicVideoDetails
         default:
-            return .videoLibraryGetMovies
+            /// This should not happen
+            return .videoLibrarySetMovieDetails
         }
     }
 }

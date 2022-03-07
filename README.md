@@ -26,8 +26,6 @@ import SwiftlyKodiAPI
 struct VideoPlayerApp: App {
     /// The KodiConnector model
     @StateObject var kodi: KodiConnector  = .shared
-    /// The AppState model
-    @StateObject var appState = AppState()
     /// The Scene
     var body: some Scene {
         WindowGroup {
@@ -43,21 +41,10 @@ struct VideoPlayerApp: App {
                         .environmentObject(kodi)
                 }
             }
+            .task {
+                await kodi.connectToHost(kodiHost: HostItem(ip: "127.0.0.1"))
+            }
         }
-    }
-}
-```
-
-### The AppState class
-
-```swift
-import Foundation
-import SwiftlyKodiAPI
-
-final class AppState: ObservableObject {
-    let kodi: KodiConnector = .shared
-    init() {
-        kodi.connectToHost(kodiHost: HostItem(ip: "127.0.0.1"))
     }
 }
 ```
@@ -83,8 +70,8 @@ struct ContentView: View {
             }
         }
         .task {
-            let filter = KodiFilter(media: .tvshow, genre: "Comedy")
-            let tvshowItems = await kodi.filter(filter)
+            let filter = MediaFilter(media: .tvshow, genre: "Comedy")
+            tvshows =  kodi.media.filter(filter)
             tvshows = tvshowItems
         }
     }

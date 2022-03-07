@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// The Class that provides the connection between Swift and the Kodi host
+/// The Class that provides the connection between Swift and the remote host
 public final class KodiConnector: ObservableObject {
     
     // MARK: Constants and Variables
@@ -18,11 +18,9 @@ public final class KodiConnector: ObservableObject {
     let urlSession: URLSession
     /// The WebSocket task
     var webSocketTask: URLSessionWebSocketTask?
-    
-    /// The active host
+    /// The active external host
     var host = HostItem()
-    
-    /// The Meda Library
+    /// The Meda Library from the remote host
     @Published public var media: [MediaItem] = []
 
     // MARK: Init

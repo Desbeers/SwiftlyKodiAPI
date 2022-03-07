@@ -72,7 +72,7 @@ extension Array where Element == MediaItem {
     }
 
     /// Filter the Kodi library
-    public func filter(_ filter: KodiFilter) -> [MediaItem] {
+    public func filter(_ filter: MediaFilter) -> [MediaItem] {
         return KodiConnector.shared.filter(filter)
     }
     

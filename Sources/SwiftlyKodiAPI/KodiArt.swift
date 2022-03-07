@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-/// The types of art Kodi can provide
-public enum KodiArtType {
+/// The types media art
+enum ArtType {
     /// Poster
-    /// - Note: poster will fallback to thumbnail or thumb if needed
+    /// - Note: Poster will fallback to thumbnail or thumb if needed
     case poster
     /// Fanart
+    /// - Note: Fanart will fallback to poster if needed
     case fanart
 }
 
@@ -21,7 +22,7 @@ public enum KodiArtType {
 ///   - art: The art collection
 ///   - type: The kind of ard we want
 /// - Returns: An internal Kodi URL for the art
-func getSpecificArt(art: [String: String], type: KodiArtType) -> String {
+func getSpecificArt(art: [String: String], type: ArtType) -> String {
     switch type {
     case .poster:
         if let posterArt = art["poster"] {

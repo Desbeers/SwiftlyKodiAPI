@@ -37,7 +37,7 @@ extension KodiConnector {
     /// Get all genres from the Kodi host for a specific media type
     /// - Parameter type: The type of Kodi Media
     /// - Returns: All genres for the specific media type
-    func getGenres(type: KodiMedia) async -> [GenreItem] {
+    func getGenres(type: MediaType) async -> [GenreItem] {
         let request = VideoLibraryGetGenres(type: type)
         do {
             let result = try await sendRequest(request: request)
@@ -51,7 +51,7 @@ extension KodiConnector {
     /// Retrieve all genres (Kodi API)
     struct VideoLibraryGetGenres: KodiAPI {
         /// Argument
-        var type: KodiMedia
+        var type: MediaType
         /// Method
         var method = Method.videoLibraryGetGenres
         /// The JSON creator

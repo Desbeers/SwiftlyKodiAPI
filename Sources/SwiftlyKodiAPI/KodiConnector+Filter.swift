@@ -12,7 +12,7 @@ extension KodiConnector {
     /// Filter the Kodi library for specific items
     /// - Parameter filter: A struct with al the filter parameters
     /// - Returns: All Kodi media items confirming to the filter
-    func filter(_ filter: KodiFilter) -> [MediaItem] {
+    func filter(_ filter: MediaFilter) -> [MediaItem] {
         /// Get the library
         var items = media
         /// Remove Kodi items that we don't need
@@ -78,10 +78,20 @@ extension KodiConnector {
     
 }
 
-/// The struct for a Kodi filter that can be send to the ``KodiConnector/filter(_:)`` function to filter the library
-public struct KodiFilter: Hashable, Equatable {
+/// The struct for a filter that can be apllied to a ``MediaItem`` array
+public struct MediaFilter: Hashable, Equatable {
     /// Public init is needed because this struct is in a package so doesn't give it 'for free'...
-    public init(media: KodiMedia, title: String? = nil, subtitle: String? = nil, fanart: String? = nil, tvshowID: Int? = nil, setID: Int? = nil, artist: [String]? = nil, album: String? = nil, genre: String? = nil, search: String? = nil) {
+    public init(media: MediaType,
+                title: String? = nil,
+                subtitle: String? = nil,
+                fanart: String? = nil,
+                tvshowID: Int? = nil,
+                setID: Int? = nil,
+                artist: [String]? = nil,
+                album: String? = nil,
+                genre: String? = nil,
+                search: String? = nil
+    ) {
         self.media = media
         self.title = title
         self.subtitle = subtitle
@@ -94,7 +104,7 @@ public struct KodiFilter: Hashable, Equatable {
         self.search = search
     }
     /// The type of media
-    public var media: KodiMedia
+    public var media: MediaType
     /// The title that can be used in a View
     public var title: String?
     /// The subtitle that can be used in a View

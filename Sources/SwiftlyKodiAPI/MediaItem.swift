@@ -7,12 +7,12 @@
 
 import Foundation
 
-/// A struct for a media item from the Kodi library
+/// The struct for a media item from the Kodi library
 ///
 /// Anything inside the Kodi library is a ``MediaItem``;
-/// movies, tv shows, episodes, music videos, artists, albums, songs and genres.
+/// movies, movie sets, tv shows, episodes, music videos, artists, albums, songs and genres.
 ///
-/// Depending on the ``KodiMedia``, the variables will be empty or filled in.
+/// Depending on the ``MediaType``, the variables will be empty or filled in.
 ///
 /// - Tip: The are no `optionals`. When a variable is not found or empty,
 /// a String will be `""`, an Int will be `0` and an Array will be `[]`.
@@ -25,8 +25,8 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     public var id: String = ""
     //public let id = UUID().uuidString
     
-    /// The kind of ``KodiMedia``
-    public var media: KodiMedia = .none
+    /// The kind of ``MediaType``
+    public var media: MediaType = .none
     
     /// The title of the item
     /// - Movie: Movie title
