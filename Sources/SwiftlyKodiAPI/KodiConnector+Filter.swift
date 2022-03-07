@@ -9,7 +9,7 @@ import Foundation
 
 extension KodiConnector {
     
-    /// Filter the Kodi library for specific items
+    /// Filter the media library for specific items
     /// - Parameter filter: A struct with al the filter parameters
     /// - Returns: All Kodi media items confirming to the filter
     func filter(_ filter: MediaFilter) -> [MediaItem] {
