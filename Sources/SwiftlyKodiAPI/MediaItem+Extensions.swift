@@ -9,21 +9,21 @@ import SwiftUI
 
 extension MediaItem {
 
-    /// Get the binding from a Kodi item to the Kodi library
+    /// Get the binding from a media item to the Kodi library
     /// - Returns: A Binding to the library
     public func binding() -> Binding<MediaItem> {
         return KodiConnector.shared.getLibraryBinding(item: self)
     }
     
-    /// Toggle the watched status of a Kodi item
-    mutating public func toggleWatchedState() {
-        print("Toggle watch state")
+    /// Toggle the played status of a media item
+    mutating public func togglePlayedState() {
+        print("Toggle play state")
         self.playcount = self.playcount == 0 ? 1 : 0
         KodiConnector.shared.setPlaycount(self)
     }
     
-    /// Mark an Kodi item as watched
-    mutating public func markAsWatched() {
+    /// Mark an media item as played
+    mutating public func markAsPlayed() {
         self.playcount += 1
         KodiConnector.shared.setPlaycount(self)
     }

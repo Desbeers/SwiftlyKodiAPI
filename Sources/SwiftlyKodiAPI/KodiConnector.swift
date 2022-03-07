@@ -18,7 +18,7 @@ public final class KodiConnector: ObservableObject {
     let urlSession: URLSession
     /// The WebSocket task
     var webSocketTask: URLSessionWebSocketTask?
-    /// The active external host
+    /// The remote host to make a connection
     var host = HostItem()
     /// The Meda Library from the remote host
     @Published public var media: [MediaItem] = []

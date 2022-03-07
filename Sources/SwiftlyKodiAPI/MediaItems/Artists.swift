@@ -23,20 +23,6 @@ extension KodiConnector {
             }
     }
     
-    /// Get info about a specific artist
-    /// - Parameter artist: The name of the artist; if more than one, the first will be used
-    /// - Returns: An Artist item
-    public func getArtistInfo(artist: [String]) -> MediaItem {
-        if let artist = media
-            .first(where: { $0.media == .artist && $0.artists.contains(artist.first ?? "")}) {
-            return artist
-        }
-        return MediaItem(title: artist.joined(separator: " & "),
-                         description: "Unknown artist",
-                         artists: artist
-        )
-    }
-    
     /// Retrieve all artists (Kodi API)
     struct AudioLibraryGetArtists: KodiAPI {
         /// Method

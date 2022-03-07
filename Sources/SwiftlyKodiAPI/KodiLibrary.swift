@@ -9,28 +9,19 @@ import SwiftUI
 extension KodiConnector {
     
     /// Get a Binding from a ``MediaItem`` to the Kodi library
-    ///  n SwiftUI if yo fiter the library in a `ForEach` you can't use the 'normal' Binding $ anymore
+    ///
+    /// In SwiftUI, if you filter the media items in a `ForEach` you can't use the 'normal' Binding $ anymore
     /// - Parameter item: A Media item
     /// - Returns: A Binding to the Kodi library
     func getLibraryBinding(item: MediaItem) -> Binding<MediaItem> {
         return  Binding<MediaItem>(
             get: { self.media.first(where: { $0.id == item.id}) ?? item },
-            set: {newValue in
-                /// Nothing to do...
+            set: { newValue in
+                /// Nothing to do here...
             }
         )
     }
-    
-    /// Mark a Video item as watched
-    /// - Parameter video: The Kodi video item that is watched
-    @MainActor public func markVideoAsWatched(_ video: MediaItem) {
-        print("Mark \(video.title) as watched")
-        if let index = media.firstIndex(where: { $0.id == video.id }) {
-            media[index].playcount = video.playcount + 1
-            setPlaycount(media[index])
-        }
-    }
-    
+
     /// Set the play count of a Kodi item
     /// - Parameter item: The Kodi item
     func setPlaycount(_ item: MediaItem) {
