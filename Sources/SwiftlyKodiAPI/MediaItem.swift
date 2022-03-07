@@ -7,14 +7,14 @@
 
 import Foundation
 
-/// An media item in the Kodi library
+/// A struct for a media item from the Kodi library
 ///
 /// Anything inside the Kodi library is a ``MediaItem``;
 /// movies, tv shows, episodes, music videos, artists, albums, songs and genres.
 ///
 /// Depending on the ``KodiMedia``, the variables will be empty or filled in.
 ///
-/// - Tip: The are no `optionals`! When a variable is not found or empty,
+/// - Tip: The are no `optionals`. When a variable is not found or empty,
 /// a String will be `""`, an Int will be `0` and an Array will be `[]`.
 public struct MediaItem: Identifiable, Equatable, Hashable {
     
@@ -69,10 +69,14 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     public var file: URL = URL(fileURLWithPath: "")
     /// The playcount of the item
     public var playcount: Int = 0
+    
+    /// # Date and Time
+    
     /// Duration of the item; presented as a formatted String
     public var duration: String = ""
     /// The release date of the item
-    public var releaseDate: Date = Date()
+    /// - Note: In case of an Episode, it is the 'first-aired' date
+    public var releaseDate: String = ""
     /// The release year of the item
     public var releaseYear: String = ""
     /// The date the item was added to the Kodi database

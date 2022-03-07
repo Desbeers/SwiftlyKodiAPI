@@ -29,6 +29,16 @@ extension MediaItem {
     }
 }
 
+extension String {
+    
+    /// Format a Kodi date-string to a real `Date`
+    public func kodiDate() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: self) ?? Date()
+    }
+}
+
 extension Array where Element == MediaItem {
     
     /// Filter the movies to have only one movie representing a set

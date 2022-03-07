@@ -33,17 +33,6 @@ extension KodiConnector {
         /// Return them
         return genreItems
     }
-    
-//    func getAllGenres() async -> [GenreItem] {
-//        /// Get the genres for all media types
-//        let movieGenres = await getGenres(type: .movie)
-//        let tvGenres = await getGenres(type: .tvshow)
-//        let musicGenres = await getGenres(type: .musicvideo)
-//        /// Combine them
-//        let allGenres = movieGenres + tvGenres + musicGenres
-//        /// Return them
-//        return allGenres.unique { $0.genreID}
-//    }
 
     /// Get all genres from the Kodi host for a specific media type
     /// - Parameter type: The type of Kodi Media
@@ -87,15 +76,15 @@ extension KodiConnector {
 }
 
 /// The struct for a genre item
-public struct GenreItem: Codable, Identifiable, Hashable {
-    public var id = UUID()
-    /// # Metadata we get from Kodi
+struct GenreItem: Codable {
+    /// # Kodi parameters
     /// The genre ID
-    public var genreID: Int = 0
+    var genreID: Int = 0
     /// Label of the genre
-    public var label: String = ""
+    var label: String = ""
+    /// # Calculated variables
     /// SF symbol of the genre
-    public var symbol: String {
+    var symbol: String {
         if let genre = GenreIcon(rawValue: label.lowercased()) {
             return genre.symbol
         }

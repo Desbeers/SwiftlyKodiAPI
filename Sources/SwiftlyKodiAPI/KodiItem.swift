@@ -30,17 +30,18 @@ struct KodiItem: Codable {
     /// # Date and Time stuff
     
     /// The full release date of the item
-    /// - Note: An episode has no release date, but a first-ared date.
+    /// - Note: An episode has no release date, but a first-aired date.
     ///         The JSON decoder takes care of the mapping
-    public var releaseDate: Date {
-        let date = premiered.isEmpty ? year.description + "-01-01" : premiered
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.date(from: date) ?? Date()
+    public var releaseDate: String {
+        return premiered.isEmpty ? year.description + "-01-01" : premiered
+//        let date = premiered.isEmpty ? year.description + "-01-01" : premiered
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        return dateFormatter.date(from: date) ?? Date()
     }
     /// The release year of the item
     public var releaseYear: String {
-        let components = Calendar.current.dateComponents([.year], from: releaseDate)
+        let components = Calendar.current.dateComponents([.year], from: releaseDate.kodiDate())
         return components.year?.description ?? "0000"
     }
     
