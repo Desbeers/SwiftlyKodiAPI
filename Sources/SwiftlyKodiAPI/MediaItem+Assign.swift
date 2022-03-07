@@ -50,7 +50,7 @@ extension KodiConnector {
                 mediaItem.id = "tvshow-\(item.tvshowID)"
                 mediaItem.tvshowID = item.tvshowID
                 mediaItem.title = item.title
-                mediaItem.subtitle = ""
+                mediaItem.subtitle = "\(item.episode) episodes"
                 /// Build the `details`
                 let details = item.genre + [item.releaseYear] + item.studio
                 mediaItem.details = details.joined(separator: "・")

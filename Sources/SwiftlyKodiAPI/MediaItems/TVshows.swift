@@ -48,7 +48,8 @@ extension KodiConnector {
                 "premiered",
                 "playcount",
                 "dateadded",
-                "studio"
+                "studio",
+                "episode"
             ]
             /// The sort order
             var sort = KodiConnector.SortFields()
