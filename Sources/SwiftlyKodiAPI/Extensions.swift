@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Array extensions
+
 extension Array where Element: Hashable {
 
     /// Remove duplicates from an Array
@@ -24,6 +26,8 @@ extension Array where Element: Hashable {
         self = self.removingDuplicates()
     }
 }
+
+// MARK: Sequence extensions
 
 extension Sequence {
 

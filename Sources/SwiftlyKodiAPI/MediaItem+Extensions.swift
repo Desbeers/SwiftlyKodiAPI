@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: MediaItem extensions
+
 extension MediaItem {
 
     /// Get the binding from a media item to the Kodi library
@@ -29,6 +31,8 @@ extension MediaItem {
     }
 }
 
+// MARK: String extensions
+
 extension String {
     
     /// Format a Kodi date-string to a real `Date`
@@ -38,6 +42,8 @@ extension String {
         return dateFormatter.date(from: self) ?? Date()
     }
 }
+
+// MARK: MediaItem  in Array extensions
 
 extension Array where Element == MediaItem {
     

@@ -23,8 +23,8 @@ extension KodiConnector {
         switch filter.media {
         case .movie:
             /// If `setID` is set it means we want movies from a specific set
-            if let setID = filter.setID {
-                items = items.filter { $0.movieSetID == setID }
+            if let movieSetID = filter.movieSetID {
+                items = items.filter { $0.movieSetID == movieSetID }
                 items.sortByYearAndTitle()
             } else {
                 items.uniqueSet()
@@ -63,12 +63,12 @@ extension KodiConnector {
         default:
             break
         }
-        /// Now that filtering on media type is done, check if some additional fitereing is needed
+        /// Now that filtering on media type is done, check if some additional filtering is needed
         if let genre = filter.genre {
             items = items
                 .filter { $0.genres.contains(genre) }
             items.sortBySetAndTitle()
-            if filter.setID == nil {
+            if filter.movieSetID == nil {
                 items.uniqueSet()
             }
         }
@@ -82,22 +82,16 @@ extension KodiConnector {
 public struct MediaFilter: Hashable, Equatable {
     /// Public init is needed because this struct is in a package so doesn't give it 'for free'...
     public init(media: MediaType,
-                title: String? = nil,
-                subtitle: String? = nil,
-                fanart: String? = nil,
                 tvshowID: Int? = nil,
-                setID: Int? = nil,
+                movieSetID: Int? = nil,
                 artist: [String]? = nil,
                 album: String? = nil,
                 genre: String? = nil,
                 search: String? = nil
     ) {
         self.media = media
-        self.title = title
-        self.subtitle = subtitle
-        self.fanart = fanart
         self.tvshowID = tvshowID
-        self.setID = setID
+        self.movieSetID = movieSetID
         self.artist = artist
         self.album = album
         self.genre = genre
@@ -105,16 +99,10 @@ public struct MediaFilter: Hashable, Equatable {
     }
     /// The type of media
     public var media: MediaType
-    /// The title that can be used in a View
-    public var title: String?
-    /// The subtitle that can be used in a View
-    public var subtitle: String?
-    /// The fanart that can be used in a View
-    public var fanart: String?
     /// The TV show ID when filtering for episodes
     public var tvshowID: Int?
     /// The Movie Set ID when filtering for a movie set
-    public var setID: Int?
+    public var movieSetID: Int?
     /// The artist when filtering for a specific artist
     public var artist: [String]?
     /// The album when filtering for a specific album
