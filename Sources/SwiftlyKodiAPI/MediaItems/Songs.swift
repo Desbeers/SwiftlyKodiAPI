@@ -16,7 +16,7 @@ extension KodiConnector {
         var songItems = [MediaItem]()
         
         for (index, album) in albums.enumerated() {
-            let songs = await getSongs(album: album)
+            let songs = await getSongsFromAlbum(album: album)
             songItems += songs
         }
         return songItems
@@ -27,7 +27,7 @@ extension KodiConnector {
     /// - Returns: All songs from that album
     ///
     /// - Note: Don't ask for all songs from the library in one shot; it will timeout
-    func getSongs(album: MediaItem) async -> [MediaItem] {
+    func getSongsFromAlbum(album: MediaItem) async -> [MediaItem] {
         let request = AudioLibraryGetSongs(albumID: album.albumID)
             do {
                 let result = try await sendRequest(request: request)
