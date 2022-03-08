@@ -72,7 +72,6 @@ struct ContentView: View {
         .task {
             let filter = MediaFilter(media: .tvshow, genre: "Comedy")
             tvshows =  kodi.media.filter(filter)
-            tvshows = tvshowItems
         }
     }
 }

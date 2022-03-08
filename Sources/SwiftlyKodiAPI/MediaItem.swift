@@ -111,6 +111,8 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     
     /// # TV shows and Episodes
     
+    /// The total seasons for a TV show
+    public var seasons: [Int] = []
     /// The season number
     public var season: Int = 0
     /// The episode number

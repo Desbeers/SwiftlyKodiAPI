@@ -67,9 +67,9 @@ extension KodiConnector {
     func getAllMedia() async -> [MediaItem] {
         var items: [MediaItem] = []
         await items += getMovies()
-        let tvshows = await getTVshows()
+        var tvshows = await getTVshows()
+        await items += getAllEpisodes(tvshows: &tvshows)
         items += tvshows
-        await items += getAllEpisodes(tvshows: tvshows)
         await items += getMusicVideos()
         await items += getArtists()
         await items += getAllGenres()
