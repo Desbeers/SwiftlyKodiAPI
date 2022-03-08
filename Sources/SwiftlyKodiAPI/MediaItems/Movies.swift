@@ -35,35 +35,6 @@ extension KodiConnector {
             }
             /// Return the movies
             return setMediaItem(items: movieItems, media: .movie)
-//            
-//            
-//            /// Add set information to the movies that are part of a set
-//            for movieSet in movieSets {
-//                /// Get all the movies that are in this set
-//                let movies = result.movies.filter { $0.movieSetID == movieSet.movieSetID}
-//                /// Create a new set
-//                var setItem = MediaItem(id: "set-\(movieSet.movieSetID)",
-//                                        media: .movieSet,
-//                                        title: movieSet.title,
-//                                        subtitle: "\(movies.count) movies",
-//                                        description: movieSet.description.isEmpty ? "Movie Set" : movieSet.description,
-//                                        playcount: movieSet.playcount,
-//                                        fanart: movieSet.fanart,
-//                                        movieSetID: movieSet.movieSetID
-//                )
-//                /// Use the last movie poster for the set if the set has none
-//                setItem.poster = movieSet.poster.isEmpty ? movies.last?.poster ?? "" : movieSet.poster
-//                /// Collect all the genres in this set and add it to the set as `genres` and `details`
-//                let genres = movies.flatMap { $0.genre }
-//                                    .removingDuplicates()
-//                setItem.genres = genres
-//                setItem.details = genres.joined(separator: "・")
-//                /// Add the set to the list of sets
-//                setItems.append(setItem)
-//                /// Add the movies to the list of movies
-//                movieItems += movies
-//            }
-//            return setItems + setMediaItem(items: movieItems, media: .movie)
         } catch {
             /// There are no movies in the library
             logger("Loading movies failed with error: \(error)")

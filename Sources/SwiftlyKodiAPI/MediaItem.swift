@@ -104,6 +104,8 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     public var artistID: Int = 0
     /// The album ID
     public var albumID: Int = 0
+    /// The song ID
+    public var songID: Int = 0
     
     /// # Movies
     

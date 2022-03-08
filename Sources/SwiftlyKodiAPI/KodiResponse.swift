@@ -180,6 +180,9 @@ struct KodiResponse: Codable {
     
     /// The album ID
     public var albumID: Int = 0
+    
+    /// The song ID
+    public var songID: Int = 0
 
 }
 
@@ -207,6 +210,8 @@ extension KodiResponse {
         case artistID = "artistid"
         /// Camel Case
         case albumID = "albumid"
+        /// Camel Case
+        case songID = "songid"
         /// lowerCamelCase
         case dateAdded = "dateadded"
         /// lowerCamelCase
@@ -327,6 +332,8 @@ extension KodiResponse {
         }
         
         albumID = try container.decodeIfPresent(Int.self, forKey: .albumID) ?? 0
+        
+        songID = try container.decodeIfPresent(Int.self, forKey: .songID) ?? 0
     }
 }
 

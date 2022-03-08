@@ -66,20 +66,29 @@ extension KodiConnector {
     func getAllMedia() async -> [MediaItem] {
         /// Start with a fresh list
         var items: [MediaItem] = []
+        
         var movieSets = await getMovieSets()
         /// - Note: The ``getMovies`` function will add info to the movie sets
         await items += getMovies(movieSets: &movieSets)
         /// Now we can store the movie sets in the `items` array
         items += movieSets
+        
         var tvshows = await getTVshows()
         /// - Note: The ``getAllEpisodes`` function will add info to the TV show items
         await items += getAllEpisodes(tvshows: &tvshows)
         /// Now we can store the TV shows in the `items` array
         items += tvshows
+        
         await items += getMusicVideos()
+        
         await items += getArtists()
-        await items += getAlbums()
+        
+        var albums = await getAlbums()
+        await items += getAllSongs(albums: &albums)
+        items += albums
+        
         await items += getAllGenres()
+        
         /// That's all!
         return items
     }
