@@ -66,7 +66,7 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     /// # File
     
     /// The full URL of the item
-    public var file: URL = URL(fileURLWithPath: "")
+    public var file: String = ""
     /// The playcount of the item
     public var playcount: Int = 0
     

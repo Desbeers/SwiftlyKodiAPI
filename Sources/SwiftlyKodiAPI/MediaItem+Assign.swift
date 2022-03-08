@@ -22,7 +22,7 @@ extension KodiConnector {
             var mediaItem = MediaItem(media: media,
                                       description: item.description,
                                       genres: item.genre,
-                                      file: item.fileURL,
+                                      file: item.filePath,
                                       playcount: item.playcount,
                                       duration: item.duration,
                                       releaseDate: item.releaseDate,

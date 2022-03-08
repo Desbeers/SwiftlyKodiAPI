@@ -104,8 +104,8 @@ struct KodiResponse: Codable {
     }
     
     /// The full Kodi file location of the item
-    public var fileURL: URL {
-        return URL(string: file.kodiFileUrl(media: .file))!
+    public var filePath: String {
+        return getFilePath(file: file, type: .file)
     }
     
     /// Default SF symbol for the item
@@ -316,7 +316,22 @@ extension KodiResponse {
 
 extension KodiResponse {
 
-    /// Conver runtime in seconds to a formatted time String
+    /// Convert an internal Kodi path to a full path
+    /// - Parameters:
+    ///   - file: The internal Kodi path
+    ///   - type: The type of remote file
+    /// - Returns: A string with the full path to the file
+    func getFilePath(file: String, type: FileType) -> String {
+        let host = KodiConnector.shared.host
+        /// Encoding
+        var allowed = CharacterSet.alphanumerics
+        allowed.insert(charactersIn: ":-._~") /// as per RFC 3986
+        /// Image URL
+        let kodiImageAddress = "http://\(host.username):\(host.password)@\(host.ip):\(host.port)/\(type.rawValue)/"
+        return kodiImageAddress + file.addingPercentEncoding(withAllowedCharacters: allowed)!
+    }
+
+    /// Convert runtime in seconds to a formatted time String
     /// - Parameter runtime: Time in minutes
     /// - Returns: The time as a formatted String
     func runtimeToDuration(runtime: Int) -> String {
@@ -325,14 +340,47 @@ extension KodiResponse {
         formatter.unitsStyle = .brief
         return formatter.string(from: TimeInterval(runtime))!
     }
+    
+    /// Get a specific art item from the collection
+    /// - Parameters:
+    ///   - art: The art collection
+    ///   - type: The kind of ard we want
+    /// - Returns: An internal Kodi URL for the art
+    func getSpecificArt(art: [String: String], type: ArtType) -> String {
+        switch type {
+        case .poster:
+            if let posterArt = art["poster"] {
+                return getFilePath(file: posterArt, type: .art)
+            }
+            if let posterArt = art["season.poster"] {
+                return getFilePath(file: posterArt, type: .art)
+            }
+            if let posterArt = art["thumbnail"] {
+                return getFilePath(file: posterArt, type: .art)
+            }
+            if let posterArt = art["thumb"] {
+                return getFilePath(file: posterArt, type: .art)
+            }
+        case .fanart:
+            if let fanartArt = art["fanart"] {
+                return getFilePath(file: fanartArt, type: .art)
+            }
+            if let fanartArt = art["tvshow.fanart"] {
+                return getFilePath(file: fanartArt, type: .art)
+            }
+            // Fallback to poster
+            return getSpecificArt(art: art, type: .poster)
+        }
+        return ""
+    }
 }
 
-// MARK: Sub-structs
+// MARK: Sub Structs and Enums
 
 extension KodiResponse {
     
     /// A struct for an actor that is part of the cast in a movie or TV episode
-    public struct ActorItem: Codable, Identifiable, Hashable {
+    struct ActorItem: Codable, Identifiable, Hashable {
         /// Make it identifiable
         public var id = UUID()
         /// The name of the actor
@@ -348,5 +396,22 @@ extension KodiResponse {
             /// The keys for this Actor Item
             case name, order, role, thumbnail
         }
+    }
+    
+    enum ArtType {
+        /// Poster
+        /// - Note: Poster will fallback to thumbnail or thumb if needed
+        case poster
+        /// Fanart
+        /// - Note: Fanart will fallback to poster if needed
+        case fanart
+    }
+    
+    /// The types of Kodi remote files
+    enum FileType: String {
+        /// An image; poster, fanart etc...
+        case art = "image"
+        /// A file, either video or audio
+        case file = "vfs"
     }
 }
