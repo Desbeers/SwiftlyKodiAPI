@@ -45,12 +45,8 @@ extension KodiConnector {
                 setItem.details = genres.joined(separator: "・")
                 /// Add the set to the list of sets
                 setItems.append(setItem)
-                /// Now add some set info to the movies
-                for movie in movies {
-                    var movieWithSet = movie
-                    movieWithSet.movieSetTitle = movieSet.title
-                    movieItems.append(movieWithSet)
-                }
+                /// Add the movies to the list of movies
+                movieItems += movies
             }
             return setItems + setMediaItem(items: movieItems, media: .movie)
         } catch {

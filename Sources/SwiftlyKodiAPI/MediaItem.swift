@@ -23,8 +23,7 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     /// The indentifiation of the item
     /// - Note: tvOS doesn't like `UUID`'s for this for some unknown reason
     public var id: String = ""
-    //public let id = UUID().uuidString
-    
+
     /// The kind of ``MediaType``
     public var media: MediaType = .none
     

@@ -15,7 +15,7 @@ import Foundation
 /// from the library. It has a custom `Init` will all posible parameters
 /// we might ask from Kodi.
 ///
-/// The result will be added to ``MediaItem``'s in their respectifly callers.
+/// The result will be added to ``MediaItem``'s by their respectifly callers.
 ///
 /// This `Struct` will not take care of that because tha will be messy,
 /// the list is already long enough...
@@ -26,6 +26,13 @@ struct KodiResponse: Codable {
     /// Title of the item
     var title: String = ""
     
+    /// The sorttitle of the item; can be empty
+    /// - Note: Kodi is using `sortname` for artists but that will be assigned to this one
+    var sorttitle: String = ""
+
+    /// The sortname of an artist; can be empty
+    var sortname: String = ""
+    
     /// The description of the item
     /// - Note: This can be a 'real' description or a plot; both will be stored as 'description`
     var description: String = ""
@@ -33,7 +40,43 @@ struct KodiResponse: Codable {
     /// The playcount of the item
     var playcount: Int = 0
     
+    /// Plot of the item
+    var plot: String = ""
+    
+    /// Genre for the item
+    var genre: [String] = []
+    
+    /// Tagline of the item (movie)
+    var tagline: String = ""
+    
+    /// Runtime of the item
+    var runtime: Int = 0
+    
+    /// Location of the item
+    /// - Note: This is an internal location; not a full path
+
+    var file: String = ""
+    
+    /// The full path of the item
+    ///
+    /// Movie Sets and Genres have no path
+    ///
+    /// - Note: The path from the Kodi database is *not* a full path
+    /// and must be converted first
+    var filePath: String {
+        return getFilePath(file: file, type: .file)
+    }
+    
     /// # Date and Time stuff
+    
+    /// The year of release of the item
+    var year: Int = 0
+    
+    /// The premiered date of the item
+    var premiered: String = ""
+    
+    /// The first aired date of the item (episode item)
+    var firstAired: String = ""
     
     /// The full release date of the item
     /// - Note: An episode has no release date, but a first-aired date.
@@ -43,7 +86,7 @@ struct KodiResponse: Codable {
     }
     
     /// The release year of the item
-    public var releaseYear: String {
+    var releaseYear: String {
         let components = Calendar.current.dateComponents([.year], from: releaseDate.kodiDate())
         return components.year?.description ?? "0000"
     }
@@ -52,7 +95,7 @@ struct KodiResponse: Codable {
     var dateAdded: String = ""
     
     /// Duration of the item in hours and minutes
-    public var duration: String {
+    var duration: String {
         return runtimeToDuration(runtime: runtime)
     }
     
@@ -63,11 +106,14 @@ struct KodiResponse: Codable {
 
     /// # Movie stuff
 
-    /// The optional title of the movie set
+    /// The optional title of the movie set a movie belongs to (movie item
     /// - Note: The function that loads movie items will fill this in
     var movieSetTitle: String = ""
     
     /// # TV show and Episode stuff
+    
+    /// The studio of a TV show (tvshow item)
+    var studio: [String] = []
     
     /// The title of a TV show (episode item)
     var showtitle: String = ""
@@ -93,6 +139,9 @@ struct KodiResponse: Codable {
     
     /// # Art stuff
     
+    /// Art of the item
+    var art: [String: String] = [:]
+    
     /// The poster of the item
     var poster: String {
         return getSpecificArt(art: art, type: .poster)
@@ -103,14 +152,6 @@ struct KodiResponse: Codable {
         return getSpecificArt(art: art, type: .fanart)
     }
     
-    /// The full Kodi file location of the item
-    public var filePath: String {
-        return getFilePath(file: file, type: .file)
-    }
-    
-    /// Default SF symbol for the item
-    public var icon: String = "questionmark"
-    
     /// # ID's of items
 
     /// The movie ID
@@ -118,9 +159,6 @@ struct KodiResponse: Codable {
     
     /// The movie set ID
     public var movieSetID: Int = 0
-    
-    /// Optional set name (movie)
-    public var setName: String = ""
     
     /// The TV show ID
     public var tvshowID: Int = 0
@@ -133,54 +171,7 @@ struct KodiResponse: Codable {
     
     /// The artist ID
     public var artistID: Int = 0
-    
-    /// # Internal variables
-    
-    /// Art of the item
-    var art: [String: String] = [:]
-    
-    /// Location of the item
-    var file: String = ""
-    
-    /// Plot of the item
-    var plot: String = ""
-    
-    /// Genre for the item
-    var genre: [String] = []
-    
-    /// Tagline of the item (movie)
-    var tagline: String = ""
-    
-    /// Runtime of the item
-    var runtime: Int = 0
-    
-    /// Studio of a TV show
-    var studio: [String] = []
-    
-    /// Year of release of the item
-    var year: Int = 0
-    
-    /// Premiered date of the item
-    var premiered: String = ""
-    
-    /// First aired date of the item (episode)
-    var firstaired: String = ""
-    
-    /// The sorttitle of the item; can be empty
-    /// - Note: Kodi is using `sortname` for artists but that will be assigned to this one
-    var sorttitle: String = ""
 
-    /// The sortname of an artist; can be empty
-    var sortname: String = ""
-    
-    /// # Sorting
-    
-    var sortBySetAndTitle: String {
-        return setName.isEmpty ? sorttitle.isEmpty ? title : sorttitle : setName
-    }
-    var sortByTitle: String {
-        sorttitle.isEmpty ? title : sorttitle
-    }
 }
 
 // MARK: Coding keys
@@ -191,7 +182,7 @@ extension KodiResponse {
         /// The public keys
         case title, description, playcount, episode, season, cast, artist
         /// Camel Case
-        case setName = "set"
+        case movieSetTitle = "set"
         /// # The public ID's
         /// Camel Case
         case movieID = "movieid"
@@ -207,9 +198,11 @@ extension KodiResponse {
         case artistID = "artistid"
         /// lowerCamelCase
         case dateAdded = "dateadded"
+        /// lowerCamelCase
+        case firstAired = "firstaired"
         /// # The internal keys
         /// Keys that are not exposed outside of the package
-        case plot, tagline, genre, studio, showtitle, year, premiered, firstaired, art, runtime, sorttitle, sortname, file
+        case plot, tagline, genre, studio, showtitle, year, premiered, art, runtime, sorttitle, sortname, file
         /// # Audio
         case album, track
     }
@@ -248,7 +241,7 @@ extension KodiResponse {
         /// Check for Movies and TV shows first
         premiered = try container.decodeIfPresent(String.self, forKey: .premiered) ??
         /// else for Episodes
-        container.decodeIfPresent(String.self, forKey: .firstaired) ?? ""
+        container.decodeIfPresent(String.self, forKey: .firstAired) ?? ""
 
         dateAdded = try container.decodeIfPresent(String.self, forKey: .dateAdded) ?? ""
 
@@ -261,7 +254,7 @@ extension KodiResponse {
         
         tagline = try container.decodeIfPresent(String.self, forKey: .tagline) ?? ""
         
-        setName = try container.decodeIfPresent(String.self, forKey: .setName) ?? ""
+        movieSetTitle = try container.decodeIfPresent(String.self, forKey: .movieSetTitle) ?? ""
 
         cast = try container.decodeIfPresent([ActorItem].self, forKey: .cast) ?? []
         
