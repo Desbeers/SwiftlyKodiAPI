@@ -5,42 +5,43 @@
 //  © 2022 Nick Berendsen
 //
 
-import SwiftUI
+import Foundation
 
 // MARK: Variables
 
 /// The struct for an item as response to a JSON request
+///
+/// This takes are of *all* responses from Kodi when requesting items
+/// from the library. It has a custom `Init` will all posible parameters
+/// we might ask from Kodi.
+///
+/// The result will be added to ``MediaItem``'s in their respectifly callers.
+///
+/// This `Struct` will not take care of that because tha will be messy,
+/// the list is already long enough...
 struct KodiResponse: Codable {
 
-    
     /// # General stuff
     
     /// Title of the item
-    public var title: String = ""
+    var title: String = ""
     
     /// The description of the item
     /// - Note: This can be a 'real' description or a plot; both will be stored as 'description`
-    public var description: String = ""
+    var description: String = ""
     
-
-    
-    /// The genres of the item, as a combined String
-    public var genres: String {
-        return genre.joined(separator: "・")
-    }
+    /// The playcount of the item
+    var playcount: Int = 0
     
     /// # Date and Time stuff
     
     /// The full release date of the item
     /// - Note: An episode has no release date, but a first-aired date.
     ///         The JSON decoder takes care of the mapping
-    public var releaseDate: String {
+    var releaseDate: String {
         return premiered.isEmpty ? year.description + "-01-01" : premiered
-//        let date = premiered.isEmpty ? year.description + "-01-01" : premiered
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        return dateFormatter.date(from: date) ?? Date()
     }
+    
     /// The release year of the item
     public var releaseYear: String {
         let components = Calendar.current.dateComponents([.year], from: releaseDate.kodiDate())
@@ -48,59 +49,57 @@ struct KodiResponse: Codable {
     }
     
     /// The date the item was added to the Kodi database
-    public var dateAdded: String = ""
+    var dateAdded: String = ""
     
-    /// Duration of the item; presented as a formatted String
+    /// Duration of the item in hours and minutes
     public var duration: String {
         return runtimeToDuration(runtime: runtime)
     }
     
-    /// The playcount of the item
-    public var playcount: Int = 0
-    
     /// # Video stuff
     
     /// The cast of the item (movie and episode)
-    public var cast: [ActorItem] = []
+    var cast: [ActorItem] = []
 
     /// # Movie stuff
-    ///
-    // The optional title of the movie set
-    public var movieSetTitle: String = ""
+
+    /// The optional title of the movie set
+    /// - Note: The function that loads movie items will fill this in
+    var movieSetTitle: String = ""
     
     /// # TV show and Episode stuff
     
-    /// Title of a TV show (episode item)
-    public var showtitle: String = ""
+    /// The title of a TV show (episode item)
+    var showtitle: String = ""
     
     /// The episode number of the TV show
-    public var episode: Int = 0
+    var episode: Int = 0
     
     /// The season of the TV show
-    public var season: Int = 0
+    var season: Int = 0
     
-    /// # Audio stuff
+    /// # Music stuff
     
-    /// Artist of the item (artist or music video)
+    /// The artist of the item (artist or music video item)
     /// - Note: JSON can give a String or an Array; the decoder takes care of that
-    ///         and we just keep it as Array because that is the most common
-    public var artist: [String] = []
+    ///         and we just keep it as an Array because that is the most common
+    var artist: [String] = []
     
-    /// Album
+    /// The name of an album (album or song item)
     var album: String = ""
     
-    /// Track
+    /// The track of an item  (music video, album or song item)
     var track: Int = 0
     
     /// # Art stuff
     
     /// The poster of the item
-    public var poster: String {
+    var poster: String {
         return getSpecificArt(art: art, type: .poster)
     }
     
     /// The fanart for the item
-    public var fanart: String {
+    var fanart: String {
         return getSpecificArt(art: art, type: .fanart)
     }
     
