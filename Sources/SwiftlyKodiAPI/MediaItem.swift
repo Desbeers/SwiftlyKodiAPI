@@ -65,6 +65,13 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     /// The rating for the item
     public var rating: Int = 0
     
+    /// The items an item contains
+    /// - Movie Set: Count of movies in the set
+    /// - Music Video Album: Count of music videos in the album
+    /// - Artist: Count of albums of the artist
+    /// - Album: Count of songs in the album
+    public var itemsCount: Int = 0
+    
     /// # File
     
     /// The full URL of the item

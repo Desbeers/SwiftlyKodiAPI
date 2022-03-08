@@ -20,7 +20,13 @@ extension KodiConnector {
             /// Add some additional info to the songs
             for (index, song) in songs.enumerated() {
                 songs[index].compilation = album.compilation
+                songs[index].albumID = album.albumID
+                /// Sometimes a song has a different poster than the album
+                /// so let's use the album poster at all times
+                songs[index].poster = album.poster
             }
+            /// Add some additional information to the album
+            albums[index].itemsCount = songs.count
             /// And now store it in the list
             songItems += songs
         }
@@ -67,7 +73,6 @@ extension KodiConnector {
                 "comment",
                 "year",
                 "playcount",
-                "albumid",
                 "track",
                 "disc",
                 "lastplayed",

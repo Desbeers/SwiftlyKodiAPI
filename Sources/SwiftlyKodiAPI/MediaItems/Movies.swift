@@ -22,6 +22,7 @@ extension KodiConnector {
                 /// Get all the movies that are in this set
                 let movies = result.movies.filter { $0.movieSetID == movieSet.movieSetID}
                 /// Set some additional info
+                movieSets[index].itemsCount = movies.count
                 movieSets[index].subtitle = "\(movies.count) movies"
                 /// Use the last movie poster for the set if the set has none
                 movieSets[index].poster = movieSet.poster.isEmpty ? movies.last?.poster ?? "" : movieSet.poster

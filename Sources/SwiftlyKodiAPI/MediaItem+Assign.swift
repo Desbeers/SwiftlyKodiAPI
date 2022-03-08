@@ -80,29 +80,31 @@ extension KodiConnector {
                 mediaItem.id = "musicvideo-\(item.musicvideoID)"
                 mediaItem.musicvideoID = item.musicvideoID
                 mediaItem.title = item.title
-                mediaItem.subtitle = item.artist.joined(separator: " & ")
-                mediaItem.artists = item.artist
+                mediaItem.subtitle = item.artists.joined(separator: " & ")
+                mediaItem.artists = item.artists
                 mediaItem.album = item.album
                 mediaItem.track = item.track
             case .artist:
                 /// # Artist
                 mediaItem.id = "artist-\(item.artistID)"
                 mediaItem.artistID = item.artistID
-                mediaItem.title = item.artist.joined(separator: " & ")
+                mediaItem.title = item.artists.joined(separator: " & ")
                 mediaItem.subtitle = item.artistGenres.map { $0.title } .joined(separator: "・")
                 mediaItem.sorttitle = item.sortname
-                mediaItem.artists = item.artist
+                mediaItem.artists = item.artists
             case .album:
+                /// # Album
                 mediaItem.id = "album-\(item.albumID)"
                 mediaItem.albumID = item.albumID
                 mediaItem.title = item.title
-                mediaItem.subtitle = item.artist.joined(separator: " & ")
+                mediaItem.subtitle = item.artists.joined(separator: " & ")
                 mediaItem.sortartist = item.sortartist
             case .song:
+                /// # Song
                 mediaItem.id = "song-\(item.songID)"
                 mediaItem.songID = item.songID
                 mediaItem.title = item.title
-                mediaItem.subtitle = item.artist.joined(separator: " & ")
+                mediaItem.subtitle = item.artists.joined(separator: " & ")
                 mediaItem.details = item.album
             default:
                 /// # None

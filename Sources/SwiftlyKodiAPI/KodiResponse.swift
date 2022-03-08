@@ -126,7 +126,7 @@ struct KodiResponse: Decodable {
     /// The artist of the item (artist or music video item)
     /// - Note: JSON can give a String or an Array; the decoder takes care of that
     ///         and we just keep it as an Array because that is the most common
-    var artist: [String] = []
+    var artists: [String] = []
     
     /// Tthe sorting of artist (album item)
     var sortartist: String = ""
@@ -306,10 +306,10 @@ extension KodiResponse {
         /// - Note: A JSON artist response can be a `String` or an `Array<String>`
         if let artist = try? container.decodeIfPresent(String.self, forKey: .artist) {
             /// The artist is a String, so most probably from AudioLibrary.GetArtists
-            self.artist = [artist]
+            self.artists = [artist]
         }
         if let artists = try? container.decodeIfPresent([String].self, forKey: .artist) {
-            self.artist = artists
+            self.artists = artists
         }
         
         /// Artist sort name
