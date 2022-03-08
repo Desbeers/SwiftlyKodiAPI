@@ -57,7 +57,7 @@ extension KodiConnector {
                 params.movieid = item.movieID
             case .episode:
                 params.episodeid = item.episodeID
-            case .musicvideo:
+            case .musicVideo:
                 params.musicvideoid = item.musicvideoID
             default:
                 break

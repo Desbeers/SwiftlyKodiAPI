@@ -19,7 +19,7 @@ extension KodiConnector {
         /// Get the genres for all media types
         let movieGenres = await getGenres(type: .movie)
         let tvGenres = await getGenres(type: .tvshow)
-        let musicGenres = await getGenres(type: .musicvideo)
+        let musicGenres = await getGenres(type: .musicVideo)
         /// Combine them
         let allGenres = (movieGenres + tvGenres + musicGenres).unique { $0.genreID}
         /// Add them as MediaItem

@@ -34,7 +34,7 @@ extension KodiConnector {
             break
         case .episode:
             items = items.filter { $0.tvshowID == filter.tvshowID }
-        case .musicvideo:
+        case .musicVideo:
             /// If `artist` is set we filter music videos for this specific artist
             if let artist = filter.artist {
                 items = items
@@ -54,7 +54,7 @@ extension KodiConnector {
 
         case .musicVideoArtist:
             let artists = media
-                .filter { $0.media == .musicvideo }
+                .filter { $0.media == .musicVideo }
                 .unique { $0.artists }
                 .map { $0.artists}
             let musicVideos = media

@@ -24,7 +24,7 @@ public enum MediaType: String, Equatable {
     /// Episodes
     case episode
     /// Music Videos
-    case musicvideo
+    case musicVideo
     /// Music Video Artists
     case musicVideoArtist
     /// Artists
@@ -46,7 +46,7 @@ public enum MediaType: String, Equatable {
             return .videoLibrarySetTVShowDetails
         case .episode:
             return .videoLibrarySetEpisodeDetails
-        case .musicvideo:
+        case .musicVideo:
             return .videoLibrarySetMusicVideoDetails
         default:
             /// This should not happen

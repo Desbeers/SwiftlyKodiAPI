@@ -75,7 +75,7 @@ extension KodiConnector {
                 /// Build the `details
                 let details = ["Episode \(item.episode)"] + ["Aired \(item.releaseDate.kodiDate().formatted(date: .abbreviated, time: .omitted))"]
                 mediaItem.details = details.joined(separator: "・")
-            case .musicvideo:
+            case .musicVideo:
                 /// # Music Video
                 mediaItem.id = "musicvideo-\(item.musicvideoID)"
                 mediaItem.musicvideoID = item.musicvideoID

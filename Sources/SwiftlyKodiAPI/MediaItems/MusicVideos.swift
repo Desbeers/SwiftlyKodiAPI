@@ -15,7 +15,7 @@ extension KodiConnector {
         let request = VideoLibraryGetMusicVideos()
         do {
             let result = try await sendRequest(request: request)
-            return setMediaItem(items: result.musicvideos, media: .musicvideo)
+            return setMediaItem(items: result.musicvideos, media: .musicVideo)
         } catch {
             /// There are no music videos in the library
             logger("Loading music videos failed with error: \(error)")
