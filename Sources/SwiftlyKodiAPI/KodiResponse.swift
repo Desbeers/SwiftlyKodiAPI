@@ -54,7 +54,6 @@ struct KodiResponse: Codable {
     
     /// Location of the item
     /// - Note: This is an internal location; not a full path
-
     var file: String = ""
     
     /// The full path of the item
@@ -133,6 +132,10 @@ struct KodiResponse: Codable {
     
     /// The name of an album (album or song item)
     var album: String = ""
+
+    /// The genres from the artist (artist item
+    /// - Note: Kodo named this `songgenres`; the decoder will map it
+    var artistGenres: [ArtistGenre] = []
     
     /// The track of an item  (music video, album or song item)
     var track: Int = 0
@@ -169,8 +172,14 @@ struct KodiResponse: Codable {
     /// The music video ID
     public var musicvideoID: Int = 0
     
-    /// The artist ID
+    /// The artist ID (artist item)
     public var artistID: Int = 0
+    
+    /// The artist IDs (album item)
+    public var artistIDs: [Int] = []
+    
+    /// The album ID
+    public var albumID: Int = 0
 
 }
 
@@ -196,10 +205,14 @@ extension KodiResponse {
         case musicvideoID = "musicvideoid"
         /// Camel Case
         case artistID = "artistid"
+        /// Camel Case
+        case albumID = "albumid"
         /// lowerCamelCase
         case dateAdded = "dateadded"
         /// lowerCamelCase
         case firstAired = "firstaired"
+        /// Genres from an artist
+        case artistGenres = "songgenres"
         /// # The internal keys
         /// Keys that are not exposed outside of the package
         case plot, tagline, genre, studio, showtitle, year, premiered, art, runtime, sorttitle, sortname, file
@@ -270,10 +283,9 @@ extension KodiResponse {
         
         /// # Audio stuff
 
-        /// - Note: A JSON artist response can be a String or an Array
+        /// - Note: A JSON artist response can be a `String` or an `Array<String>`
         if let artist = try? container.decodeIfPresent(String.self, forKey: .artist) {
-            /// The artist is a String, so most probably from AudioLibrary.GetArtists; use it as title
-            self.title = artist
+            /// The artist is a String, so most probably from AudioLibrary.GetArtists
             self.artist = [artist]
         }
         if let artists = try? container.decodeIfPresent([String].self, forKey: .artist) {
@@ -282,6 +294,9 @@ extension KodiResponse {
         
         /// Artist sort name
         sortname = try container.decodeIfPresent(String.self, forKey: .sortname) ?? ""
+
+        /// Artist genres
+        artistGenres = try container.decodeIfPresent([ArtistGenre].self, forKey: .artistGenres) ?? []
         
         /// Album
         album = try container.decodeIfPresent(String.self, forKey: .album) ?? ""
@@ -301,7 +316,17 @@ extension KodiResponse {
 
         musicvideoID = try container.decodeIfPresent(Int.self, forKey: .musicvideoID) ?? 0
 
-        artistID = try container.decodeIfPresent(Int.self, forKey: .artistID) ?? 0
+        /// - Note: A JSON artistID response can be a `Int` or an `Array<Int>`
+        if let artist = try? container.decodeIfPresent(Int.self, forKey: .artistID) {
+            /// The artistID is a Int, so most probably from AudioLibrary.GetArtists
+            self.artistID = artist
+        }
+        if let artists = try? container.decodeIfPresent([Int].self, forKey: .artistID) {
+            /// The artistID is a {Int}, so most probably from AudioLibrary.GetAlbums or AudioLibrary.GetSongs
+            self.artistIDs = artists
+        }
+        
+        albumID = try container.decodeIfPresent(Int.self, forKey: .albumID) ?? 0
     }
 }
 
@@ -371,6 +396,23 @@ extension KodiResponse {
 // MARK: Sub Structs and Enums
 
 extension KodiResponse {
+    
+    /// Song genres struct
+    struct ArtistGenre: Codable, Identifiable, Hashable {
+        /// Make it identifiable
+        var id = UUID()
+        /// The genre ID
+        var genreID: Int = 0
+        /// Title of the genre
+        var title: String = ""
+        /// Coding keys
+        enum CodingKeys: String, CodingKey {
+            /// The keys
+            case title
+            /// lowerCamelCase
+            case genreID = "genreid"
+        }
+    }
     
     /// A struct for an actor that is part of the cast in a movie or TV episode
     struct ActorItem: Codable, Identifiable, Hashable {

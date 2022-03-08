@@ -78,6 +78,7 @@ extension KodiConnector {
         items += tvshows
         await items += getMusicVideos()
         await items += getArtists()
+        await items += getAlbums()
         await items += getAllGenres()
         /// That's all!
         return items

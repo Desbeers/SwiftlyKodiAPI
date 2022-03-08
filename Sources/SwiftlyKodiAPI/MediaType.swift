@@ -29,6 +29,8 @@ public enum MediaType: String, Equatable {
     case musicVideoArtist
     /// Artists
     case artist
+    /// Albums
+    case album
     /// Genres
     case genre
     /// The method for updating the media item

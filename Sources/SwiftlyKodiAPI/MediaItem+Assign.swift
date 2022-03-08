@@ -87,9 +87,14 @@ extension KodiConnector {
                 mediaItem.id = "artist-\(item.artistID)"
                 mediaItem.artistID = item.artistID
                 mediaItem.title = item.artist.joined(separator: " & ")
+                mediaItem.subtitle = item.artistGenres.map { $0.title } .joined(separator: "・")
                 mediaItem.sorttitle = item.sortname
-                mediaItem.subtitle = ""
                 mediaItem.artists = item.artist
+            case .album:
+                mediaItem.id = "album-\(item.albumID)"
+                mediaItem.albumID = item.albumID
+                mediaItem.title = item.title
+                mediaItem.subtitle = item.artist.joined(separator: " & ")
             default:
                 /// # None
                 mediaItem.media = .none
