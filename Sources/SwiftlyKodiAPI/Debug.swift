@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// Debug messages
-func logger(_ string: String) {
+public func logger(_ string: String) {
     print("\(Thread.isMainThread ? "👀 " : "⺓ ")\(string) \(Date())")
 }
 
@@ -19,6 +19,6 @@ func debugJsonResponse(data: Data) {
             print(jsonResult)
         }
     } catch let error {
-        print(error.localizedDescription)
+        logger(error.localizedDescription)
     }
 }

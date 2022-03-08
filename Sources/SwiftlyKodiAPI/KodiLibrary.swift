@@ -28,13 +28,13 @@ extension KodiConnector {
         /// Update the Kodi database
         let message = LibrarySetPlaycount(item: item)
         sendMessage(message: message)
-        debugPrint("Database update for \(item.title), playcount = \(item.playcount)")
+        logger("Database update for \(item.title), playcount = \(item.playcount)")
         /// Update our UI
         if let index = self.media.firstIndex(where: { $0.id == item.id}) {
             /// Update the library
             Task { @MainActor in
                 self.media[index] = item
-                debugPrint("SwiftUI update for \(item.title), playcount = \(item.playcount)")
+                logger("SwiftUI update for \(item.title), playcount = \(item.playcount)")
             }
         }
     }

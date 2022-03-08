@@ -43,8 +43,7 @@ extension KodiConnector {
     @MainActor public func connectToHost(kodiHost: HostItem) async {
         host = kodiHost
         let libraryItems = await getAllMedia()
-        debugPrint("Loaded the library")
-        print(libraryItems.count)
+        logger("Loaded the library")
         media = libraryItems
         //let genreItems = await getAllGenres()
         //genres = genreItems
@@ -52,7 +51,7 @@ extension KodiConnector {
     
     /// Reload the library from the Kodi host
     @MainActor public func reloadHost() async {
-        debugPrint("Reloading the library")
+        logger("Reloading the library")
         /// Empty the library
         media = [MediaItem]()
         /// Reload it

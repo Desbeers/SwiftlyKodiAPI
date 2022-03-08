@@ -55,7 +55,7 @@ extension KodiConnector {
             return setItems + setMediaItem(items: movieItems, media: .movie)
         } catch {
             /// There are no movies in the library
-            print("Loading movies failed with error: \(error)")
+            logger("Loading movies failed with error: \(error)")
             return [MediaItem]()
         }
     }
@@ -97,7 +97,7 @@ extension KodiConnector {
         /// The response struct
         struct Response: Decodable {
             /// The list of movies
-            let movies: [KodiItem]
+            let movies: [KodiResponse]
         }
     }
 }
@@ -106,7 +106,7 @@ extension KodiConnector {
 
     /// Get all the movie sets from the Kodi host
     /// - Returns: All movie sets from the Kodi host
-    func getMovieSets() async -> [KodiItem] {
+    func getMovieSets() async -> [KodiResponse] {
         let request = VideoLibraryGetMovieSets()
         do {
             let result = try await sendRequest(request: request)
@@ -114,8 +114,8 @@ extension KodiConnector {
             return result.sets
         } catch {
             /// There are no sets in the library
-            print("Loading movie sets failed with error: \(error)")
-            return [KodiItem]()
+            logger("Loading movie sets failed with error: \(error)")
+            return [KodiResponse]()
         }
     }
 
@@ -144,8 +144,8 @@ extension KodiConnector {
         }
         /// The response struct
         struct Response: Decodable {
-            /// The list of movies
-            let sets: [KodiItem]
+            /// The list of movie sets
+            let sets: [KodiResponse]
         }
     }
 }

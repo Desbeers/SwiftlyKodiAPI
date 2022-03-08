@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-/// A struct for a Kodi item in the library
-struct KodiItem: Codable {
+// MARK: Variables
+
+/// The struct for an item as response to a JSON request
+struct KodiResponse: Codable {
 
     
     /// # General stuff
@@ -182,7 +184,9 @@ struct KodiItem: Codable {
     }
 }
 
-extension KodiItem {
+// MARK: Coding keys
+
+extension KodiResponse {
     /// The coding keys
     enum CodingKeys: String, CodingKey {
         /// The public keys
@@ -212,7 +216,9 @@ extension KodiItem {
     }
 }
 
-extension KodiItem {
+// MARK: Init
+
+extension KodiResponse {
     /// In an extension so we can still use the memberwise initializer.
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -307,7 +313,9 @@ extension KodiItem {
     }
 }
 
-extension KodiItem {
+// MARK: Helper function
+
+extension KodiResponse {
 
     /// Conver runtime in seconds to a formatted time String
     /// - Parameter runtime: Time in minutes
@@ -320,7 +328,9 @@ extension KodiItem {
     }
 }
 
-extension KodiItem {
+// MARK: Sub-structs
+
+extension KodiResponse {
     
     /// A struct for an actor that is part of the cast in a movie or TV episode
     public struct ActorItem: Codable, Identifiable, Hashable {
@@ -340,43 +350,4 @@ extension KodiItem {
             case name, order, role, thumbnail
         }
     }
-}
-
-extension KodiItem {
-    
-    /// A struct for information about a Movie Set
-//    public struct MovieSetItem: Codable, Hashable {
-//        /// The ID of the movie set
-//        public var movieSetID: Int = 0
-//        /// The title of the movie set
-//        public var title: String = ""
-//        /// The playcount of the movie set
-//        public var playcount: Int = 0
-//        /// The art of the movie set
-//        public var art: [String: String] = [:]
-//        /// The description of the movie set
-//        public var description: String = ""
-//        /// The coding keys
-//        enum CodingKeys: String, CodingKey {
-//            case title, art, playcount
-//            /// Description is plot
-//            case description = "plot"
-//            /// Camel Case
-//            case movieSetID = "movieSetID"
-//        }
-//        /// The poster of the set
-//        public var poster: String {
-//            return getSpecificArt(art: art, type: .poster)
-//        }
-//        /// The fanart of the set
-//        public var fanart: String {
-//            return getSpecificArt(art: art, type: .fanart)
-//        }
-//        /// The movie titles in the set
-//        public var movies: String = ""
-//        /// The count of movies in the set
-//        public var count: Int = 0
-//        /// The genres of the movies in the set
-//        public var genres: String = ""
-//    }
 }

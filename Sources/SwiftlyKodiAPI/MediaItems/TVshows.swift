@@ -18,7 +18,7 @@ extension KodiConnector {
             return setMediaItem(items: result.tvshows, media: .tvshow)
         } catch {
             /// There are no TV shows in the library
-            print("Loading TV shows failed with error: \(error)")
+            logger("Loading TV shows failed with error: \(error)")
             return [MediaItem]()
         }
     }
@@ -57,7 +57,7 @@ extension KodiConnector {
         /// The response struct
         struct Response: Decodable {
             /// The list of TV shows
-            let tvshows: [KodiItem]
+            let tvshows: [KodiResponse]
         }
     }
 }

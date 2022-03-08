@@ -43,7 +43,7 @@ extension KodiConnector {
             let result = try await sendRequest(request: request)
             return result.genres
         } catch {
-            print("Loading genres failed with error: \(error)")
+            logger("Loading genres failed with error: \(error)")
             return [GenreItem]()
         }
     }

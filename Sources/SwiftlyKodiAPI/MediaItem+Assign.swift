@@ -15,7 +15,7 @@ extension KodiConnector {
     ///   - item: The ``KodiItem``
     ///   - media: The ``MediaType`` type for this ``KodiItem``
     /// - Returns: The ``MediaItem``'s with the variables set
-    func setMediaItem(items: [KodiItem], media: MediaType) -> [MediaItem] {
+    func setMediaItem(items: [KodiResponse], media: MediaType) -> [MediaItem] {
         var mediaItems: [MediaItem] = []
         for item in items {
             /// Basic stuff

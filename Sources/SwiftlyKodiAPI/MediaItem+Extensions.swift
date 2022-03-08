@@ -19,7 +19,7 @@ extension MediaItem {
     
     /// Toggle the played status of a media item
     mutating public func togglePlayedState() {
-        print("Toggle play state")
+        logger("Toggle play state")
         self.playcount = self.playcount == 0 ? 1 : 0
         KodiConnector.shared.setPlaycount(self)
     }

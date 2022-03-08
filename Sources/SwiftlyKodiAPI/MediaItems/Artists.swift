@@ -18,7 +18,7 @@ extension KodiConnector {
                 return setMediaItem(items: result.artists, media: .artist)
             } catch {
                 /// There are no artists in the library
-                print("Loading artists failed with error: \(error)")
+                logger("Loading artists failed with error: \(error)")
                 return [MediaItem]()
             }
     }
@@ -51,7 +51,7 @@ extension KodiConnector {
         /// The response struct
         struct Response: Decodable {
             /// The list or artists
-            let artists: [KodiItem]
+            let artists: [KodiResponse]
         }
     }
 }

@@ -39,7 +39,7 @@ extension KodiConnector {
             return setMediaItem(items: result.episodes, media: .episode)
         } catch {
             /// There are no episodes in the library
-            print("Loading Episodes failed with error: \(error)")
+            logger("Loading Episodes failed with error: \(error)")
             return [MediaItem]()
         }
     }
@@ -80,7 +80,7 @@ extension KodiConnector {
         /// The response struct
         struct Response: Decodable {
             /// The list of episodes
-            let episodes: [KodiItem]
+            let episodes: [KodiResponse]
         }
     }
 }

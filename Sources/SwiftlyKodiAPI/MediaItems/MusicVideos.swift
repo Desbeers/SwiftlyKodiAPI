@@ -18,7 +18,7 @@ extension KodiConnector {
             return setMediaItem(items: result.musicvideos, media: .musicvideo)
         } catch {
             /// There are no music videos in the library
-            print("Loading music videos failed with error: \(error)")
+            logger("Loading music videos failed with error: \(error)")
             return [MediaItem]()
         }
     }
@@ -58,7 +58,7 @@ extension KodiConnector {
         /// The response struct
         struct Response: Decodable {
             /// The list of music videos
-            let musicvideos: [KodiItem]
+            let musicvideos: [KodiResponse]
         }
     }
 }
