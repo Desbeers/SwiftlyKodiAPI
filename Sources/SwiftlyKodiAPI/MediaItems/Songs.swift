@@ -15,8 +15,13 @@ extension KodiConnector {
         /// Start with a fresh list
         var songItems = [MediaItem]()
         
-        for (index, album) in albums.enumerated() {
-            let songs = await getSongsFromAlbum(album: album)
+        for (index, album) in albums.enumerated() where album.albumID > 150 && album.albumID < 250 {
+            var songs = await getSongsFromAlbum(album: album)
+            /// Add some additional info to the songs
+            for (index, song) in songs.enumerated() {
+                songs[index].compilation = album.compilation
+            }
+            /// And now store it in the list
             songItems += songs
         }
         return songItems

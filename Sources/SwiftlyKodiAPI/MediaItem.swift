@@ -40,7 +40,7 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     public var title: String = ""
     
     /// The sort title of the item
-    var sorttitle: String = ""
+    public var sorttitle: String = ""
     
     /// The subtitle of the item
     /// - Movie: Movie tagline
@@ -62,6 +62,9 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     /// The genres for the item
     public var genres: [String] = []
     
+    /// The rating for the item
+    public var rating: Int = 0
+    
     /// # File
     
     /// The full URL of the item
@@ -70,9 +73,11 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     public var playcount: Int = 0
     
     /// # Date and Time
-    
-    /// Duration of the item; presented as a formatted String
-    public var duration: String = ""
+
+    /// Runtime of the item; in seconds
+    public var runtime: Int = 0
+    /// Duration of the item; presented as a formatted `runtime`
+    //public var duration: String = ""
     /// The release date of the item
     /// - Note: In case of an Episode, it is the 'first-aired' date
     public var releaseDate: String = ""
@@ -129,9 +134,28 @@ public struct MediaItem: Identifiable, Equatable, Hashable {
     public var album: String = ""
     /// Track number
     public var track: Int = 0
-    
+    /// The sort title of the album artist (album item)
+    public var sortartist: String = ""
+    /// Compilation
+    ///  - Artist: Not an album artist
+    ///  - Album: Compilation album
+    ///  - Song: Part of a compilatin album
+    public var compilation: Bool = false
 }
 
+// MARK: Calcutated stuff
+
+extension MediaItem {
+
+    /// Duration of the item; presented as a formatted `runtime`
+    public var duration: String {
+        let formatter = DateComponentsFormatter()
+        /// - Note: When runtime is more than an hour, make it HH:MM, else MM:SS
+        formatter.allowedUnits = runtime > 599 ? [.hour, .minute] : [.minute, .second]
+        formatter.unitsStyle = .brief
+        return formatter.string(from: TimeInterval(runtime))!
+    }
+}
 
 // MARK: Sorting
 

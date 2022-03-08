@@ -40,7 +40,6 @@ extension KodiConnector {
                 "artistid",
                 "artist",
                 "sortartist",
-                "displayartist",
                 "description",
                 "title",
                 "year",
@@ -50,7 +49,8 @@ extension KodiConnector {
                 "thumbnail",
                 "compilation",
                 "dateadded",
-                "lastplayed"
+                "lastplayed",
+                "albumduration"
             ]
             /// Sort order
             var sort = KodiConnector.SortFields()

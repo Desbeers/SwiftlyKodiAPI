@@ -17,9 +17,9 @@ import Foundation
 ///
 /// The result will be added to ``MediaItem``'s by their respectifly callers.
 ///
-/// This `Struct` will not take care of that because tha will be messy,
+/// This `Struct` will not take care of that because that will be messy,
 /// the list is already long enough...
-struct KodiResponse: Codable {
+struct KodiResponse: Decodable {
 
     /// # General stuff
     
@@ -45,6 +45,9 @@ struct KodiResponse: Codable {
     
     /// Genre for the item
     var genre: [String] = []
+    
+    /// The rating for the item
+    public var rating: Int = 0
     
     /// Tagline of the item (movie)
     var tagline: String = ""
@@ -93,11 +96,6 @@ struct KodiResponse: Codable {
     /// The date the item was added to the Kodi database
     var dateAdded: String = ""
     
-    /// Duration of the item in hours and minutes
-    var duration: String {
-        return runtimeToDuration(runtime: runtime)
-    }
-    
     /// # Video stuff
     
     /// The cast of the item (movie and episode)
@@ -130,6 +128,9 @@ struct KodiResponse: Codable {
     ///         and we just keep it as an Array because that is the most common
     var artist: [String] = []
     
+    /// Tthe sorting of artist (album item)
+    var sortartist: String = ""
+    
     /// The name of an album (album or song item)
     var album: String = ""
 
@@ -139,6 +140,8 @@ struct KodiResponse: Codable {
     
     /// The track of an item  (music video, album or song item)
     var track: Int = 0
+    /// Is the item a compilation or nor
+    var compilation: Bool = false
     
     /// # Art stuff
     
@@ -193,6 +196,16 @@ extension KodiResponse {
     enum CodingKeys: String, CodingKey {
         /// The public keys
         case title, description, playcount, episode, season, cast, artist
+        
+        case sortartist, compilation
+        
+        /// Camel Case
+        case albumDuration = "albumduration"
+        /// Song duration
+        case duration
+        /// Rating of the item
+        case userrating
+        
         /// Camel Case
         case movieSetTitle = "set"
         /// # The public ID's
@@ -249,6 +262,8 @@ extension KodiResponse {
         
         playcount = try container.decodeIfPresent(Int.self, forKey: .playcount) ?? 0
         
+        rating = try container.decodeIfPresent(Int.self, forKey: .userrating) ?? rating
+        
         file = try container.decodeIfPresent(String.self, forKey: .file) ?? ""
         
         /// # Date and Time stuff
@@ -263,7 +278,7 @@ extension KodiResponse {
 
         dateAdded = try container.decodeIfPresent(String.self, forKey: .dateAdded) ?? ""
 
-        runtime = try container.decodeIfPresent(Int.self, forKey: .runtime) ?? 0
+        runtime = try container.decodeIfPresent(Int.self, forKey: .runtime) ?? runtime
 
         /// # Art
         art = try container.decodeIfPresent([String: String].self, forKey: .art) ?? [:]
@@ -299,7 +314,10 @@ extension KodiResponse {
         
         /// Artist sort name
         sortname = try container.decodeIfPresent(String.self, forKey: .sortname) ?? ""
+        /// Artist sort name for albums
+        sortartist = try container.decodeIfPresent(String.self, forKey: .sortartist) ?? ""
 
+        
         /// Artist genres
         artistGenres = try container.decodeIfPresent([ArtistGenre].self, forKey: .artistGenres) ?? []
         
@@ -308,6 +326,15 @@ extension KodiResponse {
         
         /// Track
         track = try container.decodeIfPresent(Int.self, forKey: .track) ?? 0
+        
+        /// compilation
+        compilation = try container.decodeIfPresent(Bool.self, forKey: .compilation) ?? compilation
+        
+        /// Duration of an album
+        runtime = try container.decodeIfPresent(Int.self, forKey: .albumDuration) ?? runtime
+        
+        /// Duration of a song
+        runtime = try container.decodeIfPresent(Int.self, forKey: .duration) ?? runtime
         
         /// # ID of items
 
@@ -354,16 +381,6 @@ extension KodiResponse {
         /// Image URL
         let kodiImageAddress = "http://\(host.username):\(host.password)@\(host.ip):\(host.port)/\(type.rawValue)/"
         return kodiImageAddress + file.addingPercentEncoding(withAllowedCharacters: allowed)!
-    }
-
-    /// Convert runtime in seconds to a formatted time String
-    /// - Parameter runtime: Time in minutes
-    /// - Returns: The time as a formatted String
-    func runtimeToDuration(runtime: Int) -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute]
-        formatter.unitsStyle = .brief
-        return formatter.string(from: TimeInterval(runtime))!
     }
     
     /// Get a specific art item from the collection

@@ -22,17 +22,19 @@ extension KodiConnector {
             var mediaItem = MediaItem(media: media,
                                       description: item.description,
                                       genres: item.genre,
+                                      rating: item.rating,
                                       file: item.filePath,
                                       playcount: item.playcount,
-                                      duration: item.duration,
+                                      runtime: item.runtime,
                                       releaseDate: item.releaseDate,
                                       releaseYear: item.releaseYear,
                                       dateAdded: item.dateAdded,
                                       poster: item.poster,
-                                      fanart: item.fanart
+                                      fanart: item.fanart,
+                                      compilation: item.compilation
             )
             /// Build the default`details`
-            let details = item.genre + [item.releaseYear] + [item.duration]
+            let details = item.genre + [item.releaseYear] + [mediaItem.duration]
             mediaItem.details = details.joined(separator: "・")
             /// Add additional Media specific stuff
             switch media {
@@ -95,11 +97,13 @@ extension KodiConnector {
                 mediaItem.albumID = item.albumID
                 mediaItem.title = item.title
                 mediaItem.subtitle = item.artist.joined(separator: " & ")
+                mediaItem.sortartist = item.sortartist
             case .song:
                 mediaItem.id = "song-\(item.songID)"
                 mediaItem.songID = item.songID
                 mediaItem.title = item.title
                 mediaItem.subtitle = item.artist.joined(separator: " & ")
+                mediaItem.details = item.album
             default:
                 /// # None
                 mediaItem.media = .none
