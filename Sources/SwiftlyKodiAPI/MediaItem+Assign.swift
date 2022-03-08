@@ -12,9 +12,9 @@ extension KodiConnector {
     /// Set the variables for the ``MediaItem``
     ///
     /// - Parameters:
-    ///   - item: The ``KodiItem``
-    ///   - media: The ``MediaType`` type for this ``KodiItem``
-    /// - Returns: The ``MediaItem``'s with the variables set
+    ///   - item: The ``KodiResponse`` array from the JSON request
+    ///   - media: The ``MediaType`` for this item
+    /// - Returns: A ``MediaItem`` array with the variables set
     func setMediaItem(items: [KodiResponse], media: MediaType) -> [MediaItem] {
         var mediaItems: [MediaItem] = []
         for item in items {
@@ -45,6 +45,13 @@ extension KodiConnector {
                 mediaItem.sorttitle = item.sorttitle
                 mediaItem.subtitle = item.tagline
                 mediaItem.movieSetTitle = item.movieSetTitle
+            case .movieSet:
+                /// # Movie sets
+                mediaItem.id = "movieset-\(item.movieSetID)"
+                mediaItem.movieSetID = item.movieSetID
+                mediaItem.title = item.title
+                mediaItem.description = item.description.isEmpty ? "Movie Set" : item.description
+                ///  - Note: Some additional fields will be filled-in by the `getMovies` function
             case .tvshow:
                 /// # TV Show
                 mediaItem.id = "tvshow-\(item.tvshowID)"
