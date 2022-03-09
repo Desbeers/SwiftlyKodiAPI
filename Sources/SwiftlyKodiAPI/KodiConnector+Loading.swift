@@ -13,26 +13,29 @@ extension KodiConnector {
     /// - Parameter kodiHost: The host configuration
     @MainActor public func connectToHost(kodiHost: HostItem) async {
         host = kodiHost
-        let libraryItems = await getAllMedia()
+        loadingState = .cache
+        if let libraryItems = Cache.get(key: "Media", as: [MediaItem].self) {
+            logger("Loaded the library from the cache")
+            media = libraryItems
+        } else {
+            let libraryItems = await getAllMedia()
+            media = libraryItems
+        }
         logger("Loaded the library")
-        media = libraryItems
-        //let genreItems = await getAllGenres()
-        //genres = genreItems
+        loadingState = .done
     }
     
     /// Reload the library from the Kodi host
     @MainActor public func reloadHost() async {
-        logger("Reloading the library")
         loadingState = .reload
-        /// Empty the library
-        media = [MediaItem]()
-        /// Reload it
-        await connectToHost(kodiHost: host)
+        let libraryItems = await getAllMedia()
+        media = libraryItems
     }
     
     /// Get all media from the Kodi host library
     /// - Returns: All the media from the Kodi host library
     func getAllMedia() async -> [MediaItem] {
+        logger("Load the library from the host")
         /// Start with a fresh list
         var items: [MediaItem] = []
         loadingState = .movies
@@ -64,6 +67,14 @@ extension KodiConnector {
         
         loadingState = .genres
         await items += getAllGenres()
+        
+        /// Save it in the cache
+        do {
+            try Cache.set(key: "Media", object: items)
+        } catch {
+            /// There are no songs in the library
+            print("Saving media failed with error: \(error)")
+        }
         
         /// That's all!
         loadingState = .done

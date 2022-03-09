@@ -14,8 +14,9 @@ extension KodiConnector {
     func getAllSongs(albums: inout [MediaItem]) async -> [MediaItem] {
         /// Start with a fresh list
         var songItems = [MediaItem]()
-        
-        for (index, album) in albums.enumerated() where album.albumID > 150 && album.albumID < 250 {
+        /// Use below for faster test loading; it will only load 100 albums
+        /// for (index, album) in albums.enumerated() where album.albumID > 150 && album.albumID < 250 {
+        for (index, album) in albums.enumerated() {
             var songs = await getSongsFromAlbum(album: album)
             /// Add some additional info to the songs
             for (index, song) in songs.enumerated() {

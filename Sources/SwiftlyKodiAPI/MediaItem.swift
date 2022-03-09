@@ -16,8 +16,8 @@ import Foundation
 ///
 /// - Tip: The are no `optionals`. When a variable is not found or empty,
 /// a String will be `""`, an Int will be `0` and an Array will be `[]`.
-public struct MediaItem: Identifiable, Equatable, Hashable {
-    
+public struct MediaItem: Codable, Identifiable, Equatable, Hashable {
+
     /// # General
     
     /// The indentifiation of the item
@@ -176,3 +176,46 @@ extension MediaItem {
         movieSetTitle.isEmpty ? sorttitle.isEmpty ? title : sorttitle : movieSetTitle
     }
 }
+
+// MARK: Coding Keys
+
+//extension MediaItem {
+//    /// The coding keys
+//    enum CodingKeys: String, CodingKey {
+//    case id
+//    case media
+//    case title
+//    case sorttitle
+//    case subtitle
+//    case description
+//    case details
+////        self.genres = genres
+////        self.rating = rating
+////        self.itemsCount = itemsCount
+////        self.file = file
+////        self.playcount = playcount
+////        self.runtime = runtime
+////        self.releaseDate = releaseDate
+////        self.releaseYear = releaseYear
+////        self.dateAdded = dateAdded
+////        self.poster = poster
+////        self.fanart = fanart
+////        self.movieID = movieID
+////        self.movieSetID = movieSetID
+////        self.tvshowID = tvshowID
+////        self.episodeID = episodeID
+////        self.musicvideoID = musicvideoID
+////        self.artistID = artistID
+////        self.albumID = albumID
+////        self.songID = songID
+////        self.movieSetTitle = movieSetTitle
+////        self.seasons = seasons
+////        self.season = season
+////        self.episode = episode
+////        self.artists = artists
+////        self.album = album
+////        self.track = track
+////        self.sortartist = sortartist
+////        self.compilation = compilation
+//    }
+//}

@@ -10,7 +10,7 @@ import Foundation
 /// All the media types from the Kodi library
 ///
 /// - Note: This `Enum` is used when loading and filtering the library
-public enum MediaType: String, Equatable {
+public enum MediaType: String, Equatable, Codable {
     /// Not a media type
     case none
     /// All media types
