@@ -60,6 +60,12 @@ extension KodiConnector {
             let musicVideos = media
                 .filter { $0.media == .artist && artists.contains($0.artists)}
             items = musicVideos.sorted { $0.sortByTitle < $1.sortByTitle}
+        
+        case .artist:
+            items = items.filter { $0.compilation == filter.compilation }
+        
+        case .album:
+            items = items.filter { $0.artists.contains(filter.artist?.first ?? "") }
         default:
             break
         }
@@ -87,6 +93,7 @@ public struct MediaFilter: Hashable, Equatable {
                 artist: [String]? = nil,
                 album: String? = nil,
                 genre: String? = nil,
+                compilation: Bool = false,
                 search: String? = nil
     ) {
         self.media = media
@@ -95,6 +102,7 @@ public struct MediaFilter: Hashable, Equatable {
         self.artist = artist
         self.album = album
         self.genre = genre
+        self.compilation = compilation
         self.search = search
     }
     /// The type of media
@@ -109,6 +117,8 @@ public struct MediaFilter: Hashable, Equatable {
     public var album: String?
     /// The genre when filtering for a specific genre
     public var genre: String?
+    /// Is the item part of a compilation or not
+    public var compilation: Bool
     /// The search string
     public var search: String?
 

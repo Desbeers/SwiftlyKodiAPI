@@ -201,6 +201,9 @@ extension KodiResponse {
         
         /// Camel Case
         case albumDuration = "albumduration"
+        
+        case isAlbumArtist = "isalbumartist"
+        
         /// Song duration
         case duration
         /// Rating of the item
@@ -327,8 +330,10 @@ extension KodiResponse {
         /// Track
         track = try container.decodeIfPresent(Int.self, forKey: .track) ?? 0
         
-        /// compilation
+        /// Compilation (album item)
         compilation = try container.decodeIfPresent(Bool.self, forKey: .compilation) ?? compilation
+        /// Compilation (artist item)
+        compilation = !(try container.decodeIfPresent(Bool.self, forKey: .isAlbumArtist) ?? !compilation)
         
         /// Duration of an album
         runtime = try container.decodeIfPresent(Int.self, forKey: .albumDuration) ?? runtime

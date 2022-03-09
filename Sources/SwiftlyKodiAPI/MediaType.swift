@@ -53,4 +53,17 @@ public enum MediaType: String, Equatable {
             return .videoLibrarySetMovieDetails
         }
     }
+    var getGenresType: String {
+        switch self {
+        case .movie:
+            return "movie"
+        case .tvshow:
+            return "tvshow"
+        case .musicVideo:
+            return "musicvideo"
+        default:
+            /// This should not happen
+            return ""
+        }
+    }
 }

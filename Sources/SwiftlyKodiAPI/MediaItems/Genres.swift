@@ -57,7 +57,7 @@ extension KodiConnector {
         /// The JSON creator
         var parameters: Data {
             var params = Params()
-            params.type = type.rawValue
+            params.type = type.getGenresType
             params.sort = sort(method: .label, order: .ascending)
             return buildParams(params: params)
         }

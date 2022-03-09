@@ -46,7 +46,7 @@ extension KodiConnector {
                 "playcount",
                 "totaldiscs",
                 "genre",
-                "thumbnail",
+                "art",
                 "compilation",
                 "dateadded",
                 "lastplayed",
