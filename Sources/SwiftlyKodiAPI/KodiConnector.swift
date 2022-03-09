@@ -22,6 +22,8 @@ public final class KodiConnector: ObservableObject {
     var host = HostItem()
     /// The Meda Library from the remote host
     @Published public var media: [MediaItem] = []
+    /// The loading state of the library
+    @Published public var loadingState: loadingStatus = .start
 
     // MARK: Init
     
@@ -38,58 +40,5 @@ public final class KodiConnector: ObservableObject {
 
 extension KodiConnector {
     
-    /// Connect to a Kodi host and load the library
-    /// - Parameter kodiHost: The host configuration
-    @MainActor public func connectToHost(kodiHost: HostItem) async {
-        host = kodiHost
-        let libraryItems = await getAllMedia()
-        logger("Loaded the library")
-        media = libraryItems
-        //let genreItems = await getAllGenres()
-        //genres = genreItems
-    }
-    
-    /// Reload the library from the Kodi host
-    @MainActor public func reloadHost() async {
-        logger("Reloading the library")
-        /// Empty the library
-        media = [MediaItem]()
-        /// Reload it
-        await connectToHost(kodiHost: host)
-    }
-}
 
-extension KodiConnector {
-    
-    /// Get all media from the Kodi host library
-    /// - Returns: All the media from the Kodi host library
-    func getAllMedia() async -> [MediaItem] {
-        /// Start with a fresh list
-        var items: [MediaItem] = []
-        
-        var movieSets = await getMovieSets()
-        /// - Note: The ``getMovies`` function will add info to the movie sets
-        await items += getMovies(movieSets: &movieSets)
-        /// Now we can store the movie sets in the `items` array
-        items += movieSets
-        
-        var tvshows = await getTVshows()
-        /// - Note: The ``getAllEpisodes`` function will add info to the TV show items
-        await items += getAllEpisodes(tvshows: &tvshows)
-        /// Now we can store the TV shows in the `items` array
-        items += tvshows
-        
-        await items += getMusicVideos()
-        
-        await items += getArtists()
-        
-        var albums = await getAlbums()
-        await items += getAllSongs(albums: &albums)
-        items += albums
-        
-        await items += getAllGenres()
-        
-        /// That's all!
-        return items
-    }
 }
