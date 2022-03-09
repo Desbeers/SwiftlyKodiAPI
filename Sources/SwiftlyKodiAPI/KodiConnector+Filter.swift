@@ -42,9 +42,10 @@ extension KodiConnector {
                     .sorted { $0.releaseDate < $1.releaseDate }
             }
             /// If `album` is set we filter music videos for this specific album
+            /// - Note: A Music Video Album has no ID so we have to go by album name...
             if let album = filter.album {
                 items = items
-                    .filter { $0.album == album}
+                    .filter { $0.album == album.album }
                     .sorted { $0.releaseDate < $1.releaseDate }
             } else {
                 /// Reduce the list to one Music Video for each album
@@ -66,6 +67,10 @@ extension KodiConnector {
         
         case .album:
             items = items.filter { $0.artists.contains(filter.artist?.first ?? "") }
+
+        case .song:
+            items = items.filter { $0.albumID == filter.album?.albumID }
+        
         default:
             break
         }
@@ -91,7 +96,7 @@ public struct MediaFilter: Hashable, Equatable {
                 tvshowID: Int? = nil,
                 movieSetID: Int? = nil,
                 artist: [String]? = nil,
-                album: String? = nil,
+                album: MediaItem? = nil,
                 genre: String? = nil,
                 compilation: Bool = false,
                 search: String? = nil
@@ -114,7 +119,7 @@ public struct MediaFilter: Hashable, Equatable {
     /// The artist when filtering for a specific artist
     public var artist: [String]?
     /// The album when filtering for a specific album
-    public var album: String?
+    public var album: MediaItem?
     /// The genre when filtering for a specific genre
     public var genre: String?
     /// Is the item part of a compilation or not

@@ -82,7 +82,8 @@ extension KodiConnector {
                 "dateadded",
                 "genre",
                 "duration",
-                "userrating"
+                "userrating",
+                "file"
             ]
             /// Sort order
             var sort = KodiConnector.SortFields()
