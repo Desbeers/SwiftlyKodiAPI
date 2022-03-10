@@ -37,6 +37,8 @@ extension KodiConnector {
                 logger("SwiftUI update for \(item.title), playcount = \(item.playcount)")
             }
         }
+        /// Store the media in the cache
+        storeMediaInCache(media: media)
     }
     
     /// Update the given song with the given details (Kodi API)

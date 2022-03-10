@@ -13,7 +13,8 @@ extension KodiConnector {
     /// - Parameter kodiHost: The host configuration
     @MainActor public func connectToHost(kodiHost: HostItem) async {
         host = kodiHost
-        loadingState = .cache
+        connectWebSocket()
+        loadingState = .load
         if let libraryItems = Cache.get(key: "Media", as: [MediaItem].self) {
             logger("Loaded the library from the cache")
             media = libraryItems
@@ -27,7 +28,7 @@ extension KodiConnector {
     
     /// Reload the library from the Kodi host
     @MainActor public func reloadHost() async {
-        loadingState = .reload
+        loadingState = .load
         let libraryItems = await getAllMedia()
         media = libraryItems
     }
@@ -68,31 +69,65 @@ extension KodiConnector {
         loadingState = .genres
         await items += getAllGenres()
         
-        /// Save it in the cache
-        do {
-            try Cache.set(key: "Media", object: items)
-        } catch {
-            /// There are no songs in the library
-            print("Saving media failed with error: \(error)")
-        }
+        /// Store the media in the cache
+        storeMediaInCache(media: items)
         
         /// That's all!
         loadingState = .done
         return items
     }
     
+    /// Store the modia library in the cache
+    func storeMediaInCache(media: [MediaItem]) {
+        Task.detached {
+            do {
+                try Cache.set(key: "Media", object: media)
+            } catch {
+                print("Saving media failed with error: \(error)")
+            }
+        }
+    }
+    
+    /// Set the state of Kodio and act on it
+    @MainActor func setState(current: State) {
+        logger("Kodio status: \(current.rawValue)")
+        state = current
+        DispatchQueue.global(qos: .background).async {
+            //self.action(state: current)
+        }
+    }
+    
+    /// The general status of the KodiConnector bridge
+    enum State: String {
+        /// Not connected and no host
+        case none
+        /// Connected to the Kodi host
+        case connectedToHost
+        /// Loading the library
+        case loadingLibrary
+        /// The library is  loaded
+        case loadedLibrary
+        /// Kodio is sleeping
+        case sleeping
+        /// Kodio is waking up
+        case wakeup
+        /// An error when loading the library or a lost of connection
+        case failure
+        /// Kodio has no host configuration
+        case noHostConfig
+    }
+    
     /// The loading status of the library
     public enum loadingStatus: String {
-        case start = "Connecting to the host"
-        case reload = "Loading you library from the host"
-        case cache = "Loading library from the cache"
-        case movies = "Loading movies"
-        case tvshows = "Loading TV shows"
-        case musicVideos = "Loading Music Videos"
-        case artists = "Loading artists"
-        case albums = "Loading albums"
-        case songs = "Loading songs"
-        case genres = "Loading genres"
-        case done = "Library is loaded"
+        case start = "Connecting..."
+        case load = "Loading library..."
+        case movies = "Loading movies..."
+        case tvshows = "Loading TV shows..."
+        case musicVideos = "Loading Music Videos..."
+        case artists = "Loading artists..."
+        case albums = "Loading albums..."
+        case songs = "Loading songs..."
+        case genres = "Loading genres..."
+        case done = "Library is loaded..."
     }
 }

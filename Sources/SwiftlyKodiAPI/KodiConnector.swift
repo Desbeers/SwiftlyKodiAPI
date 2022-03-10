@@ -22,8 +22,12 @@ public final class KodiConnector: ObservableObject {
     var host = HostItem()
     /// The Meda Library from the remote host
     @Published public var media: [MediaItem] = []
+    /// The general state of the KodiConnector bridge
+    @Published var state: State = .none
     /// The loading state of the library
     @Published public var loadingState: loadingStatus = .start
+    /// ID of this Kodi Connector instance; used to send  notifications
+    var kodiConnectorID = UUID().uuidString
 
     // MARK: Init
     
