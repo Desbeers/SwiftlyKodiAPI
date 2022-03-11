@@ -16,10 +16,11 @@ extension KodiConnector {
             switch result {
             case .success(let message):
                 if case .string(let text) = message {
+                    print(text)
                     /// get the notification
                     guard let data = text.data(using: .utf8),
                           let notification = try? JSONDecoder().decode(NotificationItem.self, from: data),
-                          let method = Method(rawValue: notification.method),
+                          let type = NotificationMethod(rawValue: notification.method),
                           notification.params.sender != self.kodiConnectorID
                     else {
                         /// Not an interesting notification
@@ -28,10 +29,10 @@ extension KodiConnector {
                         self.receiveNotification()
                         return
                     }
-                    logger("Notification: \(method.rawValue)")
+                    logger("Notification: \(type.rawValue)")
                     
                     Task { @MainActor in
-                        self.notification = method
+                        self.notification = type
                     }
                     
                     //self.notificationAction(notification: notification)
@@ -41,35 +42,6 @@ extension KodiConnector {
             case .failure:
                 /// Failures are handled by the delegate
                 break
-            }
-        }
-    }
-    
-    /// The notification item
-    struct NotificationItem: Decodable {
-        /// The method
-        var method: String
-        /// The params
-        var params = Params()
-        /// The params struct
-        struct Params: Decodable {
-            /// The optional data from the notice
-            var data: DataItem?
-            /// The sender of the notice
-            var sender: String = ""
-        }
-        /// The struct for the notification data
-        struct DataItem: Decodable {
-            /// The item ID
-            var itemID: Int?
-            /// The type of item
-            var type: String?
-            /// Coding keys
-            enum CodingKeys: String, CodingKey {
-                /// The keys
-                case type
-                /// ID is a reserved word
-                case itemID = "id"
             }
         }
     }

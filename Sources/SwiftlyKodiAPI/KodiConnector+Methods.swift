@@ -14,10 +14,10 @@ extension KodiConnector {
         
         /// # General
         
-        /// Notify all other connected clients
-        case notifyAll = "JSONRPC.NotifyAll"
-        /// Custom notification
-        case otherNewQueue = "Other.NewQueue"
+//        /// Notify all other connected clients
+//        case notifyAll = "JSONRPC.NotifyAll"
+//        /// Custom notification
+//        case otherNewQueue = "Other.NewQueue"
         /// Get host properties
         case applicationGetProperties = "Application.GetProperties"
         /// Quit the host
@@ -75,16 +75,7 @@ extension KodiConnector {
         case audioLibrarySetSongDetails = "AudioLibrary.SetSongDetails"
         /// Get genres from the host
         case audioLibraryGetGenres = "AudioLibrary.GetGenres"
-        
-        /// # Audio Notifications
-        
-        /// Notification that the audio library has changed
-        case audioLibraryOnUpdate = "AudioLibrary.OnUpdate"
-        /// Notification that the audio library will be scanned
-        case audioLibraryOnScanStarted = "AudioLibrary.OnScanStarted"
-        /// Notification that the audio library has finnished scannning
-        case audioLibraryOnScanFinished = "AudioLibrary.OnScanFinished"
-        
+
         /// # Player
         
         /// Turn partymode on or off
@@ -105,23 +96,6 @@ extension KodiConnector {
         case playerGetProperties = "Player.GetProperties"
         /// Get the current player item from the host
         case playerGetItem = "Player.GetItem"
-        /// Notification that the player speed as changed on the host
-        case playerOnSpeedChanged = "Player.OnSpeedChanged"
-        
-        /// # Player Notifications
-        
-        /// Notification that the player starts playing on the host
-        case playerOnPlay = "Player.OnPlay"
-        /// Notification that the player has stopped on the host
-        case playerOnStop = "Player.OnStop"
-        /// Notification that the player properties have changed
-        case playerOnPropertyChanged = "Player.OnPropertyChanged"
-        /// Notification that the player resumes playing on the host
-        case playerOnResume = "Player.OnResume"
-        /// Notification that the player will pause on the host
-        case playerOnPause = "Player.OnPause"
-        /// Notification that the player starts playing on the host
-        case playerOnAVStart = "Player.OnAVStart"
         
         /// # Playlists
         

@@ -30,7 +30,7 @@ public final class KodiConnector: ObservableObject {
     /// The loading state of the library
     @Published public var loadingState: loadingStatus = .start
     /// Notifications
-    @Published public var notification: Method = .notifyAll
+    @Published public var notification: NotificationMethod = .notifyAll
     /// ID of this Kodi Connector instance; used to send  notifications
     var kodiConnectorID = UUID().uuidString
 
@@ -44,13 +44,15 @@ public final class KodiConnector: ObservableObject {
         configuration.timeoutIntervalForRequest = 300
         configuration.timeoutIntervalForResource = 120
         self.urlSession = URLSession(configuration: configuration)
-        /// Sleeping and wakeup stuff
+        /// Sleeping and wakeup stuff for tvOS and iOS
+#if !os(macOS)
         NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { [unowned self] notification in
-                    logger("tvOS or iOS goes to the background")
-                }
+            logger("tvOS or iOS goes to the background")
+        }
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
             logger("tvOS or iOS comes to the foreground")
         }
+#endif
     }
 }
 
