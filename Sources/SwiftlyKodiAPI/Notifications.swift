@@ -29,6 +29,11 @@ extension KodiConnector {
                         return
                     }
                     logger("Notification: \(method.rawValue)")
+                    
+                    Task { @MainActor in
+                        self.notification = method
+                    }
+                    
                     //self.notificationAction(notification: notification)
                 }
                 /// Call ourself again to receive the next notification

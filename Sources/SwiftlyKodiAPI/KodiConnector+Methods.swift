@@ -10,7 +10,7 @@ import Foundation
 extension KodiConnector {
     
     /// Kodi methods used by KodiAPI
-    enum Method: String {
+    public enum Method: String {
         
         /// # General
         
