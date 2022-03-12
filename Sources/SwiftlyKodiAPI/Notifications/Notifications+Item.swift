@@ -7,6 +7,15 @@
 
 import Foundation
 
+/// A struct for decoding Kodi notifications
+///
+/// Not all notice details are that interesting.
+/// For example, a notification for `Player.OnPropertyChanged` will just give the changed property,
+/// so that means that every property has to be checked for the one that is changed.
+/// Better just get all the properties with `Player.GetProperties`.
+///
+/// Also, a library item can have it's ID on different placed in the JSON.
+/// The decoder for this struct will check all placed and just put it in the 'root' of the struct.
 public struct NotificationItem: Decodable {
     
     /// Top level
@@ -19,11 +28,16 @@ public struct NotificationItem: Decodable {
     var media: MediaType = .none
     var itemID: Int = 0
     
-    /// Player level
+    /// The ID of the player
+    /// - 1 = audio
+    /// - 2 = movie
+    /// - 3 = picture
     var playerID: Int = 0
+    /// The speed of the player
     var playerSpeed: Int = 0
     
-    var endOfPlaylist: Bool = false
+    var playlistID: Int = -1
+    var playlistEnded: Bool = false
     
     /// ### Property level
     /// Partymode
@@ -53,7 +67,8 @@ extension NotificationItem {
         case item
         case player
         case property
-        case endOfPlaylist = "end"
+        case playlistEnded = "end"
+        case playlistID = "playlistid"
         /// - Note: When receiving an "OnUpdate" notice we get below values:
         case itemID = "id"
         case media = "type"
@@ -90,9 +105,6 @@ extension NotificationItem {
         if let rawValue = try container.decodeIfPresent(String.self, forKey: .method),
            let method = NotificationMethod(rawValue: rawValue) {
             self.method = method
-        } else {
-            print("Unknown method: \(try container.decodeIfPresent(String.self, forKey: .method) )")
-            self.method = .unknown
         }
 
         /// ## Params level
@@ -102,7 +114,8 @@ extension NotificationItem {
         /// ### Data level
         let data = try params.nestedContainer(keyedBy: DataKeys.self, forKey: .data)
         itemID = try data.decodeIfPresent(Int.self, forKey: .itemID) ?? itemID
-        endOfPlaylist = try data.decodeIfPresent(Bool.self, forKey: .endOfPlaylist) ?? endOfPlaylist
+        playlistID = try data.decodeIfPresent(Int.self, forKey: .playlistID) ?? playlistID
+        playlistEnded = try data.decodeIfPresent(Bool.self, forKey: .playlistEnded) ?? playlistEnded
 
         if let rawValue = try data.decodeIfPresent(String.self, forKey: .media),
            let media = MediaType(rawValue: rawValue) {

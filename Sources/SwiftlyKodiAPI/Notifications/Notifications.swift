@@ -16,16 +16,6 @@ extension KodiConnector {
             switch result {
             case .success(let message):
                 if case .string(let text) = message {
-//                    /// New notification TEST
-//                    do {
-//                        let message = try JSONDecoder().decode(NotificationItemModel.self, from: text.data(using: .utf8)!)
-//                        if message.method != .unknown {
-//                            dump(message)
-//                        }
-//                    } catch {
-//                        print(error)
-//                    }
-
                     /// get the notification
                     guard let data = text.data(using: .utf8),
                           let notification = try? JSONDecoder().decode(NotificationItem.self, from: data),
@@ -38,13 +28,14 @@ extension KodiConnector {
                         return
                     }
                     logger("Notification: \(notification.method.rawValue)")
-                    print(message)
+                    dump(notification)
+                    print(text)
                     
                     Task { @MainActor in
                         self.notification = notification
                     }
                     
-                    //self.notificationAction(notification: notification)
+                    self.notificationAction(notification: notification)
                 }
                 /// Call ourself again to receive the next notification
                 self.receiveNotification()
