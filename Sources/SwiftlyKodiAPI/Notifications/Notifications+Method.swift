@@ -17,44 +17,45 @@ import Foundation
         /// An unsupported method
         case unknown
         
-        /// Notify all other connected clients
-        case notifyAll = "JSONRPC.NotifyAll"
-        /// Custom notification
-        case otherNewQueue = "Other.NewQueue"
-        
         /// # Application notifications
         
-        /// Notification that the volume has changed
+        /// The volume of the application has changed
         case applicationOnVolumeChanged = "Application.OnVolumeChanged"
         
-        /// # Player Notifications
+        /// # JSONRPC
         
-        /// Audio- or videostream has changed.
-        /// If there is no ID available extra information will be provided.
+        /// Notify all other connected clients
+        case notifyAll = "JSONRPC.NotifyAll"
+        
+        /// # Player notifications
+        
+        /// Audio- or videostream has changed
         case playerOnAVChange = "Player.OnAVChange"
-        /// Playback of a media item has been started and first frame is available.
-        /// If there is no ID available extra information will be provided.
+        /// Playback of a media item has been started and first frame is available
         case playerOnAVStart = "Player.OnAVStart"
-        /// Playback of a media item has been paused.
-        /// If there is no ID available extra information will be provided.
+        /// Playback of a media item has been paused
         case playerOnPause = "Player.OnPause"
-        /// Playback of a media item has been started or the playback speed has changed.
-        /// If there is no ID available extra information will be provided.
+        /// Playback of a media item has been started or the playback speed has changed
         case playerOnPlay = "Player.OnPlay"
-        /// A property of the playing items has changed.
+        /// A property of the playing items has changed
         case playerOnPropertyChanged = "Player.OnPropertyChanged"
-        /// Playback of a media item has been resumed.
-        /// If there is no ID available extra information will be provided.
+        /// Playback of a media item has been resumed
         case playerOnResume = "Player.OnResume"
-        /// The playback position has been changed.
-        /// If there is no ID available extra information will be provided.
+        /// The playback position has been changed
         case playerOnSeek = "Player.OnSeek"
-        /// Speed of the playback of a media item has been changed.
-        /// If there is no ID available extra information will be provided.
+        /// Speed of the playback of a media item has been changed
         case playerOnSpeedChanged = "Player.OnSpeedChanged"
-        /// Playback of a media item has been stopped.
-        /// If there is no ID available extra information will be provided.
+        /// Playback of a media item has been stopped
         case playerOnStop = "Player.OnStop"
+        
+        /// # Playlist notifications
+        
+        /// A playlist item has been added
+        case playlistOnAdd = "Playlist.OnAdd"
+        /// A playlist item has been cleared
+        case playlistOnClear = "Playlist.OnClear"
+        /// A playlist item has been removed
+        case playlistOnRemove = "Playlist.OnRemove"
         
         ///# Video library notifications
         
@@ -75,14 +76,21 @@ import Foundation
         /// A video item has been updated.
         case videoLibraryOnUpdate = "VideoLibrary.OnUpdate"
         
+        /// # Audio library notifications
         
-        /// # Audio notifications
-        
-        /// Notification that the audio library has changed
-        case audioLibraryOnUpdate = "AudioLibrary.OnUpdate"
-        /// Notification that the audio library will be scanned
-        case audioLibraryOnScanStarted = "AudioLibrary.OnScanStarted"
-        /// Notification that the audio library has finnished scannning
+        /// The audio library has been cleaned
+        case audioLibraryOnCleanFinished = "AudioLibrary.OnCleanFinished"
+        /// An audio library clean operation has started
+        case audioLibraryOnCleanStarted = "AudioLibrary.OnCleanStarted"
+        /// An audio library export has finished
+        case audioLibraryOnExport = "AudioLibrary.OnExport"
+        /// An audio item has been removed
+        case audioLibraryOnRemove = "AudioLibrary.OnRemove"
+        /// Scanning the audio library has been finished
         case audioLibraryOnScanFinished = "AudioLibrary.OnScanFinished"
+        /// An audio library scan has started
+        case audioLibraryOnScanStarted = "AudioLibrary.OnScanStarted"
+        /// An audio item has been updated
+        case audioLibraryOnUpdate = "AudioLibrary.OnUpdate"
     }
 //}

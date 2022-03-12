@@ -16,21 +16,20 @@ extension KodiConnector {
             switch result {
             case .success(let message):
                 if case .string(let text) = message {
-                    /// New notification TEST
-                    do {
-                        let message = try JSONDecoder().decode(NotificationItemModel.self, from: text.data(using: .utf8)!)
-                        if message.method != .unknown {
-                            dump(message)
-                        }
-                    } catch {
-                        print(error)
-                    }
+//                    /// New notification TEST
+//                    do {
+//                        let message = try JSONDecoder().decode(NotificationItemModel.self, from: text.data(using: .utf8)!)
+//                        if message.method != .unknown {
+//                            dump(message)
+//                        }
+//                    } catch {
+//                        print(error)
+//                    }
 
                     /// get the notification
                     guard let data = text.data(using: .utf8),
                           let notification = try? JSONDecoder().decode(NotificationItem.self, from: data),
-                          let type = NotificationMethod(rawValue: notification.method),
-                          notification.params.sender != self.kodiConnectorID
+                          notification.sender != self.kodiConnectorID
                     else {
                         /// Not an interesting notification
                         /// print(message)
@@ -38,11 +37,11 @@ extension KodiConnector {
                         self.receiveNotification()
                         return
                     }
-                    logger("Notification: \(type.rawValue)")
+                    logger("Notification: \(notification.method.rawValue)")
                     print(message)
                     
                     Task { @MainActor in
-                        self.notification = type
+                        self.notification = notification
                     }
                     
                     //self.notificationAction(notification: notification)

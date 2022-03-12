@@ -30,7 +30,7 @@ public final class KodiConnector: ObservableObject {
     /// The loading state of the library
     @Published public var loadingState: loadingStatus = .start
     /// Notifications
-    @Published public var notification: NotificationMethod = .notifyAll
+    @Published public var notification = NotificationItem()
     /// ID of this Kodi Connector instance; used to send  notifications
     var kodiConnectorID = UUID().uuidString
 

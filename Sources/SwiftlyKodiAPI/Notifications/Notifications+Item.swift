@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NotificationItemModel: Decodable {
+public struct NotificationItem: Decodable {
     
     /// Top level
     var method: NotificationMethod = .unknown
@@ -34,7 +34,7 @@ struct NotificationItemModel: Decodable {
 }
 
 
-extension NotificationItemModel {
+extension NotificationItem {
     
     /// # Top-level coding keys
     enum CodingKeys: String, CodingKey {
@@ -81,8 +81,8 @@ extension NotificationItemModel {
     }
 }
 
-extension NotificationItemModel {
-    init(from decoder: Decoder) throws {
+extension NotificationItem {
+    public init(from decoder: Decoder) throws {
         
         /// # Top level
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -131,68 +131,35 @@ extension NotificationItemModel {
     }
 }
 
-extension KodiConnector {
-    
-    struct NotificationData: Decodable {
-        /// The media item ID (called `id` by Kodi)
-        var itemID: Int
-        /// The type of media item (called `type` by Kodi)
-        var media: MediaType
-        
-        /// # Playlist data
-        
-        /// The playlist ID
-        var playlistID: Int
-        /// Position in the playlist (called `position` by Kodi
-        var playlistPosition: Int = -1
-        
-        /// # Coding keys
-        
-        /// Coding keys
-        enum CodingKeys: String, CodingKey {
-            /// ID is a reserved word
-            case itemID = "id"
-            /// The type of media
-            case media = "type"
-            /// lowerCamelCase
-            case playlistID = "playlistid"
-            /// Give it a more describable name
-            case playlistPosition = "position"
-        }
-        
-        /// # Custom decoder
-        
-        
-        
-    }
-
-    /// The struct for a Kodi notification item
-    struct NotificationItem: Decodable {
-        /// The method
-        var method: String
-        /// The params
-        var params = Params()
-        /// The params struct
-        struct Params: Decodable {
-            /// The optional data from the notice
-            var data: DataItem?
-            /// The sender of the notice
-            var sender: String = ""
-        }
-        /// The struct for the notification data
-        struct DataItem: Decodable {
-            /// The item ID
-            var itemID: Int?
-            /// The type of item
-            var type: String?
-            /// Coding keys
-            enum CodingKeys: String, CodingKey {
-                /// The keys
-                case type
-                /// ID is a reserved word
-                case itemID = "id"
-            }
-        }
-    }
-    
-}
+//extension KodiConnector {
+//
+//    /// The struct for a Kodi notification item
+//    struct NotificationItem: Decodable {
+//        /// The method
+//        var method: String
+//        /// The params
+//        var params = Params()
+//        /// The params struct
+//        struct Params: Decodable {
+//            /// The optional data from the notice
+//            var data: DataItem?
+//            /// The sender of the notice
+//            var sender: String = ""
+//        }
+//        /// The struct for the notification data
+//        struct DataItem: Decodable {
+//            /// The item ID
+//            var itemID: Int?
+//            /// The type of item
+//            var type: String?
+//            /// Coding keys
+//            enum CodingKeys: String, CodingKey {
+//                /// The keys
+//                case type
+//                /// ID is a reserved word
+//                case itemID = "id"
+//            }
+//        }
+//    }
+//    
+//}
