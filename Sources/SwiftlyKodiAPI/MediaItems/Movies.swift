@@ -72,7 +72,8 @@ extension KodiConnector {
                 "playcount",
                 "runtime",
                 "cast",
-                "dateadded"
+                "dateadded",
+                "lastplayed"
             ]
             /// The sort order
             var sort = KodiConnector.SortFields()

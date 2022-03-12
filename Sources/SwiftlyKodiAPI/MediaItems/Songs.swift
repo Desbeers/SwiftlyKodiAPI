@@ -51,6 +51,12 @@ extension KodiConnector {
             }
     }
     
+    func setSongDetails(song: MediaItem) {
+        
+    }
+    
+    // MARK: Kodi API's
+    
     /// Retrieve all songs from an album (Kodi API)
     struct AudioLibraryGetSongs: KodiAPI {
         /// AlbumID argument
@@ -105,5 +111,37 @@ extension KodiConnector {
             /// The list of songs
             let songs: [KodiResponse]
         }
+    }
+    
+    /// Update the given song with the given details (Kodi API)
+    struct AudioLibrarySetSongDetails: KodiAPI {
+        /// Arguments
+        var song: MediaItem
+        /// Method
+        var method = Method.audioLibrarySetSongDetails
+        /// The JSON creator
+        var parameters: Data {
+            /// The parameters
+            var params = Params()
+            params.songid = song.songID
+            params.userrating = song.rating
+            params.playcount = song.playcount
+            //params.lastplayed = song.lastPlayed
+            return buildParams(params: params)
+        }
+        /// The request struct
+        /// - Note: The properties we want to set
+        struct Params: Encodable {
+            /// The song ID
+            var songid: Int = 0
+            /// The rating of the song
+            var userrating: Int = 0
+            /// The play count of the song
+            var playcount: Int = 0
+            /// The last played date
+            var lastplayed: String = ""
+        }
+        /// The response struct
+        struct Response: Decodable { }
     }
 }

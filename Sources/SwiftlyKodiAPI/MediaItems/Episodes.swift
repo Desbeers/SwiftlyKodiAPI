@@ -74,7 +74,8 @@ extension KodiConnector {
                 "firstaired",
                 "runtime",
                 "cast",
-                "tvshowid"
+                "tvshowid",
+                "lastplayed"
             ]
         }
         /// The response struct
