@@ -10,6 +10,10 @@ import Foundation
 extension KodiConnector {
     
     /// Kodi methods used by KodiAPI
+    ///
+    /// - Note: Most methods are just 'lowerCamelCase' version, however
+    ///         some are renamed to reflect their action a bit more clear,
+    ///         like 'toggle' instead of 'set'
     public enum Method: String {
         
         /// # General
@@ -18,46 +22,20 @@ extension KodiConnector {
 //        case notifyAll = "JSONRPC.NotifyAll"
 //        /// Custom notification
 //        case otherNewQueue = "Other.NewQueue"
-        /// Get host properties
+        
+        
+        /// # Application
+        
+        /// Retrieves the values of the given properties
         case applicationGetProperties = "Application.GetProperties"
-        /// Quit the host
+        /// Quit application
         case applicationQuit = "Application.Quit"
-        /// Set the volume on the host
+        /// Toggle mute/unmute
+        case applicationToggleMute = "Application.SetMute"
+        /// Set the current volume
         case applicationSetVolume = "Application.SetVolume"
-        /// Notification that the volume has changed
-        case applicationOnVolumeChanged = "Application.OnVolumeChanged"
-        /// Toggle the mute
-        case applicationSetMute = "Application.SetMute"
-        /// Set a setting on the host
-        case settingsSetSettingvalue = "Settings.SetSettingvalue"
         
-        /// # Video
-        
-        /// Get movies from the host
-        case videoLibraryGetMovies = "VideoLibrary.GetMovies"
-        /// Get movie sets from the host
-        case videoLibraryGetMovieSets = "VideoLibrary.GetMovieSets"
-        /// Get video genres from the host
-        case videoLibraryGetGenres = "VideoLibrary.GetGenres"
-        /// Get TV shows from the host
-        case videoLibraryGetTVShows = "VideoLibrary.GetTVShows"
-        /// Get episodes from the host
-        case videoLibraryGetEpisodes = "VideoLibrary.GetEpisodes"
-        /// Get music videos from the host
-        case videoLibraryGetMusicVideos = "VideoLibrary.GetMusicVideos"
-        
-        /// Set details for a movie
-        case videoLibrarySetMovieDetails = "VideoLibrary.SetMovieDetails"
-        /// Set details for a movie set
-        case videoLibrarySetMovieSetDetails = "VideoLibrary.SetMovieSetDetails"
-        /// Set details for a TV show
-        case videoLibrarySetTVShowDetails = "VideoLibrary.SetTVShowDetails"
-        /// Set details for an episode
-        case videoLibrarySetEpisodeDetails = "VideoLibrary.SetEpisodeDetails"
-        /// Set details for a music video
-        case videoLibrarySetMusicVideoDetails = "VideoLibrary.SetMusicVideoDetails"
-        
-        /// # Audio
+        /// # Audio library
         
         /// Cleans the audio library from non-existent items
         case audioLibraryClean = "AudioLibrary.Clean"
@@ -104,26 +82,64 @@ extension KodiConnector {
         /// Update the given song with the given details
         case audioLibrarySetSongDetails = "AudioLibrary.SetSongDetails"
         
+        /// # Files
+        
+        /// Get the directories and files in the given directory
+        case filesGetDirectory = "Files.GetDirectory"
+        
+        /// # JSONRPC
+        
+        /// Notify all other connected clients
+        case notifyAll = "JSONRPC.NotifyAll"
+        
         /// # Player
         
-        /// Turn partymode on or off
-        case playerSetPartymode = "Player.SetPartymode"
-        /// Set the player shuffle modus on the host
-        case playerSetShuffle = "Player.SetShuffle"
-        /// Set the player repeat modus on the host
-        case playerSetRepeat = "Player.SetRepeat"
-        /// Play or pause the player on the host
-        case playerPlayPause = "Player.PlayPause"
-        /// Open the player on the host
-        case playerOpen = "Player.Open"
-        /// Stop the player on the host
-        case playerStop = "Player.Stop"
-        /// Goto an player item on the host
-        case playerGoTo = "Player.GoTo"
-        /// Get the player properties from the host
-        case playerGetProperties = "Player.GetProperties"
-        /// Get the current player item from the host
+        /// Add subtitle to the player
+        case playerAddSubtitle = "Player.AddSubtitle"
+        /// Returns all active players
+        case playerGetActivePlayers = "Player.GetActivePlayers"
+        /// Retrieves the currently played item
         case playerGetItem = "Player.GetItem"
+        /// Get a list of available players
+        case playerGetPlayers = "Player.GetPlayers"
+        /// Retrieves the values of the given properties
+        case playerGetProperties = "Player.GetProperties"
+        /// Get view mode of video player
+        case playerGetViewMode = "Player.GetViewMode"
+        /// Go to previous/next/specific item in the playlist
+        case playerGoTo = "Player.GoTo"
+        /// If picture is zoomed move viewport left/right/up/down otherwise skip previous/next
+        case playerMove = "Player.Move"
+        /// Start playback of either the playlist with the given ID,
+        /// a slideshow with the pictures from the given directory
+        /// or a single file or an item from the database
+        case playerOpen = "Player.Open"
+        /// Pauses or unpause playback and returns the new state
+        case playerPlayPause = "Player.PlayPause"
+        /// Rotates current picture
+        case playerRotate = "Player.Rotate"
+        /// Seek through the playing item
+        case playerSeek = "Player.Seek"
+        /// Set the audio stream played by the player
+        case playerSetAudioStream = "Player.SetAudioStream"
+        /// Toggle partymode on or off
+        case playerTogglePartymode = "Player.SetPartymode"
+        /// Set the repeat mode of the player
+        case playerSetRepeat = "Player.SetRepeat"
+        /// Shuffle/Unshuffle items in the player
+        case playerToggleShuffle = "Player.SetShuffle"
+        /// Set the speed of the current playback
+        case playerSetSpeed = "Player.SetSpeed"
+        /// Set the subtitle displayed by the player
+        case playerSetSubtitle = "Player.SetSubtitle"
+        /// Set the video stream played by the player
+        case playerSetVideoStream = "Player.SetVideoStream"
+        /// Set view mode of video player
+        case playerSetViewMode = "Player.SetViewMode"
+        /// Stops playback
+        case playerStop = "Player.Stop"
+        /// Zoom current picture
+        case playerZoom = "Player.Zoom"
         
         /// # Playlists
         
@@ -138,9 +154,88 @@ extension KodiConnector {
         /// Get a list of items from a playlist on the host
         case playlistGetItems = "Playlist.GetItems"
         
-        /// # Files
         
-        /// Get a directory list from the host
-        case filesGetDirectory = "Files.GetDirectory"
+        /// # Settings
+
+        /// Set a setting on the host
+        case settingsSetSettingvalue = "Settings.SetSettingvalue"
+        
+        /// # Video library
+        
+        /// Cleans the video library for non-existent items
+        case videoLibraryClean = "VideoLibrary.Clean"
+        /// Exports all items from the video library
+        case videoLibraryExport = "VideoLibrary.Export"
+        /// Retrieve all potential art URLs for a media item by art type
+        case videoLibraryGetAvailableArt = "VideoLibrary.GetAvailableArt"
+        /// Retrieve a list of potential art types for a media item
+        case videoLibraryGetAvailableArtTypes = "VideoLibrary.GetAvailableArtTypes"
+        /// Retrieve details about a specific tv show episode
+        case videoLibraryGetEpisodeDetails = "VideoLibrary.GetEpisodeDetails"
+        /// Retrieve all tv show episodes
+        case videoLibraryGetEpisodes = "VideoLibrary.GetEpisodes"
+        /// Retrieve all genres
+        case videoLibraryGetGenres = "VideoLibrary.GetGenres"
+        /// Retrieve all in progress tvshows
+        case videoLibraryGetInProgressTVShows = "VideoLibrary.GetInProgressTVShows"
+        /// Retrieve details about a specific movie
+        case videoLibraryGetMovieDetails = "VideoLibrary.GetMovieDetails"
+        /// Retrieve details about a specific movie set
+        case videoLibraryGetMovieSetDetails = "VideoLibrary.GetMovieSetDetails"
+        /// Retrieve all movie sets
+        case videoLibraryGetMovieSets = "VideoLibrary.GetMovieSets"
+        /// Retrieve all movies
+        case videoLibraryGetMovies = "VideoLibrary.GetMovies"
+        /// Retrieve details about a specific music video
+        case videoLibraryGetMusicVideoDetails = "VideoLibrary.GetMusicVideoDetails"
+        /// Retrieve all music videos
+        case videoLibraryGetMusicVideos = "VideoLibrary.GetMusicVideos"
+        /// Retrieve all recently added tv episodes
+        case videoLibraryGetRecentlyAddedEpisodes = "VideoLibrary.GetRecentlyAddedEpisodes"
+        /// Retrieve all recently added movies
+        case videoLibraryGetRecentlyAddedMovies = "VideoLibrary.GetRecentlyAddedMovies"
+        /// Retrieve all recently added music videos
+        case videoLibraryGetRecentlyAddedMusicVideos = "VideoLibrary.GetRecentlyAddedMusicVideos"
+        /// Retrieve details about a specific tv show season
+        case videoLibraryGetSeasonDetails = "VideoLibrary.GetSeasonDetails"
+        /// Retrieve all tv seasons
+        case videoLibraryGetSeasons = "VideoLibrary.GetSeasons"
+        /// Retrieve details about a specific tv show
+        case videoLibraryGetTVShowDetails = "VideoLibrary.GetTVShowDetails"
+        /// Retrieve all tv shows
+        case videoLibraryGetTVShows = "VideoLibrary.GetTVShows"
+        /// Retrieve all tags
+        case videoLibraryGetTags = "VideoLibrary.GetTags"
+        /// Refresh the given episode in the library
+        case videoLibraryRefreshEpisode = "VideoLibrary.RefreshEpisode"
+        /// Refresh the given movie in the library
+        case videoLibraryRefreshMovie = "VideoLibrary.RefreshMovie"
+        /// Refresh the given music video in the library
+        case videoLibraryRefreshMusicVideo = "VideoLibrary.RefreshMusicVideo"
+        /// Refresh the given tv show in the library
+        case videoLibraryRefreshTVShow = "VideoLibrary.RefreshTVShow"
+        /// Removes the given episode from the library
+        case videoLibraryRemoveEpisode = "VideoLibrary.RemoveEpisode"
+        /// Removes the given movie from the library
+        case videoLibraryRemoveMovie = "VideoLibrary.RemoveMovie"
+        /// Removes the given music video from the library
+        case videoLibraryRemoveMusicVideo = "VideoLibrary.RemoveMusicVideo"
+        /// Removes the given tv show from the library
+        case videoLibraryRemoveTVShow = "VideoLibrary.RemoveTVShow"
+        /// Scans the video sources for new library items
+        case videoLibraryScan = "VideoLibrary.Scan"
+        /// Update the given episode with the given details
+        case videoLibrarySetEpisodeDetails = "VideoLibrary.SetEpisodeDetails"
+        /// Update the given movie with the given details
+        case videoLibrarySetMovieDetails = "VideoLibrary.SetMovieDetails"
+        /// Update the given movie set with the given details
+        case videoLibrarySetMovieSetDetails = "VideoLibrary.SetMovieSetDetails"
+        /// Update the given music video with the given details
+        case videoLibrarySetMusicVideoDetails = "VideoLibrary.SetMusicVideoDetails"
+        /// Update the given season with the given details
+        case videoLibrarySetSeasonDetails = "VideoLibrary.SetSeasonDetails"
+        /// Update the given tvshow with the given details
+        case videoLibrarySetTVShowDetails = "VideoLibrary.SetTVShowDetails"
+
     }
 }
