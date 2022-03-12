@@ -24,7 +24,7 @@ public enum MediaType: String, Equatable, Codable {
     /// Episodes
     case episode
     /// Music Videos
-    case musicVideo
+    case musicVideo = "musicvideo"
     /// Music Video Artists
     case musicVideoArtist
     /// Artists
