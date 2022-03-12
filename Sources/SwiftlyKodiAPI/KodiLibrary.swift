@@ -61,6 +61,8 @@ extension KodiConnector {
                 params.episodeid = item.episodeID
             case .musicVideo:
                 params.musicvideoid = item.musicvideoID
+            case .song:
+                params.songid = item.songID
             default:
                 break
             }
@@ -75,6 +77,7 @@ extension KodiConnector {
             var movieid: Int?
             var episodeid: Int?
             var musicvideoid: Int?
+            var songid: Int?
             /// The playcount of the item
             var playcount: Int = 0
         }

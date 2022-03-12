@@ -48,6 +48,8 @@ public enum MediaType: String, Equatable, Codable {
             return .videoLibrarySetEpisodeDetails
         case .musicVideo:
             return .videoLibrarySetMusicVideoDetails
+        case .song:
+            return .audioLibrarySetSongDetails
         default:
             /// This should not happen
             return .videoLibrarySetMovieDetails

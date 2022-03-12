@@ -30,9 +30,9 @@ public struct NotificationItem: Decodable {
     
     /// The ID of the player
     /// - 1 = audio
-    /// - 2 = movie
+    /// - 2 = video
     /// - 3 = picture
-    var playerID: Int = 0
+    var playerID: PlayerID = .audio
     /// The speed of the player
     var playerSpeed: Int = 0
     
@@ -133,7 +133,11 @@ extension NotificationItem {
         
         /// ### Player level
         let player = try? data.nestedContainer(keyedBy: PlayerKeys.self, forKey: .player)
-        playerID = try player?.decodeIfPresent(Int.self, forKey: .playerID) ?? playerID
+        if let rawValue = try player?.decodeIfPresent(Int.self, forKey: .playerID),
+           let playerID = PlayerID(rawValue: rawValue) {
+            self.playerID = playerID
+        }
+        //playerID = try player?.decodeIfPresent(Int.self, forKey: .playerID) ?? playerID
         playerSpeed = try player?.decodeIfPresent(Int.self, forKey: .playerSpeed) ?? playerSpeed
         
         /// ### Property-level

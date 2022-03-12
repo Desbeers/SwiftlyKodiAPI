@@ -10,7 +10,7 @@ import Foundation
 extension KodiConnector {
     
     /// Get the properties of the player
-    func getPlayerProperties(playerID: Int) async {
+    func getPlayerProperties(playerID: PlayerID) async {
         let request = PlayerGetProperties(playerID: playerID)
         do {
             let result = try await sendRequest(request: request)
@@ -23,13 +23,13 @@ extension KodiConnector {
     /// Retrieves the values of the given properties (Kodi API)
     struct PlayerGetProperties: KodiAPI {
         /// The ID of the player
-        let playerID: Int
+        let playerID: PlayerID
         /// Method
         let method = Method.playerGetProperties
         /// The JSON creator
         var parameters: Data {
             var params = Params()
-            params.playerid = playerID
+            params.playerid = playerID.rawValue
             return buildParams(params: params)
         }
         /// The parameters struct
@@ -84,6 +84,7 @@ public struct PlayerProperties: Decodable {
     public var live: Bool = false
     public var partymode: Bool = false
     public var percentage: Double = 0.0
+    public var playerType: PlayerType = .video
     public var playlistID: Int = -1
     public var playlistPosition: Int = -1
     public var repeating: PlayerRepeatMode = .off
@@ -92,7 +93,6 @@ public struct PlayerProperties: Decodable {
     public var subtitleEnabled: Bool = false
     public var time = PlayerTime()
     public var timeTotal = PlayerTime()
-    public var media: PlayerType = .video
 }
 
 public extension PlayerProperties {
@@ -192,7 +192,7 @@ extension PlayerProperties {
         case subtitleEnabled = "subtitleenabled"
         case time
         case timeTotal = "totaltime"
-        case media = "type"
+        case playerType = "type"
     }
 }
 
@@ -229,9 +229,9 @@ extension PlayerProperties {
         subtitleEnabled = try container.decode(Bool.self, forKey: .subtitleEnabled)
         time = try container.decode(PlayerTime.self, forKey: .time)
         timeTotal = try container.decode(PlayerTime.self, forKey: .timeTotal)
-        if let rawValue = try container.decodeIfPresent(String.self, forKey: .media),
+        if let rawValue = try container.decodeIfPresent(String.self, forKey: .playerType),
            let media = PlayerType(rawValue: rawValue) {
-            self.media = media
+            self.playerType = media
         }
     }
 }

@@ -59,23 +59,51 @@ extension KodiConnector {
         
         /// # Audio
         
-        /// Scan the library on the host
-        case audioLibraryScan = "AudioLibrary.Scan"
-        /// Get the library properties from the host
-        case audioLibraryGetProperties = "AudioLibrary.GetProperties"
-        /// Get artists from the host
-        case audioLibraryGetArtists = "AudioLibrary.GetArtists"
-        /// Get albums from the host
+        /// Cleans the audio library from non-existent items
+        case audioLibraryClean = "AudioLibrary.Clean"
+        /// Exports all items from the audio library
+        case audioLibraryExport = "AudioLibrary.Export"
+        /// Retrieve details about a specific album
+        case audioLibraryGetAlbumDetails = "AudioLibrary.GetAlbumDetails"
+        /// Retrieve all albums from specified artist (and role) or that has songs of the specified genre
         case audioLibraryGetAlbums = "AudioLibrary.GetAlbums"
-        /// Get songs from the host
-        case audioLibraryGetSongs = "AudioLibrary.GetSongs"
-        /// Get details of one song from the host
-        case audioLibraryGetSongDetails = "AudioLibrary.GetSongDetails"
-        /// Set details of a song on the host
-        case audioLibrarySetSongDetails = "AudioLibrary.SetSongDetails"
-        /// Get genres from the host
+        /// Retrieve details about a specific artist
+        case audioLibraryGetArtistDetails = "AudioLibrary.GetArtistDetails"
+        /// Retrieve all artists
+        case audioLibraryGetArtists = "AudioLibrary.GetArtists"
+        /// Retrieve all potential art URLs for a media item by art type
+        case audioLibraryGetAvailableArt = "AudioLibrary.GetAvailableArt"
+        /// Retrieve a list of potential art types for a media item
+        case audioLibraryGetAvailableArtTypes = "AudioLibrary.GetAvailableArtTypes"
+        /// Retrieve all genres
         case audioLibraryGetGenres = "AudioLibrary.GetGenres"
-
+        /// Retrieves the values of the music library properties
+        case audioLibraryGetProperties = "AudioLibrary.GetProperties"
+        /// Retrieve recently added albums
+        case audioLibraryGetRecentlyAddedAlbums = "AudioLibrary.GetRecentlyAddedAlbums"
+        /// Retrieve recently added songs
+        case audioLibraryGetRecentlyAddedSongs = "AudioLibrary.GetRecentlyAddedSongs"
+        /// Retrieve recently played albums
+        case audioLibraryGetRecentlyPlayedAlbums = "AudioLibrary.GetRecentlyPlayedAlbums"
+        /// Retrieve recently played songs
+        case audioLibraryGetRecentlyPlayedSongs = "AudioLibrary.GetRecentlyPlayedSongs"
+        /// Retrieve all contributor roles
+        case audioLibraryGetRoles = "AudioLibrary.GetRoles"
+        /// Retrieve details about a specific song
+        case audioLibraryGetSongDetails = "AudioLibrary.GetSongDetails"
+        /// Retrieve all songs from specified album, artist or genre
+        case audioLibraryGetSongs = "AudioLibrary.GetSongs"
+        /// Get all music sources, including unique ID
+        case audioLibraryGetSources = "AudioLibrary.GetSources"
+        /// Scans the audio sources for new library items
+        case audioLibraryScan = "AudioLibrary.Scan"
+        /// Update the given album with the given details
+        case audioLibrarySetAlbumDetails = "AudioLibrary.SetAlbumDetails"
+        /// Update the given artist with the given details
+        case audioLibrarySetArtistDetails = "AudioLibrary.SetArtistDetails"
+        /// Update the given song with the given details
+        case audioLibrarySetSongDetails = "AudioLibrary.SetSongDetails"
+        
         /// # Player
         
         /// Turn partymode on or off
