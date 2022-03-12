@@ -23,6 +23,8 @@ struct NotificationItemModel: Decodable {
     var playerID: Int = 0
     var playerSpeed: Int = 0
     
+    var endOfPlaylist: Bool = false
+    
     /// ### Property level
     /// Partymode
     /// - Note: Kodi does not notify when you turn partymode on
@@ -51,6 +53,7 @@ extension NotificationItemModel {
         case item
         case player
         case property
+        case endOfPlaylist = "end"
         /// - Note: When receiving an "OnUpdate" notice we get below values:
         case itemID = "id"
         case media = "type"
@@ -99,6 +102,7 @@ extension NotificationItemModel {
         /// ### Data level
         let data = try params.nestedContainer(keyedBy: DataKeys.self, forKey: .data)
         itemID = try data.decodeIfPresent(Int.self, forKey: .itemID) ?? itemID
+        endOfPlaylist = try data.decodeIfPresent(Bool.self, forKey: .endOfPlaylist) ?? endOfPlaylist
 
         if let rawValue = try data.decodeIfPresent(String.self, forKey: .media),
            let media = MediaType(rawValue: rawValue) {

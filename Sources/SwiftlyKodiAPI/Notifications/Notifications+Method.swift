@@ -56,6 +56,26 @@ import Foundation
         /// If there is no ID available extra information will be provided.
         case playerOnStop = "Player.OnStop"
         
+        ///# Video library notifications
+        
+        /// The video library has been cleaned.
+        case videoLibraryOnCleanFinished = "VideoLibrary.OnCleanFinished"
+        /// A video library clean operation has started.
+        case videoLibraryOnCleanStarted = "VideoLibrary.OnCleanStarted"
+        /// A video library export has finished.
+        case videoLibraryOnExport = "VideoLibrary.OnExport"
+        /// The video library has been refreshed and a home screen reload might be necessary.
+        case videoLibraryOnRefresh = "VideoLibrary.OnRefresh"
+        /// A video item has been removed.
+        case videoLibraryOnRemove = "VideoLibrary.OnRemove"
+        /// Scanning the video library has been finished.
+        case videoLibraryOnScanFinished = "VideoLibrary.OnScanFinished"
+        /// A video library scan has started.
+        case videoLibraryOnScanStarted = "VideoLibrary.OnScanStarted"
+        /// A video item has been updated.
+        case videoLibraryOnUpdate = "VideoLibrary.OnUpdate"
+        
+        
         /// # Audio notifications
         
         /// Notification that the audio library has changed
