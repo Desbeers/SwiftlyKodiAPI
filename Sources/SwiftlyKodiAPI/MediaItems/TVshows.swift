@@ -22,6 +22,11 @@ extension KodiConnector {
             return [MediaItem]()
         }
     }
+}
+
+// MARK: Kodi API's
+
+extension KodiConnector {
     
     /// Retrieve all TV shows (Kodi API)
     struct VideoLibraryGetTVShows: KodiAPI {

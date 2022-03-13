@@ -18,7 +18,7 @@ extension KodiConnector {
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
             updateMediaItemDetails(itemID: notification.itemID, type: notification.media)
         default:
-            break
+            logger("No action after notification")
         }
     }
 }

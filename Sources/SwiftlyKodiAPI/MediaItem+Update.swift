@@ -33,6 +33,7 @@ extension KodiConnector {
     ///   - itemID: Te ID of the medi item
     ///   - type: The ``MediaType`` of the media item
     func updateMediaItemDetails(itemID: Int, type: MediaType) {
+        print(type)
         Task { @MainActor in
             if let index = media.firstIndex(where: {$0.id == "\(type.rawValue)-\(itemID)"}) {
                 switch media[index].media {
@@ -49,6 +50,9 @@ extension KodiConnector {
                 }
                 logger("Updated '\(media[index].title)' in the media library")
                 storeMediaInCache(media: media)
+            }
+            else {
+                logger("Could not find '\(type)' with ID '\(itemID)'")
             }
         }
     }
