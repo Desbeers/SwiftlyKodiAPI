@@ -8,7 +8,7 @@
 import Foundation
 
 extension KodiConnector {
-
+    
     /// Get all songs from the Kodi host
     /// - Returns: All songs from the Kodi host
     func getAllSongs(albums: inout [MediaItem]) async -> [MediaItem] {
@@ -33,7 +33,7 @@ extension KodiConnector {
         }
         return songItems
     }
-
+    
     /// Get all songs from an album
     /// - Parameter album: The Album item
     /// - Returns: All songs from that album
@@ -41,21 +41,63 @@ extension KodiConnector {
     /// - Note: Don't ask for all songs from the library in one shot; it will timeout
     func getSongsFromAlbum(album: MediaItem) async -> [MediaItem] {
         let request = AudioLibraryGetSongs(albumID: album.albumID)
-            do {
-                let result = try await sendRequest(request: request)
-                return setMediaItem(items: result.songs, media: .song)
-            } catch {
-                /// There are no artists in the library
-                logger("Loading songs failed with error: \(error)")
-                return [MediaItem]()
-            }
+        do {
+            let result = try await sendRequest(request: request)
+            return setMediaItem(items: result.songs, media: .song)
+        } catch {
+            /// There are no artists in the library
+            logger("Loading songs failed with error: \(error)")
+            return [MediaItem]()
+        }
+    }
+
+    /// Update the details of a song
+    /// - Parameter song: The Media Item
+    func setSongDetails(song: MediaItem) async {
+        let message = AudioLibrarySetSongDetails(song: song)
+        sendMessage(message: message)
+        logger("Details set for '\(song.title)'")
     }
     
-    func setSongDetails(song: MediaItem) {
-        
+    /// Get the details of a song and update the media library
+    /// - Parameters:
+    ///   - songID: The ID of the song
+    func getSongDetails(songID: Int) async -> MediaItem {
+        let request = AudioLibraryGetSongDetails(songID: songID)
+        do {
+            let result = try await sendRequest(request: request)
+            /// Make a MediaItem from the KodiResonse and return it
+            return setMediaItem(items: [result.songdetails], media: .song).first ?? MediaItem()
+        } catch {
+            logger("Loading song details failed with error: \(error)")
+            return MediaItem()
+        }
     }
+}
+
+// MARK: Kodi API's
+
+extension KodiConnector {
     
-    // MARK: Kodi API's
+    /// The Song parameters we ask from Kodi
+    static var SongProperties = [
+        "title",
+        "artist",
+        "artistid",
+        "comment",
+        "year",
+        "playcount",
+        "track",
+        "disc",
+        "lastplayed",
+        "album",
+        "genreid",
+        "dateadded",
+        "genre",
+        "duration",
+        "userrating",
+        "file"
+    ]
     
     /// Retrieve all songs from an album (Kodi API)
     struct AudioLibraryGetSongs: KodiAPI {
@@ -73,43 +115,48 @@ extension KodiConnector {
         }
         /// The request struct
         struct Params: Encodable {
-            let properties = [
-                "title",
-                "artist",
-                "artistid",
-                "comment",
-                "year",
-                "playcount",
-                "track",
-                "disc",
-                "lastplayed",
-                "album",
-                "genreid",
-                "dateadded",
-                "genre",
-                "duration",
-                "userrating",
-                "file"
-            ]
+            let properties = KodiConnector.SongProperties
             /// Sort order
             var sort = KodiConnector.SortFields()
             /// Filter
             var filter = Filter()
-            /// The limits struct
+            /// The filter struct
             struct Filter: Encodable {
                 /// The value for the filter
                 var albumid: Int = 0
-                /// The coding keys
-                enum CodingKeys: String, CodingKey {
-                    /// The key
-                    case albumid
-                }
             }
         }
         /// The response struct
         struct Response: Decodable {
             /// The list of songs
             let songs: [KodiResponse]
+        }
+    }
+    
+    /// Retrieve details about a specific song (Kodi API)
+    struct AudioLibraryGetSongDetails: KodiAPI {
+        /// Argument: the song we ask for
+        var songID: Int
+        /// Method
+        var method = Method.audioLibraryGetSongDetails
+        /// The JSON creator
+        var parameters: Data {
+            /// The parameters we ask for
+            var params = Params()
+            params.songid = songID
+            return buildParams(params: params)
+        }
+        /// The request struct
+        struct Params: Encodable {
+            /// The properties that we ask from Kodi
+            let properties = KodiConnector.SongProperties
+            /// The ID of the song
+            var songid: Int = 0
+        }
+        /// The response struct
+        struct Response: Decodable {
+            /// The details of the song
+            var songdetails: KodiResponse
         }
     }
     
@@ -122,24 +169,26 @@ extension KodiConnector {
         /// The JSON creator
         var parameters: Data {
             /// The parameters
-            var params = Params()
-            params.songid = song.songID
-            params.userrating = song.rating
-            params.playcount = song.playcount
-            //params.lastplayed = song.lastPlayed
+            let params = Params(song: song)
             return buildParams(params: params)
         }
         /// The request struct
         /// - Note: The properties we want to set
         struct Params: Encodable {
+            internal init(song: MediaItem) {
+                self.songid = song.songID
+                self.userrating = song.rating
+                self.playcount = song.playcount
+                self.lastplayed = song.lastPlayed
+            }
             /// The song ID
-            var songid: Int = 0
+            var songid: Int
             /// The rating of the song
-            var userrating: Int = 0
+            var userrating: Int
             /// The play count of the song
-            var playcount: Int = 0
+            var playcount: Int
             /// The last played date
-            var lastplayed: String = ""
+            var lastplayed: String
         }
         /// The response struct
         struct Response: Decodable { }

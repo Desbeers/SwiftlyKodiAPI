@@ -21,13 +21,15 @@ extension MediaItem {
     mutating public func togglePlayedState() {
         logger("Toggle play state")
         self.playcount = self.playcount == 0 ? 1 : 0
-        KodiConnector.shared.setPlaycount(self)
+        KodiConnector.shared.setMediaItemDetails(item: self)
+        //KodiConnector.shared.setPlaycount(self)
     }
     
     /// Mark an media item as played
     mutating public func markAsPlayed() {
         self.playcount += 1
-        KodiConnector.shared.setPlaycount(self)
+        KodiConnector.shared.setMediaItemDetails(item: self)
+        //KodiConnector.shared.setPlaycount(self)
     }
 }
 

@@ -80,6 +80,9 @@ struct KodiResponse: Decodable {
     /// The first aired date of the item (episode item)
     var firstAired: String = ""
     
+    /// Lat played date
+    var lastPlayed: String = ""
+    
     /// The full release date of the item
     /// - Note: An episode has no release date, but a first-aired date.
     ///         The JSON decoder takes care of the mapping
@@ -231,6 +234,8 @@ extension KodiResponse {
         /// lowerCamelCase
         case dateAdded = "dateadded"
         /// lowerCamelCase
+        case lastPlayed = "lastplayed"
+        /// lowerCamelCase
         case firstAired = "firstaired"
         /// Genres from an artist
         case artistGenres = "songgenres"
@@ -281,6 +286,8 @@ extension KodiResponse {
 
         dateAdded = try container.decodeIfPresent(String.self, forKey: .dateAdded) ?? ""
 
+        lastPlayed = try container.decodeIfPresent(String.self, forKey: .lastPlayed) ?? ""
+        
         runtime = try container.decodeIfPresent(Int.self, forKey: .runtime) ?? runtime
 
         /// # Art

@@ -29,6 +29,7 @@ extension KodiConnector {
                                       releaseDate: item.releaseDate,
                                       releaseYear: item.releaseYear,
                                       dateAdded: item.dateAdded,
+                                      lastPlayed: item.lastPlayed,
                                       poster: item.poster,
                                       fanart: item.fanart,
                                       compilation: item.compilation
@@ -65,7 +66,7 @@ extension KodiConnector {
                 mediaItem.details = details.joined(separator: "・")
             case .episode:
                 /// # Episode
-                mediaItem.id = "episode-\(item.tvshowID)-\(item.season)-\(item.episode)"
+                mediaItem.id = "episode-\(item.episodeID)"
                 mediaItem.episodeID = item.episodeID
                 mediaItem.tvshowID = item.tvshowID
                 mediaItem.title = item.title

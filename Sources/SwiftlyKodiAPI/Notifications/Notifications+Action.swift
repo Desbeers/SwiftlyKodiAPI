@@ -15,6 +15,8 @@ extension KodiConnector {
             Task {
                 await getPlayerProperties(playerID: notification.playerID)
             }
+        case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
+            updateMediaItemDetails(itemID: notification.itemID, type: notification.media)
         default:
             break
         }

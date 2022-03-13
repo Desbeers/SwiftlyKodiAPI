@@ -92,6 +92,8 @@ public struct MediaItem: Codable, Identifiable, Equatable, Hashable {
     public var releaseYear: String = ""
     /// The date the item was added to the Kodi database
     public var dateAdded: String = ""
+    /// The date the item was last played
+    public var lastPlayed: String = ""
     
     /// # Art
     
