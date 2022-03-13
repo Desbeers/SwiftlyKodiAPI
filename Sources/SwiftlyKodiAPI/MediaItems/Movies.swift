@@ -43,6 +43,21 @@ extension KodiConnector {
         }
     }
     
+    /// Get the details of a movie
+    /// - Parameter movieID: The ID of the movie item
+    /// - Returns: An updated Media Item
+    func getMovieDetails(movieID: Int) async -> MediaItem {
+        let request = VideoLibraryGetMovieDetails(movieID: movieID)
+        do {
+            let result = try await sendRequest(request: request)
+            /// Make a MediaItem from the KodiResonse and return it
+            return setMediaItem(items: [result.moviedetails], media: .movie).first ?? MediaItem()
+        } catch {
+            logger("Loading movie details failed with error: \(error)")
+            return MediaItem()
+        }
+    }
+    
     /// Update the details of a movie
     /// - Parameter movie: The Media Item
     func setMovieDetails(movie: MediaItem) async {
@@ -62,7 +77,6 @@ extension KodiConnector {
         let request = VideoLibraryGetMovieSets()
         do {
             let result = try await sendRequest(request: request)
-            //return setMediaItem(items: result.sets, media: .movieSet)
             return setMediaItem(items: result.sets, media: .movieSet)
         } catch {
             /// There are no sets in the library
@@ -75,6 +89,24 @@ extension KodiConnector {
 // MARK: Kodi API's
 
 extension KodiConnector {
+    
+    /// The Movie properties we ask from Kodi
+    static var MovieProperties = ["title",
+                                  "sorttitle",
+                                  "file",
+                                  "tagline",
+                                  "plot",
+                                  "genre",
+                                  "art",
+                                  "year",
+                                  "premiered",
+                                  "set",
+                                  "setid",
+                                  "playcount",
+                                  "runtime",
+                                  "cast",
+                                  "dateadded",
+                                  "lastplayed"]
     
     /// Retrieve all movies (Kodi API)
     struct VideoLibraryGetMovies: KodiAPI {
@@ -90,24 +122,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = [
-                "title",
-                "sorttitle",
-                "file",
-                "tagline",
-                "plot",
-                "genre",
-                "art",
-                "year",
-                "premiered",
-                "set",
-                "setid",
-                "playcount",
-                "runtime",
-                "cast",
-                "dateadded",
-                "lastplayed"
-            ]
+            let properties = MovieProperties
             /// The sort order
             var sort = KodiConnector.SortFields()
         }
@@ -118,6 +133,33 @@ extension KodiConnector {
         }
     }
 
+    /// Retrieve details about a specific movie (Kodi API)
+    struct VideoLibraryGetMovieDetails: KodiAPI {
+        /// Argument: the movie we ask for
+        var movieID: Int
+        /// Method
+        var method = Method.videoLibraryGetMovieDetails
+        /// The JSON creator
+        var parameters: Data {
+            /// The parameters we ask for
+            var params = Params()
+            params.movieid = movieID
+            return buildParams(params: params)
+        }
+        /// The request struct
+        struct Params: Encodable {
+            /// The properties that we ask from Kodi
+            let properties = KodiConnector.MovieProperties
+            /// The ID of the movie
+            var movieid: Int = 0
+        }
+        /// The response struct
+        struct Response: Decodable {
+            /// The details of the song
+            var moviedetails: KodiResponse
+        }
+    }
+    
     /// Retrieve all movie sets (Kodi API)
     struct VideoLibraryGetMovieSets: KodiAPI {
         /// Method

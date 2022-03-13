@@ -51,17 +51,9 @@ extension KodiConnector {
         }
     }
 
-    /// Update the details of a song
-    /// - Parameter song: The Media Item
-    func setSongDetails(song: MediaItem) async {
-        let message = AudioLibrarySetSongDetails(song: song)
-        sendMessage(message: message)
-        logger("Details set for '\(song.title)'")
-    }
-    
-    /// Get the details of a song and update the media library
-    /// - Parameters:
-    ///   - songID: The ID of the song
+    /// Get the details of a song
+    /// - Parameter songID: The ID of the song item
+    /// - Returns: An updated Media Item
     func getSongDetails(songID: Int) async -> MediaItem {
         let request = AudioLibraryGetSongDetails(songID: songID)
         do {
@@ -73,31 +65,37 @@ extension KodiConnector {
             return MediaItem()
         }
     }
+    
+    /// Update the details of a song
+    /// - Parameter song: The Media Item
+    func setSongDetails(song: MediaItem) async {
+        let message = AudioLibrarySetSongDetails(song: song)
+        sendMessage(message: message)
+        logger("Details set for '\(song.title)'")
+    }
 }
 
 // MARK: Kodi API's
 
 extension KodiConnector {
     
-    /// The Song parameters we ask from Kodi
-    static var SongProperties = [
-        "title",
-        "artist",
-        "artistid",
-        "comment",
-        "year",
-        "playcount",
-        "track",
-        "disc",
-        "lastplayed",
-        "album",
-        "genreid",
-        "dateadded",
-        "genre",
-        "duration",
-        "userrating",
-        "file"
-    ]
+    /// The Song properties we ask from Kodi
+    static var SongProperties = ["title",
+                                 "artist",
+                                 "artistid",
+                                 "comment",
+                                 "year",
+                                 "playcount",
+                                 "track",
+                                 "disc",
+                                 "lastplayed",
+                                 "album",
+                                 "genreid",
+                                 "dateadded",
+                                 "genre",
+                                 "duration",
+                                 "userrating",
+                                 "file"]
     
     /// Retrieve all songs from an album (Kodi API)
     struct AudioLibraryGetSongs: KodiAPI {

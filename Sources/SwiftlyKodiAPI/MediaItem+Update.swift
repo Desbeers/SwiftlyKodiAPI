@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import AVFoundation
 
 extension KodiConnector {
 
@@ -33,6 +32,8 @@ extension KodiConnector {
                 logger("Going to update \(media[index].title)")
                 
                 switch media[index].media {
+                case .movie:
+                    media[index] = await getMovieDetails(movieID: media[index].movieID)
                 case .song:
                     media[index] = await getSongDetails(songID: media[index].songID)
                 default:
@@ -40,7 +41,7 @@ extension KodiConnector {
                 }
                 
                 logger("Updated \(media[index].title)")
-                
+                storeMediaInCache(media: media)
             }
         }
     }
