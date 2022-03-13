@@ -16,6 +16,8 @@ extension KodiConnector {
             switch item.media {
             case .movie:
                 await setMovieDetails(movie: item)
+            case .tvshow:
+                await setTVShowDetails(tvshow: item)
             case .episode:
                 await setEpisodeDetails(episode: item)
             case .musicVideo:
@@ -33,12 +35,13 @@ extension KodiConnector {
     ///   - itemID: Te ID of the medi item
     ///   - type: The ``MediaType`` of the media item
     func updateMediaItemDetails(itemID: Int, type: MediaType) {
-        print(type)
         Task { @MainActor in
             if let index = media.firstIndex(where: {$0.id == "\(type.rawValue)-\(itemID)"}) {
                 switch media[index].media {
                 case .movie:
                     media[index] = await getMovieDetails(movieID: media[index].movieID)
+                case .tvshow:
+                    media[index] = await getTVShowDetails(tvshowID: media[index].tvshowID)
                 case .episode:
                     media[index] = await getEpisodeDetails(episodeID: media[index].episodeID)
                 case .musicVideo:
@@ -46,9 +49,9 @@ extension KodiConnector {
                 case .song:
                     media[index] = await getSongDetails(songID: media[index].songID)
                 default:
-                    break
+                    logger("Update for '\(type)' not implemented")
                 }
-                logger("Updated '\(media[index].title)' in the media library")
+                logger("Updated \(type): '\(media[index].title)'")
                 storeMediaInCache(media: media)
             }
             else {

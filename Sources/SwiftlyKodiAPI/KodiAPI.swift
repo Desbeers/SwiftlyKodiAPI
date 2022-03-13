@@ -22,7 +22,10 @@ extension KodiAPI {
     /// Build the JSON parameters
     /// - Returns: `Data` formatted JSON request
     func buildParams<T: Encodable>(params: T) -> Data {
-        let parameters = KodiConnector.BaseParameters(method: method.rawValue, params: params.self, id: method.rawValue)
+        let parameters = KodiConnector
+            .BaseParameters(method: method.rawValue,
+                            params: params.self,
+                            id: KodiConnector.shared.kodiConnectorID)
         do {
             return try JSONEncoder().encode(parameters)
         } catch {

@@ -21,15 +21,20 @@ extension MediaItem {
     mutating public func togglePlayedState() {
         logger("Toggle play state")
         self.playcount = self.playcount == 0 ? 1 : 0
+        /// Set or reset the last played date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        self.lastPlayed = self.playcount == 0 ? "" : dateFormatter.string(from: Date())
         KodiConnector.shared.setMediaItemDetails(item: self)
-        //KodiConnector.shared.setPlaycount(self)
     }
     
     /// Mark an media item as played
     mutating public func markAsPlayed() {
         self.playcount += 1
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        self.lastPlayed = dateFormatter.string(from: Date())
         KodiConnector.shared.setMediaItemDetails(item: self)
-        //KodiConnector.shared.setPlaycount(self)
     }
 }
 

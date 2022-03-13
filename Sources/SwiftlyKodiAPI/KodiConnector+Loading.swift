@@ -46,7 +46,7 @@ extension KodiConnector {
         items += movieSets
         
         loadingState = .tvshows
-        var tvshows = await getTVshows()
+        var tvshows = await getTVShows()
         /// - Note: The ``getAllEpisodes`` function will add info to the TV show items
         await items += getAllEpisodes(tvshows: &tvshows)
         /// Now we can store the TV shows in the `items` array
@@ -97,7 +97,7 @@ extension KodiConnector {
     
     /// Set the state of Kodio and act on it
     @MainActor func setState(current: State) {
-        logger("Kodio status: \(current.rawValue)")
+        logger("KodiConnector status: \(current.rawValue)")
         state = current
         DispatchQueue.global(qos: .background).async {
             //self.action(state: current)

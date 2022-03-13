@@ -24,7 +24,7 @@ extension KodiConnector {
             debugJsonResponse(data: data)
             throw APIError.invalidData
         }
-        //debugJsonResponse(data: data)
+        // debugJsonResponse(data: data)
         return decoded.result
     }
     

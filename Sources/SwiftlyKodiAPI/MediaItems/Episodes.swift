@@ -24,7 +24,7 @@ extension KodiConnector {
             /// - Note: specials (season 0) will be the last at the list
             tvshows[index].seasons = episodeList.map { $0.season }
             .removingDuplicates()
-            .sorted { ($0 == 0 ? Int.max: $0) < ($1 == 0 ? Int.max : $1) }
+            .sorted { ($0 == 0 ? Int.max : $0) < ($1 == 0 ? Int.max : $1) }
         }
         return episodes
     }

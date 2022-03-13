@@ -13,7 +13,7 @@ extension Array where Element: Hashable {
 
     /// Remove duplicates from an Array
     /// - Returns: An new Array with unique elements
-    func removingDuplicates() -> [Element] {
+    public func removingDuplicates() -> [Element] {
         var addedDict = [Element: Bool]()
         return filter {
             addedDict.updateValue(true, forKey: $0) == nil
