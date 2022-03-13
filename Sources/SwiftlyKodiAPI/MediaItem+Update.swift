@@ -30,7 +30,10 @@ extension KodiConnector {
         
         Task { @MainActor in
             
-            if let index = media.firstIndex(where: {$0.id == "\(type)-\(itemID)"}) {
+            let test = "\(type.rawValue)-\(itemID)"
+            dump(test)
+            
+            if let index = media.firstIndex(where: {$0.id == "\(type.rawValue)-\(itemID)"}) {
                 logger("Going to update \(media[index].title)")
                 
                 switch media[index].media {

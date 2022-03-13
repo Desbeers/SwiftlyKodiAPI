@@ -18,7 +18,7 @@ public enum MediaType: String, Equatable, Codable {
     /// Movies
     case movie
     /// Movie sets
-    case movieSet
+    case movieSet = "movieset"
     /// TV shows
     case tvshow
     /// Episodes

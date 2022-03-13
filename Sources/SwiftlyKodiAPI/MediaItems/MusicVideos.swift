@@ -124,7 +124,7 @@ extension KodiConnector {
         /// Arguments
         var musicVideo: MediaItem
         /// Method
-        var method = Method.videoLibraryGetMusicVideoDetails
+        var method = Method.videoLibrarySetMusicVideoDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters
