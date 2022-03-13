@@ -80,22 +80,24 @@ extension KodiConnector {
 extension KodiConnector {
     
     /// The Song properties we ask from Kodi
-    static var SongProperties = ["title",
-                                 "artist",
-                                 "artistid",
-                                 "comment",
-                                 "year",
-                                 "playcount",
-                                 "track",
-                                 "disc",
-                                 "lastplayed",
-                                 "album",
-                                 "genreid",
-                                 "dateadded",
-                                 "genre",
-                                 "duration",
-                                 "userrating",
-                                 "file"]
+    static var VideoFieldsSong = [
+        "title",
+        "artist",
+        "artistid",
+        "comment",
+        "year",
+        "playcount",
+        "track",
+        "disc",
+        "lastplayed",
+        "album",
+        "genreid",
+        "dateadded",
+        "genre",
+        "duration",
+        "userrating",
+        "file"
+    ]
     
     /// Retrieve all songs from an album (Kodi API)
     struct AudioLibraryGetSongs: KodiAPI {
@@ -113,7 +115,7 @@ extension KodiConnector {
         }
         /// The request struct
         struct Params: Encodable {
-            let properties = KodiConnector.SongProperties
+            let properties = KodiConnector.VideoFieldsSong
             /// Sort order
             var sort = KodiConnector.SortFields()
             /// Filter
@@ -147,7 +149,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = KodiConnector.SongProperties
+            let properties = KodiConnector.VideoFieldsSong
             /// The ID of the song
             var songid: Int = 0
         }

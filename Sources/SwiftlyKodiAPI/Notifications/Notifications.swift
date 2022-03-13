@@ -28,8 +28,8 @@ extension KodiConnector {
                         return
                     }
                     logger("Notification: \(notification.method.rawValue)")
-                    dump(notification)
-                    print(text)
+                    //dump(notification)
+                    //print(text)
                     
                     Task { @MainActor in
                         self.notification = notification

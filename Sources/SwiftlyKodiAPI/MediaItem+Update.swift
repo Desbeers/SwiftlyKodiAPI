@@ -10,12 +10,14 @@ import Foundation
 extension KodiConnector {
 
     /// Set the details for a Media item
-    /// - Parameter item: The media item
+    /// - Parameter item: The media item we want to set
     func setMediaItemDetails(item: MediaItem) {
-        Task {
+        Task.detached { [self] in
             switch item.media {
             case .movie:
                 await setMovieDetails(movie: item)
+            case .episode:
+                await setEpisodeDetails(episode: item)
             case .musicVideo:
                 await setMusicVideoDetails(musicVideo: item)
             case .song:
@@ -26,19 +28,18 @@ extension KodiConnector {
         }
     }
     
+    /// Get de details for a media item
+    /// - Parameters:
+    ///   - itemID: Te ID of the medi item
+    ///   - type: The ``MediaType`` of the media item
     func updateMediaItemDetails(itemID: Int, type: MediaType) {
-        
         Task { @MainActor in
-            
-            let test = "\(type.rawValue)-\(itemID)"
-            dump(test)
-            
             if let index = media.firstIndex(where: {$0.id == "\(type.rawValue)-\(itemID)"}) {
-                logger("Going to update \(media[index].title)")
-                
                 switch media[index].media {
                 case .movie:
                     media[index] = await getMovieDetails(movieID: media[index].movieID)
+                case .episode:
+                    media[index] = await getEpisodeDetails(episodeID: media[index].episodeID)
                 case .musicVideo:
                     media[index] = await getMusicVideoDetails(musicVideoID: media[index].musicVideoID)
                 case .song:
@@ -46,8 +47,7 @@ extension KodiConnector {
                 default:
                     break
                 }
-                
-                logger("Updated \(media[index].title)")
+                logger("Updated '\(media[index].title)' in the media library")
                 storeMediaInCache(media: media)
             }
         }

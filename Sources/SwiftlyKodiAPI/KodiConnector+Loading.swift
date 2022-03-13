@@ -16,7 +16,6 @@ extension KodiConnector {
         connectWebSocket()
         loadingState = .load
         if let libraryItems = Cache.get(key: "Media", as: [MediaItem].self) {
-            logger("Loaded the library from the cache")
             media = libraryItems
         } else {
             let libraryItems = await getAllMedia()
@@ -78,12 +77,20 @@ extension KodiConnector {
     }
     
     /// Store the modia library in the cache
+    
+    /// Store the media library in the cache
+    /// - Parameter media: The whole media libray
+    /// - Note: This function will debounce for 2 seconds to avoid
+    ///         overload when we have a large library update
     func storeMediaInCache(media: [MediaItem]) {
-        Task.detached {
-            do {
-                try Cache.set(key: "Media", object: media)
-            } catch {
-                print("Saving media failed with error: \(error)")
+        cacheTimer?.invalidate()
+        cacheTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+            Task.detached {
+                do {
+                    try Cache.set(key: "Media", object: media)
+                } catch {
+                    print("Saving media failed with error: \(error)")
+                }
             }
         }
     }

@@ -33,6 +33,8 @@ public final class KodiConnector: ObservableObject {
     @Published public var notification = NotificationItem()
     /// ID of this Kodi Connector instance; used to send  notifications
     var kodiConnectorID = UUID().uuidString
+    /// Debounce timer for saving the media library to the cache
+    var cacheTimer: Timer?
 
     // MARK: Init
     

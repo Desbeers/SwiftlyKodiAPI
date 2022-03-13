@@ -14,7 +14,7 @@ extension KodiConnector {
         let request = PlayerGetProperties(playerID: playerID)
         do {
             let result = try await sendRequest(request: request)
-            dump(result)
+            //dump(result)
         } catch {
             print("Loading player properties failed with error: \(error)")
         }
