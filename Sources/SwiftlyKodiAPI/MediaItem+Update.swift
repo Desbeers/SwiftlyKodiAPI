@@ -16,6 +16,8 @@ extension KodiConnector {
             switch item.media {
             case .movie:
                 await setMovieDetails(movie: item)
+            case .musicVideo:
+                await setMusicVideoDetails(musicVideo: item)
             case .song:
                 await setSongDetails(song: item)
             default:
@@ -34,6 +36,8 @@ extension KodiConnector {
                 switch media[index].media {
                 case .movie:
                     media[index] = await getMovieDetails(movieID: media[index].movieID)
+                case .musicVideo:
+                    media[index] = await getMusicVideoDetails(musicVideoID: media[index].musicvideoID)
                 case .song:
                     media[index] = await getSongDetails(songID: media[index].songID)
                 default:

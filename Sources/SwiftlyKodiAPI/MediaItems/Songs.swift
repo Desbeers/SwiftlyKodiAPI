@@ -19,7 +19,7 @@ extension KodiConnector {
         for (index, album) in albums.enumerated() {
             var songs = await getSongsFromAlbum(album: album)
             /// Add some additional info to the songs
-            for (index, song) in songs.enumerated() {
+            for (index, _ ) in songs.enumerated() {
                 songs[index].compilation = album.compilation
                 songs[index].albumID = album.albumID
                 /// Sometimes a song has a different poster than the album
