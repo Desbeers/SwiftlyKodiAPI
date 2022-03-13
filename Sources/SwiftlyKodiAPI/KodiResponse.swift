@@ -176,7 +176,7 @@ struct KodiResponse: Decodable {
     public var episodeID: Int = 0
     
     /// The music video ID
-    public var musicvideoID: Int = 0
+    public var musicVideoID: Int = 0
     
     /// The artist ID (artist item)
     public var artistID: Int = 0
@@ -224,7 +224,7 @@ extension KodiResponse {
         /// Camel Case
         case episodeID = "episodeid"
         /// Camel Case
-        case musicvideoID = "musicvideoid"
+        case musicVideoID = "musicvideoid"
         /// Camel Case
         case artistID = "artistid"
         /// Camel Case
@@ -358,7 +358,7 @@ extension KodiResponse {
 
         episodeID = try container.decodeIfPresent(Int.self, forKey: .episodeID) ?? 0
 
-        musicvideoID = try container.decodeIfPresent(Int.self, forKey: .musicvideoID) ?? 0
+        musicVideoID = try container.decodeIfPresent(Int.self, forKey: .musicVideoID) ?? 0
 
         /// - Note: A JSON artistID response can be a `Int` or an `Array<Int>`
         if let artist = try? container.decodeIfPresent(Int.self, forKey: .artistID) {

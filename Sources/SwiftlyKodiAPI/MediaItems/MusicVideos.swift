@@ -24,7 +24,7 @@ extension KodiConnector {
     }
     
     /// Get the details of a music video
-    /// - Parameter musicvideoID: The ID of the music video item
+    /// - Parameter musicVideoID: The ID of the music video item
     /// - Returns: An updated Media Item
     func getMusicVideoDetails(musicVideoID: Int) async -> MediaItem {
         let request = VideoLibraryGetMusicVideoDetails(musicVideoID: musicVideoID)
@@ -135,7 +135,7 @@ extension KodiConnector {
         /// - Note: The properties we want to set
         struct Params: Encodable {
             internal init(musicVideo: MediaItem) {
-                self.musicvideoid = musicVideo.musicvideoID
+                self.musicvideoid = musicVideo.musicVideoID
                 self.userrating = musicVideo.rating
                 self.playcount = musicVideo.playcount
                 self.lastplayed = musicVideo.lastPlayed

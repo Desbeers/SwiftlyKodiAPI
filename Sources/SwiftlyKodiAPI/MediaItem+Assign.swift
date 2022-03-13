@@ -78,8 +78,8 @@ extension KodiConnector {
                 mediaItem.details = details.joined(separator: "・")
             case .musicVideo:
                 /// # Music Video
-                mediaItem.id = "musicvideo-\(item.musicvideoID)"
-                mediaItem.musicvideoID = item.musicvideoID
+                mediaItem.id = "musicvideo-\(item.musicVideoID)"
+                mediaItem.musicVideoID = item.musicVideoID
                 mediaItem.title = item.title
                 mediaItem.subtitle = item.artists.joined(separator: " & ")
                 mediaItem.artists = item.artists

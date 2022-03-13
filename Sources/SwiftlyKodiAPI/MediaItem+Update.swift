@@ -40,7 +40,7 @@ extension KodiConnector {
                 case .movie:
                     media[index] = await getMovieDetails(movieID: media[index].movieID)
                 case .musicVideo:
-                    media[index] = await getMusicVideoDetails(musicVideoID: media[index].musicvideoID)
+                    media[index] = await getMusicVideoDetails(musicVideoID: media[index].musicVideoID)
                 case .song:
                     media[index] = await getSongDetails(songID: media[index].songID)
                 default:

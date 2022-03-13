@@ -113,7 +113,7 @@ public struct MediaItem: Codable, Identifiable, Equatable, Hashable {
     /// The episode ID
     public var episodeID: Int = 0
     /// The music video ID
-    public var musicvideoID: Int = 0
+    public var musicVideoID: Int = 0
     /// The artist ID
     public var artistID: Int = 0
     /// The album ID
@@ -178,46 +178,3 @@ extension MediaItem {
         movieSetTitle.isEmpty ? sorttitle.isEmpty ? title : sorttitle : movieSetTitle
     }
 }
-
-// MARK: Coding Keys
-
-//extension MediaItem {
-//    /// The coding keys
-//    enum CodingKeys: String, CodingKey {
-//    case id
-//    case media
-//    case title
-//    case sorttitle
-//    case subtitle
-//    case description
-//    case details
-////        self.genres = genres
-////        self.rating = rating
-////        self.itemsCount = itemsCount
-////        self.file = file
-////        self.playcount = playcount
-////        self.runtime = runtime
-////        self.releaseDate = releaseDate
-////        self.releaseYear = releaseYear
-////        self.dateAdded = dateAdded
-////        self.poster = poster
-////        self.fanart = fanart
-////        self.movieID = movieID
-////        self.movieSetID = movieSetID
-////        self.tvshowID = tvshowID
-////        self.episodeID = episodeID
-////        self.musicvideoID = musicvideoID
-////        self.artistID = artistID
-////        self.albumID = albumID
-////        self.songID = songID
-////        self.movieSetTitle = movieSetTitle
-////        self.seasons = seasons
-////        self.season = season
-////        self.episode = episode
-////        self.artists = artists
-////        self.album = album
-////        self.track = track
-////        self.sortartist = sortartist
-////        self.compilation = compilation
-//    }
-//}
