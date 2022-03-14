@@ -38,17 +38,17 @@ extension KodiConnector {
         logger("Load the library from the host")
         /// Start with a fresh list
         var items: [MediaItem] = []
+        
         loadingState = .movies
-        var movieSets = await getMovieSets()
-        /// - Note: The ``getMovies`` function will add info to the movie sets
-        await items += getMovies(movieSets: &movieSets)
-        /// Now we can store the movie sets in the `items` array
-        items += movieSets
+        /// - Note: Always load Movies before Movie Sets, the latter is using Movie info
+        await items +=  getMovies()
+        await items += getMovieSets()
+        
         
         loadingState = .tvshows
-        var tvshows = await getTVShows()
-        /// - Note: The ``getAllEpisodes`` function will add info to the TV show items
-        await items += getAllEpisodes(tvshows: &tvshows)
+        let tvshows = await getTVShows()
+        /// - Note: The ``getAllEpisodes`` needs the list of TV shows
+        await items += getAllEpisodes(tvshows: tvshows)
         /// Now we can store the TV shows in the `items` array
         items += tvshows
         
@@ -58,7 +58,7 @@ extension KodiConnector {
         loadingState = .artists
         await items += getArtists()
         
-        loadingState = .artists
+        loadingState = .albums
         let albums = await getAlbums()
         items += albums
         

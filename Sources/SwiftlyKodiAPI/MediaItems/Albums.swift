@@ -22,6 +22,26 @@ extension KodiConnector {
                 return [MediaItem]()
             }
     }
+}
+
+// MARK: Album item extension
+
+extension MediaItem {
+    
+    /// Add additional fields to the album item
+    /// - Note: This is a *slow* function...
+    mutating func addAlbumFields() {
+        if self.fanart == self.poster {
+            if let artist = KodiConnector.shared.media.first(where: { $0.media == .artist && $0.artistID == self.artistIDs.first }) {
+                self.fanart = artist.fanart
+            }
+        }
+    }
+}
+
+// MARK: Kodi API's
+
+extension KodiConnector {
     
     /// Retrieve all albums (Kodi API)
     struct AudioLibraryGetAlbums: KodiAPI {

@@ -116,6 +116,9 @@ public struct MediaItem: Codable, Identifiable, Equatable, Hashable {
     public var musicVideoID: Int = 0
     /// The artist ID
     public var artistID: Int = 0
+    /// The artist ID's
+    /// - Note: For albums and songs
+    public var artistIDs: [Int] = []
     /// The album ID
     public var albumID: Int = 0
     /// The song ID

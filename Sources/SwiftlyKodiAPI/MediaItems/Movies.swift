@@ -11,31 +11,34 @@ extension KodiConnector {
 
     /// Get all the movies from the Kodi host
     /// - Returns: All movies from the Kodi host
-    func getMovies(movieSets: inout [MediaItem]) async -> [MediaItem] {
+    func getMovies() async -> [MediaItem] {
         let request = VideoLibraryGetMovies()
         do {
             let result = try await sendRequest(request: request)
-            /// Get the movies that are not part of a set
-            var movieItems = result.movies.filter { $0.movieSetID == 0 }
-            /// Loop over all movie sets to add some info
-            for (index, movieSet) in movieSets.enumerated() {
-                /// Get all the movies that are in this set
-                let movies = result.movies.filter { $0.movieSetID == movieSet.movieSetID}
-                /// Set some additional info
-                movieSets[index].itemsCount = movies.count
-                movieSets[index].subtitle = "\(movies.count) movies"
-                /// Use the last movie poster for the set if the set has none
-                movieSets[index].poster = movieSet.poster.isEmpty ? movies.last?.poster ?? "" : movieSet.poster
-                /// Collect all the genres in this set and add it to the set as `genres` and `details`
-                let genres = movies.flatMap { $0.genre }
-                                    .removingDuplicates()
-                movieSets[index].genres = genres
-                movieSets[index].details = genres.joined(separator: "・")
-                /// Add the movies to the list of movies
-                movieItems += movies
-            }
             /// Return the movies
-            return setMediaItem(items: movieItems, media: .movie)
+            return setMediaItem(items: result.movies, media: .movie)
+            
+//            /// Get the movies that are not part of a set
+//            var movieItems = result.movies.filter { $0.movieSetID == 0 }
+//            /// Loop over all movie sets to add some info
+//            for (index, movieSet) in movieSets.enumerated() {
+//                /// Get all the movies that are in this set
+//                let movies = result.movies.filter { $0.movieSetID == movieSet.movieSetID}
+//                /// Set some additional info
+//                movieSets[index].itemsCount = movies.count
+//                movieSets[index].subtitle = "\(movies.count) movies"
+//                /// Use the last movie poster for the set if the set has none
+//                movieSets[index].poster = movieSet.poster.isEmpty ? movies.last?.poster ?? "" : movieSet.poster
+//                /// Collect all the genres in this set and add it to the set as `genres` and `details`
+//                let genres = movies.flatMap { $0.genre }
+//                                    .removingDuplicates()
+//                movieSets[index].genres = genres
+//                movieSets[index].details = genres.joined(separator: "・")
+//                /// Add the movies to the list of movies
+//                movieItems += movies
+//            }
+//            /// Return the movies
+//            return setMediaItem(items: movieItems, media: .movie)
         } catch {
             /// There are no movies in the library
             logger("Loading movies failed with error: \(error)")
@@ -83,6 +86,27 @@ extension KodiConnector {
             logger("Loading movie sets failed with error: \(error)")
             return [MediaItem]()
         }
+    }
+}
+
+// MARK: Movie item extension
+
+extension MediaItem {
+    
+    /// Add additional fields to the movie set item
+    /// - Note: This is a *slow* function...
+    mutating func addMovieSetFields() {
+        /// Get all the movies that are in this set
+        let movies = KodiConnector.shared.media.filter { $0.media == .movie && $0.movieSetID == self.movieSetID}
+        self.itemsCount = movies.count
+        self.subtitle = "\(movies.count) movies"
+        /// Use the last movie poster for the set if the set has none
+        self.poster = self.poster.isEmpty ? movies.last?.poster ?? "" : self.poster
+        /// Collect all the genres in this set and add it to the set as `genres` and `details`
+        let genres = movies.flatMap { $0.genres }
+            .removingDuplicates()
+        self.genres = genres
+        self.details = genres.joined(separator: "・")
     }
 }
 

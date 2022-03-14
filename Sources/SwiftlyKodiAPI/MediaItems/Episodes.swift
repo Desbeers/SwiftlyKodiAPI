@@ -12,19 +12,13 @@ extension KodiConnector {
     /// Get all Episodes from the Kodi host
     /// - Parameter tvshows: All the TV shows
     /// - Returns: All the episodes from the Kodi host
-    func getAllEpisodes(tvshows: inout [MediaItem]) async -> [MediaItem] {
+    func getAllEpisodes(tvshows: [MediaItem]) async -> [MediaItem] {
+        /// Start with a fresh list
         var episodes: [MediaItem] = []
         /// Loop over all TV shows
-        for (index, tvshow) in tvshows.enumerated() {
+        for tvshow in tvshows {
             /// Get the Episodes for this TV show
-            let episodeList = await getEpisodes(tvshowID: tvshow.tvshowID)
-            /// Add them to the list
-            episodes += episodeList
-            /// Add a seasons list to the TV show item
-            /// - Note: specials (season 0) will be the last at the list
-            tvshows[index].seasons = episodeList.map { $0.season }
-            .removingDuplicates()
-            .sorted { ($0 == 0 ? Int.max : $0) < ($1 == 0 ? Int.max : $1) }
+            episodes += await getEpisodes(tvshowID: tvshow.tvshowID)
         }
         return episodes
     }

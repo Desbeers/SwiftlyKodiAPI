@@ -32,6 +32,7 @@ extension KodiConnector {
                                       lastPlayed: item.lastPlayed,
                                       poster: item.poster,
                                       fanart: item.fanart,
+                                      artistIDs: item.artistIDs,
                                       compilation: item.compilation
             )
             /// Build the default`details`
@@ -54,6 +55,7 @@ extension KodiConnector {
                 mediaItem.movieSetID = item.movieSetID
                 mediaItem.title = item.title
                 mediaItem.description = item.description.isEmpty ? "Movie Set" : item.description
+                mediaItem.addMovieSetFields()
                 ///  - Note: Some additional fields will be filled-in by the `getMovies` function
             case .tvshow:
                 /// # TV Show
@@ -101,10 +103,12 @@ extension KodiConnector {
                 mediaItem.subtitle = item.artists.joined(separator: " & ")
                 mediaItem.artists = item.artists
                 mediaItem.sortartist = item.sortartist
+                mediaItem.addAlbumFields()
             case .song:
                 /// # Song
                 mediaItem.id = "song-\(item.songID)"
                 mediaItem.songID = item.songID
+                mediaItem.artistID = item.artistID
                 mediaItem.albumID = item.albumID
                 mediaItem.title = item.title
                 mediaItem.subtitle = item.artists.joined(separator: " & ")

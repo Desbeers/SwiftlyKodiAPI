@@ -422,7 +422,7 @@ extension KodiResponse {
             if let fanartArt = art["tvshow.fanart"] {
                 return getFilePath(file: fanartArt, type: .art)
             }
-            // Fallback to poster
+            /// Fallback to poster
             return getSpecificArt(art: art, type: .poster)
         }
         return ""
