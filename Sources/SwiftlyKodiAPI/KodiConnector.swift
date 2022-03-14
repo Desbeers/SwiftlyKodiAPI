@@ -6,7 +6,7 @@
 //
 
 import Foundation
-#if os(tvOS)
+#if !os(macOS)
 import UIKit
 #endif
 

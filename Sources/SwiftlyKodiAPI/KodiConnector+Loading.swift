@@ -34,7 +34,7 @@ extension KodiConnector {
     
     /// Get all media from the Kodi host library
     /// - Returns: All the media from the Kodi host library
-    func getAllMedia() async -> [MediaItem] {
+    @MainActor func getAllMedia() async -> [MediaItem] {
         logger("Load the library from the host")
         /// Start with a fresh list
         var items: [MediaItem] = []
@@ -43,7 +43,6 @@ extension KodiConnector {
         /// - Note: Always load Movies before Movie Sets, the latter is using Movie info
         await items +=  getMovies()
         await items += getMovieSets()
-        
         
         loadingState = .tvshows
         let tvshows = await getTVShows()
