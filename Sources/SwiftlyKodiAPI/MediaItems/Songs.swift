@@ -11,25 +11,12 @@ extension KodiConnector {
     
     /// Get all songs from the Kodi host
     /// - Returns: All songs from the Kodi host
-    func getAllSongs(albums: inout [MediaItem]) async -> [MediaItem] {
+    func getAllSongs(albums: [MediaItem]) async -> [MediaItem] {
         /// Start with a fresh list
         var songItems = [MediaItem]()
-        /// Use below for faster test loading; it will only load 100 albums
-        /// for (index, album) in albums.enumerated() where album.albumID > 150 && album.albumID < 250 {
-        for (index, album) in albums.enumerated() {
-            var songs = await getSongsFromAlbum(album: album)
-            /// Add some additional info to the songs
-            for (index, _ ) in songs.enumerated() {
-                songs[index].compilation = album.compilation
-                songs[index].albumID = album.albumID
-                /// Sometimes a song has a different poster than the album
-                /// so let's use the album poster at all times
-                songs[index].poster = album.poster
-            }
-            /// Add some additional information to the album
-            albums[index].itemsCount = songs.count
-            /// And now store it in the list
-            songItems += songs
+        /// Get songs album by album to avoid a timeout on the JSON request
+        for album in albums {
+            songItems += await getSongsFromAlbum(album: album)
         }
         return songItems
     }
@@ -75,6 +62,20 @@ extension KodiConnector {
     }
 }
 
+// MARK: Song item extension
+
+extension MediaItem {
+    
+    /// Add additional fields to the song item
+    mutating func addSongFields() {
+        if let album = KodiConnector.shared.media.first(where: { $0.media == .album && $0.albumID == self.albumID }) {
+            print("Album: \(album.title), song: \(self.title)")
+            self.compilation = album.compilation
+            self.poster = album.poster
+        }
+    }
+}
+
 // MARK: Kodi API's
 
 extension KodiConnector {
@@ -84,6 +85,7 @@ extension KodiConnector {
         "title",
         "artist",
         "artistid",
+        "albumid",
         "comment",
         "year",
         "playcount",

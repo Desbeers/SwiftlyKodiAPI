@@ -59,11 +59,11 @@ extension KodiConnector {
         await items += getArtists()
         
         loadingState = .artists
-        var albums = await getAlbums()
+        let albums = await getAlbums()
+        items += albums
         
         loadingState = .songs
-        await items += getAllSongs(albums: &albums)
-        items += albums
+        await items += getAllSongs(albums: albums)
         
         loadingState = .genres
         await items += getAllGenres()

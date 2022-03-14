@@ -105,9 +105,10 @@ extension KodiConnector {
                 /// # Song
                 mediaItem.id = "song-\(item.songID)"
                 mediaItem.songID = item.songID
+                mediaItem.albumID = item.albumID
                 mediaItem.title = item.title
                 mediaItem.subtitle = item.artists.joined(separator: " & ")
-                mediaItem.details = item.album
+                mediaItem.addSongFields()
             default:
                 /// # None
                 mediaItem.media = .none
