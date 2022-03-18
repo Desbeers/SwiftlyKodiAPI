@@ -112,18 +112,18 @@ extension NotificationItem {
         sender = try params.decodeIfPresent(String.self, forKey: .sender) ?? sender
         
         /// ### Data level
-        let data = try params.nestedContainer(keyedBy: DataKeys.self, forKey: .data)
-        itemID = try data.decodeIfPresent(Int.self, forKey: .itemID) ?? itemID
-        playlistID = try data.decodeIfPresent(Int.self, forKey: .playlistID) ?? playlistID
-        playlistEnded = try data.decodeIfPresent(Bool.self, forKey: .playlistEnded) ?? playlistEnded
+        let data = try? params.nestedContainer(keyedBy: DataKeys.self, forKey: .data)
+        itemID = try data?.decodeIfPresent(Int.self, forKey: .itemID) ?? itemID
+        playlistID = try data?.decodeIfPresent(Int.self, forKey: .playlistID) ?? playlistID
+        playlistEnded = try data?.decodeIfPresent(Bool.self, forKey: .playlistEnded) ?? playlistEnded
 
-        if let rawValue = try data.decodeIfPresent(String.self, forKey: .media),
+        if let rawValue = try data?.decodeIfPresent(String.self, forKey: .media),
            let media = MediaType(rawValue: rawValue) {
             self.media = media
         }
         
         /// ### Item level
-        let item = try? data.nestedContainer(keyedBy: ItemKeys.self, forKey: .item)
+        let item = try? data?.nestedContainer(keyedBy: ItemKeys.self, forKey: .item)
         itemID = try item?.decodeIfPresent(Int.self, forKey: .itemID) ?? itemID
 
         if let rawValue = try item?.decodeIfPresent(String.self, forKey: .media),
@@ -132,7 +132,7 @@ extension NotificationItem {
         }
         
         /// ### Player level
-        let player = try? data.nestedContainer(keyedBy: PlayerKeys.self, forKey: .player)
+        let player = try? data?.nestedContainer(keyedBy: PlayerKeys.self, forKey: .player)
         if let rawValue = try player?.decodeIfPresent(Int.self, forKey: .playerID),
            let playerID = PlayerID(rawValue: rawValue) {
             self.playerID = playerID
@@ -141,42 +141,9 @@ extension NotificationItem {
         playerSpeed = try player?.decodeIfPresent(Int.self, forKey: .playerSpeed) ?? playerSpeed
         
         /// ### Property-level
-        let property = try? data.nestedContainer(keyedBy: PropertyKeys.self, forKey: .property)
+        let property = try? data?.nestedContainer(keyedBy: PropertyKeys.self, forKey: .property)
         partymode = try property?.decodeIfPresent(Bool.self, forKey: .partymode) ?? partymode
         shuffled = try property?.decodeIfPresent(Bool.self, forKey: .shuffled) ?? shuffled
         repeating = try property?.decodeIfPresent(String.self, forKey: .repeating) ?? repeating
     }
 }
-
-//extension KodiConnector {
-//
-//    /// The struct for a Kodi notification item
-//    struct NotificationItem: Decodable {
-//        /// The method
-//        var method: String
-//        /// The params
-//        var params = Params()
-//        /// The params struct
-//        struct Params: Decodable {
-//            /// The optional data from the notice
-//            var data: DataItem?
-//            /// The sender of the notice
-//            var sender: String = ""
-//        }
-//        /// The struct for the notification data
-//        struct DataItem: Decodable {
-//            /// The item ID
-//            var itemID: Int?
-//            /// The type of item
-//            var type: String?
-//            /// Coding keys
-//            enum CodingKeys: String, CodingKey {
-//                /// The keys
-//                case type
-//                /// ID is a reserved word
-//                case itemID = "id"
-//            }
-//        }
-//    }
-//    
-//}

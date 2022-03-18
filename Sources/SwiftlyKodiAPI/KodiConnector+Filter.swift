@@ -77,7 +77,7 @@ extension KodiConnector {
         /// Now that filtering on media type is done, check if some additional filtering is needed
         if let genre = filter.genre {
             items = items
-                .filter { $0.genres.contains(genre) }
+                .filter { $0.genres.contains(genre) && $0.media != .song }
             items.sortBySetAndTitle()
             if filter.movieSetID == nil {
                 items.uniqueSet()
