@@ -1,7 +1,8 @@
-//Library.swift
+//
+//  KodiLibrary.swift
 //  SwiftlyKodiAPI
-//  
-//  Created by Nick Berendsen on 18/02/2022.
+//
+//  © 2022 Nick Berendsen
 //
 
 import SwiftUI

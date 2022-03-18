@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  
+//  MediaItem+Update.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 12/03/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation

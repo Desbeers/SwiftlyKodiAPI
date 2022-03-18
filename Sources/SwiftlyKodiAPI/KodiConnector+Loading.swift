@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  
+//  KodiConnector+Loading.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 09/03/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation

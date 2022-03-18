@@ -1,9 +1,9 @@
-///
-/// Cache.swift
-/// Kodio
-///
-/// © 2022 Nick Berendsen
-///
+//
+//  Cache.swift
+//  SwiftlyKodiAPI
+//
+//  © 2022 Nick Berendsen
+//
 
 import Foundation
 

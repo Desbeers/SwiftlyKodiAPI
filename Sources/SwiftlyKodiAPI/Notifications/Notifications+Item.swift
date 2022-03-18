@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  
+//  Notifications+Item.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 11/03/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation

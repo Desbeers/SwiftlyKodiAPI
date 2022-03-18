@@ -1,8 +1,8 @@
 //
-//  SwiftUIView.swift
-//  
+//  MediaItem+Extensions.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 23/02/2022.
+//  © 2022 Nick Berendsen
 //
 
 import SwiftUI
