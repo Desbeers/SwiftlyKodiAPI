@@ -5,10 +5,7 @@
 //  © 2022 Nick Berendsen
 //
 
-import Foundation
-#if !os(macOS)
-import UIKit
-#endif
+import SwiftUI
 
 /// The Class that provides the connection between Swift and the remote host
 public final class KodiConnector: ObservableObject {
@@ -46,13 +43,36 @@ public final class KodiConnector: ObservableObject {
         configuration.timeoutIntervalForRequest = 300
         configuration.timeoutIntervalForResource = 120
         self.urlSession = URLSession(configuration: configuration)
-        /// Sleeping and wakeup stuff for tvOS and iOS
+        /// Sleeping and wakeup stuff
 #if !os(macOS)
-        NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { [unowned self] notification in
+        NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { _ in
             logger("tvOS or iOS goes to the background")
+            Task {
+                await self.setState(current: .sleeping)
+            }
         }
-        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
             logger("tvOS or iOS comes to the foreground")
+            if self.state == .sleeping {
+                Task {
+                    await self.setState(current: .wakeup)
+                }
+            }
+        }
+#else
+        NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: .main) { _ in
+            logger("macOS goes to sleep")
+            Task {
+                await self.setState(current: .sleeping)
+            }
+        }
+        NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didWakeNotification, object: nil, queue: .main) { _ in
+            logger("macOS wakes up")
+            if self.state == .sleeping {
+                Task {
+                    await self.setState(current: .wakeup)
+                }
+            }
         }
 #endif
     }

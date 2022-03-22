@@ -34,6 +34,9 @@ extension KodiConnector {
             break
         case .episode:
             items = items.filter { $0.tvshowID == filter.tvshowID }
+            
+            items = items.sorted { ($0.season == 0 ? Int.max : $0.season) < ($1.season == 0 ? Int.max : $1.season) }
+            
         case .musicVideo:
             /// If `artist` is set we filter music videos for this specific artist
             if let artist = filter.artist {
