@@ -55,7 +55,7 @@ extension KodiConnector {
                 mediaItem.id = "movieset-\(item.movieSetID)"
                 mediaItem.movieSetID = item.movieSetID
                 mediaItem.title = item.title
-                mediaItem.description = item.description.isEmpty ? "Movie Set" : item.description
+                //mediaItem.description = item.description.isEmpty ? "Movie Set" : item.description
                 mediaItem.addMovieSetFields()
                 ///  - Note: Some additional fields will be filled-in by the `getMovies` function
             case .tvshow:

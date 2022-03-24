@@ -27,7 +27,12 @@ extension KodiConnector {
                 items = items.filter { $0.movieSetID == movieSetID }
                 items.sortByYearAndTitle()
             } else {
-                items.uniqueSet()
+                /// Remove all movies tat belong to a set
+                items = items.filter { $0.movieSetID == 0 }
+                /// Add the sets
+                items += media.filter { $0.media == .movieSet}
+                //items = media.filter { $0.media == .movieSet}
+                //items.uniqueSet()
                 items.sortBySetAndTitle()
             }
         case .tvshow:
@@ -73,18 +78,19 @@ extension KodiConnector {
 
         case .song:
             items = items.filter { $0.albumID == filter.album?.albumID }
-        
         default:
             break
         }
         /// Now that filtering on media type is done, check if some additional filtering is needed
         if let genre = filter.genre {
+            let media: [MediaType] = [.movie, .movieSet, .tvshow, .musicVideo]
+            items = items.filter { media.contains($0.media) }
             items = items
-                .filter { $0.genres.contains(genre) && $0.media != .song }
-            items.sortBySetAndTitle()
+                .filter { $0.genres.contains(genre) }
             if filter.movieSetID == nil {
-                items.uniqueSet()
+                items.removeAll(where: { $0.media == .movie && $0.movieSetID != 0 } )
             }
+            items.sortBySetAndTitle()
         }
         /// That should be it!
         return items
