@@ -101,6 +101,9 @@ public struct MediaItem: Codable, Identifiable, Equatable, Hashable {
     public var poster: String = ""
     /// The fanart for the item
     public var fanart: String = ""
+    /// The thumbnail for the item
+    /// - Note: Used in episodes
+    public var thumbnail: String = ""
     
     /// # ID's
 

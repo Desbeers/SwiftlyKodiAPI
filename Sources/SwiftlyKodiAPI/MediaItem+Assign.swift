@@ -32,6 +32,7 @@ extension KodiConnector {
                                       lastPlayed: item.lastPlayed,
                                       poster: item.poster,
                                       fanart: item.fanart,
+                                      thumbnail: item.thumbnail,
                                       artistIDs: item.artistIDs,
                                       compilation: item.compilation
             )

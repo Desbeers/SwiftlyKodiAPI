@@ -161,6 +161,11 @@ struct KodiResponse: Decodable {
         return getSpecificArt(art: art, type: .fanart)
     }
     
+    /// The thumbnail for the item
+    var thumbnail: String {
+        return getSpecificArt(art: art, type: .thumbnail)
+    }
+    
     /// # ID's of items
 
     /// The movie ID
@@ -424,6 +429,13 @@ extension KodiResponse {
             }
             /// Fallback to poster
             return getSpecificArt(art: art, type: .poster)
+        case .thumbnail:
+            if let posterArt = art["thumbnail"] {
+                return getFilePath(file: posterArt, type: .art)
+            }
+            if let posterArt = art["thumb"] {
+                return getFilePath(file: posterArt, type: .art)
+            }
         }
         return ""
     }
@@ -476,6 +488,9 @@ extension KodiResponse {
         /// Fanart
         /// - Note: Fanart will fallback to poster if needed
         case fanart
+        /// Thumbnail
+        /// - Note: Thumnail will fallback to poster if needed
+        case thumbnail
     }
     
     /// The types of Kodi remote files
