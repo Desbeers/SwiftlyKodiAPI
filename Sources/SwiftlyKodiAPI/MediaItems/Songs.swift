@@ -70,7 +70,7 @@ extension MediaItem {
     /// - Note: This is a *slow* function...
     mutating func addSongFields() {
         if let album = KodiConnector.shared.media.first(where: { $0.media == .album && $0.albumID == self.albumID }) {
-            //print("Album: \(album.title), song: \(self.title)")
+            //print("Album: \(album.title), poster: \(album.poster), song: \(self.title)")
             self.compilation = album.compilation
             self.poster = album.poster
         }

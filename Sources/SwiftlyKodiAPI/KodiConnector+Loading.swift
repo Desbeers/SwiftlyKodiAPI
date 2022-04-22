@@ -41,7 +41,7 @@ extension KodiConnector {
         
         loadingState = .movies
         /// - Note: Always load Movies before Movie Sets, the latter is using Movie info
-        await items +=  getMovies()
+        await items += getMovies()
         await items += getMovieSets()
         
         loadingState = .tvshows

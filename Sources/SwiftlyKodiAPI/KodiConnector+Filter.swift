@@ -68,7 +68,8 @@ extension KodiConnector {
                 .map { $0.artists}
             let musicVideos = media
                 .filter { $0.media == .artist && artists.contains($0.artists)}
-            items = musicVideos.sorted { $0.sortByTitle < $1.sortByTitle}
+            //items = musicVideos.sorted { $0.sortByTitle < $1.sortByTitle}
+            items = musicVideos.sorted { $0.releaseYear < $1.releaseYear}
         
         case .artist:
             items = items.filter { $0.compilation == filter.compilation }

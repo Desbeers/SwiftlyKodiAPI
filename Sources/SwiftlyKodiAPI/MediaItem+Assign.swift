@@ -74,6 +74,7 @@ extension KodiConnector {
                 mediaItem.tvshowID = item.tvshowID
                 mediaItem.title = item.title
                 mediaItem.subtitle = item.showtitle
+                //mediaItem.subtitle = (item.season == 0 ? "Secials" : "Season \(item.season)") + ", episode \(item.episode)"
                 mediaItem.season = item.season
                 mediaItem.episode = item.episode
                 /// Build the `details
@@ -94,6 +95,7 @@ extension KodiConnector {
                 mediaItem.artistID = item.artistID
                 mediaItem.title = item.artists.joined(separator: " & ")
                 mediaItem.subtitle = item.artistGenres.map { $0.title } .joined(separator: "・")
+                mediaItem.details = item.artistGenres.map { $0.title } .joined(separator: "・")
                 mediaItem.sorttitle = item.sortname
                 mediaItem.artists = item.artists
             case .album:

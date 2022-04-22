@@ -427,6 +427,12 @@ extension KodiResponse {
             if let fanartArt = art["tvshow.fanart"] {
                 return getFilePath(file: fanartArt, type: .art)
             }
+            if let posterArt = art["thumbnail"] {
+                return getFilePath(file: posterArt, type: .art)
+            }
+            if let posterArt = art["icon"] {
+                return getFilePath(file: posterArt, type: .art)
+            }
             /// Fallback to poster
             return getSpecificArt(art: art, type: .poster)
         case .thumbnail:
@@ -434,6 +440,10 @@ extension KodiResponse {
                 return getFilePath(file: posterArt, type: .art)
             }
             if let posterArt = art["thumb"] {
+                return getFilePath(file: posterArt, type: .art)
+            }
+            /// Kodi likes 'Icon' for a music video thumb
+            if let posterArt = art["icon"] {
                 return getFilePath(file: posterArt, type: .art)
             }
         }
