@@ -76,7 +76,7 @@ extension KodiConnector {
         
         case .album:
             items = items.filter { $0.artists.contains(filter.artist?.first ?? "") }
-
+            items = items.sorted { $0.releaseYear < $1.releaseYear}
         case .song:
             items = items.filter { $0.albumID == filter.album?.albumID }
         default:
