@@ -22,7 +22,9 @@ extension KodiConnector {
             var mediaItem = MediaItem(media: media,
                                       description: item.description,
                                       genres: item.genre,
+                                      country: item.country,
                                       rating: item.rating,
+                                      cast: item.cast,
                                       file: item.filePath,
                                       playcount: item.playcount,
                                       runtime: item.runtime,
@@ -34,6 +36,7 @@ extension KodiConnector {
                                       fanart: item.fanart,
                                       thumbnail: item.thumbnail,
                                       artistIDs: item.artistIDs,
+                                      streamDetails: item.streamDetails,
                                       compilation: item.compilation
             )
             /// Build the default`details`
@@ -50,6 +53,10 @@ extension KodiConnector {
                 mediaItem.sorttitle = item.sorttitle
                 mediaItem.subtitle = item.tagline
                 mediaItem.movieSetTitle = item.movieSetTitle
+                /// Build the `details`
+                let details = item.genre + item.country + [item.releaseYear] + [mediaItem.duration]
+                mediaItem.details = details.joined(separator: "・")
+                
             case .movieSet:
                 /// # Movie sets
                 mediaItem.id = "movieset-\(item.movieSetID)"

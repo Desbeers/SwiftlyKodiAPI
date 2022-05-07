@@ -62,8 +62,14 @@ public struct MediaItem: Codable, Identifiable, Equatable, Hashable {
     /// The genres for the item
     public var genres: [String] = []
     
+    /// The country of the item
+    public var country: [String] = []
+    
     /// The rating for the item
     public var rating: Int = 0
+    
+    /// The cast of the item
+    public var cast: [ActorItem] = []
     
     /// The items an item contains
     /// - Movie Set: Count of movies in the set
@@ -126,6 +132,12 @@ public struct MediaItem: Codable, Identifiable, Equatable, Hashable {
     public var albumID: Int = 0
     /// The song ID
     public var songID: Int = 0
+    
+    /// # Video
+    
+    /// The stream details of the item
+    public var streamDetails: StreamDetails = StreamDetails()
+    
     
     /// # Movies
     

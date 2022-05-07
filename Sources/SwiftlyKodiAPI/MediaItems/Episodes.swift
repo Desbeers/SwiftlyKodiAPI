@@ -80,6 +80,7 @@ extension KodiConnector {
         "runtime",
         "cast",
         "tvshowid",
+        "streamdetails",
         "lastplayed"
     ]
 

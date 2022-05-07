@@ -65,6 +65,7 @@ extension KodiConnector {
         "playcount",
         "plot",
         "runtime",
+        "streamdetails",
         "dateadded",
         "lastplayed"
     ]

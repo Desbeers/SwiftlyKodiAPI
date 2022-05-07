@@ -130,6 +130,8 @@ extension KodiConnector {
         "playcount",
         "runtime",
         "cast",
+        "country",
+        "streamdetails",
         "dateadded",
         "lastplayed"
     ]

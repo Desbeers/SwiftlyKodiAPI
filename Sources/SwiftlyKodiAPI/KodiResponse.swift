@@ -110,6 +110,12 @@ struct KodiResponse: Decodable {
     /// - Note: The function that loads movie items will fill this in
     var movieSetTitle: String = ""
     
+    /// The country of the item
+    var country: [String] = []
+    
+    /// The stream detals for the item
+    var streamDetails: StreamDetails = StreamDetails()
+    
     /// # TV show and Episode stuff
     
     /// The studio of a TV show (tvshow item)
@@ -203,7 +209,7 @@ extension KodiResponse {
     /// The coding keys
     enum CodingKeys: String, CodingKey {
         /// The public keys
-        case title, description, playcount, episode, season, cast, artist
+        case title, description, playcount, episode, season, cast, artist, country
         
         case sortartist, compilation
         
@@ -211,6 +217,8 @@ extension KodiResponse {
         case albumDuration = "albumduration"
         
         case isAlbumArtist = "isalbumartist"
+        
+        case streamDetails = "streamdetails"
         
         /// Song duration
         case duration
@@ -306,6 +314,10 @@ extension KodiResponse {
 
         cast = try container.decodeIfPresent([ActorItem].self, forKey: .cast) ?? []
         
+        country = try container.decodeIfPresent([String].self, forKey: .country) ?? []
+        
+        streamDetails = try container.decodeIfPresent(StreamDetails.self, forKey: .streamDetails) ?? StreamDetails()
+        
         /// # TV show stuff
         
         showtitle = try container.decodeIfPresent(String.self, forKey: .showtitle) ?? ""
@@ -384,21 +396,6 @@ extension KodiResponse {
 // MARK: Helper function
 
 extension KodiResponse {
-
-    /// Convert an internal Kodi path to a full path
-    /// - Parameters:
-    ///   - file: The internal Kodi path
-    ///   - type: The type of remote file
-    /// - Returns: A string with the full path to the file
-    func getFilePath(file: String, type: FileType) -> String {
-        let host = KodiConnector.shared.host
-        /// Encoding
-        var allowed = CharacterSet.alphanumerics
-        allowed.insert(charactersIn: ":-._~") /// as per RFC 3986
-        /// Image URL
-        let kodiImageAddress = "http://\(host.username):\(host.password)@\(host.ip):\(host.port)/\(type.rawValue)/"
-        return kodiImageAddress + file.addingPercentEncoding(withAllowedCharacters: allowed)!
-    }
     
     /// Get a specific art item from the collection
     /// - Parameters:
@@ -472,25 +469,6 @@ extension KodiResponse {
         }
     }
     
-    /// A struct for an actor that is part of the cast in a movie or TV episode
-    struct ActorItem: Codable, Identifiable, Hashable {
-        /// Make it identifiable
-        public var id = UUID()
-        /// The name of the actor
-        public var name: String = ""
-        /// The order in the cast list
-        public var order: Int = 0
-        /// The role of the actor
-        public var role: String = ""
-        /// The optional thumbnail of the actor
-        public var thumbnail: String? = ""
-        /// Coding keys
-        enum CodingKeys: String, CodingKey {
-            /// The keys for this Actor Item
-            case name, order, role, thumbnail
-        }
-    }
-    
     enum ArtType {
         /// Poster
         /// - Note: Poster will fallback to thumbnail or thumb if needed
@@ -501,13 +479,5 @@ extension KodiResponse {
         /// Thumbnail
         /// - Note: Thumnail will fallback to poster if needed
         case thumbnail
-    }
-    
-    /// The types of Kodi remote files
-    enum FileType: String {
-        /// An image; poster, fanart etc...
-        case art = "image"
-        /// A file, either video or audio
-        case file = "vfs"
     }
 }
