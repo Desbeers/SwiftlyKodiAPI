@@ -65,9 +65,9 @@ extension StreamDetails {
         if let stream = video.first {
             switch stream.width  {
             case 1919...:
-                return "Full HD (1080), \(stream.codec.uppercased() )"
+                return "Full HD (1080p), \(stream.codec.uppercased() )"
             case 720...:
-                return "HD (720), \(stream.codec.uppercased() )"
+                return "HD (720p), \(stream.codec.uppercased() )"
             default:
                 return "SD, \(stream.codec.uppercased() )"
             }

@@ -22,7 +22,10 @@ public struct ActorItem: Codable, Identifiable, Hashable {
     
     
     public var icon: String {
-        return getFilePath(file: thumbnail ?? "", type: .art)
+        if let icon = thumbnail, !icon.isEmpty {
+            return getFilePath(file: icon, type: .art)
+        }
+        return ""
     }
     /// Coding keys
     enum CodingKeys: String, CodingKey {

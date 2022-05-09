@@ -152,6 +152,8 @@ public struct MediaItem: Codable, Identifiable, Equatable, Hashable {
     public var season: Int = 0
     /// The episode number
     public var episode: Int = 0
+    /// The name of the TV show
+    public var showTitle: String = ""
     
     /// # Music
     

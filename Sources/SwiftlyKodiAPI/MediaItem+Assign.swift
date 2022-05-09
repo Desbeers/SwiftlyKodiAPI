@@ -80,12 +80,18 @@ extension KodiConnector {
                 mediaItem.episodeID = item.episodeID
                 mediaItem.tvshowID = item.tvshowID
                 mediaItem.title = item.title
-                mediaItem.subtitle = item.showtitle
+                mediaItem.showTitle = item.showtitle
+                
+                let season = item.season == 0 ? "Specials" : "Season \(item.season)"
+                
+                mediaItem.subtitle = "\(season), episode \(item.episode)"
                 //mediaItem.subtitle = (item.season == 0 ? "Secials" : "Season \(item.season)") + ", episode \(item.episode)"
                 mediaItem.season = item.season
                 mediaItem.episode = item.episode
+                ///mediaItem.fanart = item.thumbnail
                 /// Build the `details
-                let details = ["Episode \(item.episode)"] + ["Aired \(item.releaseDate.kodiDate().formatted(date: .abbreviated, time: .omitted))"]
+                //let details = ["Episode \(item.episode)"] + ["Aired \(item.releaseDate.kodiDate().formatted(date: .abbreviated, time: .omitted))"]
+                let details = [item.showtitle] + ["Aired \(item.releaseDate.kodiDate().formatted(date: .abbreviated, time: .omitted))"]
                 mediaItem.details = details.joined(separator: "・")
             case .musicVideo:
                 /// # Music Video
