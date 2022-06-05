@@ -60,7 +60,7 @@ struct ContentView: View {
     @EnvironmentObject var kodi: KodiConnector
     /// The list of TV shows
     @State var tvshows: [KodiItem] = []
-    /// The View
+    /// The body of this View
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 0) {

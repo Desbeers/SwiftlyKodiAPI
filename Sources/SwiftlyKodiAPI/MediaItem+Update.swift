@@ -25,16 +25,16 @@ extension KodiConnector {
             case .song:
                 await setSongDetails(song: item)
             default:
-                break
+                logger("Set details for '\(item.media)' not implemented")
             }
         }
     }
     
-    /// Get de details for a media item
+    /// Get de details for a media item and update the local cache
     /// - Parameters:
     ///   - itemID: Te ID of the medi item
     ///   - type: The ``MediaType`` of the media item
-    func updateMediaItemDetails(itemID: Int, type: MediaType) {
+    func getMediaItemDetails(itemID: Int, type: MediaType) {
         Task { @MainActor in
             if let index = media.firstIndex(where: {$0.id == "\(type.rawValue)-\(itemID)"}) {
                 switch media[index].media {

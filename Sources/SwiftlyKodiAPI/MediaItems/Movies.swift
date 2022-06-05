@@ -17,28 +17,6 @@ extension KodiConnector {
             let result = try await sendRequest(request: request)
             /// Return the movies
             return setMediaItem(items: result.movies, media: .movie)
-            
-//            /// Get the movies that are not part of a set
-//            var movieItems = result.movies.filter { $0.movieSetID == 0 }
-//            /// Loop over all movie sets to add some info
-//            for (index, movieSet) in movieSets.enumerated() {
-//                /// Get all the movies that are in this set
-//                let movies = result.movies.filter { $0.movieSetID == movieSet.movieSetID}
-//                /// Set some additional info
-//                movieSets[index].itemsCount = movies.count
-//                movieSets[index].subtitle = "\(movies.count) movies"
-//                /// Use the last movie poster for the set if the set has none
-//                movieSets[index].poster = movieSet.poster.isEmpty ? movies.last?.poster ?? "" : movieSet.poster
-//                /// Collect all the genres in this set and add it to the set as `genres` and `details`
-//                let genres = movies.flatMap { $0.genre }
-//                                    .removingDuplicates()
-//                movieSets[index].genres = genres
-//                movieSets[index].details = genres.joined(separator: "・")
-//                /// Add the movies to the list of movies
-//                movieItems += movies
-//            }
-//            /// Return the movies
-//            return setMediaItem(items: movieItems, media: .movie)
         } catch {
             /// There are no movies in the library
             logger("Loading movies failed with error: \(error)")
@@ -67,46 +45,6 @@ extension KodiConnector {
         let message = VideoLibrarySetMovieDetails(movie: movie)
         sendMessage(message: message)
         logger("Details set for '\(movie.title)'")
-    }
-}
-
-// MARK: Movie Sets
-
-extension KodiConnector {
-
-    /// Get all the movie sets from the Kodi host
-    /// - Returns: All movie sets from the Kodi host
-    func getMovieSets() async -> [MediaItem] {
-        let request = VideoLibraryGetMovieSets()
-        do {
-            let result = try await sendRequest(request: request)
-            return setMediaItem(items: result.sets, media: .movieSet)
-        } catch {
-            /// There are no sets in the library
-            logger("Loading movie sets failed with error: \(error)")
-            return [MediaItem]()
-        }
-    }
-}
-
-// MARK: Movie item extension
-
-extension MediaItem {
-    
-    /// Add additional fields to the movie set item
-    /// - Note: This is a *slow* function...
-    mutating func addMovieSetFields() {
-        /// Get all the movies that are in this set
-        let movies = KodiConnector.shared.media.filter { $0.media == .movie && $0.movieSetID == self.movieSetID}
-        self.itemsCount = movies.count
-        self.subtitle = "\(movies.count) movies"
-        /// Use the last movie poster for the set if the set has none
-        self.poster = self.poster.isEmpty ? movies.last?.poster ?? "" : self.poster
-        /// Collect all the genres in this set and add it to the set as `genres` and `details`
-        let genres = movies.flatMap { $0.genres }
-            .removingDuplicates()
-        self.genres = genres
-        self.details = genres.joined(separator: "・")
     }
 }
 
@@ -185,36 +123,6 @@ extension KodiConnector {
         struct Response: Decodable {
             /// The details of the song
             var moviedetails: KodiResponse
-        }
-    }
-    
-    /// Retrieve all movie sets (Kodi API)
-    struct VideoLibraryGetMovieSets: KodiAPI {
-        /// Method
-        var method = Method.videoLibraryGetMovieSets
-        /// The JSON creator
-        var parameters: Data {
-            /// The parameters we ask for
-            var params = Params()
-            params.sort = sort(method: .title, order: .ascending)
-            return buildParams(params: params)
-        }
-        /// The request struct
-        struct Params: Encodable {
-            /// The properties that we ask from Kodi
-            let properties = [
-                "title",
-                "playcount",
-                "art",
-                "plot"
-            ]
-            /// The sort order
-            var sort = KodiConnector.SortFields()
-        }
-        /// The response struct
-        struct Response: Decodable {
-            /// The list of movie sets
-            let sets: [KodiResponse]
         }
     }
     

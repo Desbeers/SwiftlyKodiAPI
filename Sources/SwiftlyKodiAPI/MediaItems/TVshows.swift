@@ -46,7 +46,7 @@ extension KodiConnector {
     ///
     /// Kodi does not send a notification if a TV show is changed
     ///
-    /// - Parameter song: The Media Item
+    /// - Parameter tvshow: The Media Item
     func setTVShowDetails(tvshow: MediaItem) async {
         /// Get all episodes that don't match with the TV show playcount and match it
         var episodes = media.filter {
@@ -63,10 +63,10 @@ extension KodiConnector {
             do {
                 let _ = try await sendRequest(request: message)
                 /// Update the TV show item
-                updateMediaItemDetails(itemID: tvshow.tvshowID, type: .tvshow)
+                getMediaItemDetails(itemID: tvshow.tvshowID, type: .tvshow)
                 logger("Details set for '\(tvshow.title)'")
             } catch {
-                logger("Setting tv show details failed with error: \(error)")
+                logger("Setting TV show details failed with error: \(error)")
             }
         }
         //sendMessage(message: message)

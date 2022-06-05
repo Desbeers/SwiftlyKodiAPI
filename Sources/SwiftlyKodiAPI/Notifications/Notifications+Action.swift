@@ -16,7 +16,7 @@ extension KodiConnector {
                 await getPlayerProperties(playerID: notification.playerID)
             }
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
-            updateMediaItemDetails(itemID: notification.itemID, type: notification.media)
+            getMediaItemDetails(itemID: notification.itemID, type: notification.media)
         default:
             logger("No action after notification")
         }
