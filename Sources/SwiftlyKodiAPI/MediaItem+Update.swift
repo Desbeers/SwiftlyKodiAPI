@@ -12,7 +12,7 @@ extension KodiConnector {
     /// Set the details for a Media item
     /// - Parameter item: The media item we want to set
     func setMediaItemDetails(item: MediaItem) {
-        Task.detached { [self] in
+        Task.detached { [self] in 
             switch item.media {
             case .movie:
                 await setMovieDetails(movie: item)

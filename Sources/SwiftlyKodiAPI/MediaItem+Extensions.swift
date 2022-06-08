@@ -7,37 +7,6 @@
 
 import SwiftUI
 
-// MARK: MediaItem extensions
-
-extension MediaItem {
-
-    /// Get the binding from a media item to the Kodi library
-    /// - Returns: A Binding to the library
-    public func binding() -> Binding<MediaItem> {
-        return KodiConnector.shared.getLibraryBinding(item: self)
-    }
-    
-    /// Toggle the played status of a media item
-    mutating public func togglePlayedState() {
-        logger("Toggle play state")
-        self.playcount = self.playcount == 0 ? 1 : 0
-        /// Set or reset the last played date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        self.lastPlayed = self.playcount == 0 ? "" : dateFormatter.string(from: Date())
-        KodiConnector.shared.setMediaItemDetails(item: self)
-    }
-    
-    /// Mark an media item as played
-    mutating public func markAsPlayed() {
-        self.playcount += 1
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        self.lastPlayed = dateFormatter.string(from: Date())
-        KodiConnector.shared.setMediaItemDetails(item: self)
-    }
-}
-
 // MARK: String extensions
 
 extension String {
