@@ -31,7 +31,7 @@ extension KodiConnector {
                 logger("Updated \(item.media): '\(media[index].title)'")
             }
         default:
-            print("Default action")
+            /// All other ``MediaType``s
             setMediaItemDetails(item: item)
         }
     }
