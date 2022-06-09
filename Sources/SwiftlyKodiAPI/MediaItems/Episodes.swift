@@ -53,7 +53,7 @@ extension KodiConnector {
         }
     }
     
-    /// Update the details of a song
+    /// Update the details of an episode item
     /// - Parameter song: The Media Item
     func setEpisodeDetails(episode: MediaItem) async {
         let message = VideoLibrarySetEpisodeDetails(episode: episode)

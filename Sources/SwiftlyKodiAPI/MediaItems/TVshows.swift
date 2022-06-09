@@ -48,15 +48,15 @@ extension KodiConnector {
     ///
     /// - Parameter tvshow: The Media Item
     func setTVShowDetails(tvshow: MediaItem) async {
-        /// Get all episodes that don't match with the TV show playcount and match it
-        var episodes = media.filter {
-            $0.media == .episode &&
-            $0.tvshowID == tvshow.tvshowID &&
-            $0.playcount != tvshow.playcount
-        }
-        for (index, _) in episodes.enumerated() {
-            episodes[index].togglePlayedState()
-        }
+//        /// Get all episodes that don't match with the TV show playcount and match it
+//        var episodes = media.filter {
+//            $0.media == .episode &&
+//            $0.tvshowID == tvshow.tvshowID &&
+//            $0.playcount != tvshow.playcount
+//        }
+//        for (index, _) in episodes.enumerated() {
+//            episodes[index].togglePlayedState()
+//        }
         
         let message = VideoLibrarySetTVShowDetails(tvshow: tvshow)
         Task {

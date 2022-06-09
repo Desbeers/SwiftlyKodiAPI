@@ -24,14 +24,14 @@ extension KodiConnector {
         }
     }
     
-    /// Get the details of a movie
+    /// Get the details of a movie item
     /// - Parameter movieID: The ID of the movie item
     /// - Returns: An updated Media Item
     func getMovieDetails(movieID: Int) async -> MediaItem {
         let request = VideoLibraryGetMovieDetails(movieID: movieID)
         do {
             let result = try await sendRequest(request: request)
-            /// Make a MediaItem from the KodiResonse and return it
+            /// Make a MediaItem from the KodiResponse and return it
             return setMediaItem(items: [result.moviedetails], media: .movie).first ?? MediaItem()
         } catch {
             logger("Loading movie details failed with error: \(error)")
@@ -39,7 +39,7 @@ extension KodiConnector {
         }
     }
     
-    /// Update the details of a movie
+    /// Set the details of a movie item
     /// - Parameter movie: The Media Item
     func setMovieDetails(movie: MediaItem) async {
         let message = VideoLibrarySetMovieDetails(movie: movie)
