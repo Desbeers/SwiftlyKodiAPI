@@ -32,7 +32,7 @@ extension KodiConnector {
     
     /// Get de details for a media item and update the local cache
     /// - Parameters:
-    ///   - itemID: Te ID of the medi item
+    ///   - itemID: The ID of the media item
     ///   - type: The ``MediaType`` of the media item
     func getMediaItemDetails(itemID: Int, type: MediaType) {
         Task { @MainActor in
@@ -40,10 +40,18 @@ extension KodiConnector {
                 switch media[index].media {
                 case .movie:
                     media[index] = await getMovieDetails(movieID: media[index].movieID)
+                    /// Always check the Movie Set when a Movie is part of a Set
+                    if media[index].movieSetID != 0 {
+                        getMediaItemDetails(itemID: media[index].movieSetID, type: .movieSet)
+                    }
+                case .movieSet:
+                    media[index] = await getMovieSetDetails(movieSetID: media[index].movieSetID)
                 case .tvshow:
                     media[index] = await getTVShowDetails(tvshowID: media[index].tvshowID)
                 case .episode:
                     media[index] = await getEpisodeDetails(episodeID: media[index].episodeID)
+                    /// Always check the TV show when an episode changed
+                    getMediaItemDetails(itemID: media[index].tvshowID, type: .tvshow)
                 case .musicVideo:
                     media[index] = await getMusicVideoDetails(musicVideoID: media[index].musicVideoID)
                 case .song:

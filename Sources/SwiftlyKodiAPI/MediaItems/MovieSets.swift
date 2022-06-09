@@ -24,11 +24,34 @@ extension KodiConnector {
             return [MediaItem]()
         }
     }
+    
+    /// Get the details of a movie set item
+    /// - Parameter movieSetID: The ID of the movie item
+    /// - Returns: An updated Media Item
+    func getMovieSetDetails(movieSetID: Int) async -> MediaItem {
+        let request = VideoLibraryGetMovieSetDetails(movieSetID: movieSetID)
+        do {
+            let result = try await sendRequest(request: request)
+            /// Make a MediaItem from the KodiResponse and return it
+            return setMediaItem(items: [result.setdetails], media: .movieSet).first ?? MediaItem()
+        } catch {
+            logger("Loading movie set details failed with error: \(error)")
+            return MediaItem()
+        }
+    }
 }
 
 // MARK: Kodi API's
 
 extension KodiConnector {
+    
+    /// The Movie Set properties we ask from Kodi
+    static let VideoFieldsMovieSet = [
+        "title",
+        "playcount",
+        "art",
+        "plot"
+    ]
 
     /// Retrieve all movie sets (Kodi API)
     struct VideoLibraryGetMovieSets: KodiAPI {
@@ -44,12 +67,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = [
-                "title",
-                "playcount",
-                "art",
-                "plot"
-            ]
+            let properties = VideoFieldsMovieSet
             /// The sort order
             var sort = KodiConnector.SortFields()
         }
@@ -57,6 +75,33 @@ extension KodiConnector {
         struct Response: Decodable {
             /// The list of movie sets
             let sets: [KodiResponse]
+        }
+    }
+    
+    /// Retrieve details about a specific movie set  (Kodi API)
+    struct VideoLibraryGetMovieSetDetails: KodiAPI {
+        /// Argument: the movie we ask for
+        var movieSetID: Int
+        /// Method
+        var method = Method.videoLibraryGetMovieSetDetails
+        /// The JSON creator
+        var parameters: Data {
+            /// The parameters we ask for
+            var params = Params()
+            params.setid = movieSetID
+            return buildParams(params: params)
+        }
+        /// The request struct
+        struct Params: Encodable {
+            /// The properties that we ask from Kodi
+            let properties = KodiConnector.VideoFieldsMovieSet
+            /// The ID of the movie set
+            var setid: Int = 0
+        }
+        /// The response struct
+        struct Response: Decodable {
+            /// The details of the song
+            var setdetails: KodiResponse
         }
     }
 }

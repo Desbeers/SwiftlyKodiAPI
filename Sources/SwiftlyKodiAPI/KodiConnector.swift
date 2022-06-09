@@ -22,6 +22,9 @@ public final class KodiConnector: ObservableObject {
     var host = HostItem()
     /// The Meda Library from the remote host
     @Published public var media: [MediaItem] = []
+    /// The currently selected `MediaItem`
+    /// - Note: This package does not do anything with this; it is up to the Application to use it
+    @Published public var selection: MediaItem?
     /// The general state of the KodiConnector bridge
     @Published var state: State = .none
     /// The loading state of the library

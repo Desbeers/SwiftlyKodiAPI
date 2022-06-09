@@ -53,7 +53,7 @@ extension KodiConnector {
 extension KodiConnector {
     
     /// The Movie properties we ask from Kodi
-    static var VideoFieldsMovie = [
+    static let VideoFieldsMovie = [
         "title",
         "sorttitle",
         "file",

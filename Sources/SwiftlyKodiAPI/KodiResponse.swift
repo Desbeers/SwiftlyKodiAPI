@@ -11,7 +11,7 @@ import Foundation
 
 /// The struct for an item as response to a JSON request
 ///
-/// This takes are of *all* responses from Kodi when requesting items
+/// This are *all* responses from Kodi when requesting items
 /// from the library. It has a custom `Init` will all posible parameters
 /// we might ask from Kodi.
 ///
