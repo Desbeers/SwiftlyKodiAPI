@@ -22,7 +22,7 @@ extension KodiConnector {
             media = libraryItems
         }
         /// Get the properties of the player
-        await getPlayerProperties(playerID: notification.playerID)
+        //await getPlayerProperties(playerID: notification.playerID)
         logger("Loaded the library")
         loadingState = .done
     }
@@ -41,30 +41,39 @@ extension KodiConnector {
         /// Start with a fresh list
         var items: [MediaItem] = []
         
-        loadingState = .movies
-        /// - Note: Always load Movies before Movie Sets, the latter is using Movie info
-        await items += getMovies()
-        await items += getMovieSets()
-        
-        loadingState = .tvshows
-        let tvshows = await getTVShows()
-        /// - Note: The ``getAllEpisodes`` needs the list of TV shows
-        await items += getAllEpisodes(tvshows: tvshows)
-        /// Now we can store the TV shows in the `items` array
-        items += tvshows
-        
-        loadingState = .musicVideos
-        await items += getMusicVideos()
-        
+        /// Always load Artist
         loadingState = .artists
         await items += getArtists()
         
-//        loadingState = .albums
-//        let albums = await getAlbums()
-//        items += albums
-//        
-//        loadingState = .songs
-//        await items += getAllSongs(albums: albums)
+        
+        /// Load videos
+        if host.media == .video || host.media == .all {
+            
+            loadingState = .movies
+            /// - Note: Always load Movies before Movie Sets, the latter is using Movie info
+            await items += getMovies()
+            await items += getMovieSets()
+            
+            loadingState = .tvshows
+            let tvshows = await getTVShows()
+            /// - Note: The ``getAllEpisodes`` needs the list of TV shows
+            await items += getAllEpisodes(tvshows: tvshows)
+            /// Now we can store the TV shows in the `items` array
+            items += tvshows
+            
+            loadingState = .musicVideos
+            await items += getMusicVideos()
+        }
+        
+        /// Load audio
+        if host.media == .audio || host.media == .all {
+            loadingState = .albums
+            let albums = await getAlbums()
+            items += albums
+            
+            loadingState = .songs
+            await items += getAllSongs(albums: albums)
+        }
         
         loadingState = .genres
         await items += getAllGenres()

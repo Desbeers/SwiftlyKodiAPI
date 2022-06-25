@@ -21,7 +21,7 @@ public final class KodiConnector: ObservableObject {
     /// The remote host to make a connection
     var host = HostItem()
     /// ID of this Kodi Connector instance; used to send  notifications
-    var kodiConnectorID = UUID().uuidString
+    var kodiConnectorID: String
     /// Debounce timer for saving the media library to the cache
     var cacheTimer: Timer?
     
@@ -31,13 +31,13 @@ public final class KodiConnector: ObservableObject {
     @Published public var media: [MediaItem] = []
     /// The currently selected `MediaItem`
     /// - Note: This package does not do anything with this; it is up to the Application to use it
-    @Published public var selection: MediaItem?
+    //@Published public var selection: MediaItem?
     /// The general state of the KodiConnector bridge
     @Published var state: State = .none
     /// The loading state of the library
     @Published public var loadingState: loadingStatus = .start
     /// Notifications
-    @Published public var notification = NotificationItem()
+    //@Published public var notification = NotificationItem()
     /// The state of the player
     @Published public var playerProperties = Player.Property.Value()
 
@@ -45,6 +45,8 @@ public final class KodiConnector: ObservableObject {
     
     /// Private init to make sure we have only one instance
     private init() {
+        /// Give this KodiConnector an unique ID
+        kodiConnectorID = UUID().uuidString
         /// Network stuff
         let configuration = URLSessionConfiguration.ephemeral
         configuration.waitsForConnectivity = true

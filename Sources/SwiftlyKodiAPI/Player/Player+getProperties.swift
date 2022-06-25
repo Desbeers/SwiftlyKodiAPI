@@ -46,46 +46,9 @@ extension KodiConnector {
     
     /// Get the properties of the player
     func getPlayerProperties(playerID: Player.ID) async {
-        
         let properties = await Player.getProperties(playerID: playerID)
-        
         Task { @MainActor in
             playerProperties = properties
         }
-        
-//        let request = PlayerGetProperties(playerID: playerID)
-//        do {
-//            let result = try await sendRequest(request: request)
-//            //dump(result)
-//            Task { @MainActor in
-//                logger("Loaded player properties")
-//                playerProperties = result
-//            }
-//        } catch {
-//            logger("Loading player properties failed with error: \(error)")
-//        }
     }
-    
-//    /// Retrieves the values of the given properties (Kodi API)
-//    struct PlayerGetProperties: KodiAPI {
-//        /// The ID of the player
-//        let playerID: PlayerID
-//        /// Method
-//        let method = Method.playerGetProperties
-//        /// The JSON creator
-//        var parameters: Data {
-//            var params = Params()
-//            params.playerid = playerID.rawValue
-//            return buildParams(params: params)
-//        }
-//        /// The parameters struct
-//        struct Params: Encodable {
-//            /// The player ID
-//            var playerid = 0
-//            /// The properties we ask from Kodi
-//            let properties = Player.Property.name
-//        }
-//        /// The response struct
-//        typealias Response = Player.Property.Value
-//    }
 }

@@ -13,6 +13,7 @@ extension KodiConnector {
     /// - Parameter filter: A struct with al the filter parameters
     /// - Returns: All Kodi media items confirming to the filter
     func filter(_ filter: MediaFilter) -> [MediaItem] {
+        logger("Filter Media")
         /// Get the library
         var items = media
         /// Remove Kodi items that we don't need

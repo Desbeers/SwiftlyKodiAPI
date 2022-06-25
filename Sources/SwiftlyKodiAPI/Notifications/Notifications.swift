@@ -33,9 +33,9 @@ extension KodiConnector {
                     }
                     logger("Notification: \(notification.method.rawValue)")
                     /// Make the notification available in the UI
-                    Task { @MainActor in
-                        self.notification = notification
-                    }
+//                    Task { @MainActor in
+//                        self.notification = notification
+//                    }
                     /// Perform notification action
                     Task {
                         await self.notificationAction(notification: notification)
