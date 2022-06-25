@@ -13,6 +13,12 @@ extension KodiConnector {
     ///  - Note: Messages send by ourself are ignored
     func receiveNotification() {
         webSocketTask?.receive { result in
+            /// Call ourself again to receive the next notification
+            /// - Note: `defer` this call to the last action when this function is done
+            defer {
+                self.receiveNotification()
+            }
+            /// Handle the notification
             switch result {
             case .success(let message):
                 if case .string(let text) = message {
@@ -22,23 +28,19 @@ extension KodiConnector {
                           notification.sender != self.kodiConnectorID
                     else {
                         /// Not an interesting notification
-                        /// print(message)
-                        /// Call ourself again to receive the next notification
-                        self.receiveNotification()
+                        logger("Unknown notification")
                         return
                     }
                     logger("Notification: \(notification.method.rawValue)")
-                    //dump(notification)
-                    //print(text)
-                    
+                    /// Make the notification available in the UI
                     Task { @MainActor in
                         self.notification = notification
                     }
-                    
-                    self.notificationAction(notification: notification)
+                    /// Perform notification action
+                    Task {
+                        await self.notificationAction(notification: notification)
+                    }
                 }
-                /// Call ourself again to receive the next notification
-                self.receiveNotification()
             case .failure:
                 /// Failures are handled by the delegate
                 break

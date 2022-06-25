@@ -20,6 +20,13 @@ public final class KodiConnector: ObservableObject {
     var webSocketTask: URLSessionWebSocketTask?
     /// The remote host to make a connection
     var host = HostItem()
+    /// ID of this Kodi Connector instance; used to send  notifications
+    var kodiConnectorID = UUID().uuidString
+    /// Debounce timer for saving the media library to the cache
+    var cacheTimer: Timer?
+    
+    // MARK: Published properties
+    
     /// The Meda Library from the remote host
     @Published public var media: [MediaItem] = []
     /// The currently selected `MediaItem`
@@ -31,10 +38,8 @@ public final class KodiConnector: ObservableObject {
     @Published public var loadingState: loadingStatus = .start
     /// Notifications
     @Published public var notification = NotificationItem()
-    /// ID of this Kodi Connector instance; used to send  notifications
-    var kodiConnectorID = UUID().uuidString
-    /// Debounce timer for saving the media library to the cache
-    var cacheTimer: Timer?
+    /// The state of the player
+    @Published public var playerProperties = Player.Property.Value()
 
     // MARK: Init
     

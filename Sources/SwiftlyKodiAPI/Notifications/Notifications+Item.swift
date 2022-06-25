@@ -19,7 +19,7 @@ import Foundation
 public struct NotificationItem: Decodable {
     
     /// Top level
-    var method: NotificationMethod = .unknown
+    var method: KodiConnector.NotificationMethod = .unknown
     
     /// Params level
     var sender: String = "self"
@@ -32,7 +32,7 @@ public struct NotificationItem: Decodable {
     /// - 1 = audio
     /// - 2 = video
     /// - 3 = picture
-    var playerID: PlayerID = .audio
+    var playerID: Player.ID = .audio
     /// The speed of the player
     var playerSpeed: Int = 0
     
@@ -103,7 +103,7 @@ extension NotificationItem {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         if let rawValue = try container.decodeIfPresent(String.self, forKey: .method),
-           let method = NotificationMethod(rawValue: rawValue) {
+           let method = KodiConnector.NotificationMethod(rawValue: rawValue) {
             self.method = method
         }
 
@@ -134,7 +134,7 @@ extension NotificationItem {
         /// ### Player level
         let player = try? data?.nestedContainer(keyedBy: PlayerKeys.self, forKey: .player)
         if let rawValue = try player?.decodeIfPresent(Int.self, forKey: .playerID),
-           let playerID = PlayerID(rawValue: rawValue) {
+           let playerID = Player.ID(rawValue: rawValue) {
             self.playerID = playerID
         }
         //playerID = try player?.decodeIfPresent(Int.self, forKey: .playerID) ?? playerID

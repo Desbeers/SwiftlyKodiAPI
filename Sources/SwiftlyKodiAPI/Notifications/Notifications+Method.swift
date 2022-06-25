@@ -7,7 +7,7 @@
 
 import Foundation
 
-//extension KodiConnector {
+extension KodiConnector {
     
     /// An enum with the different kinds of Kodi notifications we can receive
     public enum NotificationMethod: String {
@@ -93,4 +93,4 @@ import Foundation
         /// An audio item has been updated
         case audioLibraryOnUpdate = "AudioLibrary.OnUpdate"
     }
-//}
+}

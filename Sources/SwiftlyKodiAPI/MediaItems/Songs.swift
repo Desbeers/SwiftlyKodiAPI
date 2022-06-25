@@ -82,7 +82,7 @@ extension MediaItem {
 extension KodiConnector {
     
     /// The Song properties we ask from Kodi
-    static var VideoFieldsSong = [
+    static var AudioFieldsSong = [
         "title",
         "artist",
         "artistid",
@@ -118,7 +118,7 @@ extension KodiConnector {
         }
         /// The request struct
         struct Params: Encodable {
-            let properties = KodiConnector.VideoFieldsSong
+            let properties = KodiConnector.AudioFieldsSong
             /// Sort order
             var sort = KodiConnector.SortFields()
             /// Filter
@@ -152,7 +152,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = KodiConnector.VideoFieldsSong
+            let properties = KodiConnector.AudioFieldsSong
             /// The ID of the song
             var songid: Int = 0
         }
