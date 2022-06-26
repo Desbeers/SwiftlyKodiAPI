@@ -99,7 +99,8 @@ extension KodiConnector {
         "genre",
         "duration",
         "userrating",
-        "file"
+        "file",
+        "art"
     ]
     
     /// Retrieve all songs from an album (Kodi API)

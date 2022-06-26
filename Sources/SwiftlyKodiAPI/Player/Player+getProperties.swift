@@ -1,5 +1,5 @@
 //
-//  Player+Properties.swift
+//  Player+getProperties.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -8,6 +8,10 @@
 import Foundation
 
 public extension Player {
+    
+    /// Retrieves the values of the given properties
+    /// - Parameter playerID: The ID of the player
+    /// - Returns: The values of the player properties
     static func getProperties(playerID: Player.ID) async -> Player.Property.Value {
         /// Retrieves the values of the given properties (Kodi API)
         struct GetProperties: KodiAPI {
