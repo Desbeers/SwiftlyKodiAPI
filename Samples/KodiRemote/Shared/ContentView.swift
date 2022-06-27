@@ -25,10 +25,19 @@ struct ContentView: View {
                         .font(.subheadline)
                 }
             }
+#if os(tvOS)
+            HStack {
+                MediaButtons.PlayPause()
+                    .padding()
+                MediaButtons.SetShuffle()
+                    .background(kodi.playerProperties.shuffled ? Color.blue : Color.clear)
+                    .foregroundColor(kodi.playerProperties.shuffled ? .white : .none)
 
-            MediaButtons.PlayPause()
-                .padding()
-            //MediaButtons.GetItem()
+                MediaButtons.SetRepeat()
+                    .padding()
+            }
+            .buttonStyle(.plain)
+#endif
             Button(action: {
                 Task {
                     await KodiConnector.shared.reloadHost()
@@ -36,6 +45,20 @@ struct ContentView: View {
             }, label: {
                 Text("Reload library")
             })
+            MediaButtons.Debug()
         }
+        .padding()
+        .toolbar {
+            ToolbarItem {
+                MediaButtons.PlayPause()
+            }
+            ToolbarItem {
+                MediaButtons.SetShuffle()
+            }
+            ToolbarItem {
+                MediaButtons.SetRepeat()
+            }
+        }
+        .animation(.default, value: kodi.currentItem)
     }
 }

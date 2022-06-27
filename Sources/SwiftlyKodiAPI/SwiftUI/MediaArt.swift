@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// SwiftUI Views for Kodi art
 public struct MediaArt {
     /// Just a placeholder
 }

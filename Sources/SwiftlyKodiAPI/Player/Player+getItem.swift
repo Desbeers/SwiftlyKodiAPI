@@ -9,11 +9,11 @@ import Foundation
 
 extension Player {
     
-    static func getItem() async -> MediaItem {
+    static func getItem(playerID: Player.ID) async -> MediaItem {
         /// Fallback
         let item = MediaItem()
         
-        let request = GetItem()
+        let request = GetItem(playerID: playerID)
         do {
             let result = try await KodiConnector.shared.sendRequest(request: request)
             
@@ -28,16 +28,17 @@ extension Player {
         
         /// Retrieves the currently played item (Kodi API)
         struct GetItem: KodiAPI {
+            let playerID: Player.ID
             /// Method
-            var method = KodiConnector.Method.playerGetItem
+            let method = KodiConnector.Method.playerGetItem
             /// The JSON creator
             var parameters: Data {
-                return buildParams(params: GetItem())
+                return buildParams(params: GetItem(playerid: playerID.rawValue))
             }
             /// The request struct
             struct GetItem: Encodable {
                 /// The player ID
-                let playerid = 0
+                let playerid: Int
                 /// The properties we ask for
                 //let properties = PlayerItem().properties
             }
@@ -60,7 +61,7 @@ extension KodiConnector {
     
     /// Get the current item of the player
     func getPlayerItem(playerID: Player.ID) async {
-        let item = await Player.getItem()
+        let item = await Player.getItem(playerID: playerID)
         Task { @MainActor in
             currentItem = item
         }

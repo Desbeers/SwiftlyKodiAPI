@@ -100,9 +100,9 @@ extension KodiConnector {
     
 }
 
-/// The struct for a filter that can be apllied to a ``MediaItem`` array
+/// The struct for a filter that can be applied to a ``MediaItem`` array
 public struct MediaFilter: Hashable, Equatable {
-    /// Public init is needed because this struct is in a package so doesn't give it 'for free'...
+    /// Public init is needed because this struct is in a package so it doesn't give it 'for free'...
     public init(media: MediaType,
                 tvshowID: Int? = nil,
                 movieSetID: Int? = nil,

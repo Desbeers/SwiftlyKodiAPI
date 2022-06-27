@@ -127,7 +127,7 @@ extension KodiConnector {
         /// Set the repeat mode of the player
         case playerSetRepeat = "Player.SetRepeat"
         /// Shuffle/Unshuffle items in the player
-        case playerToggleShuffle = "Player.SetShuffle"
+        case playerSetShuffle = "Player.SetShuffle"
         /// Set the speed of the current playback
         case playerSetSpeed = "Player.SetSpeed"
         /// Set the subtitle displayed by the player

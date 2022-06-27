@@ -69,6 +69,9 @@ public final class KodiConnector: ObservableObject {
             logger("tvOS or iOS comes to the foreground")
             if self.state == .sleeping {
                 Task {
+                    /// Get the properties of the player
+                    await self.getPlayerProperties(playerID: .audio)
+                    await self.getPlayerItem(playerID: .audio)
                     await self.setState(current: .wakeup)
                 }
             }
@@ -84,6 +87,9 @@ public final class KodiConnector: ObservableObject {
             logger("macOS wakes up")
             if self.state == .sleeping {
                 Task {
+                    /// Get the properties of the player
+                    await self.getPlayerProperties(playerID: .audio)
+                    await self.getPlayerItem(playerID: .audio)
                     await self.setState(current: .wakeup)
                 }
             }

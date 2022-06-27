@@ -22,8 +22,8 @@ extension KodiConnector {
             media = libraryItems
         }
         /// Get the properties of the player
-        await getPlayerProperties(playerID: .audio)
-        await getPlayerItem(playerID: .audio)
+        await getPlayerProperties(playerID: .video)
+        await getPlayerItem(playerID: .video)
         logger("Loaded the library")
         loadingState = .done
     }

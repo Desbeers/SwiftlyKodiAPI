@@ -13,6 +13,7 @@ public extension Player {
     /// - Parameter playerID: The ID of the player
     /// - Returns: The values of the player properties
     static func getProperties(playerID: Player.ID) async -> Player.Property.Value {
+        print(playerID)
         /// Retrieves the values of the given properties (Kodi API)
         struct GetProperties: KodiAPI {
             /// The ID of the player
@@ -51,6 +52,7 @@ extension KodiConnector {
     /// Get the properties of the player
     func getPlayerProperties(playerID: Player.ID) async {
         let properties = await Player.getProperties(playerID: playerID)
+        dump(properties)
         Task { @MainActor in
             playerProperties = properties
         }

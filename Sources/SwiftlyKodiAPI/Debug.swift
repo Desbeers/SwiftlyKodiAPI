@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// Debug messages
-public func logger(_ string: String) {
+func logger(_ string: String) {
     print("\(Thread.isMainThread ? "👀 " : "⺓ ")\(string) \(Date())")
 }
 

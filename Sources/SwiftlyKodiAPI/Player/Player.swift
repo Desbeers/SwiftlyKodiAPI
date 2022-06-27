@@ -199,9 +199,11 @@ extension Player.Property.Value {
         canShuffle = try container.decode(Bool.self, forKey: .canShuffle)
         canZoom = try container.decode(Bool.self, forKey: .canZoom)
         currentAudioStream = try container.decode(Player.Audio.Stream.self, forKey: .currentAudioStream)
-        /// - Note: 'currentSubtitle' is optional; only video has it
-        currentSubtitle = try container.decodeIfPresent(Player.Subtitle.self, forKey: .currentSubtitle) ?? currentSubtitle
-        /// - Note: 'currentSubtitle' is optional; only video has it
+        /// - Note: 'currentSubtitle' is optional; only video can have it but it might be empty
+        if let currentSubtitle = try? container.decodeIfPresent(Player.Subtitle.self, forKey: .currentSubtitle) {
+            self.currentSubtitle = currentSubtitle
+        }
+        /// - Note: 'currentVideoStream' is optional; only video has it
         currentVideoStream = try container.decodeIfPresent(Player.Video.Stream.self, forKey: .currentVideoStream) ?? currentVideoStream
         live = try container.decode(Bool.self, forKey: .live)
         partymode = try container.decode(Bool.self, forKey: .partymode)

@@ -19,9 +19,11 @@ struct KodiRemoteApp: App {
                 .task {
                     if kodi.loadingState == .start {
                         await kodi.connectToHost(kodiHost: HostItem(ip: "192.168.11.200", media: .all))
-                        //await kodi.connectToHost(kodiHost: HostItem(ip: "127.0.0.1"))
                     }
                 }
         }
+#if os(macOS)
+        .windowStyle(.hiddenTitleBar)
+#endif
     }
 }

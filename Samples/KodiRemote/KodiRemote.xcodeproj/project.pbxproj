@@ -18,6 +18,7 @@
 		D790FCE028676FF100F0D694 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D790FCB028676F2300F0D694 /* Assets.xcassets */; };
 		D790FCE42867704300F0D694 /* SwiftlyKodiAPI in Frameworks */ = {isa = PBXBuildFile; productRef = D790FCE32867704300F0D694 /* SwiftlyKodiAPI */; };
 		D790FCE62867704900F0D694 /* SwiftlyKodiAPI in Frameworks */ = {isa = PBXBuildFile; productRef = D790FCE52867704900F0D694 /* SwiftlyKodiAPI */; };
+		D790FCE828687F0D00F0D694 /* SwiftlyKodiAPI in Frameworks */ = {isa = PBXBuildFile; productRef = D790FCE728687F0D00F0D694 /* SwiftlyKodiAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +28,7 @@
 		D790FCB528676F2300F0D694 /* KodiRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KodiRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D790FCBB28676F2300F0D694 /* KodiRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KodiRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D790FCBD28676F2300F0D694 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		D790FCD028676F7C00F0D694 /* KodiRemoteTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KodiRemoteTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D790FCD628676F7E00F0D694 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D790FCD928676F7E00F0D694 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D790FCD028676F7C00F0D694 /* KodiRemote (tvOS).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KodiRemote (tvOS).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D790FCE12867702A00F0D694 /* SwiftlyKodiAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftlyKodiAPI; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -38,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D790FCE828687F0D00F0D694 /* SwiftlyKodiAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +66,6 @@
 				D790FCE12867702A00F0D694 /* SwiftlyKodiAPI */,
 				D790FCAD28676F2200F0D694 /* Shared */,
 				D790FCBC28676F2300F0D694 /* macOS */,
-				D790FCD128676F7C00F0D694 /* KodiRemoteTV */,
 				D790FCB628676F2300F0D694 /* Products */,
 				D790FCE22867704300F0D694 /* Frameworks */,
 			);
@@ -87,7 +86,7 @@
 			children = (
 				D790FCB528676F2300F0D694 /* KodiRemote.app */,
 				D790FCBB28676F2300F0D694 /* KodiRemote.app */,
-				D790FCD028676F7C00F0D694 /* KodiRemoteTV.app */,
+				D790FCD028676F7C00F0D694 /* KodiRemote (tvOS).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,23 +97,6 @@
 				D790FCBD28676F2300F0D694 /* macOS.entitlements */,
 			);
 			path = macOS;
-			sourceTree = "<group>";
-		};
-		D790FCD128676F7C00F0D694 /* KodiRemoteTV */ = {
-			isa = PBXGroup;
-			children = (
-				D790FCD628676F7E00F0D694 /* Assets.xcassets */,
-				D790FCD828676F7E00F0D694 /* Preview Content */,
-			);
-			path = KodiRemoteTV;
-			sourceTree = "<group>";
-		};
-		D790FCD828676F7E00F0D694 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				D790FCD928676F7E00F0D694 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		D790FCE22867704300F0D694 /* Frameworks */ = {
@@ -140,6 +122,9 @@
 			dependencies = (
 			);
 			name = "KodiRemote (iOS)";
+			packageProductDependencies = (
+				D790FCE728687F0D00F0D694 /* SwiftlyKodiAPI */,
+			);
 			productName = "KodiRemote (iOS)";
 			productReference = D790FCB528676F2300F0D694 /* KodiRemote.app */;
 			productType = "com.apple.product-type.application";
@@ -164,9 +149,9 @@
 			productReference = D790FCBB28676F2300F0D694 /* KodiRemote.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D790FCCF28676F7C00F0D694 /* KodiRemoteTV */ = {
+		D790FCCF28676F7C00F0D694 /* KodiRemote (tvOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D790FCDB28676F7E00F0D694 /* Build configuration list for PBXNativeTarget "KodiRemoteTV" */;
+			buildConfigurationList = D790FCDB28676F7E00F0D694 /* Build configuration list for PBXNativeTarget "KodiRemote (tvOS)" */;
 			buildPhases = (
 				D790FCCC28676F7C00F0D694 /* Sources */,
 				D790FCCD28676F7C00F0D694 /* Frameworks */,
@@ -176,12 +161,12 @@
 			);
 			dependencies = (
 			);
-			name = KodiRemoteTV;
+			name = "KodiRemote (tvOS)";
 			packageProductDependencies = (
 				D790FCE32867704300F0D694 /* SwiftlyKodiAPI */,
 			);
 			productName = KodiRemoteTV;
-			productReference = D790FCD028676F7C00F0D694 /* KodiRemoteTV.app */;
+			productReference = D790FCD028676F7C00F0D694 /* KodiRemote (tvOS).app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -220,7 +205,7 @@
 			targets = (
 				D790FCB428676F2300F0D694 /* KodiRemote (iOS) */,
 				D790FCBA28676F2300F0D694 /* KodiRemote (macOS) */,
-				D790FCCF28676F7C00F0D694 /* KodiRemoteTV */,
+				D790FCCF28676F7C00F0D694 /* KodiRemote (tvOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -596,7 +581,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D790FCDB28676F7E00F0D694 /* Build configuration list for PBXNativeTarget "KodiRemoteTV" */ = {
+		D790FCDB28676F7E00F0D694 /* Build configuration list for PBXNativeTarget "KodiRemote (tvOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D790FCDC28676F7E00F0D694 /* Debug */,
@@ -613,6 +598,10 @@
 			productName = SwiftlyKodiAPI;
 		};
 		D790FCE52867704900F0D694 /* SwiftlyKodiAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftlyKodiAPI;
+		};
+		D790FCE728687F0D00F0D694 /* SwiftlyKodiAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftlyKodiAPI;
 		};
