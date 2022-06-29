@@ -51,25 +51,6 @@ extension KodiConnector {
 
 extension KodiConnector {
     
-    /// The Music Video properties we ask from Kodi
-    static var VideoFieldsMusicVideo = [
-        "title",
-        "artist",
-        "album",
-        "track",
-        "genre",
-        "file",
-        "year",
-        "premiered",
-        "art",
-        "playcount",
-        "plot",
-        "runtime",
-        "streamdetails",
-        "dateadded",
-        "lastplayed"
-    ]
-    
     /// Retrieve all music videos (Kodi API)
     struct VideoLibraryGetMusicVideos: KodiAPI {
         /// Method
@@ -84,7 +65,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = KodiConnector.VideoFieldsMusicVideo
+            let properties = Video.Fields.musicVideo
             /// The sort order
             var sort = KodiConnector.SortFields()
         }
@@ -97,7 +78,7 @@ extension KodiConnector {
 
     /// Retrieve details about a specific music video (Kodi API)
     struct VideoLibraryGetMusicVideoDetails: KodiAPI {
-        /// Argument: the song we ask for
+        /// The music video we ask for
         var musicVideoID: Int
         /// Method
         var method = Method.videoLibraryGetMusicVideoDetails
@@ -111,13 +92,13 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = KodiConnector.VideoFieldsMusicVideo
+            let properties = Video.Fields.musicVideo
             /// The ID of the music video
             var musicvideoid: Int = 0
         }
         /// The response struct
         struct Response: Decodable {
-            /// The details of the song
+            /// The details of the music video
             var musicvideodetails: KodiResponse
         }
     }

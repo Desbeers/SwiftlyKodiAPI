@@ -71,5 +71,23 @@ extension Video {
             "streamdetails",
             "lastplayed"
         ]
+        /// The properties of  a music video
+        static var musicVideo = [
+            "title",
+            "artist",
+            "album",
+            "track",
+            "genre",
+            "file",
+            "year",
+            "premiered",
+            "art",
+            "playcount",
+            "plot",
+            "runtime",
+            "streamdetails",
+            "dateadded",
+            "lastplayed"
+        ]
     }
 }
