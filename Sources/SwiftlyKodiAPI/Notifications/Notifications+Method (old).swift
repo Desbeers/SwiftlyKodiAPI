@@ -7,9 +7,10 @@
 
 import Foundation
 
-extension Notifications {
+extension KodiConnector {
+    
     /// An enum with the different kinds of Kodi notifications we can receive
-    public enum Method: String, Decodable {
+    public enum NotificationMethod: String {
         
         /// # General notifications
         

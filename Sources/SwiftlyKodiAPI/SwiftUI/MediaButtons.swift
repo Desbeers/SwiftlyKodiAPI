@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// SwiftUI media buttons
-public struct MediaButtons {
+public enum MediaButtons {
     /// Just a placeholder
 }
 

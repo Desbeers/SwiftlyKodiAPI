@@ -9,13 +9,12 @@ import Foundation
 
 extension KodiConnector {
 
-    /// Perform an action afte recieving a notification from the Kodi host
+    /// Perform an action after recieving a notification from the Kodi host
     /// - Parameter notification: The received notification
-    func notificationAction(notification: NotificationItem) async {
+    func notificationAction(notification: Notifications.Item) async {
         switch notification.method {
-        case .playerOnAVStart, .playerOnPropertyChanged, .playerOnSpeedChanged:
-            await getPlayerProperties(playerID: notification.playerID)
-            await getPlayerItem(playerID: notification.playerID)
+        case .playerOnAVStart, .playerOnPropertyChanged, .playerOnSpeedChanged, .playerOnStop:
+            await getPlayerState()
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
             getMediaItemDetails(itemID: notification.itemID, type: notification.media)
         default:

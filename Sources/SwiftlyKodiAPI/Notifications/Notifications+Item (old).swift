@@ -7,50 +7,48 @@
 
 import Foundation
 
-public extension Notifications {
+/// A struct for decoding Kodi notifications
+///
+/// Not all notice details are that interesting.
+/// For example, a notification for `Player.OnPropertyChanged` will just give the changed property,
+/// so that means that every property has to be checked for the one that is changed.
+/// Better just get all the properties with `Player.GetProperties`.
+///
+/// Also, a library item can have it's ID on different placed in the JSON.
+/// The decoder for this struct will check all placed and just put it in the 'root' of the struct.
+public struct NotificationItem: Decodable, Equatable {
     
-    /// A struct for decoding Kodi notifications
-    ///
-    /// Not all notice details are that interesting.
-    /// For example, a notification for `Player.OnPropertyChanged` will just give the changed property,
-    /// so that means that every property has to be checked for the one that is changed.
-    /// Better just get all the properties with `Player.GetProperties`.
-    ///
-    /// Also, a library item can have it's ID on different placed in the JSON.
-    /// The decoder for this struct will check all placed and just put it in the 'root' of the struct.
-    struct Item: Decodable, Equatable {
-        
-        /// Top level
-        public var method: Method = .unknown
-        
-        /// Params level
-        var sender: String = "self"
-        
-        /// Item level
-        var media: MediaType = .none
-        var itemID: Int = 0
-        
-        /// The ID of the player
-        /// - 1 = audio
-        /// - 2 = video
-        /// - 3 = picture
-        var playerID: Player.ID = .audio
-        /// The speed of the player
-        var playerSpeed: Int = 0
-        
-        var playlistID: Int = -1
-        var playlistEnded: Bool = false
-        
-        /// ### Property level
-        /// Partymode
-        /// - Note: Kodi does not notify when you turn partymode on
-        var partymode: Bool = false
-        var shuffled: Bool = false
-        var repeating: Player.Repeat = .off
-    }
+    /// Top level
+    public var method: KodiConnector.NotificationMethod = .unknown
+    
+    /// Params level
+    var sender: String = "self"
+    
+    /// Item level
+    var media: MediaType = .none
+    var itemID: Int = 0
+    
+    /// The ID of the player
+    /// - 1 = audio
+    /// - 2 = video
+    /// - 3 = picture
+    var playerID: Player.ID = .audio
+    /// The speed of the player
+    var playerSpeed: Int = 0
+    
+    var playlistID: Int = -1
+    var playlistEnded: Bool = false
+    
+    /// ### Property level
+    /// Partymode
+    /// - Note: Kodi does not notify when you turn partymode on
+    var partymode: Bool = false
+    var shuffled: Bool = false
+    var repeating: String = "off"
 }
 
-extension Notifications.Item {
+
+extension NotificationItem {
     
     /// # Top-level coding keys
     enum CodingKeys: String, CodingKey {
@@ -98,14 +96,17 @@ extension Notifications.Item {
     }
 }
 
-extension Notifications.Item {
+extension NotificationItem {
     public init(from decoder: Decoder) throws {
         
         /// # Top level
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        /// - Note: 'method' is a String but we convert it to an Enum
-        method = try container.decodeIfPresent(Notifications.Method.self, forKey: .method) ?? method
         
+        if let rawValue = try container.decodeIfPresent(String.self, forKey: .method),
+           let method = KodiConnector.NotificationMethod(rawValue: rawValue) {
+            self.method = method
+        }
+
         /// ## Params level
         let params = try container.nestedContainer(keyedBy: ParamsKeys.self, forKey: .params)
         sender = try params.decodeIfPresent(String.self, forKey: .sender) ?? sender
@@ -115,26 +116,34 @@ extension Notifications.Item {
         itemID = try data?.decodeIfPresent(Int.self, forKey: .itemID) ?? itemID
         playlistID = try data?.decodeIfPresent(Int.self, forKey: .playlistID) ?? playlistID
         playlistEnded = try data?.decodeIfPresent(Bool.self, forKey: .playlistEnded) ?? playlistEnded
-        /// - Note: 'media' is a String but we convert it to an Enum
-        media = try data?.decodeIfPresent(MediaType.self, forKey: .media) ?? media
+
+        if let rawValue = try data?.decodeIfPresent(String.self, forKey: .media),
+           let media = MediaType(rawValue: rawValue) {
+            self.media = media
+        }
         
         /// ### Item level
         let item = try? data?.nestedContainer(keyedBy: ItemKeys.self, forKey: .item)
         itemID = try item?.decodeIfPresent(Int.self, forKey: .itemID) ?? itemID
-        /// - Note: 'media' is a String but we convert it to an Enum
-        media = try item?.decodeIfPresent(MediaType.self, forKey: .media) ?? media
+
+        if let rawValue = try item?.decodeIfPresent(String.self, forKey: .media),
+           let media = MediaType(rawValue: rawValue) {
+            self.media = media
+        }
         
         /// ### Player level
         let player = try? data?.nestedContainer(keyedBy: PlayerKeys.self, forKey: .player)
-        /// - Note: 'playerID' is an Int but we convert it to an Enum
-        playerID = try player?.decodeIfPresent(Player.ID.self, forKey: .playerID) ?? playerID
+        if let rawValue = try player?.decodeIfPresent(Int.self, forKey: .playerID),
+           let playerID = Player.ID(rawValue: rawValue) {
+            self.playerID = playerID
+        }
+        //playerID = try player?.decodeIfPresent(Int.self, forKey: .playerID) ?? playerID
         playerSpeed = try player?.decodeIfPresent(Int.self, forKey: .playerSpeed) ?? playerSpeed
         
         /// ### Property-level
         let property = try? data?.nestedContainer(keyedBy: PropertyKeys.self, forKey: .property)
         partymode = try property?.decodeIfPresent(Bool.self, forKey: .partymode) ?? partymode
         shuffled = try property?.decodeIfPresent(Bool.self, forKey: .shuffled) ?? shuffled
-        /// - Note: 'repeating' is a String but we convert it to an Enum
-        repeating = try property?.decodeIfPresent(Player.Repeat.self, forKey: .repeating) ?? repeating
+        repeating = try property?.decodeIfPresent(String.self, forKey: .repeating) ?? repeating
     }
 }

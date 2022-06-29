@@ -7,8 +7,27 @@
 
 import Foundation
 
-/// A Struct with all Player related items
-public struct Player {
+extension KodiConnector {
+    
+    /// Get the state of the player
+    @MainActor func getPlayerState() async {
+        /// Defaults
+        var properties = Player.Property.Value()
+        var item = MediaItem()
+        /// Check if we have an active player
+        if let playerID = await Player.getActivePlayers() {
+            properties = await Player.getProperties(playerID: playerID)
+            item = await Player.getItem(playerID: playerID)
+        } else {
+            logger("Player is not playing")
+        }
+        playerProperties = properties
+        currentItem = item
+    }
+}
+
+/// An enum with all Player related items
+public enum Player {
     /// Just a placeholder
 }
 

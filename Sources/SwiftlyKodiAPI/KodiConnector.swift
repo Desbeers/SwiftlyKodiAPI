@@ -29,15 +29,12 @@ public final class KodiConnector: ObservableObject {
     
     /// The Meda Library from the remote host
     @Published public var media: [MediaItem] = []
-    /// The currently selected `MediaItem`
-    /// - Note: This package does not do anything with this; it is up to the Application to use it
-    //@Published public var selection: MediaItem?
     /// The general state of the KodiConnector bridge
     @Published var state: State = .none
     /// The loading state of the library
     @Published public var loadingState: loadingStatus = .start
     /// Notifications
-    //@Published public var notification = NotificationItem()
+    public var notification = Notifications.Item()
     /// The state of the player
     @Published public var playerProperties = Player.Property.Value()
     /// The current item that is playing
@@ -69,9 +66,8 @@ public final class KodiConnector: ObservableObject {
             logger("tvOS or iOS comes to the foreground")
             if self.state == .sleeping {
                 Task {
-                    /// Get the properties of the player
-                    await self.getPlayerProperties(playerID: .audio)
-                    await self.getPlayerItem(playerID: .audio)
+                    /// Get the state of the player
+                    await self.getPlayerState()
                     await self.setState(current: .wakeup)
                 }
             }
@@ -87,9 +83,8 @@ public final class KodiConnector: ObservableObject {
             logger("macOS wakes up")
             if self.state == .sleeping {
                 Task {
-                    /// Get the properties of the player
-                    await self.getPlayerProperties(playerID: .audio)
-                    await self.getPlayerItem(playerID: .audio)
+                    /// Get the state of the player
+                    await self.getPlayerState()
                     await self.setState(current: .wakeup)
                 }
             }

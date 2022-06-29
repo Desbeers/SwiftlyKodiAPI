@@ -7,6 +7,12 @@
 
 import Foundation
 
+/// An enum with all Notifications related items
+public enum Notifications {
+    /// Just a placeholder
+}
+
+
 extension KodiConnector {
     
     /// Recieve a notification from the Kodi WebSocket
@@ -24,18 +30,19 @@ extension KodiConnector {
                 if case .string(let text) = message {
                     /// get the notification
                     guard let data = text.data(using: .utf8),
-                          let notification = try? JSONDecoder().decode(NotificationItem.self, from: data),
+                          let notification = try? JSONDecoder().decode(Notifications.Item.self, from: data),
                           notification.sender != self.kodiConnectorID
                     else {
                         /// Not an interesting notification
                         logger("Unknown notification")
                         return
                     }
+                    debugJsonResponse(data: data)
                     logger("Notification: \(notification.method.rawValue)")
                     /// Make the notification available in the UI
-//                    Task { @MainActor in
-//                        self.notification = notification
-//                    }
+                    Task { @MainActor in
+                        self.notification = notification
+                    }
                     /// Perform notification action
                     Task {
                         await self.notificationAction(notification: notification)

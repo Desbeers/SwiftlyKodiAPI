@@ -11,6 +11,7 @@ extension Player {
     
     /// Play/pause the current player
     static func playPause() {
+        print("PLAYPAUSE")
         /// Struct for Play/Pause
         struct PlayPause: KodiAPI {
             let method: KodiConnector.Method = .playerPlayPause

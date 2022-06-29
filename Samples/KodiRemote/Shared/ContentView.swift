@@ -16,6 +16,7 @@ struct ContentView: View {
             Text("Kodi Remote")
                 .padding()
                 .font(.title)
+            Text("Notification: \(kodi.notification.method.rawValue)")
             HStack {
                 MediaArt.NowPlaying()
                 VStack {
@@ -60,5 +61,8 @@ struct ContentView: View {
             }
         }
         .animation(.default, value: kodi.currentItem)
+        .task(id: kodi.notification) {
+            dump(kodi.notification)
+        }
     }
 }
