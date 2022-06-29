@@ -44,14 +44,6 @@ extension KodiConnector {
 // MARK: Kodi API's
 
 extension KodiConnector {
-    
-    /// The Movie Set properties we ask from Kodi
-    static let VideoFieldsMovieSet = [
-        "title",
-        "playcount",
-        "art",
-        "plot"
-    ]
 
     /// Retrieve all movie sets (Kodi API)
     struct VideoLibraryGetMovieSets: KodiAPI {
@@ -67,7 +59,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = VideoFieldsMovieSet
+            let properties = Video.Fields.movieSet
             /// The sort order
             var sort = KodiConnector.SortFields()
         }
@@ -94,7 +86,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = KodiConnector.VideoFieldsMovieSet
+            let properties = Video.Fields.movieSet
             /// The ID of the movie set
             var setid: Int = 0
         }

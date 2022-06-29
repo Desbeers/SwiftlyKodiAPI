@@ -102,7 +102,7 @@ struct KodiResponse: Decodable {
     /// # Video stuff
     
     /// The cast of the item (movie and episode)
-    var cast: [ActorItem] = []
+    var cast: [Video.Cast] = []
 
     /// # Movie stuff
 
@@ -312,7 +312,7 @@ extension KodiResponse {
         
         movieSetTitle = try container.decodeIfPresent(String.self, forKey: .movieSetTitle) ?? ""
 
-        cast = try container.decodeIfPresent([ActorItem].self, forKey: .cast) ?? []
+        cast = try container.decodeIfPresent([Video.Cast].self, forKey: .cast) ?? []
         
         country = try container.decodeIfPresent([String].self, forKey: .country) ?? []
         

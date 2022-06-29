@@ -78,24 +78,7 @@ extension KodiConnector {
 // MARK: Kodi API's
 
 extension KodiConnector {
-    
-    /// The TV show properties we ask from Kodi
-    static var videoFieldsTVShow = [
-        "title",
-        "sorttitle",
-        "file",
-        "plot",
-        "genre",
-        "art",
-        "year",
-        "premiered",
-        "playcount",
-        "dateadded",
-        "studio",
-        "episode",
-        "lastplayed"
-    ]
-    
+
     /// Retrieve all TV shows (Kodi API)
     struct VideoLibraryGetTVShows: KodiAPI {
         /// Method
@@ -110,7 +93,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = videoFieldsTVShow
+            let properties = Video.Fields.tvshow
             /// The sort order
             var sort = KodiConnector.SortFields()
         }
@@ -137,7 +120,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = KodiConnector.videoFieldsTVShow
+            let properties = Video.Fields.tvshow
             /// The ID of the episode
             var tvshowid: Int = 0
         }

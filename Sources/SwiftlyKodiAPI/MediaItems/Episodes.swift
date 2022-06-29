@@ -65,24 +65,6 @@ extension KodiConnector {
 // MARK: Kodi API's
 
 extension KodiConnector {
-    
-    /// The Song properties we ask from Kodi
-    static var videoFieldsEpisode = [
-        "title",
-        "plot",
-        "playcount",
-        "season",
-        "episode",
-        "art",
-        "file",
-        "showtitle",
-        "firstaired",
-        "runtime",
-        "cast",
-        "tvshowid",
-        "streamdetails",
-        "lastplayed"
-    ]
 
     /// Retrieve all episodes of a TV show (Kodi API)
     struct VideoLibraryGetEpisodes: KodiAPI {
@@ -102,7 +84,7 @@ extension KodiConnector {
             /// The TV show ID
             var tvshowid: Int = -1
             /// The properties that we ask from Kodi
-            let properties = videoFieldsEpisode
+            let properties = Video.Fields.episode
         }
         /// The response struct
         struct Response: Decodable {
@@ -127,7 +109,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = KodiConnector.videoFieldsEpisode
+            let properties = Video.Fields.episode
             /// The ID of the episode
             var episodeid: Int = 0
         }

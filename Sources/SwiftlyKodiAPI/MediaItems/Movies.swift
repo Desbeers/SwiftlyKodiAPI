@@ -52,28 +52,6 @@ extension KodiConnector {
 
 extension KodiConnector {
     
-    /// The Movie properties we ask from Kodi
-    static let VideoFieldsMovie = [
-        "title",
-        "sorttitle",
-        "file",
-        "tagline",
-        "plot",
-        "genre",
-        "art",
-        "year",
-        "premiered",
-        "set",
-        "setid",
-        "playcount",
-        "runtime",
-        "cast",
-        "country",
-        "streamdetails",
-        "dateadded",
-        "lastplayed"
-    ]
-    
     /// Retrieve all movies (Kodi API)
     struct VideoLibraryGetMovies: KodiAPI {
         /// Method
@@ -88,7 +66,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = VideoFieldsMovie
+            let properties = Video.Fields.movie
             /// The sort order
             var sort = KodiConnector.SortFields()
         }
@@ -115,7 +93,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = KodiConnector.VideoFieldsMovie
+            let properties = Video.Fields.movie
             /// The ID of the movie
             var movieid: Int = 0
         }

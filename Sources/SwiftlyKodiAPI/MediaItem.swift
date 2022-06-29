@@ -69,7 +69,7 @@ public struct MediaItem: Codable, Identifiable, Equatable, Hashable {
     public var rating: Int = 0
     
     /// The cast of the item
-    public var cast: [ActorItem] = []
+    public var cast: [Video.Cast] = []
     
     /// The items an item contains
     /// - Movie Set: Count of movies in the set
