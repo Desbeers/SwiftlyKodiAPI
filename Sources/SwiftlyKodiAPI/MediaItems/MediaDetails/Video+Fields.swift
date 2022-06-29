@@ -8,7 +8,7 @@
 import Foundation
 
 extension Video {
-    /// Static fields for videos
+    /// Static fields for video
     struct Fields {
         /// The properties of a movie
         static let movie = [

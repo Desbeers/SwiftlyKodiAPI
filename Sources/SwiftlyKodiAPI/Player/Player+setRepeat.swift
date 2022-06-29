@@ -20,7 +20,7 @@ extension Player {
         /// The ID of the player
         let playerID: Player.ID
         /// The method
-        let method: KodiConnector.Method = .playerSetRepeat
+        let method: Methods = .playerSetRepeat
         /// The parameters
         var parameters: Data {
             /// Params for SetRepeat

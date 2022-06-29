@@ -36,7 +36,7 @@ public enum MediaType: String, Equatable, Codable {
     /// Genres
     case genre
     /// The method for updating the media item
-    var setDetailsMethod: KodiConnector.Method {
+    var setDetailsMethod: Methods {
         switch self {
         case .movie:
             return .videoLibrarySetMovieDetails

@@ -53,7 +53,7 @@ extension KodiConnector {
         /// Argument
         var type: MediaType
         /// Method
-        var method = Method.videoLibraryGetGenres
+        var method = Methods.videoLibraryGetGenres
         /// The JSON creator
         var parameters: Data {
             var params = Params()

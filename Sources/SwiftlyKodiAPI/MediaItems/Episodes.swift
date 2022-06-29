@@ -71,7 +71,7 @@ extension KodiConnector {
         /// TV show ID argument
         let tvshowID: Int
         /// Method
-        var method = Method.videoLibraryGetEpisodes
+        var method = Methods.videoLibraryGetEpisodes
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
@@ -98,7 +98,7 @@ extension KodiConnector {
         /// Argument: the episode we ask for
         var episodeID: Int
         /// Method
-        var method = Method.videoLibraryGetEpisodeDetails
+        var method = Methods.videoLibraryGetEpisodeDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
@@ -125,7 +125,7 @@ extension KodiConnector {
         /// Arguments
         var episode: MediaItem
         /// Method
-        var method = Method.videoLibrarySetEpisodeDetails
+        var method = Methods.videoLibrarySetEpisodeDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters

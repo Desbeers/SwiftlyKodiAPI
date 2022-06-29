@@ -46,7 +46,7 @@ extension KodiConnector {
     /// Retrieve all albums (Kodi API)
     struct AudioLibraryGetAlbums: KodiAPI {
         /// Method
-        let method = Method.audioLibraryGetAlbums
+        let method = Methods.audioLibraryGetAlbums
         /// The JSON creator
         var parameters: Data {
             var params = Params()
@@ -55,23 +55,8 @@ extension KodiConnector {
         }
         /// The request struct
         struct Params: Encodable {
-            /// The properties
-            let properties = [
-                "artistid",
-                "artist",
-                "sortartist",
-                "description",
-                "title",
-                "year",
-                "playcount",
-                "totaldiscs",
-                "genre",
-                "art",
-                "compilation",
-                "dateadded",
-                "lastplayed",
-                "albumduration"
-            ]
+            /// The properties that we ask from Kodi
+            let properties = Audio.Fields.album
             /// Sort order
             var sort = KodiConnector.SortFields()
         }

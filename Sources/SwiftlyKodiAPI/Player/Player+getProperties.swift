@@ -25,7 +25,7 @@ extension Player {
         /// The ID of the player
         let playerID: Player.ID
         /// Method
-        let method = KodiConnector.Method.playerGetProperties
+        let method = Methods.playerGetProperties
         /// The JSON creator
         var parameters: Data {
             return buildParams(params: Params(playerid: playerID.rawValue))

@@ -55,7 +55,7 @@ extension KodiConnector {
     /// Retrieve all movies (Kodi API)
     struct VideoLibraryGetMovies: KodiAPI {
         /// Method
-        var method = Method.videoLibraryGetMovies
+        var method = Methods.videoLibraryGetMovies
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
@@ -82,7 +82,7 @@ extension KodiConnector {
         /// Argument: the movie we ask for
         var movieID: Int
         /// Method
-        var method = Method.videoLibraryGetMovieDetails
+        var method = Methods.videoLibraryGetMovieDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
@@ -109,7 +109,7 @@ extension KodiConnector {
         /// Arguments
         var movie: MediaItem
         /// Method
-        var method = Method.videoLibrarySetMovieDetails
+        var method = Methods.videoLibrarySetMovieDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters

@@ -54,7 +54,7 @@ extension KodiConnector {
     /// Retrieve all music videos (Kodi API)
     struct VideoLibraryGetMusicVideos: KodiAPI {
         /// Method
-        var method = Method.videoLibraryGetMusicVideos
+        var method = Methods.videoLibraryGetMusicVideos
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
@@ -81,7 +81,7 @@ extension KodiConnector {
         /// The music video we ask for
         var musicVideoID: Int
         /// Method
-        var method = Method.videoLibraryGetMusicVideoDetails
+        var method = Methods.videoLibraryGetMusicVideoDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
@@ -108,7 +108,7 @@ extension KodiConnector {
         /// Arguments
         var musicVideo: MediaItem
         /// Method
-        var method = Method.videoLibrarySetMusicVideoDetails
+        var method = Methods.videoLibrarySetMusicVideoDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters

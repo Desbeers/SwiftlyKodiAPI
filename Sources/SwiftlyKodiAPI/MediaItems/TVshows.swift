@@ -82,7 +82,7 @@ extension KodiConnector {
     /// Retrieve all TV shows (Kodi API)
     struct VideoLibraryGetTVShows: KodiAPI {
         /// Method
-        var method = Method.videoLibraryGetTVShows
+        var method = Methods.videoLibraryGetTVShows
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
@@ -109,7 +109,7 @@ extension KodiConnector {
         /// Argument: the tv show we ask for
         var tvshowID: Int
         /// Method
-        var method = Method.videoLibraryGetTVShowDetails
+        var method = Methods.videoLibraryGetTVShowDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
@@ -136,7 +136,7 @@ extension KodiConnector {
         /// Arguments
         var tvshow: MediaItem
         /// Method
-        var method = Method.videoLibrarySetTVShowDetails
+        var method = Methods.videoLibrarySetTVShowDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters

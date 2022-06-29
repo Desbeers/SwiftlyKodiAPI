@@ -26,7 +26,7 @@ extension KodiConnector {
     /// Retrieve all artists (Kodi API)
     struct AudioLibraryGetArtists: KodiAPI {
         /// Method
-        var method = Method.audioLibraryGetArtists
+        var method = Methods.audioLibraryGetArtists
         /// The JSON creator
         var parameters: Data {
             var params = Params()
@@ -38,20 +38,47 @@ extension KodiConnector {
             /// Get all artists
             let albumartistsonly = false
             /// The properties that we ask from Kodi
-            let properties = [
-                "art",
-                "description",
-                "sortname",
-                "isalbumartist",
-                "songgenres"
-            ]
+            let properties = Audio.Fields.artist
             /// Sort order
             var sort = KodiConnector.SortFields()
         }
         /// The response struct
         struct Response: Decodable {
-            /// The list or artists
+            /// The list of artists
             let artists: [KodiResponse]
         }
     }
 }
+
+// MARK: Kodi API's
+
+extension AudioLibrary {
+    
+    /// Retrieve all artists
+    struct GetArtists: KodiAPI {
+        /// Method
+        var method = Methods.audioLibraryGetArtists
+        /// The JSON creator
+        var parameters: Data {
+            var params = Params()
+            params.sort = sort(method: .artist, order: .ascending)
+            return buildParams(params: params)
+        }
+        /// The request struct
+        struct Params: Encodable {
+            /// Get all artists
+            let albumartistsonly = false
+            /// The properties that we ask from Kodi
+            let properties = Audio.Fields.artist
+            /// Sort order
+            var sort = KodiConnector.SortFields()
+        }
+        /// The response struct
+        struct Response: Decodable {
+            /// The list of artists
+            let artists: [KodiResponse]
+        }
+    }
+    
+}
+

@@ -81,34 +81,12 @@ extension MediaItem {
 
 extension KodiConnector {
     
-    /// The Song properties we ask from Kodi
-    static var AudioFieldsSong = [
-        "title",
-        "artist",
-        "artistid",
-        "albumid",
-        "comment",
-        "year",
-        "playcount",
-        "track",
-        "disc",
-        "lastplayed",
-        "album",
-        "genreid",
-        "dateadded",
-        "genre",
-        "duration",
-        "userrating",
-        "file",
-        "art"
-    ]
-    
     /// Retrieve all songs from an album (Kodi API)
     struct AudioLibraryGetSongs: KodiAPI {
         /// AlbumID argument
         let albumID: Int
         /// Method
-        let method = Method.audioLibraryGetSongs
+        let method = Methods.audioLibraryGetSongs
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
@@ -119,7 +97,7 @@ extension KodiConnector {
         }
         /// The request struct
         struct Params: Encodable {
-            let properties = KodiConnector.AudioFieldsSong
+            let properties = Audio.Fields.song
             /// Sort order
             var sort = KodiConnector.SortFields()
             /// Filter
@@ -142,7 +120,7 @@ extension KodiConnector {
         /// Argument: the song we ask for
         var songID: Int
         /// Method
-        var method = Method.audioLibraryGetSongDetails
+        var method = Methods.audioLibraryGetSongDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
@@ -153,7 +131,7 @@ extension KodiConnector {
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
-            let properties = KodiConnector.AudioFieldsSong
+            let properties = Audio.Fields.song
             /// The ID of the song
             var songid: Int = 0
         }
@@ -169,7 +147,7 @@ extension KodiConnector {
         /// Arguments
         var song: MediaItem
         /// Method
-        var method = Method.audioLibrarySetSongDetails
+        var method = Methods.audioLibrarySetSongDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters

@@ -7,14 +7,14 @@
 
 import Foundation
 
-extension KodiConnector {
+//extension KodiConnector {
     
     /// Kodi methods used by KodiAPI
     ///
     /// - Note: Most methods are just 'lowerCamelCase' version, however
     ///         some are renamed to reflect their action a bit more clear,
     ///         like 'toggle' instead of 'set'
-    public enum Method: String {
+    public enum Methods: String {
         
         /// # General
         
@@ -36,6 +36,8 @@ extension KodiConnector {
         case applicationSetVolume = "Application.SetVolume"
         
         /// # Audio library
+        
+        //public enum AudioLibrary
         
         /// Cleans the audio library from non-existent items
         case audioLibraryClean = "AudioLibrary.Clean"
@@ -238,4 +240,4 @@ extension KodiConnector {
         case videoLibrarySetTVShowDetails = "VideoLibrary.SetTVShowDetails"
 
     }
-}
+//}

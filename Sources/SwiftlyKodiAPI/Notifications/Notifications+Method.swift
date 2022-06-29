@@ -1,5 +1,5 @@
 //
-//  Notifications+Method.swift
+//  Notifications+Methods.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen

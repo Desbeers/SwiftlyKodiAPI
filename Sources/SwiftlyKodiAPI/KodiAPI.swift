@@ -14,7 +14,7 @@ protocol KodiAPI {
     /// The httpBody for the request
     var parameters: Data { get }
     /// The method to use
-    var method: KodiConnector.Method { get }
+    var method: Methods { get }
 }
 
 extension KodiAPI {

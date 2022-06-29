@@ -30,7 +30,7 @@ extension Player {
     struct GetItem: KodiAPI {
         let playerID: Player.ID
         /// Method
-        let method = KodiConnector.Method.playerGetItem
+        let method = Methods.playerGetItem
         /// The JSON creator
         var parameters: Data {
             return buildParams(params: Params(playerid: playerID.rawValue))

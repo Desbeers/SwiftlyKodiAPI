@@ -20,7 +20,7 @@ extension Player {
     
     /// Returns all active players (Kodi API)
     struct GetActivePlayers: KodiAPI {
-        let method: KodiConnector.Method = .playerGetActivePlayers
+        let method: Methods = .playerGetActivePlayers
         /// The JSON creator
         var parameters: Data {
             /// Params for GetActivePlayers (empty, no need)
