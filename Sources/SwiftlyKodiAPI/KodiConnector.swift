@@ -36,7 +36,7 @@ public final class KodiConnector: ObservableObject {
     /// Notifications
     public var notification = Notifications.Item()
     /// The state of the player
-    @Published public var playerProperties = Player.Property.Value()
+    @Published public var player = Player.Property.Value()
     /// The current item that is playing
     @Published public var currentItem = MediaItem()
     /// The playlist queue

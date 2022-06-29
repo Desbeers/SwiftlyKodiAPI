@@ -135,8 +135,8 @@ public struct MediaItem: Codable, Identifiable, Equatable, Hashable {
     
     /// # Video
     
-    /// The stream details of the item
-    public var streamDetails: StreamDetails = StreamDetails()
+    /// The stream details of the video item
+    public var streamDetails = Video.Streams()
     
     
     /// # Movies

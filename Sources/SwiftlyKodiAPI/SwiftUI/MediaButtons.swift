@@ -20,11 +20,15 @@ public extension MediaButtons {
         public init() {}
         public var body: some View {
             Button(action: {
-                Player.playPause()
+                Task {
+                    if let playerID = await kodi.getPlayerID() {
+                        Player.playPause(playerID: playerID)
+                    }
+                }
             }, label: {
-                //Text(kodi.playerProperties.activePlayer)
-                Image(systemName: kodi.playerProperties.speed == 1 ? "pause.fill" : "play.fill")
+                Image(systemName: kodi.player.speed == 1 ? "pause.fill" : "play.fill")
             })
+            .disabled(kodi.player.kind == .none)
         }
     }
     
@@ -34,10 +38,15 @@ public extension MediaButtons {
         public init() {}
         public var body: some View {
             Button(action: {
-                Player.setShuffle()
+                Task {
+                    if let playerID = await kodi.getPlayerID() {
+                        Player.setShuffle(playerID: playerID)
+                    }
+                }
             }, label: {
                 Image(systemName: "shuffle")
             })
+            .disabled(!kodi.player.canShuffle)
         }
     }
     
@@ -47,17 +56,22 @@ public extension MediaButtons {
         public init() {}
         public var body: some View {
             Button(action: {
-                Player.setRepeat()
+                Task {
+                    if let playerID = await kodi.getPlayerID() {
+                        Player.setRepeat(playerID: playerID)
+                    }
+                }
             }, label: {
                 Image(systemName: repeatingIcon)
             })
+            .disabled(!kodi.player.canRepeat)
         }
         /// The icon to show for 'repeat'
         var repeatingIcon: String {
             /// Standard icon for 'repeat'
             var icon = "repeat"
             /// Overrule if needed
-            if kodi.playerProperties.repeating == .one {
+            if kodi.player.repeating == .one {
                 icon = "repeat.1"
             }
             return icon

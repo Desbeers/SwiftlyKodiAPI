@@ -114,7 +114,7 @@ struct KodiResponse: Decodable {
     var country: [String] = []
     
     /// The stream detals for the item
-    var streamDetails: StreamDetails = StreamDetails()
+    var streamDetails = Video.Streams()
     
     /// # TV show and Episode stuff
     
@@ -316,7 +316,7 @@ extension KodiResponse {
         
         country = try container.decodeIfPresent([String].self, forKey: .country) ?? []
         
-        streamDetails = try container.decodeIfPresent(StreamDetails.self, forKey: .streamDetails) ?? StreamDetails()
+        streamDetails = try container.decodeIfPresent(Video.Streams.self, forKey: .streamDetails) ?? Video.Streams()
         
         /// # TV show stuff
         

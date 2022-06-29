@@ -9,33 +9,38 @@ import Foundation
 
 extension Player {
     
-    /// Toggle the repeat mode of the the current player
-    static func setRepeat() {
-        /// Struct for SetRepeat
-        struct SetRepeat: KodiAPI {
-            let method: KodiConnector.Method = .playerSetRepeat
-            /// The JSON creator
-            var parameters: Data {
-                /// Struct for SetRepeat
-                struct Parameters: Encodable {
-                    /// The player ID
-                    let playerid = 0
-                    /// Cycle trough repeating modus
-                    let repeating = "cycle"
-                    /// Coding keys
-                    /// - Note: Repeat is a reserved word
-                    enum CodingKeys: String, CodingKey {
-                        /// The key
-                        case playerid
-                        /// Repeat is a reserved word
-                        case repeating = "repeat"
-                    }
+    /// Set the repeat mode of the player
+    /// - Parameter playerID: The ID of the player
+    static public func setRepeat(playerID: Player.ID) {
+        KodiConnector.shared.sendMessage(message: SetRepeat(playerID: playerID))
+    }
+    
+    /// Set the repeat mode of the player (Kodi API)
+    struct SetRepeat: KodiAPI {
+        /// The ID of the player
+        let playerID: Player.ID
+        /// The method
+        let method: KodiConnector.Method = .playerSetRepeat
+        /// The parameters
+        var parameters: Data {
+            /// Params for SetRepeat
+            struct Params: Encodable {
+                /// The player ID
+                let playerid: Player.ID
+                /// Cycle trough repeating modus
+                let repeating = "cycle"
+                /// Coding keys
+                /// - Note: Repeat is a reserved word
+                enum CodingKeys: String, CodingKey {
+                    /// The key
+                    case playerid
+                    /// Repeat is a reserved word
+                    case repeating = "repeat"
                 }
-                return buildParams(params: Parameters())
             }
-            /// The response struct
-            struct Response: Decodable { }
+            return buildParams(params: Params(playerid: playerID))
         }
-        KodiConnector.shared.sendMessage(message: SetRepeat())
+        /// The response struct
+        struct Response: Decodable { }
     }
 }

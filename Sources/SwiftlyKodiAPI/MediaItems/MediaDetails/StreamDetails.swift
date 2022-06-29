@@ -8,7 +8,7 @@
 import Foundation
 
 /// A struct for the streaming details of a media item
-public struct StreamDetails: Codable, Identifiable, Hashable {
+public struct aStreamDetails: Codable, Identifiable, Hashable {
     /// Make it identifiable
     public var id = UUID()
     /// The array of audio details
@@ -58,7 +58,7 @@ public struct StreamDetails: Codable, Identifiable, Hashable {
     }
 }
 
-extension StreamDetails {
+extension aStreamDetails {
     
     /// A calculated label for the video details
     public var videoLabel: String {

@@ -10,23 +10,27 @@ import Foundation
 extension Player {
     
     /// Shuffle/Unshuffle items in the player
-    static func setShuffle() {
-        KodiConnector.shared.sendMessage(message: SetShuffle())
+    /// - Parameter playerID: The ID of the player
+    static func setShuffle(playerID: Player.ID) {
+        KodiConnector.shared.sendMessage(message: SetShuffle(playerID: playerID))
     }
     
     /// Shuffle/Unshuffle items in the player (Kodi API)
     struct SetShuffle: KodiAPI {
+        /// The ID of the player
+        let playerID: Player.ID
+        /// The method
         let method: KodiConnector.Method = .playerSetShuffle
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
-            /// Struct for SetShuffle
+            /// Params for SetShuffle
             struct Parameters: Encodable {
                 /// The player ID
-                let playerid = 0
+                let playerid: Player.ID
                 /// Toggle the shuffle
                 let shuffle = "toggle"
             }
-                return buildParams(params: Parameters())
+            return buildParams(params: Parameters(playerid: playerID))
         }
         /// The response struct
         struct Response: Decodable { }

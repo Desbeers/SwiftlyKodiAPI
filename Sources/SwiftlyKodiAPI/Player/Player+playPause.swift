@@ -9,24 +9,28 @@ import Foundation
 
 extension Player {
     
-    /// Play/pause the current player
-    static func playPause() {
-        print("PLAYPAUSE")
-        /// Struct for Play/Pause
-        struct PlayPause: KodiAPI {
-            let method: KodiConnector.Method = .playerPlayPause
-            /// The JSON creator
-            var parameters: Data {
-                /// Struct for Play/Pause
-                struct Parameters: Encodable {
-                    /// The player ID
-                    let playerid = 0
-                }
-                return buildParams(params: Parameters())
+    /// Pauses or unpause playback of the player
+    /// - Parameter playerID: The ID of the player
+    public static func playPause(playerID: Player.ID) {
+        KodiConnector.shared.sendMessage(message: PlayPause(playerID: playerID))
+    }
+    
+    /// Pauses or unpause playback of the player (Kodi API
+    struct PlayPause: KodiAPI {
+        /// The ID of the player
+        let playerID: Player.ID
+        /// The method
+        let method: KodiConnector.Method = .playerPlayPause
+        /// The parameters
+        var parameters: Data {
+            /// Params for PlayPause
+            struct Params: Encodable {
+                /// The player ID
+                let playerid: Player.ID
             }
-            /// The response struct
-            struct Response: Decodable { }
+            return buildParams(params: Params(playerid: playerID))
         }
-        KodiConnector.shared.sendMessage(message: PlayPause())
+        /// The response struct
+        struct Response: Decodable { }
     }
 }

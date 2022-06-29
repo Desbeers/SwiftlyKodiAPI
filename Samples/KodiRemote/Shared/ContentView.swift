@@ -17,6 +17,7 @@ struct ContentView: View {
                 .padding()
                 .font(.title)
             Text("Notification: \(kodi.notification.method.rawValue)")
+            Text("Player: \(kodi.player.kind.rawValue)")
             HStack {
                 MediaArt.NowPlaying()
                 VStack {
@@ -62,7 +63,8 @@ struct ContentView: View {
         }
         .animation(.default, value: kodi.currentItem)
         .task(id: kodi.notification) {
-            dump(kodi.notification)
+            //dump(kodi.notification)
+            //dump(kodi.playerProperties)
         }
     }
 }

@@ -13,7 +13,7 @@ extension KodiConnector {
     /// - Parameter notification: The received notification
     func notificationAction(notification: Notifications.Item) async {
         switch notification.method {
-        case .playerOnAVStart, .playerOnPropertyChanged, .playerOnSpeedChanged, .playerOnStop:
+        case .playerOnAVStart, .playerOnPropertyChanged, .playerOnSpeedChanged, .playerOnStop, .playerOnPause, .playerOnResume:
             await getPlayerState()
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
             getMediaItemDetails(itemID: notification.itemID, type: notification.media)

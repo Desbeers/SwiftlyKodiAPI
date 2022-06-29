@@ -9,19 +9,29 @@ import Foundation
 
 extension KodiConnector {
     
+    /// Get the first active player ID
+    /// - Returns: The active  `playerID`, if any, else `nil`
+    public func getPlayerID() async -> Player.ID? {
+        if let players = await Player.getActivePlayers(),
+           let activePlayer = players.first {
+            return activePlayer
+        }
+        return nil
+    }
+    
     /// Get the state of the player
     @MainActor func getPlayerState() async {
         /// Defaults
         var properties = Player.Property.Value()
         var item = MediaItem()
         /// Check if we have an active player
-        if let playerID = await Player.getActivePlayers() {
+        if let playerID = await getPlayerID() {
             properties = await Player.getProperties(playerID: playerID)
             item = await Player.getItem(playerID: playerID)
         } else {
             logger("Player is not playing")
         }
-        playerProperties = properties
+        player = properties
         currentItem = item
     }
 }
@@ -65,8 +75,8 @@ extension Player {
             public var audioStreams: [Player.Audio.Stream] = []
             public var cachePercentage: Double = 0.0
             public var canChangeSpeed: Bool = false
-            public var canMove: Bool = true
-            public var canRepeat: Bool = true
+            public var canMove: Bool = false
+            public var canRepeat: Bool = false
             public var canRotate: Bool = false
             public var canSeek: Bool = false
             public var canShuffle: Bool = false
@@ -74,6 +84,7 @@ extension Player {
             public var currentAudioStream = Player.Audio.Stream()
             public var currentSubtitle = Player.Subtitle()
             public var currentVideoStream = Player.Video.Stream()
+            public var kind: Player.Kind = .none
             public var live: Bool = false
             public var partymode: Bool = false
             public var percentage: Double = 0.0
@@ -85,9 +96,8 @@ extension Player {
             public var subtitleEnabled: Bool = false
             public var time = Player.Position.Time()
             public var timeTotal = Player.Position.Time()
-            public var type: Player.MediaType = .video
             /// The Codings Keys
-            public enum CodingKeys: String, CodingKey {
+            enum CodingKeys: String, CodingKey {
                 case audioStreams = "audiostreams"
                 case cachePercentage = "cachepercentage"
                 case canChangeSpeed = "canchangespeed"
@@ -100,6 +110,7 @@ extension Player {
                 case currentAudioStream = "currentaudiostream"
                 case currentSubtitle = "currentsubtitle"
                 case currentVideoStream = "currentvideostream"
+                case kind = "type"
                 case live
                 case partymode
                 case percentage
@@ -111,12 +122,11 @@ extension Player {
                 case subtitleEnabled = "subtitleenabled"
                 case time
                 case timeTotal = "totaltime"
-                case type
             }
         }
     }
     
-    /// Position details of the player
+    /// The position details of the player
     public struct Position {
         /// The time details of the player
         public struct Time: Decodable {
@@ -127,7 +137,7 @@ extension Player {
         }
     }
     
-    /// Audio details of the player
+    /// The audio details of the player
     public struct Audio {
         /// Audio stream details of the player
         public struct Stream: Decodable {
@@ -151,7 +161,8 @@ extension Player {
         }
     }
     
-    public enum ID: Int, Decodable {
+    /// The ID of the player
+    public enum ID: Int, Codable {
         /// The audio player
         case audio = 0
         /// The video player
@@ -160,14 +171,19 @@ extension Player {
         case picture = 2
     }
     
+    /// The repeat mode of the player
     public enum Repeat: String, Decodable {
         case off = "off"
         case one = "one"
         case all = "all"
     }
     
-    /// - Note: Kodi calls this 'type' but that is reserved word
-    public enum MediaType: String, Decodable {
+    /// The kind of player
+    ///
+    /// - Note: Kodi calls this 'Type' but that is reserved word
+    public enum Kind: String, Decodable {
+        /// No active player
+        case none
         /// The audio player
         case audio
         /// The video player
@@ -176,6 +192,7 @@ extension Player {
         case picture
     }
     
+    /// The current subtitle of the player (optional)
     public struct Subtitle: Decodable {
         public var index: Int = 0
         public var isDefault: Bool = false
@@ -192,7 +209,9 @@ extension Player {
         }
     }
     
+    /// The video details of the player
     public struct Video {
+        /// Video stream details of the player
         public struct Stream: Decodable {
             public var codec: String = ""
             public var height: Int = 0
@@ -224,23 +243,19 @@ extension Player.Property.Value {
         }
         /// - Note: 'currentVideoStream' is optional; only video has it
         currentVideoStream = try container.decodeIfPresent(Player.Video.Stream.self, forKey: .currentVideoStream) ?? currentVideoStream
+        /// - Note: 'kind' is a String but we convert it to an Enum
+        kind = try container.decode(Player.Kind.self, forKey: .kind)
         live = try container.decode(Bool.self, forKey: .live)
         partymode = try container.decode(Bool.self, forKey: .partymode)
         percentage = try container.decode(Double.self, forKey: .percentage)
         playlistID = try container.decode(Int.self, forKey: .playlistID)
         playlistPosition = try container.decode(Int.self, forKey: .playlistPosition)
-        if let rawValue = try container.decodeIfPresent(String.self, forKey: .repeating),
-           let method = Player.Repeat(rawValue: rawValue) {
-            self.repeating = method
-        }
+        /// - Note: 'repeating' is a String but we convert it to an Enum
+        repeating = try container.decode(Player.Repeat.self, forKey: .repeating)
         shuffled = try container.decode(Bool.self, forKey: .shuffled)
         speed = try container.decode(Int.self, forKey: .speed)
         subtitleEnabled = try container.decode(Bool.self, forKey: .subtitleEnabled)
         time = try container.decode(Player.Position.Time.self, forKey: .time)
         timeTotal = try container.decode(Player.Position.Time.self, forKey: .timeTotal)
-        if let rawValue = try container.decodeIfPresent(String.self, forKey: .type),
-           let media = Player.MediaType(rawValue: rawValue) {
-            self.type = media
-        }
     }
 }

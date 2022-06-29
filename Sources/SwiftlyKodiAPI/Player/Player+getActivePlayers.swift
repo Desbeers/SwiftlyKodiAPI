@@ -8,12 +8,12 @@ import Foundation
 
 extension Player {
     
-    /// Get the active player (if any)
-    static func getActivePlayers() async -> Player.ID? {
+    /// Get the active players (if any)
+    public static func getActivePlayers() async -> [ID]? {
         
-        if let result = try? await KodiConnector.shared.sendRequest(request: GetActivePlayers()),
-           let activePlayer = result.first {
-            return Player.ID(rawValue: activePlayer.playerid)
+        if let result = try? await KodiConnector.shared.sendRequest(request: GetActivePlayers()) {
+            dump(result)
+            return result.map { $0.playerid}
         }
         return nil
     }
@@ -23,16 +23,16 @@ extension Player {
         let method: KodiConnector.Method = .playerGetActivePlayers
         /// The JSON creator
         var parameters: Data {
-            /// Struct for GetActivePlayers (empty, no need)
+            /// Params for GetActivePlayers (empty, no need)
             struct Parameters: Encodable { }
             return buildParams(params: Parameters())
         }
         typealias Response = [ActivePlayer]
         /// The response struct
         struct ActivePlayer: Decodable {
-            var playerid: Int
+            var playerid: ID
             var playertype: String
-            var type: String
+            var type: Kind
         }
     }
 }
