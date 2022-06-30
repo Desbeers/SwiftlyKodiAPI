@@ -7,166 +7,114 @@
 
 import Foundation
 
+// MARK:  getSongs
+
 extension AudioLibrary {
-    static func getSongsTest(
+    
+    /// Get songs from the library
+    ///
+    /// ## Limitations
+    ///
+    ///  Loading songs from the host can be expensive!
+    ///
+    /// ## Examples
+    ///
+    /// *The 10 last played songs:*
+    ///
+    ///  ```swift
+    ///     let lastPlayed = await AudioLibrary.getSongs(
+    ///         sort: List.Sort(method: .lastPlayed, order: .descending),
+    ///         limits: List.Limits(end: 10)
+    ///     )
+    /// ```
+    ///
+    /// *The tracks from a specific album:*
+    ///
+    ///  ```swift
+    ///     let albumTracks = await AudioLibrary.getSongs(
+    ///         filter: List.Filter(albumID: 3),
+    ///         sort: List.Sort(method: .track, order: .ascending)
+    ///     )
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - filter: An optional filter
+    ///   - sort: The sort order
+    ///   - limits: The optional limits of the request
+    /// - Returns: All requested songs from the library
+    public static func getSongs(
         filter: List.Filter? = nil,
         sort: List.Sort = List.Sort(method: .track, order: .ascending),
         limits: List.Limits? = nil
-    ) async {
+    ) async -> [MediaItem] {
         let kodi: KodiConnector = .shared
-        if let request = try? await kodi.sendRequest(request: GetSongsTest(filter: filter, limits: limits, sort: sort)) {
-            logger("Loaded \(request.songs.count) songs from the Kodi host")
-            for song in request.songs {
-                print(song.title)
-            }
+        if let result = try? await kodi.sendRequest(request: GetSongs(filter: filter, limits: limits, sort: sort)) {
+            logger("Loaded \(result.songs.count) songs from the Kodi host")
+            return kodi.setMediaItem(items: result.songs, media: .song)
         }
-        /// Retrieve all songs from an album (Kodi API)
-        struct GetSongsTest: KodiAPI {
-            /// The optional filter
-            var filter: List.Filter?
-            /// The optional limits
-            var limits: List.Limits?
-            /// The sort order
-            var sort: List.Sort
-            /// The method
-            let method = Methods.audioLibraryGetSongs
-            /// The JSON creator
-            var parameters: Data {
-                /// The parameters we ask for
-                var params = Params(sort: sort)
-                /// The optional filter
-                if let filter = filter {
-                    params.filter = filter
-                }
-                /// The optional limit
-                if let limits = limits {
-                    params.limits = limits
-                }
-                return buildParams(params: params)
-            }
-            /// The request struct
-            struct Params: Encodable {
-                let properties = Audio.Fields.song
-                /// The sorting
-                let sort: List.Sort
-                /// Filter
-                var filter: List.Filter?
-                /// Limits
-                var limits: List.Limits?
-            }
-            /// The response struct
-            struct Response: Decodable {
-                /// The list of songs
-                let songs: [KodiResponse]
-            }
-        }
+        /// There are no songs in the library
+        return [MediaItem]()
     }
-}
-
-extension KodiConnector {
-    
-    /// Get all songs from the Kodi host
-    /// - Returns: All songs from the Kodi host
-    func getAllSongs(albums: [MediaItem]) async -> [MediaItem] {
-        /// Start with a fresh list
-        var songItems = [MediaItem]()
-        /// Get songs album by album to avoid a timeout on the JSON request
-        for album in albums {
-            songItems += await getSongsFromAlbum(album: album)
-        }
-        return songItems
-    }
-    
-    /// Get all songs from an album
-    /// - Parameter album: The Album item
-    /// - Returns: All songs from that album
-    ///
-    /// - Note: Don't ask for all songs from the library in one shot; it will timeout
-    func getSongsFromAlbum(album: MediaItem) async -> [MediaItem] {
-        let request = AudioLibrary.GetSongs(albumID: album.albumID)
-        do {
-            let result = try await sendRequest(request: request)
-            return setMediaItem(items: result.songs, media: .song)
-        } catch {
-            /// There are no artists in the library
-            logger("Loading songs failed with error: \(error)")
-            return [MediaItem]()
-        }
-    }
-
-    /// Get the details of a song
-    /// - Parameter songID: The ID of the song item
-    /// - Returns: An updated Media Item
-    func getSongDetails(songID: Int) async -> MediaItem {
-        let request = AudioLibrary.GetSongDetails(songID: songID)
-        do {
-            let result = try await sendRequest(request: request)
-            /// Make a MediaItem from the KodiResonse and return it
-            return setMediaItem(items: [result.songdetails], media: .song).first ?? MediaItem()
-        } catch {
-            logger("Loading song details failed with error: \(error)")
-            return MediaItem()
-        }
-    }
-    
-    /// Update the details of a song
-    /// - Parameter song: The Media Item
-    func setSongDetails(song: MediaItem) async {
-        let message = AudioLibrary.SetSongDetails(song: song)
-        sendMessage(message: message)
-        logger("Details set for '\(song.title)'")
-    }
-}
-
-// MARK: Song item extension
-
-extension MediaItem {
-    
-    /// Add additional fields to the song item
-    /// - Note: This is a *slow* function...
-    mutating func addSongFields() {
-        if let album = KodiConnector.shared.media.first(where: { $0.media == .album && $0.albumID == self.albumID }) {
-            //print("Album: \(album.title), poster: \(album.poster), song: \(self.title)")
-            self.compilation = album.compilation
-            self.poster = album.poster
-        }
-    }
-}
-
-// MARK: Kodi API's
-
-extension AudioLibrary {
     
     /// Retrieve all songs from an album (Kodi API)
     struct GetSongs: KodiAPI {
-        /// AlbumID argument
-        let albumID: Int
+        /// The optional filter
+        var filter: List.Filter?
+        /// The optional limits
+        var limits: List.Limits?
+        /// The sort order
+        var sort: List.Sort
         /// The method
         let method = Methods.audioLibraryGetSongs
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
-            var params = Params()
-            params.filter.albumid = albumID
+            var params = Params(sort: sort)
+            /// The optional filter
+            if let filter = filter {
+                params.filter = filter
+            }
+            /// The optional limit
+            if let limits = limits {
+                params.limits = limits
+            }
             return buildParams(params: params)
         }
         /// The request struct
         struct Params: Encodable {
             let properties = Audio.Fields.song
             /// The sorting
-            let sort = List.Sort(method: .track, order: .ascending)
+            let sort: List.Sort
             /// Filter
-            var filter = Filter()
-        }
-        /// The filter struct
-        struct Filter: Encodable {
-            /// The value for the filter
-            var albumid: Int = 0
+            var filter: List.Filter?
+            /// Limits
+            var limits: List.Limits?
         }
         /// The response struct
         struct Response: Decodable {
             /// The list of songs
             let songs: [KodiResponse]
+        }
+    }
+}
+
+// MARK:  getSongDetails
+
+extension AudioLibrary {
+    
+    /// Get the details of a song
+    /// - Parameter songID: The ID of the song item
+    /// - Returns: An updated Media Item
+    public static func getSongDetails(songID: Int) async -> MediaItem {
+        let kodi: KodiConnector = .shared
+        let request = AudioLibrary.GetSongDetails(songID: songID)
+        do {
+            let result = try await kodi.sendRequest(request: request)
+            /// Make a MediaItem from the KodiResonse and return it
+            return kodi.setMediaItem(items: [result.songdetails], media: .song).first ?? MediaItem()
+        } catch {
+            logger("Loading song details failed with error: \(error)")
+            return MediaItem()
         }
     }
     
@@ -195,6 +143,20 @@ extension AudioLibrary {
             /// The details of the song
             var songdetails: KodiResponse
         }
+    }
+}
+
+// MARK:  setSongDetails
+
+extension AudioLibrary {
+
+    /// Update the details of a song
+    /// - Parameter song: The Media Item
+    public static func setSongDetails(song: MediaItem) async {
+        let kodi: KodiConnector = .shared
+        let message = AudioLibrary.SetSongDetails(song: song)
+        kodi.sendMessage(message: message)
+        logger("Details set for '\(song.title)'")
     }
     
     /// Update the given song with the given details (Kodi API)
@@ -230,4 +192,95 @@ extension AudioLibrary {
         /// The response struct
         struct Response: Decodable { }
     }
+}
+
+extension KodiConnector {
+    
+    /// Get all songs from the Kodi host
+    /// - Returns: All songs from the Kodi host
+    func getAllSongs(albums: [MediaItem]) async -> [MediaItem] {
+        /// Start with a fresh list
+        var songItems = [MediaItem]()
+        /// Get songs album by album to avoid a timeout on the JSON request
+        for album in albums {
+            songItems += await AudioLibrary.getSongs(filter: List.Filter(albumID: album.albumID))
+        }
+        return songItems
+    }
+    
+//    /// Get all songs from an album
+//    /// - Parameter album: The Album item
+//    /// - Returns: All songs from that album
+//    ///
+//    /// - Note: Don't ask for all songs from the library in one shot; it will timeout
+//    func getSongsFromAlbum(album: MediaItem) async -> [MediaItem] {
+//        let request = AudioLibrary.GetSongs(albumID: album.albumID)
+//        do {
+//            let result = try await sendRequest(request: request)
+//            return setMediaItem(items: result.songs, media: .song)
+//        } catch {
+//            /// There are no artists in the library
+//            logger("Loading songs failed with error: \(error)")
+//            return [MediaItem]()
+//        }
+//    }
+}
+
+
+
+// MARK: Song item extension
+
+extension MediaItem {
+    
+    /// Add additional fields to the song item
+    /// - Note: This is a *slow* function...
+    mutating func addSongFields() {
+        if let album = KodiConnector.shared.media.first(where: { $0.media == .album && $0.albumID == self.albumID }) {
+            //print("Album: \(album.title), poster: \(album.poster), song: \(self.title)")
+            self.compilation = album.compilation
+            self.poster = album.poster
+        }
+    }
+}
+
+// MARK: Kodi API's
+
+extension AudioLibrary {
+    
+//    /// Retrieve all songs from an album (Kodi API)
+//    struct GetSongs: KodiAPI {
+//        /// AlbumID argument
+//        let albumID: Int
+//        /// The method
+//        let method = Methods.audioLibraryGetSongs
+//        /// The JSON creator
+//        var parameters: Data {
+//            /// The parameters we ask for
+//            var params = Params()
+//            params.filter.albumid = albumID
+//            return buildParams(params: params)
+//        }
+//        /// The request struct
+//        struct Params: Encodable {
+//            let properties = Audio.Fields.song
+//            /// The sorting
+//            let sort = List.Sort(method: .track, order: .ascending)
+//            /// Filter
+//            var filter = Filter()
+//        }
+//        /// The filter struct
+//        struct Filter: Encodable {
+//            /// The value for the filter
+//            var albumid: Int = 0
+//        }
+//        /// The response struct
+//        struct Response: Decodable {
+//            /// The list of songs
+//            let songs: [KodiResponse]
+//        }
+//    }
+    
+
+    
+
 }

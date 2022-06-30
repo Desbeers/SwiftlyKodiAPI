@@ -9,7 +9,7 @@ import Foundation
 
 extension List {
     /// The filter fields for JSON requests
-    struct Filter: Codable {
+    public struct Filter: Codable {
         /// Filter by album ID
         var albumID: Int?
         /// Filter by artist ID

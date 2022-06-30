@@ -9,7 +9,7 @@ import Foundation
 
 extension List {
     /// The limits fields for JSON requests
-    struct Limits: Codable {
+    public struct Limits: Codable {
         /// The end of the limits
         var end: Int = -1
         /// The order

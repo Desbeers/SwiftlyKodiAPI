@@ -23,7 +23,7 @@ extension KodiConnector {
             case .musicVideo:
                 await setMusicVideoDetails(musicVideo: item)
             case .song:
-                await setSongDetails(song: item)
+                await AudioLibrary.setSongDetails(song: item)
             default:
                 logger("Set details for '\(item.media)' not implemented")
             }
@@ -55,7 +55,7 @@ extension KodiConnector {
                 case .musicVideo:
                     media[index] = await getMusicVideoDetails(musicVideoID: media[index].musicVideoID)
                 case .song:
-                    media[index] = await getSongDetails(songID: media[index].songID)
+                    media[index] = await AudioLibrary.getSongDetails(songID: media[index].songID)
                 default:
                     logger("Update for '\(type)' not implemented")
                 }

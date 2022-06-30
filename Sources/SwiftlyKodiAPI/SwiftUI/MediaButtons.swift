@@ -86,9 +86,14 @@ public extension MediaButtons {
             Button(action: {
                 Task {
                     print("LAST PLAYED")
-                    await AudioLibrary.getSongsTest(
+                    await AudioLibrary.getSongs(
                         sort: List.Sort(method: .lastPlayed, order: .descending),
                         limits: List.Limits(end: 10)
+                    )
+                    print("SPECIFIC ALBUM")
+                    await AudioLibrary.getSongs(
+                        filter: List.Filter(albumID: 3),
+                        sort: List.Sort(method: .track, order: .ascending)
                     )
 //                    await AudioLibrary.getSongsTest(
 //                        filter: List.Filter(albumID: 3),

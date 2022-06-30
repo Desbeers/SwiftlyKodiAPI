@@ -9,13 +9,18 @@ import Foundation
 
 extension List {
     /// The sort fields for JSON requests
-    struct Sort: Codable {
+    public struct Sort: Codable {
+        /// Default sort order
+        public init(method: List.Sort.Method = .title, order: List.Sort.Order = .ascending) {
+            self.method = method
+            self.order = order
+        }
         /// The method
-        var method: Method = .title
+        public var method: Method
         /// The order
-        var order: Order = .ascending
+        public var order: Order
         /// The sort methods
-        enum Method: String, Codable {
+        public enum Method: String, Codable {
             ///  Order by last played
             case lastPlayed = "lastplayed"
             ///  Order by play count
@@ -32,7 +37,7 @@ extension List {
             case label = "label"
         }
         /// The sort orders
-        enum Order: String, Codable {
+        public enum Order: String, Codable {
             /// Order descending
             case descending
             /// Order ascending

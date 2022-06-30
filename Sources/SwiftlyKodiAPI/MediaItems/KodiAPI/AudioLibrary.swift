@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// All audio library related items
+/// All audio library related functions
 public enum AudioLibrary {
     /// Just a placeholder
 }
