@@ -22,6 +22,7 @@ extension AudioLibrary {
         }
         /// Retrieve all artists (Kodi API)
         struct GetArtists: KodiAPI {
+            
             /// The method
             var method = Methods.audioLibraryGetArtists
             /// The parameters
@@ -35,7 +36,7 @@ extension AudioLibrary {
                 /// The artist properties
                 let properties = Audio.Fields.artist
                 /// Sort order
-                let sort = List.Sort(method: .artist, order: .ascending)
+                let sort = List.Sort(method: .artist, order: .descending)
             }
             /// The response struct
             struct Response: Decodable {

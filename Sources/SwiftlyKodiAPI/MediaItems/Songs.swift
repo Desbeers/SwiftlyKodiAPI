@@ -7,6 +7,62 @@
 
 import Foundation
 
+extension AudioLibrary {
+    static func getSongsTest(
+        filter: List.Filter? = nil,
+        sort: List.Sort = List.Sort(method: .track, order: .ascending),
+        limits: List.Limits? = nil
+    ) async {
+        let kodi: KodiConnector = .shared
+        if let request = try? await kodi.sendRequest(request: GetSongsTest(filter: filter, limits: limits, sort: sort)) {
+            logger("Loaded \(request.songs.count) songs from the Kodi host")
+            for song in request.songs {
+                print(song.title)
+            }
+        }
+        /// Retrieve all songs from an album (Kodi API)
+        struct GetSongsTest: KodiAPI {
+            /// The optional filter
+            var filter: List.Filter?
+            /// The optional limits
+            var limits: List.Limits?
+            /// The sort order
+            var sort: List.Sort
+            /// The method
+            let method = Methods.audioLibraryGetSongs
+            /// The JSON creator
+            var parameters: Data {
+                /// The parameters we ask for
+                var params = Params(sort: sort)
+                /// The optional filter
+                if let filter = filter {
+                    params.filter = filter
+                }
+                /// The optional limit
+                if let limits = limits {
+                    params.limits = limits
+                }
+                return buildParams(params: params)
+            }
+            /// The request struct
+            struct Params: Encodable {
+                let properties = Audio.Fields.song
+                /// The sorting
+                let sort: List.Sort
+                /// Filter
+                var filter: List.Filter?
+                /// Limits
+                var limits: List.Limits?
+            }
+            /// The response struct
+            struct Response: Decodable {
+                /// The list of songs
+                let songs: [KodiResponse]
+            }
+        }
+    }
+}
+
 extension KodiConnector {
     
     /// Get all songs from the Kodi host
@@ -101,11 +157,11 @@ extension AudioLibrary {
             let sort = List.Sort(method: .track, order: .ascending)
             /// Filter
             var filter = Filter()
-            /// The filter struct
-            struct Filter: Encodable {
-                /// The value for the filter
-                var albumid: Int = 0
-            }
+        }
+        /// The filter struct
+        struct Filter: Encodable {
+            /// The value for the filter
+            var albumid: Int = 0
         }
         /// The response struct
         struct Response: Decodable {

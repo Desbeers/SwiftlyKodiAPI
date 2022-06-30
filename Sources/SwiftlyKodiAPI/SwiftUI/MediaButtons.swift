@@ -85,7 +85,17 @@ public extension MediaButtons {
         public var body: some View {
             Button(action: {
                 Task {
-                    await Player.getActivePlayers()
+                    print("LAST PLAYED")
+                    await AudioLibrary.getSongsTest(
+                        sort: List.Sort(method: .lastPlayed, order: .descending),
+                        limits: List.Limits(end: 10)
+                    )
+//                    await AudioLibrary.getSongsTest(
+//                        filter: List.Filter(albumID: 3),
+//                        sort: List.Sort(method: .title, order: .ascending),
+//                        limits: List.Limits(end: 10)
+//                    )
+//                    await AudioLibrary.getSongsTest(filter: List.Filter(artistID: 10))
                 }
             }, label: {
                 Text("Debug")

@@ -27,6 +27,7 @@ extension KodiAPI {
                             params: params.self,
                             id: KodiConnector.shared.kodiConnectorID)
         do {
+            //dump(parameters)
             return try JSONEncoder().encode(parameters)
         } catch {
             return Data()
