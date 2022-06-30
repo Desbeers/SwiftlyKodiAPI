@@ -14,7 +14,7 @@ import Foundation
     /// - Note: Most methods are just 'lowerCamelCase' version, however
     ///         some are renamed to reflect their action a bit more clear,
     ///         like 'toggle' instead of 'set'
-    public enum Methods: String {
+    enum Methods: String {
         
         /// # General
         
@@ -36,8 +36,6 @@ import Foundation
         case applicationSetVolume = "Application.SetVolume"
         
         /// # Audio library
-        
-        //public enum AudioLibrary
         
         /// Cleans the audio library from non-existent items
         case audioLibraryClean = "AudioLibrary.Clean"

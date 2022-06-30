@@ -7,20 +7,42 @@
 
 import Foundation
 
-extension KodiConnector {
+// MARK: Kodi API functions
+
+extension AudioLibrary {
 
     /// Get all albums from the Kodi host
     /// - Returns: All albums from the Kodi host
-    func getAlbums() async -> [MediaItem] {
-            let request = AudioLibraryGetAlbums()
-            do {
-                let result = try await sendRequest(request: request)
-                return setMediaItem(items: result.albums, media: .album)
-            } catch {
-                /// There are no artists in the library
-                logger("Loading albums failed with error: \(error)")
-                return [MediaItem]()
+    static func getAlbums() async -> [MediaItem] {
+        let kodi: KodiConnector = .shared
+        if let request = try? await kodi.sendRequest(request: GetAlbums()) {
+            logger("Loaded \(request.albums.count) albums from the Kodi host")
+            return kodi.setMediaItem(items: request.albums, media: .album)
+        } else {
+            /// There are no albums in the library
+            return [MediaItem]()
+        }
+        /// Retrieve all albums (Kodi API)
+        struct GetAlbums: KodiAPI {
+            /// The method
+            let method = Methods.audioLibraryGetAlbums
+            /// The parameters
+            var parameters: Data {
+                buildParams(params: Params())
             }
+            /// The request struct
+            struct Params: Encodable {
+                /// The album properties
+                let properties = Audio.Fields.album
+                /// Sort order
+                let sort = List.Sort(method: .artist, order: .ascending)
+            }
+            /// The response struct
+            struct Response: Decodable {
+                /// The list of albums
+                let albums: [KodiResponse]
+            }
+        }
     }
 }
 
@@ -35,35 +57,6 @@ extension MediaItem {
             if let artist = KodiConnector.shared.media.first(where: { $0.media == .artist && $0.artistID == self.artistIDs.first }) {
                 self.fanart = artist.fanart
             }
-        }
-    }
-}
-
-// MARK: Kodi API's
-
-extension KodiConnector {
-    
-    /// Retrieve all albums (Kodi API)
-    struct AudioLibraryGetAlbums: KodiAPI {
-        /// Method
-        let method = Methods.audioLibraryGetAlbums
-        /// The JSON creator
-        var parameters: Data {
-            var params = Params()
-            params.sort = sort(method: .artist, order: .ascending)
-            return buildParams(params: params)
-        }
-        /// The request struct
-        struct Params: Encodable {
-            /// The properties that we ask from Kodi
-            let properties = Audio.Fields.album
-            /// Sort order
-            var sort = KodiConnector.SortFields()
-        }
-        /// The response struct
-        struct Response: Decodable {
-            /// The list of albums
-            let albums: [KodiResponse]
         }
     }
 }

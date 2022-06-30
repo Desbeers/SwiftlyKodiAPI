@@ -41,7 +41,7 @@ public final class KodiConnector: ObservableObject {
     @Published public var currentItem = MediaItem()
     /// The playlist queue
     @Published public var queue: [MediaItem] = []
-
+    
     // MARK: Init
     
     /// Private init to make sure we have only one instance

@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  
+//  Functions.swift
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 06/05/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation

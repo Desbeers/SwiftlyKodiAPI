@@ -37,7 +37,7 @@ extension KodiConnector {
                         logger("Unknown notification")
                         return
                     }
-                    debugJsonResponse(data: data)
+                    //debugJsonResponse(data: data)
                     logger("Notification: \(notification.method.rawValue)")
                     /// Make the notification available in the UI
                     Task { @MainActor in

@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// SwiftUI Views for Kodi art
-public struct MediaArt {
+public enum MediaArt {
     /// Just a placeholder
 }
 

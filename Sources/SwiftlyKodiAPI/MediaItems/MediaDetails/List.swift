@@ -1,5 +1,5 @@
 //
-//  AudioLibrary.swift
+//  List.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// All audio library related items
-public enum AudioLibrary {
+/// All List related items
+public enum List {
     /// Just a placeholder
 }

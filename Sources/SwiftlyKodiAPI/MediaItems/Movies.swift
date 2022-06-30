@@ -54,23 +54,20 @@ extension KodiConnector {
     
     /// Retrieve all movies (Kodi API)
     struct VideoLibraryGetMovies: KodiAPI {
-        /// Method
+        /// The method
         var method = Methods.videoLibraryGetMovies
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
-            /// The parameters we ask for
-            var params = Params()
-            params.sort = sort(method: .title, order: .ascending)
-            return buildParams(params: params)
+            buildParams(params: Params())
         }
-        /// The request struct
+        /// The request
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.movie
-            /// The sort order
-            var sort = KodiConnector.SortFields()
+            /// The sorting
+            let sort = List.Sort(method: .title, order: .descending)
         }
-        /// The response struct
+        /// The response
         struct Response: Decodable {
             /// The list of movies
             let movies: [KodiResponse]

@@ -27,7 +27,7 @@ extension KodiConnector {
     ///
     /// - Note: Don't ask for all songs from the library in one shot; it will timeout
     func getSongsFromAlbum(album: MediaItem) async -> [MediaItem] {
-        let request = AudioLibraryGetSongs(albumID: album.albumID)
+        let request = AudioLibrary.GetSongs(albumID: album.albumID)
         do {
             let result = try await sendRequest(request: request)
             return setMediaItem(items: result.songs, media: .song)
@@ -42,7 +42,7 @@ extension KodiConnector {
     /// - Parameter songID: The ID of the song item
     /// - Returns: An updated Media Item
     func getSongDetails(songID: Int) async -> MediaItem {
-        let request = AudioLibraryGetSongDetails(songID: songID)
+        let request = AudioLibrary.GetSongDetails(songID: songID)
         do {
             let result = try await sendRequest(request: request)
             /// Make a MediaItem from the KodiResonse and return it
@@ -56,7 +56,7 @@ extension KodiConnector {
     /// Update the details of a song
     /// - Parameter song: The Media Item
     func setSongDetails(song: MediaItem) async {
-        let message = AudioLibrarySetSongDetails(song: song)
+        let message = AudioLibrary.SetSongDetails(song: song)
         sendMessage(message: message)
         logger("Details set for '\(song.title)'")
     }
@@ -79,27 +79,26 @@ extension MediaItem {
 
 // MARK: Kodi API's
 
-extension KodiConnector {
+extension AudioLibrary {
     
     /// Retrieve all songs from an album (Kodi API)
-    struct AudioLibraryGetSongs: KodiAPI {
+    struct GetSongs: KodiAPI {
         /// AlbumID argument
         let albumID: Int
-        /// Method
+        /// The method
         let method = Methods.audioLibraryGetSongs
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
             var params = Params()
             params.filter.albumid = albumID
-            params.sort = sort(method: .track, order: .ascending)
             return buildParams(params: params)
         }
         /// The request struct
         struct Params: Encodable {
             let properties = Audio.Fields.song
-            /// Sort order
-            var sort = KodiConnector.SortFields()
+            /// The sorting
+            let sort = List.Sort(method: .track, order: .ascending)
             /// Filter
             var filter = Filter()
             /// The filter struct
@@ -116,7 +115,7 @@ extension KodiConnector {
     }
     
     /// Retrieve details about a specific song (Kodi API)
-    struct AudioLibraryGetSongDetails: KodiAPI {
+    struct GetSongDetails: KodiAPI {
         /// Argument: the song we ask for
         var songID: Int
         /// Method
@@ -143,7 +142,7 @@ extension KodiConnector {
     }
     
     /// Update the given song with the given details (Kodi API)
-    struct AudioLibrarySetSongDetails: KodiAPI {
+    struct SetSongDetails: KodiAPI {
         /// Arguments
         var song: MediaItem
         /// Method

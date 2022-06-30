@@ -7,78 +7,41 @@
 
 import Foundation
 
-extension KodiConnector {
+extension AudioLibrary {
 
     /// Get all artists from the Kodi host
     /// - Returns: All artists from the Kodi host
-    func getArtists() async -> [MediaItem] {
-            let request = AudioLibraryGetArtists()
-            do {
-                let result = try await sendRequest(request: request)
-                return setMediaItem(items: result.artists, media: .artist)
-            } catch {
-                /// There are no artists in the library
-                logger("Loading artists failed with error: \(error)")
-                return [MediaItem]()
+    static func getArtists() async -> [MediaItem] {
+        let kodi: KodiConnector = .shared
+        if let request = try? await kodi.sendRequest(request: GetArtists()) {
+            logger("Loaded \(request.artists.count) artists from the Kodi host")
+            return kodi.setMediaItem(items: request.artists, media: .artist)
+        } else {
+            /// There are no artists in the library
+            return [MediaItem]()
+        }
+        /// Retrieve all artists (Kodi API)
+        struct GetArtists: KodiAPI {
+            /// The method
+            var method = Methods.audioLibraryGetArtists
+            /// The parameters
+            var parameters: Data {
+                buildParams(params: Params())
             }
-    }
-    
-    /// Retrieve all artists (Kodi API)
-    struct AudioLibraryGetArtists: KodiAPI {
-        /// Method
-        var method = Methods.audioLibraryGetArtists
-        /// The JSON creator
-        var parameters: Data {
-            var params = Params()
-            params.sort = sort(method: .artist, order: .ascending)
-            return buildParams(params: params)
-        }
-        /// The request struct
-        struct Params: Encodable {
-            /// Get all artists
-            let albumartistsonly = false
-            /// The properties that we ask from Kodi
-            let properties = Audio.Fields.artist
-            /// Sort order
-            var sort = KodiConnector.SortFields()
-        }
-        /// The response struct
-        struct Response: Decodable {
-            /// The list of artists
-            let artists: [KodiResponse]
+            /// The request struct
+            struct Params: Encodable {
+                /// Get all artists
+                let albumartistsonly = false
+                /// The artist properties
+                let properties = Audio.Fields.artist
+                /// Sort order
+                let sort = List.Sort(method: .artist, order: .ascending)
+            }
+            /// The response struct
+            struct Response: Decodable {
+                /// The list of artists
+                let artists: [KodiResponse]
+            }
         }
     }
 }
-
-// MARK: Kodi API's
-
-extension AudioLibrary {
-    
-    /// Retrieve all artists
-    struct GetArtists: KodiAPI {
-        /// Method
-        var method = Methods.audioLibraryGetArtists
-        /// The JSON creator
-        var parameters: Data {
-            var params = Params()
-            params.sort = sort(method: .artist, order: .ascending)
-            return buildParams(params: params)
-        }
-        /// The request struct
-        struct Params: Encodable {
-            /// Get all artists
-            let albumartistsonly = false
-            /// The properties that we ask from Kodi
-            let properties = Audio.Fields.artist
-            /// Sort order
-            var sort = KodiConnector.SortFields()
-        }
-        /// The response struct
-        struct Response: Decodable {
-            /// The list of artists
-            let artists: [KodiResponse]
-        }
-    }
-    
-}
-

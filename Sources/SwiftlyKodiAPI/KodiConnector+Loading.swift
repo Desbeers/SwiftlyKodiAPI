@@ -43,7 +43,7 @@ extension KodiConnector {
         
         /// Always load Artist
         loadingState = .artists
-        await items += getArtists()
+        await items += AudioLibrary.getArtists()
         
         
         /// Load videos
@@ -68,7 +68,7 @@ extension KodiConnector {
         /// Load audio
         if host.media == .audio || host.media == .all {
             loadingState = .albums
-            let albums = await getAlbums()
+            let albums = await AudioLibrary.getAlbums()
             items += albums
             
             loadingState = .songs
