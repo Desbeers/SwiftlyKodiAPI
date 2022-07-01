@@ -7,53 +7,24 @@
 
 import Foundation
 
-extension KodiConnector {
+// MARK:  getMovies
 
+extension VideoLibrary {
+    
     /// Get all the movies from the Kodi host
     /// - Returns: All movies from the Kodi host
-    func getMovies() async -> [MediaItem] {
-        let request = VideoLibraryGetMovies()
-        do {
-            let result = try await sendRequest(request: request)
-            /// Return the movies
-            return setMediaItem(items: result.movies, media: .movie)
-        } catch {
-            /// There are no movies in the library
-            logger("Loading movies failed with error: \(error)")
-            return [MediaItem]()
+    public static func getMovies() async -> [MediaItem] {
+        let kodi: KodiConnector = .shared
+        if let result = try? await kodi.sendRequest(request: GetMovies()) {
+            logger("Loaded \(result.movies.count) movies from the Kodi host")
+            return kodi.setMediaItem(items: result.movies, media: .movie)
         }
+        /// There are no movies in the library
+        return [MediaItem]()
     }
-    
-    /// Get the details of a movie item
-    /// - Parameter movieID: The ID of the movie item
-    /// - Returns: An updated Media Item
-    func getMovieDetails(movieID: Int) async -> MediaItem {
-        let request = VideoLibraryGetMovieDetails(movieID: movieID)
-        do {
-            let result = try await sendRequest(request: request)
-            /// Make a MediaItem from the KodiResponse and return it
-            return setMediaItem(items: [result.moviedetails], media: .movie).first ?? MediaItem()
-        } catch {
-            logger("Loading movie details failed with error: \(error)")
-            return MediaItem()
-        }
-    }
-    
-    /// Set the details of a movie item
-    /// - Parameter movie: The Media Item
-    func setMovieDetails(movie: MediaItem) async {
-        let message = VideoLibrarySetMovieDetails(movie: movie)
-        sendMessage(message: message)
-        logger("Details set for '\(movie.title)'")
-    }
-}
-
-// MARK: Kodi API's
-
-extension KodiConnector {
     
     /// Retrieve all movies (Kodi API)
-    struct VideoLibraryGetMovies: KodiAPI {
+    struct GetMovies: KodiAPI {
         /// The method
         var method = Methods.videoLibraryGetMovies
         /// The parameters
@@ -73,7 +44,29 @@ extension KodiConnector {
             let movies: [KodiResponse]
         }
     }
+    
+}
 
+// MARK:  getMovieDetails
+
+extension VideoLibrary {
+    
+    /// Get the details of a movie item
+    /// - Parameter movieID: The ID of the movie item
+    /// - Returns: An updated Media Item
+    public static func getMovieDetails(movieID: Int) async -> MediaItem {
+        let kodi: KodiConnector = .shared
+        let request = VideoLibraryGetMovieDetails(movieID: movieID)
+        do {
+            let result = try await kodi.sendRequest(request: request)
+            /// Make a MediaItem from the KodiResponse and return it
+            return kodi.setMediaItem(items: [result.moviedetails], media: .movie).first ?? MediaItem()
+        } catch {
+            logger("Loading movie details failed with error: \(error)")
+            return MediaItem()
+        }
+    }
+    
     /// Retrieve details about a specific movie (Kodi API)
     struct VideoLibraryGetMovieDetails: KodiAPI {
         /// Argument: the movie we ask for
@@ -99,6 +92,20 @@ extension KodiConnector {
             /// The details of the song
             var moviedetails: KodiResponse
         }
+    }
+}
+
+// MARK:  setMovieDetails
+
+extension VideoLibrary {
+    
+    /// Set the details of a movie item
+    /// - Parameter movie: The movie Media Item
+    public static func setMovieDetails(movie: MediaItem) async {
+        let kodi: KodiConnector = .shared
+        let message = VideoLibrarySetMovieDetails(movie: movie)
+        kodi.sendMessage(message: message)
+        logger("Details set for '\(movie.title)'")
     }
     
     /// Update the given movie with the given details (Kodi API)
@@ -134,4 +141,5 @@ extension KodiConnector {
         /// The response struct
         struct Response: Decodable { }
     }
+    
 }

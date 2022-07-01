@@ -70,38 +70,4 @@ extension KodiConnector {
         /// Unsuccesfull response
         case responseUnsuccessful
     }
-    
-    /// The sort fields for JSON requests
-    struct SortFields: Encodable {
-        /// The method
-        var method: String = ""
-        /// The order
-        var order: String = ""
-    }
-
-    /// The sort methods for JSON requests
-    enum SortMethod: String {
-        ///  Order by last played
-        case lastPlayed = "lastplayed"
-        ///  Order by play count
-        case playcount = "playcount"
-        ///  Order by year
-        case year = "year"
-        ///  Order by track
-        case track = "track"
-        ///  Order by artist
-        case artist = "artist"
-        ///  Order by title
-        case title = "title"
-        ///  Order by label
-        case label = "label"
-    }
-    
-    /// The sort order for JSON requests
-    enum SortOrder: String {
-        /// Order descending
-        case descending
-        /// Order ascending
-        case ascending
-    }
 }

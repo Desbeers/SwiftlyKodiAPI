@@ -58,14 +58,13 @@ extension KodiConnector {
         var parameters: Data {
             var params = Params()
             params.type = type.rawValue
-            params.sort = sort(method: .label, order: .ascending)
             return buildParams(params: params)
         }
         /// The request struct
         struct Params: Encodable {
             var type: String = ""
             /// Sort order
-            var sort = KodiConnector.SortFields()
+            let sort = List.Sort(method: .label, order: .ascending)
         }
         /// The response struct
         struct Response: Decodable {

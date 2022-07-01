@@ -51,18 +51,19 @@ extension KodiConnector {
             
             loadingState = .movies
             /// - Note: Always load Movies before Movie Sets, the latter is using Movie info
-            await items += getMovies()
-            await items += getMovieSets()
+            await items += VideoLibrary.getMovies()
+            await items += VideoLibrary.getMovieSets()
             
             loadingState = .tvshows
-            let tvshows = await getTVShows()
+            let tvshows = await VideoLibrary.getTVShows()
             /// - Note: The ``getAllEpisodes`` needs the list of TV shows
-            await items += getAllEpisodes(tvshows: tvshows)
+            //await items += getAllEpisodes(tvshows: tvshows)
+            await items += VideoLibrary.getEpisodes()
             /// Now we can store the TV shows in the `items` array
             items += tvshows
             
             loadingState = .musicVideos
-            await items += getMusicVideos()
+            await items += VideoLibrary.getMusicVideos()
         }
         
         /// Load audio

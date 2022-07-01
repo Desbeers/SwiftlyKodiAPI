@@ -7,80 +7,24 @@
 
 import Foundation
 
-extension KodiConnector {
+// MARK:  getTVShows
 
-    /// Get all the TV shows from the Kodi host
-    /// - Returns: All TV shows from the Kodi host
-    func getTVShows() async -> [MediaItem] {
-        let request = VideoLibraryGetTVShows()
-        do {
-            let result = try await sendRequest(request: request)
-            return setMediaItem(items: result.tvshows, media: .tvshow)
-        } catch {
-            /// There are no TV shows in the library
-            logger("Loading TV shows failed with error: \(error)")
-            return [MediaItem]()
+extension VideoLibrary {
+    
+    /// Get all the tv shows from the Kodi host
+    /// - Returns: All movies from the Kodi host
+    public static func getTVShows() async -> [MediaItem] {
+        let kodi: KodiConnector = .shared
+        if let result = try? await kodi.sendRequest(request: GetTVShows()) {
+            logger("Loaded \(result.tvshows.count) TV shows from the Kodi host")
+            return kodi.setMediaItem(items: result.tvshows, media: .tvshow)
         }
+        /// There are no movies in the library
+        return [MediaItem]()
     }
     
-    /// Get the details of a tv show
-    /// - Parameter tvshowID: The ID of the tv show item
-    /// - Returns: An updated Media Item
-    func getTVShowDetails(tvshowID: Int) async -> MediaItem {
-        let request = VideoLibraryGetTVShowDetails(tvshowID: tvshowID)
-        do {
-            let result = try await sendRequest(request: request)
-            /// Make a MediaItem from the KodiResonse and return it
-            return setMediaItem(items: [result.tvshowdetails], media: .tvshow).first ?? MediaItem()
-        } catch {
-            logger("Loading tv show details failed with error: \(error)")
-            return MediaItem()
-        }
-    }
-    
-    /// Update the details of a tv show
-    ///
-    /// This method does not really work as expected,
-    /// all episodes have to be checked and changed if needed
-    /// and then the TV show must be reloaded.
-    ///
-    /// Kodi does not send a notification if a TV show is changed
-    ///
-    /// - Parameter tvshow: The Media Item
-    func setTVShowDetails(tvshow: MediaItem) async {
-//        /// Get all episodes that don't match with the TV show playcount and match it
-//        var episodes = media.filter {
-//            $0.media == .episode &&
-//            $0.tvshowID == tvshow.tvshowID &&
-//            $0.playcount != tvshow.playcount
-//        }
-//        for (index, _) in episodes.enumerated() {
-//            episodes[index].togglePlayedState()
-//        }
-        
-        let message = VideoLibrarySetTVShowDetails(tvshow: tvshow)
-        Task {
-            do {
-                let _ = try await sendRequest(request: message)
-                /// Update the TV show item
-                getMediaItemDetails(itemID: tvshow.tvshowID, type: .tvshow)
-                logger("Details set for '\(tvshow.title)'")
-            } catch {
-                logger("Setting TV show details failed with error: \(error)")
-            }
-        }
-        //sendMessage(message: message)
-        //dump(await getTVShowDetails(tvshowID: tvshow.tvshowID))
-        //logger("Details set for '\(tvshow.title)'")
-    }
-}
-
-// MARK: Kodi API's
-
-extension KodiConnector {
-
     /// Retrieve all TV shows (Kodi API)
-    struct VideoLibraryGetTVShows: KodiAPI {
+    struct GetTVShows: KodiAPI {
         /// The method
         var method = Methods.videoLibraryGetTVShows
         /// The parameters
@@ -100,9 +44,30 @@ extension KodiConnector {
             let tvshows: [KodiResponse]
         }
     }
+}
+
+// MARK:  getTVShowDetails
+
+extension VideoLibrary {
+    
+    /// Get the details of a tv show
+    /// - Parameter tvshowID: The ID of the tv show item
+    /// - Returns: An updated Media Item
+    public static func getTVShowDetails(tvshowID: Int) async -> MediaItem {
+        let kodi: KodiConnector = .shared
+        let request = GetTVShowDetails(tvshowID: tvshowID)
+        do {
+            let result = try await kodi.sendRequest(request: request)
+            /// Make a MediaItem from the KodiResonse and return it
+            return kodi.setMediaItem(items: [result.tvshowdetails], media: .tvshow).first ?? MediaItem()
+        } catch {
+            logger("Loading tv show details failed with error: \(error)")
+            return MediaItem()
+        }
+    }
     
     /// Retrieve details about a specific tv show (Kodi API)
-    struct VideoLibraryGetTVShowDetails: KodiAPI {
+    struct GetTVShowDetails: KodiAPI {
         /// Argument: the tv show we ask for
         var tvshowID: Int
         /// Method
@@ -127,9 +92,34 @@ extension KodiConnector {
             var tvshowdetails: KodiResponse
         }
     }
+}
+
+// MARK:  setTVShowDetails
+
+extension VideoLibrary {
+    
+    /// Set the details of a tv show item
+    ///
+    /// - Note: Kodi does not send a notification if a TV show is changed
+    ///
+    /// - Parameter tvshow: The Media Item
+    public static func setTVShowDetails(tvshow: MediaItem) async {
+        let kodi: KodiConnector = .shared
+        let message = SetTVShowDetails(tvshow: tvshow)
+        Task {
+            do {
+                let _ = try await kodi.sendRequest(request: message)
+                /// Update the TV show item
+                kodi.getMediaItemDetails(itemID: tvshow.tvshowID, type: .tvshow)
+                logger("Details set for '\(tvshow.title)'")
+            } catch {
+                logger("Setting TV show details failed with error: \(error)")
+            }
+        }
+    }
     
     /// Update the given tv show with the given details (Kodi API)
-    struct VideoLibrarySetTVShowDetails: KodiAPI {
+    struct SetTVShowDetails: KodiAPI {
         /// Arguments
         var tvshow: MediaItem
         /// Method
@@ -161,5 +151,4 @@ extension KodiConnector {
         /// The response struct
         struct Response: Decodable { }
     }
-    
 }

@@ -7,82 +7,43 @@
 
 import Foundation
 
-extension KodiConnector {
-    
-    /// Get all Episodes from the Kodi host
-    /// - Parameter tvshows: All the TV shows
-    /// - Returns: All the episodes from the Kodi host
-    func getAllEpisodes(tvshows: [MediaItem]) async -> [MediaItem] {
-        /// Start with a fresh list
-        var episodes: [MediaItem] = []
-        /// Loop over all TV shows
-        for tvshow in tvshows {
-            /// Get the Episodes for this TV show
-            episodes += await getEpisodes(tvshowID: tvshow.tvshowID)
-        }
-        return episodes
-    }
-    
-    /// Get all episodes from a specific TV shpw
-    /// - Parameter tvshowID: The ID of the TV show
-    /// - Returns: All episodes of the given TV show
-    func getEpisodes(tvshowID: Int) async -> [MediaItem] {
-        let request = VideoLibraryGetEpisodes(tvshowID: tvshowID)
-        do {
-            let result = try await sendRequest(request: request)
-            return setMediaItem(items: result.episodes, media: .episode)
-        } catch {
-            /// There are no episodes in the library
-            logger("Loading Episodes failed with error: \(error)")
-            return [MediaItem]()
-        }
-    }
-    
-    /// Get the details of an episode
-    /// - Parameter episodeID: The ID of the episode item
-    /// - Returns: An updated Media Item
-    func getEpisodeDetails(episodeID: Int) async -> MediaItem {
-        let request = VideoLibraryGetEpisodeDetails(episodeID: episodeID)
-        do {
-            let result = try await sendRequest(request: request)
-            /// Make a MediaItem from the KodiResonse and return it
-            return setMediaItem(items: [result.episodedetails], media: .episode).first ?? MediaItem()
-        } catch {
-            logger("Loading episode details failed with error: \(error)")
-            return MediaItem()
-        }
-    }
-    
-    /// Update the details of an episode item
-    /// - Parameter song: The Media Item
-    func setEpisodeDetails(episode: MediaItem) async {
-        let message = VideoLibrarySetEpisodeDetails(episode: episode)
-        sendMessage(message: message)
-        logger("Details set for '\(episode.title)'")
-    }
-}
+// MARK:  getEpisodes
 
-// MARK: Kodi API's
+extension VideoLibrary {
 
-extension KodiConnector {
-
+    /// Get all the episodes from the Kodi host
+    /// - Parameter tvshowID: The optional TV show ID
+    /// - Returns: The requested episodes
+    public static func getEpisodes(tvshowID: Int? = nil) async -> [MediaItem] {
+        let kodi: KodiConnector = .shared
+        if let result = try? await kodi.sendRequest(request: GetEpisodes(tvshowID: tvshowID)) {
+            logger("Loaded \(result.episodes.count) episodes from the Kodi host")
+            return kodi.setMediaItem(items: result.episodes, media: .episode)
+        }
+        /// There are no episodes in the library
+        return [MediaItem]()
+    }
+    
     /// Retrieve all episodes of a TV show (Kodi API)
-    struct VideoLibraryGetEpisodes: KodiAPI {
+    struct GetEpisodes: KodiAPI {
         /// TV show ID argument
-        let tvshowID: Int
+        var tvshowID: Int?
         /// Method
-        var method = Methods.videoLibraryGetEpisodes
+        let method = Methods.videoLibraryGetEpisodes
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
             var params = Params()
-            params.tvshowid = tvshowID
+            if let tvshowID = tvshowID {
+                params.tvshowid = tvshowID
+            }
+            //params.tvshowid = tvshowID
             return buildParams(params: params)
         }
         /// The request struct
         struct Params: Encodable {
             /// The TV show ID
-            var tvshowid: Int = -1
+            var tvshowid: Int?
             /// The properties that we ask from Kodi
             let properties = Video.Fields.episode
         }
@@ -92,9 +53,30 @@ extension KodiConnector {
             let episodes: [KodiResponse]
         }
     }
+}
+
+// MARK:  getEpisodeDetails
+
+extension VideoLibrary {
+    
+    /// Get the details of an episode
+    /// - Parameter episodeID: The ID of the episode item
+    /// - Returns: An updated Media Item
+    public static func getEpisodeDetails(episodeID: Int) async -> MediaItem {
+        let kodi: KodiConnector = .shared
+        let request = GetEpisodeDetails(episodeID: episodeID)
+        do {
+            let result = try await kodi.sendRequest(request: request)
+            /// Make a MediaItem from the KodiResonse and return it
+            return kodi.setMediaItem(items: [result.episodedetails], media: .episode).first ?? MediaItem()
+        } catch {
+            logger("Loading episode details failed with error: \(error)")
+            return MediaItem()
+        }
+    }
     
     /// Retrieve details about a specific episode (Kodi API)
-    struct VideoLibraryGetEpisodeDetails: KodiAPI {
+    struct GetEpisodeDetails: KodiAPI {
         /// Argument: the episode we ask for
         var episodeID: Int
         /// Method
@@ -119,9 +101,23 @@ extension KodiConnector {
             var episodedetails: KodiResponse
         }
     }
+}
+
+// MARK:  setEpisodeDetails
+
+extension VideoLibrary {
+    
+    /// Set the details of an episode item
+    /// - Parameter episode: The episode as Media Item
+    public static func setEpisodeDetails(episode: MediaItem) async {
+        let kodi: KodiConnector = .shared
+        let message = SetEpisodeDetails(episode: episode)
+        kodi.sendMessage(message: message)
+        logger("Details set for '\(episode.title)'")
+    }
     
     /// Update the given episode with the given details (Kodi API)
-    struct VideoLibrarySetEpisodeDetails: KodiAPI {
+    struct SetEpisodeDetails: KodiAPI {
         /// Arguments
         var episode: MediaItem
         /// Method

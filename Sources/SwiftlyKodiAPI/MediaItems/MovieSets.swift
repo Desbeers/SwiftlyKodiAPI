@@ -7,61 +7,36 @@
 
 import Foundation
 
-// MARK: Movie Sets
+// MARK: getMovieSets
 
-extension KodiConnector {
-
-    /// Get all the movie sets from the Kodi host
-    /// - Returns: All movie sets from the Kodi host
-    func getMovieSets() async -> [MediaItem] {
-        let request = VideoLibraryGetMovieSets()
-        do {
-            let result = try await sendRequest(request: request)
-            return setMediaItem(items: result.sets, media: .movieSet)
-        } catch {
-            /// There are no sets in the library
-            logger("Loading movie sets failed with error: \(error)")
-            return [MediaItem]()
+extension VideoLibrary {
+    
+    /// Get all the movies from the Kodi host
+    /// - Returns: All movies from the Kodi host
+    public static func getMovieSets() async -> [MediaItem] {
+        let kodi: KodiConnector = .shared
+        if let result = try? await kodi.sendRequest(request: GetMovieSets()) {
+            logger("Loaded \(result.sets.count) movie sets from the Kodi host")
+            return kodi.setMediaItem(items: result.sets, media: .movieSet)
         }
+        /// There are no movie sets in the library
+        return [MediaItem]()
     }
     
-    /// Get the details of a movie set item
-    /// - Parameter movieSetID: The ID of the movie item
-    /// - Returns: An updated Media Item
-    func getMovieSetDetails(movieSetID: Int) async -> MediaItem {
-        let request = VideoLibraryGetMovieSetDetails(movieSetID: movieSetID)
-        do {
-            let result = try await sendRequest(request: request)
-            /// Make a MediaItem from the KodiResponse and return it
-            return setMediaItem(items: [result.setdetails], media: .movieSet).first ?? MediaItem()
-        } catch {
-            logger("Loading movie set details failed with error: \(error)")
-            return MediaItem()
-        }
-    }
-}
-
-// MARK: Kodi API's
-
-extension KodiConnector {
-
     /// Retrieve all movie sets (Kodi API)
-    struct VideoLibraryGetMovieSets: KodiAPI {
+    struct GetMovieSets: KodiAPI {
         /// Method
         var method = Methods.videoLibraryGetMovieSets
         /// The JSON creator
         var parameters: Data {
-            /// The parameters we ask for
-            var params = Params()
-            params.sort = sort(method: .title, order: .ascending)
-            return buildParams(params: params)
+            buildParams(params: Params())
         }
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.movieSet
             /// The sort order
-            var sort = KodiConnector.SortFields()
+            let sort = List.Sort(method: .title, order: .ascending)
         }
         /// The response struct
         struct Response: Decodable {
@@ -69,9 +44,30 @@ extension KodiConnector {
             let sets: [KodiResponse]
         }
     }
+}
+
+// MARK: getMovieSetDetails
+
+extension VideoLibrary {
+    
+    /// Get the details of a movie set item
+    /// - Parameter movieSetID: The ID of the movie item
+    /// - Returns: An updated Media Item
+    public static func getMovieSetDetails(movieSetID: Int) async -> MediaItem {
+        let kodi: KodiConnector = .shared
+        let request = GetMovieSetDetails(movieSetID: movieSetID)
+        do {
+            let result = try await kodi.sendRequest(request: request)
+            /// Make a MediaItem from the KodiResponse and return it
+            return kodi.setMediaItem(items: [result.setdetails], media: .movieSet).first ?? MediaItem()
+        } catch {
+            logger("Loading movie set details failed with error: \(error)")
+            return MediaItem()
+        }
+    }
     
     /// Retrieve details about a specific movie set  (Kodi API)
-    struct VideoLibraryGetMovieSetDetails: KodiAPI {
+    struct GetMovieSetDetails: KodiAPI {
         /// Argument: the movie we ask for
         var movieSetID: Int
         /// Method
@@ -96,6 +92,7 @@ extension KodiConnector {
             var setdetails: KodiResponse
         }
     }
+    
 }
 
 extension MediaItem {
