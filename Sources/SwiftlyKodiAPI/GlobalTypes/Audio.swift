@@ -8,6 +8,6 @@
 import Foundation
 
 /// All Audio related items
-public enum Audio {
+enum Audio {
     /// Just a placeholder
 }
