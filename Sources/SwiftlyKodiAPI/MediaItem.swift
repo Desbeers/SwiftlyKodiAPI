@@ -25,7 +25,7 @@ public struct MediaItem: Codable, Identifiable, Equatable, Hashable {
     public var id: String = ""
 
     /// The kind of ``MediaType``
-    public var media: MediaType = .none
+    public var media: Library.Media = .none
     
     /// The title of the item
     /// - Movie: Movie title

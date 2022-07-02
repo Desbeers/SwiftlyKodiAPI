@@ -25,7 +25,7 @@ extension Video {
         
         public var icon: String {
             if let icon = thumbnail, !icon.isEmpty {
-                return getFilePath(file: icon, type: .art)
+                return Files.getFullPath(file: icon, type: .art)
             }
             return ""
         }

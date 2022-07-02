@@ -29,11 +29,39 @@ extension Audio {
         ]
         /// The properties of an artist
         static let artist = [
-            "art",
+            
+            "instrument",
+            "style",
+            "mood",
+            "born",
+            "formed",
             "description",
-            "sortname",
+            "genre",
+            "died",
+            "disbanded",
+            "yearsactive",
+            "musicbrainzartistid",
+            "fanart",
+            "thumbnail",
+            "compilationartist",
+            "dateadded",
+            "roles",
+            "songgenres",
             "isalbumartist",
-            "songgenres"
+            "sortname",
+            "type",
+            "gender",
+            "disambiguation",
+            "art",
+            "sourceid",
+            "datemodified",
+            "datenew"
+            
+//            "art",
+//            "description",
+//            "sortname",
+//            "isalbumartist",
+//            "songgenres"
         ]
         /// The properties of a song
         static var song = [

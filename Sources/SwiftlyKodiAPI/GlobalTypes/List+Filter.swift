@@ -14,13 +14,10 @@ extension List {
         var albumID: Int?
         /// Filter by artist ID
         var artistID: Int?
-    }
-}
-
-extension List.Filter {
-    /// Coding keys
-    enum CodingKeys: String, CodingKey {
-        case albumID = "albumid"
-        case artistID = "artistid"
+        /// Coding keys
+        enum CodingKeys: String, CodingKey {
+            case albumID = "albumid"
+            case artistID = "artistid"
+        }
     }
 }

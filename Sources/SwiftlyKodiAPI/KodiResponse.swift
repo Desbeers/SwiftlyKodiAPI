@@ -66,7 +66,7 @@ struct KodiResponse: Decodable {
     /// - Note: The path from the Kodi database is *not* a full path
     /// and must be converted first
     var filePath: String {
-        return getFilePath(file: file, type: .file)
+        return Files.getFullPath(file: file, type: .file)
     }
     
     /// # Date and Time stuff
@@ -406,42 +406,42 @@ extension KodiResponse {
         switch type {
         case .poster:
             if let posterArt = art["poster"] {
-                return getFilePath(file: posterArt, type: .art)
+                return Files.getFullPath(file: posterArt, type: .art)
             }
             if let posterArt = art["season.poster"] {
-                return getFilePath(file: posterArt, type: .art)
+                return Files.getFullPath(file: posterArt, type: .art)
             }
             if let posterArt = art["thumbnail"] {
-                return getFilePath(file: posterArt, type: .art)
+                return Files.getFullPath(file: posterArt, type: .art)
             }
             if let posterArt = art["thumb"] {
-                return getFilePath(file: posterArt, type: .art)
+                return Files.getFullPath(file: posterArt, type: .art)
             }
         case .fanart:
             if let fanartArt = art["fanart"] {
-                return getFilePath(file: fanartArt, type: .art)
+                return Files.getFullPath(file: fanartArt, type: .art)
             }
             if let fanartArt = art["tvshow.fanart"] {
-                return getFilePath(file: fanartArt, type: .art)
+                return Files.getFullPath(file: fanartArt, type: .art)
             }
             if let posterArt = art["thumbnail"] {
-                return getFilePath(file: posterArt, type: .art)
+                return Files.getFullPath(file: posterArt, type: .art)
             }
             if let posterArt = art["icon"] {
-                return getFilePath(file: posterArt, type: .art)
+                return Files.getFullPath(file: posterArt, type: .art)
             }
             /// Fallback to poster
             return getSpecificArt(art: art, type: .poster)
         case .thumbnail:
             if let posterArt = art["thumbnail"] {
-                return getFilePath(file: posterArt, type: .art)
+                return Files.getFullPath(file: posterArt, type: .art)
             }
             if let posterArt = art["thumb"] {
-                return getFilePath(file: posterArt, type: .art)
+                return Files.getFullPath(file: posterArt, type: .art)
             }
             /// Kodi likes 'Icon' for a music video thumb
             if let posterArt = art["icon"] {
-                return getFilePath(file: posterArt, type: .art)
+                return Files.getFullPath(file: posterArt, type: .art)
             }
         }
         return ""

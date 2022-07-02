@@ -70,7 +70,8 @@ extension KodiConnector {
             let musicVideos = media
                 .filter { $0.media == .artist && artists.contains($0.artists)}
             //items = musicVideos.sorted { $0.sortByTitle < $1.sortByTitle}
-            items = musicVideos.sorted { $0.releaseYear < $1.releaseYear}
+            //items = musicVideos.sorted { $0.releaseYear < $1.releaseYear}
+            items = musicVideos.sorted { $0.artistID < $1.artistID}
         
         case .artist:
             items = items.filter { $0.compilation == filter.compilation }
@@ -85,7 +86,7 @@ extension KodiConnector {
         }
         /// Now that filtering on media type is done, check if some additional filtering is needed
         if let genre = filter.genre {
-            let media: [MediaType] = [.movie, .movieSet, .tvshow, .musicVideo]
+            let media: [Library.Media] = [.movie, .movieSet, .tvshow, .musicVideo]
             items = items.filter { media.contains($0.media) }
             items = items
                 .filter { $0.genres.contains(genre) }
@@ -103,7 +104,7 @@ extension KodiConnector {
 /// The struct for a filter that can be applied to a ``MediaItem`` array
 public struct MediaFilter: Hashable, Equatable {
     /// Public init is needed because this struct is in a package so it doesn't give it 'for free'...
-    public init(media: MediaType,
+    public init(media: Library.Media,
                 tvshowID: Int? = nil,
                 movieSetID: Int? = nil,
                 artist: [String]? = nil,
@@ -122,7 +123,7 @@ public struct MediaFilter: Hashable, Equatable {
         self.search = search
     }
     /// The type of media
-    public var media: MediaType
+    public var media: Library.Media
     /// The TV show ID when filtering for episodes
     public var tvshowID: Int?
     /// The Movie Set ID when filtering for a movie set

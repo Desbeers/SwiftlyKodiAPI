@@ -67,7 +67,7 @@ extension KodiConnector {
         }
         
         /// Load audio
-        if host.media == .audio || host.media == .all {
+        if host.media == .music || host.media == .all {
             loadingState = .albums
             let albums = await AudioLibrary.getAlbums()
             items += albums

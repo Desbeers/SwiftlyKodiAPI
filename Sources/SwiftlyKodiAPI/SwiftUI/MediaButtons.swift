@@ -85,10 +85,16 @@ public extension MediaButtons {
         public var body: some View {
             Button(action: {
                 Task {
-                    print("ALL EPISODES")
-                    await VideoLibrary.getEpisodes()
-                    print("TV SHOW EPISODES")
-                    await VideoLibrary.getEpisodes(tvshowID: 170)
+                    await AudioLibrary.getArtists2()
+                    //let artist = Audio.Details.Artist()
+                    //dump(artist)
+//                    print("All Video Genres")
+//                    let genres = await kodi.getAllGenres()
+                    //dump(genres)
+//                    print("ALL EPISODES")
+//                    await VideoLibrary.getEpisodes()
+//                    print("TV SHOW EPISODES")
+//                    await VideoLibrary.getEpisodes(tvshowID: 170)
 //                    print("LAST PLAYED")
 //                    await AudioLibrary.getSongs(
 //                        sort: List.Sort(method: .lastPlayed, order: .descending),

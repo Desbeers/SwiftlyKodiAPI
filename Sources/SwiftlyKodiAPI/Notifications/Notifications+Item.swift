@@ -27,7 +27,7 @@ public extension Notifications {
         var sender: String = "self"
         
         /// Item level
-        var media: MediaType = .none
+        var media: Library.Media = .none
         var itemID: Int = 0
         
         /// The ID of the player
@@ -116,13 +116,13 @@ extension Notifications.Item {
         playlistID = try data?.decodeIfPresent(Int.self, forKey: .playlistID) ?? playlistID
         playlistEnded = try data?.decodeIfPresent(Bool.self, forKey: .playlistEnded) ?? playlistEnded
         /// - Note: 'media' is a String but we convert it to an Enum
-        media = try data?.decodeIfPresent(MediaType.self, forKey: .media) ?? media
+        media = try data?.decodeIfPresent(Library.Media.self, forKey: .media) ?? media
         
         /// ### Item level
         let item = try? data?.nestedContainer(keyedBy: ItemKeys.self, forKey: .item)
         itemID = try item?.decodeIfPresent(Int.self, forKey: .itemID) ?? itemID
         /// - Note: 'media' is a String but we convert it to an Enum
-        media = try item?.decodeIfPresent(MediaType.self, forKey: .media) ?? media
+        media = try item?.decodeIfPresent(Library.Media.self, forKey: .media) ?? media
         
         /// ### Player level
         let player = try? data?.nestedContainer(keyedBy: PlayerKeys.self, forKey: .player)

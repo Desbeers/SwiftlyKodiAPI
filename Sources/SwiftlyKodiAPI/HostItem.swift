@@ -24,7 +24,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
     /// Password of the host
     public var password: String
     /// Kind of media to load
-    public var media: Media
+    public var media: Files.Media
     /// Init the Host struct
     public init(id: UUID = UUID(),
                 description: String = "Kodi",
@@ -33,7 +33,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
                 tcp: String = "9090",
                 username: String = "kodi",
                 password: String = "kodi",
-                media: Media = .video
+                media: Files.Media = .video
     ) {
         self.id = id
         self.description = description
@@ -45,12 +45,12 @@ public struct HostItem: Codable, Identifiable, Hashable {
         self.media = media
     }
     
-    public enum Media: String, Codable {
-        /// The audio library
-        case audio
-        /// The video library
-        case video
-        /// The whole library
-        case all
-    }
+//    public enum Media: String, Codable {
+//        /// The audio library
+//        case audio
+//        /// The video library
+//        case video
+//        /// The whole library
+//        case all
+//    }
 }

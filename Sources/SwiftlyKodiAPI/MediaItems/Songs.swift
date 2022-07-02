@@ -207,23 +207,6 @@ extension KodiConnector {
         }
         return songItems
     }
-    
-//    /// Get all songs from an album
-//    /// - Parameter album: The Album item
-//    /// - Returns: All songs from that album
-//    ///
-//    /// - Note: Don't ask for all songs from the library in one shot; it will timeout
-//    func getSongsFromAlbum(album: MediaItem) async -> [MediaItem] {
-//        let request = AudioLibrary.GetSongs(albumID: album.albumID)
-//        do {
-//            let result = try await sendRequest(request: request)
-//            return setMediaItem(items: result.songs, media: .song)
-//        } catch {
-//            /// There are no artists in the library
-//            logger("Loading songs failed with error: \(error)")
-//            return [MediaItem]()
-//        }
-//    }
 }
 
 
@@ -241,46 +224,4 @@ extension MediaItem {
             self.poster = album.poster
         }
     }
-}
-
-// MARK: Kodi API's
-
-extension AudioLibrary {
-    
-//    /// Retrieve all songs from an album (Kodi API)
-//    struct GetSongs: KodiAPI {
-//        /// AlbumID argument
-//        let albumID: Int
-//        /// The method
-//        let method = Methods.audioLibraryGetSongs
-//        /// The JSON creator
-//        var parameters: Data {
-//            /// The parameters we ask for
-//            var params = Params()
-//            params.filter.albumid = albumID
-//            return buildParams(params: params)
-//        }
-//        /// The request struct
-//        struct Params: Encodable {
-//            let properties = Audio.Fields.song
-//            /// The sorting
-//            let sort = List.Sort(method: .track, order: .ascending)
-//            /// Filter
-//            var filter = Filter()
-//        }
-//        /// The filter struct
-//        struct Filter: Encodable {
-//            /// The value for the filter
-//            var albumid: Int = 0
-//        }
-//        /// The response struct
-//        struct Response: Decodable {
-//            /// The list of songs
-//            let songs: [KodiResponse]
-//        }
-//    }
-    
-
-    
-
 }

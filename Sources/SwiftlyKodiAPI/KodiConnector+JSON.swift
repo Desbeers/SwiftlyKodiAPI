@@ -18,11 +18,11 @@ extension KodiConnector {
         let (data, response) = try await urlSession.data(for: request.urlRequest)
         guard let httpResponse = response as? HTTPURLResponse,
               httpResponse.statusCode == 200 else {
-                  throw APIError.responseUnsuccessful
+            throw JSON.APIError.responseUnsuccessful
               }
-        guard let decoded = try? JSONDecoder().decode(BaseResponse<T.Response>.self, from: data) else {
+        guard let decoded = try? JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data) else {
             debugJsonResponse(data: data)
-            throw APIError.invalidData
+            throw JSON.APIError.invalidData
         }
         // debugJsonResponse(data: data)
         return decoded.result
@@ -37,37 +37,5 @@ extension KodiConnector {
         urlSession.dataTask(with: message.urlRequest).resume()
     }
     
-    /// Base for JSON parameter struct
-    struct BaseParameters<T: Encodable>: Encodable {
-        /// The JSON version
-        let jsonrpc = "2.0"
-        /// The Kodi method to use
-        var method: String
-        /// The parameters
-        var params: T
-        /// The ID
-        var id: String
-    }
-    
-    /// Base for response struct
-    struct BaseResponse<T: Decodable>: Decodable {
-        var method: String
-        /// The result variable of a response
-        var result: T
-        /// Coding Keys
-        enum CodingKeys: String, CodingKey {
-            /// The keys
-            case result
-            /// ID is a reserved word
-            case method = "id"
-        }
-    }
-    
-    /// List of possible errors
-    enum APIError: Error {
-        /// Invalid data
-        case invalidData
-        /// Unsuccesfull response
-        case responseUnsuccessful
-    }
+
 }

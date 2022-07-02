@@ -7,51 +7,37 @@
 
 import Foundation
 
-extension KodiConnector {
+extension VideoLibrary {
     
-    /// Get all genres from the Kodi host
-    /// - Returns: All genres from the Kodi host
-
-    func getAllGenres() async -> [MediaItem] {
-        
-        var genreItems = [MediaItem]()
-        
-        /// Get the genres for all media types
-        let movieGenres = await getGenres(type: .movie)
-        let tvGenres = await getGenres(type: .tvshow)
-        let musicGenres = await getGenres(type: .musicVideo)
-        /// Combine them
-        let allGenres = (movieGenres + tvGenres + musicGenres).unique { $0.genreID}
-        /// Add them as MediaItem
-        for genre in allGenres {
-            genreItems.append(MediaItem(id: "genre-\(genre.genreID)",
-                                        media: .genre,
-                                        title: genre.label,
-                                        poster: genre.symbol)
-            )
-        }
-        /// Return them
-        return genreItems
-    }
-
-    /// Get all genres from the Kodi host for a specific media type
+    /// Get all video genres from the Kodi host for a specific media type
     /// - Parameter type: The type of Kodi Media
     /// - Returns: All genres for the specific media type
-    func getGenres(type: MediaType) async -> [GenreItem] {
-        let request = VideoLibraryGetGenres(type: type)
+    public static func getGenres(type: Library.Media) async -> [MediaItem] {
+        let kodi: KodiConnector = .shared
+        let request = GetGenres(type: type)
+        var genreItems = [MediaItem]()
         do {
-            let result = try await sendRequest(request: request)
-            return result.genres
+            let result = try await kodi.sendRequest(request: request)
+            logger("Loaded \(result.genres.count) genres from the Kodi host")
+            /// Add them as a MediaItem
+            for genre in result.genres {
+                genreItems.append(MediaItem(id: "genre-\(genre.genreID)",
+                                            media: .genre,
+                                            title: genre.title)
+                )
+            }
+            return genreItems
         } catch {
             logger("Loading genres failed with error: \(error)")
-            return [GenreItem]()
+            return genreItems
         }
     }
     
+    
     /// Retrieve all genres (Kodi API)
-    struct VideoLibraryGetGenres: KodiAPI {
+    struct GetGenres: KodiAPI {
         /// Argument
-        var type: MediaType
+        var type: Library.Media
         /// Method
         var method = Methods.videoLibraryGetGenres
         /// The JSON creator
@@ -62,6 +48,8 @@ extension KodiConnector {
         }
         /// The request struct
         struct Params: Encodable {
+            /// The properties that we ask from Kodi
+            let properties = Library.Fields.genre
             var type: String = ""
             /// Sort order
             let sort = List.Sort(method: .label, order: .ascending)
@@ -69,62 +57,21 @@ extension KodiConnector {
         /// The response struct
         struct Response: Decodable {
             /// A list with genres
-            let genres: [GenreItem]
+            let genres: [Library.Details.Genre]
         }
     }
 }
 
-/// The struct for a genre item
-struct GenreItem: Codable {
-    /// # Kodi parameters
-    /// The genre ID
-    var genreID: Int = 0
-    /// Label of the genre
-    var label: String = ""
-    /// # Calculated variables
-    /// SF symbol of the genre
-    var symbol: String {
-        if let genre = GenreIcon(rawValue: label.lowercased()) {
-            return genre.symbol
-        }
-        return "questionmark.circle"
-    }
-    /// # Coding keys
-    /// All the coding keys for a genre item
-    enum CodingKeys: String, CodingKey {
-        /// The keys
-        case label
-        /// lowerCamelCase
-        case genreID = "genreid"
-    }
-}
-
-
-enum GenreType: String, CaseIterable {
-    case all = "All"
-    case movie = "Movies"
-    case tvshow = "TV shows"
-    case musicvideo = "Music"
-}
-
-enum GenreIcon: String {
-    case adventure
-    case cabaret
-    case comedy
-    case documentary
+extension KodiConnector {
     
-    var symbol: String {
-        
-        switch self {
-            
-        case .adventure:
-            return "map"
-        case .cabaret:
-            return "face.smiling"
-        case .comedy:
-            return "theatermasks"
-        case .documentary:
-            return "brain"
-        }
+    /// Get all video genres from the Kodi host
+    /// - Returns: All video genres from the Kodi host
+    func getAllGenres() async -> [MediaItem] {
+        /// Get the genres for all media types
+        let movieGenres = await VideoLibrary.getGenres(type: .movie)
+        let tvGenres = await VideoLibrary.getGenres(type: .tvshow)
+        let musicGenres = await VideoLibrary.getGenres(type: .musicVideo)
+        /// Combine and return them
+        return (movieGenres + tvGenres + musicGenres).unique { $0.id}
     }
 }

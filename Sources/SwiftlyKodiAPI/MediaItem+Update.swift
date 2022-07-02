@@ -34,7 +34,7 @@ extension KodiConnector {
     /// - Parameters:
     ///   - itemID: The ID of the media item
     ///   - type: The ``MediaType`` of the media item
-    func getMediaItemDetails(itemID: Int, type: MediaType) {
+    func getMediaItemDetails(itemID: Int, type: Library.Media) {
         Task { @MainActor in
             if let index = media.firstIndex(where: {$0.id == "\(type.rawValue)-\(itemID)"}) {
                 switch media[index].media {
