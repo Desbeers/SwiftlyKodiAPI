@@ -1,0 +1,379 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D7F30685287171E90090BAE5 /* MacodiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F30684287171E90090BAE5 /* MacodiApp.swift */; };
+		D7F30687287171E90090BAE5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F30686287171E90090BAE5 /* ContentView.swift */; };
+		D7F30689287171EA0090BAE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7F30688287171EA0090BAE5 /* Assets.xcassets */; };
+		D7F3068C287171EA0090BAE5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7F3068B287171EA0090BAE5 /* Preview Assets.xcassets */; };
+		D7F306962871724C0090BAE5 /* SwiftlyKodiAPI in Frameworks */ = {isa = PBXBuildFile; productRef = D7F306952871724C0090BAE5 /* SwiftlyKodiAPI */; };
+		D7F30698287174D10090BAE5 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F30697287174D10090BAE5 /* SidebarView.swift */; };
+		D7F3069A287174DE0090BAE5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F30699287174DE0090BAE5 /* MainView.swift */; };
+		D7F3069C287175D40090BAE5 /* ArtistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3069B287175D40090BAE5 /* ArtistView.swift */; };
+		D7F3069E287192E20090BAE5 /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3069D287192E20090BAE5 /* AlbumView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D7F30681287171E90090BAE5 /* Macodi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Macodi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7F30684287171E90090BAE5 /* MacodiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacodiApp.swift; sourceTree = "<group>"; };
+		D7F30686287171E90090BAE5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D7F30688287171EA0090BAE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D7F3068B287171EA0090BAE5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D7F3068D287171EA0090BAE5 /* Macodi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Macodi.entitlements; sourceTree = "<group>"; };
+		D7F30693287172370090BAE5 /* SwiftlyKodiAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftlyKodiAPI; path = ../..; sourceTree = "<group>"; };
+		D7F30697287174D10090BAE5 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		D7F30699287174DE0090BAE5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		D7F3069B287175D40090BAE5 /* ArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistView.swift; sourceTree = "<group>"; };
+		D7F3069D287192E20090BAE5 /* AlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D7F3067E287171E90090BAE5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7F306962871724C0090BAE5 /* SwiftlyKodiAPI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D7F30678287171E90090BAE5 = {
+			isa = PBXGroup;
+			children = (
+				D7F30693287172370090BAE5 /* SwiftlyKodiAPI */,
+				D7F30683287171E90090BAE5 /* Macodi */,
+				D7F30682287171E90090BAE5 /* Products */,
+				D7F306942871724C0090BAE5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D7F30682287171E90090BAE5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D7F30681287171E90090BAE5 /* Macodi.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D7F30683287171E90090BAE5 /* Macodi */ = {
+			isa = PBXGroup;
+			children = (
+				D7F30684287171E90090BAE5 /* MacodiApp.swift */,
+				D7F30686287171E90090BAE5 /* ContentView.swift */,
+				D7F30688287171EA0090BAE5 /* Assets.xcassets */,
+				D7F3068D287171EA0090BAE5 /* Macodi.entitlements */,
+				D7F3068A287171EA0090BAE5 /* Preview Content */,
+				D7F30697287174D10090BAE5 /* SidebarView.swift */,
+				D7F30699287174DE0090BAE5 /* MainView.swift */,
+				D7F3069B287175D40090BAE5 /* ArtistView.swift */,
+				D7F3069D287192E20090BAE5 /* AlbumView.swift */,
+			);
+			path = Macodi;
+			sourceTree = "<group>";
+		};
+		D7F3068A287171EA0090BAE5 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D7F3068B287171EA0090BAE5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D7F306942871724C0090BAE5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D7F30680287171E90090BAE5 /* Macodi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7F30690287171EA0090BAE5 /* Build configuration list for PBXNativeTarget "Macodi" */;
+			buildPhases = (
+				D7F3067D287171E90090BAE5 /* Sources */,
+				D7F3067E287171E90090BAE5 /* Frameworks */,
+				D7F3067F287171E90090BAE5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Macodi;
+			packageProductDependencies = (
+				D7F306952871724C0090BAE5 /* SwiftlyKodiAPI */,
+			);
+			productName = Macodi;
+			productReference = D7F30681287171E90090BAE5 /* Macodi.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D7F30679287171E90090BAE5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					D7F30680287171E90090BAE5 = {
+						CreatedOnToolsVersion = 14.0;
+					};
+				};
+			};
+			buildConfigurationList = D7F3067C287171E90090BAE5 /* Build configuration list for PBXProject "Macodi" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D7F30678287171E90090BAE5;
+			productRefGroup = D7F30682287171E90090BAE5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D7F30680287171E90090BAE5 /* Macodi */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D7F3067F287171E90090BAE5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7F3068C287171EA0090BAE5 /* Preview Assets.xcassets in Resources */,
+				D7F30689287171EA0090BAE5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D7F3067D287171E90090BAE5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7F3069E287192E20090BAE5 /* AlbumView.swift in Sources */,
+				D7F30687287171E90090BAE5 /* ContentView.swift in Sources */,
+				D7F3069A287174DE0090BAE5 /* MainView.swift in Sources */,
+				D7F3069C287175D40090BAE5 /* ArtistView.swift in Sources */,
+				D7F30685287171E90090BAE5 /* MacodiApp.swift in Sources */,
+				D7F30698287174D10090BAE5 /* SidebarView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D7F3068E287171EA0090BAE5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D7F3068F287171EA0090BAE5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		D7F30691287171EA0090BAE5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Macodi/Macodi.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Macodi/Preview Content\"";
+				DEVELOPMENT_TEAM = FHPCJ7396C;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.Macodi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D7F30692287171EA0090BAE5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Macodi/Macodi.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Macodi/Preview Content\"";
+				DEVELOPMENT_TEAM = FHPCJ7396C;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.Macodi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D7F3067C287171E90090BAE5 /* Build configuration list for PBXProject "Macodi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7F3068E287171EA0090BAE5 /* Debug */,
+				D7F3068F287171EA0090BAE5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D7F30690287171EA0090BAE5 /* Build configuration list for PBXNativeTarget "Macodi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7F30691287171EA0090BAE5 /* Debug */,
+				D7F30692287171EA0090BAE5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D7F306952871724C0090BAE5 /* SwiftlyKodiAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftlyKodiAPI;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D7F30679287171E90090BAE5 /* Project object */;
+}
