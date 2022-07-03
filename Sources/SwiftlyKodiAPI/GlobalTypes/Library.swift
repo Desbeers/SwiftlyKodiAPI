@@ -8,8 +8,9 @@
 import Foundation
 
 /// All Library related items
-public enum Library {
+public struct Library {
     /// Just a placeholder
+    public var artists: [Audio.Details.Artist] = []
 }
 
 public extension Library {

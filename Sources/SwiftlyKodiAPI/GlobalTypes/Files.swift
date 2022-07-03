@@ -21,6 +21,7 @@ extension Files {
         case files
         case programs
         case all
+        case none
     }
 }
 

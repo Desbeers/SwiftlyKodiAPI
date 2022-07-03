@@ -14,14 +14,14 @@ struct KodiRemoteApp: App {
     @StateObject var kodi: KodiConnector  = .shared
     var body: some Scene {
         WindowGroup {
-            //ContentView()
+            ContentView()
             
-            TableView()
+            //TableView()
                 .frame(width: 600, height: 600)
                 .environmentObject(kodi)
                 .task {
                     if kodi.loadingState == .start {
-                        await kodi.connectToHost(kodiHost: HostItem(ip: "192.168.11.200", media: .video))
+                        await kodi.connectToHost(kodiHost: HostItem(ip: "192.168.11.200", media: .all))
                     }
                 }
         }

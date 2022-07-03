@@ -1,5 +1,5 @@
 //
-//  Audio+Artist+Roles.swift
+//  Audio+Album+Roles.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen

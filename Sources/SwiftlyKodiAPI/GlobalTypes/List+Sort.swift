@@ -11,14 +11,18 @@ extension List {
     /// The sort fields for JSON requests
     public struct Sort: Codable {
         /// Default sort order
-        public init(method: List.Sort.Method = .title, order: List.Sort.Order = .ascending) {
+        public init(method: List.Sort.Method = .title, order: List.Sort.Order = .ascending, useartistsortname: Bool = true) {
             self.method = method
             self.order = order
+            self.useartistsortname = useartistsortname
         }
         /// The method
         public var method: Method
         /// The order
         public var order: Order
+        /// Use artist sort name
+        public var useartistsortname: Bool
+        
         /// The sort methods
         public enum Method: String, Codable {
             ///  Order by last played

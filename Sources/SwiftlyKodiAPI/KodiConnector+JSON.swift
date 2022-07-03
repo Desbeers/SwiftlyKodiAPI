@@ -20,12 +20,31 @@ extension KodiConnector {
               httpResponse.statusCode == 200 else {
             throw JSON.APIError.responseUnsuccessful
               }
-        guard let decoded = try? JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data) else {
-            debugJsonResponse(data: data)
-            throw JSON.APIError.invalidData
-        }
+        
+        do {
+            let decoded = try JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data)
+            return decoded.result
+            } catch let DecodingError.dataCorrupted(context) {
+                print(context)
+            } catch let DecodingError.keyNotFound(key, context) {
+                print("Key '\(key)' not found:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch let DecodingError.valueNotFound(value, context) {
+                print("Value '\(value)' not found:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch let DecodingError.typeMismatch(type, context)  {
+                print("Type '\(type)' mismatch:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch {
+                print("error: ", error)
+            }
+        throw JSON.APIError.invalidData
+//        guard let decoded = try? JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data) else {
+//            debugJsonResponse(data: data)
+//            throw JSON.APIError.invalidData
+//        }
         // debugJsonResponse(data: data)
-        return decoded.result
+//        return decoded.result
     }
     
     /// Send a message to the host, not caring about the response

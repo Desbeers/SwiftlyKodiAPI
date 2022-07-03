@@ -9,7 +9,6 @@ import Foundation
 
 // MARK: getArtists
 
-
 extension AudioLibrary {
 
     /// Get all artists from the Kodi host
@@ -17,19 +16,13 @@ extension AudioLibrary {
     public static func getArtists2() async -> [Audio.Details.Artist] {
         let kodi: KodiConnector = .shared
         if let request = try? await kodi.sendRequest(request: GetArtists2()) {
-            
-            
-            return [Audio.Details.Artist]()
-//            logger("Loaded \(request.artists.count) artists from the Kodi host")
-//            dump(request.artists.last)
-//            return request.artists
+            return request.artists
         }
         return [Audio.Details.Artist]()
     }
     
     /// Retrieve all artists (Kodi API)
     struct GetArtists2: KodiAPI {
-        
         /// The method
         var method = Methods.audioLibraryGetArtists
         /// The parameters
@@ -46,14 +39,14 @@ extension AudioLibrary {
             let sort = List.Sort(method: .artist, order: .ascending)
         }
         /// The response struct
-//        typealias Response = [LibraryItem]
         struct Response: Decodable {
             /// The list of artists
-            //let artists: [Audio.Details.Artist]
-            let artists: [LibraryItem]
+            let artists: [Audio.Details.Artist]
         }
     }
 }
+
+// MARK: getArtists
 
 extension AudioLibrary {
 
