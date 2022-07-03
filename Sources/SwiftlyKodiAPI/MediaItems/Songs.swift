@@ -42,6 +42,97 @@ extension AudioLibrary {
     ///   - sort: The sort order
     ///   - limits: The optional limits of the request
     /// - Returns: All requested songs from the library
+    public static func getSongs2(
+        filter: List.Filter? = nil,
+        sort: List.Sort = List.Sort(method: .track, order: .ascending),
+        limits: List.Limits? = nil
+    ) async -> [Audio.Details.Song] {
+        let kodi: KodiConnector = .shared
+        if let result = try? await kodi.sendRequest(request: GetSongs2(filter: filter, limits: limits, sort: sort)) {
+            logger("Loaded \(result.songs.count) songs from the Kodi host")
+            return result.songs
+        }
+        /// There are no songs in the library
+        return [Audio.Details.Song]()
+    }
+    
+    /// Retrieve all songs from an album (Kodi API)
+    struct GetSongs2: KodiAPI {
+        /// The optional filter
+        var filter: List.Filter?
+        /// The optional limits
+        var limits: List.Limits?
+        /// The sort order
+        var sort: List.Sort
+        /// The method
+        let method = Methods.audioLibraryGetSongs
+        /// The JSON creator
+        var parameters: Data {
+            /// The parameters we ask for
+            var params = Params(sort: sort)
+            /// The optional filter
+            if let filter = filter {
+                params.filter = filter
+            }
+            /// The optional limit
+            if let limits = limits {
+                params.limits = limits
+            }
+            return buildParams(params: params)
+        }
+        /// The request struct
+        struct Params: Encodable {
+            let properties = Audio.Fields.song
+            /// The sorting
+            let sort: List.Sort
+            /// Filter
+            var filter: List.Filter?
+            /// Limits
+            var limits: List.Limits?
+        }
+        /// The response struct
+        struct Response: Decodable {
+            /// The list of songs
+            let songs: [Audio.Details.Song]
+        }
+    }
+}
+
+// MARK:  getSongs
+
+extension AudioLibrary {
+    
+    /// Get songs from the library
+    ///
+    /// ## Limitations
+    ///
+    ///  Loading songs from the host can be expensive!
+    ///
+    /// ## Examples
+    ///
+    /// *The 10 last played songs:*
+    ///
+    ///  ```swift
+    ///     let lastPlayed = await AudioLibrary.getSongs(
+    ///         sort: List.Sort(method: .lastPlayed, order: .descending),
+    ///         limits: List.Limits(end: 10)
+    ///     )
+    /// ```
+    ///
+    /// *The tracks from a specific album:*
+    ///
+    ///  ```swift
+    ///     let albumTracks = await AudioLibrary.getSongs(
+    ///         filter: List.Filter(albumID: 3),
+    ///         sort: List.Sort(method: .track, order: .ascending)
+    ///     )
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - filter: An optional filter
+    ///   - sort: The sort order
+    ///   - limits: The optional limits of the request
+    /// - Returns: All requested songs from the library
     public static func getSongs(
         filter: List.Filter? = nil,
         sort: List.Sort = List.Sort(method: .track, order: .ascending),

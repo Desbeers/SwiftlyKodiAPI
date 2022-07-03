@@ -1,5 +1,5 @@
 //
-//  Audio+Details.swift
+//  Audio+Contributors.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen

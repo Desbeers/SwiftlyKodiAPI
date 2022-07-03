@@ -16,6 +16,9 @@ struct SidebarView: View {
             NavigationLink(destination: AlbumView()) {
                 Text("Albums")
             }
+            NavigationLink(destination: SongView()) {
+                Text("Songs")
+            }
         }
     }
 }

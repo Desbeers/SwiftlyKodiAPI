@@ -16,6 +16,7 @@
 		D7F3069A287174DE0090BAE5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F30699287174DE0090BAE5 /* MainView.swift */; };
 		D7F3069C287175D40090BAE5 /* ArtistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3069B287175D40090BAE5 /* ArtistView.swift */; };
 		D7F3069E287192E20090BAE5 /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3069D287192E20090BAE5 /* AlbumView.swift */; };
+		D7F306A02871A3E90090BAE5 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3069F2871A3E90090BAE5 /* SongView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		D7F30699287174DE0090BAE5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D7F3069B287175D40090BAE5 /* ArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistView.swift; sourceTree = "<group>"; };
 		D7F3069D287192E20090BAE5 /* AlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
+		D7F3069F2871A3E90090BAE5 /* SongView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				D7F30699287174DE0090BAE5 /* MainView.swift */,
 				D7F3069B287175D40090BAE5 /* ArtistView.swift */,
 				D7F3069D287192E20090BAE5 /* AlbumView.swift */,
+				D7F3069F2871A3E90090BAE5 /* SongView.swift */,
 			);
 			path = Macodi;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 				D7F3069E287192E20090BAE5 /* AlbumView.swift in Sources */,
 				D7F30687287171E90090BAE5 /* ContentView.swift in Sources */,
 				D7F3069A287174DE0090BAE5 /* MainView.swift in Sources */,
+				D7F306A02871A3E90090BAE5 /* SongView.swift in Sources */,
 				D7F3069C287175D40090BAE5 /* ArtistView.swift in Sources */,
 				D7F30685287171E90090BAE5 /* MacodiApp.swift in Sources */,
 				D7F30698287174D10090BAE5 /* SidebarView.swift in Sources */,
