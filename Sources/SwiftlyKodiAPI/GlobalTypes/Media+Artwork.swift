@@ -14,7 +14,7 @@ public enum Media {
 
 public extension Media {
     
-    struct Artwork: Codable {
+    struct Artwork: Codable, Equatable {
         public var banner: String = ""
         public var fanart: String = ""
         public var poster: String = ""

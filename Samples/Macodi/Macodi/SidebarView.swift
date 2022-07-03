@@ -10,14 +10,19 @@ import SwiftUI
 struct SidebarView: View {
     var body: some View {
         List {
-            NavigationLink(destination: ArtistView()) {
-                Text("Artists")
-            }
-            NavigationLink(destination: AlbumView()) {
-                Text("Albums")
-            }
-            NavigationLink(destination: SongView()) {
-                Text("Songs")
+            Section(header: Text("Audio")) {
+                NavigationLink(destination: ArtistView()) {
+                    Text("Artists")
+                }
+                NavigationLink(destination: AlbumView()) {
+                    Text("Albums")
+                }
+                NavigationLink(destination: SongView()) {
+                    Text("Songs")
+                }
+                NavigationLink(destination: GenreView()) {
+                    Text("Genres")
+                }
             }
         }
     }

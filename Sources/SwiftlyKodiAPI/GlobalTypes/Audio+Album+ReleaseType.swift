@@ -6,18 +6,10 @@
 //
 import Foundation
 
-public extension Audio {
-    
-    /// All Audio details related items
-    enum Album {
-        /// Just a placeholder
-    }
-}
-
 public extension Audio.Album {
     
+    /// The release type of an album
     enum ReleaseType: String, Codable {
-        
         case album
         case single
     }

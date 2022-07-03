@@ -15,6 +15,8 @@ extension KodiConnector {
         host = kodiHost
         connectWebSocket()
         loadingState = .load
+        
+        await getMedia()
         if let libraryItems = Cache.get(key: "Media", as: [MediaItem].self) {
             media = libraryItems
         } else {
@@ -34,16 +36,35 @@ extension KodiConnector {
         media = libraryItems
     }
     
+    
+    @MainActor func getMedia() async {
+        logger("Getting your media")
+        switch host.media {
+            
+        case .music:
+            let artist = await AudioLibrary.getArtists()
+            let albums = await AudioLibrary.getAlbums()
+            /// Limit the loading for debugging
+            let songs = await AudioLibrary.getSongs(limits: List.Limits(end: 400, start: 100))
+            let genres = await AudioLibrary.getGenres()
+            
+            library = MyLibrary(artists: artist, albums: albums, songs: songs, audioGenres: genres)
+        default:
+            return
+        }
+    }
+    
     /// Get all media from the Kodi host library
     /// - Returns: All the media from the Kodi host library
     @MainActor func getAllMedia() async -> [MediaItem] {
         logger("Load the library from the host")
+        
         /// Start with a fresh list
         var items: [MediaItem] = []
         
-        /// Always load Artist
-        loadingState = .artists
-        await items += AudioLibrary.getArtists()
+//        /// Always load Artist
+//        loadingState = .artists
+//        await items += AudioLibrary.getArtists()
         
         
         /// Load videos
@@ -66,15 +87,15 @@ extension KodiConnector {
             await items += VideoLibrary.getMusicVideos()
         }
         
-        /// Load audio
-        if host.media == .music || host.media == .all {
-            loadingState = .albums
-            let albums = await AudioLibrary.getAlbums()
-            items += albums
-            
-            loadingState = .songs
-            await items += getAllSongs(albums: albums)
-        }
+//        /// Load audio
+//        if host.media == .music || host.media == .all {
+//            loadingState = .albums
+//            let albums = await AudioLibrary.getAlbums()
+//            items += albums
+//
+//            loadingState = .songs
+//            await items += getAllSongs(albums: albums)
+//        }
         
         loadingState = .genres
         await items += getAllGenres()

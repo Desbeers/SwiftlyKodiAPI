@@ -10,7 +10,12 @@ import Foundation
 public extension Audio {
     
     /// The artist and the role they contribute to a song
-    struct Contributors: Codable {
+    struct Contributors: Codable, Identifiable, Equatable {
+        
+        /// Computed properties
+        
+        public var id: Int { artistID }
+        
         public var artistID: Int = 0
         public var name: String = ""
         public var role: String = ""

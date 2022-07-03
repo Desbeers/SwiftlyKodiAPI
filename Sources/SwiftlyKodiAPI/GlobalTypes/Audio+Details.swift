@@ -9,7 +9,7 @@ import Foundation
 
 public extension Audio {
     
-    /// All Audio details related items
+    /// Audio details related items
     enum Details {
         /// Just a placeholder
     }

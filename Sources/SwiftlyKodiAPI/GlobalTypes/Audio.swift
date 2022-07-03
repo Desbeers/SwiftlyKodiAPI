@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// All Audio related items
+/// Audio related items
 public enum Audio {
     /// Just a placeholder
 }

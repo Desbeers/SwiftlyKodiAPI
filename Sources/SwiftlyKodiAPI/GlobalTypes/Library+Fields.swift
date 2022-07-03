@@ -9,13 +9,10 @@ import Foundation
 
 extension Library {
     
-    /// Static fields for Library
-    struct Fields {
-        /// The properties of a genre
-        static let genre = [
-            "title",
-            "thumbnail",
-            "sourceid"
-        ]
+    /// Fields for Library
+    enum Fields {
+        /// Just a placeholder
     }
+    
+
 }

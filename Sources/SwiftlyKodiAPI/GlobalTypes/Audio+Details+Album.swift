@@ -12,7 +12,10 @@ public extension Audio.Details {
     /// Album details
     struct Album: LibraryItem {
         
+        /// # Calculated variables
+        
         public var id: Int { albumID }
+        public var media: Library.Media = .album
         
         /// # Audio.Details.Album
         

@@ -27,8 +27,8 @@ struct ArtistView: View {
                 Text(artist.isAlbumArtist ? "Yes" : "No")
             }
         }
-        .task {
-            artists = await AudioLibrary.getArtists2()
+        .task(id: kodi.library.artists) {
+            artists = kodi.library.artists
         }
     }
 }

@@ -42,6 +42,17 @@ public final class KodiConnector: ObservableObject {
     /// The playlist queue
     @Published public var queue: [MediaItem] = []
     
+    // MARK: The library
+    
+    @Published public var library = MyLibrary()
+    
+    public struct MyLibrary {
+        public var artists: [Audio.Details.Artist] = []
+        public var albums: [Audio.Details.Album] = []
+        public var songs: [Audio.Details.Song] = []
+        public var audioGenres: [Library.Details.Genre] = []
+    }
+    
     // MARK: Init
     
     /// Private init to make sure we have only one instance

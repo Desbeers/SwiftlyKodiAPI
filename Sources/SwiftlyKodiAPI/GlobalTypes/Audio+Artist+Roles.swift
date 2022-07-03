@@ -1,22 +1,21 @@
 //
-//  Audio+Album+Roles.swift
+//  Audio+Artist+Roles.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
 //
 import Foundation
 
-public extension Audio {
-    
-    /// All Audio details related items
-    enum Artist {
-        /// Just a placeholder
-    }
-}
-
 public extension Audio.Artist {
     
-    struct Roles: Codable {
+    /// The various roles contributed by an artist to one or more songs
+    struct Roles: Codable, Identifiable, Equatable {
+        
+        /// # Computed values
+        
+        public var id: Int { roleID }
+        public var media: Library.Media = .artist
+        
         public var role: String = ""
         public var roleID: Int = 0
         

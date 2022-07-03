@@ -13,6 +13,7 @@ public extension Audio.Details {
     struct Song: LibraryItem {
         
         public var id: Int { songID }
+        public var media: Library.Media = .song
         
         /// # Audio.Details.Song
         

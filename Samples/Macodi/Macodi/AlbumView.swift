@@ -30,8 +30,12 @@ struct AlbumView: View {
 //                Text(artist.isAlbumArtist ? "Yes" : "No")
 //            }
         }
-        .task {
-            albums = await AudioLibrary.getAlbums2()
+        .task(id: kodi.library.albums) {
+            albums = kodi.library.albums
         }
+//        .task {
+//
+//            albums = await AudioLibrary.getAlbums()
+//        }
     }
 }

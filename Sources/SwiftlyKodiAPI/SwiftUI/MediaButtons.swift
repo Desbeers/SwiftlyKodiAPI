@@ -85,7 +85,7 @@ public extension MediaButtons {
         public var body: some View {
             Button(action: {
                 Task {
-                    await AudioLibrary.getArtists2()
+                    await AudioLibrary.getArtists()
                     //let artist = Audio.Details.Artist()
                     //dump(artist)
 //                    print("All Video Genres")

@@ -12,7 +12,10 @@ public extension Audio.Details {
     /// Artist details
     struct Artist: LibraryItem {
         
+        /// # Protocol variables
+        
         public var id: Int { artistID }
+        public var media: Library.Media = .album
         
         public var artist: String = ""
         public var artistID: Int = 0

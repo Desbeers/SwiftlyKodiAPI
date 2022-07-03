@@ -1,16 +1,15 @@
 //
-//  Library+Details.swift
+//  Audio+Album.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
 //
-
 import Foundation
 
-public extension Library {
+public extension Audio {
     
-    ///  Library details
-    enum Details {
+    /// Album related items
+    enum Album {
         /// Just a placeholder
     }
 }

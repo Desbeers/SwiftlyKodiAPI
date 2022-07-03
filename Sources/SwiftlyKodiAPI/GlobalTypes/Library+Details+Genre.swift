@@ -1,5 +1,5 @@
 //
-//  Audio+Details+Base.swift
+//  Library+Details.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -7,21 +7,22 @@
 
 import Foundation
 
-public extension Audio.Details {
+public extension Library.Details {
     
     /// Genre details
-    struct Genres: LibraryItem {
-        
-        /// # Computed values
+    struct Genre: Codable, Identifiable {
         
         public var id: Int { genreID }
-        public var media: Library.Media = .genre
         
         public var genreID: Int = 0
+        public var sourceID: [Int] = []
+        public var thumbnail: String = ""
         public var title: String = ""
         
         enum CodingKeys: String, CodingKey {
             case genreID = "genreid"
+            case sourceID = "sourceid"
+            case thumbnail
             case title
         }
     }
