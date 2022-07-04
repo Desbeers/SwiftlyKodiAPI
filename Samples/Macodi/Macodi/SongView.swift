@@ -19,9 +19,9 @@ struct SongView: View {
             TableColumn("Play count") { song in
                 Text(song.playcount == 0 ? "Never played" : "Played \(song.playcount) times")
             }
-            TableColumn("Add playvountt") { song in
+            TableColumn("Add playvount") { song in
                 Button(action: {
-                    
+                    song.markAsPlayed()
                 }
                        , label: {
                     Text("played")

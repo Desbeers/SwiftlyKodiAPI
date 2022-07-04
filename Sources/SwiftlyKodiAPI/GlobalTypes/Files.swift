@@ -12,9 +12,9 @@ public enum Files {
     /// Just a placeholder
 }
 
-extension Files {
+public extension Files {
     /// Media types
-    public enum Media: String, Codable {
+    enum Media: String, Codable {
         case video
         case music
         case pictures
@@ -25,7 +25,7 @@ extension Files {
     }
 }
 
-extension Files {
+public extension Files {
     /// Media type
     enum MediaType: String {
         /// An image; poster, fanart etc...
@@ -41,7 +41,7 @@ extension Files {
     ///   - file: The internal Kodi path
     ///   - type: The media type
     /// - Returns: A string with the full path to the file
-    static func getFullPath(file: String, type: Files.MediaType) -> String {
+    public static func getFullPath(file: String, type: Files.MediaType) -> String {
         let host = KodiConnector.shared.host
         /// Encoding
         var allowed = CharacterSet.alphanumerics

@@ -19,7 +19,10 @@ struct ArtistView: View {
             
             TableColumn("Icon") { artist in
                 //AsyncImage(url: URL(string: Files.getFullPath(file: artist.thumbnail, type: .art)))
-                AsyncImage(url: URL(string: artist.thumbnail))
+                
+                ArtView(thumbnail: artist.thumbnail)
+                
+                //AsyncImage(url: URL(string: artist.thumbnail))
             }
             TableColumn("Name", value: \.artist)
             TableColumn("Thumbnail", value: \.thumbnail)

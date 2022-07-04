@@ -124,10 +124,10 @@ public extension Audio.Details.Artist {
         self.dateAdded = try container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.dateAdded)
         self.genre = try container.decode([String].self, forKey: Audio.Details.Artist.CodingKeys.genre)
         self.fanart = try container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.fanart)
-        //self.thumbnail = try container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.thumbnail)
+        self.thumbnail = try container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.thumbnail)
         
-        if let thumbnail = try? container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.thumbnail), !thumbnail.isEmpty {
-            self.thumbnail = Files.getFullPath(file: thumbnail, type: .art)
-        }
+//        if let thumbnail = try? container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.thumbnail), !thumbnail.isEmpty {
+//            self.thumbnail = Files.getFullPath(file: thumbnail, type: .art)
+//        }
     }
 }

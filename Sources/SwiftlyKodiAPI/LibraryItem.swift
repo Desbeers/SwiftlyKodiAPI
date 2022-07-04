@@ -13,3 +13,10 @@ public protocol LibraryItem: Codable, Identifiable, Equatable {
     /// The kind of ``Library/MediaType``
     var media: Library.Media { get }
 }
+
+public extension LibraryItem {
+    func markAsPlayed() {
+        print(self.media)
+        print(self.id)
+    }
+}

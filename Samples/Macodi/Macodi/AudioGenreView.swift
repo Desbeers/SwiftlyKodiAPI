@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftlyKodiAPI
 
-struct GenreView: View {
+struct AudioGenreView: View {
     /// The KodiConnector model
     @EnvironmentObject var kodi: KodiConnector
     
@@ -25,8 +25,8 @@ struct GenreView: View {
                 }
             }
         }
-        .task {
-            genres = await AudioLibrary.getGenres()
+        .task(id: kodi.library.audioGenres) {
+            genres = kodi.library.audioGenres
         }
     }
 }

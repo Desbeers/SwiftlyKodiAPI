@@ -20,7 +20,7 @@ struct SidebarView: View {
                 NavigationLink(destination: SongView()) {
                     Text("Songs")
                 }
-                NavigationLink(destination: GenreView()) {
+                NavigationLink(destination: AudioGenreView()) {
                     Text("Genres")
                 }
             }

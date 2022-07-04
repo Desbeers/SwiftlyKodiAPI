@@ -46,7 +46,7 @@ public final class KodiConnector: ObservableObject {
     
     @Published public var library = MyLibrary()
     
-    public struct MyLibrary {
+    public struct MyLibrary: Codable {
         public var artists: [Audio.Details.Artist] = []
         public var albums: [Audio.Details.Album] = []
         public var songs: [Audio.Details.Song] = []

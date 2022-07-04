@@ -16,13 +16,19 @@ extension KodiConnector {
         connectWebSocket()
         loadingState = .load
         
-        await getMedia()
-        if let libraryItems = Cache.get(key: "Media", as: [MediaItem].self) {
-            media = libraryItems
+        if let libraryItems = Cache.get(key: "MyLibrary", as: MyLibrary.self) {
+            library = libraryItems
         } else {
-            let libraryItems = await getAllMedia()
-            media = libraryItems
+            await getMedia()
         }
+        
+//        if let libraryItems = Cache.get(key: "Media", as: [MediaItem].self) {
+//            media = libraryItems
+//        } else {
+//            let libraryItems = await getAllMedia()
+//            media = libraryItems
+//        }
+        
         /// Get the state of the player
         await getPlayerState()
         logger("Loaded the library")
@@ -32,8 +38,8 @@ extension KodiConnector {
     /// Reload the library from the Kodi host
     @MainActor public func reloadHost() async {
         loadingState = .load
-        let libraryItems = await getAllMedia()
-        media = libraryItems
+        await getMedia()
+        //media = libraryItems
     }
     
     
@@ -42,13 +48,26 @@ extension KodiConnector {
         switch host.media {
             
         case .music:
-            let artist = await AudioLibrary.getArtists()
-            let albums = await AudioLibrary.getAlbums()
-            /// Limit the loading for debugging
-            let songs = await AudioLibrary.getSongs(limits: List.Limits(end: 400, start: 100))
-            let genres = await AudioLibrary.getGenres()
             
-            library = MyLibrary(artists: artist, albums: albums, songs: songs, audioGenres: genres)
+            async let artist = AudioLibrary.getArtists()
+            async let albums = AudioLibrary.getAlbums()
+            /// Limit the loading for debugging
+            /// let songs = await AudioLibrary.getSongs(limits: List.Limits(end: 400, start: 100))
+            async let songs = AudioLibrary.getSongs()
+            async let genres = AudioLibrary.getGenres()
+            
+            library = await MyLibrary(artists: artist, albums: albums, songs: songs, audioGenres: genres)
+            
+//            let artist = await AudioLibrary.getArtists()
+//            let albums = await AudioLibrary.getAlbums()
+//            /// Limit the loading for debugging
+//            /// let songs = await AudioLibrary.getSongs(limits: List.Limits(end: 400, start: 100))
+//            let songs = await AudioLibrary.getSongs()
+//            let genres = await AudioLibrary.getGenres()
+//
+//            library = MyLibrary(artists: artist, albums: albums, songs: songs, audioGenres: genres)
+            
+            storeLibraryInCache(library)
         default:
             return
         }
@@ -107,8 +126,26 @@ extension KodiConnector {
         loadingState = .done
         return items
     }
+
     
-    /// Store the modia library in the cache
+    /// Store the library in the cache
+    /// - Parameter media: The whole media libray
+    /// - Note: This function will debounce for 2 seconds to avoid
+    ///         overload when we have a large library update
+    func storeLibraryInCache(_ library: MyLibrary) {
+        cacheTimer?.invalidate()
+        cacheTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+            Task.detached {
+                do {
+                    try Cache.set(key: "MyLibrary", object: library)
+                } catch {
+                    print("Saving library failed with error: \(error)")
+                }
+            }
+        }
+    }
+    
+    /// Store the media library in the cache
     
     /// Store the media library in the cache
     /// - Parameter media: The whole media libray
