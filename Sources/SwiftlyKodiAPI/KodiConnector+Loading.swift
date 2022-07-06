@@ -64,8 +64,11 @@ extension KodiConnector {
         case .video:
             
             async let movies = VideoLibrary.getMovies()
+            async let tvshows = VideoLibrary.getTVShows()
             
-            library = await MyLibrary(movies: movies)
+            library = await MyLibrary(movies: movies,
+                                      tvshows: tvshows
+            )
         case .all:
             
             async let artist = AudioLibrary.getArtists()
@@ -78,12 +81,14 @@ extension KodiConnector {
             /// # Video
             
             async let movies = VideoLibrary.getMovies()
+            async let tvshows = VideoLibrary.getTVShows()
             
             library = await MyLibrary(artists: artist,
                                       albums: albums,
                                       songs: songs,
                                       audioGenres: genres,
-                                      movies: movies
+                                      movies: movies,
+                                      tvshows: tvshows
             )
         default:
             return
@@ -104,25 +109,25 @@ extension KodiConnector {
 //        await items += AudioLibrary.getArtists()
         
         
-        /// Load videos
-        if host.media == .video || host.media == .all {
-            
-            loadingState = .movies
-            /// - Note: Always load Movies before Movie Sets, the latter is using Movie info
-            //await items += VideoLibrary.getMovies()
-            await items += VideoLibrary.getMovieSets()
-            
-            loadingState = .tvshows
-            let tvshows = await VideoLibrary.getTVShows()
-            /// - Note: The ``getAllEpisodes`` needs the list of TV shows
-            //await items += getAllEpisodes(tvshows: tvshows)
-            await items += VideoLibrary.getEpisodes()
-            /// Now we can store the TV shows in the `items` array
-            items += tvshows
-            
-            loadingState = .musicVideos
-            await items += VideoLibrary.getMusicVideos()
-        }
+//        /// Load videos
+//        if host.media == .video || host.media == .all {
+//
+//            loadingState = .movies
+//            /// - Note: Always load Movies before Movie Sets, the latter is using Movie info
+//            //await items += VideoLibrary.getMovies()
+//            await items += VideoLibrary.getMovieSets()
+//
+//            loadingState = .tvshows
+//            let tvshows = await VideoLibrary.getTVShows()
+//            /// - Note: The ``getAllEpisodes`` needs the list of TV shows
+//            //await items += getAllEpisodes(tvshows: tvshows)
+//            await items += VideoLibrary.getEpisodes()
+//            /// Now we can store the TV shows in the `items` array
+//            items += tvshows
+//
+//            loadingState = .musicVideos
+//            await items += VideoLibrary.getMusicVideos()
+//        }
         
 //        /// Load audio
 //        if host.media == .music || host.media == .all {
