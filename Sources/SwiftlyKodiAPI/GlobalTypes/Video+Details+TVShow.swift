@@ -100,7 +100,3 @@ public extension Video.Details {
         }
     }
 }
-
-public extension Audio.Details.Album {
-
-}

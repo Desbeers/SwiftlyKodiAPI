@@ -53,16 +53,15 @@ extension VideoLibrary {
     /// Get the details of a tv show
     /// - Parameter tvshowID: The ID of the tv show item
     /// - Returns: An updated Media Item
-    public static func getTVShowDetails(tvshowID: Int) async -> MediaItem {
+    public static func getTVShowDetails(tvshowID: Int) async -> Video.Details.TVShow {
         let kodi: KodiConnector = .shared
         let request = GetTVShowDetails(tvshowID: tvshowID)
         do {
             let result = try await kodi.sendRequest(request: request)
-            /// Make a MediaItem from the KodiResonse and return it
-            return kodi.setMediaItem(items: [result.tvshowdetails], media: .tvshow).first ?? MediaItem()
+            return result.tvshowdetails
         } catch {
             logger("Loading tv show details failed with error: \(error)")
-            return MediaItem()
+            return Video.Details.TVShow()
         }
     }
     
@@ -89,7 +88,7 @@ extension VideoLibrary {
         /// The response struct
         struct Response: Decodable {
             /// The details of the tv show
-            var tvshowdetails: KodiResponse
+            var tvshowdetails: Video.Details.TVShow
         }
     }
 }
@@ -103,25 +102,27 @@ extension VideoLibrary {
     /// - Note: Kodi does not send a notification if a TV show is changed
     ///
     /// - Parameter tvshow: The Media Item
-    public static func setTVShowDetails(tvshow: MediaItem) async {
+    public static func setTVShowDetails(tvshow: Video.Details.TVShow) async {
         let kodi: KodiConnector = .shared
         let message = SetTVShowDetails(tvshow: tvshow)
-        Task {
-            do {
-                let _ = try await kodi.sendRequest(request: message)
-                /// Update the TV show item
-                kodi.getMediaItemDetails(itemID: tvshow.tvshowID, type: .tvshow)
-                logger("Details set for '\(tvshow.title)'")
-            } catch {
-                logger("Setting TV show details failed with error: \(error)")
-            }
-        }
+        kodi.sendMessage(message: message)
+        logger("Details set for '\(tvshow.title)'")
+//        Task {
+//            do {
+//                let _ = try await kodi.sendRequest(request: message)
+//                /// Update the TV show item
+//                kodi.getMediaItemDetails(itemID: tvshow.tvshowID, type: .tvshow)
+//                logger("Details set for '\(tvshow.title)'")
+//            } catch {
+//                logger("Setting TV show details failed with error: \(error)")
+//            }
+//        }
     }
     
     /// Update the given tv show with the given details (Kodi API)
     struct SetTVShowDetails: KodiAPI {
         /// Arguments
-        var tvshow: MediaItem
+        var tvshow: Video.Details.TVShow
         /// Method
         var method = Methods.videoLibrarySetTVShowDetails
         /// The JSON creator
@@ -133,9 +134,9 @@ extension VideoLibrary {
         /// The request struct
         /// - Note: The properties we want to set
         struct Params: Encodable {
-            internal init(tvshow: MediaItem) {
+            internal init(tvshow: Video.Details.TVShow) {
                 self.tvshowid = tvshow.tvshowID
-                self.userrating = tvshow.rating
+                self.userrating = tvshow.userRating
                 self.playcount = tvshow.playcount
                 self.lastplayed = tvshow.lastPlayed
             }

@@ -54,6 +54,7 @@ public final class KodiConnector: ObservableObject {
         public var audioGenres: [Library.Details.Genre] = []
         
         public var movies: [Video.Details.Movie] = []
+        public var movieSets: [Video.Details.MovieSet] = []
         public var tvshows: [Video.Details.TVShow] = []
         public var episodes: [Video.Details.Episode] = []
     }

@@ -20,9 +20,15 @@ extension KodiConnector {
                 if let index = library.movies.firstIndex(where: {$0.movieID == itemID}) {
                     library.movies[index] = await VideoLibrary.getMovieDetails(movieID: itemID)
                 }
+            case .tvshow:
+                if let index = library.tvshows.firstIndex(where: {$0.tvshowID == itemID}) {
+                    library.tvshows[index] = await VideoLibrary.getTVShowDetails(tvshowID: itemID)
+                }
             case .episode:
                 if let index = library.episodes.firstIndex(where: {$0.episodeID == itemID}) {
                     library.episodes[index] = await VideoLibrary.getEpisodeDetails(episodeID: itemID)
+                    /// Always check the TV show when an episode is updated
+                    getLibraryUpdate(itemID: library.episodes[index].tvshowID, media: .tvshow)
                 }
             default:
                 logger("Library update for \(media) not implemented.")

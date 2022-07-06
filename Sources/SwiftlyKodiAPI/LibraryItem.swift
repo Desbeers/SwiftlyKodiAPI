@@ -50,6 +50,22 @@ public extension LibraryItem {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         newItem.lastPlayed = self.playcount == 0 ? "" : dateFormatter.string(from: Date())
         
+        switch self.media {
+        case .tvshow:
+            /// Update the episodes with the new playcount
+            let kodi: KodiConnector = .shared
+            var episodes = kodi.library.episodes.filter {
+                $0.tvshowID == self.id &&
+                $0.playcount != newItem.playcount
+            }
+            for (index, _) in episodes.enumerated() {
+                episodes[index].playcount = newItem.playcount
+                episodes[index].lastPlayed = newItem.lastPlayed
+                await VideoLibrary.setEpisodeDetails(episode: episodes[index])
+            }
+        default:
+            break
+        }
         await setDetails(newItem)
     }
 }
@@ -61,6 +77,8 @@ public extension LibraryItem {
             await AudioLibrary.setSongDetails(song: item as! Audio.Details.Song)
         case .movie:
             await VideoLibrary.setMovieDetails(movie: item as! Video.Details.Movie)
+        case .tvshow:
+            await VideoLibrary.setTVShowDetails(tvshow: item as! Video.Details.TVShow)
         case .episode:
             await VideoLibrary.setEpisodeDetails(episode: item as! Video.Details.Episode)
         default:

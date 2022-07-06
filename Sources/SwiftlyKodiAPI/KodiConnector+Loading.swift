@@ -64,10 +64,12 @@ extension KodiConnector {
         case .video:
             
             async let movies = VideoLibrary.getMovies()
+            async let movieSets = VideoLibrary.getMovieSets()
             async let tvshows = VideoLibrary.getTVShows()
             async let episodes = VideoLibrary.getEpisodes()
             
             library = await MyLibrary(movies: movies,
+                                      movieSets: movieSets,
                                       tvshows: tvshows,
                                       episodes: episodes
             )
@@ -83,6 +85,7 @@ extension KodiConnector {
             /// # Video
             
             async let movies = VideoLibrary.getMovies()
+            async let movieSets = VideoLibrary.getMovieSets()
             async let tvshows = VideoLibrary.getTVShows()
             async let episodes = VideoLibrary.getEpisodes()
             
@@ -91,6 +94,7 @@ extension KodiConnector {
                                       songs: songs,
                                       audioGenres: genres,
                                       movies: movies,
+                                      movieSets: movieSets,
                                       tvshows: tvshows,
                                       episodes: episodes
             )

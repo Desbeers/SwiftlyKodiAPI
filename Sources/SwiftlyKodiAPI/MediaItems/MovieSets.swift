@@ -13,14 +13,14 @@ extension VideoLibrary {
     
     /// Get all the movies from the Kodi host
     /// - Returns: All movies from the Kodi host
-    public static func getMovieSets() async -> [MediaItem] {
+    public static func getMovieSets() async -> [Video.Details.MovieSet] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetMovieSets()) {
             logger("Loaded \(result.sets.count) movie sets from the Kodi host")
-            return kodi.setMediaItem(items: result.sets, media: .movieSet)
+            return result.sets
         }
         /// There are no movie sets in the library
-        return [MediaItem]()
+        return [Video.Details.MovieSet]()
     }
     
     /// Retrieve all movie sets (Kodi API)
@@ -41,7 +41,7 @@ extension VideoLibrary {
         /// The response struct
         struct Response: Decodable {
             /// The list of movie sets
-            let sets: [KodiResponse]
+            let sets: [Video.Details.MovieSet]
         }
     }
 }

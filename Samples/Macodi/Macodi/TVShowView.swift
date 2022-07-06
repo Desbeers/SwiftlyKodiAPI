@@ -17,6 +17,11 @@ struct TVShowView: View {
         
         Table(tvshows) {
             TableColumn("Title", value: \.title)
+            
+            TableColumn("Watched") { tvshow in
+                Text("Watched \(tvshow.watchedEpisodes) episodes")
+            }
+            
             TableColumn("Status") { tvshow in
                 
                 if let status = tvshow.status {
@@ -24,6 +29,20 @@ struct TVShowView: View {
                 } else {
                     Text("Unknown")
                 }
+            }
+            TableColumn("Play count") { tvshow in
+                Text(tvshow.playcount == 0 ? "Never played" : "Played \(tvshow.playcount) times")
+            }
+            TableColumn("Toggle playcount") { tvshow in
+                Button(action: {
+                    Task {
+                        await tvshow.togglePlayedState()
+                    }
+                }
+                       , label: {
+                    Text(tvshow.playcount == 0 ? "Mark as played" : "Mark as new")
+                    
+                })
             }
         }
         .task(id: kodi.library.tvshows) {

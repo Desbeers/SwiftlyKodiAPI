@@ -11,13 +11,6 @@ extension Video {
     
     /// Static fields for Video
     struct Fields {
-        /// The properties of a movie set
-        static let movieSet = [
-            "title",
-            "playcount",
-            "art",
-            "plot"
-        ]
         /// The properties of  a music video
         static var musicVideo = [
             "title",

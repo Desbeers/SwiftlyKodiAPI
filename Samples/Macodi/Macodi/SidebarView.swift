@@ -31,6 +31,9 @@ struct SidebarView: View {
                 NavigationLink(destination: MovieView()) {
                     Label("Movies", systemImage: "film")
                 }
+                NavigationLink(destination: MovieSetView()) {
+                    Label("Movie sets", systemImage: "film")
+                }
                 NavigationLink(destination: TVShowView()) {
                     Label("TV Shows", systemImage: "tv")
                 }

@@ -85,7 +85,7 @@ public extension MediaButtons {
         }
         public var body: some View {
             Button(action: {
-                //PlayItem(item: song)
+                #if os(macOS)
                 // create a new NSPanel
                 let window = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 500, height: 500), styleMask: [.fullSizeContentView, .closable, .resizable, .titled], backing: .buffered, defer: false)
                 
@@ -96,6 +96,7 @@ public extension MediaButtons {
                 // put your swiftui view here in rootview
                 window.contentView = NSHostingView(rootView: PlayerView(item: item))
                 window.makeKeyAndOrderFront(nil)
+                #endif
             }
                    , label: {
                 Text("Stream")

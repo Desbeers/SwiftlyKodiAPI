@@ -248,16 +248,6 @@ extension AudioLibrary {
     public static func setSongDetails(song: Audio.Details.Song) async {
         let kodi: KodiConnector = .shared
         let message = AudioLibrary.SetSongDetails(song: song)
-//        do {
-//            let result = try await kodi.sendRequest(request: message)
-//            logger("Details set for '\(song.title)'")
-//            /// Make a MediaItem from the KodiResonse and return it
-//            //return kodi.setMediaItem(items: [result.songdetails], media: .song).first ?? MediaItem()
-//        } catch {
-//            logger("Setting song details failed with error: \(error)")
-//            //return MediaItem()
-//        }
-        
         kodi.sendMessage(message: message)
         logger("Details set for '\(song.title)'")
     }
