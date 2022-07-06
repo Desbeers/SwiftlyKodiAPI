@@ -18,8 +18,8 @@ extension KodiConnector {
 //                await VideoLibrary.setMovieDetails(movie: item)
             case .tvshow:
                 await VideoLibrary.setTVShowDetails(tvshow: item)
-            case .episode:
-                await VideoLibrary.setEpisodeDetails(episode: item)
+//            case .episode:
+//                await VideoLibrary.setEpisodeDetails(episode: item)
             case .musicVideo:
                 await VideoLibrary.setMusicVideoDetails(musicVideo: item)
 //            case .song:
@@ -48,10 +48,10 @@ extension KodiConnector {
                     media[index] = await VideoLibrary.getMovieSetDetails(movieSetID: media[index].movieSetID)
                 case .tvshow:
                     media[index] = await VideoLibrary.getTVShowDetails(tvshowID: media[index].tvshowID)
-                case .episode:
-                    media[index] = await VideoLibrary.getEpisodeDetails(episodeID: media[index].episodeID)
-                    /// Always check the TV show when an episode changed
-                    getMediaItemDetails(itemID: media[index].tvshowID, type: .tvshow)
+//                case .episode:
+//                    media[index] = await VideoLibrary.getEpisodeDetails(episodeID: media[index].episodeID)
+//                    /// Always check the TV show when an episode changed
+//                    getMediaItemDetails(itemID: media[index].tvshowID, type: .tvshow)
                 case .musicVideo:
                     media[index] = await VideoLibrary.getMusicVideoDetails(musicVideoID: media[index].musicVideoID)
 //                case .song:

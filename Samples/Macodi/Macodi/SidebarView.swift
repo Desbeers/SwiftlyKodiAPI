@@ -34,6 +34,9 @@ struct SidebarView: View {
                 NavigationLink(destination: TVShowView()) {
                     Label("TV Shows", systemImage: "tv")
                 }
+                NavigationLink(destination: EpisodeView()) {
+                    Label("Episodes", systemImage: "tv")
+                }
             }
         }
     }

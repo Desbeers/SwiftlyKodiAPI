@@ -33,13 +33,6 @@ public extension LibraryItem {
         newItem.lastPlayed = dateFormatter.string(from: Date())
         
         await setDetails(newItem)
-        
-//        switch self.media {
-//        case .song:
-//            await AudioLibrary.setSongDetails(song: newItem as! Audio.Details.Song)
-//        default:
-//            logger("Updating \(self.media) not implemented")
-//        }
     }
 }
 
@@ -58,13 +51,6 @@ public extension LibraryItem {
         newItem.lastPlayed = self.playcount == 0 ? "" : dateFormatter.string(from: Date())
         
         await setDetails(newItem)
-        
-//        switch self.media {
-//        case .song:
-//            await AudioLibrary.setSongDetails(song: newItem as! Audio.Details.Song)
-//        default:
-//            logger("Updating \(self.media) not implemented")
-//        }
     }
 }
 
@@ -75,6 +61,8 @@ public extension LibraryItem {
             await AudioLibrary.setSongDetails(song: item as! Audio.Details.Song)
         case .movie:
             await VideoLibrary.setMovieDetails(movie: item as! Video.Details.Movie)
+        case .episode:
+            await VideoLibrary.setEpisodeDetails(episode: item as! Video.Details.Episode)
         default:
             logger("Updating \(self.media) not implemented")
         }

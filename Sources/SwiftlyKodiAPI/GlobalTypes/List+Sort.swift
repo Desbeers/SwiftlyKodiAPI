@@ -37,6 +37,10 @@ extension List {
             case artist = "artist"
             ///  Order by title
             case title = "title"
+            ///  Order by sort title
+            case sortTitle = "sorttitle"
+            ///  Order by tvshow title
+            case tvshowTitle = "tvshowtitle"
             ///  Order by label
             case label = "label"
         }

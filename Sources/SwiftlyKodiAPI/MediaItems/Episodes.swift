@@ -14,14 +14,15 @@ extension VideoLibrary {
     /// Get all the episodes from the Kodi host
     /// - Parameter tvshowID: The optional TV show ID
     /// - Returns: The requested episodes
-    public static func getEpisodes(tvshowID: Int? = nil) async -> [MediaItem] {
+    public static func getEpisodes(tvshowID: Int? = nil) async -> [Video.Details.Episode] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetEpisodes(tvshowID: tvshowID)) {
             logger("Loaded \(result.episodes.count) episodes from the Kodi host")
-            return kodi.setMediaItem(items: result.episodes, media: .episode)
+            return result.episodes
+            //return kodi.setMediaItem(items: result.episodes, media: .episode)
         }
         /// There are no episodes in the library
-        return [MediaItem]()
+        return [Video.Details.Episode]()
     }
     
     /// Retrieve all episodes of a TV show (Kodi API)
@@ -46,11 +47,13 @@ extension VideoLibrary {
             var tvshowid: Int?
             /// The properties that we ask from Kodi
             let properties = Video.Fields.episode
+            /// The sorting
+            let sort = List.Sort(method: .tvshowTitle, order: .ascending)
         }
         /// The response struct
         struct Response: Decodable {
             /// The list of episodes
-            let episodes: [KodiResponse]
+            let episodes: [Video.Details.Episode]
         }
     }
 }
@@ -62,16 +65,15 @@ extension VideoLibrary {
     /// Get the details of an episode
     /// - Parameter episodeID: The ID of the episode item
     /// - Returns: An updated Media Item
-    public static func getEpisodeDetails(episodeID: Int) async -> MediaItem {
+    public static func getEpisodeDetails(episodeID: Int) async -> Video.Details.Episode {
         let kodi: KodiConnector = .shared
         let request = GetEpisodeDetails(episodeID: episodeID)
         do {
             let result = try await kodi.sendRequest(request: request)
-            /// Make a MediaItem from the KodiResonse and return it
-            return kodi.setMediaItem(items: [result.episodedetails], media: .episode).first ?? MediaItem()
+            return result.episodedetails
         } catch {
             logger("Loading episode details failed with error: \(error)")
-            return MediaItem()
+            return Video.Details.Episode()
         }
     }
     
@@ -97,8 +99,8 @@ extension VideoLibrary {
         }
         /// The response struct
         struct Response: Decodable {
-            /// The details of the song
-            var episodedetails: KodiResponse
+            /// The details of the episode
+            var episodedetails: Video.Details.Episode
         }
     }
 }
@@ -109,7 +111,7 @@ extension VideoLibrary {
     
     /// Set the details of an episode item
     /// - Parameter episode: The episode as Media Item
-    public static func setEpisodeDetails(episode: MediaItem) async {
+    public static func setEpisodeDetails(episode: Video.Details.Episode) async {
         let kodi: KodiConnector = .shared
         let message = SetEpisodeDetails(episode: episode)
         kodi.sendMessage(message: message)
@@ -119,7 +121,7 @@ extension VideoLibrary {
     /// Update the given episode with the given details (Kodi API)
     struct SetEpisodeDetails: KodiAPI {
         /// Arguments
-        var episode: MediaItem
+        var episode: Video.Details.Episode
         /// Method
         var method = Methods.videoLibrarySetEpisodeDetails
         /// The JSON creator
@@ -131,9 +133,9 @@ extension VideoLibrary {
         /// The request struct
         /// - Note: The properties we want to set
         struct Params: Encodable {
-            internal init(episode: MediaItem) {
+            internal init(episode: Video.Details.Episode) {
                 self.episodeid = episode.episodeID
-                self.userrating = episode.rating
+                self.userrating = episode.userRating
                 self.playcount = episode.playcount
                 self.lastplayed = episode.lastPlayed
             }

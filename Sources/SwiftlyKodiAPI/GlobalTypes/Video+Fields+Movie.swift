@@ -1,5 +1,5 @@
 //
-//  Video+Fields.swift
+//  Video+Fields+Movie.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen

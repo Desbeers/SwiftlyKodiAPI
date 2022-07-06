@@ -18,23 +18,6 @@ extension Video {
             "art",
             "plot"
         ]
-        /// The properties of  an episode
-        static var episode = [
-            "title",
-            "plot",
-            "playcount",
-            "season",
-            "episode",
-            "art",
-            "file",
-            "showtitle",
-            "firstaired",
-            "runtime",
-            "cast",
-            "tvshowid",
-            "streamdetails",
-            "lastplayed"
-        ]
         /// The properties of  a music video
         static var musicVideo = [
             "title",

@@ -55,6 +55,7 @@ public final class KodiConnector: ObservableObject {
         
         public var movies: [Video.Details.Movie] = []
         public var tvshows: [Video.Details.TVShow] = []
+        public var episodes: [Video.Details.Episode] = []
     }
     
     // MARK: Init

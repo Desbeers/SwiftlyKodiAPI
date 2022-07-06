@@ -36,7 +36,7 @@ extension VideoLibrary {
             /// The properties
             let properties = Video.Fields.tvshow
             /// The sorting
-            let sort = List.Sort(method: .title, order: .ascending)
+            let sort = List.Sort(method: .sortTitle, order: .ascending)
         }
         /// The Response struct
         struct Response: Decodable {
