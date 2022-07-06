@@ -7,13 +7,9 @@
 
 import Foundation
 
-/// All Media related items
-public enum Media {
-    /// Just a placeholder
-}
-
 public extension Media {
     
+    /// Artwork for a Media item
     struct Artwork: Codable, Equatable {
         public var banner: String = ""
         public var fanart: String = ""

@@ -19,7 +19,7 @@ struct MacodiApp: App {
                 .environmentObject(kodi)
                 .task {
                     if kodi.loadingState == .start {
-                        await kodi.connectToHost(kodiHost: HostItem(ip: "192.168.11.200", media: .music))
+                        await kodi.connectToHost(kodiHost: HostItem(ip: "192.168.11.200", media: .video))
                     }
                 }
         }

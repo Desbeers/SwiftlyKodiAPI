@@ -196,16 +196,18 @@ extension AudioLibrary {
     /// Get the details of a song
     /// - Parameter songID: The ID of the song item
     /// - Returns: An updated Media Item
-    public static func getSongDetails(songID: Int) async -> MediaItem {
+    public static func getSongDetails(songID: Int) async -> Audio.Details.Song {
         let kodi: KodiConnector = .shared
         let request = AudioLibrary.GetSongDetails(songID: songID)
         do {
             let result = try await kodi.sendRequest(request: request)
+            
+            return result.songdetails
             /// Make a MediaItem from the KodiResonse and return it
-            return kodi.setMediaItem(items: [result.songdetails], media: .song).first ?? MediaItem()
+            //return kodi.setMediaItem(items: [result.songdetails], media: .song).first ?? MediaItem()
         } catch {
             logger("Loading song details failed with error: \(error)")
-            return MediaItem()
+            return Audio.Details.Song()
         }
     }
     
@@ -232,7 +234,7 @@ extension AudioLibrary {
         /// The response struct
         struct Response: Decodable {
             /// The details of the song
-            var songdetails: KodiResponse
+            var songdetails: Audio.Details.Song
         }
     }
 }
@@ -243,29 +245,41 @@ extension AudioLibrary {
 
     /// Update the details of a song
     /// - Parameter song: The Media Item
-    public static func setSongDetails(song: MediaItem) async {
+    public static func setSongDetails(song: Audio.Details.Song) async {
         let kodi: KodiConnector = .shared
         let message = AudioLibrary.SetSongDetails(song: song)
-        kodi.sendMessage(message: message)
-        logger("Details set for '\(song.title)'")
+        do {
+            let result = try await kodi.sendRequest(request: message)
+            logger("Details set for '\(song.title)'")
+            /// Make a MediaItem from the KodiResonse and return it
+            //return kodi.setMediaItem(items: [result.songdetails], media: .song).first ?? MediaItem()
+        } catch {
+            logger("Setting song details failed with error: \(error)")
+            //return MediaItem()
+        }
+        
+        //kodi.sendMessage(message: message)
+        //logger("Details set for '\(song.title)'")
     }
     
     /// Update the given song with the given details (Kodi API)
     struct SetSongDetails: KodiAPI {
         /// Arguments
-        var song: MediaItem
+        var song: Audio.Details.Song
         /// Method
         var method = Methods.audioLibrarySetSongDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters
-            let params = Params(song: song)
-            return buildParams(params: params)
+            //let params = Params(song: song)
+            //buildParams(params: song)
+            
+            buildParams(params: Params(song: song))
         }
         /// The request struct
         /// - Note: The properties we want to set
         struct Params: Encodable {
-            internal init(song: MediaItem) {
+            internal init(song: Audio.Details.Song) {
                 self.songid = song.songID
                 self.userrating = song.rating
                 self.playcount = song.playcount
@@ -284,6 +298,52 @@ extension AudioLibrary {
         struct Response: Decodable { }
     }
 }
+
+//extension AudioLibrary {
+//
+//    /// Update the details of a song
+//    /// - Parameter song: The Media Item
+//    public static func setSongDetails(song: MediaItem) async {
+//        let kodi: KodiConnector = .shared
+//        let message = AudioLibrary.SetSongDetails(song: song)
+//        kodi.sendMessage(message: message)
+//        logger("Details set for '\(song.title)'")
+//    }
+//
+//    /// Update the given song with the given details (Kodi API)
+//    struct SetSongDetails: KodiAPI {
+//        /// Arguments
+//        var song: MediaItem
+//        /// Method
+//        var method = Methods.audioLibrarySetSongDetails
+//        /// The JSON creator
+//        var parameters: Data {
+//            /// The parameters
+//            let params = Params(song: song)
+//            return buildParams(params: params)
+//        }
+//        /// The request struct
+//        /// - Note: The properties we want to set
+//        struct Params: Encodable {
+//            internal init(song: MediaItem) {
+//                self.songid = song.songID
+//                self.userrating = song.rating
+//                self.playcount = song.playcount
+//                self.lastplayed = song.lastPlayed
+//            }
+//            /// The song ID
+//            var songid: Int
+//            /// The rating of the song
+//            var userrating: Int
+//            /// The play count of the song
+//            var playcount: Int
+//            /// The last played date
+//            var lastplayed: String
+//        }
+//        /// The response struct
+//        struct Response: Decodable { }
+//    }
+//}
 
 extension KodiConnector {
     

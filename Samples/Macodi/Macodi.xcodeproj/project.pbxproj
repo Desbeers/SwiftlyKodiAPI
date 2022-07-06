@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D743CDF02872D13500C5925C /* ArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D743CDEF2872D13500C5925C /* ArtView.swift */; };
+		D743CDF22872DE1000C5925C /* CompilationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D743CDF12872DE1000C5925C /* CompilationView.swift */; };
+		D743CDF428747A3F00C5925C /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D743CDF328747A3F00C5925C /* MovieView.swift */; };
 		D7F30685287171E90090BAE5 /* MacodiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F30684287171E90090BAE5 /* MacodiApp.swift */; };
 		D7F30687287171E90090BAE5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F30686287171E90090BAE5 /* ContentView.swift */; };
 		D7F30689287171EA0090BAE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7F30688287171EA0090BAE5 /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		D743CDEF2872D13500C5925C /* ArtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtView.swift; sourceTree = "<group>"; };
+		D743CDF12872DE1000C5925C /* CompilationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompilationView.swift; sourceTree = "<group>"; };
+		D743CDF328747A3F00C5925C /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
 		D7F30681287171E90090BAE5 /* Macodi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Macodi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F30684287171E90090BAE5 /* MacodiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacodiApp.swift; sourceTree = "<group>"; };
 		D7F30686287171E90090BAE5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -77,10 +81,12 @@
 				D7F3068D287171EA0090BAE5 /* Macodi.entitlements */,
 				D7F3068A287171EA0090BAE5 /* Preview Content */,
 				D7F30697287174D10090BAE5 /* SidebarView.swift */,
+				D743CDF328747A3F00C5925C /* MovieView.swift */,
 				D7F30699287174DE0090BAE5 /* MainView.swift */,
 				D7F3069B287175D40090BAE5 /* ArtistView.swift */,
 				D7F3069D287192E20090BAE5 /* AlbumView.swift */,
 				D7F3069F2871A3E90090BAE5 /* SongView.swift */,
+				D743CDF12872DE1000C5925C /* CompilationView.swift */,
 				D7F306A12871B7830090BAE5 /* AudioGenreView.swift */,
 				D743CDEF2872D13500C5925C /* ArtView.swift */,
 			);
@@ -181,9 +187,11 @@
 				D7F306A02871A3E90090BAE5 /* SongView.swift in Sources */,
 				D7F3069C287175D40090BAE5 /* ArtistView.swift in Sources */,
 				D7F30685287171E90090BAE5 /* MacodiApp.swift in Sources */,
+				D743CDF22872DE1000C5925C /* CompilationView.swift in Sources */,
 				D7F306A22871B7830090BAE5 /* AudioGenreView.swift in Sources */,
 				D743CDF02872D13500C5925C /* ArtView.swift in Sources */,
 				D7F30698287174D10090BAE5 /* SidebarView.swift in Sources */,
+				D743CDF428747A3F00C5925C /* MovieView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

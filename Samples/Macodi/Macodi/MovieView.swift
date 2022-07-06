@@ -1,23 +1,32 @@
 //
-//  AlbumView.swift
+//  MovieView.swift
 //  Macodi
 //
-//  Created by Nick Berendsen on 03/07/2022.
+//  Created by Nick Berendsen on 05/07/2022.
 //
 
 import SwiftUI
 import SwiftlyKodiAPI
 
-struct SongView: View {
+struct MovieView: View {
     /// The KodiConnector model
     @EnvironmentObject var kodi: KodiConnector
-    @State var songs: [Audio.Details.Song] = []
+    
+    @State var movies: [Video.Details.Movie] = []
     var body: some View {
-        Table(songs) {
-            TableColumn("Title", value: \.title)
-            TableColumn("Artist", value: \.displayArtist)
-            TableColumn("Play count") { song in
-                Text(song.playcount == 0 ? "Never played" : "Played \(song.playcount) times")
+        
+        Table(movies) {
+            TableColumn("Name", value: \.title)
+            TableColumn("Ratings") { movie in
+
+                if let rating = movie.ratings.defaults {
+                    Text("Rating: \(rating.rating), \(rating.votes) votes")
+                } else {
+                    Text("No rating")
+                }
+            }
+            TableColumn("Play count") { movie in
+                Text(movie.playcount == 0 ? "Never played" : "Played \(movie.playcount) times")
             }
             TableColumn("Add playcount") { song in
                 Button(action: {
@@ -41,12 +50,13 @@ struct SongView: View {
                     
                 })
             }
-            TableColumn("Stream") { song in
-                MediaButtons.StreamItem(item: song)
+            TableColumn("Stream") { movie in
+                MediaButtons.StreamItem(item: movie)
             }
         }
-        .task(id: kodi.library.songs) {
-            songs = kodi.library.songs
+        .task(id: kodi.library.movies) {
+            movies = kodi.library.movies
         }
     }
 }
+

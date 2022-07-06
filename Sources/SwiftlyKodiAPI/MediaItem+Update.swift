@@ -14,16 +14,16 @@ extension KodiConnector {
     func setMediaItemDetails(item: MediaItem) {
         Task.detached { [self] in 
             switch item.media {
-            case .movie:
-                await VideoLibrary.setMovieDetails(movie: item)
+//            case .movie:
+//                await VideoLibrary.setMovieDetails(movie: item)
             case .tvshow:
                 await VideoLibrary.setTVShowDetails(tvshow: item)
             case .episode:
                 await VideoLibrary.setEpisodeDetails(episode: item)
             case .musicVideo:
                 await VideoLibrary.setMusicVideoDetails(musicVideo: item)
-            case .song:
-                await AudioLibrary.setSongDetails(song: item)
+//            case .song:
+//                await AudioLibrary.setSongDetails(song: item)
             default:
                 logger("Set details for '\(item.media)' not implemented")
             }
@@ -38,12 +38,12 @@ extension KodiConnector {
         Task { @MainActor in
             if let index = media.firstIndex(where: {$0.id == "\(type.rawValue)-\(itemID)"}) {
                 switch media[index].media {
-                case .movie:
-                    media[index] = await VideoLibrary.getMovieDetails(movieID: media[index].movieID)
-                    /// Always check the Movie Set when a Movie is part of a Set
-                    if media[index].movieSetID != 0 {
-                        getMediaItemDetails(itemID: media[index].movieSetID, type: .movieSet)
-                    }
+//                case .movie:
+//                    media[index] = await VideoLibrary.getMovieDetails(movieID: media[index].movieID)
+//                    /// Always check the Movie Set when a Movie is part of a Set
+//                    if media[index].movieSetID != 0 {
+//                        getMediaItemDetails(itemID: media[index].movieSetID, type: .movieSet)
+//                    }
                 case .movieSet:
                     media[index] = await VideoLibrary.getMovieSetDetails(movieSetID: media[index].movieSetID)
                 case .tvshow:
@@ -54,8 +54,8 @@ extension KodiConnector {
                     getMediaItemDetails(itemID: media[index].tvshowID, type: .tvshow)
                 case .musicVideo:
                     media[index] = await VideoLibrary.getMusicVideoDetails(musicVideoID: media[index].musicVideoID)
-                case .song:
-                    media[index] = await AudioLibrary.getSongDetails(songID: media[index].songID)
+//                case .song:
+//                    media[index] = await AudioLibrary.getSongDetails(songID: media[index].songID)
                 default:
                     logger("Update for '\(type)' not implemented")
                 }

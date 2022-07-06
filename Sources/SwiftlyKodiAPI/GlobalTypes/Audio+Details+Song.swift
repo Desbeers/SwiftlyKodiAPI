@@ -48,7 +48,7 @@ public extension Audio.Details {
         public var track: Int = 0
         
         /// # Audio.Details.Media
-
+        
         public var artist: [String] = []
         public var artistID: [Int] = []
         public var displayArtist: String = ""
@@ -75,7 +75,7 @@ public extension Audio.Details {
         
         
         /// # Coding keys
-
+        
         enum CodingKeys: String, CodingKey {
             case album
             case albumArtist = "albumartist"
@@ -128,5 +128,55 @@ public extension Audio.Details {
 }
 
 public extension Audio.Details.Song {
-
+    
+    init(song: Audio.Details.Song) {
+        
+        self.media = .song
+        self.album = song.album
+        self.albumArtist = song.albumArtist
+        self.albumArtistID = song.albumArtistID
+        self.albumID = song.albumID
+        self.albumReleaseType = song.albumReleaseType
+        self.bitrate = song.bitrate
+        self.bpm = song.bpm
+        self.channels = song.channels
+        self.comment = song.comment
+        self.contributors = song.contributors
+        self.disc = song.disc
+        self.discTitle = song.discTitle
+        self.displayComposer = song.displayComposer
+        self.displayConductor = song.displayConductor
+        self.displayLyricist = song.displayLyricist
+        self.displayOrchestra = song.displayOrchestra
+        self.duration = song.duration
+        self.file = song.file
+        self.genreID = song.genreID
+        self.lastPlayed = song.lastPlayed
+        self.lyrics = song.lyrics
+        self.mood = song.mood
+        self.musicBrainzArtistID = song.musicBrainzArtistID
+        self.musicBrainzTrackID = song.musicBrainzTrackID
+        self.playcount = song.playcount
+        self.samplerate = song.samplerate
+        self.songID = song.songID
+        self.sourceID = song.sourceID
+        self.track = song.track
+        self.artist = song.artist
+        self.artistID = song.artistID
+        self.displayArtist = song.displayArtist
+        self.musicBrainzAlbumArtistID = song.musicBrainzAlbumArtistID
+        self.originalDate = song.originalDate
+        self.rating = song.rating
+        self.releaseDate = song.releaseDate
+        self.sortArtist = song.sortArtist
+        self.title = song.title
+        self.userRating = song.userRating
+        self.votes = song.votes
+        self.year = song.year
+        self.art = song.art
+        self.dateAdded = song.dateAdded
+        self.genre = song.genre
+        self.fanart = song.fanart
+        self.thumbnail = song.thumbnail
+    }
 }

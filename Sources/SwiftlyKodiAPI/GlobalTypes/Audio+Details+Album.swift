@@ -16,6 +16,7 @@ public extension Audio.Details {
         
         public var id: Int { albumID }
         public var media: Library.Media = .album
+        public var file: String = ""
         
         /// # Audio.Details.Album
         

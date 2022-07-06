@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftlyKodiAPI
 
-struct SongView: View {
+struct CompilationView: View {
     /// The KodiConnector model
     @EnvironmentObject var kodi: KodiConnector
     @State var songs: [Audio.Details.Song] = []
@@ -16,10 +16,11 @@ struct SongView: View {
         Table(songs) {
             TableColumn("Title", value: \.title)
             TableColumn("Artist", value: \.displayArtist)
+            TableColumn("Album", value: \.album)
             TableColumn("Play count") { song in
                 Text(song.playcount == 0 ? "Never played" : "Played \(song.playcount) times")
             }
-            TableColumn("Add playcount") { song in
+            TableColumn("Add playvount") { song in
                 Button(action: {
                     Task {
                         await song.markAsPlayed()
@@ -30,23 +31,12 @@ struct SongView: View {
                     
                 })
             }
-            TableColumn("Toggle playcount") { song in
-                Button(action: {
-                    Task {
-                        await song.togglePlayedState()
-                    }
-                }
-                       , label: {
-                    Text(song.playcount == 0 ? "Mark as played" : "Mark as new")
-                    
-                })
-            }
-            TableColumn("Stream") { song in
-                MediaButtons.StreamItem(item: song)
-            }
         }
         .task(id: kodi.library.songs) {
-            songs = kodi.library.songs
+            /// Get all album ID's that are compilations
+            let compilationAlbums = kodi.library.albums.filter({$0.compilation == true}).map( { $0.albumID } )
+            /// Filter the songs
+            songs =  kodi.library.songs.filter({compilationAlbums.contains($0.albumID)})
         }
     }
 }

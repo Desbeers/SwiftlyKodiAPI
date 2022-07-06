@@ -1,5 +1,5 @@
 //
-//  Audio+Details.swift
+//  Video+Details.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -7,9 +7,9 @@
 
 import Foundation
 
-public extension Audio {
+public extension Video {
     
-    /// Audio details related items
+    /// Video details related items
     enum Details {
         /// Just a placeholder
     }

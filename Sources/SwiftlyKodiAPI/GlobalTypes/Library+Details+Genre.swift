@@ -10,7 +10,7 @@ import Foundation
 public extension Library.Details {
     
     /// Genre details
-    struct Genre: LibraryItem {
+    struct Genre: Codable, Identifiable, Equatable {
         
         /// # Computed items
         

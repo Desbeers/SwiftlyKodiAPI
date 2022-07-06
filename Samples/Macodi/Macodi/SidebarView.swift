@@ -12,16 +12,24 @@ struct SidebarView: View {
         List {
             Section(header: Text("Audio")) {
                 NavigationLink(destination: ArtistView()) {
-                    Text("Artists")
+                    Label("Artists", systemImage: "person.2")
                 }
                 NavigationLink(destination: AlbumView()) {
-                    Text("Albums")
+                    Label("Albums", systemImage: "square.stack")
                 }
                 NavigationLink(destination: SongView()) {
-                    Text("Songs")
+                    Label("All songs", systemImage: "music.note")
+                }
+                NavigationLink(destination: CompilationView()) {
+                    Label("Compilation songs", systemImage: "link")
                 }
                 NavigationLink(destination: AudioGenreView()) {
-                    Text("Genres")
+                    Label("Genres", systemImage: "circle.grid.cross")
+                }
+            }
+            Section(header: Text("Video")) {
+                NavigationLink(destination: MovieView()) {
+                    Label("Movies", systemImage: "film")
                 }
             }
         }

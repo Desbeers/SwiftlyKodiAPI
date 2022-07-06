@@ -56,21 +56,39 @@ extension KodiConnector {
             async let songs = AudioLibrary.getSongs()
             async let genres = AudioLibrary.getGenres()
             
-            library = await MyLibrary(artists: artist, albums: albums, songs: songs, audioGenres: genres)
+            library = await MyLibrary(artists: artist,
+                                      albums: albums,
+                                      songs: songs,
+                                      audioGenres: genres
+            )
+        case .video:
             
-//            let artist = await AudioLibrary.getArtists()
-//            let albums = await AudioLibrary.getAlbums()
-//            /// Limit the loading for debugging
-//            /// let songs = await AudioLibrary.getSongs(limits: List.Limits(end: 400, start: 100))
-//            let songs = await AudioLibrary.getSongs()
-//            let genres = await AudioLibrary.getGenres()
-//
-//            library = MyLibrary(artists: artist, albums: albums, songs: songs, audioGenres: genres)
+            async let movies = VideoLibrary.getMovies()
             
-            storeLibraryInCache(library)
+            library = await MyLibrary(movies: movies)
+        case .all:
+            
+            async let artist = AudioLibrary.getArtists()
+            async let albums = AudioLibrary.getAlbums()
+            /// Limit the loading for debugging
+            /// let songs = await AudioLibrary.getSongs(limits: List.Limits(end: 400, start: 100))
+            async let songs = AudioLibrary.getSongs()
+            async let genres = AudioLibrary.getGenres()
+            
+            /// # Video
+            
+            async let movies = VideoLibrary.getMovies()
+            
+            library = await MyLibrary(artists: artist,
+                                      albums: albums,
+                                      songs: songs,
+                                      audioGenres: genres,
+                                      movies: movies
+            )
         default:
             return
         }
+        setLibraryCache()
     }
     
     /// Get all media from the Kodi host library
@@ -91,7 +109,7 @@ extension KodiConnector {
             
             loadingState = .movies
             /// - Note: Always load Movies before Movie Sets, the latter is using Movie info
-            await items += VideoLibrary.getMovies()
+            //await items += VideoLibrary.getMovies()
             await items += VideoLibrary.getMovieSets()
             
             loadingState = .tvshows
@@ -132,12 +150,12 @@ extension KodiConnector {
     /// - Parameter media: The whole media libray
     /// - Note: This function will debounce for 2 seconds to avoid
     ///         overload when we have a large library update
-    func storeLibraryInCache(_ library: MyLibrary) {
+    func setLibraryCache() {
         cacheTimer?.invalidate()
         cacheTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
             Task.detached {
                 do {
-                    try Cache.set(key: "MyLibrary", object: library)
+                    try Cache.set(key: "MyLibrary", object: self.library)
                 } catch {
                     print("Saving library failed with error: \(error)")
                 }

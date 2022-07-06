@@ -16,7 +16,8 @@ extension KodiConnector {
         case .playerOnAVStart, .playerOnPropertyChanged, .playerOnSpeedChanged, .playerOnStop, .playerOnPause, .playerOnResume:
             await getPlayerState()
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
-            getMediaItemDetails(itemID: notification.itemID, type: notification.media)
+            
+            getLibraryUpdate(itemID: notification.itemID, media: notification.media)
         default:
             logger("No action after notification")
         }

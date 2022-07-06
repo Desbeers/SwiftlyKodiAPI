@@ -35,6 +35,7 @@ extension KodiConnector {
             } catch let DecodingError.typeMismatch(type, context)  {
                 print("Type '\(type)' mismatch:", context.debugDescription)
                 print("codingPath:", context.codingPath)
+                debugJsonResponse(data: data)
             } catch {
                 print("error: ", error)
             }

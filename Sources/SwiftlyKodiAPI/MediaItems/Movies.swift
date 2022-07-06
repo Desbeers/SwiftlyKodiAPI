@@ -13,14 +13,14 @@ extension VideoLibrary {
     
     /// Get all the movies from the Kodi host
     /// - Returns: All movies from the Kodi host
-    public static func getMovies() async -> [MediaItem] {
+    public static func getMovies() async -> [Video.Details.Movie] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetMovies()) {
             logger("Loaded \(result.movies.count) movies from the Kodi host")
-            return kodi.setMediaItem(items: result.movies, media: .movie)
+            return result.movies
         }
         /// There are no movies in the library
-        return [MediaItem]()
+        return [Video.Details.Movie]()
     }
     
     /// Retrieve all movies (Kodi API)
@@ -36,12 +36,12 @@ extension VideoLibrary {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.movie
             /// The sorting
-            let sort = List.Sort(method: .title, order: .descending)
+            let sort = List.Sort(method: .title, order: .ascending)
         }
         /// The response
         struct Response: Decodable {
             /// The list of movies
-            let movies: [KodiResponse]
+            let movies: [Video.Details.Movie]
         }
     }
     
@@ -54,16 +54,17 @@ extension VideoLibrary {
     /// Get the details of a movie item
     /// - Parameter movieID: The ID of the movie item
     /// - Returns: An updated Media Item
-    public static func getMovieDetails(movieID: Int) async -> MediaItem {
+    public static func getMovieDetails(movieID: Int) async -> Video.Details.Movie {
         let kodi: KodiConnector = .shared
         let request = VideoLibraryGetMovieDetails(movieID: movieID)
         do {
             let result = try await kodi.sendRequest(request: request)
+            return result.moviedetails
             /// Make a MediaItem from the KodiResponse and return it
-            return kodi.setMediaItem(items: [result.moviedetails], media: .movie).first ?? MediaItem()
+            //return kodi.setMediaItem(items: [result.moviedetails], media: .movie).first ?? MediaItem()
         } catch {
             logger("Loading movie details failed with error: \(error)")
-            return MediaItem()
+            return Video.Details.Movie()
         }
     }
     
@@ -90,7 +91,7 @@ extension VideoLibrary {
         /// The response struct
         struct Response: Decodable {
             /// The details of the song
-            var moviedetails: KodiResponse
+            var moviedetails: Video.Details.Movie
         }
     }
 }
@@ -101,7 +102,7 @@ extension VideoLibrary {
     
     /// Set the details of a movie item
     /// - Parameter movie: The movie Media Item
-    public static func setMovieDetails(movie: MediaItem) async {
+    public static func setMovieDetails(movie: Video.Details.Movie) async {
         let kodi: KodiConnector = .shared
         let message = VideoLibrarySetMovieDetails(movie: movie)
         kodi.sendMessage(message: message)
@@ -111,7 +112,7 @@ extension VideoLibrary {
     /// Update the given movie with the given details (Kodi API)
     struct VideoLibrarySetMovieDetails: KodiAPI {
         /// Arguments
-        var movie: MediaItem
+        var movie: Video.Details.Movie
         /// Method
         var method = Methods.videoLibrarySetMovieDetails
         /// The JSON creator
@@ -123,9 +124,9 @@ extension VideoLibrary {
         /// The request struct
         /// - Note: The properties we want to set
         struct Params: Encodable {
-            internal init(movie: MediaItem) {
+            internal init(movie: Video.Details.Movie) {
                 self.movieid = movie.movieID
-                self.userrating = movie.rating
+                self.userrating = movie.userRating
                 self.playcount = movie.playcount
                 self.lastplayed = movie.lastPlayed
             }
