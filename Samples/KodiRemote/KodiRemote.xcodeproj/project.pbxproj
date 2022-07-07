@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D77F22C528702DF2009D28DE /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F22C428702DF2009D28DE /* TableView.swift */; };
-		D77F22C628702DF2009D28DE /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F22C428702DF2009D28DE /* TableView.swift */; };
-		D77F22C728702DF2009D28DE /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F22C428702DF2009D28DE /* TableView.swift */; };
 		D790FCBE28676F2300F0D694 /* KodiRemoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D790FCAE28676F2200F0D694 /* KodiRemoteApp.swift */; };
 		D790FCBF28676F2300F0D694 /* KodiRemoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D790FCAE28676F2200F0D694 /* KodiRemoteApp.swift */; };
 		D790FCC028676F2300F0D694 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D790FCAF28676F2200F0D694 /* ContentView.swift */; };
@@ -25,7 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D77F22C428702DF2009D28DE /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		D790FCAE28676F2200F0D694 /* KodiRemoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KodiRemoteApp.swift; sourceTree = "<group>"; };
 		D790FCAF28676F2200F0D694 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D790FCB028676F2300F0D694 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,7 +77,6 @@
 				D790FCAE28676F2200F0D694 /* KodiRemoteApp.swift */,
 				D790FCAF28676F2200F0D694 /* ContentView.swift */,
 				D790FCB028676F2300F0D694 /* Assets.xcassets */,
-				D77F22C428702DF2009D28DE /* TableView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -248,7 +243,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D790FCC028676F2300F0D694 /* ContentView.swift in Sources */,
-				D77F22C528702DF2009D28DE /* TableView.swift in Sources */,
 				D790FCBE28676F2300F0D694 /* KodiRemoteApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,7 +252,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D790FCC128676F2300F0D694 /* ContentView.swift in Sources */,
-				D77F22C628702DF2009D28DE /* TableView.swift in Sources */,
 				D790FCBF28676F2300F0D694 /* KodiRemoteApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,7 +261,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D790FCDE28676FB200F0D694 /* KodiRemoteApp.swift in Sources */,
-				D77F22C728702DF2009D28DE /* TableView.swift in Sources */,
 				D790FCDF28676FB600F0D694 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

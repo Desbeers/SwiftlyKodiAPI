@@ -7,35 +7,6 @@
 
 import Foundation
 
-extension KodiConnector {
-    
-    /// Get the first active player ID
-    /// - Returns: The active  `playerID`, if any, else `nil`
-    public func getPlayerID() async -> Player.ID? {
-        if let players = await Player.getActivePlayers(),
-           let activePlayer = players.first {
-            return activePlayer
-        }
-        return nil
-    }
-    
-//    /// Get the state of the player
-//    @MainActor func getPlayerState() async {
-//        /// Defaults
-//        var properties = Player.Property.Value()
-//        var item = MediaItem()
-//        /// Check if we have an active player
-//        if let playerID = await getPlayerID() {
-//            properties = await Player.getProperties(playerID: playerID)
-//            item = await Player.getItem(playerID: playerID)
-//        } else {
-//            logger("Player is not playing")
-//        }
-//        player = properties
-//        currentItem = item
-//    }
-}
-
 /// An enum with all Player related items
 public enum Player {
     /// Just a placeholder

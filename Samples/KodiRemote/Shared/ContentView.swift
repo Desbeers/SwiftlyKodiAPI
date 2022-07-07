@@ -18,15 +18,18 @@ struct ContentView: View {
                 .font(.title)
             Text("Notification: \(kodi.notification.method.rawValue)")
             Text("Player: \(kodi.player.kind.rawValue)")
-            HStack {
-                MediaArt.NowPlaying()
-                VStack {
-                    Text(kodi.currentItem.title)
-                        .font(.headline)
-                    Text(kodi.currentItem.subtitle)
-                        .font(.subheadline)
-                }
-            }
+            Text(kodi.currentItem?.title ?? "Nothing is playing")
+                .font(.headline)
+            MediaArt.NowPlaying()
+//            HStack {
+//                MediaArt.NowPlaying()
+//                VStack {
+//                    Text(kodi.currentItem.title)
+//                        .font(.headline)
+//                    Text(kodi.currentItem.subtitle)
+//                        .font(.subheadline)
+//                }
+//            }
 #if os(tvOS)
             HStack {
                 MediaButtons.PlayPause()
@@ -61,7 +64,7 @@ struct ContentView: View {
                 MediaButtons.SetRepeat()
             }
         }
-        .animation(.default, value: kodi.currentItem)
+        //.animation(.default, value: kodi.currentItem)
         .task(id: kodi.notification) {
             //dump(kodi.notification)
             //dump(kodi.playerProperties)

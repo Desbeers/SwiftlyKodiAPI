@@ -11,20 +11,24 @@ extension Player {
     
     /// Retrieves the currently played item
     /// - Parameter playerID: The ``ID`` of the current player
-    /// - Returns: The current ``MediaItem``
-//    public static func getItem(playerID: Player.ID) async -> MediaItem {
-//        
-//        if let result = try? await KodiConnector.shared.sendRequest(request: GetItem(playerID: playerID)) {
-//            /// If the result has an ID, it is from the library
-//            if let id = result.item.id, let libraryItem = KodiConnector.shared.media.filter({ $0.id == "\(result.item.type)-\(id)"}) .first {
-//                return libraryItem
-//            } else {
-//                return MediaItem(title: result.item.label)
-//            }
-//        } else {
-//            return MediaItem()
-//        }
-//    }
+    /// - Returns: The current ``KodiItem``
+    public static func getItem(playerID: Player.ID) async -> (any KodiItem)? {
+        let kodi: KodiConnector = .shared
+        if let result = try? await kodi.sendRequest(request: GetItem(playerID: playerID)) {
+            /// If the result has an ID, it is from the library
+            if let id = result.item.id {
+                switch result.item.type {
+                case .song:
+                    if let song = kodi.library.songs.first(where: {$0.songID == id}) {
+                        return song
+                    }
+                default:
+                    logger("Unknown item in the player")
+                }
+            }
+        }
+        return nil
+    }
     
     /// Retrieves the currently played item (Kodi API)
     struct GetItem: KodiAPI {
@@ -49,7 +53,8 @@ extension Player {
         struct PlayerItem: Decodable {
             var id: Int?
             var label: String = ""
-            var type: String = ""
+            //var type: String = ""
+            var type: Library.Media = .none
         }
     }
 }

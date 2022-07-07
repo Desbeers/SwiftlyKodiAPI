@@ -17,7 +17,7 @@ public extension Video.Details {
         public var id: Int { tvshowID }
         public var media: Library.Media = .tvshow
         public var sortByTitle: String { sortTitle.isEmpty ? title: sortTitle}
-        public var poster: String { thumbnail }
+        public var poster: String { art.poster }
         
         /// # Video.Details.TVShow
         

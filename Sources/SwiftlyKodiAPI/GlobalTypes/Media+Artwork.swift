@@ -15,12 +15,14 @@ public extension Media {
         public var fanart: String = ""
         public var poster: String = ""
         public var thumb: String = ""
+        public var seasonPoster: String = ""
         
         enum CodingKeys: String, CodingKey {
             case banner
             case fanart
             case poster
             case thumb
+            case seasonPoster = "season.poster"
         }
     }
 }
@@ -33,6 +35,7 @@ public extension Media.Artwork {
         self.fanart = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.fanart) ?? ""
         self.poster = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.poster) ?? ""
         self.thumb = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.thumb) ?? ""
+        self.seasonPoster = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.seasonPoster) ?? ""
     }
     
 }
