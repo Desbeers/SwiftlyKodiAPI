@@ -1,5 +1,5 @@
 //
-//  KodiConnector+Loading.swift
+//  KodiConnector+Load.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -19,18 +19,11 @@ extension KodiConnector {
         if let libraryItems = Cache.get(key: "MyLibrary", as: MyLibrary.self) {
             library = libraryItems
         } else {
-            await getMedia()
+            await getLibrary()
         }
         
-//        if let libraryItems = Cache.get(key: "Media", as: [MediaItem].self) {
-//            media = libraryItems
-//        } else {
-//            let libraryItems = await getAllMedia()
-//            media = libraryItems
-//        }
-        
         /// Get the state of the player
-        await getPlayerState()
+        //await getPlayerState()
         logger("Loaded the library")
         loadingState = .done
     }
@@ -38,13 +31,12 @@ extension KodiConnector {
     /// Reload the library from the Kodi host
     @MainActor public func reloadHost() async {
         loadingState = .load
-        await getMedia()
-        //media = libraryItems
+        await getLibrary()
     }
     
     
-    @MainActor func getMedia() async {
-        logger("Getting your media")
+    @MainActor func getLibrary() async {
+        logger("Getting your library")
         switch host.media {
             
         case .music:
@@ -112,61 +104,6 @@ extension KodiConnector {
         setLibraryCache()
     }
     
-    /// Get all media from the Kodi host library
-    /// - Returns: All the media from the Kodi host library
-    @MainActor func getAllMedia() async -> [MediaItem] {
-        logger("Load the library from the host")
-        
-        /// Start with a fresh list
-        var items: [MediaItem] = []
-        
-//        /// Always load Artist
-//        loadingState = .artists
-//        await items += AudioLibrary.getArtists()
-        
-        
-//        /// Load videos
-//        if host.media == .video || host.media == .all {
-//
-//            loadingState = .movies
-//            /// - Note: Always load Movies before Movie Sets, the latter is using Movie info
-//            //await items += VideoLibrary.getMovies()
-//            await items += VideoLibrary.getMovieSets()
-//
-//            loadingState = .tvshows
-//            let tvshows = await VideoLibrary.getTVShows()
-//            /// - Note: The ``getAllEpisodes`` needs the list of TV shows
-//            //await items += getAllEpisodes(tvshows: tvshows)
-//            await items += VideoLibrary.getEpisodes()
-//            /// Now we can store the TV shows in the `items` array
-//            items += tvshows
-//
-//            loadingState = .musicVideos
-//            await items += VideoLibrary.getMusicVideos()
-//        }
-        
-//        /// Load audio
-//        if host.media == .music || host.media == .all {
-//            loadingState = .albums
-//            let albums = await AudioLibrary.getAlbums()
-//            items += albums
-//
-//            loadingState = .songs
-//            await items += getAllSongs(albums: albums)
-//        }
-        
-        loadingState = .genres
-        //await items += getAllGenres()
-        
-        /// Store the media in the cache
-        storeMediaInCache(media: items)
-        
-        /// That's all!
-        loadingState = .done
-        return items
-    }
-
-    
     /// Store the library in the cache
     /// - Parameter media: The whole media libray
     /// - Note: This function will debounce for 2 seconds to avoid
@@ -179,25 +116,6 @@ extension KodiConnector {
                     try Cache.set(key: "MyLibrary", object: self.library)
                 } catch {
                     print("Saving library failed with error: \(error)")
-                }
-            }
-        }
-    }
-    
-    /// Store the media library in the cache
-    
-    /// Store the media library in the cache
-    /// - Parameter media: The whole media libray
-    /// - Note: This function will debounce for 2 seconds to avoid
-    ///         overload when we have a large library update
-    func storeMediaInCache(media: [MediaItem]) {
-        cacheTimer?.invalidate()
-        cacheTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-            Task.detached {
-                do {
-                    try Cache.set(key: "Media", object: media)
-                } catch {
-                    print("Saving media failed with error: \(error)")
                 }
             }
         }

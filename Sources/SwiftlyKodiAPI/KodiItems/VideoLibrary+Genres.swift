@@ -26,28 +26,6 @@ extension VideoLibrary {
         return [Library.Details.Genre]()
     }
     
-//    public static func getGenres(type: Library.Media) async -> [MediaItem] {
-//        let kodi: KodiConnector = .shared
-//        let request = GetGenres(type: type)
-//        var genreItems = [MediaItem]()
-//        do {
-//            let result = try await kodi.sendRequest(request: request)
-//            logger("Loaded \(result.genres.count) genres from the Kodi host")
-//            /// Add them as a MediaItem
-//            for genre in result.genres {
-//                genreItems.append(MediaItem(id: "genre-\(genre.genreID)",
-//                                            media: .genre,
-//                                            title: genre.title)
-//                )
-//            }
-//            return genreItems
-//        } catch {
-//            logger("Loading genres failed with error: \(error)")
-//            return genreItems
-//        }
-//    }
-    
-    
     /// Retrieve all genres (Kodi API)
     struct GetGenres: KodiAPI {
         /// Argument

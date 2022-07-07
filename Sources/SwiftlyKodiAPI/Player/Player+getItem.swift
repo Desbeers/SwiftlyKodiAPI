@@ -12,19 +12,19 @@ extension Player {
     /// Retrieves the currently played item
     /// - Parameter playerID: The ``ID`` of the current player
     /// - Returns: The current ``MediaItem``
-    public static func getItem(playerID: Player.ID) async -> MediaItem {
-        
-        if let result = try? await KodiConnector.shared.sendRequest(request: GetItem(playerID: playerID)) {
-            /// If the result has an ID, it is from the library
-            if let id = result.item.id, let libraryItem = KodiConnector.shared.media.filter({ $0.id == "\(result.item.type)-\(id)"}) .first {
-                return libraryItem
-            } else {
-                return MediaItem(title: result.item.label)
-            }
-        } else {
-            return MediaItem()
-        }
-    }
+//    public static func getItem(playerID: Player.ID) async -> MediaItem {
+//        
+//        if let result = try? await KodiConnector.shared.sendRequest(request: GetItem(playerID: playerID)) {
+//            /// If the result has an ID, it is from the library
+//            if let id = result.item.id, let libraryItem = KodiConnector.shared.media.filter({ $0.id == "\(result.item.type)-\(id)"}) .first {
+//                return libraryItem
+//            } else {
+//                return MediaItem(title: result.item.label)
+//            }
+//        } else {
+//            return MediaItem()
+//        }
+//    }
     
     /// Retrieves the currently played item (Kodi API)
     struct GetItem: KodiAPI {

@@ -26,9 +26,7 @@ public final class KodiConnector: ObservableObject {
     var cacheTimer: Timer?
     
     // MARK: Published properties
-    
-    /// The Meda Library from the remote host
-    @Published public var media: [MediaItem] = []
+
     /// The general state of the KodiConnector bridge
     @Published var state: State = .none
     /// The loading state of the library
@@ -38,9 +36,7 @@ public final class KodiConnector: ObservableObject {
     /// The state of the player
     @Published public var player = Player.Property.Value()
     /// The current item that is playing
-    @Published public var currentItem = MediaItem()
-    /// The playlist queue
-    @Published public var queue: [MediaItem] = []
+    //@Published public var currentItem = MediaItem()
     
     // MARK: The library
     
@@ -103,7 +99,7 @@ public final class KodiConnector: ObservableObject {
             if self.state == .sleeping {
                 Task {
                     /// Get the state of the player
-                    await self.getPlayerState()
+                    //await self.getPlayerState()
                     await self.setState(current: .wakeup)
                 }
             }

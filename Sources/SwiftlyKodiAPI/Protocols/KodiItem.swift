@@ -1,5 +1,5 @@
 //
-//  LibraryItem.swift
+//  KodiItem.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen

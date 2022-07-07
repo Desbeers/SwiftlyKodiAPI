@@ -19,21 +19,21 @@ extension KodiConnector {
         return nil
     }
     
-    /// Get the state of the player
-    @MainActor func getPlayerState() async {
-        /// Defaults
-        var properties = Player.Property.Value()
-        var item = MediaItem()
-        /// Check if we have an active player
-        if let playerID = await getPlayerID() {
-            properties = await Player.getProperties(playerID: playerID)
-            item = await Player.getItem(playerID: playerID)
-        } else {
-            logger("Player is not playing")
-        }
-        player = properties
-        currentItem = item
-    }
+//    /// Get the state of the player
+//    @MainActor func getPlayerState() async {
+//        /// Defaults
+//        var properties = Player.Property.Value()
+//        var item = MediaItem()
+//        /// Check if we have an active player
+//        if let playerID = await getPlayerID() {
+//            properties = await Player.getProperties(playerID: playerID)
+//            item = await Player.getItem(playerID: playerID)
+//        } else {
+//            logger("Player is not playing")
+//        }
+//        player = properties
+//        currentItem = item
+//    }
 }
 
 /// An enum with all Player related items
