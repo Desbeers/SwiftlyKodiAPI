@@ -10,13 +10,15 @@ import Foundation
 public extension Audio.Details {
     
     /// Album details
-    struct Album: LibraryItem {
+    struct Album: KodiItem {
         
         /// # Calculated variables
         
         public var id: Int { albumID }
         public var media: Library.Media = .album
         public var file: String = ""
+        public var sortByTitle: String { title }
+        public var poster: String { thumbnail }
         
         /// # Audio.Details.Album
         

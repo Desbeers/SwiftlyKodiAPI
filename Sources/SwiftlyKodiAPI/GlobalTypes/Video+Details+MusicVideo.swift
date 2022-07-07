@@ -1,5 +1,5 @@
 //
-//  Video+Details+TVShow.swift
+//  Video+Details+MusicVideo.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -9,40 +9,36 @@ import Foundation
 
 public extension Video.Details {
     
-    /// TV show details
-    struct TVShow: KodiItem {
+    /// Music video details
+    struct MusicVideo: KodiItem {
         
         /// # Calculated variables
         
-        public var id: Int { tvshowID }
-        public var media: Library.Media = .tvshow
-        public var sortByTitle: String { sortTitle.isEmpty ? title: sortTitle}
+        public var id: Int { musicVideoID }
+        public var media: Library.Media = .musicVideo
+        public var sortByTitle: String { title }
         public var poster: String { thumbnail }
         
-        /// # Video.Details.TVShow
+        /// # Video.Details.MusicVideo
         
-        public var cast: [Video.Cast] = []
-        public var episode: Int = 0
-        public var episodeGuide: String = ""
+        public var album: String = ""
+        public var artist: [String] = []
         public var genre: [String] = []
-        public var imdbNumber: String = ""
-        public var mpaa: String = ""
-        public var originalTitle: String = ""
+        public var musicVideoID: Int = 0
         public var premiered: String = ""
         public var rating: Double = 0
-        public var ratings = Media.Ratings()
-        public var runtime: Int = 0
-        public var season: Int = 0
-        public var sortTitle: String = ""
-        public var status: String? /// BUG: This always returns nil
         public var studio: [String] = []
         public var tag: [String] = []
-        public var tvshowID: Int = 0
-        //public var uniqueID: Int = 0
+        public var track: Int = 0
         public var userRating: Int = 0
-        public var votes: String = ""
-        public var watchedEpisodes: Int = 0
         public var year: Int = 0
+        
+        /// # Video.Details.File
+        
+        public var director: [String] = []
+        public var resume = Video.Resume()
+        public var runtime: Int = 0
+        public var streamDetails = Video.Streams()
         
         /// # Video.Details.Item
         
@@ -60,6 +56,7 @@ public extension Video.Details {
         public var art = Media.Artwork()
         public var playcount: Int = 0
         
+        
         /// # Media.Details.Base
         
         public var fanart: String = ""
@@ -68,28 +65,21 @@ public extension Video.Details {
         /// # Coding keys
         
         enum CodingKeys: String, CodingKey {
-            case cast
-            case episode
-            case episodeGuide = "episodeguide"
+            case album
+            case artist
             case genre
-            case imdbNumber = "imdbnumber"
-            case mpaa
-            case originalTitle = "originaltitle"
+            case musicVideoID = "musicvideoid"
             case premiered
             case rating
-            case ratings
-            case runtime
-            case season
-            case sortTitle = "sorttitle"
-            case status
             case studio
             case tag
-            case tvshowID = "tvshowid"
-            //case uniqueID = "uniqueid"
+            case track
             case userRating = "userrating"
-            case votes
-            case watchedEpisodes = "watchedepisodes"
             case year
+            case director
+            case resume
+            case runtime
+            case streamDetails = "streamdetails"
             case dateAdded = "dateadded"
             case file
             case lastPlayed = "lastplayed"
@@ -100,5 +90,10 @@ public extension Video.Details {
             case fanart
             case thumbnail
         }
+        
     }
+}
+
+public extension Audio.Details.Album {
+
 }

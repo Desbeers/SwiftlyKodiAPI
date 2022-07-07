@@ -79,8 +79,8 @@ public extension MediaButtons {
     }
     
     struct StreamItem: View {
-        let item: any LibraryItem
-        public init(item: any LibraryItem) {
+        let item: any KodiItem
+        public init(item: any KodiItem) {
             self.item = item
         }
         public var body: some View {
@@ -94,7 +94,7 @@ public extension MediaButtons {
                 window.center()
                 
                 // put your swiftui view here in rootview
-                window.contentView = NSHostingView(rootView: PlayerView(item: item))
+                window.contentView = NSHostingView(rootView: PlayerView(video: item))
                 window.makeKeyAndOrderFront(nil)
                 #endif
             }

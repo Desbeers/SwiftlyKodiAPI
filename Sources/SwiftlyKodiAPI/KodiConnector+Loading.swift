@@ -54,12 +54,12 @@ extension KodiConnector {
             /// Limit the loading for debugging
             /// let songs = await AudioLibrary.getSongs(limits: List.Limits(end: 400, start: 100))
             async let songs = AudioLibrary.getSongs()
-            async let genres = AudioLibrary.getGenres()
+            async let audioGenres = AudioLibrary.getGenres()
             
             library = await MyLibrary(artists: artist,
                                       albums: albums,
                                       songs: songs,
-                                      audioGenres: genres
+                                      audioGenres: audioGenres
             )
         case .video:
             
@@ -67,11 +67,15 @@ extension KodiConnector {
             async let movieSets = VideoLibrary.getMovieSets()
             async let tvshows = VideoLibrary.getTVShows()
             async let episodes = VideoLibrary.getEpisodes()
+            async let musicVideos = VideoLibrary.getMusicVideos()
+            async let videoGenres = getAllVideoGenres()
             
             library = await MyLibrary(movies: movies,
                                       movieSets: movieSets,
                                       tvshows: tvshows,
-                                      episodes: episodes
+                                      episodes: episodes,
+                                      musicVideos: musicVideos,
+                                      videoGenres: videoGenres
             )
         case .all:
             
@@ -80,7 +84,7 @@ extension KodiConnector {
             /// Limit the loading for debugging
             /// let songs = await AudioLibrary.getSongs(limits: List.Limits(end: 400, start: 100))
             async let songs = AudioLibrary.getSongs()
-            async let genres = AudioLibrary.getGenres()
+            async let audioGenres = AudioLibrary.getGenres()
             
             /// # Video
             
@@ -88,15 +92,19 @@ extension KodiConnector {
             async let movieSets = VideoLibrary.getMovieSets()
             async let tvshows = VideoLibrary.getTVShows()
             async let episodes = VideoLibrary.getEpisodes()
+            async let musicVideos = VideoLibrary.getMusicVideos()
+            async let videoGenres = getAllVideoGenres()
             
             library = await MyLibrary(artists: artist,
                                       albums: albums,
                                       songs: songs,
-                                      audioGenres: genres,
+                                      audioGenres: audioGenres,
                                       movies: movies,
                                       movieSets: movieSets,
                                       tvshows: tvshows,
-                                      episodes: episodes
+                                      episodes: episodes,
+                                      musicVideos: musicVideos,
+                                      videoGenres: videoGenres
             )
         default:
             return
@@ -148,7 +156,7 @@ extension KodiConnector {
 //        }
         
         loadingState = .genres
-        await items += getAllGenres()
+        //await items += getAllGenres()
         
         /// Store the media in the cache
         storeMediaInCache(media: items)
@@ -207,5 +215,19 @@ extension KodiConnector {
         case songs = "Loading songs..."
         case genres = "Loading genres..."
         case done = "Library is loaded..."
+    }
+}
+
+extension KodiConnector {
+    
+    /// Get all video genres from the Kodi host
+    /// - Returns: All video genres from the Kodi host
+    func getAllVideoGenres() async -> [Library.Details.Genre] {
+        /// Get the genres for all media types
+        let movieGenres = await VideoLibrary.getGenres(type: .movie)
+        let tvGenres = await VideoLibrary.getGenres(type: .tvshow)
+        let musicGenres = await VideoLibrary.getGenres(type: .musicVideo)
+        /// Combine and return them
+        return (movieGenres + tvGenres + musicGenres).unique { $0.id}
     }
 }

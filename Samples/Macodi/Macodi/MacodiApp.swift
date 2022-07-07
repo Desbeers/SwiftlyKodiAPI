@@ -25,19 +25,3 @@ struct MacodiApp: App {
         }
     }
 }
-
-/// PlayerView
-struct PlayerView2: View {
-    init(item: any LibraryItem) {
-        self.item = item
-    }
-    
-    @EnvironmentObject var kodi: KodiConnector
-    let item: any LibraryItem
-    
-    public var body: some View {
-        Text(item.media.rawValue)
-        Text(item.file)
-        //VideoPlayer(player: AVPlayer(url:  URL(string: Files.getFullPath(file: item.file, type: .file))!))
-    }
-}

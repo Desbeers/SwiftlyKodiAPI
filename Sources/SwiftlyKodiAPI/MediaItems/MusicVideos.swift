@@ -13,14 +13,14 @@ extension VideoLibrary {
 
     /// Get all the music videos from the Kodi host
     /// - Returns: All music videos from the Kodi host
-    public static func getMusicVideos() async -> [MediaItem] {
+    public static func getMusicVideos() async -> [Video.Details.MusicVideo] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetMusicVideos()) {
             logger("Loaded \(result.musicvideos.count) music videos from the Kodi host")
-            return kodi.setMediaItem(items: result.musicvideos, media: .musicVideo)
+            return result.musicvideos
         }
         /// There are no music videos in the library
-        return [MediaItem]()
+        return [Video.Details.MusicVideo]()
     }
     
     /// Retrieve all music videos (Kodi API)
@@ -41,7 +41,7 @@ extension VideoLibrary {
         /// The response struct
         struct Response: Decodable {
             /// The list of music videos
-            let musicvideos: [KodiResponse]
+            let musicvideos: [Video.Details.MusicVideo]
         }
     }
 }
@@ -53,16 +53,15 @@ extension VideoLibrary {
     /// Get the details of a music video
     /// - Parameter musicVideoID: The ID of the music video item
     /// - Returns: An updated Media Item
-    public static func getMusicVideoDetails(musicVideoID: Int) async -> MediaItem {
+    public static func getMusicVideoDetails(musicVideoID: Int) async -> Video.Details.MusicVideo {
         let kodi: KodiConnector = .shared
         let request = GetMusicVideoDetails(musicVideoID: musicVideoID)
         do {
             let result = try await kodi.sendRequest(request: request)
-            /// Make a MediaItem from the KodiResonse and return it
-            return kodi.setMediaItem(items: [result.musicvideodetails], media: .musicVideo).first ?? MediaItem()
+            return result.musicvideodetails
         } catch {
-            logger("Loading song details failed with error: \(error)")
-            return MediaItem()
+            logger("Loading music video details failed with error: \(error)")
+            return Video.Details.MusicVideo()
         }
     }
     
@@ -89,7 +88,7 @@ extension VideoLibrary {
         /// The response struct
         struct Response: Decodable {
             /// The details of the music video
-            var musicvideodetails: KodiResponse
+            var musicvideodetails: Video.Details.MusicVideo
         }
     }
 }
@@ -100,7 +99,7 @@ extension VideoLibrary {
     
     /// Update the details of a music video
     /// - Parameter musicVideo: The Media Item
-    public static func setMusicVideoDetails(musicVideo: MediaItem) async {
+    public static func setMusicVideoDetails(musicVideo: Video.Details.MusicVideo) async {
         let kodi: KodiConnector = .shared
         let message = SetMusicVideoDetails(musicVideo: musicVideo)
         kodi.sendMessage(message: message)
@@ -110,7 +109,7 @@ extension VideoLibrary {
     /// Update the given music video with the given details (Kodi API)
     struct SetMusicVideoDetails: KodiAPI {
         /// Arguments
-        var musicVideo: MediaItem
+        var musicVideo: Video.Details.MusicVideo
         /// Method
         var method = Methods.videoLibrarySetMusicVideoDetails
         /// The JSON creator
@@ -122,9 +121,9 @@ extension VideoLibrary {
         /// The request struct
         /// - Note: The properties we want to set
         struct Params: Encodable {
-            internal init(musicVideo: MediaItem) {
+            internal init(musicVideo: Video.Details.MusicVideo) {
                 self.musicvideoid = musicVideo.musicVideoID
-                self.userrating = musicVideo.rating
+                self.userrating = musicVideo.userRating
                 self.playcount = musicVideo.playcount
                 self.lastplayed = musicVideo.lastPlayed
             }

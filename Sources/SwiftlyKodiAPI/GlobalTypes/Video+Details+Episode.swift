@@ -10,12 +10,14 @@ import Foundation
 public extension Video.Details {
     
     /// Episode details
-    struct Episode: LibraryItem {
+    struct Episode: KodiItem {
         
         /// # Calculated variables
         
         public var id: Int { episodeID }
         public var media: Library.Media = .episode
+        public var sortByTitle: String { title }
+        public var poster: String { thumbnail }
         
         /// # Video.Details.Episode
         

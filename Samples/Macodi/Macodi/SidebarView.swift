@@ -40,6 +40,12 @@ struct SidebarView: View {
                 NavigationLink(destination: EpisodeView()) {
                     Label("Episodes", systemImage: "tv")
                 }
+                NavigationLink(destination: MusicVideoView()) {
+                    Label("Music Videos", systemImage: "music.note")
+                }
+                NavigationLink(destination: VideoGenreView()) {
+                    Label("Genres", systemImage: "circle.grid.cross")
+                }
             }
         }
     }

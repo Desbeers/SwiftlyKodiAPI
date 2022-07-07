@@ -30,6 +30,10 @@ extension KodiConnector {
                     /// Always check the TV show when an episode is updated
                     getLibraryUpdate(itemID: library.episodes[index].tvshowID, media: .tvshow)
                 }
+            case .musicVideo:
+                if let index = library.musicVideos.firstIndex(where: {$0.musicVideoID == itemID}) {
+                    library.musicVideos[index] = await VideoLibrary.getMusicVideoDetails(musicVideoID: itemID)
+                }
             default:
                 logger("Library update for \(media) not implemented.")
             }

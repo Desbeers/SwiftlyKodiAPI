@@ -1,26 +1,132 @@
 //
-//  SwiftUIView.swift
-//  
+//  PlayerView.swift
+//  Komodio
 //
-//  Created by Nick Berendsen on 05/07/2022.
+//  Created by Nick Berendsen on 26/02/2022.
 //
-
 import SwiftUI
+import Combine
 import AVKit
 
-
-/// PlayerView
-struct PlayerView: View {
-    init(item: any LibraryItem) {
-        self.item = item
-    }
-    
+/// A View with the player
+public struct PlayerView: View {
+    /// The KodiConnector model
     @EnvironmentObject var kodi: KodiConnector
-    let item: any LibraryItem
-    
+    /// The Video item we want to play
+    let video: any KodiItem
+    /// init: we don't get it for free
+    public init(video: any KodiItem) {
+        self.video = video
+    }
+    /// The presentation mode
+    /// - Note: Need this to go back a View on iOS after the video has finnished
+    @Environment(\.presentationMode) var presentationMode
+    /// The body of this View
     public var body: some View {
-        Text(item.media.rawValue)
-        Text(item.file)
-        VideoPlayer(player: AVPlayer(url:  URL(string: Files.getFullPath(file: item.file, type: .file))!))
+        Wrapper(video: video) {
+            /// Mark the video as played
+            Task {
+                await video.markAsPlayed()
+            }
+            /// Go back a View
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+}
+
+extension PlayerView {
+    
+    /// A wrapper View around the `VideoPlayer` so we can observe it
+    /// and act after a video has finnised playing
+    struct Wrapper: View {
+        /// The video we want to play
+        //let video: MediaItem
+        /// Observe the player
+        @StateObject private var playerModel: PlayerModel
+        /// Init the Wrapper View
+        init(video: any KodiItem, endAction: @escaping () -> Void) {
+            //self.video = video
+            _playerModel = StateObject(wrappedValue: PlayerModel(video: video, endAction: endAction))
+        }
+        /// The body of this View
+        var body: some View {
+            VideoPlayer(player: playerModel.player)
+                .task {
+                    /// Check if we are already playing or not
+                    if playerModel.player.isPlaying == false {
+                        print("INFO start player")
+                        playerModel.player.play()
+                    }
+                }
+                .ignoresSafeArea(.all)
+        }
+        /// The PlayerModel class
+        class PlayerModel: ObservableObject {
+            /// The AVplayer
+            let player: AVPlayer
+            /// Init the PlayerModel class
+            init(video: any KodiItem, endAction: @escaping () -> Void) {
+                /// Setup the player
+                let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(file: video.file, type: .file))!)
+                print("INFO start metadata")
+#if os(tvOS)
+                /// tvOS can add aditional info to the player
+                playerItem.externalMetadata = createMetadataItems(video: video)
+#endif
+                print("INFO end metadata")
+                /// Create a new Player
+                print("INFO create player")
+                player = AVPlayer(playerItem: playerItem)
+                player.actionAtItemEnd = .none
+                /// Get notifications
+                NotificationCenter
+                    .default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
+                                         object: nil,
+                                         queue: nil) { _ in endAction() }
+            }
+        }
+    }
+}
+
+#if os(tvOS)
+
+/// Create meta data for the video player
+/// - Parameter video: The Kodi video item
+/// - Returns: Meta data for the player
+func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
+    /// Helper function
+    func createMetadataItem(for identifier: AVMetadataIdentifier, value: Any) -> AVMetadataItem {
+        let item = AVMutableMetadataItem()
+        item.identifier = identifier
+        item.value = value as? NSCopying & NSObjectProtocol
+        // Specify "und" to indicate an undefined language.
+        item.extendedLanguageTag = "und"
+        return item.copy() as! AVMetadataItem
+    }
+    /// Default poster if Kodi has none
+    var artData = UIImage(named: "No Poster")
+    /// Try to get the Kodi poster
+    if !video.poster.isEmpty, let data = try? Data(contentsOf: URL(string: video.poster)!) {
+        if let image = UIImage(data: data) {
+            artData = image
+        }
+    }
+    let mapping: [AVMetadataIdentifier: Any] = [
+        .commonIdentifierTitle: video.title,
+        //.iTunesMetadataTrackSubTitle: video.subtitle,
+        //.commonIdentifierArtwork: artData!.pngData() as Any,
+        //.commonIdentifierDescription: video.description,
+        /// .iTunesMetadataContentRating: "100",
+        //.quickTimeMetadataGenre: video.genres.joined(separator: "・"),
+        //.quickTimeMetadataCreationDate: video.releaseDate.kodiDate()
+    ]
+    return mapping.compactMap { createMetadataItem(for: $0, value: $1) }
+}
+#endif
+extension AVPlayer {
+    
+    /// Is the AV player playing or not?
+    var isPlaying: Bool {
+        return rate != 0 && error == nil
     }
 }

@@ -10,19 +10,19 @@ import Foundation
 public extension Audio.Details {
     
     /// Artist details
-    struct Artist: LibraryItem {
-        
+    struct Artist: KodiItem {
 
-        
-        
-        /// # Protocol variables
+        /// # Calculated variables
         
         public var id: Int { artistID }
         public var media: Library.Media = .album
+        public var sortByTitle: String { sortName.isEmpty ? artist : sortName }
         public var playcount: Int = 0
         public var file: String = ""
-        
         public var lastPlayed: String = ""
+        public var poster: String { thumbnail }
+        
+        /// # Audio.Details.Artist
         
         public var artist: String = ""
         public var artistID: Int = 0

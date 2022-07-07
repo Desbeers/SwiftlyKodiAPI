@@ -10,7 +10,7 @@ import Foundation
 public extension Video.Details {
     
     /// Movie set details
-    struct MovieSet: LibraryItem {
+    struct MovieSet: KodiItem {
         
         /// # Calculated variables
         
@@ -18,6 +18,11 @@ public extension Video.Details {
         public var media: Library.Media = .movieSet
         public var file: String = ""
         public var lastPlayed: String = ""
+        public var sortByTitle: String {
+            /// Kodi has no sortTitle for sets
+            title.removingPrefixes(["De", "The"])
+        }
+        public var poster: String { art.poster }
         
         /// # Video.Details.MovieSet
         

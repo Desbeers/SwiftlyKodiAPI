@@ -7,20 +7,26 @@
 
 import Foundation
 
-public protocol LibraryItem: Codable, Identifiable, Equatable {
+public protocol KodiItem: Codable, Identifiable, Equatable {
     /// The ID of the item
     var id: Int { get }
     /// The kind of ``Library/Media``
     var media: Library.Media { get }
+    /// The title of the item
+    var title: String { get }
+    /// The 'sort by title' of the item
+    var sortByTitle: String { get }
     /// The playcount of the item
     var playcount: Int { get set }
     /// The last played date of the item
     var lastPlayed: String { get set }
+    /// The poster of the item
+    var poster: String { get }
     /// The loctation of the file
     var file: String { get }
 }
 
-public extension LibraryItem {
+public extension KodiItem {
     
     /// Mark a ``LibraryItem`` as played
     func markAsPlayed() async {
@@ -36,7 +42,7 @@ public extension LibraryItem {
     }
 }
 
-public extension LibraryItem {
+public extension KodiItem {
     
     /// Toggle the played status of a ``LibraryItem``
     func togglePlayedState() async {
@@ -70,8 +76,8 @@ public extension LibraryItem {
     }
 }
 
-public extension LibraryItem {
-    func setDetails(_ item: any LibraryItem) async {
+public extension KodiItem {
+    func setDetails(_ item: any KodiItem) async {
         switch item.media {
         case .song:
             await AudioLibrary.setSongDetails(song: item as! Audio.Details.Song)
@@ -81,6 +87,8 @@ public extension LibraryItem {
             await VideoLibrary.setTVShowDetails(tvshow: item as! Video.Details.TVShow)
         case .episode:
             await VideoLibrary.setEpisodeDetails(episode: item as! Video.Details.Episode)
+        case .musicVideo:
+            await VideoLibrary.setMusicVideoDetails(musicVideo: item as! Video.Details.MusicVideo)
         default:
             logger("Updating \(self.media) not implemented")
         }

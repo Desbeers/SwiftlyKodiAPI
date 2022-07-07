@@ -20,7 +20,7 @@ public extension Library.Details {
         /// # Library.Details.Genre
         
         public var genreID: Int = 0
-        public var sourceID: [Int] = []
+        //public var sourceID: [Int] = []
         public var thumbnail: String = ""
         public var title: String = ""
         
@@ -28,7 +28,7 @@ public extension Library.Details {
         
         enum CodingKeys: String, CodingKey {
             case genreID = "genreid"
-            case sourceID = "sourceid"
+            //case sourceID = "sourceid"
             case thumbnail
             case title
         }

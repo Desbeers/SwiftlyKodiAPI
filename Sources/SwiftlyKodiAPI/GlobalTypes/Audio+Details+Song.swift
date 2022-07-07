@@ -10,10 +10,14 @@ import Foundation
 public extension Audio.Details {
     
     /// Song details
-    struct Song: LibraryItem {
+    struct Song: KodiItem {
+        
+        /// # Calculated variables
         
         public var id: Int { songID }
         public var media: Library.Media = .song
+        public var sortByTitle: String { title }
+        public var poster: String { thumbnail }
         
         /// # Audio.Details.Song
         
