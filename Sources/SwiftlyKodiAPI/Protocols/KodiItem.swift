@@ -22,7 +22,9 @@ public protocol KodiItem: Codable, Identifiable, Equatable {
     var lastPlayed: String { get set }
     /// The poster of the item
     var poster: String { get }
-    /// The loctation of the file
+    /// The fanart of the item
+    var fanart: String { get }
+    /// The location of the file
     var file: String { get }
 }
 
@@ -78,19 +80,35 @@ public extension KodiItem {
 
 public extension KodiItem {
     func setDetails(_ item: any KodiItem) async {
-        switch item.media {
-        case .song:
-            await AudioLibrary.setSongDetails(song: item as! Audio.Details.Song)
-        case .movie:
-            await VideoLibrary.setMovieDetails(movie: item as! Video.Details.Movie)
-        case .tvshow:
-            await VideoLibrary.setTVShowDetails(tvshow: item as! Video.Details.TVShow)
-        case .episode:
-            await VideoLibrary.setEpisodeDetails(episode: item as! Video.Details.Episode)
-        case .musicVideo:
-            await VideoLibrary.setMusicVideoDetails(musicVideo: item as! Video.Details.MusicVideo)
+        
+        switch item {
+        case let movie as Video.Details.Movie:
+            await VideoLibrary.setMovieDetails(movie: movie)
+        case let tvshow as Video.Details.TVShow:
+            await VideoLibrary.setTVShowDetails(tvshow: tvshow)
+        case let episode as Video.Details.Episode:
+            await VideoLibrary.setEpisodeDetails(episode: episode)
+        case let musicVideo as Video.Details.MusicVideo:
+            await VideoLibrary.setMusicVideoDetails(musicVideo: musicVideo)
+        case let song as Audio.Details.Song:
+            await AudioLibrary.setSongDetails(song: song)
         default:
             logger("Updating \(self.media) not implemented")
         }
+        
+//        switch item.media {
+//        case .song:
+//            await AudioLibrary.setSongDetails(song: item as! Audio.Details.Song)
+//        case .movie:
+//            await VideoLibrary.setMovieDetails(movie: item as! Video.Details.Movie)
+//        case .tvshow:
+//            await VideoLibrary.setTVShowDetails(tvshow: item as! Video.Details.TVShow)
+//        case .episode:
+//            await VideoLibrary.setEpisodeDetails(episode: item as! Video.Details.Episode)
+//        case .musicVideo:
+//            await VideoLibrary.setMusicVideoDetails(musicVideo: item as! Video.Details.MusicVideo)
+//        default:
+//            logger("Updating \(self.media) not implemented")
+//        }
     }
 }

@@ -32,6 +32,7 @@ extension KodiConnector {
     @MainActor public func reloadHost() async {
         loadingState = .load
         await getLibrary()
+        loadingState = .done
     }
     
     
