@@ -43,8 +43,8 @@ struct MusicVideoView: View {
                     
                 })
             }
-            TableColumn("Stream") { musicVideo in
-                MediaButtons.StreamItem(item: musicVideo)
+            TableColumn("Play") { musicVideo in
+                PlayButton(item: musicVideo)
             }
         }
         .task(id: kodi.library.musicVideos) {

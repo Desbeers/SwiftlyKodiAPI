@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct SidebarView: View {
+    @State var selection: String?
     var body: some View {
-        List {
+        List(selection: $selection) {
             Section(header: Text("Audio")) {
                 NavigationLink(destination: ArtistView()) {
                     Label("Artists", systemImage: "person.2")
                 }
+                .tag("artists")
                 NavigationLink(destination: AlbumView()) {
                     Label("Albums", systemImage: "square.stack")
                 }
@@ -25,6 +27,9 @@ struct SidebarView: View {
                 }
                 NavigationLink(destination: AudioGenreView()) {
                     Label("Genres", systemImage: "circle.grid.cross")
+                }
+                NavigationLink(destination: MusicBrowserView()) {
+                    Label("Browser", systemImage: "circle.grid.cross")
                 }
             }
             Section(header: Text("Video")) {

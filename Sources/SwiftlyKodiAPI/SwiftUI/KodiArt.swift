@@ -14,6 +14,16 @@ public enum KodiArt {
 }
 
 public extension KodiArt {
+    
+    struct Asset: View {
+        public init() { }
+        public var body: some View {
+            Image("poster", bundle: Bundle.module)
+                .resizable()
+                .frame(width:300, height: 450)
+        }
+    }
+    
     /// Poster art of a ``KodiItem``
     struct Poster: View {
         let item: any KodiItem
@@ -28,8 +38,8 @@ public extension KodiArt {
 //                await VideoLibrary.setTVShowDetails(tvshow: tvshow)
             case let episode as Video.Details.Episode:
                 Art(file: episode.art.seasonPoster)
-//            case let musicVideo as Video.Details.MusicVideo:
-//                await VideoLibrary.setMusicVideoDetails(musicVideo: musicVideo)
+            case let musicVideo as Video.Details.MusicVideo:
+                Art(file: musicVideo.art.poster)
 //            case let song as Audio.Details.Song:
 //                await AudioLibrary.setSongDetails(song: song)
             default:
@@ -52,7 +62,8 @@ public extension KodiArt {
 //                await VideoLibrary.setTVShowDetails(tvshow: tvshow)
             case let episode as Video.Details.Episode:
                 Art(file: episode.thumbnail)
-//            case let musicVideo as Video.Details.MusicVideo:
+            case let musicVideo as Video.Details.MusicVideo:
+                Art(file: musicVideo.art.fanart.isEmpty ? musicVideo.art.icon : musicVideo.art.fanart)
 //                await VideoLibrary.setMusicVideoDetails(musicVideo: musicVideo)
 //            case let song as Audio.Details.Song:
 //                await AudioLibrary.setSongDetails(song: song)
@@ -68,12 +79,24 @@ public extension KodiArt {
             self.file = file
         }
         public var body: some View {
-            AsyncImage(url: URL(string: Files.getFullPath(file: file, type: .art))) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            } placeholder: {
-                Color.black
+            AsyncImage(
+                url: URL(string: Files.getFullPath(file: file, type: .art)),
+                transaction: Transaction(animation: .easeInOut)
+            ) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .transition(.opacity)
+                case .failure:
+                    //Image(systemName: "photo")
+                    Color.black
+                @unknown default:
+                    EmptyView()
+                }
             }
         }
     }

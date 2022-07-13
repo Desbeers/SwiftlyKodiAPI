@@ -23,5 +23,19 @@ struct MacodiApp: App {
                     }
                 }
         }
+        .commands {
+            SidebarCommands()
+        }
+
+        WindowGroup("Player", for: Video.Details.Movie.self) { $item in
+            KodiPlayerView(video: item!)
+        }
+        .windowStyle(.hiddenTitleBar)
+        
+        WindowGroup("Player", for: Audio.Details.Song.self) { $item in
+            KodiPlayerView(video: item!)
+        }
+        .windowStyle(.hiddenTitleBar)
+        
     }
 }

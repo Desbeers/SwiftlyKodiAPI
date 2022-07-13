@@ -41,8 +41,8 @@ struct SongView: View {
                     
                 })
             }
-            TableColumn("Stream") { song in
-                MediaButtons.StreamItem(item: song)
+            TableColumn("Play") { song in
+                PlayButton(item: song)
             }
         }
         .task(id: kodi.library.songs) {

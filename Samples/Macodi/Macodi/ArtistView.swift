@@ -32,6 +32,7 @@ struct ArtistView: View {
         }
         .task(id: kodi.library.artists) {
             artists = kodi.library.artists
+            dump(artists.first)
         }
     }
 }

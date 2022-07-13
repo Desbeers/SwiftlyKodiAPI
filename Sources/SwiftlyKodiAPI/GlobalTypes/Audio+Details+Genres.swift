@@ -10,7 +10,7 @@ import Foundation
 public extension Audio.Details {
     
     /// Genre details
-    struct Genres: Codable, Identifiable, Equatable {
+    struct Genres: Codable, Identifiable, Equatable, Hashable {
         
         /// # Computed values
         

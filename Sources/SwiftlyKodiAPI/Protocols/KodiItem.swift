@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol KodiItem: Codable, Identifiable, Equatable {
+public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     /// The ID of the item
     var id: Int { get }
     /// The kind of ``Library/Media``

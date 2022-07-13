@@ -46,8 +46,8 @@ struct EpisodeView: View {
                     
                 })
             }
-            TableColumn("Stream") { movie in
-                MediaButtons.StreamItem(item: movie)
+            TableColumn("Play") { episode in
+                PlayButton(item: episode)
             }
         }
         .task(id: kodi.library.episodes) {

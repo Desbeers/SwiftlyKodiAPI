@@ -41,4 +41,19 @@ extension KodiConnector {
             setLibraryCache()
         }
     }
+    
+    @MainActor public func updateLibrary() async {
+        logger("Check for updates")
+        
+        let libraryUpdate = await getLibrary()
+        library = libraryUpdate
+        setLibraryCache()
+        
+//        let updateSongs = await AudioLibrary.getSongs()
+//
+//        let update = updateSongs.difference(from: library.songs).unique(by: {$0.songID})
+//
+//        dump(update)
+
+    }
 }

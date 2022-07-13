@@ -10,11 +10,12 @@ import Foundation
 public extension Media {
     
     /// Artwork for a Media item
-    struct Artwork: Codable, Equatable {
+    struct Artwork: Codable, Equatable, Hashable {
         public var banner: String = ""
         public var fanart: String = ""
         public var poster: String = ""
         public var thumb: String = ""
+        public var icon: String = ""
         public var seasonPoster: String = ""
         
         enum CodingKeys: String, CodingKey {
@@ -22,6 +23,7 @@ public extension Media {
             case fanart
             case poster
             case thumb
+            case icon
             case seasonPoster = "season.poster"
         }
     }
@@ -35,6 +37,7 @@ public extension Media.Artwork {
         self.fanart = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.fanart) ?? ""
         self.poster = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.poster) ?? ""
         self.thumb = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.thumb) ?? ""
+        self.icon = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.icon) ?? ""
         self.seasonPoster = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.seasonPoster) ?? ""
     }
     

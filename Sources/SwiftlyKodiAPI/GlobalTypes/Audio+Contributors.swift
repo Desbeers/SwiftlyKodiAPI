@@ -10,7 +10,7 @@ import Foundation
 public extension Audio {
     
     /// The artist and the role they contribute to a song
-    struct Contributors: Codable, Identifiable, Equatable {
+    struct Contributors: Codable, Identifiable, Equatable, Hashable {
         
         /// Computed properties
         

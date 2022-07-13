@@ -10,8 +10,9 @@ import SwiftlyKodiAPI
 
 struct ContentView: View {
     var body: some View {
-        NavigationView {
+        NavigationSplitView {
             SidebarView()
+        } detail: {
             MainView()
         }
         .toolbar {
@@ -31,6 +32,15 @@ struct ContentView: View {
                     }
                 }, label: {
                     Text("Reload library")
+                })
+            }
+            ToolbarItem {
+                Button(action: {
+                    Task {
+                        await KodiConnector.shared.updateLibrary()
+                    }
+                }, label: {
+                    Text("Update library")
                 })
             }
         }

@@ -50,8 +50,8 @@ struct MovieView: View {
                     
                 })
             }
-            TableColumn("Stream") { movie in
-                MediaButtons.StreamItem(item: movie)
+            TableColumn("Play") { movie in
+                PlayButton(item: movie)
             }
         }
         .task(id: kodi.library.movies) {

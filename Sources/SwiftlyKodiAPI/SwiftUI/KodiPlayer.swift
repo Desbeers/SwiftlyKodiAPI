@@ -9,7 +9,7 @@ import Combine
 import AVKit
 
 /// A View with the player
-public struct PlayerView: View {
+public struct KodiPlayerView: View {
     /// The KodiConnector model
     @EnvironmentObject var kodi: KodiConnector
     /// The Video item we want to play
@@ -34,7 +34,7 @@ public struct PlayerView: View {
     }
 }
 
-extension PlayerView {
+extension KodiPlayerView {
     
     /// A wrapper View around the `VideoPlayer` so we can observe it
     /// and act after a video has finnised playing
@@ -94,6 +94,17 @@ extension PlayerView {
 /// - Parameter video: The Kodi video item
 /// - Returns: Meta data for the player
 func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
+    
+    /// Meta data struct
+    struct MetaData {
+        var title: String = "title"
+        var subtitle: String = "subtitle"
+        var description: String = "description"
+        var genre: String = "genre"
+        var creationDate: String = "1900"
+        var artwork: UIImage = UIImage(named: "poster", in: Bundle.module, compatibleWith: .current)!
+    }
+    
     /// Helper function
     func createMetadataItem(for identifier: AVMetadataIdentifier, value: Any) -> AVMetadataItem {
         let item = AVMutableMetadataItem()
@@ -103,16 +114,45 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
         item.extendedLanguageTag = "und"
         return item.copy() as! AVMetadataItem
     }
-    /// Default poster if Kodi has none
-    var artData = UIImage(named: "No Poster")
-    /// Try to get the Kodi poster
-    if !video.poster.isEmpty, let data = try? Data(contentsOf: URL(string: video.poster)!) {
-        if let image = UIImage(data: data) {
-            artData = image
+    
+    var metaData = MetaData()
+    
+    switch video {
+    case let movie as Video.Details.Movie:
+        metaData.title = movie.title
+        metaData.subtitle = movie.tagline
+        metaData.description = movie.plot
+        if !movie.art.poster.isEmpty, let data = try? Data(contentsOf: URL(string: Files.getFullPath(file: movie.art.poster, type: .art))!) {
+            if let image = UIImage(data: data) {
+                metaData.artwork = image
+            }
         }
+        metaData.genre = movie.genre.joined(separator: " ∙ ")
+        metaData.creationDate = movie.year.description
+    case let episode as Video.Details.Episode:
+        metaData.title = episode.title
+        metaData.subtitle = episode.showTitle
+        metaData.description = episode.plot
+        if !episode.art.seasonPoster.isEmpty, let data = try? Data(contentsOf: URL(string: Files.getFullPath(file: episode.art.seasonPoster, type: .art))!) {
+            if let image = UIImage(data: data) {
+                metaData.artwork = image
+            }
+        }
+        metaData.genre = episode.showTitle
+        metaData.creationDate = episode.firstAired
+//    case let musicVideo as Video.Details.MusicVideo:
+    default:
+        break
     }
     let mapping: [AVMetadataIdentifier: Any] = [
-        .commonIdentifierTitle: video.title,
+        .commonIdentifierTitle: metaData.title,
+        .iTunesMetadataTrackSubTitle: metaData.subtitle,
+        .commonIdentifierArtwork: metaData.artwork.pngData() as Any,
+        .commonIdentifierDescription: metaData.description,
+        /// .iTunesMetadataContentRating: "100",
+        .quickTimeMetadataGenre: metaData.genre,
+        .quickTimeMetadataCreationDate: metaData.creationDate
+        //.commonIdentifierTitle: video.title,
         //.iTunesMetadataTrackSubTitle: video.subtitle,
         //.commonIdentifierArtwork: artData!.pngData() as Any,
         //.commonIdentifierDescription: video.description,

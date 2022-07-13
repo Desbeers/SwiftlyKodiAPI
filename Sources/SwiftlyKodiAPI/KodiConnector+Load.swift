@@ -18,8 +18,12 @@ extension KodiConnector {
         
         if let libraryItems = Cache.get(key: "MyLibrary", as: MyLibrary.self) {
             library = libraryItems
+//            Task {
+//                await updateLibrary()
+//            }
         } else {
-            await getLibrary()
+            library = await getLibrary()
+            setLibraryCache()
         }
         
         /// Get the state of the player
@@ -31,12 +35,13 @@ extension KodiConnector {
     /// Reload the library from the Kodi host
     @MainActor public func reloadHost() async {
         loadingState = .load
-        await getLibrary()
+        library = await getLibrary()
+        setLibraryCache()
         loadingState = .done
     }
     
     
-    @MainActor func getLibrary() async {
+    @MainActor func getLibrary() async -> MyLibrary {
         logger("Getting your library")
         switch host.media {
             
@@ -49,13 +54,14 @@ extension KodiConnector {
             async let songs = AudioLibrary.getSongs()
             async let audioGenres = AudioLibrary.getGenres()
             
-            library = await MyLibrary(artists: artist,
+            return await MyLibrary(artists: artist,
                                       albums: albums,
                                       songs: songs,
                                       audioGenres: audioGenres
             )
         case .video:
             
+            async let artist = AudioLibrary.getArtists()
             async let movies = VideoLibrary.getMovies()
             async let movieSets = VideoLibrary.getMovieSets()
             async let tvshows = VideoLibrary.getTVShows()
@@ -63,7 +69,8 @@ extension KodiConnector {
             async let musicVideos = VideoLibrary.getMusicVideos()
             async let videoGenres = getAllVideoGenres()
             
-            library = await MyLibrary(movies: movies,
+            return await MyLibrary(artists: artist,
+                                      movies: movies,
                                       movieSets: movieSets,
                                       tvshows: tvshows,
                                       episodes: episodes,
@@ -88,7 +95,7 @@ extension KodiConnector {
             async let musicVideos = VideoLibrary.getMusicVideos()
             async let videoGenres = getAllVideoGenres()
             
-            library = await MyLibrary(artists: artist,
+            return await MyLibrary(artists: artist,
                                       albums: albums,
                                       songs: songs,
                                       audioGenres: audioGenres,
@@ -100,9 +107,9 @@ extension KodiConnector {
                                       videoGenres: videoGenres
             )
         default:
-            return
+            return MyLibrary()
         }
-        setLibraryCache()
+        //setLibraryCache()
     }
     
     /// Store the library in the cache

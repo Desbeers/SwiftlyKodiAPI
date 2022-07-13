@@ -78,32 +78,32 @@ public extension MediaButtons {
         }
     }
     
-    struct StreamItem: View {
-        let item: any KodiItem
-        public init(item: any KodiItem) {
-            self.item = item
-        }
-        public var body: some View {
-            Button(action: {
-                #if os(macOS)
-                // create a new NSPanel
-                let window = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 500, height: 500), styleMask: [.fullSizeContentView, .closable, .resizable, .titled], backing: .buffered, defer: false)
-                
-                // the styleMask can contails more, like borderless, hudWindow...
-                
-                window.center()
-                
-                // put your swiftui view here in rootview
-                window.contentView = NSHostingView(rootView: PlayerView(video: item))
-                window.makeKeyAndOrderFront(nil)
-                #endif
-            }
-                   , label: {
-                Text("Stream")
-                
-            })
-        }
-    }
+//    struct StreamItem: View {
+//        let item: any KodiItem
+//        public init(item: any KodiItem) {
+//            self.item = item
+//        }
+//        public var body: some View {
+//            Button(action: {
+////                #if os(macOS)
+////                // create a new NSPanel
+////                let window = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 500, height: 500), styleMask: [.fullSizeContentView, .closable, .resizable, .titled], backing: .buffered, defer: false)
+////
+////                // the styleMask can contails more, like borderless, hudWindow...
+////
+////                window.center()
+////
+////                // put your swiftui view here in rootview
+////                window.contentView = NSHostingView(rootView: PlayerView(video: item))
+////                window.makeKeyAndOrderFront(nil)
+////                #endif
+//            }
+//                   , label: {
+//                Text("Stream")
+//                
+//            })
+//        }
+//    }
     
     /// Debug button
     struct Debug: View {
