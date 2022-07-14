@@ -10,12 +10,33 @@ import Foundation
 public extension Library.Details {
     
     /// Genre details
-    struct Genre: Codable, Identifiable, Equatable {
+    struct Genre: KodiItem {
+        
+        
+
+        
+    //struct Genre: Codable, Identifiable, Equatable {
         
         /// # Computed items
         
         public var id: Int { genreID }
         public var media: Library.Media = .genre
+
+        /// Protocol requirements
+        
+        public var sortByTitle: String { title }
+        
+        public var playcount: Int = 0
+        
+        public var lastPlayed: String = ""
+        public var userRating: Int = 0
+        
+        public var poster: String = ""
+        
+        public var fanart: String = ""
+        
+        public var file: String = ""
+        
         
         /// # Library.Details.Genre
         

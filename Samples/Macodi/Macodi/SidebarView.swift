@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SidebarView: View {
-    @State var selection: String?
+    @State var selection: String? = "browser-all"
     var body: some View {
         List(selection: $selection) {
             Section(header: Text("Audio")) {
@@ -28,10 +28,34 @@ struct SidebarView: View {
                 NavigationLink(destination: AudioGenreView()) {
                     Label("Genres", systemImage: "circle.grid.cross")
                 }
-                NavigationLink(destination: MusicBrowserView()) {
-                    Label("Browser", systemImage: "circle.grid.cross")
-                }
             }
+            
+            Section(header: Text("Audio Browser")) {
+                NavigationLink(destination: MusicBrowserView(browserType: .all).id("1")) {
+                    Label("All", systemImage: "circle.grid.cross")
+                }
+                .tag("browser-all")
+                NavigationLink(destination: MusicBrowserView(browserType: .recentlyAdded).id("2")) {
+                    Label("Recently Added", systemImage: "circle.grid.cross")
+                }
+                .tag("recently-added")
+                NavigationLink(destination: MusicBrowserView(browserType: .recentlyPlayed).id("3")) {
+                    Label("Recently Played", systemImage: "circle.grid.cross")
+                }
+                .tag("recently-played")
+                NavigationLink(destination: MusicBrowserView(browserType: .favorites).id("4")) {
+                    Label("Favorites", systemImage: "circle.grid.cross")
+                }
+                .tag("favorites")
+            }
+            
+            Section(header: Text("Queue")) {
+                NavigationLink(destination: QueueView()) {
+                    Label("Now Playing", systemImage: "circle.grid.cross")
+                }
+                .tag("now-playing")
+            }
+            
             Section(header: Text("Video")) {
                 NavigationLink(destination: MovieView()) {
                     Label("Movies", systemImage: "film")

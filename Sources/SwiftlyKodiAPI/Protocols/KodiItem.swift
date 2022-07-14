@@ -20,6 +20,8 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     var playcount: Int { get set }
     /// The last played date of the item
     var lastPlayed: String { get set }
+    /// The user rating of the item
+    var userRating: Int { get set }
     /// The poster of the item
     var poster: String { get }
     /// The fanart of the item
@@ -30,7 +32,7 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
 
 public extension KodiItem {
     
-    /// Mark a ``LibraryItem`` as played
+    /// Mark a ``KodiItem`` as played
     func markAsPlayed() async {
         
         var newItem = self
@@ -40,6 +42,15 @@ public extension KodiItem {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         newItem.lastPlayed = dateFormatter.string(from: Date())
         
+        await setDetails(newItem)
+    }
+    
+    func toggleFavorite() async {
+
+        var newItem = self
+
+        newItem.userRating = self.userRating < 10 ? 10 : 0
+
         await setDetails(newItem)
     }
 }
@@ -56,7 +67,7 @@ public extension KodiItem {
         /// Set or reset the last played date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        newItem.lastPlayed = self.playcount == 0 ? "" : dateFormatter.string(from: Date())
+        newItem.lastPlayed = newItem.playcount == 0 ? "1900-01-01 00:00:00" : dateFormatter.string(from: Date())
         
         switch self.media {
         case .tvshow:

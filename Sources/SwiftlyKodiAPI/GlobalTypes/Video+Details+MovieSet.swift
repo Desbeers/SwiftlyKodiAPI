@@ -24,6 +24,8 @@ public extension Video.Details {
         }
         public var poster: String { art.poster }
         
+        public var userRating: Int = 0
+        
         /// # Video.Details.MovieSet
         
         public var plot: String = ""

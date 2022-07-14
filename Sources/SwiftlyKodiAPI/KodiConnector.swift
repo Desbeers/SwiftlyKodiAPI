@@ -38,6 +38,7 @@ public final class KodiConnector: ObservableObject {
     /// The current item that is playing
     //@Published public var currentItem: any KodiItem = Audio.Details.Song()
     @Published public var currentItem: (any KodiItem)?
+    @Published public var queue: [(any KodiItem)]?
     
     // MARK: The library
     

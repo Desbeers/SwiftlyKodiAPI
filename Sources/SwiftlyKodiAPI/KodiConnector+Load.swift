@@ -28,6 +28,7 @@ extension KodiConnector {
         
         /// Get the state of the player
         await getPlayerState()
+        await getCurrentPlaylist()
         logger("Loaded the library")
         loadingState = .done
     }

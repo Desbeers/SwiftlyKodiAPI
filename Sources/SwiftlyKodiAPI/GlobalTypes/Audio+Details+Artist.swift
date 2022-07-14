@@ -11,16 +11,19 @@ public extension Audio.Details {
     
     /// Artist details
     struct Artist: KodiItem {
+        
 
         /// # Calculated variables
         
         public var id: Int { artistID }
-        public var media: Library.Media = .album
+        public var media: Library.Media = .artist
         public var sortByTitle: String { sortName.isEmpty ? artist : sortName }
         public var playcount: Int = 0
         public var file: String = ""
         public var lastPlayed: String = ""
         public var poster: String { thumbnail }
+        
+        public var userRating: Int = 0
         
         /// # Audio.Details.Artist
         

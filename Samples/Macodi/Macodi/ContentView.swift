@@ -9,9 +9,13 @@ import SwiftUI
 import SwiftlyKodiAPI
 
 struct ContentView: View {
+    
+    @State private var columnVisibility = NavigationSplitViewVisibility.all
+    
     var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             SidebarView()
+                .navigationSplitViewColumnWidth(240)
         } detail: {
             MainView()
         }
@@ -41,6 +45,15 @@ struct ContentView: View {
                     }
                 }, label: {
                     Text("Update library")
+                })
+            }
+            ToolbarItem {
+                Button(action: {
+                    Task {
+                        await KodiConnector.shared.getCurrentPlaylist()
+                    }
+                }, label: {
+                    Text("Get playlist")
                 })
             }
         }
