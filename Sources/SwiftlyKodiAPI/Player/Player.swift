@@ -149,6 +149,13 @@ extension Player {
         case all = "all"
     }
     
+    /// The action for  the player
+    /// - Note: Custom enum, Kodi does not have this
+    public enum GoToAction: String, Codable {
+        case previous = "previous"
+        case next = "next"
+    }
+    
     /// The kind of player
     ///
     /// - Note: Kodi calls this 'Type' but that is reserved word

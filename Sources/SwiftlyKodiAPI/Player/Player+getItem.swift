@@ -19,12 +19,18 @@ extension Player {
             if let id = result.item.id {
                 switch result.item.type {
                 case .song:
-                    if let song = kodi.library.songs.first(where: {$0.songID == id}) {
-                        return song
-                    }
+                    return await AudioLibrary.getSongDetails(songID: id)
+                case .musicVideo:
+                    return await VideoLibrary.getMusicVideoDetails(musicVideoID: id)
                 default:
                     logger("Unknown item in the player")
                 }
+            } else {
+                /// Return it as a stream item
+                return SwiftlyKodiAPI.Audio.Details.Stream(title: result.item.label,
+                                                           subtitle: result.item.artist?.first ?? "Streaming",
+                                                           file: result.item.mediapath
+                )
             }
         }
         return nil
@@ -41,6 +47,7 @@ extension Player {
         }
         /// The request struct
         struct Params: Encodable {
+            var properties = ["title", "artist", "mediapath"]
             /// The player ID
             let playerid: Int
         }
@@ -53,6 +60,9 @@ extension Player {
         struct PlayerItem: Decodable {
             var id: Int?
             var label: String = ""
+            var title: String = ""
+            var artist: [String]?
+            var mediapath: String = ""
             //var type: String = ""
             var type: Library.Media = .none
         }

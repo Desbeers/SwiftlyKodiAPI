@@ -41,20 +41,3 @@ extension Player {
         typealias Response = Player.Property.Value
     }
 }
-
-//extension KodiConnector {
-//    
-//    /// Get the properties of the player
-//    @MainActor func getPlayerProperties(playerID: Player.ID) async {
-//        
-//        var properties = Player.Property.Value()
-//        
-//        if let playerID = await Player.getActivePlayers() {
-//            properties = await Player.getProperties(playerID: playerID.rawValue)
-//            //dump(properties)
-//        } else {
-//            logger("Player is not playing")
-//        }
-//        playerProperties = properties
-//    }
-//}

@@ -21,13 +21,22 @@ struct ContentView: View {
         }
         .toolbar {
             ToolbarItem {
+                MediaButtons.PlayPrevious()
+            }
+            ToolbarItem {
                 MediaButtons.PlayPause()
+            }
+            ToolbarItem {
+                MediaButtons.PlayNext()
             }
             ToolbarItem {
                 MediaButtons.SetShuffle()
             }
             ToolbarItem {
                 MediaButtons.SetRepeat()
+            }
+            ToolbarItem {
+                MediaButtons.SetPartyMode()
             }
             ToolbarItem {
                 Button(action: {

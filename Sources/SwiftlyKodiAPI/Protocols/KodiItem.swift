@@ -14,6 +14,8 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     var media: Library.Media { get }
     /// The title of the item
     var title: String { get }
+    /// The subtitle of the item
+    var subtitle: String { get }
     /// The 'sort by title' of the item
     var sortByTitle: String { get }
     /// The playcount of the item
@@ -106,20 +108,5 @@ public extension KodiItem {
         default:
             logger("Updating \(self.media) not implemented")
         }
-        
-//        switch item.media {
-//        case .song:
-//            await AudioLibrary.setSongDetails(song: item as! Audio.Details.Song)
-//        case .movie:
-//            await VideoLibrary.setMovieDetails(movie: item as! Video.Details.Movie)
-//        case .tvshow:
-//            await VideoLibrary.setTVShowDetails(tvshow: item as! Video.Details.TVShow)
-//        case .episode:
-//            await VideoLibrary.setEpisodeDetails(episode: item as! Video.Details.Episode)
-//        case .musicVideo:
-//            await VideoLibrary.setMusicVideoDetails(musicVideo: item as! Video.Details.MusicVideo)
-//        default:
-//            logger("Updating \(self.media) not implemented")
-//        }
     }
 }

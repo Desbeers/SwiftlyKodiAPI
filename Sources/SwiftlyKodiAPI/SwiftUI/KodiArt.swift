@@ -42,6 +42,10 @@ public extension KodiArt {
                 Art(file: musicVideo.art.poster)
 //            case let song as Audio.Details.Song:
 //                await AudioLibrary.setSongDetails(song: song)
+            case let stream as Audio.Details.Stream:
+                Image(systemName: "dot.radiowaves.left.and.right")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
             default:
                 Art(file: item.poster)
             }

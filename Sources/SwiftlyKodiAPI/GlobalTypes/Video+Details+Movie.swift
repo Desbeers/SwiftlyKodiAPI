@@ -18,6 +18,7 @@ public extension Video.Details {
         public var media: Library.Media = .movie
         public var sortByTitle: String { sortTitle.isEmpty ? title : sortTitle}
         public var poster: String { art.poster }
+        public var subtitle: String { tagline }
         
         /// # Video.Details.Movie
         

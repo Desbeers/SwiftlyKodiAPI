@@ -20,6 +20,8 @@ public extension Files {
         case pictures
         case files
         case programs
+        
+        /// Custom
         case all
         case none
     }

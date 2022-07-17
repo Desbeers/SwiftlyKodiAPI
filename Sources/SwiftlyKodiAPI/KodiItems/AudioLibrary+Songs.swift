@@ -1,5 +1,5 @@
 //
-//  Songs.swift
+//  AudioLibrary+Songs.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen

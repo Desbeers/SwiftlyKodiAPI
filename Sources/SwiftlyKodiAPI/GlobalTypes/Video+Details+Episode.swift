@@ -18,6 +18,7 @@ public extension Video.Details {
         public var media: Library.Media = .episode
         public var sortByTitle: String { title }
         public var poster: String { thumbnail }
+        public var subtitle: String { showTitle }
         
         /// # Video.Details.Episode
         

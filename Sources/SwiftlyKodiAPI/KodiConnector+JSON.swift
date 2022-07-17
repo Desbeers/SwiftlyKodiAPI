@@ -23,12 +23,14 @@ extension KodiConnector {
         
         do {
             let decoded = try JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data)
+            //debugJsonResponse(data: data)
             return decoded.result
             } catch let DecodingError.dataCorrupted(context) {
                 print(context)
             } catch let DecodingError.keyNotFound(key, context) {
                 print("Key '\(key)' not found:", context.debugDescription)
                 print("codingPath:", context.codingPath)
+                debugJsonResponse(data: data)
             } catch let DecodingError.valueNotFound(value, context) {
                 print("Value '\(value)' not found:", context.debugDescription)
                 print("codingPath:", context.codingPath)
@@ -40,12 +42,6 @@ extension KodiConnector {
                 print("error: ", error)
             }
         throw JSON.APIError.invalidData
-//        guard let decoded = try? JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data) else {
-//            debugJsonResponse(data: data)
-//            throw JSON.APIError.invalidData
-//        }
-        // debugJsonResponse(data: data)
-//        return decoded.result
     }
     
     /// Send a message to the host, not caring about the response

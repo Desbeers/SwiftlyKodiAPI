@@ -16,18 +16,24 @@ extension KodiConnector {
         connectWebSocket()
         loadingState = .load
         
+        /// Get the properties of the host
+        
+        properties = await Application.getProperties()
+        
         if let libraryItems = Cache.get(key: "MyLibrary", as: MyLibrary.self) {
             library = libraryItems
-//            Task {
-//                await updateLibrary()
-//            }
         } else {
             library = await getLibrary()
             setLibraryCache()
         }
         
+        /// Get Playlists
+        
+        audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
+        
         /// Get the state of the player
         await getPlayerState()
+        /// Get all items in the playlist
         await getCurrentPlaylist()
         logger("Loaded the library")
         loadingState = .done
@@ -46,7 +52,7 @@ extension KodiConnector {
         logger("Getting your library")
         switch host.media {
             
-        case .music:
+        case .audio:
             
             async let artist = AudioLibrary.getArtists()
             async let albums = AudioLibrary.getAlbums()
@@ -60,6 +66,7 @@ extension KodiConnector {
                                       songs: songs,
                                       audioGenres: audioGenres
             )
+            
         case .video:
             
             async let artist = AudioLibrary.getArtists()

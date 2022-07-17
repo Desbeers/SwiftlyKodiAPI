@@ -21,6 +21,7 @@ public extension Library.Details {
         
         public var id: Int { genreID }
         public var media: Library.Media = .genre
+        public var subtitle: String = ""
 
         /// Protocol requirements
         

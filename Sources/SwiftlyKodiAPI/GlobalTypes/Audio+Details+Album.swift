@@ -19,6 +19,7 @@ public extension Audio.Details {
         public var file: String = ""
         public var sortByTitle: String { title }
         public var poster: String { thumbnail }
+        public var subtitle: String { displayArtist }
         
         /// # Audio.Details.Album
         

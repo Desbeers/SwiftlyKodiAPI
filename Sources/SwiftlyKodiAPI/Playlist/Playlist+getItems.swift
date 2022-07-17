@@ -29,10 +29,11 @@ extension Playlist {
                     default:
                         break
                     }
-                    
                 }
             }
-            return queue
+            if !queue.isEmpty {
+                return queue
+            }
         }
         return nil
     }
@@ -62,10 +63,5 @@ extension Playlist {
         /// The item
         let id: Int?
         var type: Library.Media = .none
-//        /// Coding keys
-//        enum CodingKeys: String, CodingKey {
-//            /// ID is a reserved word
-//            case songID = "id"
-//        }
     }
 }

@@ -18,6 +18,7 @@ public extension Audio.Details {
         public var media: Library.Media = .song
         public var sortByTitle: String { title }
         public var poster: String { thumbnail }
+        public var subtitle: String { displayArtist }
         
         /// # Audio.Details.Song
         

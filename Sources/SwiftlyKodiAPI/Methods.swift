@@ -123,7 +123,7 @@ import Foundation
         /// Set the audio stream played by the player
         case playerSetAudioStream = "Player.SetAudioStream"
         /// Toggle partymode on or off
-        case playerTogglePartymode = "Player.SetPartymode"
+        case playerSetPartymode = "Player.SetPartymode"
         /// Set the repeat mode of the player
         case playerSetRepeat = "Player.SetRepeat"
         /// Shuffle/Unshuffle items in the player

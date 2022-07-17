@@ -25,6 +25,14 @@ public extension Audio.Details {
         
         public var userRating: Int = 0
         
+        /// Calculated stuff
+        
+        public var title: String { artist }
+        
+        public var subtitle: String { songGenres.map({$0.title}).joined(separator: " ∙ ") }
+        
+        public var details: String { description }
+        
         /// # Audio.Details.Artist
         
         public var artist: String = ""
@@ -61,14 +69,6 @@ public extension Audio.Details {
         
         public var fanart: String = ""
         public var thumbnail: String = ""
-        
-        /// Calculated stuff
-        
-        public var title: String { artist }
-        
-        public var subtitle: String { "subtitle" }
-        
-        public var details: String { description }
         
         /// Coding keys
         

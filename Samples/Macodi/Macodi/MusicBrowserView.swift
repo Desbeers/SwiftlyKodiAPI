@@ -199,62 +199,37 @@ extension MusicBrowserView {
     }
     
     var songs: some View {
-//        Table(browser.songs) {
-//            TableColumn("Title", value: \.title)
-//            TableColumn("Artist", value: \.displayArtist)
-//            TableColumn("Play count") { song in
-//                Text(song.playcount == 0 ? "Never played" : "Played \(song.playcount) times")
-//            }
-//            TableColumn("Add playcount") { song in
-//                Button(action: {
-//                    Task {
-//                        await song.markAsPlayed()
-//                    }
-//                }
-//                       , label: {
-//                    Text("played")
-//
-//                })
-//            }
-//            TableColumn("Toggle playcount") { song in
-//                Button(action: {
-//                    Task {
-//                        await song.togglePlayedState()
-//                    }
-//                }
-//                       , label: {
-//                    Text(song.playcount == 0 ? "Mark as played" : "Mark as new")
-//
-//                })
-//            }
-//            TableColumn("Play") { song in
-//                PlayButton(item: song)
-//            }
-//        }
-        ScrollView {
-            LazyVStack(alignment: .leading) {
-                ForEach(browser.songs) { song in
-                    Song(song: song)
-                    Divider()
-//                    HStack {
-//                        Text(song.title)
-//                            .font(.headline)
-//                        Text("\(song.track)")
-//                        Text(song.artist.joined(separator: " - "))
-//                            .font(.subheadline)
-//                        Text(song.album)
-//                        Text("Played: \(song.playcount)")
-//                    }
+        VStack {
+            HStack {
+                Button(action: {
+                    browser.songs.play()
+                }, label: {
+                    Text("Play songs")
+                })
+                Button(action: {
+                    browser.songs.play(shuffle: true)
+                }, label: {
+                    Text("Shuffle songs")
+                })
+            }
+            ScrollView {
+                LazyVStack(alignment: .leading) {
+                    ForEach(browser.songs) { song in
+                        Song(song: song)
+                        Divider()
+                    }
                 }
             }
         }
     }
     
     struct Song: View {
+        /// The KodiConnector model
+        @EnvironmentObject var kodi: KodiConnector
         let song: Audio.Details.Song
         var body: some View {
             HStack {
-                Image(systemName: song.userRating == 0 ? "music.note" : "heart")
+                icon
                 VStack(alignment: .leading) {
                     Text(song.title)
                     Text(song.displayArtist)
@@ -284,6 +259,18 @@ extension MusicBrowserView {
                     Text(song.userRating == 0 ? "Favorite" : "Unfavorite")
                     
                 })
+            }
+        }
+        /// The icon for the song item
+        @ViewBuilder var icon: some View {
+            if song.songID == kodi.currentItem?.id {
+                if kodi.player.speed == 0 {
+                    Image(systemName: "pause.fill")
+                } else {
+                    Image(systemName: "play.fill")
+                }
+            } else {
+                Image(systemName: song.userRating == 0 ? "music.note" : "heart")
             }
         }
     }

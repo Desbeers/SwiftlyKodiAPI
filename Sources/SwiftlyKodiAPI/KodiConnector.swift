@@ -36,9 +36,13 @@ public final class KodiConnector: ObservableObject {
     /// The state of the player
     @Published public var player = Player.Property.Value()
     /// The current item that is playing
-    //@Published public var currentItem: any KodiItem = Audio.Details.Song()
     @Published public var currentItem: (any KodiItem)?
+    /// The current items in the queue
     @Published public var queue: [(any KodiItem)]?
+    /// Audio playlists
+    @Published public var audioPlaylists: [List.Item.File] = []
+    /// The host properties
+    @Published public var properties = Application.Property.Value()
     
     // MARK: The library
     

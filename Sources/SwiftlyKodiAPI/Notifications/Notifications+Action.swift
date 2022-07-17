@@ -15,11 +15,16 @@ extension KodiConnector {
         switch notification.method {
         case .playerOnAVStart, .playerOnPropertyChanged, .playerOnSpeedChanged, .playerOnStop, .playerOnPause, .playerOnResume:
             await getPlayerState()
+            await getCurrentPlaylist()
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
             getLibraryUpdate(itemID: notification.itemID, media: notification.media)
             await getCurrentPlaylist()
-        case .playlistOnAdd:
+        case .playlistOnAdd, .playlistOnClear:
             await getCurrentPlaylist()
+        case .applicationOnVolumeChanged:
+            Task { @MainActor in
+                properties = await Application.getProperties()
+            }
         default:
             logger("No action after notification")
         }

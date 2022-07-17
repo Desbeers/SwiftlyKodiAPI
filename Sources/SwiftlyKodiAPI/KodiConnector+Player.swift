@@ -27,6 +27,16 @@ extension KodiConnector {
         if let playerID = await getPlayerID() {
             properties = await Player.getProperties(playerID: playerID)
             currentItem = await Player.getItem(playerID: playerID)
+            
+            /// Keep an eye on the player if it is streaming
+            if currentItem?.media == .stream {
+                Task {
+                    logger("Check stream")
+                    try await Task.sleep(nanoseconds: 5_000_000_000)
+                    await getPlayerState()
+                }
+            }
+            
         } else {
             logger("Player is not playing")
             currentItem = nil

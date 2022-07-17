@@ -18,6 +18,7 @@ public extension Video.Details {
         public var media: Library.Media = .musicVideo
         public var sortByTitle: String { title }
         public var poster: String { thumbnail }
+        public var subtitle: String { artist.joined(separator: " ∙ ") }
         
         /// # Video.Details.MusicVideo
         
