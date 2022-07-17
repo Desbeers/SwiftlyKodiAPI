@@ -9,7 +9,7 @@ import Foundation
 
 extension Application.Property {
     
-    /// The property names of the Applcation
+    /// The application properties (Global Kodi Type)
     static let name = [
         "volume",
         "muted",

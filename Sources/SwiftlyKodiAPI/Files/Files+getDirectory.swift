@@ -8,8 +8,14 @@
 import Foundation
 
 extension Files {
-    
-    /// Get the directories and files in the given directory
+
+    /// Get the directories and files in the given directory (Kodi API)
+    ///
+    /// - Parameters:
+    ///   - directory: The directory we want to receive
+    ///   - media: The kind of ``Files/Media`` we want to receive
+    ///
+    /// - Returns: All items received in a  ``List/Item/File`` array
     public static func getDirectory(directory: String, media: Files.Media) async -> [List.Item.File] {
         
         if let result = try? await KodiConnector.shared.sendRequest(request: GetDirectory(directory: directory, media: media)) {
@@ -19,7 +25,7 @@ extension Files {
     }
     
     /// Get the directories and files in the given directory (Kodi API)
-    struct GetDirectory: KodiAPI {
+    fileprivate struct GetDirectory: KodiAPI {
         /// The directory
         var directory: String
         /// The media

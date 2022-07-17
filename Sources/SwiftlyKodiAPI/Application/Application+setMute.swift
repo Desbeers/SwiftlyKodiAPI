@@ -9,7 +9,7 @@ import Foundation
 
 extension Application {
     
-    /// Toggle mute/unmute
+    /// Toggle mute/unmute (Kodi API)
     public static func setMute() async  {
         KodiConnector.shared.sendMessage(message: SetMute())
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-///Application related items
+/// Application related items and functions
 public enum Application {
     /// Just a placeholder
 }

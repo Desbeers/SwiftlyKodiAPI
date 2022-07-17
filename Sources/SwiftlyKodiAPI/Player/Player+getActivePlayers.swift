@@ -32,7 +32,7 @@ extension Player {
         struct ActivePlayer: Decodable {
             var playerid: ID
             var playertype: String
-            var type: Kind
+            var type: MediaType
         }
     }
 }
