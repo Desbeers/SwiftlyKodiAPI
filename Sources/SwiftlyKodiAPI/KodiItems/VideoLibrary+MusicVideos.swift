@@ -1,5 +1,5 @@
 //
-//  MusicVideos.swift
+//  VideoLibrary+MusicVideos.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen

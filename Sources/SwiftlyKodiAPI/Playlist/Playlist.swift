@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// An enum with all Playlist related items
+/// Playlist related items and functions
 public enum Playlist {
     /// Just a placeholder
 }

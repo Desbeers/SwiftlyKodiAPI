@@ -59,12 +59,14 @@ extension KodiConnector {
             /// Limit the loading for debugging
             /// let songs = await AudioLibrary.getSongs(limits: List.Limits(end: 400, start: 100))
             async let songs = AudioLibrary.getSongs()
+            async let musicVideos = VideoLibrary.getMusicVideos()
             async let audioGenres = AudioLibrary.getGenres()
             
             return await MyLibrary(artists: artist,
-                                      albums: albums,
-                                      songs: songs,
-                                      audioGenres: audioGenres
+                                   albums: albums,
+                                   songs: songs,
+                                   audioGenres: audioGenres,
+                                   musicVideos: musicVideos
             )
             
         case .video:

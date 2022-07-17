@@ -15,9 +15,9 @@ extension Audio.Details.Stream {
     /// Play stream
     public func play() {
         Task {
-            await Playlist.clear()
+            await Playlist.clear(playlistID: .audio)
             await Playlist.add(stream: self)
-            await Player.open()
+            await Player.open(playlistID: .audio)
         }
     }
 }

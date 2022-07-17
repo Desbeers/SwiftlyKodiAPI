@@ -48,18 +48,27 @@ public final class KodiConnector: ObservableObject {
     
     @Published public var library = MyLibrary()
     
+    /// The library from the Kodi host
     public struct MyLibrary: Codable {
-        
+        /// The artist in your library
         public var artists: [Audio.Details.Artist] = []
+        /// The albums in your library
         public var albums: [Audio.Details.Album] = []
+        /// The songs in your library
         public var songs: [Audio.Details.Song] = []
+        /// The audio genres in your library
         public var audioGenres: [Library.Details.Genre] = []
-        
+        /// The movies in your library
         public var movies: [Video.Details.Movie] = []
+        /// The movie sets in your library
         public var movieSets: [Video.Details.MovieSet] = []
+        /// The TV shows in your library
         public var tvshows: [Video.Details.TVShow] = []
+        /// The TV show episodes in your library
         public var episodes: [Video.Details.Episode] = []
+        /// The music videos in your library
         public var musicVideos: [Video.Details.MusicVideo] = []
+        /// The video genres in your library
         public var videoGenres: [Library.Details.Genre] = []
     }
     

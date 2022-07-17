@@ -31,8 +31,6 @@ public extension MediaButtons {
                 Task {
                     if let playerID = await kodi.getPlayerID() {
                         Player.playPause(playerID: playerID)
-                    } else {
-                        await Player.open()
                     }
                 }
             }, label: {

@@ -1,5 +1,5 @@
 //
-//  Genres.swift
+//  VideoLibrary+Genres.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen

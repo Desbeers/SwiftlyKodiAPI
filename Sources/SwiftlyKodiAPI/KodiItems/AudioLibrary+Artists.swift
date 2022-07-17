@@ -1,5 +1,5 @@
 //
-//  Artists.swift
+//  AudioLibrary+Artists.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -7,12 +7,10 @@
 
 import Foundation
 
-// MARK: getArtists
-
 extension AudioLibrary {
 
-    /// Get all artists from the Kodi host
-    /// - Returns: All artists from the Kodi host
+    /// Retrieve all artists (Kodi API)
+    /// - Returns: All artists in an ``Audio/Details/Artist`` array
     public static func getArtists() async -> [Audio.Details.Artist] {
         let kodi: KodiConnector = .shared
         if let request = try? await kodi.sendRequest(request: GetArtists()) {
@@ -23,7 +21,7 @@ extension AudioLibrary {
     }
     
     /// Retrieve all artists (Kodi API)
-    struct GetArtists: KodiAPI {
+    fileprivate struct GetArtists: KodiAPI {
         /// The method
         var method = Methods.audioLibraryGetArtists
         /// The parameters

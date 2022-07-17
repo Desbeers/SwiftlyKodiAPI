@@ -12,9 +12,9 @@ extension Audio.Details.Song {
     /// Play an  ``Audio/Details/Song`` item
     public func play() {
         Task {
-            await Playlist.clear()
+            await Playlist.clear(playlistID: .audio)
             await Playlist.add(songs: [self])
-            await Player.open()
+            await Player.open(playlistID: .audio)
         }
     }
 }
@@ -24,9 +24,9 @@ extension Array where Element == Audio.Details.Song {
     /// Play an array of ``Audio/Details/Song`` items
     public func play(shuffle: Bool = false) {
         Task {
-            await Playlist.clear()
+            await Playlist.clear(playlistID: .audio)
             await Playlist.add(songs: self)
-            await Player.open(shuffle: shuffle)
+            await Player.open(playlistID: .audio, shuffle: shuffle)
         }
     }
 }
