@@ -173,9 +173,9 @@ public extension MediaButtons {
                 HStack {
                     Button(
                         action: {
-//                            Task.detached(priority: .userInitiated) {
-//                                await player.toggleMute()
-//                            }
+                            Task {
+                                await Application.setMute()
+                            }
                         },
                         label: {
                             Image(systemName: kodi.properties.muted ? "speaker.slash.fill" : "speaker.fill")

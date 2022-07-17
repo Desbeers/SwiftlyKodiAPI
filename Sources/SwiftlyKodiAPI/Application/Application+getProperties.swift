@@ -9,8 +9,8 @@ import Foundation
 
 extension Application {
     
-    /// Retrieves the values of the given properties
-    /// - Returns: The values of the application properties
+    /// Retrieves the properties of the application
+    /// - Returns: The properties of the application
     public static func getProperties() async -> Application.Property.Value {
         if let result = try? await KodiConnector.shared.sendRequest(request: GetProperties()) {
             return result

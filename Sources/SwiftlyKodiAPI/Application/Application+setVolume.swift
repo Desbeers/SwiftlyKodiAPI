@@ -10,6 +10,7 @@ import Foundation
 extension Application {
     
     /// Set the current volume
+    /// - Parameter volume: The new volume
     public static func setVolume(volume: Double) async  {
         KodiConnector.shared.sendMessage(message: SetVolume(volume: volume))
     }

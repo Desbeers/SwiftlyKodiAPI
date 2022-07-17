@@ -10,10 +10,6 @@ import Foundation
 //extension KodiConnector {
     
     /// Kodi methods used by KodiAPI
-    ///
-    /// - Note: Most methods are just 'lowerCamelCase' version, however
-    ///         some are renamed to reflect their action a bit more clear,
-    ///         like 'toggle' instead of 'set'
     enum Methods: String {
         
         /// # General
@@ -31,7 +27,7 @@ import Foundation
         /// Quit application
         case applicationQuit = "Application.Quit"
         /// Toggle mute/unmute
-        case applicationToggleMute = "Application.SetMute"
+        case applicationSetMute = "Application.SetMute"
         /// Set the current volume
         case applicationSetVolume = "Application.SetVolume"
         
