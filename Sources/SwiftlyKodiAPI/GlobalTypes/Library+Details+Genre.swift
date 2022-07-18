@@ -11,17 +11,17 @@ public extension Library.Details {
     
     /// Genre details
     struct Genre: KodiItem {
-        
-        
 
-        
-    //struct Genre: Codable, Identifiable, Equatable {
-        
         /// # Computed items
         
         public var id: Int { genreID }
         public var media: Library.Media = .genre
         public var subtitle: String = ""
+        
+        /// The search string
+        public var search: String {
+            "\(title)"
+        }
 
         /// Protocol requirements
         

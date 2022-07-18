@@ -159,6 +159,7 @@ public extension MediaButtons {
         }
     }
     
+    #if !os(tvOS)
     /// Volume slider
     struct VolumeSlider: View  {
         @EnvironmentObject var kodi: KodiConnector
@@ -195,11 +196,9 @@ public extension MediaButtons {
                 }
             }
             .frame(width: 160)
-//            .task(id: kodi.properties) {
-//                volume = kodi.properties.volume
-//            }
         }
     }
+    #endif
     
     /// Debug button
     struct Debug: View {

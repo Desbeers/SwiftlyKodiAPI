@@ -33,4 +33,6 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     var fanart: String { get }
     /// The location of the file
     var file: String { get }
+    /// The search string
+    var search: String { get }
 }

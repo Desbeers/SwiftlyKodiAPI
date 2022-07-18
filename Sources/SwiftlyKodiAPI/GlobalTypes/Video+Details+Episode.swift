@@ -20,6 +20,11 @@ public extension Video.Details {
         public var poster: String { thumbnail }
         public var subtitle: String { showTitle }
         
+        /// The search string
+        public var search: String {
+            "\(title) \(showTitle)"
+        }
+        
         /// # Video.Details.Episode
         
         public var cast: [Video.Cast] = []

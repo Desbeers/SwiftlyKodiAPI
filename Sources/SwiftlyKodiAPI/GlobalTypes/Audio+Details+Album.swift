@@ -21,6 +21,11 @@ public extension Audio.Details {
         public var poster: String { thumbnail }
         public var subtitle: String { displayArtist }
         
+        /// The search string
+        public var search: String {
+            "\(title) \(displayArtist)"
+        }
+        
         /// # Audio.Details.Album
         
         public var albumDuration: Int = 0

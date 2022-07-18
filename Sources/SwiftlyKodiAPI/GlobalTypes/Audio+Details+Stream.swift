@@ -26,7 +26,10 @@ public extension Audio.Details {
             self.file = file
         }
         
-
+        /// The search string
+        public var search: String {
+            "\(title)"
+        }
         
         public var id: Int = 1
         

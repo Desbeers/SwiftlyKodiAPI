@@ -20,6 +20,11 @@ public extension Video.Details {
         public var poster: String { thumbnail }
         public var subtitle: String { artist.joined(separator: " ∙ ") }
         
+        /// The search string
+        public var search: String {
+            "\(title) \(artist.joined(separator: " ")) \(album)"
+        }
+        
         /// # Video.Details.MusicVideo
         
         public var album: String = ""

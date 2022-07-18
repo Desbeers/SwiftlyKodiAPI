@@ -28,6 +28,11 @@ public extension Video.Details {
         
         public var userRating: Int = 0
         
+        /// The search string
+        public var search: String {
+            "\(title)"
+        }
+        
         /// # Video.Details.MovieSet
         
         public var plot: String = ""

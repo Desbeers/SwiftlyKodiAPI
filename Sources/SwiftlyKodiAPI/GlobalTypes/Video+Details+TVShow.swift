@@ -20,6 +20,11 @@ public extension Video.Details {
         public var poster: String { art.poster }
         public var subtitle: String = ""
         
+        /// The search string
+        public var search: String {
+            "\(title)"
+        }
+        
         /// # Video.Details.TVShow
         
         public var cast: [Video.Cast] = []

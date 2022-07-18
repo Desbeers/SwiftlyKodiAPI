@@ -25,6 +25,11 @@ public extension Audio.Details {
         
         public var userRating: Int = 0
         
+        /// The search string
+        public var search: String {
+            "\(title)"
+        }
+        
         /// Calculated stuff
         
         public var title: String { artist }
