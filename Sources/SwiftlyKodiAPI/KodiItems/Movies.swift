@@ -24,7 +24,7 @@ extension VideoLibrary {
     }
     
     /// Retrieve all movies (Kodi API)
-    struct GetMovies: KodiAPI {
+    fileprivate struct GetMovies: KodiAPI {
         /// The method
         var method = Methods.videoLibraryGetMovies
         /// The parameters
@@ -51,12 +51,12 @@ extension VideoLibrary {
 
 extension VideoLibrary {
     
-    /// Get the details of a movie item
+    /// Get the details of a movie item (Kodi API)
     /// - Parameter movieID: The ID of the movie item
     /// - Returns: An updated Media Item
     public static func getMovieDetails(movieID: Int) async -> Video.Details.Movie {
         let kodi: KodiConnector = .shared
-        let request = VideoLibraryGetMovieDetails(movieID: movieID)
+        let request = GetMovieDetails(movieID: movieID)
         do {
             let result = try await kodi.sendRequest(request: request)
             return result.moviedetails
@@ -69,7 +69,7 @@ extension VideoLibrary {
     }
     
     /// Retrieve details about a specific movie (Kodi API)
-    struct VideoLibraryGetMovieDetails: KodiAPI {
+    fileprivate struct GetMovieDetails: KodiAPI {
         /// Argument: the movie we ask for
         var movieID: Int
         /// Method
@@ -100,17 +100,17 @@ extension VideoLibrary {
 
 extension VideoLibrary {
     
-    /// Set the details of a movie item
+    /// Set the details of a movie item (Kodi API)
     /// - Parameter movie: The movie Media Item
     public static func setMovieDetails(movie: Video.Details.Movie) async {
         let kodi: KodiConnector = .shared
-        let message = VideoLibrarySetMovieDetails(movie: movie)
+        let message = SetMovieDetails(movie: movie)
         kodi.sendMessage(message: message)
         logger("Details set for '\(movie.title)'")
     }
     
     /// Update the given movie with the given details (Kodi API)
-    struct VideoLibrarySetMovieDetails: KodiAPI {
+    fileprivate struct SetMovieDetails: KodiAPI {
         /// Arguments
         var movie: Video.Details.Movie
         /// Method

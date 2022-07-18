@@ -72,7 +72,7 @@ extension Array where Element == Audio.Details.Song {
 }
 
 extension Array where Element == Video.Details.Movie {
-    
+
     /// Filter a list of movies matching the search query
     /// - Parameter query: The search query
     /// - Returns: An array of ``Video/Details/Movie``
@@ -85,7 +85,7 @@ extension Array where Element == Video.Details.Movie {
 }
 
 extension Array where Element == Video.Details.TVShow {
-    
+
     /// Filter a list of tv shows matching the search query
     /// - Parameter query: The search query
     /// - Returns: An array of ``Video/Details/TVShow``
