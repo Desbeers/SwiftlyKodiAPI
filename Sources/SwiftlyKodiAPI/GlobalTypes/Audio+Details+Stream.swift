@@ -60,3 +60,17 @@ public extension Audio.Details {
         
     }
 }
+
+// MARK: Stream extensions
+
+extension Audio.Details.Stream {
+    
+    /// Play stream
+    public func play() {
+        Task {
+            await Playlist.clear(playlistID: .audio)
+            await Playlist.add(stream: self)
+            await Player.open(playlistID: .audio)
+        }
+    }
+}

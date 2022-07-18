@@ -59,7 +59,7 @@ extension Search {
 }
 
 extension Array where Element == Audio.Details.Song {
-    
+
     /// Filter a list of songs matching the search query
     /// - Parameter query: The search query
     /// - Returns: An array of ``Audio/Details/Song``

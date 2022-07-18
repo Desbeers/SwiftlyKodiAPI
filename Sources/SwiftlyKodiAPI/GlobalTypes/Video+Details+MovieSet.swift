@@ -20,7 +20,7 @@ public extension Video.Details {
         public var lastPlayed: String = ""
         public var sortByTitle: String {
             /// Kodi has no sortTitle for sets
-            title.removingPrefixes(["De", "The"])
+            title.removePrefixes(["De", "The"])
         }
         public var poster: String { art.poster }
         

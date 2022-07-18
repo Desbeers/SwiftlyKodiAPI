@@ -8,39 +8,9 @@
 import SwiftUI
 
 
-// MARK: Stream extensions
 
-extension Audio.Details.Stream {
-    
-    /// Play stream
-    public func play() {
-        Task {
-            await Playlist.clear(playlistID: .audio)
-            await Playlist.add(stream: self)
-            await Player.open(playlistID: .audio)
-        }
-    }
-}
 
-// MARK: Music Video extensions
 
-extension Array where Element == Video.Details.MusicVideo {
-    
-    /// Filter the music videos to have only one video representing an album
-    /// - Returns: A list with music videos without duplicated albums
-    public func uniqueAlbum() -> [Video.Details.MusicVideo] {
-        var knownAlbums = Set<String>()
-        return self.filter { element -> Bool in
-            let album = element.album
-            if album == "" || !knownAlbums.contains(album) {
-                knownAlbums.insert(album)
-                return true
-            }
-            /// This set is already in the list
-            return false
-        }
-    }
-}
 
 // MARK: Array extensions
 
@@ -88,8 +58,14 @@ extension Sequence {
     }
 }
 
+// MARK: String extensions
+
 extension String {
-    func removingPrefixes(_ prefixes: [String]) -> String {
+
+    /// Remove prefixes from a String
+    /// - Parameter prefixes: An aray of prefixes
+    /// - Returns: A String with al optonal prefixes removed
+    func removePrefixes(_ prefixes: [String]) -> String {
         let pattern = "^(\(prefixes.map{"\\Q"+$0+"\\E"}.joined(separator: "|")))\\s?"
         guard let range = self.range(of: pattern, options: [.regularExpression, .caseInsensitive]) else { return self }
         return String(self[range.upperBound...])
