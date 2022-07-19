@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// All video library related functions
+/// Video Library information (Kodi Namespace)
 public enum VideoLibrary {
     /// Just a placeholder
 }

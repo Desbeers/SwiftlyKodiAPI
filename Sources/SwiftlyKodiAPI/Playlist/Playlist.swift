@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Playlist related items and functions
+/// Playlist modification (Kodi Namespace)
 public enum Playlist {
     /// Just a placeholder
 }

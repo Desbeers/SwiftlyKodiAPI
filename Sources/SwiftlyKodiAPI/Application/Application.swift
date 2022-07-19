@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Application related items and functions
+/// Application information and control (Kodi Namespace)
 public enum Application {
     /// Just a placeholder
 }

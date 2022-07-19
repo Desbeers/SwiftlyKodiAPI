@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Player related items and functions
+/// Manages all available players (Kodi Namespace)
 public enum Player {
     /// Just a placeholder
 }

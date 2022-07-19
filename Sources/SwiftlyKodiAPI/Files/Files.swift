@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Files related items and functions
+/// Shares information & filesystem listings (Kodi Namespace)
 public enum Files {
     /// Just a placeholder
 }

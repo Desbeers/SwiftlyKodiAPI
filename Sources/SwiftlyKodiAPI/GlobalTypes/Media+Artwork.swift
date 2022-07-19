@@ -9,7 +9,7 @@ import Foundation
 
 public extension Media {
     
-    /// Artwork for a Media item
+    /// Artwork for a Media item (Global Kodi Type)
     struct Artwork: Codable, Equatable, Hashable {
         public var banner: String = ""
         public var fanart: String = ""

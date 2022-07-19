@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// All audio library related functions
+/// Audio Library information (Kodi Namespace)
 public enum AudioLibrary {
     /// Just a placeholder
 }

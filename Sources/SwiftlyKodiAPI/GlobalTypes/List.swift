@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// All List related items
+/// List related items (Global Kodi Type)
 public enum List {
     /// Just a placeholder
 }

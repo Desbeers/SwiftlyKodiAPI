@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Audio related items
+/// Audio related items (Global Kodi Type)
 public enum Audio {
     /// Just a placeholder
 }

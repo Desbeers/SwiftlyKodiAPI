@@ -1,5 +1,5 @@
 //
-//  Media+Artwork.swift
+//  Media.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// All Media related items
+/// Media related items (Global Kodi Type)
 public enum Media {
     /// Just a placeholder
 }

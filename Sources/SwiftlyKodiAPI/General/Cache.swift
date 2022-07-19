@@ -8,7 +8,7 @@
 import Foundation
 
 /// Get and set structs to the cache directory
-struct Cache {
+enum Cache {
 
     /// Get a struct from the cache
     /// - Parameters:

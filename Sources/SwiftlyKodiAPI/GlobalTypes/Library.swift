@@ -7,8 +7,8 @@
 
 import Foundation
 
-/// All Library related items
-public struct Library {
+/// Library related items  (Global Kodi Type)
+public enum Library {
     /// Just a placeholder
 }
 
