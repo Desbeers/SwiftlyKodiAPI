@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: getArtists
+
 extension AudioLibrary {
 
     /// Retrieve all artists (Kodi API)

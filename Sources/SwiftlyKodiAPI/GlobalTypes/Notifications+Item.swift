@@ -9,7 +9,7 @@ import Foundation
 
 public extension Notifications {
     
-    /// A struct for decoding Kodi notifications
+    /// Notification item {Global Kodi Type)
     ///
     /// Not all notice details are that interesting.
     /// For example, a notification for `Player.OnPropertyChanged` will just give the changed property,

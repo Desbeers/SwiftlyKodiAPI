@@ -1,5 +1,5 @@
 //
-//  Episodes.swift
+//  VideoLibrary+Episodes.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -11,22 +11,21 @@ import Foundation
 
 extension VideoLibrary {
 
-    /// Get all the episodes from the Kodi host
+    /// Retrieve all episodes of a TV show (Kodi API)
     /// - Parameter tvshowID: The optional TV show ID
-    /// - Returns: The requested episodes
+    /// - Returns: All TV shows in an ``Video/Details/Episode`` array
     public static func getEpisodes(tvshowID: Int? = nil) async -> [Video.Details.Episode] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetEpisodes(tvshowID: tvshowID)) {
             logger("Loaded \(result.episodes.count) episodes from the Kodi host")
             return result.episodes
-            //return kodi.setMediaItem(items: result.episodes, media: .episode)
         }
         /// There are no episodes in the library
         return [Video.Details.Episode]()
     }
     
     /// Retrieve all episodes of a TV show (Kodi API)
-    struct GetEpisodes: KodiAPI {
+    fileprivate struct GetEpisodes: KodiAPI {
         /// TV show ID argument
         var tvshowID: Int?
         /// Method
@@ -62,9 +61,9 @@ extension VideoLibrary {
 
 extension VideoLibrary {
     
-    /// Get the details of an episode
-    /// - Parameter episodeID: The ID of the episode item
-    /// - Returns: An updated Media Item
+    /// Retrieve details about a specific episode (Kodi API)
+    /// - Parameter episodeID: The ID of the episode
+    /// - Returns: An ``Video/Details/Episode`` item
     public static func getEpisodeDetails(episodeID: Int) async -> Video.Details.Episode {
         let kodi: KodiConnector = .shared
         let request = GetEpisodeDetails(episodeID: episodeID)
@@ -78,7 +77,7 @@ extension VideoLibrary {
     }
     
     /// Retrieve details about a specific episode (Kodi API)
-    struct GetEpisodeDetails: KodiAPI {
+    fileprivate struct GetEpisodeDetails: KodiAPI {
         /// Argument: the episode we ask for
         var episodeID: Int
         /// Method
@@ -109,8 +108,8 @@ extension VideoLibrary {
 
 extension VideoLibrary {
     
-    /// Set the details of an episode item
-    /// - Parameter episode: The episode as Media Item
+    /// Update the given episode with the given details (Kodi API)
+    /// - Parameter episode: The ``Video/Details/Episode`` item
     public static func setEpisodeDetails(episode: Video.Details.Episode) async {
         let kodi: KodiConnector = .shared
         let message = SetEpisodeDetails(episode: episode)
@@ -119,7 +118,7 @@ extension VideoLibrary {
     }
     
     /// Update the given episode with the given details (Kodi API)
-    struct SetEpisodeDetails: KodiAPI {
+    fileprivate struct SetEpisodeDetails: KodiAPI {
         /// Arguments
         var episode: Video.Details.Episode
         /// Method

@@ -11,10 +11,9 @@ import Foundation
 
 extension AudioLibrary {
     
-    /// Retrieve all genres
-    /// - Returns: All genres
+    /// Retrieve all genres (Kodi API)
+    /// - Returns: All genres in a ``Library/Details/Genre`` array
     public static func getGenres() async -> [Library.Details.Genre] {
-        
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetGenres()) {
             logger("Loaded \(result.genres.count) audio genres from the Kodi host")
@@ -26,7 +25,7 @@ extension AudioLibrary {
     
     
     /// Retrieve all genres (Kodi API)
-    struct GetGenres: KodiAPI {
+    fileprivate struct GetGenres: KodiAPI {
         /// Method
         var method = Methods.audioLibraryGetGenres
         /// The JSON creator

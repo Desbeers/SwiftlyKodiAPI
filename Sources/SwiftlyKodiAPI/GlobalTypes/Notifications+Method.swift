@@ -8,7 +8,7 @@
 import Foundation
 
 extension Notifications {
-    /// An enum with the different kinds of Kodi notifications we can receive
+    /// Kodi notifications we can receive (SwiftlyKodi Type)
     public enum Method: String, Decodable {
         
         /// # General notifications

@@ -1,5 +1,5 @@
 //
-//  Albums.swift
+//  AudioLibrary+Albums.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -11,8 +11,8 @@ import Foundation
 
 extension AudioLibrary {
 
-    /// Get all albums from the Kodi host
-    /// - Returns: All albums from the Kodi host
+    /// Retrieve all albums (Kodi API)
+    /// - Returns: All albums in an ``Audio/Details/Album`` array
     public static func getAlbums() async -> [Audio.Details.Album] {
         let kodi: KodiConnector = .shared
         if let request = try? await kodi.sendRequest(request: GetAlbums()) {
@@ -26,7 +26,7 @@ extension AudioLibrary {
     }
     
     /// Retrieve all albums (Kodi API)
-    struct GetAlbums: KodiAPI {
+    fileprivate struct GetAlbums: KodiAPI {
         /// The method
         let method = Methods.audioLibraryGetAlbums
         /// The parameters

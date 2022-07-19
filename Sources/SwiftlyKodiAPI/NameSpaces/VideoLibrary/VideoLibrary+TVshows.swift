@@ -1,5 +1,5 @@
 //
-//  TVshows.swift
+//  VideoLibrary+TVshows.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen

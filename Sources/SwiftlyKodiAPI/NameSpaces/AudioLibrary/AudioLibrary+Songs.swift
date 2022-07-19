@@ -11,7 +11,7 @@ import Foundation
 
 extension AudioLibrary {
     
-    /// Get songs from the library
+    /// Retrieve all songs  (Kodi API)
     ///
     /// ## Limitations
     ///
@@ -57,8 +57,8 @@ extension AudioLibrary {
         return [Audio.Details.Song]()
     }
     
-    /// Retrieve all songs from an album (Kodi API)
-    struct GetSongs: KodiAPI {
+    /// Retrieve all songs  (Kodi API)
+    fileprivate struct GetSongs: KodiAPI {
         /// The optional filter
         var filter: List.Filter?
         /// The optional limits
@@ -103,9 +103,9 @@ extension AudioLibrary {
 
 extension AudioLibrary {
     
-    /// Get the details of a song
-    /// - Parameter songID: The ID of the song item
-    /// - Returns: An updated Media Item
+    /// Retrieve details about a specific song (Kodi API)
+    /// - Parameter songID: The ID of the song
+    /// - Returns: An ``Audio/Details/Song`` item
     public static func getSongDetails(songID: Int) async -> Audio.Details.Song {
         logger("AudioLibrary.getSongDetails")
         let kodi: KodiConnector = .shared
@@ -123,7 +123,7 @@ extension AudioLibrary {
     }
     
     /// Retrieve details about a specific song (Kodi API)
-    struct GetSongDetails: KodiAPI {
+    fileprivate struct GetSongDetails: KodiAPI {
         /// Argument: the song we ask for
         var songID: Int
         /// Method
@@ -154,8 +154,8 @@ extension AudioLibrary {
 
 extension AudioLibrary {
 
-    /// Update the details of a song
-    /// - Parameter song: The Media Item
+    /// Update the given song with the given details (Kodi API)
+    /// - Parameter song: The ``Audio/Details/Song`` item
     public static func setSongDetails(song: Audio.Details.Song) async {
         logger("AudioLibrary.setSongDetails")
         let kodi: KodiConnector = .shared
@@ -165,21 +165,16 @@ extension AudioLibrary {
     }
     
     /// Update the given song with the given details (Kodi API)
-    struct SetSongDetails: KodiAPI {
+    fileprivate struct SetSongDetails: KodiAPI {
         /// Arguments
         var song: Audio.Details.Song
         /// Method
         var method = Methods.audioLibrarySetSongDetails
         /// The JSON creator
         var parameters: Data {
-            /// The parameters
-            //let params = Params(song: song)
-            //buildParams(params: song)
-            
             buildParams(params: Params(song: song))
         }
         /// The request struct
-        /// - Note: The properties we want to set
         struct Params: Encodable {
             internal init(song: Audio.Details.Song) {
                 self.songid = song.songID
