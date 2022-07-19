@@ -11,9 +11,9 @@ import Foundation
 
 extension VideoLibrary {
     
-    /// Get all video genres from the Kodi host for a specific media type
-    /// - Parameter type: The type of Kodi Media
-    /// - Returns: All genres for the specific media type
+    /// Retrieve all genres (Kodi API)
+    /// - Parameter type: The type of ``Library/Media``
+    /// - Returns: All genres in a ``Library/Details/Genre`` array
 
     public static func getGenres(type: Library.Media) async -> [Library.Details.Genre] {
         
@@ -27,7 +27,7 @@ extension VideoLibrary {
     }
     
     /// Retrieve all genres (Kodi API)
-    struct GetGenres: KodiAPI {
+    fileprivate struct GetGenres: KodiAPI {
         /// Argument
         var type: Library.Media
         /// Method

@@ -6,20 +6,22 @@
 //
 import Foundation
 
+// MARK:  getActivePlayers
+
 extension Player {
     
-    /// Get the active players (if any)
-    public static func getActivePlayers() async -> [ID]? {
-        
+    /// Returns all active players, if any (Kodi API)
+    /// - Returns: The active players in an ``Player/ID`` array
+    public static func getActivePlayers() async -> [Player.ID]? {
+        logger("Player.getActivePlayer")
         if let result = try? await KodiConnector.shared.sendRequest(request: GetActivePlayers()) {
-            //dump(result)
             return result.map { $0.playerid}
         }
         return nil
     }
     
     /// Returns all active players (Kodi API)
-    struct GetActivePlayers: KodiAPI {
+    fileprivate struct GetActivePlayers: KodiAPI {
         let method: Methods = .playerGetActivePlayers
         /// The JSON creator
         var parameters: Data {

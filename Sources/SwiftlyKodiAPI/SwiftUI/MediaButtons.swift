@@ -51,7 +51,7 @@ public extension MediaButtons {
             Button(action: {
                 Task {
                     if let playerID = await kodi.getPlayerID() {
-                        await Player.goTo(playerID: playerID, action: .previous)
+                        Player.goTo(playerID: playerID, action: .previous)
                     }
                 }
             }, label: {
@@ -71,7 +71,7 @@ public extension MediaButtons {
             Button(action: {
                 Task {
                     if let playerID = await kodi.getPlayerID() {
-                        await Player.goTo(playerID: playerID, action: .next)
+                        Player.goTo(playerID: playerID, action: .next)
                     }
                 }
             }, label: {
@@ -84,14 +84,16 @@ public extension MediaButtons {
         }
     }
     
-    /// Partymode button
+    /// Partymode button (forced to audio)
+    ///
+    /// - Note: This will set 'Party Mode' for audio, I don't see a use of videos for this
     struct SetPartyMode: View {
         @EnvironmentObject var kodi: KodiConnector
         public init() {}
         public var body: some View {
             Button(action: {
                 Task {
-                    Player.setPartyMode()
+                    Player.setPartyMode(playerID: .audio)
                 }
             }, label: {
                 Label("Party Mode", systemImage: "wand.and.stars.inverse")

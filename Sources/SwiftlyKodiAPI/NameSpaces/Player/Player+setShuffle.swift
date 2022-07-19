@@ -7,30 +7,40 @@
 
 import Foundation
 
+// MARK:  setShuffle
+
 extension Player {
     
-    /// Shuffle/Unshuffle items in the player
-    /// - Parameter playerID: The ID of the player
+    /// Shuffle/Unshuffle items in the player (Kodi API)
+    /// - Parameter playerID: The ``Player/ID`` of the  player
     static func setShuffle(playerID: Player.ID) {
+        logger("Player.setShuffle")
         KodiConnector.shared.sendMessage(message: SetShuffle(playerID: playerID))
     }
     
     /// Shuffle/Unshuffle items in the player (Kodi API)
-    struct SetShuffle: KodiAPI {
+    fileprivate struct SetShuffle: KodiAPI {
         /// The ID of the player
         let playerID: Player.ID
         /// The method
         let method: Methods = .playerSetShuffle
         /// The parameters
         var parameters: Data {
-            /// Params for SetShuffle
-            struct Parameters: Encodable {
-                /// The player ID
-                let playerid: Player.ID
-                /// Toggle the shuffle
-                let shuffle = "toggle"
+            buildParams(params: Parameters(playerID: playerID))
+        }
+        /// The request struct
+        struct Parameters: Encodable {
+            /// The player ID
+            let playerID: Player.ID
+            /// Toggle the shuffle
+            let shuffle = "toggle"
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                /// Player ID
+                case playerID = "playerid"
+                /// Shuffle action
+                case shuffle
             }
-            return buildParams(params: Parameters(playerid: playerID))
         }
         /// The response struct
         struct Response: Decodable { }

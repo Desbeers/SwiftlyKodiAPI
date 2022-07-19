@@ -11,8 +11,8 @@ import Foundation
 
 extension VideoLibrary {
 
-    /// Get all the music videos from the Kodi host
-    /// - Returns: All music videos from the Kodi host
+    /// Retrieve all music videos (Kodi API)
+    /// - Returns: All music videos in an ``Video/Details/MusicVideo`` array
     public static func getMusicVideos() async -> [Video.Details.MusicVideo] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetMusicVideos()) {
@@ -24,7 +24,7 @@ extension VideoLibrary {
     }
     
     /// Retrieve all music videos (Kodi API)
-    struct GetMusicVideos: KodiAPI {
+    fileprivate struct GetMusicVideos: KodiAPI {
         /// Method
         var method = Methods.videoLibraryGetMusicVideos
         /// The JSON creator
@@ -50,9 +50,9 @@ extension VideoLibrary {
 
 extension VideoLibrary {
     
-    /// Get the details of a music video
-    /// - Parameter musicVideoID: The ID of the music video item
-    /// - Returns: An updated Media Item
+    /// Retrieve details about a specific music video (Kodi API)
+    /// - Parameter musicVideoID: The ID of the music video
+    /// - Returns: A ``Video/Details/MusicVideo`` Item
     public static func getMusicVideoDetails(musicVideoID: Int) async -> Video.Details.MusicVideo {
         let kodi: KodiConnector = .shared
         let request = GetMusicVideoDetails(musicVideoID: musicVideoID)
@@ -66,7 +66,7 @@ extension VideoLibrary {
     }
     
     /// Retrieve details about a specific music video (Kodi API)
-    struct GetMusicVideoDetails: KodiAPI {
+    fileprivate struct GetMusicVideoDetails: KodiAPI {
         /// The music video we ask for
         var musicVideoID: Int
         /// Method
@@ -97,8 +97,8 @@ extension VideoLibrary {
 
 extension VideoLibrary {
     
-    /// Update the details of a music video
-    /// - Parameter musicVideo: The Media Item
+    /// Update the given music video with the given details (Kodi API)
+    /// - Parameter musicVideo: The ``Video/Details/MusicVideo`` item
     public static func setMusicVideoDetails(musicVideo: Video.Details.MusicVideo) async {
         let kodi: KodiConnector = .shared
         let message = SetMusicVideoDetails(musicVideo: musicVideo)
@@ -107,7 +107,7 @@ extension VideoLibrary {
     }
     
     /// Update the given music video with the given details (Kodi API)
-    struct SetMusicVideoDetails: KodiAPI {
+    fileprivate struct SetMusicVideoDetails: KodiAPI {
         /// Arguments
         var musicVideo: Video.Details.MusicVideo
         /// Method

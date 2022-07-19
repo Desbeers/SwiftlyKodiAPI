@@ -8,25 +8,22 @@
 import Foundation
 
 extension Notifications {
+    
     /// Kodi notifications we can receive (SwiftlyKodi Type)
     public enum Method: String, Decodable {
         
-        /// # General notifications
+        // MARK:  General notifications
         
         /// An unsupported method
         case unknown
         
-        /// # Application notifications
+        
+        // MARK: Application notifications
         
         /// The volume of the application has changed
         case applicationOnVolumeChanged = "Application.OnVolumeChanged"
         
-        /// # JSONRPC
-        
-        /// Notify all other connected clients
-        case notifyAll = "JSONRPC.NotifyAll"
-        
-        /// # Player notifications
+        // MARK: Player notifications
         
         /// Audio- or videostream has changed
         case playerOnAVChange = "Player.OnAVChange"
@@ -47,7 +44,7 @@ extension Notifications {
         /// Playback of a media item has been stopped
         case playerOnStop = "Player.OnStop"
         
-        /// # Playlist notifications
+        // MARK: Playlist notifications
         
         /// A playlist item has been added
         case playlistOnAdd = "Playlist.OnAdd"
@@ -56,7 +53,7 @@ extension Notifications {
         /// A playlist item has been removed
         case playlistOnRemove = "Playlist.OnRemove"
         
-        ///# Video library notifications
+        // MARK: Video library notifications
         
         /// The video library has been cleaned.
         case videoLibraryOnCleanFinished = "VideoLibrary.OnCleanFinished"
@@ -75,7 +72,7 @@ extension Notifications {
         /// A video item has been updated.
         case videoLibraryOnUpdate = "VideoLibrary.OnUpdate"
         
-        /// # Audio library notifications
+        // MARK: Audio library notifications
         
         /// The audio library has been cleaned
         case audioLibraryOnCleanFinished = "AudioLibrary.OnCleanFinished"

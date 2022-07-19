@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-
-
-
-
-
 // MARK: Array extensions
 
 extension Array where Element: Hashable {

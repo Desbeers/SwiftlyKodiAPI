@@ -11,8 +11,8 @@ import Foundation
 
 extension VideoLibrary {
     
-    /// Get all the movies from the Kodi host
-    /// - Returns: All movies from the Kodi host
+    /// Retrieve all movies (Kodi API)
+    /// - Returns: All movies in an ``Video/Details/Movie`` array
     public static func getMovies() async -> [Video.Details.Movie] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetMovies()) {
@@ -51,17 +51,15 @@ extension VideoLibrary {
 
 extension VideoLibrary {
     
-    /// Get the details of a movie item (Kodi API)
-    /// - Parameter movieID: The ID of the movie item
-    /// - Returns: An updated Media Item
+    /// Retrieve details about a specific movie (Kodi API)
+    /// - Parameter movieID: The ID of the movie
+    /// - Returns: A ``Video/Details/Movie`` item
     public static func getMovieDetails(movieID: Int) async -> Video.Details.Movie {
         let kodi: KodiConnector = .shared
         let request = GetMovieDetails(movieID: movieID)
         do {
             let result = try await kodi.sendRequest(request: request)
             return result.moviedetails
-            /// Make a MediaItem from the KodiResponse and return it
-            //return kodi.setMediaItem(items: [result.moviedetails], media: .movie).first ?? MediaItem()
         } catch {
             logger("Loading movie details failed with error: \(error)")
             return Video.Details.Movie()
@@ -100,8 +98,8 @@ extension VideoLibrary {
 
 extension VideoLibrary {
     
-    /// Set the details of a movie item (Kodi API)
-    /// - Parameter movie: The movie Media Item
+    /// Update the given movie with the given details (Kodi API)
+    /// - Parameter movie: The ``Video/Details/Movie`` Item
     public static func setMovieDetails(movie: Video.Details.Movie) async {
         let kodi: KodiConnector = .shared
         let message = SetMovieDetails(movie: movie)

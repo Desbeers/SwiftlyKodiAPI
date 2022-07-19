@@ -7,16 +7,23 @@
 
 import Foundation
 
+// MARK:  goTo
+
 extension Player {
     
-    /// Go to previous/next/specific item in the playlist
-    /// - Parameter playerID: The ID of the player
-    static func goTo(playerID: Player.ID = .audio, action: Player.GoToAction) async {
+    /// Go to previous/next/specific item in the playlist (Kodi API)
+    ///
+    /// - Note: Specific item not implemented yet
+    ///
+    /// - Parameters:
+    ///   - playerID: The ``Player/ID`` of the  player
+    ///   - action: The ``Player/GoToAction``
+    public static func goTo(playerID: Player.ID, action: Player.GoToAction) {
         KodiConnector.shared.sendMessage(message: GoTo(playerID: playerID, action: action))
     }
     
     /// Go to previous/next/specific item in the playlist (Kodi API)
-    struct GoTo: KodiAPI {
+    fileprivate struct GoTo: KodiAPI {
         /// The ID of the player
         let playerID: Player.ID
         /// The action
@@ -27,7 +34,7 @@ extension Player {
         var parameters: Data {
             buildParams(params: Params(playerID: playerID, action: action))
         }
-        /// Params struct for GoTo
+        /// The request struct
         struct Params: Encodable {
             /// The player ID
             let playerID: Player.ID

@@ -21,7 +21,7 @@ extension KodiConnector {
         
         properties = await Application.getProperties()
         
-        if let libraryItems = Cache.get(key: "MyLibrary", as: KodiLibrary.self) {
+        if let libraryItems = Cache.get(key: "MyLibrary", as: Library.Items.self) {
             library = libraryItems
         } else {
             library = await getLibrary()
@@ -48,7 +48,7 @@ extension KodiConnector {
     }
     
     
-    @MainActor func getLibrary() async -> KodiLibrary {
+    @MainActor func getLibrary() async -> Library.Items {
         logger("Getting your library")
         switch host.media {
             
@@ -62,7 +62,7 @@ extension KodiConnector {
             async let musicVideos = VideoLibrary.getMusicVideos()
             async let audioGenres = AudioLibrary.getGenres()
             
-            return await KodiLibrary(artists: artist,
+            return await Library.Items(artists: artist,
                                    albums: albums,
                                    songs: songs,
                                    audioGenres: audioGenres,
@@ -79,7 +79,7 @@ extension KodiConnector {
             async let musicVideos = VideoLibrary.getMusicVideos()
             async let videoGenres = getAllVideoGenres()
             
-            return await KodiLibrary(artists: artist,
+            return await Library.Items(artists: artist,
                                       movies: movies,
                                       movieSets: movieSets,
                                       tvshows: tvshows,
@@ -105,7 +105,7 @@ extension KodiConnector {
             async let musicVideos = VideoLibrary.getMusicVideos()
             async let videoGenres = getAllVideoGenres()
             
-            return await KodiLibrary(artists: artist,
+            return await Library.Items(artists: artist,
                                       albums: albums,
                                       songs: songs,
                                       audioGenres: audioGenres,
@@ -117,7 +117,7 @@ extension KodiConnector {
                                       videoGenres: videoGenres
             )
         default:
-            return KodiLibrary()
+            return Library.Items()
         }
         //setLibraryCache()
     }

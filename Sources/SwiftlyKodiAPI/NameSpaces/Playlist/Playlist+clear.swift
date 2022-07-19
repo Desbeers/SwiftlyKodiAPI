@@ -7,11 +7,13 @@
 
 import Foundation
 
+// MARK:  clear
+
 extension Playlist {
     
     /// Clear playlist (Kodi API)
     /// - Parameter playlistID: The ``Playlist/ID`` of the player to clear
-    public static func clear(playlistID: Playlist.ID) async {
+    public static func clear(playlistID: Playlist.ID) {
         KodiConnector.shared.sendMessage(message: Clear(playlistID: playlistID))
     }
     

@@ -7,8 +7,7 @@
 
 public extension Player {
     
-    /// The action for  the player (SwiftlyKodi API)
-    /// - Note: Custom enum, Kodi does not have this
+    /// The action for ``goTo(playerID:action:)`` (SwiftlyKodi Type)
     enum GoToAction: String, Codable {
         /// Goto the previous item
         case previous = "previous"

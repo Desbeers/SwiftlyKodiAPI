@@ -14,7 +14,7 @@ extension Audio.Details.Song {
         Task {
             await Playlist.clear(playlistID: .audio)
             await Playlist.add(songs: [self])
-            await Player.open(playlistID: .audio)
+            Player.open(playlistID: .audio)
         }
     }
 }
@@ -26,7 +26,7 @@ extension Array where Element == Audio.Details.Song {
         Task {
             await Playlist.clear(playlistID: .audio)
             await Playlist.add(songs: self)
-            await Player.open(playlistID: .audio, shuffle: shuffle)
+            Player.open(playlistID: .audio, shuffle: shuffle)
         }
     }
 }

@@ -12,7 +12,7 @@ extension KodiConnector {
     /// Get the current playlist
     @MainActor public func getCurrentPlaylist() async {
         await task.getCurrentPlaylist.submit { [self] in
-            if let playlist = await Playlist.getItems() {
+            if let playlist = await Playlist.getItems(playlistID: .audio) {
                 queue = playlist
             } else {
                 queue = nil

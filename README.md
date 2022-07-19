@@ -14,49 +14,42 @@ It supports version 12 of the interface and that is the stable version of Kodi's
 
 It is currently very much work in progress. I'm going to use this package in my Kodi Music Remote application [Kodio](https://github.com/Desbeers/Kodio). 
 
+## Namespaces and Globl Types
+
+This package tries to follow Kodi's namespaces and global types as much as possible.
+
+See the [Kodi JSON-RPC API](https://kodi.wiki/view/JSON-RPC_API/v12).
+
 ## Example
 
 ### The Scene
 
 ```swift
-import SwiftUI
-import SwiftlyKodiAPI
-
-@main
-struct VideoPlayerApp: App {
+struct KodioApp: App {
     /// The KodiConnector model
     @StateObject var kodi: KodiConnector  = .shared
-    /// The Scene
     var body: some Scene {
         WindowGroup {
-            Group {
-                if kodi.library.isEmpty {
-                    VStack {
-                        Text("Loading your library")
-                            .font(.title)
-                        ProgressView()
+            ContentView()
+                .environmentObject(kodi)
+                .task {
+                    if kodi.state == .none {
+                        await kodi.connectToHost(kodiHost: HostItem(ip: "192.168.11.200", media: .video))
                     }
-                } else {
-                    ContentView()
-                        .environmentObject(kodi)
                 }
-            }
-            .task {
-                await kodi.connectToHost(kodiHost: HostItem(ip: "127.0.0.1"))
-            }
         }
     }
 }
 ```
 
-### List all TV shows containing 'Comedy' genre
+### List all TV shows
 
 ```swift
 import SwiftUI
 import SwiftlyKodiAPI
 
 struct ContentView: View {
-    /// The KodiConnector model
+    /// The KodiConnector
     @EnvironmentObject var kodi: KodiConnector
     /// The list of TV shows
     @State var tvshows: [KodiItem] = []
@@ -65,13 +58,13 @@ struct ContentView: View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 ForEach(tvshows) { tvshow in
-                    KodiItemView(item: tvshow)
+                    KodiArt.Poster(item: tvshow)
+                        .frame(width: 300, height: 450)
                 }
             }
         }
-        .task {
-            let filter = MediaFilter(media: .tvshow, genre: "Comedy")
-            tvshows =  kodi.media.filter(filter)
+        .task(id: kodi.library.tvshows) {
+            tvshows = kodi.library.tvshows
         }
     }
 }

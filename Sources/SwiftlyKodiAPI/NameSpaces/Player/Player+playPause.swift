@@ -7,28 +7,39 @@
 
 import Foundation
 
+// MARK:  playPause
+
 extension Player {
     
-    /// Pauses or unpause playback of the player
-    /// - Parameter playerID: The ID of the player
+    /// Pauses or unpause playback of the player (Kodi API)
+    ///
+    /// - Note: When there is nothing in the player, this function will do nothing
+    ///
+    /// - Parameter playerID: The ``Player/ID`` of the  player
     public static func playPause(playerID: Player.ID) {
+        logger("Player.playPause")
         KodiConnector.shared.sendMessage(message: PlayPause(playerID: playerID))
     }
     
-    /// Pauses or unpause playback of the player (Kodi API
-    struct PlayPause: KodiAPI {
+    /// Pauses or unpause playback of the player (Kodi API)
+    fileprivate struct PlayPause: KodiAPI {
         /// The ID of the player
         let playerID: Player.ID
         /// The method
         let method: Methods = .playerPlayPause
         /// The parameters
         var parameters: Data {
-            /// Params for PlayPause
-            struct Params: Encodable {
+            buildParams(params: Params(playerID: playerID))
+        }
+        /// The request struct
+        struct Params: Encodable {
+            /// The player ID
+            let playerID: Player.ID
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
                 /// The player ID
-                let playerid: Player.ID
+                case playerID = "playerid"
             }
-            return buildParams(params: Params(playerid: playerID))
         }
         /// The response struct
         struct Response: Decodable { }

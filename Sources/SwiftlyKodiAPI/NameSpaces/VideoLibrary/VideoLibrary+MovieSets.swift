@@ -11,8 +11,8 @@ import Foundation
 
 extension VideoLibrary {
     
-    /// Get all the movies from the Kodi host
-    /// - Returns: All movies from the Kodi host
+    /// Retrieve all movie sets (Kodi API)
+    /// - Returns: All movie sets in an ``Video/Details/MovieSet`` array
     public static func getMovieSets() async -> [Video.Details.MovieSet] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetMovieSets()) {
@@ -24,7 +24,7 @@ extension VideoLibrary {
     }
     
     /// Retrieve all movie sets (Kodi API)
-    struct GetMovieSets: KodiAPI {
+    fileprivate struct GetMovieSets: KodiAPI {
         /// Method
         var method = Methods.videoLibraryGetMovieSets
         /// The JSON creator
@@ -47,7 +47,7 @@ extension VideoLibrary {
 }
 
 // MARK: getMovieSetDetails
-
+//
 //extension VideoLibrary {
 //    
 //    /// Get the details of a movie set item

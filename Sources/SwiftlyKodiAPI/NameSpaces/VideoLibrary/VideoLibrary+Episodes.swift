@@ -63,7 +63,7 @@ extension VideoLibrary {
     
     /// Retrieve details about a specific episode (Kodi API)
     /// - Parameter episodeID: The ID of the episode
-    /// - Returns: An ``Video/Details/Episode`` item
+    /// - Returns: A ``Video/Details/Episode`` item
     public static func getEpisodeDetails(episodeID: Int) async -> Video.Details.Episode {
         let kodi: KodiConnector = .shared
         let request = GetEpisodeDetails(episodeID: episodeID)

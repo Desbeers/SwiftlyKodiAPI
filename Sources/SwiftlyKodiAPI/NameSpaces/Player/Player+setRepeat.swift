@@ -7,38 +7,40 @@
 
 import Foundation
 
+// MARK:  setRepeat
+
 extension Player {
     
-    /// Set the repeat mode of the player
-    /// - Parameter playerID: The ID of the player
+    /// Set the repeat mode of the player (Kodi API)
+    /// - Parameter playerID: The ``Player/ID`` of the  player
     static public func setRepeat(playerID: Player.ID) {
+        logger("Player.setRepeat")
         KodiConnector.shared.sendMessage(message: SetRepeat(playerID: playerID))
     }
     
     /// Set the repeat mode of the player (Kodi API)
-    struct SetRepeat: KodiAPI {
+    fileprivate struct SetRepeat: KodiAPI {
         /// The ID of the player
         let playerID: Player.ID
         /// The method
         let method: Methods = .playerSetRepeat
         /// The parameters
         var parameters: Data {
-            /// Params for SetRepeat
-            struct Params: Encodable {
-                /// The player ID
-                let playerid: Player.ID
-                /// Cycle trough repeating modus
-                let repeating = "cycle"
-                /// Coding keys
-                /// - Note: Repeat is a reserved word
-                enum CodingKeys: String, CodingKey {
-                    /// The key
-                    case playerid
-                    /// Repeat is a reserved word
-                    case repeating = "repeat"
-                }
+            buildParams(params: Params(playerID: playerID))
+        }
+        /// The request struct
+        struct Params: Encodable {
+            /// The player ID
+            let playerID: Player.ID
+            /// Cycle trough repeating modus
+            let repeating = "cycle"
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                /// Player ID
+                case playerID = "playerid"
+                /// Repeat action
+                case repeating = "repeat"
             }
-            return buildParams(params: Params(playerid: playerID))
         }
         /// The response struct
         struct Response: Decodable { }

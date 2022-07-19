@@ -12,9 +12,9 @@ extension Video.Details.MusicVideo {
     /// Play a  ``Video/Details/MusicVideo`` item
     public func play() {
         Task {
-            await Playlist.clear(playlistID: .video)
+            Playlist.clear(playlistID: .video)
             await Playlist.add(musicVideos: [self])
-            await Player.open(playlistID: .video)
+            Player.open(playlistID: .video)
         }
     }
 }

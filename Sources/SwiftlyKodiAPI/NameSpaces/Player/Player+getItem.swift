@@ -7,11 +7,20 @@
 
 import Foundation
 
+// MARK:  getItem
+
 extension Player {
     
-    /// Retrieves the currently played item
-    /// - Parameter playerID: The ``ID`` of the current player
-    /// - Returns: The current ``KodiItem``
+    /// Retrieves the currently played item (Kodi API)
+    ///
+    /// If the result has an ID, it is from the Library and media details will be asked
+    ///
+    /// - Note: This method does not depend on a 'loaded library'
+    ///
+    /// - Note: Not all ``Library/Media`` types are implemented
+    ///
+    /// - Parameter playerID: The ``Player/ID`` of the  player
+    /// - Returns: a ``KodiItem`` if there is a current item
     public static func getItem(playerID: Player.ID) async -> (any KodiItem)? {
         logger("Player.getItem")
         let kodi: KodiConnector = .shared
@@ -34,23 +43,31 @@ extension Player {
                 )
             }
         }
+        /// Nothing is playing
         return nil
     }
     
     /// Retrieves the currently played item (Kodi API)
-    struct GetItem: KodiAPI {
+    fileprivate struct GetItem: KodiAPI {
+        /// The ``Player/ID``
         let playerID: Player.ID
         /// Method
         let method = Methods.playerGetItem
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
-            return buildParams(params: Params(playerid: playerID.rawValue))
+            buildParams(params: Params(playerID: playerID))
         }
         /// The request struct
         struct Params: Encodable {
-            var properties = ["title", "artist", "mediapath"]
+            /// The properties we ask for
+            let properties = ["title", "artist", "mediapath"]
             /// The player ID
-            let playerid: Int
+            let playerID: Player.ID
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                case properties
+                case playerID = "playerid"
+            }
         }
         /// The response struct
         struct Response: Decodable {
@@ -64,7 +81,6 @@ extension Player {
             var title: String = ""
             var artist: [String]?
             var mediapath: String = ""
-            //var type: String = ""
             var type: Library.Media = .none
         }
     }

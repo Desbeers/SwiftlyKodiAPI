@@ -7,10 +7,19 @@
 
 import Foundation
 
+// MARK:  open
+
 extension Player {
     
-    /// Start playback of either the playlist with the given ID, a slideshow with the pictures from the given directory or a single file or an item from the database
-    public static func open(playlistID: Playlist.ID, shuffle: Bool = false) async {
+    /// Start playback of either the playlist with the given ID, a slideshow with the pictures from the given directory or a single file or an item from the database (Kodi API)
+    ///
+    /// - Note: Only open a playlist is implemented
+    ///
+    /// - Parameters:
+    ///   - playlistID: The ``Player/ID`` of the  player
+    ///   - shuffle: Shuffle the playlist
+    public static func open(playlistID: Playlist.ID, shuffle: Bool = false) {
+        logger("Player.open")
         KodiConnector.shared.sendMessage(message: Open(shuffle: shuffle, playlistID: playlistID))
     }
     
@@ -24,13 +33,13 @@ extension Player {
         let playlistID: Playlist.ID
         /// The parameters
         var parameters: Data {
-            var params = OpenPlaylist()
+            var params = Params()
             params.item.playlistid = playlistID
             params.options.shuffled = shuffle
             return buildParams(params: params)
         }
-        /// Struct for OpenPlaylist
-        struct OpenPlaylist: Encodable {
+        /// The request struct
+        struct Params: Encodable {
             /// Item to open
             var item = Item()
             struct Item: Encodable {

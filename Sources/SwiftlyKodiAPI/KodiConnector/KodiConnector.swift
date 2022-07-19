@@ -40,7 +40,7 @@ public final class KodiConnector: ObservableObject {
     /// The host properties
     @Published public var properties = Application.Property.Value()
     /// The library on the Kodi host
-    @Published public var library = KodiLibrary()
+    @Published public var library = Library.Items()
     
     // MARK: Init
     

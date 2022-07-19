@@ -7,16 +7,19 @@
 
 import Foundation
 
+// MARK:  setPartyMode
+
 extension Player {
     
-    /// Turn partymode on or off
-    /// - Parameter playerID: The ID of the player
-    static public func setPartyMode(playerID: Player.ID = .audio) {
+    /// Turn partymode on or off (Kodi API)
+    /// - Parameter playerID: The ``Player/ID`` of the  player
+    static public func setPartyMode(playerID: Player.ID) {
+        logger("Player.setPartyMode")
         KodiConnector.shared.sendMessage(message: SetPartyMode(playerID: playerID))
     }
     
-    /// Turn partymode on or off(Kodi API)
-    struct SetPartyMode: KodiAPI {
+    /// Turn partymode on or off (Kodi API)
+    fileprivate struct SetPartyMode: KodiAPI {
         /// The ID of the player
         let playerID: Player.ID
         /// The method
@@ -28,7 +31,7 @@ extension Player {
         /// Params for SetPartyMode
         struct Params: Encodable {
             /// The player ID
-            var playerid: Player.ID
+            let playerid: Player.ID
             /// Toggle the party mode
             let partymode = "toggle"
         }

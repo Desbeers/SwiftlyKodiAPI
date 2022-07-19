@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK:  add
+
 extension Playlist {
 
     /// Add a stream to the playlist (Kodi API)
