@@ -12,11 +12,7 @@ extension Player {
     /// Go to previous/next/specific item in the playlist
     /// - Parameter playerID: The ID of the player
     static func goTo(playerID: Player.ID = .audio, action: Player.GoToAction) async {
-        print("GOING TO NEXT")
-        if let result = try? await KodiConnector.shared.sendRequest(request: GoTo(playerID: playerID, action: action)) {
-            print("DONE")
-        }
-//        KodiConnector.shared.sendMessage(message: GoTo(playerID: playerID, action: action))
+        KodiConnector.shared.sendMessage(message: GoTo(playerID: playerID, action: action))
     }
     
     /// Go to previous/next/specific item in the playlist (Kodi API)

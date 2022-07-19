@@ -22,15 +22,15 @@ public final class KodiConnector: ObservableObject {
     var host = HostItem()
     /// ID of this Kodi Connector instance; used to send  notifications
     var kodiConnectorID: String
-    /// Debounce timer for saving the media library to the cache
-    var cacheTimer: Timer?
+    /// Debounced tasks
+    var task = Tasks()
     
     // MARK: Published properties
 
-    /// The general state of the KodiConnector bridge
-    @Published var state: State = .none
+    /// The state of the KodiConnector class
+    @Published public var state: State = .none
     /// The loading state of the library
-    @Published public var loadingState: loadingStatus = .start
+    //@Published public var loadingState: loadingStatus = .start
     /// Notifications
     public var notification = Notifications.Item()
     /// The state of the player
@@ -43,34 +43,8 @@ public final class KodiConnector: ObservableObject {
     @Published public var audioPlaylists: [List.Item.File] = []
     /// The host properties
     @Published public var properties = Application.Property.Value()
-    
-    // MARK: The library
-    
-    @Published public var library = MyLibrary()
-    
-    /// The library from the Kodi host
-    public struct MyLibrary: Codable {
-        /// The artist in your library
-        public var artists: [Audio.Details.Artist] = []
-        /// The albums in your library
-        public var albums: [Audio.Details.Album] = []
-        /// The songs in your library
-        public var songs: [Audio.Details.Song] = []
-        /// The audio genres in your library
-        public var audioGenres: [Library.Details.Genre] = []
-        /// The movies in your library
-        public var movies: [Video.Details.Movie] = []
-        /// The movie sets in your library
-        public var movieSets: [Video.Details.MovieSet] = []
-        /// The TV shows in your library
-        public var tvshows: [Video.Details.TVShow] = []
-        /// The TV show episodes in your library
-        public var episodes: [Video.Details.Episode] = []
-        /// The music videos in your library
-        public var musicVideos: [Video.Details.MusicVideo] = []
-        /// The video genres in your library
-        public var videoGenres: [Library.Details.Genre] = []
-    }
+    /// The library on the Kodi host
+    @Published public var library = KodiLibrary()
     
     // MARK: Init
     
@@ -89,7 +63,7 @@ public final class KodiConnector: ObservableObject {
         NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { _ in
             logger("tvOS or iOS goes to the background")
             Task {
-                await self.setState(current: .sleeping)
+                await self.setState(.sleeping)
             }
         }
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
@@ -98,7 +72,7 @@ public final class KodiConnector: ObservableObject {
                 Task {
                     /// Get the state of the player
                     await self.getPlayerState()
-                    await self.setState(current: .wakeup)
+                    await self.setState(.wakeup)
                 }
             }
         }
@@ -106,7 +80,7 @@ public final class KodiConnector: ObservableObject {
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: .main) { _ in
             logger("macOS goes to sleep")
             Task {
-                await self.setState(current: .sleeping)
+                await self.setState(.sleeping)
             }
         }
         NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didWakeNotification, object: nil, queue: .main) { _ in
@@ -115,15 +89,10 @@ public final class KodiConnector: ObservableObject {
                 Task {
                     /// Get the state of the player
                     //await self.getPlayerState()
-                    await self.setState(current: .wakeup)
+                    await self.setState(.wakeup)
                 }
             }
         }
 #endif
     }
-}
-
-extension KodiConnector {
-    
-
 }

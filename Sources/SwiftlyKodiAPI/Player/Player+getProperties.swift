@@ -13,6 +13,7 @@ extension Player {
     /// - Parameter playerID: The ID of the player
     /// - Returns: The values of the player properties
     public static func getProperties(playerID: Player.ID) async -> Player.Property.Value {
+        logger("Player.getProperties")
         if let result = try? await KodiConnector.shared.sendRequest(request: GetProperties(playerID: playerID)) {
             return result
         } else {

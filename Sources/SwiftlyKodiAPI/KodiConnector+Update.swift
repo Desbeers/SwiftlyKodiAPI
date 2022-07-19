@@ -38,7 +38,7 @@ extension KodiConnector {
                 logger("Library update for \(media) not implemented.")
             }
             /// Store the library in the cache
-            setLibraryCache()
+            await setLibraryCache()
         }
     }
     
@@ -47,7 +47,7 @@ extension KodiConnector {
         
         let libraryUpdate = await getLibrary()
         library = libraryUpdate
-        setLibraryCache()
+        await setLibraryCache()
         
 //        let updateSongs = await AudioLibrary.getSongs()
 //

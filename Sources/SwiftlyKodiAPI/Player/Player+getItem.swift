@@ -13,6 +13,7 @@ extension Player {
     /// - Parameter playerID: The ``ID`` of the current player
     /// - Returns: The current ``KodiItem``
     public static func getItem(playerID: Player.ID) async -> (any KodiItem)? {
+        logger("Player.getItem")
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetItem(playerID: playerID)) {
             /// If the result has an ID, it is from the library

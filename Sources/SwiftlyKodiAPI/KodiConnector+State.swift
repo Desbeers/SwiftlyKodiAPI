@@ -10,54 +10,46 @@ import Foundation
 extension KodiConnector {
 
     /// Set the state of Kodio and act on it
-    @MainActor func setState(current: State) {
+    @MainActor func setState(_ current: State) {
         logger("KodiConnector status: \(current.rawValue)")
         state = current
-        DispatchQueue.global(qos: .background).async {
-            self.stateAction(state: current)
+        Task {
+            stateAction(state: current)
         }
     }
     
-    /// The general status of the KodiConnector bridge
-    enum State: String {
+    /// The state of the KodiConnector class
+    public enum State: String {
         /// Not connected and no host
         case none
-        /// Connected to the Kodi host
-        case connectedToHost
+        /// Connected to the Kodi websocket
+        case connectedToWebSocket = "Connected to the websocket"
         /// Loading the library
-        case loadingLibrary
+        case loadingLibrary = "Loading the library"
         /// The library is  loaded
-        case loadedLibrary
+        case loadedLibrary = "Loaded the library"
         /// The device is sleeping
-        case sleeping
+        case sleeping = "The device is going to sleep"
         /// The device is waking up
-        case wakeup
+        case wakeup = "The device is waking-up"
         /// An error when loading the library or a lost of connection
         case failure
         /// KodiConnector has no host configuration
         case noHostConfig
-    }
-
-    /// Function that will run when the device is going to sleep
-    func goSleeping() {
-        disconnectWebSocket()
-    }
-    
-    func doWakeup() {
-        
     }
     
     /// The actions when the  state of Kodio is changed
     /// - Parameter state: the current ``State``
     private func stateAction(state: State) {
         switch state {
-
         case .sleeping:
-            logger("App sleeping")
             disconnectWebSocket()
         case .wakeup:
-            logger("App awake")
             connectWebSocket()
+            Task {
+                await getPlayerState()
+                await getCurrentPlaylist()
+            }
         default:
             break
         }

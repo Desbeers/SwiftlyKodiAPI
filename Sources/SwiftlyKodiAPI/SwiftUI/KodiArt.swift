@@ -9,22 +9,28 @@ import SwiftUI
 
 
 /// SwiftUI Views for Kodi art
+///
+/// It will give the most fitting art for the ``KodiItem``
+///
+/// For example, when asking for a season poster; you will get the ``Media/Artwork/seasonPoster``
 public enum KodiArt {
     /// Just a placeholder
 }
 
-public extension KodiArt {
-    
+
+extension KodiArt {
     struct Asset: View {
-        public init() { }
-        public var body: some View {
+        init() { }
+        var body: some View {
             Image("poster", bundle: Bundle.module)
                 .resizable()
                 .frame(width:300, height: 450)
         }
     }
-    
-    /// Poster art of a ``KodiItem``
+}
+
+public extension KodiArt {
+    /// Poster of a ``KodiItem``
     struct Poster: View {
         let item: any KodiItem
         public init(item: any KodiItem) {
@@ -42,7 +48,8 @@ public extension KodiArt {
                 Art(file: musicVideo.art.poster)
 //            case let song as Audio.Details.Song:
 //                await AudioLibrary.setSongDetails(song: song)
-            case let stream as Audio.Details.Stream:
+            /// A Stream has no poster
+            case _ as Audio.Details.Stream:
                 Image(systemName: "dot.radiowaves.left.and.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -52,7 +59,9 @@ public extension KodiArt {
         }
     }
     
-    /// Fanart art of a ``KodiItem``
+    /// Fanart of a ``KodiItem``
+    ///
+    /// - Note: For a ``Video/Details/Episode`` item it will be the ``Media/Artwork/thumb``
     struct Fanart: View {
         let item: any KodiItem
         public init(item: any KodiItem) {
@@ -65,7 +74,7 @@ public extension KodiArt {
 //            case let tvshow as Video.Details.TVShow:
 //                await VideoLibrary.setTVShowDetails(tvshow: tvshow)
             case let episode as Video.Details.Episode:
-                Art(file: episode.thumbnail)
+                Art(file: episode.art.thumb)
             case let musicVideo as Video.Details.MusicVideo:
                 Art(file: musicVideo.art.fanart.isEmpty ? musicVideo.art.icon : musicVideo.art.fanart)
 //                await VideoLibrary.setMusicVideoDetails(musicVideo: musicVideo)
@@ -77,6 +86,9 @@ public extension KodiArt {
         }
     }
     
+    /// Any art passed as an internal Kodi string
+    ///
+    /// - Note:It will be converted to a 'full' url string
     struct Art: View {
         let file: String
         public init(file: String) {

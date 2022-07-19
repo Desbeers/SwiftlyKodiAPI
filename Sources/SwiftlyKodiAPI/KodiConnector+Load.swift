@@ -14,17 +14,18 @@ extension KodiConnector {
     @MainActor public func connectToHost(kodiHost: HostItem) async {
         host = kodiHost
         connectWebSocket()
-        loadingState = .load
+        //loadingState = .load
+        setState(.loadingLibrary)
         
         /// Get the properties of the host
         
         properties = await Application.getProperties()
         
-        if let libraryItems = Cache.get(key: "MyLibrary", as: MyLibrary.self) {
+        if let libraryItems = Cache.get(key: "MyLibrary", as: KodiLibrary.self) {
             library = libraryItems
         } else {
             library = await getLibrary()
-            setLibraryCache()
+            await setLibraryCache()
         }
         
         /// Get Playlists
@@ -35,20 +36,19 @@ extension KodiConnector {
         await getPlayerState()
         /// Get all items in the playlist
         await getCurrentPlaylist()
-        logger("Loaded the library")
-        loadingState = .done
+        setState(.loadedLibrary)
     }
     
     /// Reload the library from the Kodi host
     @MainActor public func reloadHost() async {
-        loadingState = .load
+        setState(.loadingLibrary)
         library = await getLibrary()
-        setLibraryCache()
-        loadingState = .done
+        await setLibraryCache()
+        setState(.loadedLibrary)
     }
     
     
-    @MainActor func getLibrary() async -> MyLibrary {
+    @MainActor func getLibrary() async -> KodiLibrary {
         logger("Getting your library")
         switch host.media {
             
@@ -62,7 +62,7 @@ extension KodiConnector {
             async let musicVideos = VideoLibrary.getMusicVideos()
             async let audioGenres = AudioLibrary.getGenres()
             
-            return await MyLibrary(artists: artist,
+            return await KodiLibrary(artists: artist,
                                    albums: albums,
                                    songs: songs,
                                    audioGenres: audioGenres,
@@ -79,7 +79,7 @@ extension KodiConnector {
             async let musicVideos = VideoLibrary.getMusicVideos()
             async let videoGenres = getAllVideoGenres()
             
-            return await MyLibrary(artists: artist,
+            return await KodiLibrary(artists: artist,
                                       movies: movies,
                                       movieSets: movieSets,
                                       tvshows: tvshows,
@@ -105,7 +105,7 @@ extension KodiConnector {
             async let musicVideos = VideoLibrary.getMusicVideos()
             async let videoGenres = getAllVideoGenres()
             
-            return await MyLibrary(artists: artist,
+            return await KodiLibrary(artists: artist,
                                       albums: albums,
                                       songs: songs,
                                       audioGenres: audioGenres,
@@ -117,7 +117,7 @@ extension KodiConnector {
                                       videoGenres: videoGenres
             )
         default:
-            return MyLibrary()
+            return KodiLibrary()
         }
         //setLibraryCache()
     }
@@ -126,32 +126,32 @@ extension KodiConnector {
     /// - Parameter media: The whole media libray
     /// - Note: This function will debounce for 2 seconds to avoid
     ///         overload when we have a large library update
-    func setLibraryCache() {
-        cacheTimer?.invalidate()
-        cacheTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-            Task.detached {
-                do {
-                    try Cache.set(key: "MyLibrary", object: self.library)
-                } catch {
-                    print("Saving library failed with error: \(error)")
-                }
+//    func setLibraryCache() {
+//        cacheTimer?.invalidate()
+//        cacheTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+//            Task.detached {
+//                do {
+//                    try Cache.set(key: "MyLibrary", object: self.library)
+//                } catch {
+//                    print("Saving library failed with error: \(error)")
+//                }
+//            }
+//        }
+//    }
+    
+    func setLibraryCache() async {
+        //cacheTimer?.invalidate()
+        //        cacheTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+        await task.setLibraryCache.submit {
+            do {
+                try Cache.set(key: "MyLibrary", object: self.library)
+            } catch {
+                print("Saving library failed with error: \(error)")
             }
         }
     }
+    //}
     
-    /// The loading status of the library
-    public enum loadingStatus: String {
-        case start = "Connecting..."
-        case load = "Loading library..."
-        case movies = "Loading movies..."
-        case tvshows = "Loading TV shows..."
-        case musicVideos = "Loading Music Videos..."
-        case artists = "Loading artists..."
-        case albums = "Loading albums..."
-        case songs = "Loading songs..."
-        case genres = "Loading genres..."
-        case done = "Library is loaded..."
-    }
 }
 
 extension KodiConnector {

@@ -68,7 +68,6 @@ public extension MediaButtons {
         @EnvironmentObject var kodi: KodiConnector
         public init() {}
         public var body: some View {
-            
             Button(action: {
                 Task {
                     if let playerID = await kodi.getPlayerID() {

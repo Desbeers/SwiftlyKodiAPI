@@ -11,7 +11,7 @@ extension Playlist {
     
     /// Get all items from playlist
     public static func getItems() async -> [(any KodiItem)]? {
-        
+        logger("Playlist.getItems")
         var queue: [any KodiItem] = []
         
         let kodi: KodiConnector = .shared

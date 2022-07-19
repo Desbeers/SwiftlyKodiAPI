@@ -20,11 +20,9 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
         didOpenWithProtocol protocol: String?
     ) {
         let kodi: KodiConnector = .shared
-        //let appState: AppState = .shared
-        logger("Websocket connected to \(kodi.host.ip)")
         Task {
             await kodi.ping()
-            await kodi.setState(current: kodi.state == .wakeup ? .loadedLibrary : .connectedToHost)
+            await kodi.setState(kodi.state == .wakeup ? .loadedLibrary : .connectedToWebSocket)
         }
     }
     
@@ -46,7 +44,7 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
             //let appState: AppState = .shared
             let kodi: KodiConnector = .shared
             Task {
-                await kodi.setState(current: .failure)
+                await kodi.setState(.failure)
             }
         }
     }

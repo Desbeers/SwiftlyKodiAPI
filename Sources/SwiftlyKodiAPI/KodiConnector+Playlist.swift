@@ -11,10 +11,12 @@ extension KodiConnector {
     
     /// Get the current playlist
     @MainActor public func getCurrentPlaylist() async {
-        if let playlist = await Playlist.getItems() {
-            queue = playlist
-        } else {
-            queue = nil
+        await task.getCurrentPlaylist.submit { [self] in
+            if let playlist = await Playlist.getItems() {
+                queue = playlist
+            } else {
+                queue = nil
+            }
         }
     }
 }
