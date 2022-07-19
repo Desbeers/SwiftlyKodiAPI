@@ -9,7 +9,7 @@ import Foundation
 
 /// Debounce functions
 struct Tasks {
-    var getCurrentPlaylist = Limiter(policy: .debounce, duration: 5)
-    var setLibraryCache = Limiter(policy: .debounce, duration: 5)
-    var getPlayerState = Limiter(policy: .debounce, duration: 2)
+    var getCurrentPlaylist = Debouncer(duration: 2)
+    var setLibraryCache = Debouncer(duration: 10)
+    var getPlayerState = Debouncer(duration: 2)
 }

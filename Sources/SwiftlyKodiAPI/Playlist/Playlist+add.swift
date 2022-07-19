@@ -52,6 +52,7 @@ extension Playlist {
         var stream: Audio.Details.Stream?
         /// The JSON creator
         var parameters: Data {
+            logger("Playlist.Add")
             var params = Params()
             /// # Add songs
             if let songs = songs {

@@ -29,10 +29,6 @@ public final class KodiConnector: ObservableObject {
 
     /// The state of the KodiConnector class
     @Published public var state: State = .none
-    /// The loading state of the library
-    //@Published public var loadingState: loadingStatus = .start
-    /// Notifications
-    public var notification = Notifications.Item()
     /// The state of the player
     @Published public var player = Player.Property.Value()
     /// The current item that is playing
