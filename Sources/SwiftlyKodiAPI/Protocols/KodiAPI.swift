@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// A protocol to define a Kodi API request
+/// A protocol to define a Kodi API request (SwiftlyKodi Type)
 protocol KodiAPI {
     /// The response given by the struct
     associatedtype Response: Decodable

@@ -11,11 +11,13 @@ public extension Playlist {
     
     /// The ID of the playlist (Global Kodi Type)
     enum ID: Int, Codable {
+        /// No playlist
+        case none = -1
         /// The audio playlist
-        case audio
+        case audio = 0
         /// The video playlist
-        case video
+        case video = 1
         /// The pictures playlist
-        case piuctures
+        case pictures = 2
     }
 }

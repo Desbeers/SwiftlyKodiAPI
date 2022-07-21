@@ -32,7 +32,7 @@ extension KodiConnector {
                         return
                     }
                     //debugJsonResponse(data: data)
-                    //logger("Notification: \(notification.method.rawValue)")
+                    logger("Notification: \(notification.method.rawValue)")
                     /// Perform notification action
                     Task {
                         await self.notificationAction(notification: notification)
@@ -51,17 +51,22 @@ extension KodiConnector {
     /// Perform an action after recieving a notification from the Kodi host
     /// - Parameter notification: The received notification
     func notificationAction(notification: Notifications.Item) async {
+        
         switch notification.method {
 
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
             getLibraryUpdate(itemID: notification.itemID, media: notification.media)
             await getCurrentPlaylist()
-        case .playlistOnAdd, .playlistOnClear:
-            await getCurrentPlaylist()
-            //break
+//        case .playlistOnAdd, .playlistOnClear:
+//            await getCurrentPlaylist()
+//            //break
         case .applicationOnVolumeChanged:
             Task { @MainActor in
                 properties = await Application.getProperties()
+            }
+        case .playerOnPropertyChanged, .playerOnPause, .playerOnResume:
+            Task { @MainActor in
+                player.properies = await Player.getProperties(playerID: notification.playerID)
             }
         default:
             //logger("Default actions after notification")

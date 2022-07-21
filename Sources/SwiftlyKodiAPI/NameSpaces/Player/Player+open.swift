@@ -20,7 +20,23 @@ extension Player {
     ///   - shuffle: Shuffle the playlist
     public static func open(playlistID: Playlist.ID, shuffle: Bool = false) {
         logger("Player.open")
-        KodiConnector.shared.sendMessage(message: Open(shuffle: shuffle, playlistID: playlistID))
+        
+        /// We need to wait on the result
+        Task {
+            let _ = try? await KodiConnector.shared.sendRequest(request: Open(shuffle: shuffle, playlistID: playlistID))
+        }
+        
+        //KodiConnector.shared.sendMessage(message: Open(shuffle: shuffle, playlistID: playlistID))
+    }
+    
+    public static func open(partyMode: Player.PartyMode) {
+        logger("Player.open")
+        //KodiConnector.shared.sendMessage(message: Open(partyMode: partyMode))
+        
+        /// We need to wait on the result
+        Task {
+            let _ = try? await KodiConnector.shared.sendRequest(request: Open(partyMode: partyMode))
+        }
     }
     
     /// Start playback of either the playlist with the given ID, a slideshow with the pictures from the given directory or a single file or an item from the database (Kodi API)
@@ -29,12 +45,22 @@ extension Player {
         let method: Methods = .playerOpen
         /// Shuffle or not
         var shuffle: Bool = false
-        /// The playlist to play
-        let playlistID: Playlist.ID
+        /// The optional playlist to play
+        var playlistID: Playlist.ID? = nil
+        /// The optional party mode
+        var partyMode: Player.PartyMode? = nil
         /// The parameters
         var parameters: Data {
             var params = Params()
-            params.item.playlistid = playlistID
+            
+            if let playlistID = playlistID {
+                params.item.playlistID = playlistID
+                params.item.position = 0
+            }
+            
+            if let partyMode = partyMode {
+                params.item.partyMode = partyMode
+            }
             params.options.shuffled = shuffle
             return buildParams(params: params)
         }
@@ -44,9 +70,17 @@ extension Player {
             var item = Item()
             struct Item: Encodable {
                 /// The playlist ID
-                var playlistid: Playlist.ID = .audio
+                var playlistID: Playlist.ID?
                 /// Position in the playlist
-                var position = 0
+                var position: Int?
+                /// The party mode
+                var partyMode: Player.PartyMode?
+                /// Coding keys
+                enum CodingKeys: String, CodingKey {
+                    case playlistID = "playlistid"
+                    case partyMode = "partymode"
+                    case position
+                }
             }
             /// Options for OpenPlaylist
             var options = Options()

@@ -1,5 +1,5 @@
 //
-//  MediaButtons.swift
+//  KodiArt.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-/// SwiftUI Views for Kodi art
+/// SwiftUI Views for Kodi art (SwiftlyKodi Type)
 ///
 /// It will give the most fitting art for the ``KodiItem``
 ///
@@ -19,6 +19,8 @@ public enum KodiArt {
 
 
 extension KodiArt {
+    
+    /// Get default art from the assets catalog
     struct Asset: View {
         init() { }
         var body: some View {

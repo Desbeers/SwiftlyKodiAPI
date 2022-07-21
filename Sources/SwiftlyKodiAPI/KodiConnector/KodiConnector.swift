@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-/// The Class that provides the connection between Swift and the remote host
+/// The Class that provides the connection with a remote host (SwiftlyKodi Type)
 public final class KodiConnector: ObservableObject {
-    
+
     // MARK: Constants and Variables
     
     /// The shared instance of this KodiConnector class
@@ -30,13 +30,7 @@ public final class KodiConnector: ObservableObject {
     /// The state of the KodiConnector class
     @Published public var state: State = .none
     /// The state of the player
-    @Published public var player = Player.Property.Value()
-    /// The current item that is playing
-    @Published public var currentItem: (any KodiItem)?
-    /// The current items in the queue
-    @Published public var queue: [(any KodiItem)]?
-    /// Audio playlists
-    @Published public var audioPlaylists: [List.Item.File] = []
+    @Published public var player = Player.State()
     /// The host properties
     @Published public var properties = Application.Property.Value()
     /// The library on the Kodi host

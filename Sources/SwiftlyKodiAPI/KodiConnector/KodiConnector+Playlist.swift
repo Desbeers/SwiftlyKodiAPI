@@ -9,14 +9,22 @@ import Foundation
 
 extension KodiConnector {
     
-    /// Get the current playlist
+    /// Get the current playlist for the active player
     @MainActor public func getCurrentPlaylist() async {
         await task.getCurrentPlaylist.submit { [self] in
-            if let playlist = await Playlist.getItems(playlistID: .audio) {
-                queue = playlist
-            } else {
-                queue = nil
-            }
+            
+            player.audioPlaylist = await Playlist.getItems(playlistID: .audio)
+            player.videoPlaylist = await Playlist.getItems(playlistID: .video) 
+            
+//            /// Check if we have an active player
+//            //if let playerID = await getPlayerID() {
+//            if player.playlistID != .none {
+//                if let playlist = await Playlist.getItems(playlistID: player.playlistID) {
+//                    queue = playlist
+//                }
+//            } else {
+//                queue = nil
+//            }
         }
     }
 }

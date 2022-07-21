@@ -30,7 +30,7 @@ extension KodiConnector {
         
         /// Get Playlists
         
-        audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
+        library.audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
         
         /// Get the state of the player
         await getPlayerState()

@@ -29,6 +29,7 @@ extension Player {
             struct Parameters: Encodable { }
             return buildParams(params: Parameters())
         }
+        /// The response struct
         typealias Response = [ActivePlayer]
         /// The response struct
         struct ActivePlayer: Decodable {

@@ -19,6 +19,8 @@ public extension Library {
         public var songs: [Audio.Details.Song] = []
         /// The audio genres in the library
         public var audioGenres: [Library.Details.Genre] = []
+        /// The audio playlists iin the library
+        public var audioPlaylists: [List.Item.File] = []
         /// The movies in the library
         public var movies: [Video.Details.Movie] = []
         /// The movie sets in the library

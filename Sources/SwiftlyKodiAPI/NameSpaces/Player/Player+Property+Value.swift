@@ -27,7 +27,7 @@ extension Player.Property {
         public var live: Bool = false
         public var partymode: Bool = false
         public var percentage: Double = 0.0
-        public var playlistID: Int = -1
+        public var playlistID: Playlist.ID = .none
         public var playlistPosition: Int = -1
         public var repeating: Player.Repeat = .off
         public var shuffled: Bool = false

@@ -10,10 +10,10 @@ public extension Player {
     /// The repeat mode of the player (Global Kodi Type)
     enum Repeat: String, Decodable {
         /// Repeating is off
-        case off = "off"
+        case off
         /// Repeat the current item
-        case one = "one"
+        case one
         /// Repeat all items
-        case all = "all"
+        case all
     }
 }

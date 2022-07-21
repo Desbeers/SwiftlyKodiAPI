@@ -7,12 +7,13 @@
 
 import Foundation
 
-/// Search related functions
+/// Search related items (SwiftlyKodi Type)
 enum Search {
     /// Just a placeholder
 }
 
 extension Search {
+    
     /// A struct for searching the library a bit smart
     /// - Note: Based on code from https://github.com/hacknicity/SmartSearchExample
     struct Matcher {
@@ -55,44 +56,5 @@ extension Search {
         }
         /// The tokens to search for
         private(set) var searchTokens: [String.SubSequence]
-    }
-}
-
-extension Array where Element == Audio.Details.Song {
-
-    /// Filter a list of songs matching the search query
-    /// - Parameter query: The search query
-    /// - Returns: An array of ``Audio/Details/Song``
-    public func search(_ query: String) -> [Audio.Details.Song] {
-        let searchMatcher = Search.Matcher(query: query)
-        return self.filter { songs in
-            return searchMatcher.matches(songs.search)
-        }
-    }
-}
-
-extension Array where Element == Video.Details.Movie {
-
-    /// Filter a list of movies matching the search query
-    /// - Parameter query: The search query
-    /// - Returns: An array of ``Video/Details/Movie``
-    public func search(_ query: String) -> [Video.Details.Movie] {
-        let searchMatcher = Search.Matcher(query: query)
-        return self.filter { movies in
-            return searchMatcher.matches(movies.search)
-        }
-    }
-}
-
-extension Array where Element == Video.Details.TVShow {
-
-    /// Filter a list of tv shows matching the search query
-    /// - Parameter query: The search query
-    /// - Returns: An array of ``Video/Details/TVShow``
-    public func search(_ query: String) -> [Video.Details.TVShow] {
-        let searchMatcher = Search.Matcher(query: query)
-        return self.filter { tvshows in
-            return searchMatcher.matches(tvshows.search)
-        }
     }
 }

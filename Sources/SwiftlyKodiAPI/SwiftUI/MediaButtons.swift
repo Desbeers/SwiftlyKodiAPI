@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// SwiftUI media buttons
+/// SwiftUI media buttons (SwiftlyKodi Type)
 ///
 /// - Note: They are smart and will be disabled when not available
 public enum MediaButtons {
@@ -34,10 +34,10 @@ public extension MediaButtons {
                     }
                 }
             }, label: {
-                Label("Play", systemImage: kodi.player.speed == 1 ? "pause.fill" : "play.fill")
+                Label("Play", systemImage: kodi.player.properies.speed == 1 ? "pause.fill" : "play.fill")
             })
-            .disabled(kodi.queue == nil)
-            .help(kodi.player.speed == 1 ? "Pause your playlist" : kodi.player.playlistPosition == -1 ? "Start your playlist" : "Continue playing your playlist")
+            .disabled(kodi.player.currentItem == nil)
+            .help(kodi.player.properies.speed == 1 ? "Pause your playlist" : kodi.player.properies.playlistPosition == -1 ? "Start your playlist" : "Continue playing your playlist")
         }
     }
 
@@ -57,9 +57,11 @@ public extension MediaButtons {
             }, label: {
                 Label("Previous", systemImage: "backward.fill")
             })
-            .disabled(kodi.player.playlistPosition == -1)
+            .disabled(kodi.player.properies.playlistPosition == -1)
             /// You can't go back an item when in party mode
-            .disabled(kodi.player.partymode)
+            .disabled(kodi.player.properies.partymode)
+            /// Only songs can 'goto'
+            .disabled(kodi.player.currentItem?.media != .song)
         }
     }
     
@@ -78,9 +80,11 @@ public extension MediaButtons {
                 Label("Next", systemImage: "forward.fill")
             })
             /// Disable when playing the last item
-            .disabled((kodi.player.playlistPosition) + 1 == kodi.queue?.count)
+            //.disabled((kodi.player.properies.playlistPosition) + 1 ==  kodi.player.properies.playlistID == .audio ?   kodi.queue?.count)
             /// Disable when not playing
-            .disabled(kodi.player.playlistPosition == -1)
+            .disabled(kodi.player.properies.playlistPosition == -1)
+            /// Only songs can 'goto'
+            .disabled(kodi.player.currentItem?.media != .song)
         }
     }
     
@@ -93,15 +97,19 @@ public extension MediaButtons {
         public var body: some View {
             Button(action: {
                 Task {
-                    Player.setPartyMode(playerID: .audio)
+                    if kodi.player.properies.partymode {
+                        Player.setPartyMode(playerID: .audio)
+                    } else {
+                        Player.open(partyMode: .music)
+                    }
                 }
             }, label: {
                 Label("Party Mode", systemImage: "wand.and.stars.inverse")
-                    .foregroundColor(kodi.player.partymode ? .white : .none)
+                    .foregroundColor(kodi.player.properies.partymode ? .white : .none)
             })
             .background(RoundedRectangle(cornerRadius: 4)
-                .fill(kodi.player.partymode  ? Color.red : Color.clear))
-            .help("Party mode")
+                .fill(kodi.player.properies.partymode  ? Color.red : Color.clear))
+            .help("Music party mode")
         }
     }
     
@@ -118,13 +126,13 @@ public extension MediaButtons {
                 }
             }, label: {
                 Label("Shuffle", systemImage: "shuffle")
-                    .foregroundColor(kodi.player.shuffled ? .white : .none)
+                    .foregroundColor(kodi.player.properies.shuffled ? .white : .none)
             })
             
             .background(RoundedRectangle(cornerRadius: 4)
-            .fill(kodi.player.shuffled ? Color.accentColor : Color.clear))
-            .disabled(kodi.player.partymode)
-            .disabled(!kodi.player.canShuffle)
+                .fill(kodi.player.properies.shuffled ? Color.accentColor : Color.clear))
+            .disabled(kodi.player.properies.partymode)
+            .disabled(!kodi.player.properies.canShuffle)
         }
     }
     
@@ -141,19 +149,19 @@ public extension MediaButtons {
                 }
             }, label: {
                 Label("Repeat", systemImage: repeatingIcon)
-                    .foregroundColor(kodi.player.repeating == .off ? .none : .white)
+                    .foregroundColor(kodi.player.properies.repeating == .off ? .none : .white)
             })
             .background(RoundedRectangle(cornerRadius: 4)
-            .fill(kodi.player.repeating  == .off ? .clear : .accentColor))
-            .disabled(kodi.player.partymode)
-            .disabled(!kodi.player.canRepeat)
+                .fill(kodi.player.properies.repeating  == .off ? .clear : .accentColor))
+            .disabled(kodi.player.properies.partymode)
+            .disabled(!kodi.player.properies.canRepeat)
         }
         /// The icon to show for 'repeat'
         var repeatingIcon: String {
             /// Standard icon for 'repeat'
             var icon = "repeat"
             /// Overrule if needed
-            if kodi.player.repeating == .one {
+            if kodi.player.properies.repeating == .one {
                 icon = "repeat.1"
             }
             return icon

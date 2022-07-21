@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// All Video related items
+/// Video related items (Global Kodi Type)
 public enum Video {
     /// Just a placeholder
 }

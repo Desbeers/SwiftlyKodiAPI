@@ -12,7 +12,7 @@ import Foundation
 extension Playlist {
     
     /// Get all items from playlist (Kodi API)
-    /// - Parameter playerID: The ``Player/ID`` of the  player
+    /// - Parameter playlistID: The ``Playlist/ID`` of the playlist
     /// - Returns: All items in an ``KodiItem`` array
     public static func getItems(playlistID: Playlist.ID) async -> [(any KodiItem)]? {
         logger("Playlist.getItems")
@@ -24,11 +24,14 @@ extension Playlist {
             for item in result.items {
                 /// If the result has an ID, it is from the library
                 if let id = item.id {
-                    
                     switch item.type {
                     case .song:
                         if let song = kodi.library.songs.first(where: {$0.songID == id}) {
                             queue.append(song)
+                        }
+                    case .musicVideo:
+                        if let musicVideo = kodi.library.musicVideos.first(where: {$0.musicVideoID == id}) {
+                            queue.append(musicVideo)
                         }
                     default:
                         break
@@ -43,19 +46,24 @@ extension Playlist {
     }
     
     /// Get all items from playlist (Kodi API)
-    struct GetItems: KodiAPI {
-        /// The ``Player/ID``
+    fileprivate struct GetItems: KodiAPI {
+        /// The ``Playlist/ID``
         let playlistID: Playlist.ID
         /// The method to use
         let method = Methods.playlistGetItems
         /// The JSON creator
         var parameters: Data {
-            buildParams(params: Params())
+            buildParams(params: Params(playlistID: playlistID))
         }
         /// The request struct
         struct Params: Encodable {
             /// The playlist ID
-            let playlistid = 0
+            let playlistID: Playlist.ID
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                /// The playlist ID
+                case playlistID = "playlistid"
+            }
         }
         /// The response struct
         struct Response: Decodable {

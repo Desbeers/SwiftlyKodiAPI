@@ -8,7 +8,7 @@ import SwiftUI
 import Combine
 import AVKit
 
-/// A View with the player
+/// A SwiftUI View with a player to stream a ``KodiItem`` (SwiftlyKodi Type)
 public struct KodiPlayerView: View {
     /// The KodiConnector model
     @EnvironmentObject var kodi: KodiConnector

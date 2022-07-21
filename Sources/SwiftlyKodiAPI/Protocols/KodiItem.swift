@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// A ``KodiItem`` is any kind of item from the Kodi library
+/// A ``KodiItem`` is any kind of item from the Kodi library (SwiftlyKodi Type)
 ///
 /// It can be an artist, album, song, movie, movie set, tv show, epiode, music video or a genre
 public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {

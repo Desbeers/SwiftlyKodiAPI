@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// The struct for host information to make a remote connection
+/// Host information to make a remote connection (SwiftlyKodi Type)
 public struct HostItem: Codable, Identifiable, Hashable {
     /// Give it an ID
     public var id: UUID
