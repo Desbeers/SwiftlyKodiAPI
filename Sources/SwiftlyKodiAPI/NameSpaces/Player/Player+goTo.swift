@@ -46,7 +46,7 @@ extension Player {
             }
             return buildParams(params: Position(playerID: playerID, position: position))
         }
-        /// The request struct for an action
+        /// The parameters struct for an action
         struct Direction: Encodable {
             /// The player ID
             let playerID: Player.ID
@@ -58,7 +58,7 @@ extension Player {
                 case direction = "to"
             }
         }
-        /// The request struct for a position
+        /// The parameters struct for a position
         struct Position: Encodable {
             /// The player ID
             let playerID: Player.ID

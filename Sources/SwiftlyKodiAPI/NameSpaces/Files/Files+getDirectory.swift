@@ -27,16 +27,16 @@ extension Files {
     /// Get the directories and files in the given directory (Kodi API)
     fileprivate struct GetDirectory: KodiAPI {
         /// The directory
-        var directory: String
+        let directory: String
         /// The media
-        var media: Files.Media
-        /// Method
+        let media: Files.Media
+        /// The method
         let method: Methods = .filesGetDirectory
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
             buildParams(params: Params(directory: directory, media: media))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The directory we ask for
             let directory: String

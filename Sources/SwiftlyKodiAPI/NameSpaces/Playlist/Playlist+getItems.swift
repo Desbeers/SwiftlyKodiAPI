@@ -51,11 +51,11 @@ extension Playlist {
         let playlistID: Playlist.ID
         /// The method to use
         let method = Methods.playlistGetItems
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
             buildParams(params: Params(playlistID: playlistID))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The playlist ID
             let playlistID: Playlist.ID

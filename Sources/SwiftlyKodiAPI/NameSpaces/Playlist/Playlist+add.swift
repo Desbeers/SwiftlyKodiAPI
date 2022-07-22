@@ -44,7 +44,7 @@ extension Playlist {
     
     /// Add item(s) to playlist (Kodi API)
     fileprivate struct Add: KodiAPI {
-        /// The method to use
+        /// The method
         let method = Methods.playlistAdd
         /// List of optional song ID's
         var songs: [Int]?
@@ -52,7 +52,7 @@ extension Playlist {
         var musicVideos: [Int]?
         /// An optional stream item
         var stream: Audio.Details.Stream?
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
             logger("Playlist.add")
             var params = Params()

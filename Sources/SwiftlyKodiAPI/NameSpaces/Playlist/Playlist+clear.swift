@@ -24,11 +24,11 @@ extension Playlist {
         let method = Methods.playlistClear
         /// The playlist to clear
         let playlistID: Playlist.ID
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
             buildParams(params: Params(playlistid: playlistID))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The ID of the playlist
             let playlistid: Playlist.ID

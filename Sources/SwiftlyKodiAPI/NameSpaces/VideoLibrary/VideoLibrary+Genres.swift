@@ -28,21 +28,19 @@ extension VideoLibrary {
     
     /// Retrieve all genres (Kodi API)
     fileprivate struct GetGenres: KodiAPI {
-        /// Argument
-        var type: Library.Media
-        /// Method
-        var method = Methods.videoLibraryGetGenres
-        /// The JSON creator
+        /// The media type
+        let type: Library.Media
+        /// The method
+        let method = Methods.videoLibraryGetGenres
+        /// The parameters
         var parameters: Data {
-            var params = Params()
-            params.type = type.rawValue
-            return buildParams(params: params)
+            buildParams(params: Params(type: type))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Library.Fields.genre
-            var type: String = ""
+            let type: Library.Media
             /// Sort order
             let sort = List.Sort(method: .label, order: .ascending)
         }

@@ -17,7 +17,7 @@ extension KodiConnector {
         @Sendable func getAudio() async -> Library.Items {
             async let albums = AudioLibrary.getAlbums()
             /// Limit the loading for debugging
-            /// let songs = await AudioLibrary.getSongs(limits: List.Limits(end: 400, start: 100))
+            //let songs = await AudioLibrary.getSongs(filter: List.Filter(artistID: 43), limits: List.Limits(end: 400, start: 100))
             async let songs = AudioLibrary.getSongs()
             async let audioGenres = AudioLibrary.getGenres()
             

@@ -51,13 +51,13 @@ extension Player {
     fileprivate struct GetItem: KodiAPI {
         /// The ``Player/ID``
         let playerID: Player.ID
-        /// Method
+        /// The method
         let method = Methods.playerGetItem
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(playerID: playerID))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The properties we ask for
             let properties = ["title", "artist", "mediapath"]
@@ -72,16 +72,16 @@ extension Player {
         /// The response struct
         struct Response: Decodable {
             /// The item in the player
-            var item = PlayerItem()
+            let item: PlayerItem
         }
         /// The current player item
         struct PlayerItem: Decodable {
-            var id: Library.id?
-            var label: String = ""
-            var title: String = ""
-            var artist: [String]?
-            var mediapath: String = ""
-            var type: Library.Media = .none
+            let id: Library.id?
+            let label: String
+            let title: String
+            let artist: [String]?
+            let mediapath: String
+            let type: Library.Media
         }
     }
 }

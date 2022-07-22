@@ -53,7 +53,7 @@ extension Player {
             params.options.shuffled = shuffle
             return buildParams(params: params)
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// Item to open
             var item = Item()

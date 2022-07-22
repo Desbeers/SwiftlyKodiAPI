@@ -25,13 +25,13 @@ extension VideoLibrary {
     
     /// Retrieve all music videos (Kodi API)
     fileprivate struct GetMusicVideos: KodiAPI {
-        /// Method
-        var method = Methods.videoLibraryGetMusicVideos
-        /// The JSON creator
+        /// The method
+        let method = Methods.videoLibraryGetMusicVideos
+        /// The parameters
         var parameters: Data {
             buildParams(params: Params())
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.musicVideo
@@ -67,28 +67,30 @@ extension VideoLibrary {
     
     /// Retrieve details about a specific music video (Kodi API)
     fileprivate struct GetMusicVideoDetails: KodiAPI {
-        /// The music video we ask for
-        var musicVideoID: Library.id
-        /// Method
-        var method = Methods.videoLibraryGetMusicVideoDetails
-        /// The JSON creator
+        /// The music video ID
+        let musicVideoID: Library.id
+        /// The method
+        let method = Methods.videoLibraryGetMusicVideoDetails
+        /// The parameters
         var parameters: Data {
-            /// The parameters we ask for
-            var params = Params()
-            params.musicvideoid = musicVideoID
-            return buildParams(params: params)
+            buildParams(params: Params(musicVideoID: musicVideoID))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.musicVideo
             /// The ID of the music video
-            var musicvideoid: Library.id = 0
+            let musicVideoID: Library.id
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                case properties
+                case musicVideoID = "musicvideoid"
+            }
         }
         /// The response struct
         struct Response: Decodable {
             /// The details of the music video
-            var musicvideodetails: Video.Details.MusicVideo
+            let musicvideodetails: Video.Details.MusicVideo
         }
     }
 }
@@ -108,33 +110,38 @@ extension VideoLibrary {
     
     /// Update the given music video with the given details (Kodi API)
     fileprivate struct SetMusicVideoDetails: KodiAPI {
-        /// Arguments
-        var musicVideo: Video.Details.MusicVideo
-        /// Method
-        var method = Methods.videoLibrarySetMusicVideoDetails
-        /// The JSON creator
+        /// The music video
+        let musicVideo: Video.Details.MusicVideo
+        /// The method
+        let method = Methods.videoLibrarySetMusicVideoDetails
+        /// The parameters
         var parameters: Data {
-            /// The parameters
-            let params = Params(musicVideo: musicVideo)
-            return buildParams(params: params)
+            buildParams(params: Params(musicVideo: musicVideo))
         }
-        /// The request struct
-        /// - Note: The properties we want to set
+        /// The parameters struct
         struct Params: Encodable {
-            internal init(musicVideo: Video.Details.MusicVideo) {
-                self.musicvideoid = musicVideo.musicVideoID
-                self.userrating = musicVideo.userRating
+            /// Init the params
+            init(musicVideo: Video.Details.MusicVideo) {
+                self.musicVideoID = musicVideo.musicVideoID
+                self.userRating = musicVideo.userRating
                 self.playcount = musicVideo.playcount
-                self.lastplayed = musicVideo.lastPlayed
+                self.lastPlayed = musicVideo.lastPlayed
             }
             /// The music video ID
-            var musicvideoid: Library.id
+            let musicVideoID: Library.id
             /// The rating of the song
-            var userrating: Int
+            let userRating: Int
             /// The play count of the song
-            var playcount: Int
+            let playcount: Int
             /// The last played date
-            var lastplayed: String
+            let lastPlayed: String
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                case musicVideoID = "musicvideoid"
+                case userRating = "userrating"
+                case playcount
+                case lastPlayed = "lastplayed"
+            }
         }
         /// The response struct
         struct Response: Decodable { }

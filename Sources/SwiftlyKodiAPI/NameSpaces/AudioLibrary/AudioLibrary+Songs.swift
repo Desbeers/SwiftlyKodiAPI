@@ -62,34 +62,24 @@ extension AudioLibrary {
         /// The optional filter
         let filter: List.Filter?
         /// The optional limits
-        var limits: List.Limits?
+        let limits: List.Limits?
         /// The sort order
-        var sort: List.Sort
+        let sort: List.Sort
         /// The method
         let method = Methods.audioLibraryGetSongs
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
-            /// The parameters we ask for
-            var params = Params(sort: sort)
-            /// The optional filter
-            if let filter = filter {
-                params.filter = filter
-            }
-            /// The optional limit
-            if let limits = limits {
-                params.limits = limits
-            }
-            return buildParams(params: params)
+            buildParams(params: Params(sort: sort, filter: filter, limits: limits))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             let properties = Audio.Fields.song
             /// The sorting
             let sort: List.Sort
             /// Filter
-            var filter: List.Filter?
+            let filter: List.Filter?
             /// Limits
-            var limits: List.Limits?
+            let limits: List.Limits?
         }
         /// The response struct
         struct Response: Decodable {
@@ -124,16 +114,15 @@ extension AudioLibrary {
     
     /// Retrieve details about a specific song (Kodi API)
     fileprivate struct GetSongDetails: KodiAPI {
-        /// Argument: the song we ask for
-        var songID: Library.id
-        /// Method
-        var method = Methods.audioLibraryGetSongDetails
-        /// The JSON creator
+        /// The song ID
+        let songID: Library.id
+        /// The method
+        let method = Methods.audioLibraryGetSongDetails
+        /// The parameters
         var parameters: Data {
-            /// The parameters we ask for
             buildParams(params: Params(songID: songID))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Audio.Fields.song
@@ -148,7 +137,7 @@ extension AudioLibrary {
         /// The response struct
         struct Response: Decodable {
             /// The details of the song
-            var songdetails: Audio.Details.Song
+            let songdetails: Audio.Details.Song
         }
     }
 }
@@ -169,15 +158,15 @@ extension AudioLibrary {
     
     /// Update the given song with the given details (Kodi API)
     fileprivate struct SetSongDetails: KodiAPI {
-        /// Arguments
-        var song: Audio.Details.Song
-        /// Method
-        var method = Methods.audioLibrarySetSongDetails
-        /// The JSON creator
+        /// The song
+        let song: Audio.Details.Song
+        /// The method
+        let method = Methods.audioLibrarySetSongDetails
+        /// The parameters
         var parameters: Data {
             buildParams(params: Params(song: song))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// Init the params
             init(song: Audio.Details.Song) {
@@ -187,13 +176,13 @@ extension AudioLibrary {
                 self.lastPlayed = song.lastPlayed
             }
             /// The song ID
-            var songID: Library.id
+            let songID: Library.id
             /// The rating of the song
-            var userRating: Int
+            let userRating: Int
             /// The play count of the song
-            var playcount: Int
+            let playcount: Int
             /// The last played date
-            var lastPlayed: String
+            let lastPlayed: String
             /// Coding keys
             enum CodingKeys: String, CodingKey {
                 case songID = "songid"

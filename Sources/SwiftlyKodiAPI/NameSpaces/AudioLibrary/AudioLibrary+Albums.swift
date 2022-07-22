@@ -33,7 +33,7 @@ extension AudioLibrary {
         var parameters: Data {
             buildParams(params: Params())
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The album properties
             let properties = Audio.Fields.album

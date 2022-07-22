@@ -17,11 +17,11 @@ extension Application {
     
     /// Set the current volume (Kodi API)
     fileprivate struct SetVolume: KodiAPI {
-        /// Method
+        /// The method
         let method = Methods.applicationSetVolume
         /// The volume
         let volume: Double
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
             buildParams(params: Params(volume: Int(volume)))
         }

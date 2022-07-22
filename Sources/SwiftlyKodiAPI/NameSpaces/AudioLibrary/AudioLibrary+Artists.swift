@@ -30,7 +30,7 @@ extension AudioLibrary {
         var parameters: Data {
             buildParams(params: Params())
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// Get all artists
             let albumartistsonly = false
@@ -73,7 +73,7 @@ extension AudioLibrary {
 //        var parameters: Data {
 //            buildParams(params: Params())
 //        }
-//        /// The request struct
+//        /// The parameters struct
 //        struct Params: Encodable {
 //            /// Get all artists
 //            let albumartistsonly = false

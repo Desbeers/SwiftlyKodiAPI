@@ -21,9 +21,9 @@ extension Application {
     
     /// Retrieves the values of the given properties (Kodi API)
     fileprivate struct GetProperties: KodiAPI {
-        /// Method
+        /// The method
         let method = Methods.applicationGetProperties
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
             buildParams(params: Params())
         }

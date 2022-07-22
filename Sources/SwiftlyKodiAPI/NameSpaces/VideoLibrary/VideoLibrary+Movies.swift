@@ -68,20 +68,20 @@ extension VideoLibrary {
     
     /// Retrieve details about a specific movie (Kodi API)
     fileprivate struct GetMovieDetails: KodiAPI {
-        /// Argument: the movie we ask for
-        var movieID: Library.id
-        /// Method
-        var method = Methods.videoLibraryGetMovieDetails
+        /// The movie ID
+        let movieID: Library.id
+        /// The method
+        let method = Methods.videoLibraryGetMovieDetails
         /// The parameters we ask for
         var parameters: Data {
             buildParams(params: Params(movieID: movieID))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.movie
             /// The ID of the movie
-            var movieID: Library.id
+            let movieID: Library.id
             /// Coding keys
             enum CodingKeys: String, CodingKey {
                 case properties
@@ -91,7 +91,7 @@ extension VideoLibrary {
         /// The response struct
         struct Response: Decodable {
             /// The details of the song
-            var moviedetails: Video.Details.Movie
+            let moviedetails: Video.Details.Movie
         }
     }
 }
@@ -119,7 +119,7 @@ extension VideoLibrary {
         var parameters: Data {
             buildParams(params: Params(movie: movie))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// Init the params
             init(movie: Video.Details.Movie) {

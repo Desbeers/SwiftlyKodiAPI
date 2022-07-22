@@ -23,19 +23,19 @@ extension Player {
     /// Returns all active players (Kodi API)
     fileprivate struct GetActivePlayers: KodiAPI {
         let method: Methods = .playerGetActivePlayers
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
             /// Params for GetActivePlayers (empty, no need)
-            struct Parameters: Encodable { }
-            return buildParams(params: Parameters())
+            struct Params: Encodable { }
+            return buildParams(params: Params())
         }
         /// The response struct
         typealias Response = [ActivePlayer]
         /// The response struct
         struct ActivePlayer: Decodable {
-            var playerid: ID
-            var playertype: String
-            var type: MediaType
+            let playerid: ID
+            let playertype: String
+            let type: MediaType
         }
     }
 }

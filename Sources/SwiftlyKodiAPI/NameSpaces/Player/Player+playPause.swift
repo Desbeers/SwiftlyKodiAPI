@@ -31,7 +31,7 @@ extension Player {
         var parameters: Data {
             buildParams(params: Params(playerID: playerID))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The player ID
             let playerID: Player.ID

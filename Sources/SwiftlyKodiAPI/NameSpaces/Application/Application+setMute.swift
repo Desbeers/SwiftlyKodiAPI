@@ -16,9 +16,9 @@ extension Application {
     
     /// Toggle mute/unmute (Kodi API)
     fileprivate struct SetMute: KodiAPI {
-        /// Method
+        /// The method
         let method = Methods.applicationSetMute
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
             buildParams(params: Params())
         }

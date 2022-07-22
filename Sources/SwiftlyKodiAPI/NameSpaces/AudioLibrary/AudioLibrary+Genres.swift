@@ -26,13 +26,13 @@ extension AudioLibrary {
     
     /// Retrieve all genres (Kodi API)
     fileprivate struct GetGenres: KodiAPI {
-        /// Method
-        var method = Methods.audioLibraryGetGenres
-        /// The JSON creator
+        /// The method
+        let method = Methods.audioLibraryGetGenres
+        /// The parameters
         var parameters: Data {
             buildParams(params: Params())
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Library.Fields.genre

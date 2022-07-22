@@ -75,7 +75,7 @@ extension VideoLibrary {
         var parameters: Data {
             buildParams(params: Params(tvshowID: tvshowID))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.tvshow
@@ -121,7 +121,7 @@ extension VideoLibrary {
         var parameters: Data {
             buildParams(params: Params(tvshow: tvshow))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// Init the params
             init(tvshow: Video.Details.TVShow) {

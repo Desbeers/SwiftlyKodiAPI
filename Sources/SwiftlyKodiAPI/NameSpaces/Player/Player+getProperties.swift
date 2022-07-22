@@ -25,15 +25,15 @@ extension Player {
     
     /// Retrieves the properties of the player (Kodi API)
     fileprivate struct GetProperties: KodiAPI {
-        /// The ID of the player
+        /// The player ID
         let playerID: Player.ID
-        /// Method
+        /// The method
         let method = Methods.playerGetProperties
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
-            return buildParams(params: Params(playerid: playerID))
+            buildParams(params: Params(playerid: playerID))
         }
-        /// The request struct
+        /// The parameters struct
         struct Params: Encodable {
             /// The player ID
             let playerid: Player.ID

@@ -26,10 +26,10 @@ extension Player {
         let method: Methods = .playerStop
         /// The parameters
         var parameters: Data {
-            buildParams(params: Parameters(playerID: playerID))
+            buildParams(params: Params(playerID: playerID))
         }
-        /// The request struct
-        struct Parameters: Encodable {
+        /// The parameters struct
+        struct Params: Encodable {
             /// The player ID
             let playerID: Player.ID
             /// Coding keys
