@@ -60,14 +60,14 @@ extension Playlist {
             if let songs = songs {
                 params.playlistID = .audio
                 for song in songs {
-                    params.item.append(Playlist.Item(songid: song))
+                    params.item.append(Playlist.Item(songID: song))
                 }
             }
             /// # Add music videos
             if let musicVideos = musicVideos {
                 params.playlistID = .video
                 for musicVideo in musicVideos {
-                    params.item.append(Playlist.Item(musicvideoid: musicVideo))
+                    params.item.append(Playlist.Item(musicVideoID: musicVideo))
                 }
             }
             /// # Add a stream

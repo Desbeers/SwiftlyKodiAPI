@@ -75,7 +75,7 @@ extension Playlist {
     /// The struct for a queue item
     struct QueueItem: Codable, Equatable {
         /// The item
-        let id: Int?
+        let id: Library.id?
         var type: Library.Media = .none
     }
 }

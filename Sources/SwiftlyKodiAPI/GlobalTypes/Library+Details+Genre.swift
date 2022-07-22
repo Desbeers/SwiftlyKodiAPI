@@ -41,7 +41,7 @@ public extension Library.Details {
         
         /// # Library.Details.Genre
         
-        public var genreID: Int = 0
+        public var genreID: Library.id = 0
         //public var sourceID: [Int] = []
         public var thumbnail: String = ""
         public var title: String = ""

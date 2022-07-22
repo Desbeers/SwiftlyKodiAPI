@@ -9,27 +9,97 @@ import Foundation
 
 extension KodiConnector {
     
-//    /// The structure of the library
-//    public struct KodiLibrary: Codable {
-//        /// The artist in the library
-//        public var artists: [Audio.Details.Artist] = []
-//        /// The albums in the library
-//        public var albums: [Audio.Details.Album] = []
-//        /// The songs in the library
-//        public var songs: [Audio.Details.Song] = []
-//        /// The audio genres in the library
-//        public var audioGenres: [Library.Details.Genre] = []
-//        /// The movies in the library
-//        public var movies: [Video.Details.Movie] = []
-//        /// The movie sets in the library
-//        public var movieSets: [Video.Details.MovieSet] = []
-//        /// The TV shows in the library
-//        public var tvshows: [Video.Details.TVShow] = []
-//        /// The TV show episodes in the library
-//        public var episodes: [Video.Details.Episode] = []
-//        /// The music videos in the library
-//        public var musicVideos: [Video.Details.MusicVideo] = []
-//        /// The video genres in the library
-//        public var videoGenres: [Library.Details.Genre] = []
-//    }
+    func getLibrary() async -> Library.Items {
+        logger("Getting your library")
+        
+        /// Helpers
+        
+        @Sendable func getAudio() async -> Library.Items {
+            async let albums = AudioLibrary.getAlbums()
+            /// Limit the loading for debugging
+            /// let songs = await AudioLibrary.getSongs(limits: List.Limits(end: 400, start: 100))
+            async let songs = AudioLibrary.getSongs()
+            async let audioGenres = AudioLibrary.getGenres()
+            
+            return await Library.Items(albums: albums,
+                                   songs: songs,
+                                   audioGenres: audioGenres
+            )
+        }
+        
+        @Sendable func getVideo() async -> Library.Items {
+            async let movies = VideoLibrary.getMovies()
+            async let movieSets = VideoLibrary.getMovieSets()
+            async let tvshows = VideoLibrary.getTVShows()
+            async let episodes = VideoLibrary.getEpisodes()
+            async let videoGenres = getAllVideoGenres()
+            
+            return await Library.Items(movies: movies,
+                                      movieSets: movieSets,
+                                      tvshows: tvshows,
+                                      episodes: episodes,
+                                      videoGenres: videoGenres
+            )
+        }
+        
+        
+        
+        async let artist = AudioLibrary.getArtists()
+        async let musicVideos = VideoLibrary.getMusicVideos()
+        
+        switch host.media {
+            
+        case .audio:
+            async let audio = getAudio()
+            return await Library.Items(artists: artist,
+                                       albums: audio.albums,
+                                       songs: audio.songs,
+                                       audioGenres: audio.audioGenres,
+                                       musicVideos: musicVideos
+            )
+            
+        case .video:
+            async let video = getVideo()
+            return await Library.Items(artists: artist,
+                                       movies: video.movies,
+                                       movieSets: video.movieSets,
+                                       tvshows: video.tvshows,
+                                       episodes: video.episodes,
+                                       musicVideos: video.musicVideos,
+                                       videoGenres: video.videoGenres
+            )
+        case .all:
+            async let audio = getAudio()
+            async let video = getVideo()
+            return await Library.Items(artists: artist,
+                                       albums: audio.albums,
+                                       songs: audio.songs,
+                                       audioGenres: audio.audioGenres,
+                                       movies: video.movies,
+                                       movieSets: video.movieSets,
+                                       tvshows: video.tvshows,
+                                       episodes: video.episodes,
+                                       musicVideos: musicVideos,
+                                       videoGenres: video.videoGenres
+            )
+        default:
+            return Library.Items()
+        }
+    }
+    
+    /// Store the library in the cache
+    /// - Parameter media: The whole media libray
+    /// - Note: This function will debounce for 2 seconds to avoid
+    ///         overload when we have a large library update
+    func setLibraryCache() async {
+        //cacheTimer?.invalidate()
+        //        cacheTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+        await task.setLibraryCache.submit {
+            do {
+                try Cache.set(key: "MyLibrary", object: self.library)
+            } catch {
+                print("Saving library failed with error: \(error)")
+            }
+        }
+    }
 }

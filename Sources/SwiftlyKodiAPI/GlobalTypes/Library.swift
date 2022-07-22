@@ -11,3 +11,9 @@ import Foundation
 public enum Library {
     /// Just a placeholder
 }
+
+public extension Library {
+    
+    /// The ID of the item the the library
+    typealias id = Int
+}

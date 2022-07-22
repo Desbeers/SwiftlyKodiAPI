@@ -12,9 +12,14 @@ extension Audio.Details.Song {
     /// Play an  ``Audio/Details/Song`` item
     public func play() {
         Task {
-            Playlist.clear(playlistID: .audio)
-            await Playlist.add(songs: [self])
-            Player.open(playlistID: .audio)
+            /// Check if this song is in the current playlist
+            if let position = self.playlistID {
+                Player.goTo(playerID: .audio, position: position)
+            } else {
+                Playlist.clear(playlistID: .audio)
+                await Playlist.add(songs: [self])
+                Player.open(playlistID: .audio)
+            }
         }
     }
 }

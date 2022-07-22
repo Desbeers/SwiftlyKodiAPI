@@ -17,7 +17,7 @@ public extension Audio.Details {
         public var id: Int { genreID }
         public var media: Library.Media = .genre
         
-        public var genreID: Int = 0
+        public var genreID: Library.id = 0
         public var title: String = ""
         
         enum CodingKeys: String, CodingKey {

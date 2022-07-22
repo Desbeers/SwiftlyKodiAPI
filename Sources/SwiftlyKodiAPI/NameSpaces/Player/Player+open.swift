@@ -11,32 +11,21 @@ import Foundation
 
 extension Player {
     
-    /// Start playback of either the playlist with the given ID, a slideshow with the pictures from the given directory or a single file or an item from the database (Kodi API)
-    ///
-    /// - Note: Only open a playlist is implemented
+    /// Start playback of a playlist with the given ID (Kodi API)
     ///
     /// - Parameters:
-    ///   - playlistID: The ``Player/ID`` of the  player
+    ///   - playlistID: The ``Playlist/ID`` of the  playlist
     ///   - shuffle: Shuffle the playlist
     public static func open(playlistID: Playlist.ID, shuffle: Bool = false) {
-        logger("Player.open")
-        
-        /// We need to wait on the result
-        Task {
-            let _ = try? await KodiConnector.shared.sendRequest(request: Open(shuffle: shuffle, playlistID: playlistID))
-        }
-        
-        //KodiConnector.shared.sendMessage(message: Open(shuffle: shuffle, playlistID: playlistID))
+        logger("Player.open (with playlist)")
+        KodiConnector.shared.sendMessage(message: Open(shuffle: shuffle, playlistID: playlistID))
     }
-    
+
+    /// Start playback in party mode (Kodi API)
+    /// - Parameter partyMode: The ``Player/PartyMode``
     public static func open(partyMode: Player.PartyMode) {
-        logger("Player.open")
-        //KodiConnector.shared.sendMessage(message: Open(partyMode: partyMode))
-        
-        /// We need to wait on the result
-        Task {
-            let _ = try? await KodiConnector.shared.sendRequest(request: Open(partyMode: partyMode))
-        }
+        logger("Player.open (party mmode")
+        KodiConnector.shared.sendMessage(message: Open(partyMode: partyMode))
     }
     
     /// Start playback of either the playlist with the given ID, a slideshow with the pictures from the given directory or a single file or an item from the database (Kodi API)
@@ -82,7 +71,7 @@ extension Player {
                     case position
                 }
             }
-            /// Options for OpenPlaylist
+            /// Options for Open
             var options = Options()
             /// The struct for options
             struct Options: Encodable {

@@ -8,12 +8,13 @@
 import Foundation
 
 extension List {
-    /// The filter fields for JSON requests
+    
+    /// Filter fields for JSON requests (SwiftlyKodi Type)
     public struct Filter: Codable {
         /// Filter by album ID
-        var albumID: Int?
+        var albumID: Library.id?
         /// Filter by artist ID
-        var artistID: Int?
+        var artistID: Library.id?
         /// Coding keys
         enum CodingKeys: String, CodingKey {
             case albumID = "albumid"

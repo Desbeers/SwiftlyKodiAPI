@@ -36,7 +36,7 @@ public extension Video.Details {
         /// # Video.Details.MovieSet
         
         public var plot: String = ""
-        public var setID: Int = 0
+        public var setID: Library.id = 0
         
         /// # Video.Details.Media
         

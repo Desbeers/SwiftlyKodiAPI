@@ -36,3 +36,23 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     /// The search string
     var search: String { get }
 }
+
+extension KodiItem {
+    var playerID: Player.ID {
+        switch self.media {
+        case .song, .stream:
+            return .audio
+        default:
+            return .video
+        }
+    }
+}
+
+extension KodiItem {
+    public var playlistID: Int? {
+        if let index = KodiConnector.shared.player.audioPlaylist?.firstIndex(where: {$0.id == id}) {
+            return index
+        }
+        return nil
+    }
+}

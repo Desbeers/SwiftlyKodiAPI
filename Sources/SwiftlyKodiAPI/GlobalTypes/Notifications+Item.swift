@@ -28,12 +28,9 @@ public extension Notifications {
         
         /// Item level
         var media: Library.Media = .none
-        var itemID: Int = 0
+        var itemID: Library.id = 0
         
         /// The ID of the player
-        /// - 1 = audio
-        /// - 2 = video
-        /// - 3 = picture
         var playerID: Player.ID = .audio
         /// The speed of the player
         var playerSpeed: Int = 0

@@ -30,7 +30,7 @@ public extension Video.Details {
         public var album: String = ""
         public var artist: [String] = []
         public var genre: [String] = []
-        public var musicVideoID: Int = 0
+        public var musicVideoID: Library.id = 0
         public var premiered: String = ""
         public var rating: Double = 0
         public var studio: [String] = []

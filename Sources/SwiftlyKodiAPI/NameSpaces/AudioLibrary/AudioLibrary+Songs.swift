@@ -60,7 +60,7 @@ extension AudioLibrary {
     /// Retrieve all songs  (Kodi API)
     fileprivate struct GetSongs: KodiAPI {
         /// The optional filter
-        var filter: List.Filter?
+        let filter: List.Filter?
         /// The optional limits
         var limits: List.Limits?
         /// The sort order
@@ -106,7 +106,7 @@ extension AudioLibrary {
     /// Retrieve details about a specific song (Kodi API)
     /// - Parameter songID: The ID of the song
     /// - Returns: An ``Audio/Details/Song`` item
-    public static func getSongDetails(songID: Int) async -> Audio.Details.Song {
+    public static func getSongDetails(songID: Library.id) async -> Audio.Details.Song {
         logger("AudioLibrary.getSongDetails")
         let kodi: KodiConnector = .shared
         let request = AudioLibrary.GetSongDetails(songID: songID)
@@ -125,22 +125,25 @@ extension AudioLibrary {
     /// Retrieve details about a specific song (Kodi API)
     fileprivate struct GetSongDetails: KodiAPI {
         /// Argument: the song we ask for
-        var songID: Int
+        var songID: Library.id
         /// Method
         var method = Methods.audioLibraryGetSongDetails
         /// The JSON creator
         var parameters: Data {
             /// The parameters we ask for
-            var params = Params()
-            params.songid = songID
-            return buildParams(params: params)
+            buildParams(params: Params(songID: songID))
         }
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Audio.Fields.song
             /// The ID of the song
-            var songid: Int = 0
+            let songID: Library.id
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                case properties
+                case songID = "songid"
+            }
         }
         /// The response struct
         struct Response: Decodable {
@@ -176,20 +179,28 @@ extension AudioLibrary {
         }
         /// The request struct
         struct Params: Encodable {
-            internal init(song: Audio.Details.Song) {
-                self.songid = song.songID
-                self.userrating = song.userRating
+            /// Init the params
+            init(song: Audio.Details.Song) {
+                self.songID = song.songID
+                self.userRating = song.userRating
                 self.playcount = song.playcount
-                self.lastplayed = song.lastPlayed
+                self.lastPlayed = song.lastPlayed
             }
             /// The song ID
-            var songid: Int
+            var songID: Library.id
             /// The rating of the song
-            var userrating: Int
+            var userRating: Int
             /// The play count of the song
             var playcount: Int
             /// The last played date
-            var lastplayed: String
+            var lastPlayed: String
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                case songID = "songid"
+                case userRating = "userrating"
+                case playcount
+                case lastPlayed = "lastplayed"
+            }
         }
         /// The response struct
         struct Response: Decodable { }

@@ -16,10 +16,10 @@ public extension Audio {
         
         public var id: Int { artistID }
         
-        public var artistID: Int = 0
+        public var artistID: Library.id = 0
         public var name: String = ""
         public var role: String = ""
-        public var roleID: Int = 0
+        public var roleID: Library.id = 0
         /// Coding keys
         enum CodingKeys: String, CodingKey {
             case artistID = "artistid"

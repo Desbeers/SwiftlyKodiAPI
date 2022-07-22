@@ -53,7 +53,7 @@ extension VideoLibrary {
 //    /// Get the details of a movie set item
 //    /// - Parameter movieSetID: The ID of the movie item
 //    /// - Returns: An updated Media Item
-//    public static func getMovieSetDetails(movieSetID: Int) async -> MediaItem {
+//    public static func getMovieSetDetails(movieSetID: Library.id) async -> MediaItem {
 //        let kodi: KodiConnector = .shared
 //        let request = GetMovieSetDetails(movieSetID: movieSetID)
 //        do {
@@ -69,7 +69,7 @@ extension VideoLibrary {
 //    /// Retrieve details about a specific movie set  (Kodi API)
 //    struct GetMovieSetDetails: KodiAPI {
 //        /// Argument: the movie we ask for
-//        var movieSetID: Int
+//        var movieSetID: Library.id
 //        /// Method
 //        var method = Methods.videoLibraryGetMovieSetDetails
 //        /// The JSON creator
@@ -84,7 +84,7 @@ extension VideoLibrary {
 //            /// The properties that we ask from Kodi
 //            let properties = Video.Fields.movieSet
 //            /// The ID of the movie set
-//            var setid: Int = 0
+//            var setid: Library.id = 0
 //        }
 //        /// The response struct
 //        struct Response: Decodable {

@@ -1,5 +1,5 @@
 //
-//  Player+GoToAction.swift
+//  Player+GoToDirection.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -7,8 +7,8 @@
 
 public extension Player {
     
-    /// The action for ``goTo(playerID:action:)`` (SwiftlyKodi Type)
-    enum GoToAction: String, Codable {
+    /// The direction for ``goTo(playerID:position:)`` (SwiftlyKodi Type)
+    enum GoToDirection: String, Codable {
         /// Goto the previous item
         case previous = "previous"
         /// Goto the next item

@@ -43,7 +43,7 @@ public extension Video.Details {
         public var status: String? /// BUG: This always returns nil
         public var studio: [String] = []
         public var tag: [String] = []
-        public var tvshowID: Int = 0
+        public var tvshowID: Library.id = 0
         //public var uniqueID: Int = 0
         public var userRating: Int = 0
         public var votes: String = ""

@@ -53,7 +53,7 @@ extension VideoLibrary {
     /// Retrieve details about a specific music video (Kodi API)
     /// - Parameter musicVideoID: The ID of the music video
     /// - Returns: A ``Video/Details/MusicVideo`` Item
-    public static func getMusicVideoDetails(musicVideoID: Int) async -> Video.Details.MusicVideo {
+    public static func getMusicVideoDetails(musicVideoID: Library.id) async -> Video.Details.MusicVideo {
         let kodi: KodiConnector = .shared
         let request = GetMusicVideoDetails(musicVideoID: musicVideoID)
         do {
@@ -68,7 +68,7 @@ extension VideoLibrary {
     /// Retrieve details about a specific music video (Kodi API)
     fileprivate struct GetMusicVideoDetails: KodiAPI {
         /// The music video we ask for
-        var musicVideoID: Int
+        var musicVideoID: Library.id
         /// Method
         var method = Methods.videoLibraryGetMusicVideoDetails
         /// The JSON creator
@@ -83,7 +83,7 @@ extension VideoLibrary {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.musicVideo
             /// The ID of the music video
-            var musicvideoid: Int = 0
+            var musicvideoid: Library.id = 0
         }
         /// The response struct
         struct Response: Decodable {
@@ -128,7 +128,7 @@ extension VideoLibrary {
                 self.lastplayed = musicVideo.lastPlayed
             }
             /// The music video ID
-            var musicvideoid: Int
+            var musicvideoid: Library.id
             /// The rating of the song
             var userrating: Int
             /// The play count of the song

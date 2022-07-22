@@ -41,7 +41,7 @@ public extension Audio.Details {
         /// # Audio.Details.Artist
         
         public var artist: String = ""
-        public var artistID: Int = 0
+        public var artistID: Library.id = 0
         public var born: String = ""
         /// This always returns nil
         /// public var compilationArtist: Bool = false

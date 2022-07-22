@@ -13,3 +13,7 @@ import Foundation
 public enum Playlist {
     /// Just a placeholder
 }
+
+public extension Playlist {
+    typealias position = Int
+}

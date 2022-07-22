@@ -9,7 +9,7 @@ import Foundation
 
 extension KodiConnector {
     
-    func getLibraryUpdate(itemID: Int, media: Library.Media) {
+    func getLibraryUpdate(itemID: Library.id, media: Library.Media) {
         Task { @MainActor in
             switch media {
             case .song:

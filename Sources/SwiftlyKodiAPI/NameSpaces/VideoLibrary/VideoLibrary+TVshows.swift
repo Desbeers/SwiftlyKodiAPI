@@ -53,7 +53,7 @@ extension VideoLibrary {
     /// Retrieve details about a specific tv show (Kodi API)
     /// - Parameter tvshowID: The ID of the TV show
     /// - Returns: A ``Video/Details/TVShow`` Item
-    public static func getTVShowDetails(tvshowID: Int) async -> Video.Details.TVShow {
+    public static func getTVShowDetails(tvshowID: Library.id) async -> Video.Details.TVShow {
         let kodi: KodiConnector = .shared
         let request = GetTVShowDetails(tvshowID: tvshowID)
         do {
@@ -67,23 +67,25 @@ extension VideoLibrary {
     
     /// Retrieve details about a specific tv show (Kodi API)
     fileprivate struct GetTVShowDetails: KodiAPI {
-        /// Argument: the tv show we ask for
-        var tvshowID: Int
-        /// Method
+        /// The tv show ID
+        var tvshowID: Library.id
+        /// The method
         var method = Methods.videoLibraryGetTVShowDetails
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
-            /// The parameters we ask for
-            var params = Params()
-            params.tvshowid = tvshowID
-            return buildParams(params: params)
+            buildParams(params: Params(tvshowID: tvshowID))
         }
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.tvshow
-            /// The ID of the episode
-            var tvshowid: Int = 0
+            /// The ID of the tv show
+            let tvshowID: Library.id
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                case properties
+                case tvshowID = "tvshowid"
+            }
         }
         /// The response struct
         struct Response: Decodable {
@@ -111,33 +113,38 @@ extension VideoLibrary {
     
     /// Update the given tv show with the given details (Kodi API)
     fileprivate struct SetTVShowDetails: KodiAPI {
-        /// Arguments
+        /// The TV show
         var tvshow: Video.Details.TVShow
-        /// Method
+        /// The method
         var method = Methods.videoLibrarySetTVShowDetails
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
-            /// The parameters
-            let params = Params(tvshow: tvshow)
-            return buildParams(params: params)
+            buildParams(params: Params(tvshow: tvshow))
         }
         /// The request struct
-        /// - Note: The properties we want to set
         struct Params: Encodable {
-            internal init(tvshow: Video.Details.TVShow) {
-                self.tvshowid = tvshow.tvshowID
-                self.userrating = tvshow.userRating
+            /// Init the params
+            init(tvshow: Video.Details.TVShow) {
+                self.tvshowID = tvshow.tvshowID
+                self.userRating = tvshow.userRating
                 self.playcount = tvshow.playcount
-                self.lastplayed = tvshow.lastPlayed
+                self.lastPlayed = tvshow.lastPlayed
             }
             /// The tv show ID
-            var tvshowid: Int
+            let tvshowID: Library.id
             /// The rating
-            var userrating: Int
+            let userRating: Int
             /// The playcount of the tv show
-            var playcount: Int
+            let playcount: Int
             /// The last played date
-            var lastplayed: String
+            let lastPlayed: String
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                case tvshowID = "tvshowid"
+                case userRating = "userrating"
+                case playcount
+                case lastPlayed = "lastplayed"
+            }
         }
         /// The response struct
         struct Response: Decodable { }

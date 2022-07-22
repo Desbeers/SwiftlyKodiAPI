@@ -29,18 +29,18 @@ public extension Video.Details {
         
         public var cast: [Video.Cast] = []
         public var episode: Int = 0
-        public var episodeID: Int = 0
+        public var episodeID: Library.id = 0
         public var firstAired: String = ""
         public var originalTitle: String = ""
         public var productionCode: String = ""
         public var rating: Double = 0
         public var ratings = Media.Ratings()
         public var season: Int = 0
-        public var seasonID: Int = 0
+        public var seasonID: Library.id = 0
         public var showTitle: String = ""
         public var specialSortEpisode: Int = 0
         public var specialSortSeason: Int = 0
-        public var tvshowID: Int = 0
+        public var tvshowID: Library.id = 0
         public var uniqueID: Int = 0
         public var userRating: Int = 0
         public var votes: String = ""

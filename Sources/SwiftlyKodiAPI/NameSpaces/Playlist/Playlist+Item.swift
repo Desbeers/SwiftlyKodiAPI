@@ -12,10 +12,16 @@ extension Playlist {
     /// An item in a playlist (Global Kodi Type)
     struct Item: Encodable {
         /// The optional song ID
-        var songid: Int?
+        var songID: Library.id?
         /// The optional music video ID
-        var musicvideoid: Int?
+        var musicVideoID: Library.id?
         /// The optional file location of the item
         var file: String?
+        /// Coding keys
+        enum CodingKeys: String, CodingKey {
+            case songID = "songID"
+            case musicVideoID = "musicVideoID"
+            case file
+        }
     }
 }

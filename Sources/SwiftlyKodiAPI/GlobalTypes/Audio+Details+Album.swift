@@ -29,7 +29,7 @@ public extension Audio.Details {
         /// # Audio.Details.Album
         
         public var albumDuration: Int = 0
-        public var albumID: Int = 0
+        public var albumID: Library.id = 0
         public var albumLabel: String = ""
         public var albumStatus: String = ""
         public var compilation: Bool = false

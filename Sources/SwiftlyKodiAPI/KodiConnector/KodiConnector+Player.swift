@@ -23,7 +23,9 @@ extension KodiConnector {
         await task.getPlayerState.submit { [self] in
             /// Defaults
             var properties = Player.Property.Value()
+
             /// Check if we have an active player
+            // if let playerID = kodi.player.currentItem?.playerID {
             if let playerID = await getPlayerID() {
                 properties = await Player.getProperties(playerID: playerID)
                 player.currentItem = await Player.getItem(playerID: playerID)

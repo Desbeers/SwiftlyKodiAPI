@@ -30,7 +30,7 @@ public extension Audio.Details {
         public var album: String = ""
         public var albumArtist: [String] = []
         public var albumArtistID: [Int] = []
-        public var albumID: Int = 0
+        public var albumID: Library.id = -1
         public var albumReleaseType: Audio.Album.ReleaseType = .album
         public var bitrate: Int = 0
         public var bpm: Int = 0
@@ -53,7 +53,7 @@ public extension Audio.Details {
         public var musicBrainzTrackID: String = ""
         public var playcount: Int = 0
         public var samplerate: Int = 0
-        public var songID: Int = 0
+        public var songID: Library.id = 0
         public var sourceID: [Int] = []
         public var track: Int = 0
         

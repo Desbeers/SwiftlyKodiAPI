@@ -54,7 +54,7 @@ extension VideoLibrary {
     /// Retrieve details about a specific movie (Kodi API)
     /// - Parameter movieID: The ID of the movie
     /// - Returns: A ``Video/Details/Movie`` item
-    public static func getMovieDetails(movieID: Int) async -> Video.Details.Movie {
+    public static func getMovieDetails(movieID: Library.id) async -> Video.Details.Movie {
         let kodi: KodiConnector = .shared
         let request = GetMovieDetails(movieID: movieID)
         do {
@@ -69,22 +69,24 @@ extension VideoLibrary {
     /// Retrieve details about a specific movie (Kodi API)
     fileprivate struct GetMovieDetails: KodiAPI {
         /// Argument: the movie we ask for
-        var movieID: Int
+        var movieID: Library.id
         /// Method
         var method = Methods.videoLibraryGetMovieDetails
-        /// The JSON creator
+        /// The parameters we ask for
         var parameters: Data {
-            /// The parameters we ask for
-            var params = Params()
-            params.movieid = movieID
-            return buildParams(params: params)
+            buildParams(params: Params(movieID: movieID))
         }
         /// The request struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.movie
             /// The ID of the movie
-            var movieid: Int = 0
+            var movieID: Library.id
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                case properties
+                case movieID = "movieid"
+            }
         }
         /// The response struct
         struct Response: Decodable {
@@ -109,33 +111,38 @@ extension VideoLibrary {
     
     /// Update the given movie with the given details (Kodi API)
     fileprivate struct SetMovieDetails: KodiAPI {
-        /// Arguments
+        /// The movie
         var movie: Video.Details.Movie
-        /// Method
+        /// The method
         var method = Methods.videoLibrarySetMovieDetails
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
-            /// The parameters
-            let params = Params(movie: movie)
-            return buildParams(params: params)
+            buildParams(params: Params(movie: movie))
         }
         /// The request struct
-        /// - Note: The properties we want to set
         struct Params: Encodable {
-            internal init(movie: Video.Details.Movie) {
-                self.movieid = movie.movieID
-                self.userrating = movie.userRating
+            /// Init the params
+            init(movie: Video.Details.Movie) {
+                self.movieID = movie.movieID
+                self.userRating = movie.userRating
                 self.playcount = movie.playcount
-                self.lastplayed = movie.lastPlayed
+                self.lastPlayed = movie.lastPlayed
             }
             /// The movie ID
-            var movieid: Int
-            /// The rating of the song
-            var userrating: Int
-            /// The play count of the song
-            var playcount: Int
+            let movieID: Library.id
+            /// The rating of the movie
+            let userRating: Int
+            /// The playcount of the movie
+            let playcount: Int
             /// The last played date
-            var lastplayed: String
+            let lastPlayed: String
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                case movieID = "movieid"
+                case userRating = "userrating"
+                case playcount
+                case lastPlayed = "lastplayed"
+            }
         }
         /// The response struct
         struct Response: Decodable { }

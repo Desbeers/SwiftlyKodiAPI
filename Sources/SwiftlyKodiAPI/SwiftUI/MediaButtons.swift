@@ -24,12 +24,12 @@ public extension MediaButtons {
     /// - Player is playing: do method .playerPlayPause to play
     /// - Player is stopped: do method .playerOpen to start the playlist
     struct PlayPause: View {
-        @EnvironmentObject var kodi: KodiConnector
-        public init() {}
+        @EnvironmentObject var kodi: KodiConnector        
+        public init() { }
         public var body: some View {
             Button(action: {
                 Task {
-                    if let playerID = await kodi.getPlayerID() {
+                    if let playerID = kodi.player.currentItem?.playerID {
                         Player.playPause(playerID: playerID)
                     }
                 }
@@ -51,7 +51,7 @@ public extension MediaButtons {
             Button(action: {
                 Task {
                     if let playerID = await kodi.getPlayerID() {
-                        Player.goTo(playerID: playerID, action: .previous)
+                        Player.goTo(playerID: playerID, direction: .previous)
                     }
                 }
             }, label: {
@@ -72,8 +72,8 @@ public extension MediaButtons {
         public var body: some View {
             Button(action: {
                 Task {
-                    if let playerID = await kodi.getPlayerID() {
-                        Player.goTo(playerID: playerID, action: .next)
+                    if let playerID = kodi.player.currentItem?.playerID {
+                        Player.goTo(playerID: playerID, direction: .next)
                     }
                 }
             }, label: {
@@ -120,7 +120,7 @@ public extension MediaButtons {
         public var body: some View {
             Button(action: {
                 Task {
-                    if let playerID = await kodi.getPlayerID() {
+                    if let playerID = kodi.player.currentItem?.playerID {
                         Player.setShuffle(playerID: playerID)
                     }
                 }
@@ -143,7 +143,7 @@ public extension MediaButtons {
         public var body: some View {
             Button(action: {
                 Task {
-                    if let playerID = await kodi.getPlayerID() {
+                    if let playerID = kodi.player.currentItem?.playerID {
                         Player.setRepeat(playerID: playerID)
                     }
                 }

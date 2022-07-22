@@ -9,7 +9,7 @@ import Foundation
 
 public extension List.Item {
     
-    /// A file item
+    /// File item (SwiftlyKodi Type)
     struct File: Codable, Hashable {
         public var label: String
         public var file: String
@@ -24,7 +24,6 @@ public extension List.Item {
             case type
             case id
         }
-        
         /// FileType
         public enum FileType: String, Codable, Hashable {
             case directory
