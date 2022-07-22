@@ -65,7 +65,7 @@ extension KodiConnector {
                                        movieSets: video.movieSets,
                                        tvshows: video.tvshows,
                                        episodes: video.episodes,
-                                       musicVideos: video.musicVideos,
+                                       musicVideos: musicVideos,
                                        videoGenres: video.videoGenres
             )
         case .all:

@@ -140,7 +140,17 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
         }
         metaData.genre = episode.showTitle
         metaData.creationDate = episode.firstAired
-//    case let musicVideo as Video.Details.MusicVideo:
+    case let musicVideo as Video.Details.MusicVideo:
+        metaData.title = musicVideo.title
+        metaData.subtitle = musicVideo.subtitle
+        metaData.description = musicVideo.plot
+        if !musicVideo.art.poster.isEmpty, let data = try? Data(contentsOf: URL(string: Files.getFullPath(file: musicVideo.art.poster, type: .art))!) {
+            if let image = UIImage(data: data) {
+                metaData.artwork = image
+            }
+        }
+        metaData.genre = musicVideo.genre.joined(separator: " ∙ ")
+        metaData.creationDate = musicVideo.year.description
     default:
         break
     }
@@ -152,13 +162,6 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
         /// .iTunesMetadataContentRating: "100",
         .quickTimeMetadataGenre: metaData.genre,
         .quickTimeMetadataCreationDate: metaData.creationDate
-        //.commonIdentifierTitle: video.title,
-        //.iTunesMetadataTrackSubTitle: video.subtitle,
-        //.commonIdentifierArtwork: artData!.pngData() as Any,
-        //.commonIdentifierDescription: video.description,
-        /// .iTunesMetadataContentRating: "100",
-        //.quickTimeMetadataGenre: video.genres.joined(separator: "・"),
-        //.quickTimeMetadataCreationDate: video.releaseDate.kodiDate()
     ]
     return mapping.compactMap { createMetadataItem(for: $0, value: $1) }
 }

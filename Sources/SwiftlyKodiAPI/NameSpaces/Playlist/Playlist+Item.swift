@@ -19,8 +19,8 @@ extension Playlist {
         var file: String?
         /// Coding keys
         enum CodingKeys: String, CodingKey {
-            case songID = "songID"
-            case musicVideoID = "musicVideoID"
+            case songID = "songid"
+            case musicVideoID = "musicVideoid"
             case file
         }
     }
