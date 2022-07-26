@@ -32,6 +32,7 @@ extension KodiArt {
 }
 
 public extension KodiArt {
+    
     /// Poster of a ``KodiItem``
     struct Poster: View {
         let item: any KodiItem
@@ -42,14 +43,13 @@ public extension KodiArt {
             switch item {
             case let movie as Video.Details.Movie:
                 Art(file: movie.poster)
-//            case let tvshow as Video.Details.TVShow:
-//                await VideoLibrary.setTVShowDetails(tvshow: tvshow)
+
             case let episode as Video.Details.Episode:
                 Art(file: episode.art.seasonPoster)
             case let musicVideo as Video.Details.MusicVideo:
                 Art(file: musicVideo.art.poster)
-//            case let song as Audio.Details.Song:
-//                await AudioLibrary.setSongDetails(song: song)
+//            case let artist as Audio.Details.Artist:
+//                Art(file: artist.art.poster)
             /// A Stream has no poster
             case _ as Audio.Details.Stream:
                 Image(systemName: "dot.radiowaves.left.and.right")
@@ -82,6 +82,8 @@ public extension KodiArt {
 //                await VideoLibrary.setMusicVideoDetails(musicVideo: musicVideo)
 //            case let song as Audio.Details.Song:
 //                await AudioLibrary.setSongDetails(song: song)
+            case let artist as Audio.Details.Artist:
+                Art(file: artist.fanart)
             default:
                 Art(file: item.poster)
             }
@@ -99,7 +101,7 @@ public extension KodiArt {
         public var body: some View {
             AsyncImage(
                 url: URL(string: Files.getFullPath(file: file, type: .art)),
-                transaction: Transaction(animation: .easeInOut)
+                transaction: Transaction(animation: .easeInOut(duration: 0.1))
             ) { phase in
                 switch phase {
                 case .empty:

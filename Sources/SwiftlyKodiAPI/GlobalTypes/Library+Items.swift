@@ -33,5 +33,7 @@ public extension Library {
         public var musicVideos: [Video.Details.MusicVideo] = []
         /// The video genres in the library
         public var videoGenres: [Library.Details.Genre] = []
+        /// The state of the audio library
+        public var audioLibraryProperties = Audio.Property.Value()
     }
 }

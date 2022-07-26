@@ -57,6 +57,23 @@ extension AudioLibrary {
         return [Audio.Details.Song]()
     }
     
+    
+    /// Get all songs after a modification date
+    /// - Parameter from: The date as a Kodi string
+    /// - Returns: The ``Audio/Details/Song`` array after the modified date
+    public static func getSongs(modificationDate: String) async -> [Audio.Details.Song] {
+        logger("AudioLibrary.getSongs")
+        let kodi: KodiConnector = .shared
+        let request  = GetSongs(filter: List.Filter(field: .dateModified, operate: .greaterThan, value: modificationDate), limits: nil, sort: List.Sort())
+        
+        if let result = try? await kodi.sendRequest(request: request) {
+            logger("Loaded \(result.songs.count) songs from the Kodi host")
+            return result.songs
+        }
+        /// There are no songs after the modification date
+        return [Audio.Details.Song]()
+    }
+    
     /// Retrieve all songs  (Kodi API)
     fileprivate struct GetSongs: KodiAPI {
         /// The optional filter

@@ -9,10 +9,31 @@ import Foundation
 
 extension KodiConnector {
     
+    
+    func getUpdatedSongs() async {
+        let audioLibrary = await AudioLibrary.getProperties()
+        
+        if library.audioLibraryProperties.songsModified != audioLibrary.songsModified {
+            logger("Songs are modified")
+            
+            let songs = await AudioLibrary.getSongs(modificationDate: library.audioLibraryProperties.songsModified)
+            for song in songs {
+                if let index = library.songs.firstIndex(where: {$0.songID == song.songID}) {
+                    library.songs[index] = song
+                    logger("Updated \(song.title)")
+                }
+            }
+            await setLibraryCache()
+        }
+    }
+    
     func getLibraryUpdate(itemID: Library.id, media: Library.Media) {
         Task { @MainActor in
             switch media {
             case .song:
+                //logger("GET TIME")
+                library.audioLibraryProperties = await AudioLibrary.getProperties()
+                //logger("GET SONG")
                 if let index = library.songs.firstIndex(where: {$0.songID == itemID}) {
                     library.songs[index] = await AudioLibrary.getSongDetails(songID: itemID)
                 }
@@ -40,20 +61,5 @@ extension KodiConnector {
             /// Store the library in the cache
             await setLibraryCache()
         }
-    }
-    
-    @MainActor public func updateLibrary() async {
-        logger("Check for updates")
-        
-        let libraryUpdate = await getLibrary()
-        library = libraryUpdate
-        await setLibraryCache()
-        
-//        let updateSongs = await AudioLibrary.getSongs()
-//
-//        let update = updateSongs.difference(from: library.songs).unique(by: {$0.songID})
-//
-//        dump(update)
-
     }
 }

@@ -20,10 +20,12 @@ extension KodiConnector {
             //let songs = await AudioLibrary.getSongs(filter: List.Filter(artistID: 43), limits: List.Limits(end: 400, start: 100))
             async let songs = AudioLibrary.getSongs()
             async let audioGenres = AudioLibrary.getGenres()
+            async let audioLibraryProperties = AudioLibrary.getProperties()
             
             return await Library.Items(albums: albums,
-                                   songs: songs,
-                                   audioGenres: audioGenres
+                                       songs: songs,
+                                       audioGenres: audioGenres,
+                                       audioLibraryProperties: audioLibraryProperties
             )
         }
         
@@ -55,7 +57,8 @@ extension KodiConnector {
                                        albums: audio.albums,
                                        songs: audio.songs,
                                        audioGenres: audio.audioGenres,
-                                       musicVideos: musicVideos
+                                       musicVideos: musicVideos,
+                                       audioLibraryProperties: audio.audioLibraryProperties
             )
             
         case .video:

@@ -15,13 +15,14 @@ extension KodiConnector {
         host = kodiHost
         connectWebSocket()
         setState(.loadingLibrary)
-        
         /// Get the properties of the host
-        
         properties = await Application.getProperties()
         
         if let libraryItems = Cache.get(key: "MyLibrary", as: Library.Items.self) {
             library = libraryItems
+            if host.media == .audio {
+                await getUpdatedSongs()
+            }
         } else {
             library = await getLibrary()
             await setLibraryCache()

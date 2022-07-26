@@ -43,12 +43,25 @@ extension KodiConnector {
     private func stateAction(state: State) {
         switch state {
         case .sleeping:
+            sleepTime = Date()
             disconnectWebSocket()
         case .wakeup:
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            //newItem.lastPlayed = dateFormatter.string(from: Date())
+            
+            print("Sleeping time: \(dateFormatter.string(from: sleepTime))")
+            print("Now its \(Date())")
+            
             connectWebSocket()
             Task {
                 await getPlayerState()
                 await getCurrentPlaylist()
+                
+                if host.media == .audio {
+                    await getUpdatedSongs()
+                }
             }
         default:
             break
