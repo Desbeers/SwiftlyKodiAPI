@@ -21,17 +21,21 @@ extension KodiConnector {
     /// The state of the KodiConnector class
     public enum State: String {
         /// Not connected and no host
-        case none
+        case none = "Not connected to the host"
         /// Connected to the Kodi websocket
-        case connectedToWebSocket = "Connected to the websocket"
+        case connectedToWebSocket = "Connected to the host"
         /// Loading the library
-        case loadingLibrary = "Loading the library"
+        case loadingLibrary = "Loading the library..."
+        /// Updating the library
+        case updatingLibrary = "Updating the library"
         /// The library is  loaded
         case loadedLibrary = "Loaded the library"
+        /// The library is  outdated
+        case outdatedLibrary = "Library is outdated"
         /// The device is sleeping
-        case sleeping = "The device is going to sleep"
+        case sleeping = "Sleeping"
         /// The device is waking up
-        case wakeup = "The device is waking-up"
+        case wakeup = "Waking-up"
         /// An error when loading the library or a lost of connection
         case failure
         /// KodiConnector has no host configuration
@@ -43,24 +47,15 @@ extension KodiConnector {
     private func stateAction(state: State) {
         switch state {
         case .sleeping:
-            sleepTime = Date()
             disconnectWebSocket()
         case .wakeup:
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            //newItem.lastPlayed = dateFormatter.string(from: Date())
-            
-            print("Sleeping time: \(dateFormatter.string(from: sleepTime))")
-            print("Now its \(Date())")
-            
             connectWebSocket()
             Task {
                 await getPlayerState()
                 await getCurrentPlaylist()
                 
                 if host.media == .audio {
-                    await getUpdatedSongs()
+                    await getAudioLibraryUpdates()
                 }
             }
         default:

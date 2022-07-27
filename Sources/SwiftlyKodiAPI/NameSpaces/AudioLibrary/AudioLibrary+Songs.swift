@@ -11,7 +11,7 @@ import Foundation
 
 extension AudioLibrary {
     
-    /// Retrieve all songs  (Kodi API)
+    /// Retrieve all songs (Kodi API)
     ///
     /// ## Limitations
     ///
@@ -58,8 +58,8 @@ extension AudioLibrary {
     }
     
     
-    /// Get all songs after a modification date
-    /// - Parameter from: The date as a Kodi string
+    /// Retrieve all songs after a modification date (Kodi API)
+    /// - Parameter modificationDate: The date as a Kodi string
     /// - Returns: The ``Audio/Details/Song`` array after the modified date
     public static func getSongs(modificationDate: String) async -> [Audio.Details.Song] {
         logger("AudioLibrary.getSongs")
@@ -74,7 +74,7 @@ extension AudioLibrary {
         return [Audio.Details.Song]()
     }
     
-    /// Retrieve all songs  (Kodi API)
+    /// Retrieve all songs (Kodi API)
     fileprivate struct GetSongs: KodiAPI {
         /// The optional filter
         let filter: List.Filter?
@@ -119,10 +119,7 @@ extension AudioLibrary {
         let request = AudioLibrary.GetSongDetails(songID: songID)
         do {
             let result = try await kodi.sendRequest(request: request)
-            
             return result.songdetails
-            /// Make a MediaItem from the KodiResonse and return it
-            //return kodi.setMediaItem(items: [result.songdetails], media: .song).first ?? MediaItem()
         } catch {
             logger("Loading song details failed with error: \(error)")
             return Audio.Details.Song()

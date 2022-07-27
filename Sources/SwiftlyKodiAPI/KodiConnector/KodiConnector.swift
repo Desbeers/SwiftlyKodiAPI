@@ -24,8 +24,6 @@ public final class KodiConnector: ObservableObject {
     var kodiConnectorID: String
     /// Debounced tasks
     var task = Tasks()
-    /// Sleep time, to check the library on wakeup
-    var sleepTime = Date()
     
     // MARK: Published properties
 

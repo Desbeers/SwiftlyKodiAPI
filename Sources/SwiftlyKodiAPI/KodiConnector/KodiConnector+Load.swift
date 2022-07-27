@@ -21,28 +21,31 @@ extension KodiConnector {
         if let libraryItems = Cache.get(key: "MyLibrary", as: Library.Items.self) {
             library = libraryItems
             if host.media == .audio {
-                await getUpdatedSongs()
+                await getAudioLibraryUpdates()
+            } else {
+                setState(.loadedLibrary)
             }
         } else {
             library = await getLibrary()
             await setLibraryCache()
+            setState(.loadedLibrary)
         }
         
         /// Get Playlists
-        
         library.audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
         
         /// Get the state of the player
         await getPlayerState()
         /// Get all items in the playlist
         await getCurrentPlaylist()
-        setState(.loadedLibrary)
     }
     
     /// Reload the library from the Kodi host
     @MainActor public func reloadHost() async {
         setState(.loadingLibrary)
         library = await getLibrary()
+        /// Get Playlists
+        library.audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
         await setLibraryCache()
         setState(.loadedLibrary)
     }

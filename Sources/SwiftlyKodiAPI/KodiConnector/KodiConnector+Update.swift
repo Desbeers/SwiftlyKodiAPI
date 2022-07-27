@@ -10,30 +10,47 @@ import Foundation
 extension KodiConnector {
     
     
-    func getUpdatedSongs() async {
-        let audioLibrary = await AudioLibrary.getProperties()
+    @MainActor func getAudioLibraryUpdates() async {
+        let dates = await AudioLibrary.getProperties()
         
-        if library.audioLibraryProperties.songsModified != audioLibrary.songsModified {
-            logger("Songs are modified")
-            
-            let songs = await AudioLibrary.getSongs(modificationDate: library.audioLibraryProperties.songsModified)
-            for song in songs {
-                if let index = library.songs.firstIndex(where: {$0.songID == song.songID}) {
-                    library.songs[index] = song
-                    logger("Updated \(song.title)")
+        if dates != library.audioLibraryProperties {
+            setState(.updatingLibrary)
+            if library.audioLibraryProperties.songsModified != dates.songsModified {
+                logger("Songs are modified")
+                /// Update the songs
+                let songs = await AudioLibrary.getSongs(modificationDate: library.audioLibraryProperties.songsModified)
+                for song in songs {
+                    if let index = library.songs.firstIndex(where: {$0.songID == song.songID}) {
+                        library.songs[index] = song
+                        logger("Updated \(song.title)")
+                    }
                 }
+                /// Store the date
+                library.audioLibraryProperties.songsModified = dates.songsModified
             }
+            if library.audioLibraryProperties.artistsModified != dates.artistsModified {
+                logger("Artists are modified")
+            }
+            
+            /// Store the library in the cache
             await setLibraryCache()
         }
+        /// Set the state
+        setState(dates == library.audioLibraryProperties ? State.loadedLibrary : State.outdatedLibrary)
     }
     
     func getLibraryUpdate(itemID: Library.id, media: Library.Media) {
         Task { @MainActor in
             switch media {
+            case .artist:
+                let dates = await AudioLibrary.getProperties()
+                library.audioLibraryProperties.artistsModified = dates.artistsModified
+                if let index = library.artists.firstIndex(where: {$0.artistID == itemID}) {
+                    library.artists[index] = await AudioLibrary.getArtistDetails(artistID: itemID)
+                }
             case .song:
-                //logger("GET TIME")
-                library.audioLibraryProperties = await AudioLibrary.getProperties()
-                //logger("GET SONG")
+                let dates = await AudioLibrary.getProperties()
+                library.audioLibraryProperties.songsModified = dates.songsModified
                 if let index = library.songs.firstIndex(where: {$0.songID == itemID}) {
                     library.songs[index] = await AudioLibrary.getSongDetails(songID: itemID)
                 }

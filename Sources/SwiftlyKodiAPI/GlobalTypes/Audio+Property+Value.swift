@@ -10,7 +10,7 @@ import Foundation
 public extension Audio.Property {
     
     /// Values for audio properties
-    struct Value: Codable {
+    struct Value: Codable, Equatable {
         public var albumsLastAdded: String = ""
         public var albumsModified: String = ""
         public var artistLinksUpdated: String = ""

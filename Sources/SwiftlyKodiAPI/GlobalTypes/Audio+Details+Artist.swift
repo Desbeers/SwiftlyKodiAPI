@@ -59,7 +59,7 @@ public extension Audio.Details {
         public var roles: [Audio.Artist.Roles] = []
         public var songGenres: [Audio.Details.Genres] = []
         public var sortName: String = ""
-        public var sourceID: [Int] = []
+        //public var sourceID: [Int] = []
         public var style: [String] = []
         public var type: String = ""
         public var yearsActive: [String] = []
@@ -96,7 +96,7 @@ public extension Audio.Details {
             case roles
             case songGenres = "songgenres"
             case sortName = "sortname"
-            case sourceID = "sourceid"
+            //case sourceID = "sourceid"
             case style
             case type
             case yearsActive = "yearsactive"
@@ -131,7 +131,7 @@ public extension Audio.Details.Artist {
         self.roles = try container.decodeIfPresent([Audio.Artist.Roles].self, forKey: Audio.Details.Artist.CodingKeys.roles) ?? []
         self.songGenres = try container.decode([Audio.Details.Genres].self, forKey: Audio.Details.Artist.CodingKeys.songGenres)
         self.sortName = try container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.sortName)
-        self.sourceID = try container.decode([Int].self, forKey: Audio.Details.Artist.CodingKeys.sourceID)
+        //self.sourceID = try container.decode([Int].self, forKey: Audio.Details.Artist.CodingKeys.sourceID)
         self.style = try container.decode([String].self, forKey: Audio.Details.Artist.CodingKeys.style)
         self.type = try container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.type)
         self.yearsActive = try container.decode([String].self, forKey: Audio.Details.Artist.CodingKeys.yearsActive)

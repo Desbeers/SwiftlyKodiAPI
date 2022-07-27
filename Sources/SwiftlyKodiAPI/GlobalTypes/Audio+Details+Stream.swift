@@ -11,6 +11,7 @@ public extension Audio.Details {
     
     /// Stream details
     struct Stream: KodiItem {
+        /// Init the audio stream
         public init(id: Int = 1, media: Library.Media = .stream, station: String = "", description: String = "", title: String = "", subtitle: String = "", poster: String = "", playcount: Int = 0, lastPlayed: String = "", userRating: Int = 0, fanart: String = "", file: String = "") {
             self.id = id
             self.media = media
@@ -26,38 +27,26 @@ public extension Audio.Details {
             self.file = file
         }
         
+        /// # Calculated variables
+        
         /// The search string
-        public var search: String {
-            "\(title)"
-        }
-        
-        public var id: Int = 1
-        
-        public var media: Library.Media = .stream
-        
-        public var station: String = ""
-        
-        public var description: String = ""
-        
-        public var title: String = ""
-        
-        public var subtitle: String = ""
-        
+        public var search: String { title }
         public var sortByTitle: String { title }
         
-        public var poster: String = ""
-
-        
-        public var playcount: Int = 0
-        
-        public var lastPlayed: String = ""
-        
-        public var userRating: Int = 0
-        
-        public var fanart: String = ""
-        
-        public var file: String = ""
-        
+        /// # Audio.Details.Stream
+        ///
+        public var id: Int
+        public var media: Library.Media
+        public var station: String
+        public var description: String
+        public var title: String
+        public var subtitle: String
+        public var poster: String
+        public var playcount: Int
+        public var lastPlayed: String
+        public var userRating: Int
+        public var fanart: String
+        public var file: String
     }
 }
 
@@ -65,7 +54,7 @@ public extension Audio.Details {
 
 extension Audio.Details.Stream {
     
-    /// Play stream
+    /// Play an audio stream
     public func play() {
         Task {
             Playlist.clear(playlistID: .audio)
