@@ -16,6 +16,9 @@ public extension List.Item {
         public var fileType: FileType
         public var type: Library.Media
         public var id: Int?
+        public var title: String {
+            label.components(separatedBy: ".").first ?? label
+        }
         /// Coding keys
         enum CodingKeys: String, CodingKey {
             case label
