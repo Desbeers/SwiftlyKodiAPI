@@ -41,7 +41,6 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError: Error?) {
         if let error = didCompleteWithError {
             logger("Network error: \(error.localizedDescription)")
-            //let appState: AppState = .shared
             let kodi: KodiConnector = .shared
             Task {
                 await kodi.setState(.failure)
@@ -55,7 +54,6 @@ extension KodiConnector {
     /// Connect the WebSocket
     /// - Note:
     ///     On iOS, disconnect before going to the background or else Apple will be really upset.
-    ///     I use `@Environment(\.scenePhase)` to keep an eye on that
     func connectWebSocket() {
         //let appState: AppState = .shared
         let url = URL(string: "ws://\(host.ip):\(host.tcp)/jsonrpc")!

@@ -11,5 +11,5 @@ import Foundation
 struct Tasks {
     var getCurrentPlaylist = Debouncer(duration: 2)
     var setLibraryCache = Debouncer(duration: 10)
-    var getPlayerState = Debouncer(duration: 2)
+    var getPlayerState = Debouncer(duration: 4)
 }

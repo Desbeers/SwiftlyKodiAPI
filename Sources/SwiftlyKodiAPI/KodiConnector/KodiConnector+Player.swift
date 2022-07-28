@@ -31,10 +31,10 @@ extension KodiConnector {
                 player.currentItem = await Player.getItem(playerID: playerID)
                 
                 /// Keep an eye on the player if it is streaming
-                if player.currentItem?.media == .stream {
+                if player.currentItem?.media != Library.Media.none {
                     Task {
                         logger("Check stream")
-                        try await Task.sleep(nanoseconds: 5_000_000_000)
+                        //try await Task.sleep(nanoseconds: 2_000_000_000)
                         await getPlayerState()
                     }
                 }

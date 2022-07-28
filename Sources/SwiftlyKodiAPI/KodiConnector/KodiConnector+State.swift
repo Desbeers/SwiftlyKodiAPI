@@ -51,9 +51,8 @@ extension KodiConnector {
         case .wakeup:
             connectWebSocket()
             Task {
-                await getPlayerState()
                 await getCurrentPlaylist()
-                
+                await getPlayerState()
                 if host.media == .audio {
                     await getAudioLibraryUpdates()
                 }

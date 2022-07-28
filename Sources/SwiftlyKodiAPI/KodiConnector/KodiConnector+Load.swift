@@ -44,10 +44,18 @@ extension KodiConnector {
     @MainActor public func reloadHost() async {
         setState(.loadingLibrary)
         library = await getLibrary()
+        library.audioLibraryProperties = await AudioLibrary.getProperties()
         /// Get Playlists
         library.audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
+        
+        if host.media == .audio {
+            await getAudioLibraryUpdates()
+        } else {
+            setState(.loadedLibrary)
+        }
+        
         await setLibraryCache()
-        setState(.loadedLibrary)
+        //setState(.loadedLibrary)
     }
 }
 
