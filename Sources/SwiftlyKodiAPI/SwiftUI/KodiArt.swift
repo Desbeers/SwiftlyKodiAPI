@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 
 /// SwiftUI Views for Kodi art (SwiftlyKodi Type)
@@ -99,25 +100,27 @@ public extension KodiArt {
             self.file = file
         }
         public var body: some View {
-            AsyncImage(
-                url: URL(string: Files.getFullPath(file: file, type: .art)),
-                transaction: Transaction(animation: .easeInOut(duration: 0.1))
-            ) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView()
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .transition(.opacity)
-                case .failure:
-                    //Image(systemName: "photo")
-                    Color.black
-                @unknown default:
-                    EmptyView()
-                }
-            }
+            KFImage(URL(string: Files.getFullPath(file: file, type: .art))!)
+                .resizable()
+//            AsyncImage(
+//                url: URL(string: Files.getFullPath(file: file, type: .art)),
+//                transaction: Transaction(animation: .easeInOut(duration: 0.1))
+//            ) { phase in
+//                switch phase {
+//                case .empty:
+//                    ProgressView()
+//                case .success(let image):
+//                    image
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .transition(.opacity)
+//                case .failure:
+//                    //Image(systemName: "photo")
+//                    Color.black
+//                @unknown default:
+//                    EmptyView()
+//                }
+//            }
         }
     }
 }
