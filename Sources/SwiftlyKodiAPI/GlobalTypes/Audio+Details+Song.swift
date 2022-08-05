@@ -11,7 +11,7 @@ public extension Audio.Details {
     
     /// Song details
     struct Song: KodiItem {
-        
+
         /// # Calculated variables
         
         public var id: Int { songID }

@@ -17,6 +17,8 @@ extension KodiConnector {
         setState(.loadingLibrary)
         /// Get the properties of the host
         properties = await Application.getProperties()
+        /// Send the properties to the KodiPlayer Class
+        KodiPlayer.shared.setApplicationProperties(properties: properties)
         
         if let libraryItems = Cache.get(key: "MyLibrary", as: Library.Items.self) {
             library = libraryItems
@@ -35,9 +37,10 @@ extension KodiConnector {
         library.audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
         
         /// Get the state of the player
-        await getPlayerState()
+        await KodiPlayer.shared.getPlayerProperties()
+        await KodiPlayer.shared.getPlayerItem()
         /// Get all items in the playlist
-        await getCurrentPlaylist()
+        await KodiPlayer.shared.getCurrentPlaylist()
     }
     
     /// Reload the library from the Kodi host

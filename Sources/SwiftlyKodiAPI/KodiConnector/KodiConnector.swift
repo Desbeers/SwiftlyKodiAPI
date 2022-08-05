@@ -22,6 +22,8 @@ public final class KodiConnector: ObservableObject {
     var host = HostItem()
     /// ID of this Kodi Connector instance; used to send  notifications
     var kodiConnectorID: String
+    /// The host properties
+    public var properties = Application.Property.Value()
     /// Debounced tasks
     var task = Tasks()
     
@@ -29,10 +31,6 @@ public final class KodiConnector: ObservableObject {
 
     /// The state of the KodiConnector class
     @Published public var state: State = .none
-    /// The state of the player
-    @Published public var player = Player.State()
-    /// The host properties
-    @Published public var properties = Application.Property.Value()
     /// The library on the Kodi host
     @Published public var library = Library.Items()
     
@@ -61,7 +59,7 @@ public final class KodiConnector: ObservableObject {
             if self.state == .sleeping {
                 Task {
                     /// Get the state of the player
-                    await self.getPlayerState()
+                    //await self.getPlayerState()
                     await self.setState(.wakeup)
                 }
             }

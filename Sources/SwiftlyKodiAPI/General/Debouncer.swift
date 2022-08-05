@@ -29,3 +29,13 @@ actor Debouncer {
         try await Task.sleep(nanoseconds: UInt64(duration * TimeInterval(NSEC_PER_SEC)))
     }
 }
+
+/// Debounce functions
+struct Tasks {
+    var getCurrentPlaylist = Debouncer(duration: 2)
+    var setLibraryCache = Debouncer(duration: 10)
+    var getPlayerState = Debouncer(duration: 4)
+    
+    var getPlayerProperties = Debouncer(duration: 2)
+    var getPlayerItem = Debouncer(duration: 2)
+}

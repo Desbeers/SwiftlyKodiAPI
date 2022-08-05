@@ -50,7 +50,7 @@ extension KodiItem {
 
 extension KodiItem {
     public var playlistID: Int? {
-        if let index = KodiConnector.shared.player.audioPlaylist?.firstIndex(where: {$0.id == id}) {
+        if let index = KodiPlayer.shared.audioPlaylist?.firstIndex(where: {$0.id == id}) {
             return index
         }
         return nil

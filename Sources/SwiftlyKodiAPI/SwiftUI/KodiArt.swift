@@ -49,8 +49,8 @@ public extension KodiArt {
                 Art(file: episode.art.seasonPoster)
             case let musicVideo as Video.Details.MusicVideo:
                 Art(file: musicVideo.art.poster)
-//            case let artist as Audio.Details.Artist:
-//                Art(file: artist.art.poster)
+            case let artist as Audio.Details.Artist:
+                Art(file: item.poster, fallback: "person")
             /// A Stream has no poster
             case _ as Audio.Details.Stream:
                 Image(systemName: "dot.radiowaves.left.and.right")
@@ -84,7 +84,7 @@ public extension KodiArt {
 //            case let song as Audio.Details.Song:
 //                await AudioLibrary.setSongDetails(song: song)
             case let artist as Audio.Details.Artist:
-                Art(file: artist.fanart)
+                Art(file: artist.fanart, fallback: "person")
             default:
                 Art(file: item.poster)
             }
@@ -96,12 +96,23 @@ public extension KodiArt {
     /// - Note:It will be converted to a 'full' url string
     struct Art: View {
         let file: String
-        public init(file: String) {
+        let fallback: String
+        public init(file: String, fallback: String = "questionmark") {
             self.file = file
+            self.fallback = fallback
         }
         public var body: some View {
+            
             KFImage(URL(string: Files.getFullPath(file: file, type: .art))!)
+            #if os(macOS)
+                .onFailureImage(KFCrossPlatformImage(systemSymbolName: fallback, accessibilityDescription: "Image not found"))
+            #endif
+                .onFailure { e in
+                    // e: KingfisherError
+                    print("failure: \(e)")
+                }
                 .resizable()
+                .aspectRatio(contentMode: .fit)
 //            AsyncImage(
 //                url: URL(string: Files.getFullPath(file: file, type: .art)),
 //                transaction: Transaction(animation: .easeInOut(duration: 0.1))

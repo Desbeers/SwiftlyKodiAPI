@@ -8,7 +8,7 @@
 import Foundation
 
 /// Get and set structs to the cache directory
-enum Cache {
+public enum Cache {
 
     /// Get a struct from the cache
     /// - Parameters:
@@ -16,7 +16,7 @@ enum Cache {
     ///   - as: The struct to use for decoding
     ///   - root: Get it from the root folder; if false, it will get it from the Host IP folder
     /// - Returns: decoded cache item
-    static func get<T: Codable>(key: String, as: T.Type, root: Bool = false) -> T? {
+    public static func get<T: Codable>(key: String, as: T.Type, root: Bool = false) -> T? {
         let file = self.path(for: key, root: root)
         guard let data = try? Data(contentsOf: file) else {
             return nil
@@ -35,7 +35,7 @@ enum Cache {
     ///   - object:Tthe struct to save
     ///   - root: Store it in the root folder; if false, it will store it in the Host IP folder
     /// - Throws: an error if it can't be saved
-    static func set<T: Codable>(key: String, object: T, root: Bool = false) throws {
+    public static func set<T: Codable>(key: String, object: T, root: Bool = false) throws {
         let file = self.path(for: key, root: root)
         let archivedValue = try JSONEncoder().encode(object)
         try archivedValue.write(to: file)

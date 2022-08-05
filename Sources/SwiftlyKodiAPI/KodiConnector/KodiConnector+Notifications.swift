@@ -52,26 +52,31 @@ extension KodiConnector {
     /// - Parameter notification: The received notification
     func notificationAction(notification: Notifications.Item) async {
         
+        logger(notification.method.rawValue)
+        
         switch notification.method {
 
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
             getLibraryUpdate(itemID: notification.itemID, media: notification.media)
-            await getCurrentPlaylist()
-//        case .playlistOnAdd, .playlistOnClear:
+            await KodiPlayer.shared.getCurrentPlaylist()
+        case .playlistOnAdd,.playlistOnRemove, .playlistOnClear:
+            await KodiPlayer.shared.getCurrentPlaylist()
 //            await getCurrentPlaylist()
 //            //break
         case .applicationOnVolumeChanged:
-            Task { @MainActor in
+            Task {
                 properties = await Application.getProperties()
+                await KodiPlayer.shared.setApplicationProperties(properties: properties)
             }
         case .playerOnPropertyChanged, .playerOnPause, .playerOnResume:
-            Task { @MainActor in
-                player.properies = await Player.getProperties(playerID: notification.playerID)
-            }
+            await KodiPlayer.shared.setProperties(properties: await Player.getProperties(playerID: notification.playerID))
+        case .playerOnSeek:
+            await KodiPlayer.shared.getPlayerProperties()
         default:
             //logger("Default actions after notification")
-            await getPlayerState()
-            await getCurrentPlaylist()
+            await KodiPlayer.shared.getPlayerProperties()
+            await KodiPlayer.shared.getPlayerItem()
+            //await KodiPlayer.shared.getCurrentPlaylist()
         }
     }
 }

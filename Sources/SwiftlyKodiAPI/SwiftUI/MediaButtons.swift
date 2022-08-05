@@ -9,7 +9,9 @@ import SwiftUI
 
 /// SwiftUI media buttons (SwiftlyKodi Type)
 ///
-/// - Note: They are smart and will be disabled when not available
+/// The Views require to have the ``KodiPlayer`` Observable Class in the 'environment' or else your Application will crash
+///
+/// - Note: The buttons are smart and will be disabled when not applicable
 public enum MediaButtons {
     /// Just a placeholder
 }
@@ -24,20 +26,20 @@ public extension MediaButtons {
     /// - Player is playing: do method .playerPlayPause to play
     /// - Player is stopped: do method .playerOpen to start the playlist
     struct PlayPause: View {
-        @EnvironmentObject var kodi: KodiConnector        
-        public init() { }
+        @EnvironmentObject var player: KodiPlayer
+        public init() {}
         public var body: some View {
             Button(action: {
                 Task {
-                    if let playerID = kodi.player.currentItem?.playerID {
+                    if let playerID = player.currentItem?.playerID {
                         Player.playPause(playerID: playerID)
                     }
                 }
             }, label: {
-                Label("Play", systemImage: kodi.player.properies.speed == 1 ? "pause.fill" : "play.fill")
+                Label("Play", systemImage: player.properties.speed == 1 ? "pause.fill" : "play.fill")
             })
-            .disabled(kodi.player.currentItem == nil)
-            .help(kodi.player.properies.speed == 1 ? "Pause your playlist" : kodi.player.properies.playlistPosition == -1 ? "Start your playlist" : "Continue playing your playlist")
+            .disabled(player.currentItem == nil)
+            .help(player.properties.speed == 1 ? "Pause your playlist" : player.properties.playlistPosition == -1 ? "Start your playlist" : "Continue playing your playlist")
         }
     }
 
@@ -45,34 +47,34 @@ public extension MediaButtons {
     ///
     /// - Note: Kodi is a bit weird; going to 'previous' goes to the beginning of an item when it played for a while; else it reallly goes to the previous item
     struct PlayPrevious: View {
-        @EnvironmentObject var kodi: KodiConnector
+        @EnvironmentObject var player: KodiPlayer
         public init() {}
         public var body: some View {
             Button(action: {
                 Task {
-                    if let playerID = await kodi.getPlayerID() {
+                    if let playerID = player.currentItem?.playerID {
                         Player.goTo(playerID: playerID, direction: .previous)
                     }
                 }
             }, label: {
                 Label("Previous", systemImage: "backward.fill")
             })
-            .disabled(kodi.player.properies.playlistPosition == -1)
+            .disabled(player.properties.playlistPosition == -1)
             /// You can't go back an item when in party mode
-            .disabled(kodi.player.properies.partymode)
+            .disabled(player.properties.partymode)
             /// Only songs can 'goto'
-            .disabled(kodi.player.currentItem?.media != .song)
+            .disabled(player.currentItem?.media != .song)
         }
     }
     
     /// Play the next item
     struct PlayNext: View {
-        @EnvironmentObject var kodi: KodiConnector
+        @EnvironmentObject var player: KodiPlayer
         public init() {}
         public var body: some View {
             Button(action: {
                 Task {
-                    if let playerID = kodi.player.currentItem?.playerID {
+                    if let playerID = player.currentItem?.playerID {
                         Player.goTo(playerID: playerID, direction: .next)
                     }
                 }
@@ -82,9 +84,9 @@ public extension MediaButtons {
             /// Disable when playing the last item
             //.disabled((kodi.player.properies.playlistPosition) + 1 ==  kodi.player.properies.playlistID == .audio ?   kodi.queue?.count)
             /// Disable when not playing
-            .disabled(kodi.player.properies.playlistPosition == -1)
+            .disabled(player.properties.playlistPosition == -1)
             /// Only songs can 'goto'
-            .disabled(kodi.player.currentItem?.media != .song)
+            .disabled(player.currentItem?.media != .song)
         }
     }
     
@@ -92,12 +94,12 @@ public extension MediaButtons {
     ///
     /// - Note: This will set 'Party Mode' for audio, I don't see a use of videos for this
     struct SetPartyMode: View {
-        @EnvironmentObject var kodi: KodiConnector
+        @EnvironmentObject var player: KodiPlayer
         public init() {}
         public var body: some View {
             Button(action: {
                 Task {
-                    if kodi.player.properies.partymode {
+                    if player.properties.partymode {
                         Player.setPartyMode(playerID: .audio)
                     } else {
                         Player.open(partyMode: .music)
@@ -105,63 +107,63 @@ public extension MediaButtons {
                 }
             }, label: {
                 Label("Party Mode", systemImage: "wand.and.stars.inverse")
-                    .foregroundColor(kodi.player.properies.partymode ? .white : .none)
+                    .foregroundColor(player.properties.partymode ? .white : .none)
             })
             .background(RoundedRectangle(cornerRadius: 4)
-                .fill(kodi.player.properies.partymode  ? Color.red : Color.clear))
+                .fill(player.properties.partymode  ? Color.red : Color.clear))
             .help("Music party mode")
         }
     }
     
     /// Toggle shuffle button
     struct SetShuffle: View {
-        @EnvironmentObject var kodi: KodiConnector
+        @EnvironmentObject var player: KodiPlayer
         public init() {}
         public var body: some View {
             Button(action: {
                 Task {
-                    if let playerID = kodi.player.currentItem?.playerID {
+                    if let playerID = player.currentItem?.playerID {
                         Player.setShuffle(playerID: playerID)
                     }
                 }
             }, label: {
                 Label("Shuffle", systemImage: "shuffle")
-                    .foregroundColor(kodi.player.properies.shuffled ? .white : .none)
+                    .foregroundColor(player.properties.shuffled ? .white : .none)
             })
             
             .background(RoundedRectangle(cornerRadius: 4)
-                .fill(kodi.player.properies.shuffled ? Color.accentColor : Color.clear))
-            .disabled(kodi.player.properies.partymode)
-            .disabled(!kodi.player.properies.canShuffle)
+                .fill(player.properties.shuffled ? Color.accentColor : Color.clear))
+            .disabled(player.properties.partymode)
+            .disabled(!player.properties.canShuffle)
         }
     }
     
     /// Toggle repeat button
     struct SetRepeat: View {
-        @EnvironmentObject var kodi: KodiConnector
+        @EnvironmentObject var player: KodiPlayer
         public init() {}
         public var body: some View {
             Button(action: {
                 Task {
-                    if let playerID = kodi.player.currentItem?.playerID {
+                    if let playerID = player.currentItem?.playerID {
                         Player.setRepeat(playerID: playerID)
                     }
                 }
             }, label: {
                 Label("Repeat", systemImage: repeatingIcon)
-                    .foregroundColor(kodi.player.properies.repeating == .off ? .none : .white)
+                    .foregroundColor(player.properties.repeating == .off ? .none : .white)
             })
             .background(RoundedRectangle(cornerRadius: 4)
-                .fill(kodi.player.properies.repeating  == .off ? .clear : .accentColor))
-            .disabled(kodi.player.properies.partymode)
-            .disabled(!kodi.player.properies.canRepeat)
+                .fill(player.properties.repeating  == .off ? .clear : .accentColor))
+            .disabled(player.properties.partymode)
+            .disabled(!player.properties.canRepeat)
         }
         /// The icon to show for 'repeat'
         var repeatingIcon: String {
             /// Standard icon for 'repeat'
             var icon = "repeat"
             /// Overrule if needed
-            if kodi.player.properies.repeating == .one {
+            if player.properties.repeating == .one {
                 icon = "repeat.1"
             }
             return icon
@@ -171,9 +173,8 @@ public extension MediaButtons {
     #if !os(tvOS)
     /// Volume slider
     struct VolumeSlider: View  {
-        @EnvironmentObject var kodi: KodiConnector
+        @EnvironmentObject var player: KodiPlayer
         public init() {}
-        //@State private var volume: Double = 0
         public var body: some View {
             Label {
                 Text("Volume")
@@ -186,18 +187,18 @@ public extension MediaButtons {
                             }
                         },
                         label: {
-                            Image(systemName: kodi.properties.muted ? "speaker.slash.fill" : "speaker.fill")
-                                .foregroundColor(kodi.properties.muted ? .red : .primary)
+                            Image(systemName: player.muted ? "speaker.slash.fill" : "speaker.fill")
+                                .foregroundColor(player.muted ? .red : .primary)
                         }
                     )
                     .font(.caption)
                     /// - Note: Using 'onEditingChanged' because that will only be trickered when using the slider
                     ///         and not when programmaticly changing its value after a notification.
-                    Slider(value: $kodi.properties.volume, in: 0...100,
+                    Slider(value: $player.volume, in: 0...100,
                            onEditingChanged: { _ in
-                        logger("Volume changed: \(kodi.properties.volume)")
+                        logger("Volume changed: \(player.volume)")
                         Task {
-                            await Application.setVolume(volume: kodi.properties.volume)
+                            await Application.setVolume(volume: player.volume)
                         }
                     })
                     Image(systemName: "speaker.wave.3.fill")
@@ -208,20 +209,4 @@ public extension MediaButtons {
         }
     }
     #endif
-    
-    /// Debug button
-    struct Debug: View {
-        @EnvironmentObject var kodi: KodiConnector
-        public init() {}
-        public var body: some View {
-            Button(action: {
-                Task {
-                    await Player.getItem(playerID: .audio)
-                }
-            }, label: {
-                Text("Debug")
-            })
-        }
-    }
 }
-

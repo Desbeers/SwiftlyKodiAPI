@@ -30,7 +30,7 @@ extension Array where Element == Audio.Details.Song {
     public func play(shuffle: Bool = false) {
         Task {
             /// Make sure party mode is off
-            if KodiConnector.shared.player.properies.partymode {
+            if KodiPlayer.shared.properties.partymode {
                 Player.setPartyMode(playerID: .audio)
             }
             Playlist.clear(playlistID: .audio)

@@ -1,5 +1,5 @@
 //
-//  PlayerView.swift
+//  KodiPlayerView.swift
 //  Komodio
 //
 //  Created by Nick Berendsen on 26/02/2022.

@@ -45,8 +45,7 @@ public extension KodiItem {
         /// Set or reset the last played date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        newItem.lastPlayed = newItem.playcount == 0 ? "1900-01-01 00:00:00" : dateFormatter.string(from: Date())
-        
+        newItem.lastPlayed = newItem.playcount == 0 ? "2000-01-01 00:00:00" : dateFormatter.string(from: Date())
         switch self.media {
         case .tvshow:
             /// Update the episodes with the new playcount
