@@ -10,7 +10,7 @@ import Foundation
 /// Host information to make a remote connection (SwiftlyKodi Type)
 public struct HostItem: Codable, Identifiable, Hashable {
     /// Give it an ID
-    public var id: UUID
+    public var id: String { ip }
     /// Description of the host
     public var description: String
     /// IP of the host
@@ -25,9 +25,18 @@ public struct HostItem: Codable, Identifiable, Hashable {
     public var password: String
     /// Kind of media to load
     public var media: Media
+    
+    /// Bool if the host is online
+    
+    public var isOnline: Bool {
+        if KodiConnector.shared.onlineHosts.first(where: {$0.ip == ip}) != nil {
+            return true
+        }
+        return false
+    }
+    
     /// Init the Host struct
-    public init(id: UUID = UUID(),
-                description: String = "Kodi",
+    public init(description: String = "Kodi",
                 ip: String = "192.168.11.200",
                 port: String = "8080",
                 tcp: String = "9090",
@@ -35,7 +44,6 @@ public struct HostItem: Codable, Identifiable, Hashable {
                 password: String = "kodi",
                 media: Media = .video
     ) {
-        self.id = id
         self.description = description
         self.ip = ip
         self.port = port

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Network
 
 /// The Class that provides the connection with a remote host (SwiftlyKodi Type)
 public final class KodiConnector: ObservableObject {
@@ -19,20 +20,33 @@ public final class KodiConnector: ObservableObject {
     /// The WebSocket task
     var webSocketTask: URLSessionWebSocketTask?
     /// The remote host to make a connection
-    var host = HostItem()
+    //var host = HostItem()
     /// ID of this Kodi Connector instance; used to send  notifications
     var kodiConnectorID: String
     /// The host properties
     public var properties = Application.Property.Value()
     /// Debounced tasks
     var task = Tasks()
+    /// ZeroConf browser
+    var browser: NWBrowser?
     
     // MARK: Published properties
 
     /// The state of the KodiConnector class
     @Published public var state: State = .none
+    
+    /// The remote host to make a connection
+    @Published var host = HostItem()
+    
     /// The library on the Kodi host
     @Published public var library = Library.Items()
+    /// The online hosts
+    @Published public var onlineHosts: [OnlineHost] = [] {
+        willSet {
+            logger("ZEROCOF SET")
+            //objectWillChange.send()
+        }
+    }
     
     // MARK: Init
     
@@ -46,6 +60,8 @@ public final class KodiConnector: ObservableObject {
         configuration.timeoutIntervalForRequest = 300
         configuration.timeoutIntervalForResource = 120
         self.urlSession = URLSession(configuration: configuration)
+        /// ZeroConf
+        startBrowsing()
         /// Sleeping and wakeup stuff
 #if !os(macOS)
         NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { _ in
