@@ -9,10 +9,57 @@ import Foundation
 
 extension KodiConnector {
     
+    public func connect(host: HostItem) {
+        self.host = host
+        if host.isOnline {
+            makeConnection()
+        }
+    }
+    
+    func makeConnection() {
+        connectWebSocket()
+    }
+    
+    func getKodiState() async {
+        //Task {
+            //await KodiPlayer.shared.getCurrentPlaylist()
+            await KodiPlayer.shared.getPlayerProperties()
+            await KodiPlayer.shared.getPlayerItem()
+            /// Get the properties of the host
+            properties = await Application.getProperties()
+            /// Send the properties to the KodiPlayer Class
+            await KodiPlayer.shared.setApplicationProperties(properties: properties)
+        //}
+    }
+    
+    func getCurrentPlaylists() async {
+        await KodiPlayer.shared.getCurrentPlaylist()
+    }
+    
+    @MainActor func loadLibrary() async {
+        setState(.loadingLibrary)
+        if let libraryItems = Cache.get(key: "MyLibrary", as: Library.Items.self) {
+            library = libraryItems
+            if host.media == .audio {
+                await getAudioLibraryUpdates()
+            } else {
+                setState(.loadedLibrary)
+            }
+        } else {
+            library = await getLibrary()
+            await setLibraryCache()
+            setState(.loadedLibrary)
+        }
+        
+    }
+    
     /// Connect to a Kodi host and load the library
     /// - Parameter kodiHost: The host configuration
     @MainActor public func connectToHost(kodiHost: HostItem) async {
         host = kodiHost
+        /// Get the state of the player
+        await KodiPlayer.shared.getPlayerProperties()
+        await KodiPlayer.shared.getPlayerItem()
         connectWebSocket()
         setState(.loadingLibrary)
         /// Get the properties of the host
@@ -36,9 +83,9 @@ extension KodiConnector {
         /// Get Playlists
         library.audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
         
-        /// Get the state of the player
-        await KodiPlayer.shared.getPlayerProperties()
-        await KodiPlayer.shared.getPlayerItem()
+//        /// Get the state of the player
+//        await KodiPlayer.shared.getPlayerProperties()
+//        await KodiPlayer.shared.getPlayerItem()
         /// Get all items in the playlist
         await KodiPlayer.shared.getCurrentPlaylist()
     }

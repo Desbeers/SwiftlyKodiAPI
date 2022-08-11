@@ -21,54 +21,54 @@ public extension KodiConnector {
         return false
     }
     
-    func refreshResults(results: Set<NWBrowser.Result>) {
-        self.onlineHosts = [OnlineHost]()
-        for result in results {
-            if case let NWEndpoint.service(name: name, type: _, domain: _, interface: _) = result.endpoint {
-                
-                //dump(result)
-                //self.onlineHosts.append(OnlineHost(name: name, ip: "\(name).local", port: 9090))
-                
-                let params = NWParameters.tcp
-                let ip = params.defaultProtocolStack.internetProtocol! as! NWProtocolIP.Options
-                ip.version = .v4
-
-                let connection = NWConnection(to: result.endpoint, using: params)
-
-                connection.stateUpdateHandler = { state in
-                    switch state {
-                    case .ready:
-                        if let innerEndpoint = connection.currentPath?.remoteEndpoint,
-                           case .hostPort(let host, let port) = innerEndpoint,
-                           let ip = String(describing: host).split(separator: "%").first {
-
-                            self.onlineHosts.append(OnlineHost(name: name, ip: ip.description, port: Int(port.rawValue)))
-
-                            print("Connected to", "\(ip):\(port)") // Here, I have the host/port information
-                            
-                            //dump(innerEndpoint)
-                            connection.cancel()
-                        }
-                    case .cancelled:
-                        logger("Disconnected")
-                    default:
-                        //connection.cancel()
-                        break
-                    }
-                }
-                connection.start(queue: .main)
-            }
-        }
-    }
-    
-    // Show an error if peer discovery fails.
-    func displayBrowseError(_ error: NWError) {
-        var message = "Error \(error)"
-        if error == NWError.dns(DNSServiceErrorType(kDNSServiceErr_NoAuth)) {
-            message = "Not allowed to access the network"
-        }
-        logger(message)
-    }
+//    func refreshResults(results: Set<NWBrowser.Result>) {
+//        self.onlineHosts = [OnlineHost]()
+//        for result in results {
+//            if case let NWEndpoint.service(name: name, type: _, domain: _, interface: _) = result.endpoint {
+//
+//                //dump(result)
+//                //self.onlineHosts.append(OnlineHost(name: name, ip: "\(name).local", port: 9090))
+//
+//                let params = NWParameters.tcp
+//                let ip = params.defaultProtocolStack.internetProtocol! as! NWProtocolIP.Options
+//                ip.version = .v4
+//
+//                let connection = NWConnection(to: result.endpoint, using: params)
+//
+//                connection.stateUpdateHandler = { state in
+//                    switch state {
+//                    case .ready:
+//                        if let innerEndpoint = connection.currentPath?.remoteEndpoint,
+//                           case .hostPort(let host, let port) = innerEndpoint,
+//                           let ip = String(describing: host).split(separator: "%").first {
+//
+//                            self.onlineHosts.append(OnlineHost(name: name, ip: ip.description, port: Int(port.rawValue)))
+//
+//                            print("Connected to", "\(ip):\(port)") // Here, I have the host/port information
+//
+//                            //dump(innerEndpoint)
+//                            connection.cancel()
+//                        }
+//                    case .cancelled:
+//                        logger("Disconnected")
+//                    default:
+//                        //connection.cancel()
+//                        break
+//                    }
+//                }
+//                connection.start(queue: .main)
+//            }
+//        }
+//    }
+//
+//    // Show an error if peer discovery fails.
+//    func displayBrowseError(_ error: NWError) {
+//        var message = "Error \(error)"
+//        if error == NWError.dns(DNSServiceErrorType(kDNSServiceErr_NoAuth)) {
+//            message = "Not allowed to access the network"
+//        }
+//        logger(message)
+//    }
 
     // Start browsing for services.
     func startBrowsing() {
@@ -89,18 +89,10 @@ public extension KodiConnector {
                     self.startBrowsing()
                 } else {
                     print("Browser failed with \(error), stopping")
-                    //self.delegate?.displayBrowseError(error)
-                    self.displayBrowseError(error)
                     browser.cancel()
                 }
-            case .ready:
-                logger("Ready")
-                // Post initial results.
-                self.refreshResults(results: browser.browseResults)
-                //self.delegate?.refreshResults(results: browser.browseResults)
-            case .cancelled:
-                //sharedBrowser = nil
-                self.refreshResults(results: Set())
+//
+                
             default:
                 break
             }
@@ -143,7 +135,6 @@ public extension KodiConnector {
     
     func addHost(host: NWBrowser.Result) {
         if case let NWEndpoint.service(name: name, type: _, domain: _, interface: _) = host.endpoint {
-            logger("Added: \(name)")
             let params = NWParameters.tcp
             let ip = params.defaultProtocolStack.internetProtocol! as! NWProtocolIP.Options
             ip.version = .v4
@@ -158,14 +149,22 @@ public extension KodiConnector {
                        let ip = String(describing: host).split(separator: "%").first {
 
                         self.onlineHosts.append(OnlineHost(name: name, ip: ip.description, port: Int(port.rawValue)))
+                        
+                        if self.host.ip == ip {
+                            //if self.state == .offline && self.host.ip == ip {
+                            Task {
+                                await self.setState(.online)
+                            }
+                        }
 
-                        print("Connected to", "\(ip):\(port)") // Here, I have the host/port information
+                        //print("Connected to", "\(ip):\(port)") // Here, I have the host/port information
                         
                         //dump(innerEndpoint)
+                        logger("Added: \(name)")
                         connection.cancel()
                     }
                 case .cancelled:
-                    logger("Disconnected")
+                    break
                 default:
                     //connection.cancel()
                     break
@@ -178,7 +177,20 @@ public extension KodiConnector {
     func removeHost(host: NWBrowser.Result) {
         
         if case let NWEndpoint.service(name: name, type: _, domain: _, interface: _) = host.endpoint {
+            
             onlineHosts.removeAll(where: {$0.name == name})
+            
+            if self.state != .offline, let _ = self.onlineHosts.first(where: { $0.name == name}) {
+                Task {
+                    await self.setState(.offline)
+                }
+            }
+            
+            
+            
+            
+
+            logger("Removed: \(name)")
         }
     }
 }

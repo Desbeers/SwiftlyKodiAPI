@@ -21,8 +21,7 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
     ) {
         let kodi: KodiConnector = .shared
         Task {
-            await kodi.ping()
-            await kodi.setState(kodi.state == .wakeup ? .loadedLibrary : .connectedToWebSocket)
+            await kodi.setState(kodi.state == .wakeup ? kodi.previousState : .connectedToWebSocket)
         }
     }
     
@@ -39,11 +38,11 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
     
     /// Websocket notification when the connection has an error
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError: Error?) {
-        if let error = didCompleteWithError {
+        let kodi: KodiConnector = .shared
+        if let error = didCompleteWithError, kodi.state != .offline {
             logger("Network error: \(error.localizedDescription)")
-            let kodi: KodiConnector = .shared
             Task {
-                await kodi.setState(.failure)
+                await kodi.setState(.offline)
             }
         }
     }
@@ -68,20 +67,5 @@ extension KodiConnector {
     /// Disconnect from the the Kodi WebSocket
     func disconnectWebSocket() {
         webSocketTask?.cancel(with: .normalClosure, reason: nil)
-    }
-    
-    /// Check if Kodi is still alive
-    /// - Note: Failure will be handled by the delegate
-    func ping() async {
-        webSocketTask?.send(.string("ping")) { error in
-        if let error = error {
-            print("Error pinging host \(error.localizedDescription)")
-        } else {
-            Task {
-                try await Task.sleep(nanoseconds: 5_000_000_000)
-                await self.ping()
-            }
-        }
-      }
     }
 }

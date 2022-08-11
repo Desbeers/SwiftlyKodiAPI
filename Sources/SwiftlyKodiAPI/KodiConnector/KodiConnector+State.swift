@@ -10,8 +10,11 @@ import Foundation
 extension KodiConnector {
 
     /// Set the state of Kodio and act on it
-    @MainActor func setState(_ current: State) {
+    @MainActor public func setState(_ current: State) {
         logger("KodiConnector status: \(current.rawValue)")
+        /// Store the previous state
+        previousState = state
+        /// Set the current state
         state = current
         Task {
             stateAction(state: current)
@@ -36,28 +39,44 @@ extension KodiConnector {
         case sleeping = "Sleeping"
         /// The device is waking up
         case wakeup = "Waking-up"
+        /// The device is offline
+        case offline = "The host is offline"
+        /// The device icame online
+        case online = "The host is online"
         /// An error when loading the library or a lost of connection
         case failure
         /// KodiConnector has no host configuration
-        case noHostConfig
+        ///case noHostConfig
     }
     
     /// The actions when the  state of Kodio is changed
     /// - Parameter state: the current ``State``
     private func stateAction(state: State) {
         switch state {
+            
+        case .online:
+            makeConnection()
+        case .connectedToWebSocket:
+            Task {
+                await getKodiState()
+                await loadLibrary()
+            }
+        case .loadedLibrary:
+            Task {
+                await getCurrentPlaylists()
+            }
+            
         case .sleeping:
             disconnectWebSocket()
-        case .wakeup:
-            connectWebSocket()
-            Task {
-                await KodiPlayer.shared.getCurrentPlaylist()
-                await KodiPlayer.shared.getPlayerProperties()
-                await KodiPlayer.shared.getPlayerItem()
-                if host.media == .audio {
-                    await getAudioLibraryUpdates()
-                }
-            }
+//        case .wakeup:
+//            connectWebSocket()
+//            Task {
+//                await getKodiState()
+//                await getCurrentPlaylists()
+//                if host.media == .audio {
+//                    await getAudioLibraryUpdates()
+//                }
+//            }
         default:
             break
         }

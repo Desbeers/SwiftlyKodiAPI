@@ -29,6 +29,9 @@ public final class KodiConnector: ObservableObject {
     var task = Tasks()
     /// ZeroConf browser
     var browser: NWBrowser?
+    /// The previous state
+    /// - Note: This is to react on changes of state
+    @Published public var previousState: State = .none
     
     // MARK: Published properties
 
@@ -41,12 +44,7 @@ public final class KodiConnector: ObservableObject {
     /// The library on the Kodi host
     @Published public var library = Library.Items()
     /// The online hosts
-    @Published public var onlineHosts: [OnlineHost] = [] {
-        willSet {
-            logger("ZEROCOF SET")
-            //objectWillChange.send()
-        }
-    }
+    @Published public var onlineHosts: [OnlineHost] = []
     
     // MARK: Init
     
