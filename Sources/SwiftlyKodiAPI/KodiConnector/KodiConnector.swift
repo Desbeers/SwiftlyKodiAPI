@@ -39,12 +39,12 @@ public final class KodiConnector: ObservableObject {
     @Published public var state: State = .none
     
     /// The remote host to make a connection
-    @Published var host = HostItem()
+    @Published public var host = HostItem()
     
     /// The library on the Kodi host
     @Published public var library = Library.Items()
     /// The online hosts
-    @Published public var onlineHosts: [OnlineHost] = []
+    @Published public var bonjourHosts: [BonjourHost] = []
     
     // MARK: Init
     
@@ -58,8 +58,8 @@ public final class KodiConnector: ObservableObject {
         configuration.timeoutIntervalForRequest = 300
         configuration.timeoutIntervalForResource = 120
         self.urlSession = URLSession(configuration: configuration)
-        /// ZeroConf
-        startBrowsing()
+        /// Start Bonjour to find Kodi hosts
+        startBonjour()
         /// Sleeping and wakeup stuff
 #if !os(macOS)
         NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { _ in

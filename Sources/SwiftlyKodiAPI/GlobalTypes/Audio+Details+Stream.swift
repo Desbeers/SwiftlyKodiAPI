@@ -32,6 +32,7 @@ public extension Audio.Details {
         /// The search string
         public var search: String { title }
         public var sortByTitle: String { title }
+        public var details: String = "Stream"
         
         /// # Audio.Details.Stream
         ///

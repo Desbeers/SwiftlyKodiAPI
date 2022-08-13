@@ -29,6 +29,7 @@ extension KodiConnector {
                     else {
                         /// Not an interesting notification
                         logger("Unknown notification")
+                        dump(message)
                         return
                     }
                     //debugJsonResponse(data: data)

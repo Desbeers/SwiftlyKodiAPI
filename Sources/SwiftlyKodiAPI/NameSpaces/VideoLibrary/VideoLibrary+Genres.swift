@@ -27,7 +27,7 @@ extension VideoLibrary {
     }
     
     /// Retrieve all genres (Kodi API)
-    fileprivate struct GetGenres: KodiAPI {
+    struct GetGenres: KodiAPI {
         /// The media type
         let type: Library.Media
         /// The method

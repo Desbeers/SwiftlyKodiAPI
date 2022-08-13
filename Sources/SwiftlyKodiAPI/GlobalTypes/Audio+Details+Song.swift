@@ -19,6 +19,7 @@ public extension Audio.Details {
         public var sortByTitle: String { title }
         public var poster: String { thumbnail }
         public var subtitle: String { displayArtist }
+        public var details: String { album }
         
         /// The search string
         public var search: String {

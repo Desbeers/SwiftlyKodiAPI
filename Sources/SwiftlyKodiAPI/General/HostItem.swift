@@ -29,7 +29,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
     /// Bool if the host is online
     
     public var isOnline: Bool {
-        if KodiConnector.shared.onlineHosts.first(where: {$0.ip == ip}) != nil {
+        if KodiConnector.shared.bonjourHosts.first(where: {$0.ip == ip}) != nil {
             return true
         }
         return false
@@ -37,7 +37,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
     
     /// Init the Host struct
     public init(description: String = "Kodi",
-                ip: String = "192.168.11.200",
+                ip: String = "",
                 port: String = "8080",
                 tcp: String = "9090",
                 username: String = "kodi",

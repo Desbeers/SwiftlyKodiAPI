@@ -25,6 +25,8 @@ public extension Video.Details {
         public var poster: String { art.poster }
         
         public var subtitle: String = ""
+        public var details: String = ""
+        
         
         public var userRating: Int = 0
         

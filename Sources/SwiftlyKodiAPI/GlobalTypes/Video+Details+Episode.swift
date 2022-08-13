@@ -19,6 +19,8 @@ public extension Video.Details {
         public var sortByTitle: String { title }
         public var poster: String { thumbnail }
         public var subtitle: String { showTitle }
+        public var details: String { "Season \(season), episode \(episode)" }
+        
         
         /// The search string
         public var search: String {

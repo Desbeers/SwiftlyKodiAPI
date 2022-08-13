@@ -19,6 +19,8 @@ public extension Video.Details {
         public var sortByTitle: String { title }
         public var poster: String { thumbnail }
         public var subtitle: String { artist.joined(separator: " ∙ ") }
+        public var details: String = ""
+        public var de: String { album }
         
         /// The search string
         public var search: String {

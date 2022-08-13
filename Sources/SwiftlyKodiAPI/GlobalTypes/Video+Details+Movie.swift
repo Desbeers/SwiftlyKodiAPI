@@ -19,6 +19,7 @@ public extension Video.Details {
         public var sortByTitle: String { sortTitle.isEmpty ? title : sortTitle}
         public var poster: String { art.poster }
         public var subtitle: String { tagline }
+        public var details: String { premiered }
         
         /// The search string
         public var search: String {

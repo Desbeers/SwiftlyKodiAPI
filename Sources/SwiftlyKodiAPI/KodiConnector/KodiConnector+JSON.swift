@@ -53,5 +53,8 @@ extension KodiConnector {
         urlSession.dataTask(with: message.urlRequest).resume()
     }
     
+    public func test() {
+        
+    }
 
 }

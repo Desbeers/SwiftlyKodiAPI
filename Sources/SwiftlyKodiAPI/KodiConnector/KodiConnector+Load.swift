@@ -10,6 +10,10 @@ import Foundation
 extension KodiConnector {
     
     public func connect(host: HostItem) {
+        /// Start with a blank sheet
+        Task {
+            await setState(.offline)
+        }
         self.host = host
         if host.isOnline {
             makeConnection()
