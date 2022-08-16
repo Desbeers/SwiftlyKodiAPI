@@ -35,10 +35,6 @@ extension KodiConnector {
             /// Store the library in the cache
             await setLibraryCache()
         }
-//        logger("Dates")
-//        dump(dates)
-//        logger("Library")
-//        dump(library.audioLibraryProperties)
         /// Set the state
         setState(dates == library.audioLibraryProperties ? State.loadedLibrary : State.outdatedLibrary)
     }

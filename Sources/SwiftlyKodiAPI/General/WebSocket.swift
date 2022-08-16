@@ -21,7 +21,8 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
     ) {
         let kodi: KodiConnector = .shared
         Task {
-            await kodi.setState(kodi.state == .wakeup ? kodi.previousState : .connectedToWebSocket)
+            //await kodi.setState(kodi.state == .wakeup ? kodi.previousState : .connectedToWebSocket)
+            await kodi.setState(.connectedToWebSocket)
         }
     }
     

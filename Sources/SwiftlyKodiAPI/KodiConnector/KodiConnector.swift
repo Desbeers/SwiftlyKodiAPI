@@ -31,7 +31,7 @@ public final class KodiConnector: ObservableObject {
     var browser: NWBrowser?
     /// The previous state
     /// - Note: This is to react on changes of state
-    @Published public var previousState: State = .none
+   // @Published public var previousState: State = .none
     
     // MARK: Published properties
 

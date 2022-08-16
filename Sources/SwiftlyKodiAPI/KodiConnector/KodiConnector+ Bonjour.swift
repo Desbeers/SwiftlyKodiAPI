@@ -13,6 +13,7 @@ public extension KodiConnector {
 
     /// Start Bonjour to find Kodi hosts
     func startBonjour() {
+        logger("Starting Bonjour")
         let browser = NWBrowser(for: .bonjour(type: "_xbmc-jsonrpc._tcp", domain: "local."), using: NWParameters())
         self.browser = browser
         browser.stateUpdateHandler = { newState in
@@ -52,6 +53,13 @@ public extension KodiConnector {
         /// Start browsing and ask for updates on the main queue.
         browser.start(queue: .main)
     }
+
+    /// Stop Bonjour
+    func stopBonjour() {
+        logger("Stopping Bonjour")
+        browser?.cancel()
+        bonjourHosts = []
+    }
     
     /// Add a new Kodi host to the Bonjour list
     /// - Parameter host: The host to add
@@ -76,6 +84,7 @@ public extension KodiConnector {
                                 await self.setState(.online)
                             }
                         }
+                        logger("'\(name)' is online")
                         /// Cancel the connection because it was only made to get the IP address
                         connection.cancel()
                     }
@@ -93,6 +102,7 @@ public extension KodiConnector {
     func removeHost(host: NWBrowser.Result) {
         if case let NWEndpoint.service(name: name, type: _, domain: _, interface: _) = host.endpoint {
             bonjourHosts.removeAll(where: {$0.name == name})
+            logger("'\(name)' is offline")
             /// Check if the removed Kodi is the active Kodi and act on it
             if self.state != .offline, let _ = self.bonjourHosts.first(where: { $0.name == name}) {
                 Task {

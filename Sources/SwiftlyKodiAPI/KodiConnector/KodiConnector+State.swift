@@ -12,8 +12,6 @@ extension KodiConnector {
     /// Set the state of Kodio and act on it
     @MainActor public func setState(_ current: State) {
         logger("KodiConnector status: \(current.rawValue)")
-        /// Store the previous state
-        previousState = state
         /// Set the current state
         state = current
         Task {
@@ -68,15 +66,9 @@ extension KodiConnector {
             
         case .sleeping:
             disconnectWebSocket()
-//        case .wakeup:
-//            connectWebSocket()
-//            Task {
-//                await getKodiState()
-//                await getCurrentPlaylists()
-//                if host.media == .audio {
-//                    await getAudioLibraryUpdates()
-//                }
-//            }
+            stopBonjour()
+        case .wakeup:
+            startBonjour()
         default:
             break
         }
