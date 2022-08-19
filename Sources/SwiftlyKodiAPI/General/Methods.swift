@@ -153,6 +153,8 @@ import Foundation
         
         /// # Settings
 
+        /// Retrieves all settings
+        case settingsGetSettings = "Settings.GetSettings"
         /// Set a setting on the host
         case settingsSetSettingvalue = "Settings.SetSettingvalue"
         

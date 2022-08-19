@@ -20,7 +20,6 @@ extension KodiConnector {
               httpResponse.statusCode == 200 else {
             throw JSON.APIError.responseUnsuccessful
               }
-        
         do {
             let decoded = try JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data)
             //debugJsonResponse(data: data)

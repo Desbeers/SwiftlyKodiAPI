@@ -43,6 +43,10 @@ public final class KodiConnector: ObservableObject {
     
     /// The library on the Kodi host
     @Published public var library = Library.Items()
+    
+    /// The host settings
+    @Published public var settings: [Setting.Details.Base] = []
+    
     /// The online hosts
     @Published public var bonjourHosts: [BonjourHost] = []
     
