@@ -65,11 +65,6 @@ public final class KodiPlayer: ObservableObject {
     private init() { }
 }
 
-extension KodiPlayer {
-    
-
-}
-
 // MARK: Kodi Player setters
 
 extension KodiPlayer {

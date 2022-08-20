@@ -55,7 +55,6 @@ extension KodiConnector {
     /// - Note:
     ///     On iOS, disconnect before going to the background or else Apple will be really upset.
     func connectWebSocket() {
-        //let appState: AppState = .shared
         let url = URL(string: "ws://\(host.ip):\(host.tcp)/jsonrpc")!
         let webSocketDelegate = WebSocket()
         let session = URLSession(configuration: .default, delegate: webSocketDelegate, delegateQueue: OperationQueue())
