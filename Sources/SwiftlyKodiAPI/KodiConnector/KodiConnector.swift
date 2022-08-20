@@ -8,7 +8,7 @@
 import SwiftUI
 import Network
 
-/// The Class that provides the connection with a remote host (SwiftlyKodi Type)
+/// The Observable Class that provides the connection with a remote host (SwiftlyKodi Type)
 public final class KodiConnector: ObservableObject {
 
     // MARK: Constants and Variables

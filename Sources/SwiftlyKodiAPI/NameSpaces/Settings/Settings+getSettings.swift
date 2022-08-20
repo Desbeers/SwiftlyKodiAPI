@@ -12,6 +12,7 @@ import Foundation
 extension Settings {
     
     /// Retrieves all settings (Kodi API)
+    /// - Returns: All settings from the host
     public static func getSettings() async -> [Setting.Details.Base] {
         logger("Settings.GetSettings")
         let kodi: KodiConnector = .shared

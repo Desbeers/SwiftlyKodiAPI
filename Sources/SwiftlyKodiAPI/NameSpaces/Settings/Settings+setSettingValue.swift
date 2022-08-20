@@ -12,45 +12,50 @@ import Foundation
 extension Settings {
     
     /// Changes the value of a setting (Kodi API)
-    public static func setSettingValue(setting: Setting.ID, value: Int) async {
+    /// - Parameters:
+    ///   - setting: The ``Setting/ID`` to set
+    ///   - int: The optional Int value
+    ///   - bool: The optional Bool value
+    public static func setSettingValue(setting: Setting.ID, int: Int? = nil , bool: Bool? = nil) async {
         logger("Settings.SetSettingValue")
-        let kodi: KodiConnector = .shared
-        let request = SetSettingValue(setting: setting, value: value)
-        do {
-            let result = try await kodi.sendRequest(request: request)
-            //return result.songdetails
-        } catch {
-            logger("Loading song details failed with error: \(error)")
-            //return Audio.Details.Song()
-        }
-        
-        //KodiConnector.shared.sendMessage(message: SetSettingValue(setting: setting, value: value))
+        let message = SetSettingValue(setting: setting, valueInt: int, valueBool: bool)
+        KodiConnector.shared.sendMessage(message: message)
     }
     
     /// Changes the value of a setting (Kodi API)
-    struct SetSettingValue: KodiAPI {
+    fileprivate struct SetSettingValue: KodiAPI {
+        /// The method
         let method: Methods = .settingsSetSettingvalue
-        
         /// Setting  ID
         let setting: Setting.ID
-        /// Setting value
-        let value: Int
+        /// Setting Int value
+        let valueInt: Int?
+        /// Setting Bool value
+        let valueBool: Bool?
         /// The JSON creator
         var parameters: Data {
-            var params = Params()
-            params.setting = setting.rawValue
-            params.value = value
-            return buildParams(params: params)
+            if let valueInt = valueInt {
+                return buildParams(params: ParamsInt(setting: setting.rawValue, value: valueInt))
+            }
+            if let valueBool = valueBool {
+                return buildParams(params: ParamsBool(setting: setting.rawValue, value: valueBool))
+            }
+            return Data()
         }
         /// The request struct
-        struct Params: Encodable {
+        struct ParamsInt: Encodable {
             /// Setting ID
-            var setting = ""
+            var setting: String
             /// Setting value
-            var value = 0
+            var value: Int
+        }
+        struct ParamsBool: Encodable {
+            /// Setting ID
+            var setting: String
+            /// Setting value
+            var value: Bool
         }
         /// The response struct
         struct Response: Decodable { }
     }
 }
-        

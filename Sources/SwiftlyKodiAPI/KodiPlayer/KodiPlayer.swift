@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// An Observable Class that contains all the Player information (SwiftlyKodi Type)
+/// The Observable Class that contains all the Player information (SwiftlyKodi Type)
 ///
 /// - The properties of the player
 /// - The optional current item in the player

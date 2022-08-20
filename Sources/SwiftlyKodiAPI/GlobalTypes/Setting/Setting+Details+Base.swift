@@ -10,7 +10,11 @@ import Foundation
 public extension Setting.Details {
     
     /// Setting values
-    struct Base: Identifiable, Decodable {
+    struct Base: Identifiable, Equatable, Decodable {
+        /// Make it equatable
+        public static func == (lhs: Setting.Details.Base, rhs: Setting.Details.Base) -> Bool {
+            return lhs.valueInt == rhs.valueInt && lhs.valueBool == rhs.valueBool && lhs.enabled == rhs.enabled
+        }
         
         /// # Setting.Details.Base
         
@@ -19,25 +23,32 @@ public extension Setting.Details {
         /// The label of the setting
         public var label: String = ""
         /// Optional help of the setting
-        public var help: String?
+        public var help: String = ""
         
-        /// Optional value of the setting
-        public var value: Int = 0
-        
-        public var maximum: Int = 15;
+        /// Optional Int value of the setting
+        public var valueInt: Int = 0
+        /// Optional Bool value of the setting
+        public var valueBool: Bool = false
+        /// Minimum limit of the setting
         public var minimum: Int = 0;
+        /// Maximum limit of the setting
+        public var maximum: Int = 15;
+        /// Bool if the setting is enabled or not
+        public var enabled: Bool = false
+        /// The optional parent of the setting
+        public var parent: Setting.ID = .unknown
         
         /// # Setting.Details.ControlBase
         
+        /// Control Base
         public var control = Setting.Details.ControlBase()
         
         /// # Setting.Details.SettingInt
         
+        /// Optional settings Int
         public var settingInt: [Setting.Details.SettingInt]?
-        
+        /// The coding keys
         enum CodingKeys: String, CodingKey {
-            //case id
-            
             case settingID = "id"
             case control
             case options
@@ -47,8 +58,10 @@ public extension Setting.Details {
             case maximum
             case minimum
             case definition
+            case enabled
+            case parent
         }
-        
+        /// The Coding Keys for a Definition
         enum Definition: String, CodingKey {
             case options
         }
@@ -59,45 +72,40 @@ extension Setting.Details.Base {
     
     public init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<Setting.Details.Base.CodingKeys> = try decoder.container(keyedBy: Setting.Details.Base.CodingKeys.self)
-        
-        //self.id = try container.decode(Setting.ID.self, forKey: Setting.Details.Base.CodingKeys.id)
-        
         let settingID = try container.decode(String.self, forKey: Setting.Details.Base.CodingKeys.settingID)
-        
-//        if let definition = try? container.nestedContainer(keyedBy: Definition.self, forKey: .definition) {
-//            dump(try definition.decodeIfPresent([Setting.Details.SettingInt].self, forKey: Definition.options))
-//        }
-
-        
+        /// Only decode settings we know about
         if let kodioID = Setting.ID(rawValue: settingID) {
             self.id = kodioID
-            print(kodioID)
-            
-            if let definition = try? container.nestedContainer(keyedBy: Definition.self, forKey: .definition) {
-                dump(try definition.decodeIfPresent([Setting.Details.SettingInt].self, forKey: Definition.options))
-            }
-            
-            //let definition = try? container.nestedContainer(keyedBy: Definition.self, forKey: .definition)
-            
-            //dump(definition)
             
             /// ### Definition level
+
             if let definition = try? container.nestedContainer(keyedBy: Setting.Details.Base.Definition.self, forKey: .definition) {
-                //print("HAVE DEFINITION!!")
                 self.settingInt = try definition.decodeIfPresent([Setting.Details.SettingInt].self, forKey: Setting.Details.Base.Definition.options)
             } else {
-                //print("NO DEFINITION....")
                 self.settingInt = try container.decodeIfPresent([Setting.Details.SettingInt].self, forKey: Setting.Details.Base.CodingKeys.options)
             }
             
             self.control = try container.decode(Setting.Details.ControlBase.self, forKey: Setting.Details.Base.CodingKeys.control)
-            //self.settingInt = try container.decodeIfPresent([Setting.Details.SettingInt].self, forKey: Setting.Details.Base.CodingKeys.options)
             self.label = try container.decode(String.self, forKey: Setting.Details.Base.CodingKeys.label)
-            self.help = try container.decodeIfPresent(String.self, forKey: Setting.Details.Base.CodingKeys.help)
-            self.value = try container.decodeIfPresent(Int.self, forKey: Setting.Details.Base.CodingKeys.value) ?? 0
+            self.help = try container.decodeIfPresent(String.self, forKey: Setting.Details.Base.CodingKeys.help) ?? ""
+            
+            let parent = try container.decode(String.self, forKey: Setting.Details.Base.CodingKeys.parent)
+            
+            if let parent = Setting.ID(rawValue: parent) {
+                self.parent = parent
+            }
+            
+            if let valueInt = try? container.decodeIfPresent(Int.self, forKey: Setting.Details.Base.CodingKeys.value) {
+                self.valueInt = valueInt
+            }
+            
+            if let valueBool = try? container.decodeIfPresent(Bool.self, forKey: Setting.Details.Base.CodingKeys.value) {
+                self.valueBool = valueBool
+            }
+            
+            self.enabled = try container.decode(Bool.self, forKey: Setting.Details.Base.CodingKeys.enabled)
             self.minimum = try container.decodeIfPresent(Int.self, forKey: Setting.Details.Base.CodingKeys.minimum) ?? 0
             self.maximum = try container.decodeIfPresent(Int.self, forKey: Setting.Details.Base.CodingKeys.maximum) ?? 0
         }
-        
     }
 }
