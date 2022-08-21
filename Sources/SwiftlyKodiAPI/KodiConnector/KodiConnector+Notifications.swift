@@ -71,6 +71,7 @@ extension KodiConnector {
             }
         case .playerOnPropertyChanged, .playerOnPause, .playerOnResume:
             await KodiPlayer.shared.setProperties(properties: await Player.getProperties(playerID: notification.playerID))
+            await KodiPlayer.shared.getCurrentPlaylist()
         case .playerOnSeek:
             await KodiPlayer.shared.getPlayerProperties()
         default:

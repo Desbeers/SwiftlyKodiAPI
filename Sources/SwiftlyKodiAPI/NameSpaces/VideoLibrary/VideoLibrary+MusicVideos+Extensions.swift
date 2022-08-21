@@ -12,9 +12,26 @@ extension Video.Details.MusicVideo {
     /// Play a  ``Video/Details/MusicVideo`` item
     public func play() {
         Task {
+            /// Check if this song is in the current playlist
+            if let position = self.playlistID {
+                Player.goTo(playerID: .video, position: position)
+            } else {
+                Playlist.clear(playlistID: .video)
+                await Playlist.add(musicVideos: [self])
+                Player.open(playlistID: .video)
+            }
+        }
+    }
+}
+
+extension Array where Element == Video.Details.MusicVideo {
+    
+    /// Play an array of ``Video.Details.MusicVideo``
+    public func play(shuffle: Bool = false) {
+        Task {
             Playlist.clear(playlistID: .video)
-            await Playlist.add(musicVideos: [self])
-            Player.open(playlistID: .video)
+            await Playlist.add(musicVideos: self)
+            Player.open(playlistID: .video, shuffle: shuffle)
         }
     }
 }

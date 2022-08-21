@@ -59,11 +59,12 @@ public extension MediaButtons {
             }, label: {
                 Label("Previous", systemImage: "backward.fill")
             })
+            /// Disable when not playing
             .disabled(player.properties.playlistPosition == -1)
             /// You can't go back an item when in party mode
-            .disabled(player.properties.partymode)
-            /// Only songs can 'goto'
-            .disabled(player.currentItem?.media != .song)
+            //.disabled(player.properties.partymode)
+            /// A stream cannpot 'goto
+            .disabled(player.currentItem?.media == .stream)
         }
     }
     
@@ -81,37 +82,10 @@ public extension MediaButtons {
             }, label: {
                 Label("Next", systemImage: "forward.fill")
             })
-            /// Disable when playing the last item
-            //.disabled((kodi.player.properies.playlistPosition) + 1 ==  kodi.player.properies.playlistID == .audio ?   kodi.queue?.count)
             /// Disable when not playing
             .disabled(player.properties.playlistPosition == -1)
-            /// Only songs can 'goto'
-            .disabled(player.currentItem?.media != .song)
-        }
-    }
-    
-    /// Partymode button (forced to audio)
-    ///
-    /// - Note: This will set 'Party Mode' for audio, I don't see a use of videos for this
-    struct SetPartyMode: View {
-        @EnvironmentObject var player: KodiPlayer
-        public init() {}
-        public var body: some View {
-            Button(action: {
-                Task {
-                    if player.properties.partymode {
-                        Player.setPartyMode(playerID: .audio)
-                    } else {
-                        Player.open(partyMode: .music)
-                    }
-                }
-            }, label: {
-                Label("Party Mode", systemImage: "wand.and.stars.inverse")
-                    .foregroundColor(player.properties.partymode ? .white : .none)
-            })
-            .background(RoundedRectangle(cornerRadius: 4)
-                .fill(player.properties.partymode  ? Color.red : Color.clear))
-            .help("Music party mode")
+            /// Disabled when we play the last item
+            .disabled(player.currentItem?.id == player.currentPlaylist?.last?.id)
         }
     }
     
@@ -130,11 +104,13 @@ public extension MediaButtons {
                 Label("Shuffle", systemImage: "shuffle")
                     .foregroundColor(player.properties.shuffled ? .white : .none)
             })
-            
+            .help("Shuffle the playlist")
             .background(RoundedRectangle(cornerRadius: 4)
                 .fill(player.properties.shuffled ? Color.accentColor : Color.clear))
             .disabled(player.properties.partymode)
             .disabled(!player.properties.canShuffle)
+            /// You can't shuffle when there is only one item in the playlist
+            .disabled(player.currentPlaylist?.count == 1)
         }
     }
     

@@ -20,7 +20,6 @@ extension Playlist {
         
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetItems(playlistID: playlistID)) {
-            
             for item in result.items {
                 /// If the result has an ID, it is from the library
                 if let id = item.id {
@@ -36,6 +35,13 @@ extension Playlist {
                     default:
                         break
                     }
+                } else {
+                    /// Return it as a stream item
+                    queue.append(SwiftlyKodiAPI.Audio.Details.Stream(title: item.label,
+                                                                     subtitle: "Stream",
+                                                                     file: item.label
+                                                                    )
+                    )
                 }
             }
             if !queue.isEmpty {
@@ -68,14 +74,15 @@ extension Playlist {
         /// The response struct
         struct Response: Decodable {
             /// The items in the queue
-            let items: [QueueItem]
+            let items: [QeueuItem]
         }
     }
     
     /// The struct for a queue item
-    struct QueueItem: Codable, Equatable {
+    struct QeueuItem: Codable, Equatable {
         /// The item
         let id: Library.id?
+        let label: String
         var type: Library.Media = .none
     }
 }
