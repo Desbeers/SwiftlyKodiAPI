@@ -107,12 +107,10 @@ public extension KodiArt {
             #if os(macOS)
                 .onFailureImage(KFCrossPlatformImage(systemSymbolName: fallback, accessibilityDescription: "Image not found"))
             #endif
-//                .onFailure { e in
-//                    // e: KingfisherError
-//                    print("failure: \(e)")
-//                }
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+
+            
 //            AsyncImage(
 //                url: URL(string: Files.getFullPath(file: file, type: .art)),
 //                transaction: Transaction(animation: .easeInOut(duration: 0.1))
