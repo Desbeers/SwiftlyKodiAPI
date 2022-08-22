@@ -19,7 +19,7 @@ public extension Video.Details {
         public var sortByTitle: String { title }
         public var poster: String { thumbnail }
         public var subtitle: String { artist.joined(separator: " ∙ ") }
-        public var details: String { album }
+        public var details: String { album.isEmpty ? genre.joined(separator: " ∙ ") : album }
         
         /// The search string
         public var search: String {

@@ -18,8 +18,8 @@ public extension Video.Details {
         public var media: Library.Media = .movie
         public var sortByTitle: String { sortTitle.isEmpty ? title : sortTitle}
         public var poster: String { art.poster }
-        public var subtitle: String { tagline }
-        public var details: String { premiered }
+        public var subtitle: String { tagline.isEmpty ? year.description : tagline }
+        public var details: String { genre.joined(separator: " ∙ ") }
         
         /// The search string
         public var search: String {

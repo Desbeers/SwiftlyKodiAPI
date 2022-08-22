@@ -22,19 +22,29 @@ extension Playlist {
         if let result = try? await kodi.sendRequest(request: GetItems(playlistID: playlistID)) {
             for item in result.items {
                 /// If the result has an ID, it is from the library
-                if let id = item.id {
-                    switch item.type {
-                    case .song:
-                        if let song = kodi.library.songs.first(where: {$0.songID == id}) {
-                            queue.append(song)
-                        }
-                    case .musicVideo:
-                        if let musicVideo = kodi.library.musicVideos.first(where: {$0.musicVideoID == id}) {
-                            queue.append(musicVideo)
-                        }
-                    default:
-                        break
-                    }
+                if let id = item.id, let item = await Library.getItem(type: item.type, id: id) {
+                    queue.append(item)
+//                    switch item.type {
+//                    case .song:
+//                        if let song = kodi.library.songs.first(where: {$0.songID == id}) {
+//                            queue.append(song)
+//                        }
+//                    case .musicVideo:
+//                        if let musicVideo = kodi.library.musicVideos.first(where: {$0.musicVideoID == id}) {
+//                            queue.append(musicVideo)
+//                        }
+//                    case .movie:
+//                        switch kodi.library.movies.count {
+//                        case 0:
+//                            queue.append(await VideoLibrary.getMovieDetails(movieID: id))
+//                        default:
+//                            if let musicVideo = kodi.library.musicVideos.first(where: {$0.musicVideoID == id}) {
+//                                queue.append(musicVideo)
+//                            }
+//                        }
+//                    default:
+//                        break
+//                    }
                 } else {
                     /// Return it as a stream item
                     queue.append(SwiftlyKodiAPI.Audio.Details.Stream(title: item.label,
