@@ -1,5 +1,5 @@
 //
-//  Library+getItem.swift
+//  Application+getItem.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -9,9 +9,9 @@ import Foundation
 
 // MARK:  getItem
 
-extension Library {
+extension Application {
 
-    /// Get an item from the library (SwiftlyKodi API)
+    /// Get an item from the application (SwiftlyKodi API)
     public static func getItem(type: Library.Media, id: Library.id) async -> (any KodiItem)? {
         
         let kodi: KodiConnector = .shared

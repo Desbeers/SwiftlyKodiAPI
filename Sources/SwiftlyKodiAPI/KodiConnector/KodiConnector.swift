@@ -19,19 +19,17 @@ public final class KodiConnector: ObservableObject {
     let urlSession: URLSession
     /// The WebSocket task
     var webSocketTask: URLSessionWebSocketTask?
-    /// The remote host to make a connection
-    //var host = HostItem()
     /// ID of this Kodi Connector instance; used to send  notifications
     var kodiConnectorID: String
     /// The host properties
     public var properties = Application.Property.Value()
+    /// Bool if the host is scanning content
+    /// - Note: used to stop Notifications and Library updates or else the Host and Kodio get nuts
+    var scanningLibrary: Bool = false
     /// Debounced tasks
     var task = Tasks()
     /// ZeroConf browser
     var browser: NWBrowser?
-    /// The previous state
-    /// - Note: This is to react on changes of state
-   // @Published public var previousState: State = .none
     
     // MARK: Published properties
 

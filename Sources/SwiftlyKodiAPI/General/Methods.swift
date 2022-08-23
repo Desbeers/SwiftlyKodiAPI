@@ -235,5 +235,10 @@ import Foundation
         /// Update the given tvshow with the given details
         case videoLibrarySetTVShowDetails = "VideoLibrary.SetTVShowDetails"
 
+        /// ## XBMC
+        
+        /// Retrieve info booleans about Kodi and the system
+        case xbmcGetInfoBooleans = "XBMC.GetInfoBooleans"
+        
     }
 //}

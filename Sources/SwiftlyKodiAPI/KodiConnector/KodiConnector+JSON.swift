@@ -22,7 +22,7 @@ extension KodiConnector {
               }
         do {
             let decoded = try JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data)
-            //debugJsonResponse(data: data)
+            // debugJsonResponse(data: data)
             return decoded.result
             } catch let DecodingError.dataCorrupted(context) {
                 print(context)

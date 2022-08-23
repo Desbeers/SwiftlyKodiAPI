@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Application information and control (Kodi Namespace)
+/// Application information and control (Kodi Namespace & Kodi Global Type)
 public enum Application {
     /// Just a placeholder
 }

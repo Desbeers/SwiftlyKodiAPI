@@ -22,7 +22,7 @@ extension Playlist {
         if let result = try? await kodi.sendRequest(request: GetItems(playlistID: playlistID)) {
             for item in result.items {
                 /// If the result has an ID, it is from the library
-                if let id = item.id, let item = await Library.getItem(type: item.type, id: id) {
+                if let id = item.id, let item = await Application.getItem(type: item.type, id: id) {
                     queue.append(item)
 //                    switch item.type {
 //                    case .song:

@@ -26,7 +26,7 @@ extension Player {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetItem(playerID: playerID)) {
             /// If the result has an ID, it is from the library
-            if let id = result.item.id, let item = await Library.getItem(type: result.item.type, id: id) {
+            if let id = result.item.id, let item = await Application.getItem(type: result.item.type, id: id) {
                 return item
 //            }
 //            if let id = result.item.id {

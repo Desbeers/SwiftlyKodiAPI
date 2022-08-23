@@ -56,14 +56,42 @@ extension KodiConnector {
         logger(notification.method.rawValue)
         
         switch notification.method {
+            
+        case .audioLibraryOnScanStarted, .audioLibraryOnCleanStarted:
+            if host.media == .audio || host.media == .all {
+                scanningLibrary = true
+            }
+            
+        case .videoLibraryOnScanStarted, .videoLibraryOnCleanStarted:
+            if host.media == .video || host.media == .all {
+                scanningLibrary = true
+            }
+            
+        case .audioLibraryOnScanFinished, .audioLibraryOnCleanFinished:
+            if host.media == .audio || host.media == .all {
+                scanningLibrary = false
+                /// Set the library as outdated
+                Task {
+                    await setState(.outdatedLibrary)
+                }
+            }
+            
+        case .videoLibraryOnScanFinished, .videoLibraryOnCleanFinished:
+            if host.media == .video || host.media == .all {
+                scanningLibrary = false
+                /// Set the library as outdated
+                Task {
+                    await setState(.outdatedLibrary)
+                }
+            }
 
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
-            getLibraryUpdate(itemID: notification.itemID, media: notification.media)
-            await KodiPlayer.shared.getCurrentPlaylist()
+            if !scanningLibrary {
+                getLibraryUpdate(itemID: notification.itemID, media: notification.media)
+                await KodiPlayer.shared.getCurrentPlaylist()
+            }
         case .playlistOnAdd,.playlistOnRemove, .playlistOnClear:
             await KodiPlayer.shared.getCurrentPlaylist()
-//            await getCurrentPlaylist()
-//            //break
         case .applicationOnVolumeChanged:
             Task {
                 properties = await Application.getProperties()

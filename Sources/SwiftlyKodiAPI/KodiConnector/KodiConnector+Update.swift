@@ -19,14 +19,19 @@ extension KodiConnector {
                 logger("Songs are modified")
                 /// Update the songs
                 let songs = await AudioLibrary.getSongs(modificationDate: library.audioLibraryProperties.songsModified)
-                for song in songs {
-                    if let index = library.songs.firstIndex(where: {$0.songID == song.songID}) {
-                        library.songs[index] = song
-                        logger("Updated \(song.title)")
+                /// Don't bother if there are too many songs to update; just mark the library as 'outdated'
+                if songs.count < 100 {
+                    for song in songs {
+                        if let index = library.songs.firstIndex(where: {$0.songID == song.songID}) {
+                            library.songs[index] = song
+                            logger("Updated \(song.title)")
+                        }
                     }
+                    /// Store the date
+                    library.audioLibraryProperties.songsModified = dates.songsModified
+                } else {
+                    logger("Too many songs are modified")
                 }
-                /// Store the date
-                library.audioLibraryProperties.songsModified = dates.songsModified
             }
             if library.audioLibraryProperties.artistsModified != dates.artistsModified {
                 logger("Artists are modified")
