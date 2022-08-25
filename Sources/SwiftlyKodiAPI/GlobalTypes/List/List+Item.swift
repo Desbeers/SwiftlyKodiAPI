@@ -10,7 +10,7 @@ import Foundation
 
 extension List {
     
-    /// All List item related items
+    /// All List item related items (Global Kodi Type)
     public enum Item {
         /// Just a placeholder
     }

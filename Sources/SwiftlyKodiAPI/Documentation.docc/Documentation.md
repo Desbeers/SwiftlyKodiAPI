@@ -20,12 +20,7 @@ See the [Kodi JSON-RPC API](https://kodi.wiki/view/JSON-RPC_API/v12).
 
 ## Topics
 
-### Observable Classes
-
-- ``KodiConnector``
-- ``KodiPlayer``
-
-### Kodi NameSpaces
+### Kodi Namespaces
 
 - ``Application``
 - ``AudioLibrary``
@@ -35,3 +30,31 @@ See the [Kodi JSON-RPC API](https://kodi.wiki/view/JSON-RPC_API/v12).
 - ``Settings``
 - ``VideoLibrary``
 - ``XBMC``
+
+### Kodi Global Types
+
+- ``Application``
+- ``Audio``
+- ``Files``
+- ``Library``
+- ``List``
+- ``Media``
+- ``Notifications``
+- ``Player``
+- ``Playlist``
+- ``Setting``
+- ``Video``
+
+
+### Observable Classes
+
+- ``KodiConnector``
+- ``KodiPlayer``
+
+### SwiftUI
+
+Well, I love SwiftUI and I actualy have no clue about Appkit or UIkit
+
+- ``KodiArt``
+- ``KodiPlayerView``
+- ``MediaButtons``

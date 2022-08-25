@@ -1,21 +1,27 @@
 //
 //  List+Item+File.swift
-//  
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 15/07/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 
 public extension List.Item {
     
-    /// File item (SwiftlyKodi Type)
+    /// File item (Global Kodi Type)
     struct File: Codable, Hashable {
+        /// The label of the file
         public var label: String
+        /// The name of the file
         public var file: String
+        /// The type of file
         public var fileType: FileType
+        /// The type of media
         public var type: Library.Media
-        public var id: Int?
+        /// The optional Library ID
+        public var id: Library.id?
+        /// The calculated title based on the label
         public var title: String {
             label.components(separatedBy: ".").first ?? label
         }
@@ -26,11 +32,6 @@ public extension List.Item {
             case fileType = "filetype"
             case type
             case id
-        }
-        /// FileType
-        public enum FileType: String, Codable, Hashable {
-            case directory
-            case file
         }
     }
 }

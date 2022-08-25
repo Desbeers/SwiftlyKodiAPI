@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Shares information & filesystem listings (Kodi Namespace)
+/// Shares information & filesystem listings (Kodi Namespace & Kodi Global Type)
 public enum Files {
     /// Just a placeholder
 }

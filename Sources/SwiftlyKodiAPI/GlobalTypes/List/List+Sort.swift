@@ -8,9 +8,9 @@
 import Foundation
 
 extension List {
-    /// The sort fields for JSON requests
+    /// The sort fields for JSON requests (SwiftlyKodi Type)
     public struct Sort: Codable {
-        /// Default sort order
+        /// Init the sort order
         public init(method: List.Sort.Method = .title, order: List.Sort.Order = .ascending, useartistsortname: Bool = true) {
             self.method = method
             self.order = order
@@ -22,8 +22,7 @@ extension List {
         public var order: Order
         /// Use artist sort name
         public var useartistsortname: Bool
-        
-        /// The sort methods
+        /// The sort method
         public enum Method: String, Codable {
             ///  Order by last played
             case lastPlayed = "lastplayed"
@@ -44,7 +43,7 @@ extension List {
             ///  Order by label
             case label = "label"
         }
-        /// The sort orders
+        /// The sort order
         public enum Order: String, Codable {
             /// Order descending
             case descending

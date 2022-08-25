@@ -49,7 +49,7 @@ public extension KodiArt {
                 Art(file: episode.art.seasonPoster)
             case let musicVideo as Video.Details.MusicVideo:
                 Art(file: musicVideo.art.poster)
-            case let artist as Audio.Details.Artist:
+            case _ as Audio.Details.Artist:
                 Art(file: item.poster, fallback: "person")
             /// A Stream has no poster
             case _ as Audio.Details.Stream:

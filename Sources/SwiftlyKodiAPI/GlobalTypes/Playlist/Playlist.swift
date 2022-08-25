@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Playlist modification (Kodi Namespace)
+/// Playlist modification (Kodi Namespace & Kodi Global Type)
 ///
 /// - Note: Fuctions in ``Playlist`` that will give a response are 'Asynchronous'; others are not
 public enum Playlist {
