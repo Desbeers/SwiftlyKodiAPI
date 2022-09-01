@@ -22,6 +22,13 @@ extension Video.Details.MusicVideo {
             }
         }
     }
+    
+    /// Refresh a  ``Video/Details/MusicVideo`` item
+    public func refresh() {
+        Task {
+            await VideoLibrary.refreshMusicVideo(musicVideo: self)
+        }
+    }
 }
 
 extension Array where Element == Video.Details.MusicVideo {

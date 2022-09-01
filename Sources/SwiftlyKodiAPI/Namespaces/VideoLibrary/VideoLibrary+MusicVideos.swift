@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK:  getMusicVideos
+// MARK: getMusicVideos
 
 extension VideoLibrary {
 
@@ -46,7 +46,7 @@ extension VideoLibrary {
     }
 }
 
-// MARK:  getMusicVideoDetails
+// MARK: getMusicVideoDetails
 
 extension VideoLibrary {
     
@@ -95,7 +95,7 @@ extension VideoLibrary {
     }
 }
 
-// MARK:  setMusicVideoDetails
+// MARK: setMusicVideoDetails
 
 extension VideoLibrary {
     
@@ -141,6 +141,58 @@ extension VideoLibrary {
                 case userRating = "userrating"
                 case playcount
                 case lastPlayed = "lastplayed"
+            }
+        }
+        /// The response struct
+        struct Response: Decodable { }
+    }
+}
+
+// MARK: refreshMusicVideo
+
+extension VideoLibrary {
+    
+    /// Refresh the given music video in the library (Kodi API)
+    /// - Parameter musicVideo: The ``Video/Details/MusicVideo`` item
+    public static func refreshMusicVideo(musicVideo: Video.Details.MusicVideo) async {
+        let kodi: KodiConnector = .shared
+        let message = RefreshMusicVideo(musicVideo: musicVideo)
+        //dump(message.urlRequest)
+        do {
+            let result = try await kodi.sendRequest(request: message)
+            dump(result)
+            logger("Refreshed '\(musicVideo.title)'")
+        } catch {
+            logger("Refreshing music video details failed with error: \(error)")
+        }
+        //kodi.sendMessage(message: message)
+        //logger("Refreshed '\(musicVideo.title)'")
+    }
+    
+    /// Refresh the given music video in the library (Kodi API)
+    fileprivate struct RefreshMusicVideo: KodiAPI {
+        /// The music video
+        let musicVideo: Video.Details.MusicVideo
+        /// The method
+        let method = Methods.videoLibraryRefreshMusicVideo
+        /// The parameters
+        var parameters: Data {
+            buildParams(params: Params(musicVideo: musicVideo))
+        }
+        /// The parameters struct
+        struct Params: Encodable {
+            /// Init the params
+            init(musicVideo: Video.Details.MusicVideo) {
+                self.musicVideoID = musicVideo.musicVideoID
+            }
+            /// The music video ID
+            let musicVideoID: Library.id
+            /// Ignore existing NFO
+            let ignoreNFO: Bool = false
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                case musicVideoID = "musicvideoid"
+                case ignoreNFO = "ignorenfo"
             }
         }
         /// The response struct

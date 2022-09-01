@@ -44,6 +44,8 @@ extension KodiConnector {
         setState(dates == library.audioLibraryProperties ? State.loadedLibrary : State.outdatedLibrary)
     }
     
+    
+    
     func getLibraryUpdate(itemID: Library.id, media: Library.Media) {
         Task { @MainActor in
             switch media {
@@ -74,12 +76,53 @@ extension KodiConnector {
                     getLibraryUpdate(itemID: library.episodes[index].tvshowID, media: .tvshow)
                 }
             case .musicVideo:
+                
+                let update = await VideoLibrary.getMusicVideoDetails(musicVideoID: itemID)
+                
                 if let index = library.musicVideos.firstIndex(where: {$0.musicVideoID == itemID}) {
-                    library.musicVideos[index] = await VideoLibrary.getMusicVideoDetails(musicVideoID: itemID)
+                    library.musicVideos[index] = update
+                } else {
+                    library.musicVideos.append(update)
                 }
             default:
                 logger("Library update for \(media) not implemented.")
             }
+            /// Store the library in the cache
+            await setLibraryCache()
+        }
+    }
+    
+    func deleteLibraryItem(itemID: Library.id, media: Library.Media) {
+        Task { @MainActor in
+            switch media {
+            case .artist:
+                if let index = library.artists.firstIndex(where: {$0.artistID == itemID}) {
+                    library.artists.remove(at: index)
+                }
+            case .song:
+                if let index = library.songs.firstIndex(where: {$0.songID == itemID}) {
+                    library.songs.remove(at: index)
+                }
+            case .movie:
+                if let index = library.movies.firstIndex(where: {$0.movieID == itemID}) {
+                    library.movies.remove(at: index)
+                }
+            case .tvshow:
+                if let index = library.tvshows.firstIndex(where: {$0.tvshowID == itemID}) {
+                    library.tvshows.remove(at: index)
+                }
+            case .episode:
+                if let index = library.episodes.firstIndex(where: {$0.episodeID == itemID}) {
+                    library.episodes.remove(at: index)
+                }
+            case .musicVideo:
+                if let index = library.musicVideos.firstIndex(where: {$0.musicVideoID == itemID}) {
+                    library.musicVideos.remove(at: index)
+                }
+            default:
+                logger("Library delete for \(media) not implemented.")
+            }
+            logger("Removed \(media) \(itemID) from the library")
             /// Store the library in the cache
             await setLibraryCache()
         }

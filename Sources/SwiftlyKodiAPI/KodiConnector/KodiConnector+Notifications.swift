@@ -84,7 +84,10 @@ extension KodiConnector {
                     await setState(.outdatedLibrary)
                 }
             }
-
+        case .audioLibraryOnRemove, .videoLibraryOnRemove:
+            if !scanningLibrary {
+                deleteLibraryItem(itemID: notification.itemID, media: notification.media)
+            }
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
             if !scanningLibrary {
                 getLibraryUpdate(itemID: notification.itemID, media: notification.media)
