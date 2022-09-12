@@ -45,44 +45,63 @@ extension KodiPlayerView {
         @StateObject private var playerModel: PlayerModel
         /// Init the Wrapper View
         init(video: any KodiItem, endAction: @escaping () -> Void) {
-            //self.video = video
             _playerModel = StateObject(wrappedValue: PlayerModel(video: video, endAction: endAction))
         }
         /// The body of this View
         var body: some View {
-            VideoPlayer(player: playerModel.player)
-                .task {
-                    /// Check if we are already playing or not
-                    if playerModel.player.isPlaying == false {
-                        print("INFO start player")
-                        playerModel.player.play()
+            TimelineView(.periodic(from: .now, by: 1.0)) { timeline in
+                VideoPlayer(player: playerModel.player)
+                    .task(id: playerModel.player.readyToPlay) {
+                        if playerModel.player.readyToPlay {
+                            print("Status Start Playing")
+                            playerModel.player.play()
+                        }
                     }
-                }
+                    .task(id: playerModel.player.status) {
+                        switch playerModel.player.status {
+                        case .unknown:
+                            print("Status Unknown")
+                        case .readyToPlay:
+                            print("Status Ready to Play")
+                        case .failed:
+                            print("Status Failed")
+                        @unknown default:
+                            print("Status Unknown Default")
+                        }
+                    }
+                    .task(id: playerModel.player.currentItem?.currentTime()) {
+                        
+                        if let time = playerModel.player.currentItem?.currentTime().seconds, Int(time) != 0, Int(time).isMultiple(of: 10) {
+                            print("Time: \(Int(time))")
+                        }
+                    }
+            }
                 .ignoresSafeArea(.all)
         }
         /// The PlayerModel class
         class PlayerModel: ObservableObject {
             /// The AVplayer
-            let player: AVPlayer
+            @Published var player: AVPlayer
             /// Init the PlayerModel class
             init(video: any KodiItem, endAction: @escaping () -> Void) {
                 /// Setup the player
                 let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(file: video.file, type: .file))!)
-                print("INFO start metadata")
 #if os(tvOS)
                 /// tvOS can add aditional info to the player
                 playerItem.externalMetadata = createMetadataItems(video: video)
 #endif
-                print("INFO end metadata")
                 /// Create a new Player
-                print("INFO create player")
                 player = AVPlayer(playerItem: playerItem)
                 player.actionAtItemEnd = .none
                 /// Get notifications
                 NotificationCenter
-                    .default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
+                    .default
+                    .addObserver(forName: .AVPlayerItemDidPlayToEndTime,
                                          object: nil,
-                                         queue: nil) { _ in endAction() }
+                                         queue: nil) { _ in
+                        endAction()
+                        
+                    }
             }
         }
     }
@@ -166,6 +185,23 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
     return mapping.compactMap { createMetadataItem(for: $0, value: $1) }
 }
 #endif
+
+extension AVPlayer {
+    
+    
+    /// Bool if the Player is ready to play
+    ///
+    /// https://stackoverflow.com/questions/5401437/knowing-when-avplayer-object-is-ready-to-play
+    var readyToPlay:Bool {
+        let timeRange = currentItem?.loadedTimeRanges.first as? CMTimeRange
+        guard let duration = timeRange?.duration else { return false }
+        let timeLoaded = Int(duration.value) / Int(duration.timescale) // value/timescale = seconds
+        let loaded = timeLoaded > 0
+
+        return status == .readyToPlay && loaded
+    }
+}
+
 extension AVPlayer {
     
     /// Is the AV player playing or not?
