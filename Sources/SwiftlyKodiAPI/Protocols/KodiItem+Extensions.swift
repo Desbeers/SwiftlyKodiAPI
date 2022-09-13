@@ -8,35 +8,21 @@
 import Foundation
 
 public extension KodiItem {
-    
+
     /// Mark a ``KodiItem`` as played
     func markAsPlayed() async {
-        
         var newItem = self
-        
         newItem.playcount += 1
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        newItem.lastPlayed = dateFormatter.string(from: Date())
-        
+        newItem.lastPlayed = kodiDateFromSwiftDate(Date())
         newItem.resume.position = 0
-        
         await setDetails(newItem)
     }
     
     /// Set the resume time of a  ``KodiItem``
-    ///
-    /// - Note: Setting only the 'resume time' does not trigger a notification so I set the date as well
     func setResumeTime(time: Double) async {
-        
         var newItem = self
-        
         newItem.resume.position = Double(Int(time))
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        newItem.lastPlayed = dateFormatter.string(from: Date())
-        
+        newItem.lastPlayed = kodiDateFromSwiftDate(Date())
         await setDetails(newItem)
     }
     
@@ -44,11 +30,8 @@ public extension KodiItem {
     ///
     /// This will set the 'userRating' to either 10 or 0
     func toggleFavorite() async {
-
         var newItem = self
-
         newItem.userRating = self.userRating < 10 ? 10 : 0
-
         await setDetails(newItem)
     }
     
@@ -63,9 +46,7 @@ public extension KodiItem {
         
         newItem.playcount = self.playcount == 0 ? 1 : 0
         /// Set or reset the last played date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        newItem.lastPlayed = newItem.playcount == 0 ? "2000-01-01 00:00:00" : dateFormatter.string(from: Date())
+        newItem.lastPlayed = newItem.playcount == 0 ? "2000-01-01 00:00:00" : kodiDateFromSwiftDate(Date())
         switch self.media {
         case .tvshow:
             /// Update the episodes with the new playcount
@@ -87,6 +68,15 @@ public extension KodiItem {
 }
 
 extension KodiItem {
+    
+    /// Convert a `Date` to a Kodi date string
+    /// - Parameter date: The `Date`
+    /// - Returns: A string with the date
+    func kodiDateFromSwiftDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return dateFormatter.string(from: date)
+    }
     
     /// Set the details of a ``KodiItem``
     /// - Parameter item: The ``KodiItem`` to set

@@ -35,9 +35,6 @@ struct Tasks {
     var getCurrentPlaylist = Debouncer(duration: 2)
     var setLibraryCache = Debouncer(duration: 10)
     var getPlayerState = Debouncer(duration: 4)
-    
     var getPlayerProperties = Debouncer(duration: 2)
     var getPlayerItem = Debouncer(duration: 2)
-    
-    var setResumeTime = Debouncer(duration: 10)
 }

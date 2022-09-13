@@ -9,113 +9,117 @@ import Combine
 import AVKit
 
 /// A SwiftUI View with a player to stream a ``KodiItem`` (SwiftlyKodi Type)
+
 public struct KodiPlayerView: View {
-    /// The KodiConnector model
-    @EnvironmentObject var kodi: KodiConnector
     /// The Video item we want to play
     let video: any KodiItem
     /// Resume the video or not
     let resume: Bool
-    
-    @State private var playing: Bool = false
+    /// Observe the player
+    @StateObject private var playerModel = KodiPlayerModel()
+    /// The presentation mode
+    /// - Note: Need this to go back a View on iOS after the video has finnished
+    @Environment(\.presentationMode) var presentationMode
     
     /// init: we don't get it for free
     public init(video: any KodiItem, resume: Bool = false) {
         self.video = video
         self.resume = resume
     }
-    /// The presentation mode
-    /// - Note: Need this to go back a View on iOS after the video has finnished
-    @Environment(\.presentationMode) var presentationMode
     /// The body of this View
     public var body: some View {
-        Wrapper(video: video, resume: resume) {
-            /// Mark the video as played
-            Task {
-                await video.markAsPlayed()
-            }
-            /// Go back a View
-            presentationMode.wrappedValue.dismiss()
-        }
-    }
-}
-
-extension KodiPlayerView {
-    
-    /// A wrapper View around the `VideoPlayer` so we can observe it
-    /// and act after a video has finnised playing
-    struct Wrapper: View {
-        /// The video we want to play
-        let video: any KodiItem
-        /// Resume the video or not
-        let resume: Bool
-        /// Player is ready and playing
-        @State private var isPlaying: Bool = false
-        /// Observe the player
-        @StateObject private var playerModel: PlayerModel
-        /// Init the Wrapper View
-        init(video: any KodiItem, resume: Bool, endAction: @escaping () -> Void) {
-            self.video = video
-            self.resume = resume
-            _playerModel = StateObject(wrappedValue: PlayerModel(video: video, endAction: endAction))
-        }
-        /// The body of this View
-        var body: some View {
-            TimelineView(.periodic(from: .now, by: 1.0)) { timeline in
-                VideoPlayer(player: playerModel.player)
-                    .task(id: playerModel.player.readyToPlay) {
-                        if playerModel.player.readyToPlay, !isPlaying {
-                            if resume, video.resume.position > 0 {
-                                let time = CMTime(seconds: video.resume.position, preferredTimescale: 1)
-                                playerModel.player.seek(to: time)
-                            }
-                            /// Don't do this again
-                            isPlaying = true
-                            /// Start the player
-                            playerModel.player.play()
-                        }
+        VideoPlayer(player: playerModel.player)
+            .task(id: playerModel.state) {
+                switch playerModel.state {
+                case .load:
+                    playerModel.loadVideo(video: video)
+                case .readyToPlay:
+                    if resume, video.resume.position > 0 {
+                        let time = CMTime(seconds: video.resume.position, preferredTimescale: 1)
+                        playerModel.player.seek(to: time)
                     }
+                    playerModel.state = .playing
+                    /// Start the player
+                    playerModel.player.play()
+                case .playing:
+                    break
+                case .end:
+                    presentationMode.wrappedValue.dismiss()
+                }
             }
             .ignoresSafeArea(.all)
             .onDisappear {
-                dump(playerModel.player.status.rawValue)
-            }
-        }
-        /// The PlayerModel class
-        class PlayerModel: ObservableObject {
-            /// The AVplayer
-            @Published var player: AVPlayer
-            private var timeObservation: Any?
-            /// Init the PlayerModel class
-            init(video: any KodiItem, endAction: @escaping () -> Void) {
-                /// Setup the player
-                let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(file: video.file, type: .file))!)
-#if os(tvOS)
-                /// tvOS can add aditional info to the player
-                playerItem.externalMetadata = createMetadataItems(video: video)
-#endif
-                /// Create a new Player
-                player = AVPlayer(playerItem: playerItem)
-                player.actionAtItemEnd = .none
-                /// Periodically observe the player's current time, whilst playing and set the resume point
-                timeObservation = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 10, preferredTimescale: 600), queue: nil) { time in
-                    Task {
-                        await KodiConnector.shared.task.setResumeTime.submit {
-                            print("Set resume point")
+                Task {
+                    switch playerModel.state {
+                    case .playing:
+                        print("Video is playing, set resume point")
+                        if let time = playerModel.player.currentItem?.currentTime() {
                             await video.setResumeTime(time: time.seconds)
                         }
+                    case .end:
+                        print("End of video, mark as played")
+                        await video.markAsPlayed()
+                    default:
+                        break
                     }
+                    /// Stop the video
+                    playerModel.player.replaceCurrentItem(with: nil)
+                    /// Stop the timer
+                    playerModel.timer.invalidate()
                 }
-                /// Get notifications
-                NotificationCenter
-                    .default
-                    .addObserver(forName: .AVPlayerItemDidPlayToEndTime,
-                                 object: nil,
-                                 queue: nil) { _ in
-                        endAction()
-                        
-                    }
             }
+    }
+}
+
+enum KodiPlayerState {
+    case load
+    case readyToPlay
+    case playing
+    case end
+}
+
+/// The KodiPlayerModel class
+class KodiPlayerModel: ObservableObject {
+    /// The AVplayer
+    var player: AVPlayer!
+    
+    var timer: Timer!
+    @Published var state: KodiPlayerState = .load
+    
+    func loadVideo(video: any KodiItem) {
+        
+        
+        
+        /// Setup the player
+        let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(file: video.file, type: .file))!)
+#if os(tvOS)
+        /// tvOS can add aditional info to the player
+        playerItem.externalMetadata = createMetadataItems(video: video)
+#endif
+        /// Create a new Player
+        player = AVPlayer(playerItem: playerItem)
+        player.actionAtItemEnd = .none
+        /// Get a notification when the video has ended
+        NotificationCenter
+            .default
+            .addObserver(forName: .AVPlayerItemDidPlayToEndTime,
+                         object: nil,
+                         queue: nil) { _ in
+                Task { @MainActor in
+                    self.state = .end
+                }
+            }
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            self.stateObserver()
+        }
+    }
+    /// Check if the player is ready to play
+    func stateObserver() {
+        if player.readyToPlay {
+            Task { @MainActor in
+                state = .readyToPlay
+            }
+            timer.invalidate()
         }
     }
 }
@@ -202,12 +206,11 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
 #endif
 
 extension AVPlayer {
-    
-    
+
     /// Bool if the Player is ready to play
     ///
     /// https://stackoverflow.com/questions/5401437/knowing-when-avplayer-object-is-ready-to-play
-    var readyToPlay:Bool {
+    var readyToPlay: Bool {
         let timeRange = currentItem?.loadedTimeRanges.first as? CMTimeRange
         guard let duration = timeRange?.duration else { return false }
         let timeLoaded = Int(duration.value) / Int(duration.timescale) // value/timescale = seconds
