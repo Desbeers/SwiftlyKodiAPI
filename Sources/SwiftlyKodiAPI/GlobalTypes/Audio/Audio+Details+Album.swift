@@ -22,6 +22,9 @@ public extension Audio.Details {
         public var subtitle: String { displayArtist }
         public var details: String { year.description }
         
+        /// Not in use but needed by protocol
+        public var resume = Video.Resume()
+        
         /// The search string
         public var search: String {
             "\(title) \(displayArtist)"

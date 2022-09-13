@@ -19,6 +19,24 @@ public extension KodiItem {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         newItem.lastPlayed = dateFormatter.string(from: Date())
         
+        newItem.resume.position = 0
+        
+        await setDetails(newItem)
+    }
+    
+    /// Set the resume time of a  ``KodiItem``
+    ///
+    /// - Note: Setting only the 'resume time' does not trigger a notification so I set the date as well
+    func setResumeTime(time: Double) async {
+        
+        var newItem = self
+        
+        newItem.resume.position = Double(Int(time))
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        newItem.lastPlayed = dateFormatter.string(from: Date())
+        
         await setDetails(newItem)
     }
     
@@ -40,6 +58,8 @@ public extension KodiItem {
         logger("Toggle play state")
         
         var newItem = self
+        
+        newItem.resume.position = 0
         
         newItem.playcount = self.playcount == 0 ? 1 : 0
         /// Set or reset the last played date

@@ -127,6 +127,7 @@ extension VideoLibrary {
                 self.userRating = movie.userRating
                 self.playcount = movie.playcount
                 self.lastPlayed = movie.lastPlayed
+                self.resume = movie.resume
             }
             /// The movie ID
             let movieID: Library.id
@@ -136,12 +137,15 @@ extension VideoLibrary {
             let playcount: Int
             /// The last played date
             let lastPlayed: String
+            /// The resume time
+            let resume: Video.Resume
             /// Coding keys
             enum CodingKeys: String, CodingKey {
                 case movieID = "movieid"
                 case userRating = "userrating"
                 case playcount
                 case lastPlayed = "lastplayed"
+                case resume
             }
         }
         /// The response struct

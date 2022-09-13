@@ -91,10 +91,10 @@ extension KodiConnector {
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
             if !scanningLibrary {
                 getLibraryUpdate(itemID: notification.itemID, media: notification.media)
-                await KodiPlayer.shared.getCurrentPlaylist()
+                await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
             }
         case .playlistOnAdd,.playlistOnRemove, .playlistOnClear:
-            await KodiPlayer.shared.getCurrentPlaylist()
+            await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
         case .applicationOnVolumeChanged:
             Task {
                 properties = await Application.getProperties()
@@ -102,7 +102,7 @@ extension KodiConnector {
             }
         case .playerOnPropertyChanged, .playerOnPause, .playerOnResume:
             await KodiPlayer.shared.setProperties(properties: await Player.getProperties(playerID: notification.playerID))
-            await KodiPlayer.shared.getCurrentPlaylist()
+            await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
         case .playerOnSeek:
             await KodiPlayer.shared.getPlayerProperties()
         default:

@@ -14,16 +14,22 @@ public struct KodiPlayerView: View {
     @EnvironmentObject var kodi: KodiConnector
     /// The Video item we want to play
     let video: any KodiItem
+    /// Resume the video or not
+    let resume: Bool
+    
+    @State private var playing: Bool = false
+    
     /// init: we don't get it for free
-    public init(video: any KodiItem) {
+    public init(video: any KodiItem, resume: Bool = false) {
         self.video = video
+        self.resume = resume
     }
     /// The presentation mode
     /// - Note: Need this to go back a View on iOS after the video has finnished
     @Environment(\.presentationMode) var presentationMode
     /// The body of this View
     public var body: some View {
-        Wrapper(video: video) {
+        Wrapper(video: video, resume: resume) {
             /// Mark the video as played
             Task {
                 await video.markAsPlayed()
@@ -40,11 +46,17 @@ extension KodiPlayerView {
     /// and act after a video has finnised playing
     struct Wrapper: View {
         /// The video we want to play
-        //let video: MediaItem
+        let video: any KodiItem
+        /// Resume the video or not
+        let resume: Bool
+        /// Player is ready and playing
+        @State private var isPlaying: Bool = false
         /// Observe the player
         @StateObject private var playerModel: PlayerModel
         /// Init the Wrapper View
-        init(video: any KodiItem, endAction: @escaping () -> Void) {
+        init(video: any KodiItem, resume: Bool, endAction: @escaping () -> Void) {
+            self.video = video
+            self.resume = resume
             _playerModel = StateObject(wrappedValue: PlayerModel(video: video, endAction: endAction))
         }
         /// The body of this View
@@ -52,36 +64,28 @@ extension KodiPlayerView {
             TimelineView(.periodic(from: .now, by: 1.0)) { timeline in
                 VideoPlayer(player: playerModel.player)
                     .task(id: playerModel.player.readyToPlay) {
-                        if playerModel.player.readyToPlay {
-                            print("Status Start Playing")
+                        if playerModel.player.readyToPlay, !isPlaying {
+                            if resume, video.resume.position > 0 {
+                                let time = CMTime(seconds: video.resume.position, preferredTimescale: 1)
+                                playerModel.player.seek(to: time)
+                            }
+                            /// Don't do this again
+                            isPlaying = true
+                            /// Start the player
                             playerModel.player.play()
                         }
                     }
-                    .task(id: playerModel.player.status) {
-                        switch playerModel.player.status {
-                        case .unknown:
-                            print("Status Unknown")
-                        case .readyToPlay:
-                            print("Status Ready to Play")
-                        case .failed:
-                            print("Status Failed")
-                        @unknown default:
-                            print("Status Unknown Default")
-                        }
-                    }
-                    .task(id: playerModel.player.currentItem?.currentTime()) {
-                        
-                        if let time = playerModel.player.currentItem?.currentTime().seconds, Int(time) != 0, Int(time).isMultiple(of: 10) {
-                            print("Time: \(Int(time))")
-                        }
-                    }
             }
-                .ignoresSafeArea(.all)
+            .ignoresSafeArea(.all)
+            .onDisappear {
+                dump(playerModel.player.status.rawValue)
+            }
         }
         /// The PlayerModel class
         class PlayerModel: ObservableObject {
             /// The AVplayer
             @Published var player: AVPlayer
+            private var timeObservation: Any?
             /// Init the PlayerModel class
             init(video: any KodiItem, endAction: @escaping () -> Void) {
                 /// Setup the player
@@ -93,12 +97,21 @@ extension KodiPlayerView {
                 /// Create a new Player
                 player = AVPlayer(playerItem: playerItem)
                 player.actionAtItemEnd = .none
+                /// Periodically observe the player's current time, whilst playing and set the resume point
+                timeObservation = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 10, preferredTimescale: 600), queue: nil) { time in
+                    Task {
+                        await KodiConnector.shared.task.setResumeTime.submit {
+                            print("Set resume point")
+                            await video.setResumeTime(time: time.seconds)
+                        }
+                    }
+                }
                 /// Get notifications
                 NotificationCenter
                     .default
                     .addObserver(forName: .AVPlayerItemDidPlayToEndTime,
-                                         object: nil,
-                                         queue: nil) { _ in
+                                 object: nil,
+                                 queue: nil) { _ in
                         endAction()
                         
                     }
@@ -158,7 +171,7 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
             }
         }
         metaData.genre = episode.showTitle
-        metaData.creationDate = episode.firstAired
+        metaData.creationDate = "\(episode.firstAired)"
     case let musicVideo as Video.Details.MusicVideo:
         metaData.title = musicVideo.title
         metaData.subtitle = musicVideo.subtitle
@@ -178,9 +191,11 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
         .iTunesMetadataTrackSubTitle: metaData.subtitle,
         .commonIdentifierArtwork: metaData.artwork.pngData() as Any,
         .commonIdentifierDescription: metaData.description,
-        /// .iTunesMetadataContentRating: "100",
         .quickTimeMetadataGenre: metaData.genre,
-        .quickTimeMetadataCreationDate: metaData.creationDate
+        .iTunesMetadataReleaseDate: metaData.creationDate.utf8,
+        .quickTimeMetadataCreationDate: metaData.creationDate.utf8,
+        .commonIdentifierCreationDate: metaData.creationDate.utf8,
+        .quickTimeUserDataCreationDate: metaData.creationDate.utf8
     ]
     return mapping.compactMap { createMetadataItem(for: $0, value: $1) }
 }
@@ -197,7 +212,7 @@ extension AVPlayer {
         guard let duration = timeRange?.duration else { return false }
         let timeLoaded = Int(duration.value) / Int(duration.timescale) // value/timescale = seconds
         let loaded = timeLoaded > 0
-
+        
         return status == .readyToPlay && loaded
     }
 }

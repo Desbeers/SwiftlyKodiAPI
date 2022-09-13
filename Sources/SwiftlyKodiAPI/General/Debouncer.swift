@@ -38,4 +38,6 @@ struct Tasks {
     
     var getPlayerProperties = Debouncer(duration: 2)
     var getPlayerItem = Debouncer(duration: 2)
+    
+    var setResumeTime = Debouncer(duration: 10)
 }

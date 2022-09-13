@@ -39,6 +39,9 @@ public extension Library.Details {
         
         public var file: String = ""
         
+        /// Not in use but needed by protocol
+        public var resume = Video.Resume()
+        
         
         /// # Library.Details.Genre
         

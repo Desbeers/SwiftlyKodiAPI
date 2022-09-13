@@ -34,6 +34,9 @@ public extension Audio.Details {
         public var sortByTitle: String { title }
         public var details: String = "Stream"
         
+        /// Not in use but needed by protocol
+        public var resume = Video.Resume()
+        
         /// # Audio.Details.Stream
         ///
         public var id: Int
