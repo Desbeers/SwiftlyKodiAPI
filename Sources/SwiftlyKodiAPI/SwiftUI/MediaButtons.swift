@@ -103,10 +103,10 @@ public extension MediaButtons {
             }, label: {
                 Label("Shuffle", systemImage: "shuffle")
                     .foregroundColor(player.properties.shuffled ? .white : .none)
+                    .padding(2)
+                    .background(player.properties.shuffled ? Color.accentColor : Color.clear, in: RoundedRectangle(cornerRadius: 4))
             })
             .help("Shuffle the playlist")
-            .background(RoundedRectangle(cornerRadius: 4)
-                .fill(player.properties.shuffled ? Color.accentColor : Color.clear))
             .disabled(player.properties.partymode)
             .disabled(!player.properties.canShuffle)
             /// You can't shuffle when there is only one item in the playlist
@@ -128,9 +128,9 @@ public extension MediaButtons {
             }, label: {
                 Label("Repeat", systemImage: repeatingIcon)
                     .foregroundColor(player.properties.repeating == .off ? .none : .white)
+                    .padding(2)
+                    .background(player.properties.repeating  == .off ? Color.clear : Color.accentColor, in: RoundedRectangle(cornerRadius: 4))
             })
-            .background(RoundedRectangle(cornerRadius: 4)
-                .fill(player.properties.repeating  == .off ? .clear : .accentColor))
             .disabled(player.properties.partymode)
             .disabled(!player.properties.canRepeat)
         }

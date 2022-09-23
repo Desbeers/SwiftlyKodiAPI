@@ -17,8 +17,6 @@ extension Player {
     ///
     /// - Note: This method does not depend on a 'loaded library'
     ///
-    /// - Note: Not all ``Library/Media`` types are implemented
-    ///
     /// - Parameter playerID: The ``Player/ID`` of the  player
     /// - Returns: a ``KodiItem`` if there is a current item
     public static func getItem(playerID: Player.ID) async -> (any KodiItem)? {
@@ -28,18 +26,6 @@ extension Player {
             /// If the result has an ID, it is from the library
             if let id = result.item.id, let item = await Application.getItem(type: result.item.type, id: id) {
                 return item
-//            }
-//            if let id = result.item.id {
-//                switch result.item.type {
-//                case .song:
-//                    return await AudioLibrary.getSongDetails(songID: id)
-//                case .musicVideo:
-//                    return await VideoLibrary.getMusicVideoDetails(musicVideoID: id)
-//                case .movie:
-//                    return await VideoLibrary.getMovieDetails(movieID: id)
-//                default:
-//                    logger("Unknown item in the player")
-//                }
             } else {
                 /// Return it as a stream item
                 return SwiftlyKodiAPI.Audio.Details.Stream(title: result.item.label,
