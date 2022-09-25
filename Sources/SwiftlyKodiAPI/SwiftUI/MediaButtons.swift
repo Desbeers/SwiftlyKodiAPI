@@ -146,6 +146,35 @@ public extension MediaButtons {
         }
     }
     
+    /// Partymode button (forced to audio)
+    ///
+    /// - Note: This will set 'Party Mode' for audio, I don't see a use of videos for this
+    struct SetPartyMode: View {
+        @EnvironmentObject var player: KodiPlayer
+        public init() {}
+        public var body: some View {
+            Button(action: {
+                Task {
+                    if player.properties.partymode {
+                        Player.setPartyMode(playerID: .audio)
+                    } else {
+                        Player.open(partyMode: .music)
+                    }
+                }
+            }, label: {
+                Label(title: {
+                    Text("Party Mode")
+                }, icon: {
+                    Image(systemName: "wand.and.stars.inverse")
+                        .padding(2)
+                        .foregroundColor(player.properties.partymode ? .white : .none)
+                })
+                .background(player.properties.partymode ? Color.red : Color.clear, in: RoundedRectangle(cornerRadius: 4))
+            })
+            .help("Music party mode")
+        }
+    }
+    
     #if !os(tvOS)
     /// Volume slider
     struct VolumeSlider: View  {

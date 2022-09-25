@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
-
 
 /// SwiftUI Views for Kodi art (SwiftlyKodi Type)
 ///
@@ -74,15 +72,10 @@ public extension KodiArt {
             switch item {
             case let movie as Video.Details.Movie:
                 Art(file: movie.fanart)
-//            case let tvshow as Video.Details.TVShow:
-//                await VideoLibrary.setTVShowDetails(tvshow: tvshow)
             case let episode as Video.Details.Episode:
                 Art(file: episode.art.thumb)
             case let musicVideo as Video.Details.MusicVideo:
                 Art(file: musicVideo.art.fanart.isEmpty ? musicVideo.art.icon : musicVideo.art.fanart)
-//                await VideoLibrary.setMusicVideoDetails(musicVideo: musicVideo)
-//            case let song as Audio.Details.Song:
-//                await AudioLibrary.setSongDetails(song: song)
             case let artist as Audio.Details.Artist:
                 Art(file: artist.fanart, fallback: "person")
             default:
@@ -102,34 +95,28 @@ public extension KodiArt {
             self.fallback = fallback
         }
         public var body: some View {
-            
-            KFImage(URL(string: Files.getFullPath(file: file, type: .art))!)
-            #if os(macOS)
-                .onFailureImage(KFCrossPlatformImage(systemSymbolName: fallback, accessibilityDescription: "Image not found"))
-            #endif
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-
-            
-//            AsyncImage(
-//                url: URL(string: Files.getFullPath(file: file, type: .art)),
-//                transaction: Transaction(animation: .easeInOut(duration: 0.1))
-//            ) { phase in
-//                switch phase {
-//                case .empty:
-//                    ProgressView()
-//                case .success(let image):
-//                    image
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fit)
-//                        .transition(.opacity)
-//                case .failure:
-//                    //Image(systemName: "photo")
-//                    Color.black
-//                @unknown default:
-//                    EmptyView()
-//                }
-//            }
+            AsyncImage(
+                url: URL(string: Files.getFullPath(file: file, type: .art)),
+                transaction: Transaction(animation: .easeInOut(duration: 0.1))
+            ) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .transition(.opacity)
+                case .failure:
+                    Color.black
+                        .overlay(content: {
+                            Image(systemName: fallback)
+                                .scaleEffect(3)
+                        })
+                @unknown default:
+                    EmptyView()
+                }
+            }
         }
     }
 }

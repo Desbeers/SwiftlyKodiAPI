@@ -15,5 +15,8 @@ extension Player.Position {
         public var milliseconds: Int = 0
         public var minutes: Int = 0
         public var seconds: Int = 0
+        public var total: Int {
+            return (hours * 3600) + (minutes * 60) + seconds
+        }
     }
 }
