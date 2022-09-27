@@ -1,6 +1,6 @@
 # ``SwiftlyKodiAPI``
 
-A Swift version to access Kodi's JSON-RPC API.
+A Swift package to access Kodi's JSON-RPC API.
 
 ## Overview
 
