@@ -23,4 +23,4 @@ I'm using this package in a few of my projects:
 
 This package is pretty well documented with DocC.
 
-In Xcode: `Product->Build Documentaition`.
+In Xcode: `Product->Build Documentation`.
