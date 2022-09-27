@@ -12,7 +12,9 @@ It supports version 12 of the interface and that is the stable version of Kodi's
 
 ## Limitations
 
-It is currently very much work in progress. I'm going to use this package in my Kodi Music Remote application [Kodio](https://github.com/Desbeers/Kodio). 
+It is currently very much work in progress....
+
+I'm using this package in my Apple TV Video Client for Kodi [Komodio](https://github.com/Desbeers/Komodio). 
 
 ## Documentation
 
