@@ -79,7 +79,7 @@ public extension KodiArt {
             case let artist as Audio.Details.Artist:
                 Art(file: artist.fanart, fallback: "person")
             default:
-                Art(file: item.poster)
+                Art(file: item.fanart)
             }
         }
     }
