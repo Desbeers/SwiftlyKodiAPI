@@ -24,9 +24,6 @@ let package = Package(
             resources: [
               .process("Resources")
             ]
-//            resources: [
-//              .copy("Resources/Assets.xcassets")
-//            ]
         ),
         
     ]

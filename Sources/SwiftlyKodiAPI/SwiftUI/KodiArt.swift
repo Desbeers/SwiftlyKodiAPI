@@ -41,8 +41,7 @@ public extension KodiArt {
         public var body: some View {
             switch item {
             case let movie as Video.Details.Movie:
-                Art(file: movie.poster)
-
+                Art(file: movie.poster, fallback: "film")
             case let episode as Video.Details.Episode:
                 Art(file: episode.art.seasonPoster)
             case let musicVideo as Video.Details.MusicVideo:
@@ -71,7 +70,7 @@ public extension KodiArt {
         public var body: some View {
             switch item {
             case let movie as Video.Details.Movie:
-                Art(file: movie.fanart)
+                Art(file: movie.fanart, fallback: "film")
             case let episode as Video.Details.Episode:
                 Art(file: episode.art.thumb)
             case let musicVideo as Video.Details.MusicVideo:
@@ -111,7 +110,10 @@ public extension KodiArt {
                     Color.black
                         .overlay(content: {
                             Image(systemName: fallback)
-                                .scaleEffect(3)
+                                .padding()
+                                .font(.system(size: 200))
+                                .minimumScaleFactor(0.1)
+                                .foregroundColor(.white)
                         })
                 @unknown default:
                     EmptyView()

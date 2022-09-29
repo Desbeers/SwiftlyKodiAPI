@@ -138,8 +138,7 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
         var description: String = "description"
         var genre: String = "genre"
         var creationDate: String = "1900"
-        //var artwork: UIImage = UIImage(named: "poster", in: Bundle.module, compatibleWith: .current)!
-        var artwork: UIImage = UIImage(named: "poster", in: Bundle.main, compatibleWith: nil)!
+        var artwork: UIImage = UIImage(named: "poster", in: Bundle.main, compatibleWith: nil) ?? UIImage(systemName: "film")!
     }
     
     /// Helper function
