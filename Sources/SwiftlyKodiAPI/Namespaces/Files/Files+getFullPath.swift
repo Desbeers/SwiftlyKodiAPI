@@ -13,6 +13,8 @@ extension Files {
     ///
     /// Kodi does not store the full path of a file in the database; it must be converted to a full path
     ///
+    /// - Note: Because of performance, I do't use 'Files.prepareDownload' here
+    ///
     /// - Parameters:
     ///   - file: The internal Kodi path
     ///   - type: The ``Files/MediaType``; an image or a file

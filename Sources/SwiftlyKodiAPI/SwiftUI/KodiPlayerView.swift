@@ -36,7 +36,7 @@ public struct KodiPlayerView: View {
                 case .readyToPlay:
                     if resume, video.resume.position > 0 {
                         let time = CMTime(seconds: video.resume.position, preferredTimescale: 1)
-                        playerModel.player.seek(to: time)
+                        await playerModel.player.seek(to: time)
                     }
                     playerModel.state = .playing
                     /// Start the player

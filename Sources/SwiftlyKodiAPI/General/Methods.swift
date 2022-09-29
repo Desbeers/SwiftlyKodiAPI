@@ -82,6 +82,8 @@ import Foundation
         
         /// Get the directories and files in the given directory
         case filesGetDirectory = "Files.GetDirectory"
+        /// Provides a way to download a given file
+        case filesPrepareDownload = "Files.PrepareDownload"
         
         /// # JSONRPC
         
