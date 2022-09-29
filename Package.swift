@@ -22,8 +22,11 @@ let package = Package(
         .target(
             name: "SwiftlyKodiAPI",
             resources: [
-              .copy("Resources/Assets.xcassets")
+              .process("Resources")
             ]
+//            resources: [
+//              .copy("Resources/Assets.xcassets")
+//            ]
         ),
         
     ]
