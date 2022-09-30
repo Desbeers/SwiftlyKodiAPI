@@ -14,7 +14,7 @@ public extension Video.Details {
         
         /// # Calculated variables
         
-        public var id: Int { episodeID }
+        public var id: String { "\(media)+\(episodeID)" }
         public var media: Library.Media = .episode
         public var sortByTitle: String { title }
         public var poster: String { thumbnail }

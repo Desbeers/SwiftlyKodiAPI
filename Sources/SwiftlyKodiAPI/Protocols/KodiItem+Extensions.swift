@@ -51,14 +51,16 @@ public extension KodiItem {
         case .tvshow:
             /// Update the episodes with the new playcount
             let kodi: KodiConnector = .shared
-            var episodes = kodi.library.episodes.filter {
-                $0.tvshowID == self.id &&
-                $0.playcount != newItem.playcount
-            }
-            for (index, _) in episodes.enumerated() {
-                episodes[index].playcount = newItem.playcount
-                episodes[index].lastPlayed = newItem.lastPlayed
-                await VideoLibrary.setEpisodeDetails(episode: episodes[index])
+            if let tvshow = kodi.library.tvshows.first(where: {$0.id == self.id}) {
+                var episodes = kodi.library.episodes.filter {
+                    $0.tvshowID == tvshow.tvshowID &&
+                    $0.playcount != newItem.playcount
+                }
+                for (index, _) in episodes.enumerated() {
+                    episodes[index].playcount = newItem.playcount
+                    episodes[index].lastPlayed = newItem.lastPlayed
+                    await VideoLibrary.setEpisodeDetails(episode: episodes[index])
+                }
             }
         default:
             break

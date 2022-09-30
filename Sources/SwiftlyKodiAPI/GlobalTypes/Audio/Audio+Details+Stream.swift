@@ -12,8 +12,7 @@ public extension Audio.Details {
     /// Stream details
     struct Stream: KodiItem {
         /// Init the audio stream
-        public init(id: Int = 1, media: Library.Media = .stream, station: String = "", description: String = "", title: String = "", subtitle: String = "", poster: String = "", playcount: Int = 0, lastPlayed: String = "", userRating: Int = 0, fanart: String = "", file: String = "") {
-            self.id = id
+        public init(media: Library.Media = .stream, station: String = "", description: String = "", title: String = "", subtitle: String = "", poster: String = "", playcount: Int = 0, lastPlayed: String = "", userRating: Int = 0, fanart: String = "", file: String = "") {
             self.media = media
             self.station = station
             self.description = description
@@ -29,6 +28,8 @@ public extension Audio.Details {
         
         /// # Calculated variables
         
+        public var id: String { station }
+        
         /// The search string
         public var search: String { title }
         public var sortByTitle: String { title }
@@ -38,8 +39,8 @@ public extension Audio.Details {
         public var resume = Video.Resume()
         
         /// # Audio.Details.Stream
-        ///
-        public var id: Int
+        
+        
         public var media: Library.Media
         public var station: String
         public var description: String

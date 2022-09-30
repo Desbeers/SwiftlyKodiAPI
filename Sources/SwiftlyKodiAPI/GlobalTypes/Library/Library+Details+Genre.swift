@@ -14,7 +14,7 @@ public extension Library.Details {
 
         /// # Computed items
         
-        public var id: Int { genreID }
+        public var id: String { "\(media)+\(genreID)" }
         public var media: Library.Media = .genre
         public var subtitle: String = ""
         public var details: String = ""

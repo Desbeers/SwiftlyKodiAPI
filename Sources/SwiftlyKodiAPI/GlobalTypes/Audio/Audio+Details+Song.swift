@@ -14,7 +14,7 @@ public extension Audio.Details {
 
         /// # Calculated variables
         
-        public var id: Int { songID }
+        public var id: String { "\(media)+\(songID)" }
         public var media: Library.Media = .song
         public var sortByTitle: String { title }
         public var poster: String { thumbnail }

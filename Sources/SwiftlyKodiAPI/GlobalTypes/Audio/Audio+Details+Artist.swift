@@ -15,7 +15,7 @@ public extension Audio.Details {
 
         /// # Calculated variables
         
-        public var id: Int { artistID }
+        public var id: String { "\(media)+\(artistID)" }
         public var media: Library.Media = .artist
         public var sortByTitle: String { sortName.isEmpty ? artist : sortName }
         public var playcount: Int = 0

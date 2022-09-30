@@ -14,7 +14,7 @@ public extension Video.Details {
         
         /// # Calculated variables
         
-        public var id: Int { setID }
+        public var id: String { "\(media)+\(setID)" }
         public var media: Library.Media = .movieSet
         public var file: String = ""
         public var lastPlayed: String = ""

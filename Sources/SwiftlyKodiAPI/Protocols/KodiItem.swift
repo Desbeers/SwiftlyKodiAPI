@@ -12,7 +12,7 @@ import Foundation
 /// It can be an artist, album, song, movie, movie set, tv show, epiode, music video or a genre
 public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     /// The ID of the item
-    var id: Int { get }
+    var id: String { get }
     /// The kind of ``Library/Media``
     var media: Library.Media { get }
     /// The title of the item
