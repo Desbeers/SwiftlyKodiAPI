@@ -26,6 +26,7 @@ public extension Video.Details {
         
         public var subtitle: String = ""
         public var details: String = ""
+        public var runtime: Int = 0
         
         
         public var userRating: Int = 0

@@ -34,6 +34,7 @@ public extension Audio.Details {
         public var search: String { title }
         public var sortByTitle: String { title }
         public var details: String = "Stream"
+        public var runtime: Int = 0
         
         /// Not in use but needed by protocol
         public var resume = Video.Resume()

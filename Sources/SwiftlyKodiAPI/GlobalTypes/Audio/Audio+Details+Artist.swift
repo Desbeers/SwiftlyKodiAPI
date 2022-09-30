@@ -22,6 +22,7 @@ public extension Audio.Details {
         public var file: String = ""
         public var lastPlayed: String = ""
         public var poster: String { thumbnail }
+        public var runtime: Int = 0
         
         public var userRating: Int = 0
         

@@ -18,6 +18,7 @@ public extension Library.Details {
         public var media: Library.Media = .genre
         public var subtitle: String = ""
         public var details: String = ""
+        public var runtime: Int = 0
         
         /// The search string
         public var search: String {

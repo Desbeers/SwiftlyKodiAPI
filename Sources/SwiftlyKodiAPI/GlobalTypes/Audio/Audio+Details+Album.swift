@@ -21,6 +21,7 @@ public extension Audio.Details {
         public var poster: String { thumbnail }
         public var subtitle: String { displayArtist }
         public var details: String { year.description }
+        public var runtime: Int { albumDuration }
         
         /// Not in use but needed by protocol
         public var resume = Video.Resume()
