@@ -45,3 +45,46 @@ extension VideoLibrary {
         }
     }
 }
+
+// MARK: getMovieSetDetails
+
+extension VideoLibrary {
+    
+    /// Retrieve details about a specific movie set (Kodi API)
+    /// - Returns: All movie sets in an ``Video/Details/MovieSet`` array
+    public static func getMovieSetDetails(setID: Library.id) async -> Video.Details.MovieSet {
+        let kodi: KodiConnector = .shared
+        if let result = try? await kodi.sendRequest(request: GetMovieSetDetails(setID: setID)) {
+            return result.setdetails
+        }
+        /// There are no movie sets in the library
+        return Video.Details.MovieSet()
+    }
+    
+    /// Retrieve details about a specific movie set (Kodi API)
+    fileprivate struct GetMovieSetDetails: KodiAPI {
+        /// The movie set  ID
+        let setID: Library.id
+        /// The method
+        let method = Methods.videoLibraryGetMovieSetDetails
+        /// The parameters
+        var parameters: Data {
+            buildParams(params: Params(setID: setID))
+        }
+        /// The parameters struct
+        struct Params: Encodable {
+            let setID: Library.id
+            /// The properties that we ask from Kodi
+            let properties = Video.Fields.movieSet
+            enum CodingKeys: String, CodingKey {
+                case setID = "setid"
+                case properties
+            }
+        }
+        /// The response struct
+        struct Response: Decodable {
+            /// The list of movie sets
+            let setdetails: Video.Details.MovieSet
+        }
+    }
+}

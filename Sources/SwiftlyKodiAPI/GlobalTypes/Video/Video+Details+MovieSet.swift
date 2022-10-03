@@ -44,6 +44,10 @@ public extension Video.Details {
         public var plot: String = ""
         public var setID: Library.id = 0
         
+        /// # Video.Details.MovieSet.Extended (optional)
+        
+        public var movies: [Extended]?
+        
         /// # Video.Details.Media
         
         public var title: String = ""
@@ -70,6 +74,7 @@ public extension Video.Details {
             case playcount
             case fanart
             case thumbnail
+            case movies
         }
 
     }

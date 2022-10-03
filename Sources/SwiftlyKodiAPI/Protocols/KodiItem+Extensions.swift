@@ -18,6 +18,27 @@ public extension KodiItem {
         await setDetails(newItem)
     }
     
+    /// Mark a ``KodiItem`` as new
+    /// - Note: You can't set the date to nil or empty; that will be ignored, so we set it to a long time ago if needed
+    func markAsNew() async {
+        var newItem = self
+        newItem.playcount = 0
+        newItem.resume.position = 0
+        newItem.lastPlayed = "2000-01-01 00:00:00"
+        await setDetails(newItem)
+    }
+    
+    /// Toggle the played status of a ``KodiItem``
+    /// - Note: You can't set the date to nil or empty; that will be ignored, so we set it to a long time ago if needed
+    func togglePlayedState() async {
+        switch self.playcount {
+        case 0:
+            await self.markAsPlayed()
+        default:
+            await self.markAsNew()
+        }
+    }
+    
     /// Set the resume time of a  ``KodiItem``
     func setResumeTime(time: Double) async {
         var newItem = self
@@ -32,39 +53,6 @@ public extension KodiItem {
     func toggleFavorite() async {
         var newItem = self
         newItem.userRating = self.userRating < 10 ? 10 : 0
-        await setDetails(newItem)
-    }
-    
-    /// Toggle the played status of a ``KodiItem``
-    /// - Note: You can't set the date to nil or empty; that will be ignored, so we set it to a long time ago if needed
-    func togglePlayedState() async {
-        logger("Toggle play state")
-        
-        var newItem = self
-        
-        newItem.resume.position = 0
-        
-        newItem.playcount = self.playcount == 0 ? 1 : 0
-        /// Set or reset the last played date
-        newItem.lastPlayed = newItem.playcount == 0 ? "2000-01-01 00:00:00" : kodiDateFromSwiftDate(Date())
-        switch self.media {
-        case .tvshow:
-            /// Update the episodes with the new playcount
-            let kodi: KodiConnector = .shared
-            if let tvshow = kodi.library.tvshows.first(where: {$0.id == self.id}) {
-                var episodes = kodi.library.episodes.filter {
-                    $0.tvshowID == tvshow.tvshowID &&
-                    $0.playcount != newItem.playcount
-                }
-                for (index, _) in episodes.enumerated() {
-                    episodes[index].playcount = newItem.playcount
-                    episodes[index].lastPlayed = newItem.lastPlayed
-                    await VideoLibrary.setEpisodeDetails(episode: episodes[index])
-                }
-            }
-        default:
-            break
-        }
         await setDetails(newItem)
     }
 }
@@ -87,8 +75,10 @@ extension KodiItem {
         switch item {
         case let movie as Video.Details.Movie:
             await VideoLibrary.setMovieDetails(movie: movie)
+        case let movieSet as Video.Details.MovieSet:
+            await movieSetDetails(set: movieSet)
         case let tvshow as Video.Details.TVShow:
-            await VideoLibrary.setTVShowDetails(tvshow: tvshow)
+            await tvshowDetails(tvshow: tvshow)
         case let episode as Video.Details.Episode:
             await VideoLibrary.setEpisodeDetails(episode: episode)
         case let musicVideo as Video.Details.MusicVideo:
@@ -98,5 +88,29 @@ extension KodiItem {
         default:
             logger("Updating \(self.media) not implemented")
         }
+    }
+    
+    func movieSetDetails(set: Video.Details.MovieSet) async {
+        let setDetails = await VideoLibrary.getMovieSetDetails(setID: set.setID)
+        if let movies = setDetails.movies {
+            for movie in movies {
+                var update = await VideoLibrary.getMovieDetails(movieID: movie.movieID)
+                update.playcount = set.playcount
+                update.lastPlayed = set.lastPlayed
+                update.resume = set.resume
+                await VideoLibrary.setMovieDetails(movie: update)
+            }
+        }
+    }
+    
+    func tvshowDetails(tvshow: Video.Details.TVShow) async {
+        var episodes = await VideoLibrary.getEpisodes(tvshowID: tvshow.tvshowID)
+        for (index, _) in episodes.enumerated() {
+            episodes[index].playcount = tvshow.playcount
+            episodes[index].lastPlayed = tvshow.lastPlayed
+            episodes[index].resume.position = tvshow.resume.position
+            await VideoLibrary.setEpisodeDetails(episode: episodes[index])
+        }
+        await VideoLibrary.setTVShowDetails(tvshow: tvshow)
     }
 }

@@ -64,6 +64,15 @@ extension KodiConnector {
             case .movie:
                 if let index = library.movies.firstIndex(where: {$0.movieID == itemID}) {
                     library.movies[index] = await VideoLibrary.getMovieDetails(movieID: itemID)
+                    /// Update movie sets if this movie is a part of it
+                    if library.movies[index].setID != 0 {
+                        getLibraryUpdate(itemID: library.movies[index].setID, media: .movieSet)
+                    }
+                }
+            case .movieSet:
+                let update = await VideoLibrary.getMovieSetDetails(setID: itemID)
+                if let index = library.movieSets.firstIndex(where: {$0.setID == itemID}) {
+                    library.movieSets[index].playcount = update.playcount
                 }
             case .tvshow:
                 if let index = library.tvshows.firstIndex(where: {$0.tvshowID == itemID}) {
