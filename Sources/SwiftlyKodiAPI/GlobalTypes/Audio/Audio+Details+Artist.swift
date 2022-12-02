@@ -11,6 +11,40 @@ public extension Audio.Details {
     
     /// Artist details
     struct Artist: KodiItem {
+        public init(media: Library.Media = .artist, playcount: Int = 0, file: String = "", lastPlayed: String = "", runtime: Int = 0, userRating: Int = 0, resume: Video.Resume = Video.Resume(), artist: String = "", artistID: Library.id = 0, born: String = "", description: String = "", died: String = "", disambiguation: String = "", disbanded: String = "", formed: String = "", gender: String = "", instrument: [String] = [], isAlbumArtist: Bool = false, mood: [String] = [], musicBrainzArtistID: [String] = [], roles: [Audio.Artist.Roles] = [], songGenres: [Audio.Details.Genres] = [], sortName: String = "", style: [String] = [], type: String = "", yearsActive: [String] = [], art: Media.Artwork = Media.Artwork(), dateAdded: String = "", genre: [String] = [], fanart: String = "", thumbnail: String = "") {
+            self.media = media
+            self.playcount = playcount
+            self.file = file
+            self.lastPlayed = lastPlayed
+            self.runtime = runtime
+            self.userRating = userRating
+            self.resume = resume
+            self.artist = artist
+            self.artistID = artistID
+            self.born = born
+            self.description = description
+            self.died = died
+            self.disambiguation = disambiguation
+            self.disbanded = disbanded
+            self.formed = formed
+            self.gender = gender
+            self.instrument = instrument
+            self.isAlbumArtist = isAlbumArtist
+            self.mood = mood
+            self.musicBrainzArtistID = musicBrainzArtistID
+            self.roles = roles
+            self.songGenres = songGenres
+            self.sortName = sortName
+            self.style = style
+            self.type = type
+            self.yearsActive = yearsActive
+            self.art = art
+            self.dateAdded = dateAdded
+            self.genre = genre
+            self.fanart = fanart
+            self.thumbnail = thumbnail
+        }
+        
         
 
         /// # Calculated variables

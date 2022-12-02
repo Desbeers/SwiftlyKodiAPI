@@ -11,6 +11,15 @@ public extension Media {
     
     /// Artwork for a Media item (Global Kodi Type)
     struct Artwork: Codable, Equatable, Hashable {
+        public init(banner: String = "", fanart: String = "", poster: String = "", thumb: String = "", icon: String = "", seasonPoster: String = "") {
+            self.banner = banner
+            self.fanart = fanart
+            self.poster = poster
+            self.thumb = thumb
+            self.icon = icon
+            self.seasonPoster = seasonPoster
+        }
+        
         public var banner: String = ""
         public var fanart: String = ""
         public var poster: String = ""
