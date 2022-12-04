@@ -11,8 +11,12 @@ extension Video {
 
     /// The cast of a video item
     public struct Cast: Codable, Identifiable, Hashable {
-        /// Computed properties
+        
+        /// # Calculated variables
+        
         public var id: Int { order }
+        
+        /// # Video.Cast
         
         /// The name of the actor
         public var name: String = ""
@@ -23,14 +27,8 @@ extension Video {
         /// The optional thumbnail of the actor
         public var thumbnail: String? = nil
         
+        /// # Coding keys
         
-//        public var icon: String {
-//            if let icon = thumbnail, !icon.isEmpty {
-//                return Files.getFullPath(file: icon, type: .art)
-//            }
-//            return ""
-//        }
-        /// Coding keys
         enum CodingKeys: String, CodingKey {
             /// The keys for this Actor Item
             case name, order, role, thumbnail

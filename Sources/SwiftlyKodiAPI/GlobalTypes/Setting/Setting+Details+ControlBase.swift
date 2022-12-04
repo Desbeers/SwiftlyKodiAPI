@@ -11,13 +11,20 @@ public extension Setting.Details {
     
     /// Control Base details
     struct ControlBase: Decodable {
+        
+        /// # Setting.Details.ControlBase
+        
         public var delayed: Bool = false
         public var format: String = ""
+        /// Kodi calls this `type` but that is a reserved word
+        public var widget: Setting.Details.ControlType = .list
+        
+        /// # Setting.Details.ControlRange
         
         public var formatLabel: String = ""
         public var minimumLabel: String = ""
         
-        public var widget: Setting.Details.ControlType = .list
+        /// # Coding keys
         
         enum CodingKeys: String, CodingKey {
             case delayed
@@ -31,6 +38,7 @@ public extension Setting.Details {
 
 extension Setting.Details.ControlBase {
     
+    /// Custom decoder
     public init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<Setting.Details.ControlBase.CodingKeys> = try decoder.container(keyedBy: Setting.Details.ControlBase.CodingKeys.self)
         

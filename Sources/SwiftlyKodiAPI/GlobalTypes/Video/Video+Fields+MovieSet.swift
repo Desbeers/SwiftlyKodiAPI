@@ -8,6 +8,7 @@
 import Foundation
 
 extension Video.Fields {
+
     /// The properties of a movies set
     static let movieSet = [
         "title",

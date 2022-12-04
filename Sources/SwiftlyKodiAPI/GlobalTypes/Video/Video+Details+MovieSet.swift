@@ -23,17 +23,12 @@ public extension Video.Details {
             title.removePrefixes(["De", "The"])
         }
         public var poster: String { art.poster }
-        
         public var subtitle: String = ""
         public var details: String = ""
         public var runtime: Int = 0
-        
-        
         public var userRating: Int = 0
-        
         /// Not in use but needed by protocol
         public var resume = Video.Resume()
-        
         /// The search string
         public var search: String {
             "\(title)"
@@ -78,8 +73,4 @@ public extension Video.Details {
         }
 
     }
-}
-
-public extension Audio.Details.Album {
-
 }

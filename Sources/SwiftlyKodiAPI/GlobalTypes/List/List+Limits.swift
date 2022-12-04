@@ -8,6 +8,7 @@
 import Foundation
 
 extension List {
+
     /// The limits fields for JSON requests (SwiftlyKodi Type)
     public struct Limits: Codable {
         /// Init the limits

@@ -8,6 +8,7 @@
 import Foundation
 
 extension Video.Fields {
+
     /// The properties of an episode
     static let episode = [
         "title",

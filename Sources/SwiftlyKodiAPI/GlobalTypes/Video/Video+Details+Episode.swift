@@ -20,8 +20,6 @@ public extension Video.Details {
         public var poster: String { thumbnail }
         public var subtitle: String { showTitle }
         public var details: String { "Season \(season), episode \(episode)" }
-        
-        
         /// The search string
         public var search: String {
             "\(title) \(showTitle)"
@@ -112,10 +110,5 @@ public extension Video.Details {
             case fanart
             case thumbnail
         }
-        
     }
-}
-
-public extension Audio.Details.Album {
-
 }

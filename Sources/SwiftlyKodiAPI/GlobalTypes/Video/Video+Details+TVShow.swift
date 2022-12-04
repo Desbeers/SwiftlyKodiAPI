@@ -20,10 +20,8 @@ public extension Video.Details {
         public var poster: String { art.poster }
         public var subtitle: String = ""
         public var details: String { studio.joined(separator: " ∙ ") }
-        
         /// Not in use but needed by protocol
         public var resume = Video.Resume()
-        
         /// The search string
         public var search: String {
             "\(title)"

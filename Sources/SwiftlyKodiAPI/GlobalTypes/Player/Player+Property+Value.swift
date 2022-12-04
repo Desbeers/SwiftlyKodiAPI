@@ -11,6 +11,9 @@ extension Player.Property {
     
     /// Values of the player properties (Global Kodi Type)
     public struct Value: Decodable {
+        
+        /// # Player.Property.Value
+        
         public var audioStreams: [Player.Audio.Stream] = []
         public var cachePercentage: Double = 0.0
         public var canChangeSpeed: Bool = false
@@ -35,7 +38,9 @@ extension Player.Property {
         public var subtitleEnabled: Bool = false
         public var time = Player.Position.Time()
         public var timeTotal = Player.Position.Time()
-        /// The Codings Keys
+        
+        /// # Codings Keys
+        
         enum CodingKeys: String, CodingKey {
             case audioStreams = "audiostreams"
             case cachePercentage = "cachepercentage"

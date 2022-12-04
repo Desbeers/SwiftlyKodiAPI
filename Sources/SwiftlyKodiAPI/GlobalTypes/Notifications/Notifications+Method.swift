@@ -16,8 +16,7 @@ extension Notifications {
         
         /// An unsupported method
         case unknown
-        
-        
+
         // MARK: Application notifications
         
         /// The volume of the application has changed

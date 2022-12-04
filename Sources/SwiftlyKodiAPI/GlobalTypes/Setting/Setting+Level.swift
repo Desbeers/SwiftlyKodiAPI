@@ -9,8 +9,11 @@ import Foundation
 
 public extension Setting {
     
-    /// The settings level
+    /// The settings level (Global Kodi Type)
     enum Level: String, Codable {
+        
+        /// # Setting.Level
+        
         case basic
         case standard
         case advanced

@@ -8,6 +8,7 @@
 import Foundation
 
 extension Audio {
+    
     /// Static fields for audio
     enum Fields {
         /// Just a placeholder

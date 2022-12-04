@@ -96,6 +96,8 @@ extension Notifications.Item {
 }
 
 extension Notifications.Item {
+    
+    /// Custom decoder
     public init(from decoder: Decoder) throws {
         
         /// # Top level

@@ -8,6 +8,7 @@
 import Foundation
 
 extension List {
+
     /// The sort fields for JSON requests (SwiftlyKodi Type)
     public struct Sort: Codable {
         /// Init the sort order

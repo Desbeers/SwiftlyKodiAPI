@@ -15,10 +15,7 @@ extension Video {
             self.position = position
             self.total = total
         }
-        
-        
         public var position: Double = 0
         public var total: Double = 0
-
     }
 }

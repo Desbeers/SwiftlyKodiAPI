@@ -13,7 +13,7 @@ extension List.Filter {
     enum Operator: String, Codable {
         case contains
         case doesNotContain = "doesnotcontain"
-        //case is
+        // case is
         case isNot = "isnot"
         case startsWith = "startswith"
         case endsWith = "endswith"
@@ -23,8 +23,8 @@ extension List.Filter {
         case before
         case inTheLast = "inthelast"
         case notInTheLast = "notinthelast"
-        //case true
-        //case false
+        // case true
+        // case false
         case between
     }
     

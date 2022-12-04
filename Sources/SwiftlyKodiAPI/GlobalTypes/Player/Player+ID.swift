@@ -9,6 +9,9 @@ public extension Player {
     
     /// The ID of the player (Global Kodi Type)
     enum ID: Int, Codable {
+        
+        /// # Player.Id
+        
         /// The audio player
         case audio
         /// The video player

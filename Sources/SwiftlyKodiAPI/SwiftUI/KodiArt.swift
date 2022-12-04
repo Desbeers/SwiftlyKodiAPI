@@ -16,7 +16,6 @@ public enum KodiArt {
     /// Just a placeholder
 }
 
-
 extension KodiArt {
     
     /// Get default art from the assets catalog

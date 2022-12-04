@@ -20,7 +20,6 @@ public extension Video.Details {
         public var poster: String { thumbnail }
         public var subtitle: String { artist.joined(separator: " ∙ ") }
         public var details: String { album.isEmpty ? genre.joined(separator: " ∙ ") : album }
-        
         /// The search string
         public var search: String {
             "\(title) \(artist.joined(separator: " ")) \(album)"
@@ -62,8 +61,7 @@ public extension Video.Details {
         
         public var art = Media.Artwork()
         public var playcount: Int = 0
-        
-        
+
         /// # Media.Details.Base
         
         public var fanart: String = ""
@@ -97,10 +95,5 @@ public extension Video.Details {
             case fanart
             case thumbnail
         }
-        
     }
-}
-
-public extension Audio.Details.Album {
-
 }

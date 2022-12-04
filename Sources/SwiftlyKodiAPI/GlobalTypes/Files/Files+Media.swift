@@ -8,6 +8,7 @@
 import Foundation
 
 public extension Files {
+
     /// The kind of media for ``Files`` (Global Kodi Type)
     enum Media: String, Codable {
         /// Video items

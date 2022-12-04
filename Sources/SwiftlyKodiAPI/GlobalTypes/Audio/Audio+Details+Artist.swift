@@ -11,6 +11,9 @@ public extension Audio.Details {
     
     /// Artist details
     struct Artist: KodiItem {
+        
+        /// # Public Init
+        
         public init(media: Library.Media = .artist, playcount: Int = 0, file: String = "", lastPlayed: String = "", runtime: Int = 0, userRating: Int = 0, resume: Video.Resume = Video.Resume(), artist: String = "", artistID: Library.id = 0, born: String = "", description: String = "", died: String = "", disambiguation: String = "", disbanded: String = "", formed: String = "", gender: String = "", instrument: [String] = [], isAlbumArtist: Bool = false, mood: [String] = [], musicBrainzArtistID: [String] = [], roles: [Audio.Artist.Roles] = [], songGenres: [Audio.Details.Genres] = [], sortName: String = "", style: [String] = [], type: String = "", yearsActive: [String] = [], art: Media.Artwork = Media.Artwork(), dateAdded: String = "", genre: [String] = [], fanart: String = "", thumbnail: String = "") {
             self.media = media
             self.playcount = playcount
@@ -44,8 +47,6 @@ public extension Audio.Details {
             self.fanart = fanart
             self.thumbnail = thumbnail
         }
-        
-        
 
         /// # Calculated variables
         
@@ -57,23 +58,15 @@ public extension Audio.Details {
         public var lastPlayed: String = ""
         public var poster: String { thumbnail }
         public var runtime: Int = 0
-        
         public var userRating: Int = 0
-        
         /// Not in use but needed by protocol
         public var resume = Video.Resume()
-        
         /// The search string
         public var search: String {
             "\(title)"
         }
-        
-        /// Calculated stuff
-        
         public var title: String { artist }
-        
         public var subtitle: String { songGenres.map({$0.title}).joined(separator: " ∙ ") }
-        
         public var details: String { description }
         
         /// # Audio.Details.Artist
@@ -102,18 +95,18 @@ public extension Audio.Details {
         public var type: String = ""
         public var yearsActive: [String] = []
         
-        /// Audio.Details.Base
+        /// # Audio.Details.Base
         
         public var art = Media.Artwork()
         public var dateAdded: String = ""
         public var genre: [String] = []
         
-        /// Media.Details.Base
+        /// # Media.Details.Base
         
         public var fanart: String = ""
         public var thumbnail: String = ""
         
-        /// Coding keys
+        /// # Coding keys
         
         enum CodingKeys: String, CodingKey {
             case artist
@@ -143,12 +136,13 @@ public extension Audio.Details {
             case genre
             case fanart
             case thumbnail
-            
         }
     }
 }
 
 public extension Audio.Details.Artist {
+    
+    /// Custom decoder
     init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<Audio.Details.Artist.CodingKeys> = try decoder.container(keyedBy: Audio.Details.Artist.CodingKeys.self)
         self.artist = try container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.artist)
@@ -178,9 +172,5 @@ public extension Audio.Details.Artist {
         self.genre = try container.decode([String].self, forKey: Audio.Details.Artist.CodingKeys.genre)
         self.fanart = try container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.fanart)
         self.thumbnail = try container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.thumbnail)
-        
-//        if let thumbnail = try? container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.thumbnail), !thumbnail.isEmpty {
-//            self.thumbnail = Files.getFullPath(file: thumbnail, type: .art)
-//        }
     }
 }

@@ -9,7 +9,6 @@ import Combine
 import AVKit
 
 /// A SwiftUI View with a player to stream a ``KodiItem`` (SwiftlyKodi Type)
-
 public struct KodiPlayerView: View {
     /// The Video item we want to play
     let video: any KodiItem
@@ -20,7 +19,6 @@ public struct KodiPlayerView: View {
     /// The presentation mode
     /// - Note: Need this to go back a View on iOS after the video has finnished
     @Environment(\.presentationMode) var presentationMode
-    
     /// init: we don't get it for free
     public init(video: any KodiItem, resume: Bool = false) {
         self.video = video
@@ -52,12 +50,12 @@ public struct KodiPlayerView: View {
                 Task {
                     switch playerModel.state {
                     case .playing:
-                        print("Video is playing, set resume point")
+                        /// Video is playing, set resume point
                         if let time = playerModel.player.currentItem?.currentTime() {
                             await video.setResumeTime(time: time.seconds)
                         }
                     case .end:
-                        print("End of video, mark as played")
+                        /// End of video, mark as played
                         await video.markAsPlayed()
                     default:
                         break
@@ -71,25 +69,25 @@ public struct KodiPlayerView: View {
     }
 }
 
-enum KodiPlayerState {
-    case load
-    case readyToPlay
-    case playing
-    case end
-}
-
 /// The KodiPlayerModel class
 class KodiPlayerModel: ObservableObject {
     /// The AVplayer
     var player: AVPlayer!
-    
+    /// The timer to keep an eye on the player
     var timer: Timer!
+    /// The state of the player
     @Published var state: KodiPlayerState = .load
+    /// All the states of the player
+    enum KodiPlayerState {
+        case load
+        case readyToPlay
+        case playing
+        case end
+    }
     
+    /// Load a video into the player
+    /// - Parameter video: The ``KodiItem`` to play
     func loadVideo(video: any KodiItem) {
-        
-        
-        
         /// Setup the player
         let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(file: video.file, type: .file))!)
 #if os(tvOS)
@@ -151,8 +149,10 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
         return item.copy() as! AVMetadataItem
     }
     
+    /// The MetaData of the video
     var metaData = MetaData()
     
+    /// Set the MetaData
     switch video {
     case let movie as Video.Details.Movie:
         metaData.title = movie.title
@@ -213,9 +213,10 @@ extension AVPlayer {
     var readyToPlay: Bool {
         let timeRange = currentItem?.loadedTimeRanges.first as? CMTimeRange
         guard let duration = timeRange?.duration else { return false }
-        let timeLoaded = Int(duration.value) / Int(duration.timescale) // value/timescale = seconds
+        /// value/timescale = seconds
+        let timeLoaded = Int(duration.value) / Int(duration.timescale)
         let loaded = timeLoaded > 0
-        
+        /// Return the status
         return status == .readyToPlay && loaded
     }
 }

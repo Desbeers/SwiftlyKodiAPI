@@ -16,8 +16,12 @@ public extension Audio.Artist {
         public var id: Int { roleID }
         public var media: Library.Media = .artist
         
+        /// # Audio.Artist.Roles
+        
         public var role: String = ""
         public var roleID: Library.id = 0
+        
+        /// # Coding keys
         
         enum CodingKeys: String, CodingKey {
             case role

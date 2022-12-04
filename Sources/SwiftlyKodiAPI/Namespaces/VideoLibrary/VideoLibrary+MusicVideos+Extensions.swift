@@ -32,6 +32,19 @@ extension Video.Details.MusicVideo {
 }
 
 extension Array where Element == Video.Details.MusicVideo {
+
+    /// Search an array of ``Video/Details/MusicVideo`` by the a query
+    /// - Parameter query: The search query
+    /// - Returns: An array of ``Video/Details/MusicVideo``
+    public func search(_ query: String) -> [Video.Details.MusicVideo] {
+        let searchMatcher = Search.Matcher(query: query)
+        return self.filter { musicVideos in
+            return searchMatcher.matches(musicVideos.search)
+        }
+    }
+}
+
+extension Array where Element == Video.Details.MusicVideo {
     
     /// Play an array of ``Video.Details.MusicVideo``
     public func play(shuffle: Bool = false) {

@@ -1,5 +1,5 @@
 //
-//  Audio+Details+Base.swift
+//  Audio+Details+Genres.swift
 //  SwiftlyKodiAPI
 //
 //  © 2022 Nick Berendsen
@@ -17,8 +17,12 @@ public extension Audio.Details {
         public var id: Int { genreID }
         public var media: Library.Media = .genre
         
+        /// # Audio.Details.Genres
+        
         public var genreID: Library.id = 0
         public var title: String = ""
+        
+        /// # Coding keys
         
         enum CodingKeys: String, CodingKey {
             case genreID = "genreid"

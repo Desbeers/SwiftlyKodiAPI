@@ -9,11 +9,16 @@ import Foundation
 
 public extension Setting.Details {
     
-    /// Control Base details
+    /// Control Spinner details
     struct ControlSpinner: Decodable {
+        
+        /// # Setting.Details.ControlBase
+        
         public var delayed: Bool = false
         public var format: String = ""
         public var type: String = ""
+        
+        /// # Coding keys
         
         enum CodingKeys: CodingKey {
             case delayed

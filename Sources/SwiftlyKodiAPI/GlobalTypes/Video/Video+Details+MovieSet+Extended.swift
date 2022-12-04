@@ -17,6 +17,8 @@ public extension Video.Details.MovieSet {
         public var label: String = ""
         public var movieID: Library.id = 0
         
+        /// # Coding keys
+        
         enum CodingKeys: String, CodingKey {
             case label
             case movieID = "movieid"

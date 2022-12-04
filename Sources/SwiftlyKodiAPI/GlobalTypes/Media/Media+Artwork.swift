@@ -11,6 +11,9 @@ public extension Media {
     
     /// Artwork for a Media item (Global Kodi Type)
     struct Artwork: Codable, Equatable, Hashable {
+        
+        /// # Public init
+        
         public init(banner: String = "", fanart: String = "", poster: String = "", thumb: String = "", icon: String = "", seasonPoster: String = "") {
             self.banner = banner
             self.fanart = fanart
@@ -20,12 +23,16 @@ public extension Media {
             self.seasonPoster = seasonPoster
         }
         
+        /// # Media.Artwork
+        
         public var banner: String = ""
         public var fanart: String = ""
         public var poster: String = ""
         public var thumb: String = ""
         public var icon: String = ""
         public var seasonPoster: String = ""
+        
+        /// # Coding keys
         
         enum CodingKeys: String, CodingKey {
             case banner
@@ -38,8 +45,9 @@ public extension Media {
     }
 }
 
-
 public extension Media.Artwork {
+    
+    /// Custom decoder
     init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<Media.Artwork.CodingKeys> = try decoder.container(keyedBy: Media.Artwork.CodingKeys.self)
         self.banner = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.banner) ?? ""

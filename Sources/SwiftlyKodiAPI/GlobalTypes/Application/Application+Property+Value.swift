@@ -23,7 +23,6 @@ public extension Application.Property {
         public var version: Version = Version()
         /// The volume setting of the application
         public var volume: Double = 0
-        
         /// The version of the application (major and minor number)
         public struct Version: Codable, Equatable {
             /// Major version number

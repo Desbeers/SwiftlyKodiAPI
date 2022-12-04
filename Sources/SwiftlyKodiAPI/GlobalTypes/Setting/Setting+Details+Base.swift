@@ -70,6 +70,7 @@ public extension Setting.Details {
 
 extension Setting.Details.Base {
     
+    /// Custom decoder
     public init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<Setting.Details.Base.CodingKeys> = try decoder.container(keyedBy: Setting.Details.Base.CodingKeys.self)
         let settingID = try container.decode(String.self, forKey: Setting.Details.Base.CodingKeys.settingID)

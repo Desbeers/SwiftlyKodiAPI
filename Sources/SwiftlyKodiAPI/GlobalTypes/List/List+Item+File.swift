@@ -11,6 +11,9 @@ public extension List.Item {
     
     /// File item (Global Kodi Type)
     struct File: Codable, Hashable {
+        
+        /// # List.Item.File
+        
         /// The label of the file
         public var label: String
         /// The name of the file
@@ -25,7 +28,9 @@ public extension List.Item {
         public var title: String {
             label.components(separatedBy: ".").first ?? label
         }
-        /// Coding keys
+        
+        /// # Coding keys
+        
         enum CodingKeys: String, CodingKey {
             case label
             case file
