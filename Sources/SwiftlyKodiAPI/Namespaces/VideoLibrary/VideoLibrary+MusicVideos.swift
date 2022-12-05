@@ -161,16 +161,12 @@ extension VideoLibrary {
     public static func refreshMusicVideo(musicVideo: Video.Details.MusicVideo) async {
         let kodi: KodiConnector = .shared
         let message = RefreshMusicVideo(musicVideo: musicVideo)
-        //dump(message.urlRequest)
         do {
             let result = try await kodi.sendRequest(request: message)
-            dump(result)
             logger("Refreshed '\(musicVideo.title)'")
         } catch {
             logger("Refreshing music video details failed with error: \(error)")
         }
-        //kodi.sendMessage(message: message)
-        //logger("Refreshed '\(musicVideo.title)'")
     }
     
     /// Refresh the given music video in the library (Kodi API)

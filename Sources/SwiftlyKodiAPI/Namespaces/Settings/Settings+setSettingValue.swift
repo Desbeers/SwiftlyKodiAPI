@@ -16,9 +16,10 @@ extension Settings {
     ///   - setting: The ``Setting/ID`` to set
     ///   - int: The optional Int value
     ///   - bool: The optional Bool value
-    public static func setSettingValue(setting: Setting.ID, int: Int? = nil , bool: Bool? = nil) async {
+    ///   - string: The optional String value
+    public static func setSettingValue(setting: Setting.ID, int: Int? = nil, bool: Bool? = nil, string: String? = nil) async {
         logger("Settings.SetSettingValue")
-        let message = SetSettingValue(setting: setting, valueInt: int, valueBool: bool)
+        let message = SetSettingValue(setting: setting, valueInt: int, valueBool: bool, valueString: string)
         KodiConnector.shared.sendMessage(message: message)
     }
     
@@ -32,13 +33,18 @@ extension Settings {
         let valueInt: Int?
         /// Setting Bool value
         let valueBool: Bool?
+        /// Setting String value
+        let valueString: String?
         /// The JSON creator
         var parameters: Data {
-            if let valueInt = valueInt {
+            if let valueInt {
                 return buildParams(params: ParamsInt(setting: setting.rawValue, value: valueInt))
             }
-            if let valueBool = valueBool {
+            if let valueBool {
                 return buildParams(params: ParamsBool(setting: setting.rawValue, value: valueBool))
+            }
+            if let valueString {
+                return buildParams(params: ParamsString(setting: setting.rawValue, value: valueString))
             }
             return Data()
         }
@@ -54,6 +60,12 @@ extension Settings {
             var setting: String
             /// Setting value
             var value: Bool
+        }
+        struct ParamsString: Encodable {
+            /// Setting ID
+            var setting: String
+            /// Setting value
+            var value: String
         }
         /// The response struct
         struct Response: Decodable { }

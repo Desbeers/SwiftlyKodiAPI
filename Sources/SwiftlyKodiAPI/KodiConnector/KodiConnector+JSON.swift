@@ -21,8 +21,8 @@ extension KodiConnector {
             throw JSON.APIError.responseUnsuccessful
               }
         do {
-            let decoded = try JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data)
             // debugJsonResponse(data: data)
+            let decoded = try JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data)
             return decoded.result
             } catch let DecodingError.dataCorrupted(context) {
                 print(context)

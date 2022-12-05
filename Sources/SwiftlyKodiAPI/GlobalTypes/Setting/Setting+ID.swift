@@ -13,6 +13,13 @@ public extension Setting {
     enum ID: String, Codable {
         /// A setting SwiftlyKodiAPI doesn't know about
         case unknown
+        
+        /// # services + general
+        
+        case servicesDevicename = "services.devicename"
+        
+        /// # player + musicplayer
+        
         /// Read the ReplayGain information encoded in your audio files
         case musicPlayerReplayGainType = "musicplayer.replaygaintype"
         /// Reference volume (PreAmp level) to use for files with encoded ReplayGain information

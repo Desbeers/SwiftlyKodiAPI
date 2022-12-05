@@ -11,15 +11,7 @@ import Foundation
     
     /// Kodi methods used by KodiAPI
     enum Methods: String {
-        
-        /// # General
-        
-//        /// Notify all other connected clients
-//        case notifyAll = "JSONRPC.NotifyAll"
-//        /// Custom notification
-//        case otherNewQueue = "Other.NewQueue"
-        
-        
+
         /// # Application
         
         /// Retrieves the values of the given properties
@@ -151,10 +143,13 @@ import Foundation
         case playlistSwap = "Playlist.Swap"
         /// Get a list of items from a playlist on the host
         case playlistGetItems = "Playlist.GetItems"
-        
-        
-        /// # Settings
 
+        /// # Settings
+        
+        /// Retrieves all setting categories
+        case settingsGetSections = "Settings.GetSections"
+        /// Retrieves all setting categories
+        case settingsGetCategories = "Settings.GetCategories"
         /// Retrieves all settings
         case settingsGetSettings = "Settings.GetSettings"
         /// Set a setting on the host

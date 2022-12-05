@@ -29,6 +29,8 @@ public extension Setting.Details {
         public var valueInt: Int = 0
         /// Optional Bool value of the setting
         public var valueBool: Bool = false
+        /// Optional String value of the setting
+        public var valueString: String = ""
         /// Minimum limit of the setting
         public var minimum: Int = 0;
         /// Maximum limit of the setting
@@ -47,7 +49,9 @@ public extension Setting.Details {
         
         /// Optional settings Int
         public var settingInt: [Setting.Details.SettingInt]?
-        /// The coding keys
+        
+        /// # Coding keys
+        
         enum CodingKeys: String, CodingKey {
             case settingID = "id"
             case control
@@ -72,41 +76,45 @@ extension Setting.Details.Base {
     
     /// Custom decoder
     public init(from decoder: Decoder) throws {
-        let container: KeyedDecodingContainer<Setting.Details.Base.CodingKeys> = try decoder.container(keyedBy: Setting.Details.Base.CodingKeys.self)
-        let settingID = try container.decode(String.self, forKey: Setting.Details.Base.CodingKeys.settingID)
+        let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
+        let settingID = try container.decode(String.self, forKey: CodingKeys.settingID)
         /// Only decode settings we know about
         if let kodioID = Setting.ID(rawValue: settingID) {
             self.id = kodioID
-            
+
             /// ### Definition level
 
-            if let definition = try? container.nestedContainer(keyedBy: Setting.Details.Base.Definition.self, forKey: .definition) {
-                self.settingInt = try definition.decodeIfPresent([Setting.Details.SettingInt].self, forKey: Setting.Details.Base.Definition.options)
+            if let definition = try? container.nestedContainer(keyedBy: Definition.self, forKey: .definition) {
+                self.settingInt = try definition.decodeIfPresent([Setting.Details.SettingInt].self, forKey: Definition.options)
             } else {
-                self.settingInt = try container.decodeIfPresent([Setting.Details.SettingInt].self, forKey: Setting.Details.Base.CodingKeys.options)
+                self.settingInt = try container.decodeIfPresent([Setting.Details.SettingInt].self, forKey: CodingKeys.options)
             }
             
-            self.control = try container.decode(Setting.Details.ControlBase.self, forKey: Setting.Details.Base.CodingKeys.control)
-            self.label = try container.decode(String.self, forKey: Setting.Details.Base.CodingKeys.label)
-            self.help = try container.decodeIfPresent(String.self, forKey: Setting.Details.Base.CodingKeys.help) ?? ""
+            self.control = try container.decode(Setting.Details.ControlBase.self, forKey: CodingKeys.control)
+            self.label = try container.decode(String.self, forKey: CodingKeys.label)
+            self.help = try container.decodeIfPresent(String.self, forKey: CodingKeys.help) ?? ""
             
-            let parent = try container.decode(String.self, forKey: Setting.Details.Base.CodingKeys.parent)
+            let parent = try container.decode(String.self, forKey: CodingKeys.parent)
             
             if let parent = Setting.ID(rawValue: parent) {
                 self.parent = parent
             }
             
-            if let valueInt = try? container.decodeIfPresent(Int.self, forKey: Setting.Details.Base.CodingKeys.value) {
+            if let valueInt = try? container.decodeIfPresent(Int.self, forKey: CodingKeys.value) {
                 self.valueInt = valueInt
             }
             
-            if let valueBool = try? container.decodeIfPresent(Bool.self, forKey: Setting.Details.Base.CodingKeys.value) {
+            if let valueBool = try? container.decodeIfPresent(Bool.self, forKey: CodingKeys.value) {
                 self.valueBool = valueBool
             }
             
-            self.enabled = try container.decode(Bool.self, forKey: Setting.Details.Base.CodingKeys.enabled)
-            self.minimum = try container.decodeIfPresent(Int.self, forKey: Setting.Details.Base.CodingKeys.minimum) ?? 0
-            self.maximum = try container.decodeIfPresent(Int.self, forKey: Setting.Details.Base.CodingKeys.maximum) ?? 0
+            if let valueString = try? container.decodeIfPresent(String.self, forKey: CodingKeys.value) {
+                self.valueString = valueString
+            }
+            
+            self.enabled = try container.decode(Bool.self, forKey: CodingKeys.enabled)
+            self.minimum = try container.decodeIfPresent(Int.self, forKey: CodingKeys.minimum) ?? 0
+            self.maximum = try container.decodeIfPresent(Int.self, forKey: CodingKeys.maximum) ?? 0
         }
     }
 }

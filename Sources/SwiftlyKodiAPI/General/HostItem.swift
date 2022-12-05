@@ -12,7 +12,12 @@ public struct HostItem: Codable, Identifiable, Hashable {
     /// Give it an ID
     public var id: String { ip }
     /// Description of the host
-    public var description: String
+    public var description: String {
+        if let host = KodiConnector.shared.bonjourHosts.first(where: {$0.ip == ip}) {
+            return host.name
+        }
+        return "Kodi"
+    }
     /// IP of the host
     public var ip: String
     /// Port of the host
@@ -36,15 +41,13 @@ public struct HostItem: Codable, Identifiable, Hashable {
     }
     
     /// Init the Host struct
-    public init(description: String = "Kodi",
-                ip: String = "",
+    public init(ip: String = "",
                 port: String = "8080",
                 tcp: String = "9090",
                 username: String = "kodi",
                 password: String = "kodi",
                 media: Media = .video
     ) {
-        self.description = description
         self.ip = ip
         self.port = port
         self.tcp = tcp
