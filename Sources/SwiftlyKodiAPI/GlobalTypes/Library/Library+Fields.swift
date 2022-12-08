@@ -8,11 +8,9 @@
 import Foundation
 
 extension Library {
-    
+
     /// Fields for Library
     enum Fields {
         /// Just a placeholder
     }
-    
-
 }

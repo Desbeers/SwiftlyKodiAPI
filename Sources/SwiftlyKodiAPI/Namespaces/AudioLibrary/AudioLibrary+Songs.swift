@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  getSongs
+// MARK: getSongs
 
 extension AudioLibrary {
-    
+
     /// Retrieve all songs (Kodi API)
     ///
     /// ## Limitations
@@ -56,16 +56,22 @@ extension AudioLibrary {
         /// There are no songs in the library
         return [Audio.Details.Song]()
     }
-    
-    
+
     /// Retrieve all songs after a modification date (Kodi API)
     /// - Parameter modificationDate: The date as a Kodi string
     /// - Returns: The ``Audio/Details/Song`` array after the modified date
     public static func getSongs(modificationDate: String) async -> [Audio.Details.Song] {
         logger("AudioLibrary.getSongs")
         let kodi: KodiConnector = .shared
-        let request  = GetSongs(filter: List.Filter(field: .dateModified, operate: .greaterThan, value: modificationDate), limits: nil, sort: List.Sort())
-        
+        let request = GetSongs(
+            filter: List.Filter(
+                field: .dateModified,
+                operate: .greaterThan,
+                value: modificationDate
+            ),
+            limits: nil,
+            sort: List.Sort()
+        )
         if let result = try? await kodi.sendRequest(request: request) {
             logger("Loaded \(result.songs.count) songs from the Kodi host")
             return result.songs
@@ -73,7 +79,7 @@ extension AudioLibrary {
         /// There are no songs after the modification date
         return [Audio.Details.Song]()
     }
-    
+
     /// Retrieve all songs (Kodi API)
     fileprivate struct GetSongs: KodiAPI {
         /// The optional filter
@@ -106,10 +112,10 @@ extension AudioLibrary {
     }
 }
 
-// MARK:  getSongDetails
+// MARK: getSongDetails
 
 extension AudioLibrary {
-    
+
     /// Retrieve details about a specific song (Kodi API)
     /// - Parameter songID: The ID of the song
     /// - Returns: An ``Audio/Details/Song`` item
@@ -125,7 +131,7 @@ extension AudioLibrary {
             return Audio.Details.Song()
         }
     }
-    
+
     /// Retrieve details about a specific song (Kodi API)
     fileprivate struct GetSongDetails: KodiAPI {
         /// The song ID
@@ -156,7 +162,7 @@ extension AudioLibrary {
     }
 }
 
-// MARK:  setSongDetails
+// MARK: setSongDetails
 
 extension AudioLibrary {
 
@@ -169,7 +175,7 @@ extension AudioLibrary {
         kodi.sendMessage(message: message)
         logger("Details set for '\(song.title)'")
     }
-    
+
     /// Update the given song with the given details (Kodi API)
     fileprivate struct SetSongDetails: KodiAPI {
         /// The song

@@ -7,7 +7,7 @@
 import Foundation
 
 public extension Audio {
-    
+
     /// Artist related items
     enum Artist {
         /// Just a placeholder

@@ -12,7 +12,7 @@ import Network
 public final class KodiConnector: ObservableObject {
 
     // MARK: Constants and Variables
-    
+
     /// The shared instance of this KodiConnector class
     public static let shared = KodiConnector()
     /// The URL session
@@ -30,26 +30,26 @@ public final class KodiConnector: ObservableObject {
     var task = Tasks()
     /// ZeroConf browser
     var browser: NWBrowser?
-    
+
     // MARK: Published properties
 
     /// The state of the KodiConnector class
     @Published public var state: State = .none
-    
+
     /// The remote host to make a connection
     @Published public var host = HostItem()
-    
+
     /// The library on the Kodi host
     @Published public var library = Library.Items()
-    
+
     /// The host settings
     @Published public var settings: [Setting.Details.Base] = []
-    
+
     /// The online hosts
     @Published public var bonjourHosts: [BonjourHost] = []
-    
+
     // MARK: Init
-    
+
     /// Private init to make sure we have only one instance
     private init() {
         /// Give this KodiConnector an unique ID
@@ -74,8 +74,7 @@ public final class KodiConnector: ObservableObject {
             logger("tvOS or iOS comes to the foreground")
             if self.state == .sleeping {
                 Task {
-                    /// Get the state of the player
-                    //await self.getPlayerState()
+                    /// Set the state
                     await self.setState(.wakeup)
                 }
             }
@@ -91,8 +90,7 @@ public final class KodiConnector: ObservableObject {
             logger("macOS wakes up")
             if self.state == .sleeping {
                 Task {
-                    /// Get the state of the player
-                    //await self.getPlayerState()
+                    /// Set the state
                     await self.setState(.wakeup)
                 }
             }

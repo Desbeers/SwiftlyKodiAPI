@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK:  getSettings
+// MARK: getSettings
 
 extension Settings {
 
@@ -25,14 +25,13 @@ extension Settings {
         let request = Settings.GetSettings(section: section, category: category)
         do {
             let result = try await kodi.sendRequest(request: request)
-            //dump(result)
             return result.settings.filter({$0.id != .unknown})
         } catch {
             logger("Loading settings failed with error: \(error)")
             return []
         }
     }
-    
+
     /// Retrieves all settings (Kodi API)
     fileprivate struct GetSettings: KodiAPI {
         /// The optional section

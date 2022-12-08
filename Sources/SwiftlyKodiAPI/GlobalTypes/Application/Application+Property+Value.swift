@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Application.Property {
-    
+
     /// Values of the application properties (Global Kodi Type)
     struct Value: Codable, Equatable {
         /// The language of the application

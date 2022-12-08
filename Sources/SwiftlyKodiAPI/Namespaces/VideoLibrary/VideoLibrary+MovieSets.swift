@@ -10,7 +10,7 @@ import Foundation
 // MARK: getMovieSets
 
 extension VideoLibrary {
-    
+
     /// Retrieve all movie sets (Kodi API)
     /// - Returns: All movie sets in an ``Video/Details/MovieSet`` array
     public static func getMovieSets() async -> [Video.Details.MovieSet] {
@@ -22,7 +22,7 @@ extension VideoLibrary {
         /// There are no movie sets in the library
         return [Video.Details.MovieSet]()
     }
-    
+
     /// Retrieve all movie sets (Kodi API)
     fileprivate struct GetMovieSets: KodiAPI {
         /// The method
@@ -49,7 +49,7 @@ extension VideoLibrary {
 // MARK: getMovieSetDetails
 
 extension VideoLibrary {
-    
+
     /// Retrieve details about a specific movie set (Kodi API)
     /// - Returns: All movie sets in an ``Video/Details/MovieSet`` array
     public static func getMovieSetDetails(setID: Library.id) async -> Video.Details.MovieSet {
@@ -60,7 +60,7 @@ extension VideoLibrary {
         /// There are no movie sets in the library
         return Video.Details.MovieSet()
     }
-    
+
     /// Retrieve details about a specific movie set (Kodi API)
     fileprivate struct GetMovieSetDetails: KodiAPI {
         /// The movie set  ID

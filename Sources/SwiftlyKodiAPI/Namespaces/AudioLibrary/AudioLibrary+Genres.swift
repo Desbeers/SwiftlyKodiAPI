@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  getGenres
+// MARK: getGenres
 
 extension AudioLibrary {
-    
+
     /// Retrieve all genres (Kodi API)
     /// - Returns: All genres in a ``Library/Details/Genre`` array
     public static func getGenres() async -> [Library.Details.Genre] {
@@ -22,8 +22,7 @@ extension AudioLibrary {
         /// There are no audio genres in the library
         return [Library.Details.Genre]()
     }
-    
-    
+
     /// Retrieve all genres (Kodi API)
     fileprivate struct GetGenres: KodiAPI {
         /// The method

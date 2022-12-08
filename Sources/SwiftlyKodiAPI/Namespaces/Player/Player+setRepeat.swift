@@ -7,17 +7,17 @@
 
 import Foundation
 
-// MARK:  setRepeat
+// MARK: setRepeat
 
 extension Player {
-    
+
     /// Set the repeat mode of the player (Kodi API)
     /// - Parameter playerID: The ``Player/ID`` of the  player
     static public func setRepeat(playerID: Player.ID) {
         logger("Player.setRepeat")
         KodiConnector.shared.sendMessage(message: SetRepeat(playerID: playerID))
     }
-    
+
     /// Set the repeat mode of the player (Kodi API)
     fileprivate struct SetRepeat: KodiAPI {
         /// The ID of the player

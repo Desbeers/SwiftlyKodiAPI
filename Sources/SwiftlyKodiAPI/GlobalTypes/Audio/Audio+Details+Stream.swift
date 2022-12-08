@@ -8,13 +8,25 @@
 import Foundation
 
 public extension Audio.Details {
-    
+
     /// Stream details
     struct Stream: KodiItem {
-        
+
         /// # Public Init
-        ///
-        public init(media: Library.Media = .stream, station: String = "", description: String = "", title: String = "", subtitle: String = "", poster: String = "", playcount: Int = 0, lastPlayed: String = "", userRating: Int = 0, fanart: String = "", file: String = "") {
+
+        public init(
+            media: Library.Media = .stream,
+            station: String = "",
+            description: String = "",
+            title: String = "",
+            subtitle: String = "",
+            poster: String = "",
+            playcount: Int = 0,
+            lastPlayed: String = "",
+            userRating: Int = 0,
+            fanart: String = "",
+            file: String = ""
+        ) {
             self.media = media
             self.station = station
             self.description = description
@@ -27,9 +39,9 @@ public extension Audio.Details {
             self.fanart = fanart
             self.file = file
         }
-        
+
         /// # Calculated variables
-        
+
         public var id: String { station }
         /// The search string
         public var search: String { title }
@@ -38,7 +50,7 @@ public extension Audio.Details {
         public var runtime: Int = 0
         /// Not in use but needed by protocol
         public var resume = Video.Resume()
-        
+
         /// # Audio.Details.Stream
 
         public var media: Library.Media
@@ -58,7 +70,7 @@ public extension Audio.Details {
 // MARK: Stream extensions
 
 extension Audio.Details.Stream {
-    
+
     /// Play an audio stream
     public func play() {
         Task {

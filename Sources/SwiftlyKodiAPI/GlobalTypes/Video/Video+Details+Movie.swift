@@ -8,12 +8,12 @@
 import Foundation
 
 public extension Video.Details {
-    
+
     /// Movie details
     struct Movie: KodiItem {
-        
+
         /// # Calculated variables
-        
+
         public var id: String { "\(media)+\(movieID)" }
         public var media: Library.Media = .movie
         public var sortByTitle: String { sortTitle.isEmpty ? title : sortTitle}
@@ -24,9 +24,9 @@ public extension Video.Details {
         public var search: String {
             "\(title)"
         }
-        
+
         /// # Video.Details.Movie
-        
+
         public var cast: [Video.Cast] = []
         public var country: [String] = []
         public var genre: [String] = []
@@ -52,39 +52,37 @@ public extension Video.Details {
         public var votes: String = ""
         public var writer: [String] = []
         public var year: Int = 0
-        
+
         /// # Video.Details.File
-        
+
         public var director: [String] = []
         public var resume = Video.Resume()
         public var runtime: Int = 0
         public var streamDetails = Video.Streams()
-        
+
         /// # Video.Details.Item
-        
+
         public var dateAdded: String = ""
         public var file: String = ""
         public var lastPlayed: String = ""
         public var plot: String = ""
-        
+
         /// # Video.Details.Media
-        
+
         public var title: String = ""
-        
+
         /// # Video.Details.Base
-        
+
         public var art = Media.Artwork()
         public var playcount: Int = 0
-        
-        
+
         /// # Media.Details.Base
-        
+
         public var fanart: String = ""
         public var thumbnail: String = ""
-        
-        
+
         /// # Coding keys
-        
+
         enum CodingKeys: String, CodingKey {
             case cast
             case country
@@ -106,7 +104,7 @@ public extension Video.Details {
             case tagline
             case top250
             case trailer
-            //case uniqueid
+            // case uniqueid
             case userRating = "userrating"
             case votes
             case writer

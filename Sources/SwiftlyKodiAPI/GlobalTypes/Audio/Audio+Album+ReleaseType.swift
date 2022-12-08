@@ -7,7 +7,7 @@
 import Foundation
 
 public extension Audio.Album {
-    
+
     /// The release type of an album
     enum ReleaseType: String, Codable {
         case album

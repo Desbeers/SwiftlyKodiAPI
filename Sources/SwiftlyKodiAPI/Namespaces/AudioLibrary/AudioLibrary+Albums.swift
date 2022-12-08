@@ -18,13 +18,12 @@ extension AudioLibrary {
         if let request = try? await kodi.sendRequest(request: GetAlbums()) {
             logger("Loaded \(request.albums.count) albums from the Kodi host")
             return request.albums
-            //return kodi.setMediaItem(items: request.albums, media: .album)
         } else {
             /// There are no albums in the library
             return [Audio.Details.Album]()
         }
     }
-    
+
     /// Retrieve all albums (Kodi API)
     fileprivate struct GetAlbums: KodiAPI {
         /// The method

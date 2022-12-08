@@ -8,18 +8,18 @@
 import Foundation
 
 public extension Setting.Details {
-    
+
     /// Settings section  (Global Kodi Type)
     struct Section: Decodable, Identifiable, Hashable {
-        
+
         /// # Setting.Details.Base
-        
+
         public var id: Setting.Section = .unknown
         public var label: String = ""
         public var help: String = ""
-        
+
         /// # Coding keys
-        
+
         enum CodingKeys: String, CodingKey {
             case sectionID = "id"
             case label
@@ -29,7 +29,7 @@ public extension Setting.Details {
 }
 
 extension Setting.Details.Section {
-    
+
     /// Custom decoder
     public init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)

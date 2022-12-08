@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Library {
-    
+
     /// The items in the library (SwiftlyKodi Type)
     struct Items: Codable {
         /// The artist in the library

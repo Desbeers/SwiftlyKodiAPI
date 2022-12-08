@@ -17,14 +17,14 @@ actor Debouncer {
 
     func submit(operation: @escaping () async -> Void) {
         task?.cancel()
-        
+
         task = Task {
             try await sleep()
             await operation()
             task = nil
         }
     }
-    
+
     func sleep() async throws {
         try await Task.sleep(nanoseconds: UInt64(duration * TimeInterval(NSEC_PER_SEC)))
     }

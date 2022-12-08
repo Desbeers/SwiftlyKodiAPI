@@ -8,7 +8,7 @@
 import Foundation
 
 extension Video {
-    
+
     /// The streaming details of a video item
     public struct Streams: Codable, Identifiable, Hashable {
         /// Make it identifiable
@@ -62,11 +62,11 @@ extension Video {
 }
 
 extension Video.Streams {
-    
+
     /// A calculated label for the video details
     public var videoLabel: String {
         if let stream = video.first {
-            switch stream.width  {
+            switch stream.width {
             case 1919...:
                 return "Full HD (1080p), \(stream.codec.uppercased() )"
             case 720...:
@@ -78,7 +78,7 @@ extension Video.Streams {
         /// Fallback
         return "Unknown"
     }
-    
+
     /// A calculated label for the subtitles
     public var subtitleLabel: String {
         var label: [String] = []
@@ -87,7 +87,7 @@ extension Video.Streams {
         }
         return label.joined(separator: " | ")
     }
-    
+
     /// A calculated label for the audio details
     public var audioLabel: String {
         var label: [String] = []
@@ -96,7 +96,7 @@ extension Video.Streams {
         }
         return label.joined(separator: " | ")
     }
-    
+
     /// Helper to convert a language code to a full name
     /// - Parameter languageCode: The language code to convert
     /// - Returns: A string with a full name

@@ -34,11 +34,9 @@ public extension KodiConnector {
         }
 
         /// The delegate to update the list of bonjour Kodi's when Bonjour found a change
-        browser.browseResultsChangedHandler = { results, changes in
+        browser.browseResultsChangedHandler = { _, changes in
             for change in changes {
-                
                 switch change {
-                    
                 case .identical:
                     break
                 case .added(let result):
@@ -60,13 +58,14 @@ public extension KodiConnector {
         browser?.cancel()
         bonjourHosts = []
     }
-    
+
     /// Add a new Kodi host to the Bonjour list
     /// - Parameter host: The host to add
     func addHost(host: NWBrowser.Result) {
         if case let NWEndpoint.service(name: name, type: _, domain: _, interface: _) = host.endpoint {
             /// We want the IP V4 address
             let params = NWParameters.tcp
+            // swiftlint:disable:next force_cast
             let ip = params.defaultProtocolStack.internetProtocol! as! NWProtocolIP.Options
             ip.version = .v4
             let connection = NWConnection(to: host.endpoint, using: params)
@@ -95,8 +94,7 @@ public extension KodiConnector {
             connection.start(queue: .main)
         }
     }
-    
-    
+
     /// Remove a Kodi host from the Bonjour list
     /// - Parameter host: The host to remove
     func removeHost(host: NWBrowser.Result) {
@@ -104,7 +102,7 @@ public extension KodiConnector {
             bonjourHosts.removeAll(where: {$0.name == name})
             logger("'\(name)' is offline")
             /// Check if the removed Kodi is the active Kodi and act on it
-            if self.state != .offline, let _ = self.bonjourHosts.first(where: { $0.name == name}) {
+            if self.state != .offline, self.bonjourHosts.first(where: { $0.name == name}) != nil {
                 Task {
                     await self.setState(.offline)
                 }
@@ -114,7 +112,7 @@ public extension KodiConnector {
 }
 
 public extension KodiConnector {
-    
+
     /// A struct for a Kodi host found by the Bonjour browser
     struct BonjourHost: Equatable {
         /// The name of the Kodi service

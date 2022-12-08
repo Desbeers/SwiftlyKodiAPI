@@ -13,7 +13,7 @@ enum Search {
 }
 
 extension Search {
-    
+
     /// A struct for searching the library a bit smart
     /// - Note: Based on code from https://github.com/hacknicity/SmartSearchExample
     struct Matcher {

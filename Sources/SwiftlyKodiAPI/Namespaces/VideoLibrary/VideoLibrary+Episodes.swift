@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK:  getEpisodes
+// MARK: getEpisodes
 
 extension VideoLibrary {
 
@@ -23,7 +23,7 @@ extension VideoLibrary {
         /// There are no episodes in the library
         return [Video.Details.Episode]()
     }
-    
+
     /// Retrieve all episodes of a TV show (Kodi API)
     fileprivate struct GetEpisodes: KodiAPI {
         /// The TV show ID
@@ -57,10 +57,10 @@ extension VideoLibrary {
     }
 }
 
-// MARK:  getEpisodeDetails
+// MARK: getEpisodeDetails
 
 extension VideoLibrary {
-    
+
     /// Retrieve details about a specific episode (Kodi API)
     /// - Parameter episodeID: The ID of the episode
     /// - Returns: A ``Video/Details/Episode`` item
@@ -75,7 +75,7 @@ extension VideoLibrary {
             return Video.Details.Episode()
         }
     }
-    
+
     /// Retrieve details about a specific episode (Kodi API)
     fileprivate struct GetEpisodeDetails: KodiAPI {
         /// The episode ID
@@ -106,10 +106,10 @@ extension VideoLibrary {
     }
 }
 
-// MARK:  setEpisodeDetails
+// MARK: setEpisodeDetails
 
 extension VideoLibrary {
-    
+
     /// Update the given episode with the given details (Kodi API)
     /// - Parameter episode: The ``Video/Details/Episode`` item
     public static func setEpisodeDetails(episode: Video.Details.Episode) async {
@@ -118,7 +118,7 @@ extension VideoLibrary {
         kodi.sendMessage(message: message)
         logger("Details set for '\(episode.title)'")
     }
-    
+
     /// Update the given episode with the given details (Kodi API)
     fileprivate struct SetEpisodeDetails: KodiAPI {
         /// The episode

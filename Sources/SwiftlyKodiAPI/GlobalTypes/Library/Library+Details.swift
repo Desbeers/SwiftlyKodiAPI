@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Library {
-    
+
     ///  Library details
     enum Details {
         /// Just a placeholder

@@ -7,17 +7,17 @@
 
 import Foundation
 
-// MARK:  setPartyMode
+// MARK: setPartyMode
 
 extension Player {
-    
+
     /// Turn partymode on or off (Kodi API)
     /// - Parameter playerID: The ``Player/ID`` of the  player
     static public func setPartyMode(playerID: Player.ID) {
         logger("Player.setPartyMode")
         KodiConnector.shared.sendMessage(message: SetPartyMode(playerID: playerID))
     }
-    
+
     /// Turn partymode on or off (Kodi API)
     fileprivate struct SetPartyMode: KodiAPI {
         /// The ID of the player

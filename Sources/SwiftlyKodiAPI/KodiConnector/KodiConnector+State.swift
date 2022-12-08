@@ -18,7 +18,7 @@ extension KodiConnector {
             stateAction(state: current)
         }
     }
-    
+
     /// The state of the KodiConnector class
     public enum State: String {
         /// Not connected and no host
@@ -43,15 +43,13 @@ extension KodiConnector {
         case online = "The host is online"
         /// An error when loading the library or a lost of connection
         case failure
-        /// KodiConnector has no host configuration
-        ///case noHostConfig
     }
-    
+
     /// The actions when the  state of Kodio is changed
     /// - Parameter state: the current ``State``
     private func stateAction(state: State) {
         switch state {
-            
+
         case .online:
             makeConnection()
         case .connectedToWebSocket:
@@ -63,7 +61,7 @@ extension KodiConnector {
             Task {
                 await getCurrentPlaylists()
             }
-            
+
         case .sleeping:
             disconnectWebSocket()
             stopBonjour()

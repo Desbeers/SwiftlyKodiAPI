@@ -8,7 +8,7 @@
 import Foundation
 
 extension Player.Property {
-    
+
     /// The names of the player properties we ask from Kodi (Global Kodi Type)
     static let name = ["audiostreams",
                        "cachepercentage",

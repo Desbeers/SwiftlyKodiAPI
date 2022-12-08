@@ -22,7 +22,7 @@ extension VideoLibrary {
         /// There are no music videos in the library
         return [Video.Details.MusicVideo]()
     }
-    
+
     /// Retrieve all music videos (Kodi API)
     fileprivate struct GetMusicVideos: KodiAPI {
         /// The method
@@ -49,7 +49,7 @@ extension VideoLibrary {
 // MARK: getMusicVideoDetails
 
 extension VideoLibrary {
-    
+
     /// Retrieve details about a specific music video (Kodi API)
     /// - Parameter musicVideoID: The ID of the music video
     /// - Returns: A ``Video/Details/MusicVideo`` Item
@@ -64,7 +64,7 @@ extension VideoLibrary {
             return Video.Details.MusicVideo()
         }
     }
-    
+
     /// Retrieve details about a specific music video (Kodi API)
     fileprivate struct GetMusicVideoDetails: KodiAPI {
         /// The music video ID
@@ -98,7 +98,7 @@ extension VideoLibrary {
 // MARK: setMusicVideoDetails
 
 extension VideoLibrary {
-    
+
     /// Update the given music video with the given details (Kodi API)
     /// - Parameter musicVideo: The ``Video/Details/MusicVideo`` item
     public static func setMusicVideoDetails(musicVideo: Video.Details.MusicVideo) async {
@@ -107,7 +107,7 @@ extension VideoLibrary {
         kodi.sendMessage(message: message)
         logger("Details set for '\(musicVideo.title)'")
     }
-    
+
     /// Update the given music video with the given details (Kodi API)
     fileprivate struct SetMusicVideoDetails: KodiAPI {
         /// The music video
@@ -155,20 +155,20 @@ extension VideoLibrary {
 // MARK: refreshMusicVideo
 
 extension VideoLibrary {
-    
+
     /// Refresh the given music video in the library (Kodi API)
     /// - Parameter musicVideo: The ``Video/Details/MusicVideo`` item
     public static func refreshMusicVideo(musicVideo: Video.Details.MusicVideo) async {
         let kodi: KodiConnector = .shared
         let message = RefreshMusicVideo(musicVideo: musicVideo)
         do {
-            let result = try await kodi.sendRequest(request: message)
+            _ = try await kodi.sendRequest(request: message)
             logger("Refreshed '\(musicVideo.title)'")
         } catch {
             logger("Refreshing music video details failed with error: \(error)")
         }
     }
-    
+
     /// Refresh the given music video in the library (Kodi API)
     fileprivate struct RefreshMusicVideo: KodiAPI {
         /// The music video

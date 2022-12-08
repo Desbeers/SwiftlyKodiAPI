@@ -8,12 +8,12 @@
 import Foundation
 
 extension Application {
-    
+
     /// Toggle mute/unmute (Kodi API)
-    public static func setMute() async  {
+    public static func setMute() async {
         KodiConnector.shared.sendMessage(message: SetMute())
     }
-    
+
     /// Toggle mute/unmute (Kodi API)
     fileprivate struct SetMute: KodiAPI {
         /// The method

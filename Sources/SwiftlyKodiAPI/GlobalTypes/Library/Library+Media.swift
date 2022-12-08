@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Library {
-    
+
     /// Media types in the library (SwiftlyKodi Type)
     enum Media: String, Equatable, Codable {
         /// Not a media type

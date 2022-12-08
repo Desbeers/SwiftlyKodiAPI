@@ -17,7 +17,7 @@ extension KodiPlayer {
         }
         return nil
     }
-    
+
     /// Get the properties of the player
     func getPlayerProperties() async {
         await task.getPlayerProperties.submit {
@@ -29,7 +29,7 @@ extension KodiPlayer {
             await self.setProperties(properties: properties)
         }
     }
-    
+
     /// Get the optional current item of the player
     func getPlayerItem() async {
         await task.getPlayerItem.submit {
@@ -41,7 +41,7 @@ extension KodiPlayer {
             await self.setCurrentItem(item: currentItem)
         }
     }
-    
+
     /// Get the current playlist for the active player
     func getCurrentPlaylist(media: Library.Media) async {
         await task.getCurrentPlaylist.submit { [self] in

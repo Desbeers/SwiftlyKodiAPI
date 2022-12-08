@@ -6,12 +6,12 @@
 //
 
 public extension Player {
-    
+
     /// The direction for ``goTo(playerID:position:)`` (SwiftlyKodi Type)
     enum GoToDirection: String, Codable {
         /// Goto the previous item
-        case previous = "previous"
+        case previous
         /// Goto the next item
-        case next = "next"
+        case next
     }
 }

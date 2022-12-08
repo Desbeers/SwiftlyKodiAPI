@@ -8,7 +8,7 @@
 import Foundation
 
 extension Audio.Fields {
-    
+
     /// The properties of a song
     static var song = [
         "title",

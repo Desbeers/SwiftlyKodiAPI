@@ -8,12 +8,12 @@
 import Foundation
 
 public extension Video.Details {
-    
+
     /// Movie set details
     struct MovieSet: KodiItem {
-        
+
         /// # Calculated variables
-        
+
         public var id: String { "\(media)+\(setID)" }
         public var media: Library.Media = .movieSet
         public var file: String = ""
@@ -33,34 +33,32 @@ public extension Video.Details {
         public var search: String {
             "\(title)"
         }
-        
+
         /// # Video.Details.MovieSet
-        
+
         public var plot: String = ""
         public var setID: Library.id = 0
-        
+
         /// # Video.Details.MovieSet.Extended (optional)
-        
+
         public var movies: [Extended]?
-        
+
         /// # Video.Details.Media
-        
+
         public var title: String = ""
-        
+
         /// # Video.Details.Base
-        
+
         public var art = Media.Artwork()
         public var playcount: Int = 0
-        
-        
+
         /// # Media.Details.Base
-        
+
         public var fanart: String = ""
         public var thumbnail: String = ""
-        
-        
+
         /// # Coding keys
-        
+
         enum CodingKeys: String, CodingKey {
             case plot
             case setID = "setid"

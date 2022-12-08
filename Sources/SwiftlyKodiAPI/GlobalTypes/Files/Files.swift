@@ -11,4 +11,3 @@ import Foundation
 public enum Files {
     /// Just a placeholder
 }
-

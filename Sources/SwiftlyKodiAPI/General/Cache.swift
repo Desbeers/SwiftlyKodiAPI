@@ -28,7 +28,7 @@ public enum Cache {
         logger("Loaded '\(key)' from cache")
         return decoded
     }
-    
+
     /// Save a struct into the cache
     /// - Parameters:
     ///   - key: The name for the item in the cache

@@ -7,16 +7,16 @@
 
 import Foundation
 
-// MARK:  getGenres
+// MARK: getGenres
 
 extension VideoLibrary {
-    
+
     /// Retrieve all genres (Kodi API)
     /// - Parameter type: The type of ``Library/Media``
     /// - Returns: All genres in a ``Library/Details/Genre`` array
 
     public static func getGenres(type: Library.Media) async -> [Library.Details.Genre] {
-        
+
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetGenres(type: type)) {
             logger("Loaded \(result.genres.count) \(type) genres from the Kodi host")
@@ -25,7 +25,7 @@ extension VideoLibrary {
         /// There are no genres of this type in the library
         return [Library.Details.Genre]()
     }
-    
+
     /// Retrieve all genres (Kodi API)
     struct GetGenres: KodiAPI {
         /// The media type
@@ -51,5 +51,3 @@ extension VideoLibrary {
         }
     }
 }
-
-

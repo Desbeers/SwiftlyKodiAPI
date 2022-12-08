@@ -13,7 +13,9 @@ public enum Library {
 }
 
 public extension Library {
-    
+
+    // swiftlint:disable type_name
     /// The ID of the item the the library
     typealias id = Int
+    // swiftlint:enable type_name
 }

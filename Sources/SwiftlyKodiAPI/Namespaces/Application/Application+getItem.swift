@@ -7,15 +7,15 @@
 
 import Foundation
 
-// MARK:  getItem
+// MARK: getItem
 
 extension Application {
 
     /// Get an item from the application (SwiftlyKodi API)
     public static func getItem(type: Library.Media, id: Library.id) async -> (any KodiItem)? {
-        
+
         let kodi: KodiConnector = .shared
-        
+
         switch type {
         case .song:
             if kodi.library.songs.isEmpty {

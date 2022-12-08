@@ -8,12 +8,12 @@
 import Foundation
 
 extension Player.Audio {
-    
+
     /// Audio stream details of the player (Global Kodi Type)
     public struct Stream: Decodable {
-        
+
         /// # Player.Audio.Stream
-        
+
         public var bitrate: Int = 0
         public var channels: Int = 0
         public var codec: String = ""
@@ -24,9 +24,9 @@ extension Player.Audio {
         public var language: String = ""
         public var name: String = ""
         public var samplerate: Int = 0
-        
+
         /// # Coding keys
-        
+
         enum CodingKeys: String, CodingKey {
             case bitrate, channels, codec, index
             case isDefault = "isdefault"

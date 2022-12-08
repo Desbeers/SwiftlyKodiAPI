@@ -8,15 +8,15 @@
 import Foundation
 
 public extension Video.Details {
-    
+
     /// TV show details
     struct TVShow: KodiItem {
-        
+
         /// # Calculated variables
-        
+
         public var id: String { "\(media)+\(tvshowID)" }
         public var media: Library.Media = .tvshow
-        public var sortByTitle: String { sortTitle.isEmpty ? title: sortTitle}
+        public var sortByTitle: String { sortTitle.isEmpty ? title : sortTitle }
         public var poster: String { art.poster }
         public var subtitle: String = ""
         public var details: String { studio.joined(separator: " ∙ ") }
@@ -26,9 +26,9 @@ public extension Video.Details {
         public var search: String {
             "\(title)"
         }
-        
+
         /// # Video.Details.TVShow
-        
+
         public var cast: [Video.Cast] = []
         public var episode: Int = 0
         public var episodeGuide: String = ""
@@ -46,35 +46,35 @@ public extension Video.Details {
         public var studio: [String] = []
         public var tag: [String] = []
         public var tvshowID: Library.id = 0
-        //public var uniqueID: Int = 0
+        // public var uniqueID: Int = 0
         public var userRating: Int = 0
         public var votes: String = ""
         public var watchedEpisodes: Int = 0
         public var year: Int = 0
-        
+
         /// # Video.Details.Item
-        
+
         public var dateAdded: String = ""
         public var file: String = ""
         public var lastPlayed: String = ""
         public var plot: String = ""
-        
+
         /// # Video.Details.Media
-        
+
         public var title: String = ""
-        
+
         /// # Video.Details.Base
-        
+
         public var art = Media.Artwork()
         public var playcount: Int = 0
-        
+
         /// # Media.Details.Base
-        
+
         public var fanart: String = ""
         public var thumbnail: String = ""
-        
+
         /// # Coding keys
-        
+
         enum CodingKeys: String, CodingKey {
             case cast
             case episode
@@ -93,7 +93,7 @@ public extension Video.Details {
             case studio
             case tag
             case tvshowID = "tvshowid"
-            //case uniqueID = "uniqueid"
+            // case uniqueID = "uniqueid"
             case userRating = "userrating"
             case votes
             case watchedEpisodes = "watchedepisodes"

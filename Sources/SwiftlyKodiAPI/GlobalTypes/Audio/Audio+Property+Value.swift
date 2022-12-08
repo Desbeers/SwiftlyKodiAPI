@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Audio.Property {
-    
+
     /// Values for audio properties
     struct Value: Codable, Equatable {
         public var albumsLastAdded: String = ""
@@ -31,7 +31,7 @@ public extension Audio.Property {
             case artistsModified = "artistsmodified"
             case genresLastAdded = "genreslastadded"
             case libraryLastCleaned = "librarylastcleaned"
-            //case libraryLastUpdated = "librarylastupdated"
+            // case libraryLastUpdated = "librarylastupdated"
             case missingArtistID = "missingartistid"
             case songsLastAdded = "songslastadded"
             case songsModified = "songsmodified"

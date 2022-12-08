@@ -8,12 +8,12 @@
 import Foundation
 
 public extension Library.Details {
-    
+
     /// Genre details
     struct Genre: KodiItem {
 
         /// # Computed values
-        
+
         public var id: String { "\(media)+\(genreID)" }
         public var media: Library.Media = .genre
         public var subtitle: String = ""
@@ -25,7 +25,7 @@ public extension Library.Details {
         }
 
         /// Protocol requirements
-        
+
         public var sortByTitle: String { title }
         public var playcount: Int = 0
         public var lastPlayed: String = ""
@@ -34,16 +34,16 @@ public extension Library.Details {
         public var fanart: String = ""
         public var file: String = ""
         public var resume = Video.Resume()
-        
+
         /// # Library.Details.Genre
-        
+
         public var genreID: Library.id = 0
-        //public var sourceID: [Int] = []
+        // public var sourceID: [Int] = []
         public var thumbnail: String = ""
         public var title: String = ""
-        
+
         /// # Codings keys
-        
+
         enum CodingKeys: String, CodingKey {
             case genreID = "genreid"
             // case sourceID = "sourceid"

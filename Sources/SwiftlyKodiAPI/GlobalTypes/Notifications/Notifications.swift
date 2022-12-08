@@ -11,4 +11,3 @@ import Foundation
 public enum Notifications {
     /// Just a placeholder
 }
-

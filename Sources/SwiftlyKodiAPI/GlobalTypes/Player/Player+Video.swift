@@ -6,7 +6,7 @@
 //
 
 public extension Player {
-    
+
     /// The video details of the player (Global Kodi Type)
     enum Video {
         /// Just a placeholder

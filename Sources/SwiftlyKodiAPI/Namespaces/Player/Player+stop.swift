@@ -7,17 +7,17 @@
 
 import Foundation
 
-// MARK:  setShuffle
+// MARK: setShuffle
 
 extension Player {
-    
+
     /// Stops playback (Kodi API)
     /// - Parameter playerID: The ``Player/ID`` of the  player
     static func stop(playerID: Player.ID) {
         logger("Player.stop")
         KodiConnector.shared.sendMessage(message: Stop(playerID: playerID))
     }
-    
+
     /// Stops playback (Kodi API)
     fileprivate struct Stop: KodiAPI {
         /// The ID of the player

@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  goTo
+// MARK: goTo
 
 extension Player {
-    
+
     /// Go to previous/next in the playlist (Kodi API)
     ///
     /// - Parameters:
@@ -19,7 +19,7 @@ extension Player {
     public static func goTo(playerID: Player.ID, direction: Player.GoToDirection) {
         KodiConnector.shared.sendMessage(message: GoTo(playerID: playerID, direction: direction))
     }
-    
+
     /// Go to specific item in the playlist (Kodi API)
     ///
     /// - Parameters:
@@ -28,13 +28,13 @@ extension Player {
     public static func goTo(playerID: Player.ID, position: Playlist.position) {
         KodiConnector.shared.sendMessage(message: GoTo(playerID: playerID, position: position))
     }
-    
+
     /// Go to previous/next/specific item in the playlist (Kodi API)
     fileprivate struct GoTo: KodiAPI {
         /// The ID of the player
         let playerID: Player.ID
         /// The direction
-        var direction: Player.GoToDirection? = nil
+        var direction: Player.GoToDirection?
         /// The position
         var position: Playlist.position = 0
         /// The method

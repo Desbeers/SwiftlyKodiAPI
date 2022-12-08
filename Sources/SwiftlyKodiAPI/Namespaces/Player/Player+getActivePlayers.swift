@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  getActivePlayers
+// MARK: getActivePlayers
 
 extension Player {
-    
+
     /// Returns all active players, if any (Kodi API)
     /// - Returns: The active players in an ``Player/ID`` array
     public static func getActivePlayers() async -> [Player.ID]? {
@@ -20,7 +20,7 @@ extension Player {
         }
         return nil
     }
-    
+
     /// Returns all active players (Kodi API)
     fileprivate struct GetActivePlayers: KodiAPI {
         let method: Methods = .playerGetActivePlayers

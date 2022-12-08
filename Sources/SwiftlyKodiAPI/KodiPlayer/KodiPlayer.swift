@@ -17,16 +17,16 @@ import SwiftUI
 ///
 /// - Note: Volume is part of the Application properties but it makes sense here
 public final class KodiPlayer: ObservableObject {
-    
+
     // MARK: Constants and Variables
-    
+
     /// The shared instance of this KodiPlayer class
     public static let shared = KodiPlayer()
     /// Debounced tasks
     var task = Tasks()
-    
+
     // MARK: Published properties
-    
+
     /// The properties of the player
     @Published public private(set) var properties = Player.Property.Value()
     /// The optional current item in the player
@@ -44,9 +44,9 @@ public final class KodiPlayer: ObservableObject {
     /// Bool if the volume of the application is muted or not
     /// - Note: This is an Application property but it makes more sense here
     @Published public private(set) var muted: Bool = false
-    
+
     // MARK: Calculated stuff
-    
+
     /// The current playlist, based on the current ``Playlist/ID``
     public var currentPlaylist: [(any KodiItem)]? {
         switch properties.playlistID {
@@ -58,9 +58,9 @@ public final class KodiPlayer: ObservableObject {
             return nil
         }
     }
-    
+
     // MARK: Init
-    
+
     /// Private init to make sure we have only one instance
     private init() { }
 }
@@ -68,28 +68,28 @@ public final class KodiPlayer: ObservableObject {
 // MARK: Kodi Player setters
 
 extension KodiPlayer {
-    
+
     @MainActor func setApplicationProperties(properties: Application.Property.Value) {
         volume = properties.volume
         muted = properties.muted
     }
-    
+
     @MainActor func setProperties(properties: Player.Property.Value) {
         self.properties = properties
     }
-    
+
     @MainActor func setAudioPlaylist(playlist: [any KodiItem]) {
         audioPlaylist = playlist
     }
-    
+
     @MainActor func setVideoPlaylist(playlist: [any KodiItem]) {
         videoPlaylist = playlist
     }
-    
+
     @MainActor func setPlaylistUpdate() {
         playlistUpdate = Date()
     }
-    
+
     @MainActor func setCurrentItem(item: (any KodiItem)?) {
         currentItem = item
     }

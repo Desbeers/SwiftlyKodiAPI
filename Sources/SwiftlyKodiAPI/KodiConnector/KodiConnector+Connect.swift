@@ -10,7 +10,7 @@ import Foundation
 // MARK: Connecting and loading functions
 
 extension KodiConnector {
-    
+
     public func connect(host: HostItem) {
         /// Start with a blank sheet
         Task {
@@ -21,11 +21,11 @@ extension KodiConnector {
             makeConnection()
         }
     }
-    
+
     func makeConnection() {
         connectWebSocket()
     }
-    
+
     func getKodiState() async {
         await KodiPlayer.shared.getPlayerProperties()
         await KodiPlayer.shared.getPlayerItem()
@@ -38,14 +38,14 @@ extension KodiConnector {
         /// Send the properties to the KodiPlayer Class
         await KodiPlayer.shared.setApplicationProperties(properties: properties)
     }
-    
+
     @MainActor func getCurrentPlaylists() async {
         /// Get Player playlists
         await KodiPlayer.shared.getCurrentPlaylist(media: .none)
         /// Get User playlists
         library.audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
     }
-    
+
     @MainActor public func loadLibrary(cache: Bool = true) async {
         setState(.loadingLibrary)
         if cache, let libraryItems = Cache.get(key: "MyLibrary", as: Library.Items.self) {
@@ -60,12 +60,12 @@ extension KodiConnector {
             await setLibraryCache()
             setState(.loadedLibrary)
         }
-        
+
     }
 }
 
 extension KodiConnector {
-    
+
     /// Get all video genres from the Kodi host
     /// - Returns: All video genres from the Kodi host
     func getAllVideoGenres() async -> [Library.Details.Genre] {

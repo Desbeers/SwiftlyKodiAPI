@@ -7,17 +7,17 @@
 
 import Foundation
 
-// MARK:  setShuffle
+// MARK: setShuffle
 
 extension Player {
-    
+
     /// Shuffle/Unshuffle items in the player (Kodi API)
     /// - Parameter playerID: The ``Player/ID`` of the  player
     static func setShuffle(playerID: Player.ID) {
         logger("Player.setShuffle")
         KodiConnector.shared.sendMessage(message: SetShuffle(playerID: playerID))
     }
-    
+
     /// Shuffle/Unshuffle items in the player (Kodi API)
     fileprivate struct SetShuffle: KodiAPI {
         /// The ID of the player

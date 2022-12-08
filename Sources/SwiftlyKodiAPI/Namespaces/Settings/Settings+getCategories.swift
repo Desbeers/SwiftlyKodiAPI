@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK:  getCategories
+// MARK: getCategories
 
 extension Settings {
 
@@ -26,7 +26,7 @@ extension Settings {
             return []
         }
     }
-    
+
     /// Retrieves all setting categories (Kodi API)
     fileprivate struct GetCategories: KodiAPI {
         /// The level
@@ -45,7 +45,7 @@ extension Settings {
             let level: Setting.Level
             /// The settings section
             let section: Setting.Section
-            
+
             let properties = ["settings"]
         }
         /// The response struct

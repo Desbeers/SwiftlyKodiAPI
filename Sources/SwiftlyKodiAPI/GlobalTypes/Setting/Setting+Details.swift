@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Setting {
-    
+
     /// Setting details related items
     enum Details {
         /// Just a placeholder

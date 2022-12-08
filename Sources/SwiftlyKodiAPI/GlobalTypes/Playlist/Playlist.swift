@@ -15,5 +15,9 @@ public enum Playlist {
 }
 
 public extension Playlist {
+
+    // swiftlint:disable type_name
+    /// The position in the playlist
     typealias position = Int
+    // swiftlint:enable type_name
 }

@@ -8,12 +8,12 @@
 import Foundation
 
 public extension Audio.Details {
-    
+
     /// Album details
     struct Album: KodiItem {
-        
+
         /// # Calculated variables
-        
+
         public var id: String { "\(media)+\(albumID)" }
         public var media: Library.Media = .album
         public var file: String = ""
@@ -28,9 +28,9 @@ public extension Audio.Details {
         public var search: String {
             "\(title) \(displayArtist)"
         }
-        
+
         /// # Audio.Details.Album
-        
+
         public var albumDuration: Int = 0
         public var albumID: Library.id = 0
         public var albumLabel: String = ""
@@ -50,7 +50,7 @@ public extension Audio.Details {
         public var theme: [String] = []
         public var totalDiscs: Int = 0
         public var type: String = ""
-        
+
         /// # Audio.Details.Media
 
         public var artist: [String] = []
@@ -65,21 +65,20 @@ public extension Audio.Details {
         public var userRating: Int = 0
         public var votes: Int = 0
         public var year: Int = 0
-        
+
         /// # Audio.Details.Base
-        
+
         public var art = Media.Artwork()
         public var dateAdded: String = ""
         public var genre: [String] = []
-        
+
         /// # Media.Details.Base
-        
+
         public var fanart: String = ""
         public var thumbnail: String = ""
-        
-        
+
         /// # Coding keys
-        
+
         enum CodingKeys: String, CodingKey {
             case albumDuration = "albumduration"
             case albumID = "albumid"

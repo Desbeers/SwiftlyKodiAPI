@@ -8,12 +8,12 @@
 import Foundation
 
 public extension Audio.Details {
-    
+
     /// Song details
     struct Song: KodiItem {
 
         /// # Calculated variables
-        
+
         public var id: String { "\(media)+\(songID)" }
         public var media: Library.Media = .song
         public var sortByTitle: String { title }
@@ -27,9 +27,9 @@ public extension Audio.Details {
         public var search: String {
             "\(title) \(displayArtist) \(album)"
         }
-        
+
         /// # Audio.Details.Song
-        
+
         public var album: String = ""
         public var albumArtist: [String] = []
         public var albumArtistID: [Int] = []
@@ -59,9 +59,9 @@ public extension Audio.Details {
         public var songID: Library.id = 0
         public var sourceID: [Int] = []
         public var track: Int = 0
-        
+
         /// # Audio.Details.Media
-        
+
         public var artist: [String] = []
         public var artistID: [Int] = []
         public var displayArtist: String = ""
@@ -74,21 +74,20 @@ public extension Audio.Details {
         public var userRating: Int = 0
         public var votes: Int = 0
         public var year: Int = 0
-        
+
         /// # Audio.Details.Base
-        
+
         public var art = Media.Artwork()
         public var dateAdded: String = ""
         public var genre: [String] = []
-        
+
         /// # Media.Details.Base
-        
+
         public var fanart: String = ""
         public var thumbnail: String = ""
-        
-        
+
         /// # Coding keys
-        
+
         enum CodingKeys: String, CodingKey {
             case album
             case albumArtist = "albumartist"
@@ -110,7 +109,7 @@ public extension Audio.Details {
             case file
             case genreID = "genreid"
             case lastPlayed = "lastplayed"
-            //case lyrics
+            // case lyrics
             case mood
             case musicBrainzArtistID = "musicbrainzartistid"
             case musicBrainzTrackID = "musicbrainztrackid"

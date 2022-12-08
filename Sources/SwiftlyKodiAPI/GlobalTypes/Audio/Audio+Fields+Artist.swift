@@ -8,7 +8,7 @@
 import Foundation
 
 extension Audio.Fields {
-    
+
     /// The properties of an artist
     static let artist = [
         "instrument",
@@ -34,7 +34,7 @@ extension Audio.Fields {
         "gender",
         "disambiguation",
         "art",
-        //"sourceid",
+        // "sourceid",
         "datemodified",
         "datenew"
     ]

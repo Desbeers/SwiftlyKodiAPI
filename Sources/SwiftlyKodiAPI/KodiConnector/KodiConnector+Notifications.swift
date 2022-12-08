@@ -8,7 +8,7 @@
 import Foundation
 
 extension KodiConnector {
-    
+
     /// Recieve a notification from the Kodi WebSocket
     ///  - Note: Messages send by ourself are ignored
     func receiveNotification() {
@@ -32,7 +32,6 @@ extension KodiConnector {
                         dump(message)
                         return
                     }
-                    //debugJsonResponse(data: data)
                     logger("Notification: \(notification.method.rawValue)")
                     /// Perform notification action
                     Task {
@@ -52,21 +51,21 @@ extension KodiConnector {
     /// Perform an action after recieving a notification from the Kodi host
     /// - Parameter notification: The received notification
     func notificationAction(notification: Notifications.Item) async {
-        
+
         logger(notification.method.rawValue)
-        
+
         switch notification.method {
-            
+
         case .audioLibraryOnScanStarted, .audioLibraryOnCleanStarted:
             if host.media == .audio || host.media == .all {
                 scanningLibrary = true
             }
-            
+
         case .videoLibraryOnScanStarted, .videoLibraryOnCleanStarted:
             if host.media == .video || host.media == .all {
                 scanningLibrary = true
             }
-            
+
         case .audioLibraryOnScanFinished, .audioLibraryOnCleanFinished:
             if host.media == .audio || host.media == .all {
                 scanningLibrary = false
@@ -75,7 +74,7 @@ extension KodiConnector {
                     await setState(.outdatedLibrary)
                 }
             }
-            
+
         case .videoLibraryOnScanFinished, .videoLibraryOnCleanFinished:
             if host.media == .video || host.media == .all {
                 scanningLibrary = false
@@ -93,7 +92,7 @@ extension KodiConnector {
                 getLibraryUpdate(itemID: notification.itemID, media: notification.media)
                 await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
             }
-        case .playlistOnAdd,.playlistOnRemove, .playlistOnClear:
+        case .playlistOnAdd, .playlistOnRemove, .playlistOnClear:
             await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
         case .applicationOnVolumeChanged:
             Task {
@@ -106,10 +105,8 @@ extension KodiConnector {
         case .playerOnSeek:
             await KodiPlayer.shared.getPlayerProperties()
         default:
-            //logger("Default actions after notification")
             await KodiPlayer.shared.getPlayerProperties()
             await KodiPlayer.shared.getPlayerItem()
-            //await KodiPlayer.shared.getCurrentPlaylist()
         }
     }
 }

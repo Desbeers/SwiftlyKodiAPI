@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  getSections
+// MARK: getSections
 
 extension Settings {
-    
+
     /// Retrieves all setting sections (Kodi API)
     /// - Returns: All setting sections
     public static func getSections() async -> [Setting.Details.Section] {
@@ -25,7 +25,7 @@ extension Settings {
             return []
         }
     }
-    
+
     /// Retrieves all setting sections (Kodi API)
     fileprivate struct GetSections: KodiAPI {
         /// The level

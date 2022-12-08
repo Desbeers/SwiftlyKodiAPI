@@ -8,9 +8,9 @@
 import Foundation
 
 extension KodiConnector {
-    
+
     // MARK: JSON stuff
-    
+
     /// Send a POST request to Kodi
     /// - Parameter request: A prepared JSON request
     /// - Returns: The decoded response
@@ -33,7 +33,7 @@ extension KodiConnector {
             } catch let DecodingError.valueNotFound(value, context) {
                 print("Value '\(value)' not found:", context.debugDescription)
                 print("codingPath:", context.codingPath)
-            } catch let DecodingError.typeMismatch(type, context)  {
+            } catch let DecodingError.typeMismatch(type, context) {
                 print("Type '\(type)' mismatch:", context.debugDescription)
                 print("codingPath:", context.codingPath)
                 debugJsonResponse(data: data)
@@ -42,7 +42,7 @@ extension KodiConnector {
             }
         throw JSON.APIError.invalidData
     }
-    
+
     /// Send a message to the host, not caring about the response
     /// - Parameter request: The full URL request
     func sendMessage<T: KodiAPI>(
@@ -51,9 +51,9 @@ extension KodiConnector {
     ) {
         urlSession.dataTask(with: message.urlRequest).resume()
     }
-    
+
     public func test() {
-        
+
     }
 
 }

@@ -1,6 +1,6 @@
 //
 //  AudioLibrary+Songs+Extensions.swift
-//  
+//
 //
 //  Created by Nick Berendsen on 16/07/2022.
 //
@@ -8,7 +8,7 @@
 import Foundation
 
 extension Audio.Details.Song {
-    
+
     /// Play an  ``Audio/Details/Song`` item
     public func play() {
         Task {
@@ -25,7 +25,7 @@ extension Audio.Details.Song {
 }
 
 extension Array where Element == Audio.Details.Song {
-    
+
     /// Play an array of ``Audio/Details/Song``
     public func play(shuffle: Bool = false) {
         Task {

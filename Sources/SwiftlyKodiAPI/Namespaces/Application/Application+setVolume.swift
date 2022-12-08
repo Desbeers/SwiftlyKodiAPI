@@ -8,13 +8,13 @@
 import Foundation
 
 extension Application {
-    
+
     /// Set the current volume (Kodi API)
     /// - Parameter volume: The new value for the volume
-    public static func setVolume(volume: Double) async  {
+    public static func setVolume(volume: Double) async {
         KodiConnector.shared.sendMessage(message: SetVolume(volume: volume))
     }
-    
+
     /// Set the current volume (Kodi API)
     fileprivate struct SetVolume: KodiAPI {
         /// The method

@@ -6,12 +6,12 @@
 //
 
 public extension Player {
-    
+
     /// The repeat mode of the player (Global Kodi Type)
     enum Repeat: String, Decodable {
-        
+
         /// # Player.Repeat
-        
+
         /// Repeating is off
         case off
         /// Repeat the current item

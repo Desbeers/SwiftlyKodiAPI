@@ -8,13 +8,44 @@
 import Foundation
 
 public extension Audio.Details {
-    
+
     /// Artist details
     struct Artist: KodiItem {
-        
+
         /// # Public Init
-        
-        public init(media: Library.Media = .artist, playcount: Int = 0, file: String = "", lastPlayed: String = "", runtime: Int = 0, userRating: Int = 0, resume: Video.Resume = Video.Resume(), artist: String = "", artistID: Library.id = 0, born: String = "", description: String = "", died: String = "", disambiguation: String = "", disbanded: String = "", formed: String = "", gender: String = "", instrument: [String] = [], isAlbumArtist: Bool = false, mood: [String] = [], musicBrainzArtistID: [String] = [], roles: [Audio.Artist.Roles] = [], songGenres: [Audio.Details.Genres] = [], sortName: String = "", style: [String] = [], type: String = "", yearsActive: [String] = [], art: Media.Artwork = Media.Artwork(), dateAdded: String = "", genre: [String] = [], fanart: String = "", thumbnail: String = "") {
+        public init(
+            media: Library.Media = .artist,
+            playcount: Int = 0,
+            file: String = "",
+            lastPlayed: String = "",
+            runtime: Int = 0,
+            userRating: Int = 0,
+            resume: Video.Resume = Video.Resume(),
+            artist: String = "",
+            artistID: Library.id = 0,
+            born: String = "",
+            description: String = "",
+            died: String = "",
+            disambiguation: String = "",
+            disbanded: String = "",
+            formed: String = "",
+            gender: String = "",
+            instrument: [String] = [],
+            isAlbumArtist: Bool = false,
+            mood: [String] = [],
+            musicBrainzArtistID: [String] = [],
+            roles: [Audio.Artist.Roles] = [],
+            songGenres: [Audio.Details.Genres] = [],
+            sortName: String = "",
+            style: [String] = [],
+            type: String = "",
+            yearsActive: [String] = [],
+            art: Media.Artwork = Media.Artwork(),
+            dateAdded: String = "",
+            genre: [String] = [],
+            fanart: String = "",
+            thumbnail: String = ""
+        ) {
             self.media = media
             self.playcount = playcount
             self.file = file
@@ -49,7 +80,7 @@ public extension Audio.Details {
         }
 
         /// # Calculated variables
-        
+
         public var id: String { "\(media)+\(artistID)" }
         public var media: Library.Media = .artist
         public var sortByTitle: String { sortName.isEmpty ? artist : sortName }
@@ -68,9 +99,9 @@ public extension Audio.Details {
         public var title: String { artist }
         public var subtitle: String { songGenres.map({$0.title}).joined(separator: " ∙ ") }
         public var details: String { description }
-        
+
         /// # Audio.Details.Artist
-        
+
         public var artist: String = ""
         public var artistID: Library.id = 0
         public var born: String = ""
@@ -90,24 +121,24 @@ public extension Audio.Details {
         public var roles: [Audio.Artist.Roles] = []
         public var songGenres: [Audio.Details.Genres] = []
         public var sortName: String = ""
-        //public var sourceID: [Int] = []
+        // public var sourceID: [Int] = []
         public var style: [String] = []
         public var type: String = ""
         public var yearsActive: [String] = []
-        
+
         /// # Audio.Details.Base
-        
+
         public var art = Media.Artwork()
         public var dateAdded: String = ""
         public var genre: [String] = []
-        
+
         /// # Media.Details.Base
-        
+
         public var fanart: String = ""
         public var thumbnail: String = ""
-        
+
         /// # Coding keys
-        
+
         enum CodingKeys: String, CodingKey {
             case artist
             case artistID = "artistid"
@@ -127,7 +158,7 @@ public extension Audio.Details {
             case roles
             case songGenres = "songgenres"
             case sortName = "sortname"
-            //case sourceID = "sourceid"
+            // case sourceID = "sourceid"
             case style
             case type
             case yearsActive = "yearsactive"
@@ -141,7 +172,7 @@ public extension Audio.Details {
 }
 
 public extension Audio.Details.Artist {
-    
+
     /// Custom decoder
     init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<Audio.Details.Artist.CodingKeys> = try decoder.container(keyedBy: Audio.Details.Artist.CodingKeys.self)
@@ -163,7 +194,7 @@ public extension Audio.Details.Artist {
         self.roles = try container.decodeIfPresent([Audio.Artist.Roles].self, forKey: Audio.Details.Artist.CodingKeys.roles) ?? []
         self.songGenres = try container.decode([Audio.Details.Genres].self, forKey: Audio.Details.Artist.CodingKeys.songGenres)
         self.sortName = try container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.sortName)
-        //self.sourceID = try container.decode([Int].self, forKey: Audio.Details.Artist.CodingKeys.sourceID)
+        // self.sourceID = try container.decode([Int].self, forKey: Audio.Details.Artist.CodingKeys.sourceID)
         self.style = try container.decode([String].self, forKey: Audio.Details.Artist.CodingKeys.style)
         self.type = try container.decode(String.self, forKey: Audio.Details.Artist.CodingKeys.type)
         self.yearsActive = try container.decode([String].self, forKey: Audio.Details.Artist.CodingKeys.yearsActive)

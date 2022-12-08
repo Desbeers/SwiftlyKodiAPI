@@ -18,7 +18,7 @@ protocol KodiAPI {
 }
 
 extension KodiAPI {
-    
+
     /// Build the JSON parameters
     /// - Returns: `Data` formatted JSON request
     func buildParams<T: Encodable>(params: T) -> Data {
@@ -35,7 +35,7 @@ extension KodiAPI {
 }
 
 extension KodiAPI {
-    
+
     /// Build the URL request
     var urlRequest: URLRequest {
         let host = KodiConnector.shared.host

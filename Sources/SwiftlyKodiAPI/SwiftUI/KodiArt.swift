@@ -17,20 +17,20 @@ public enum KodiArt {
 }
 
 extension KodiArt {
-    
+
     /// Get default art from the assets catalog
     struct Asset: View {
         init() { }
         var body: some View {
             Image("poster", bundle: Bundle.module)
                 .resizable()
-                .frame(width:300, height: 450)
+                .frame(width: 300, height: 450)
         }
     }
 }
 
 public extension KodiArt {
-    
+
     /// Poster of a ``KodiItem``
     struct Poster: View {
         let item: any KodiItem
@@ -57,7 +57,7 @@ public extension KodiArt {
             }
         }
     }
-    
+
     /// Fanart of a ``KodiItem``
     ///
     /// - Note: For a ``Video/Details/Episode`` item it will be the ``Media/Artwork/thumb``
@@ -81,7 +81,7 @@ public extension KodiArt {
             }
         }
     }
-    
+
     /// Any art passed as an internal Kodi string
     ///
     /// - Note:It will be converted to a 'full' url string

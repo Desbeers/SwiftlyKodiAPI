@@ -8,7 +8,7 @@
 import Foundation
 
 extension Files {
-    
+
     /// Convert an internal Kodi path to a full path (SwiftlyKodi API)
     ///
     /// Kodi does not store the full path of a file in the database; it must be converted to a full path

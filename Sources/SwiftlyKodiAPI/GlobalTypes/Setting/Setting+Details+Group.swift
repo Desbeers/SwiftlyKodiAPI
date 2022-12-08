@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Setting.Details {
-    
+
     /// Settings group  (Global Kodi Type)
     struct Group: Decodable, Identifiable, Hashable {
         public var id: String

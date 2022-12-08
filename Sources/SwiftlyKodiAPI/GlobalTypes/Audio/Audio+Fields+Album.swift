@@ -8,7 +8,7 @@
 import Foundation
 
 extension Audio.Fields {
-    
+
     /// The properties of an album
     static let album = [
         "title",

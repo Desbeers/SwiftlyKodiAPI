@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  getProperties
+// MARK: getProperties
 
 extension Player {
-    
+
     /// Retrieves the properties of the player (Kodi API)
     /// - Parameter playerID: The ``Player/ID`` of the  player
     /// - Returns: The ``Player/Property/Value``
@@ -22,7 +22,7 @@ extension Player {
             return Player.Property.Value()
         }
     }
-    
+
     /// Retrieves the properties of the player (Kodi API)
     fileprivate struct GetProperties: KodiAPI {
         /// The player ID

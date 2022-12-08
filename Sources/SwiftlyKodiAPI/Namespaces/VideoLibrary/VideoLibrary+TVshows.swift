@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  getTVShows
+// MARK: getTVShows
 
 extension VideoLibrary {
-    
+
     /// Retrieve all TV shows (Kodi API)
     /// - Returns: All TV shows in an ``Video/Details/TVShow`` array
     public static func getTVShows() async -> [Video.Details.TVShow] {
@@ -22,7 +22,7 @@ extension VideoLibrary {
         /// There are no TV shows in the library
         return [Video.Details.TVShow]()
     }
-    
+
     /// Retrieve all TV shows (Kodi API)
     fileprivate struct GetTVShows: KodiAPI {
         /// The method
@@ -46,10 +46,10 @@ extension VideoLibrary {
     }
 }
 
-// MARK:  getTVShowDetails
+// MARK: getTVShowDetails
 
 extension VideoLibrary {
-    
+
     /// Retrieve details about a specific tv show (Kodi API)
     /// - Parameter tvshowID: The ID of the TV show
     /// - Returns: A ``Video/Details/TVShow`` Item
@@ -64,7 +64,7 @@ extension VideoLibrary {
             return Video.Details.TVShow()
         }
     }
-    
+
     /// Retrieve details about a specific tv show (Kodi API)
     fileprivate struct GetTVShowDetails: KodiAPI {
         /// The tv show ID
@@ -95,10 +95,10 @@ extension VideoLibrary {
     }
 }
 
-// MARK:  setTVShowDetails
+// MARK: setTVShowDetails
 
 extension VideoLibrary {
-    
+
     /// Update the given tv show with the given details (Kodi API)
     ///
     /// - Note: Kodi does not send a notification if a TV show is changed
@@ -110,7 +110,7 @@ extension VideoLibrary {
         kodi.sendMessage(message: message)
         logger("Details set for '\(tvshow.title)'")
     }
-    
+
     /// Update the given tv show with the given details (Kodi API)
     fileprivate struct SetTVShowDetails: KodiAPI {
         /// The TV show

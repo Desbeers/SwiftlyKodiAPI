@@ -8,7 +8,7 @@
 import Foundation
 
 extension Application {
-    
+
     /// Retrieves the properties of the application (Kodi API)
     /// - Returns: The ``Application/Property/Value`` of the application
     public static func getProperties() async -> Application.Property.Value {
@@ -18,7 +18,7 @@ extension Application {
             return Application.Property.Value()
         }
     }
-    
+
     /// Retrieves the values of the given properties (Kodi API)
     fileprivate struct GetProperties: KodiAPI {
         /// The method

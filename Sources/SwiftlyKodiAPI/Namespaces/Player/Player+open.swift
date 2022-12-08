@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  open
+// MARK: open
 
 extension Player {
-    
+
     /// Start playback of a playlist with the given ID (Kodi API)
     ///
     /// - Parameters:
@@ -27,26 +27,28 @@ extension Player {
         logger("Player.open (party mmode")
         KodiConnector.shared.sendMessage(message: Open(partyMode: partyMode))
     }
-    
-    /// Start playback of either the playlist with the given ID, a slideshow with the pictures from the given directory or a single file or an item from the database (Kodi API)
+
+    /// Start playback of either the playlist with the given ID,
+    /// a slideshow with the pictures from the given directory
+    /// or a single file or an item from the database (Kodi API)
     fileprivate struct Open: KodiAPI {
         /// The method
         let method: Methods = .playerOpen
         /// Shuffle or not
         var shuffle: Bool = false
         /// The optional playlist to play
-        var playlistID: Playlist.ID? = nil
+        var playlistID: Playlist.ID?
         /// The optional party mode
-        var partyMode: Player.PartyMode? = nil
+        var partyMode: Player.PartyMode?
         /// The parameters
         var parameters: Data {
             var params = Params()
-            
+
             if let playlistID = playlistID {
                 params.item.playlistID = playlistID
                 params.item.position = 0
             }
-            
+
             if let partyMode = partyMode {
                 params.item.partyMode = partyMode
             }

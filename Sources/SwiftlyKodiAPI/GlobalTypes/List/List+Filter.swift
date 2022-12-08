@@ -8,7 +8,7 @@
 import Foundation
 
 extension List {
-    
+
     /// Filter fields for JSON requests (SwiftlyKodi Type)
     public struct Filter: Codable {
         /// Filter by album ID

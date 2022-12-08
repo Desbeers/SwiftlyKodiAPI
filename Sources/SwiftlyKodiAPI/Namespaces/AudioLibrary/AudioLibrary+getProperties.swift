@@ -21,7 +21,7 @@ extension AudioLibrary {
             return Audio.Property.Value()
         }
     }
-    
+
     /// Retrieves the values of the music library properties (Kodi API)
     fileprivate struct GetProperties: KodiAPI {
         /// The method

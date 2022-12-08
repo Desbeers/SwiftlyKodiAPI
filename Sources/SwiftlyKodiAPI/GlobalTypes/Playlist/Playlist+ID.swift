@@ -8,12 +8,13 @@
 import Foundation
 
 public extension Playlist {
-    
+
+    // swiftlint:disable type_name
     /// The ID of the playlist (Global Kodi Type)
     enum ID: Int, Codable {
-        
+
         /// # Playlist.Id
-        
+
         /// No playlist
         case none = -1
         /// The audio playlist
@@ -23,4 +24,5 @@ public extension Playlist {
         /// The pictures playlist
         case pictures = 2
     }
+    // swiftlint:enable type_name
 }

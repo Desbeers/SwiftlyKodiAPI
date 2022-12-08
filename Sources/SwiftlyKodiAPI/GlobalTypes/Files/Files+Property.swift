@@ -7,7 +7,7 @@
 import Foundation
 
 public extension Files {
-    
+
     /// The properties of a file (SwiftlyKodi Type)
     enum Property {
         /// Just a placeholder

@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  getItem
+// MARK: getItem
 
 extension Player {
-    
+
     /// Retrieves the currently played item (Kodi API)
     ///
     /// If the result has an ID, it is from the Library and media details will be asked
@@ -37,7 +37,7 @@ extension Player {
         /// Nothing is playing
         return nil
     }
-    
+
     /// Retrieves the currently played item (Kodi API)
     fileprivate struct GetItem: KodiAPI {
         /// The ``Player/ID``

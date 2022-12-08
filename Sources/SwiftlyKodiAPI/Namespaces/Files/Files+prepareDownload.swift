@@ -18,7 +18,7 @@ extension Files {
         }
         return Files.Property.Value()
     }
-    
+
     /// Provides a way to download a given file(Kodi API)
     fileprivate struct PrepareDownload: KodiAPI {
         /// The path
@@ -37,5 +37,4 @@ extension Files {
         /// The response struct
         typealias Response = Files.Property.Value
     }
-    
 }

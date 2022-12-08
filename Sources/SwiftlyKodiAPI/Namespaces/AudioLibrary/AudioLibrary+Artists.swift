@@ -21,7 +21,7 @@ extension AudioLibrary {
         }
         return [Audio.Details.Artist]()
     }
-    
+
     /// Retrieve all artists (Kodi API)
     fileprivate struct GetArtists: KodiAPI {
         /// The method
@@ -50,7 +50,7 @@ extension AudioLibrary {
 // MARK: getArtistDetails
 
 extension AudioLibrary {
-    
+
     /// Retrieve details about a specific artist (Kodi API)
     /// - Parameter artistID: The ID of the artist
     /// - Returns: An ``Audio/Details/Artist`` item
@@ -66,7 +66,7 @@ extension AudioLibrary {
             return Audio.Details.Artist()
         }
     }
-    
+
     /// Retrieve details about a specific artist (Kodi API)
     fileprivate struct GetArtistDetails: KodiAPI {
         /// The artist ID
@@ -96,4 +96,3 @@ extension AudioLibrary {
         }
     }
 }
-

@@ -8,20 +8,20 @@
 import Foundation
 
 public extension Setting.Details {
-    
+
     /// Setting category  (Global Kodi Type)
     struct Category: Decodable, Identifiable, Hashable {
-        
+
         /// # Setting.Details.Base
-        
+
         public var id: Setting.Category = .unknown
         public var label: String = ""
         /// Help is optional
         public var help: String?
         public var groups: [Setting.Details.Group] = []
-        
+
         /// # Coding keys
-        
+
         enum CodingKeys: String, CodingKey {
             case categoryID = "id"
             case label
@@ -32,7 +32,7 @@ public extension Setting.Details {
 }
 
 extension Setting.Details.Category {
-    
+
     public init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
         let categoryID = try container.decode(String.self, forKey: CodingKeys.categoryID)
@@ -43,7 +43,7 @@ extension Setting.Details.Category {
             self.help = try container.decodeIfPresent(String.self, forKey: CodingKeys.help)
             self.groups = try container.decode([Setting.Details.Group].self, forKey: CodingKeys.groups)
         }
-        
+
     }
-    
+
 }

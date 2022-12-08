@@ -30,23 +30,24 @@ public struct HostItem: Codable, Identifiable, Hashable {
     public var password: String
     /// Kind of media to load
     public var media: Media
-    
+
     /// Bool if the host is online
-    
+
     public var isOnline: Bool {
         if KodiConnector.shared.bonjourHosts.first(where: {$0.ip == ip}) != nil {
             return true
         }
         return false
     }
-    
+
     /// Init the Host struct
-    public init(ip: String = "",
-                port: String = "8080",
-                tcp: String = "9090",
-                username: String = "kodi",
-                password: String = "kodi",
-                media: Media = .video
+    public init(
+        ip: String = "",
+        port: String = "8080",
+        tcp: String = "9090",
+        username: String = "kodi",
+        password: String = "kodi",
+        media: Media = .video
     ) {
         self.ip = ip
         self.port = port
@@ -55,7 +56,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
         self.password = password
         self.media = media
     }
-    
+
     /// The kind of media to load when connecting to the host
     public enum Media: String, Codable {
         /// Load the audio library

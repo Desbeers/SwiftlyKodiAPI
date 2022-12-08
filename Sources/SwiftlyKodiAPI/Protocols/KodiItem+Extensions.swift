@@ -17,7 +17,7 @@ public extension KodiItem {
         newItem.resume.position = 0
         await setDetails(newItem)
     }
-    
+
     /// Mark a ``KodiItem`` as new
     /// - Note: You can't set the date to nil or empty; that will be ignored, so we set it to a long time ago if needed
     func markAsNew() async {
@@ -27,7 +27,7 @@ public extension KodiItem {
         newItem.lastPlayed = "2000-01-01 00:00:00"
         await setDetails(newItem)
     }
-    
+
     /// Toggle the played status of a ``KodiItem``
     /// - Note: You can't set the date to nil or empty; that will be ignored, so we set it to a long time ago if needed
     func togglePlayedState() async {
@@ -38,7 +38,7 @@ public extension KodiItem {
             await self.markAsNew()
         }
     }
-    
+
     /// Set the resume time of a  ``KodiItem``
     func setResumeTime(time: Double) async {
         var newItem = self
@@ -46,7 +46,7 @@ public extension KodiItem {
         newItem.lastPlayed = kodiDateFromSwiftDate(Date())
         await setDetails(newItem)
     }
-    
+
     /// Toggle a ``KodiItem`` as 'favorite'
     ///
     /// This will set the 'userRating' to either 10 or 0
@@ -58,7 +58,7 @@ public extension KodiItem {
 }
 
 extension KodiItem {
-    
+
     /// Convert a `Date` to a Kodi date string
     /// - Parameter date: The `Date`
     /// - Returns: A string with the date
@@ -67,11 +67,11 @@ extension KodiItem {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return dateFormatter.string(from: date)
     }
-    
+
     /// Set the details of a ``KodiItem``
     /// - Parameter item: The ``KodiItem`` to set
     func setDetails(_ item: any KodiItem) async {
-        
+        /// Convert ``KodiItem`` to the actual ``Media``
         switch item {
         case let movie as Video.Details.Movie:
             await VideoLibrary.setMovieDetails(movie: movie)
@@ -89,7 +89,9 @@ extension KodiItem {
             logger("Updating \(self.media) not implemented")
         }
     }
-    
+
+    /// Update all Movies in a MovieSet
+    /// - Parameter set: The MovieSet
     func movieSetDetails(set: Video.Details.MovieSet) async {
         let setDetails = await VideoLibrary.getMovieSetDetails(setID: set.setID)
         if let movies = setDetails.movies {
@@ -102,15 +104,18 @@ extension KodiItem {
             }
         }
     }
-    
+
+    /// Update all Episodes in a TV show
+    /// - Parameter tvshow: The TV show
     func tvshowDetails(tvshow: Video.Details.TVShow) async {
         var episodes = await VideoLibrary.getEpisodes(tvshowID: tvshow.tvshowID)
-        for (index, _) in episodes.enumerated() {
+        for index in episodes.indices {
             episodes[index].playcount = tvshow.playcount
             episodes[index].lastPlayed = tvshow.lastPlayed
             episodes[index].resume.position = tvshow.resume.position
             await VideoLibrary.setEpisodeDetails(episode: episodes[index])
         }
+        /// Update the TV show itself
         await VideoLibrary.setTVShowDetails(tvshow: tvshow)
     }
 }

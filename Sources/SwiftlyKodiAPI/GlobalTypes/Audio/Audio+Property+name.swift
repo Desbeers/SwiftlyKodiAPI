@@ -8,7 +8,7 @@
 import Foundation
 
 extension Audio.Property {
-    
+
     /// Name for audio properties
     static let name = [
         "missingartistid",

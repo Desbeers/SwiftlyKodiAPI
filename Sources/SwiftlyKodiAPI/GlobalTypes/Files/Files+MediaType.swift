@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Files {
-    
+
     /// The type of media; either an image or a file (SwiftlyKodi Type)
     ///
     /// - Note: This enum is used to convert an internal Kodi path to a full path

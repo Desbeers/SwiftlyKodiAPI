@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  getInfoBooleans
+// MARK: getInfoBooleans
 
 extension XBMC {
-    
+
     /// Retrieve info booleans about Kodi and the system (Kodi API)
     ///
     /// - Note: Unlike the 'real Kodi API', this function can only handle one info boolean at the time
@@ -31,12 +31,12 @@ extension XBMC {
             return false
         }
     }
-    
+
     /// The Info Booleans
     public enum InfoBoolean: String {
         case libraryIsScanning = "Library.IsScanning"
     }
-    
+
     /// Retrieve info booleans about Kodi and the system (Kodi API)
     fileprivate struct GetInfoBooleans: KodiAPI {
         /// The method

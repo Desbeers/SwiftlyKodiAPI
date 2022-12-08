@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Setting {
-    
+
     /// The  settings section (SwiftlyKodi Type)
     enum Section: String, Codable {
         /// A section SwiftlyKodiAPI doesn't know about

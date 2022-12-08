@@ -8,11 +8,11 @@
 import Foundation
 
 extension KodiConnector {
-    
-    
+
+    /// Get the audio library updates
     @MainActor func getAudioLibraryUpdates() async {
         let dates = await AudioLibrary.getProperties()
-        
+        /// Check if we are outdated
         if dates != library.audioLibraryProperties {
             setState(.updatingLibrary)
             if library.audioLibraryProperties.songsModified != dates.songsModified {
@@ -36,16 +36,18 @@ extension KodiConnector {
             if library.audioLibraryProperties.artistsModified != dates.artistsModified {
                 logger("Artists are modified")
             }
-            
+
             /// Store the library in the cache
             await setLibraryCache()
         }
         /// Set the state
         setState(dates == library.audioLibraryProperties ? State.loadedLibrary : State.outdatedLibrary)
     }
-    
-    
-    
+
+    /// Update an item in the library
+    /// - Parameters:
+    ///   - itemID: The ID of the item
+    ///   - media: The kind of ``Media``
     func getLibraryUpdate(itemID: Library.id, media: Library.Media) {
         Task { @MainActor in
             switch media {
@@ -85,9 +87,9 @@ extension KodiConnector {
                     getLibraryUpdate(itemID: library.episodes[index].tvshowID, media: .tvshow)
                 }
             case .musicVideo:
-                
+
                 let update = await VideoLibrary.getMusicVideoDetails(musicVideoID: itemID)
-                
+
                 if let index = library.musicVideos.firstIndex(where: {$0.musicVideoID == itemID}) {
                     library.musicVideos[index] = update
                 } else {
@@ -100,7 +102,7 @@ extension KodiConnector {
             await setLibraryCache()
         }
     }
-    
+
     func deleteLibraryItem(itemID: Library.id, media: Library.Media) {
         Task { @MainActor in
             switch media {

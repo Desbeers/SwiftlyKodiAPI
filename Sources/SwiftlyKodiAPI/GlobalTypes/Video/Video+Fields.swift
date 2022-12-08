@@ -8,7 +8,7 @@
 import Foundation
 
 extension Video {
-    
+
     /// Static fields for Video
     enum Fields {
         /// Just a placeholder

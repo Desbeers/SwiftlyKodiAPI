@@ -8,7 +8,7 @@
 import Foundation
 
 extension List.Filter {
-    
+
     /// The operator on a filter (Globall Kody Type)
     enum Operator: String, Codable {
         case contains
@@ -27,5 +27,5 @@ extension List.Filter {
         // case false
         case between
     }
-    
+
 }

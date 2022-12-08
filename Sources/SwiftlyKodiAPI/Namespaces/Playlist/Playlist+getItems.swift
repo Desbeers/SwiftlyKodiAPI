@@ -7,17 +7,17 @@
 
 import Foundation
 
-// MARK:  getItems
+// MARK: getItems
 
 extension Playlist {
-    
+
     /// Get all items from playlist (Kodi API)
     /// - Parameter playlistID: The ``Playlist/ID`` of the playlist
     /// - Returns: All items in an ``KodiItem`` array
     public static func getItems(playlistID: Playlist.ID) async -> [(any KodiItem)]? {
         logger("Playlist.getItems (\(playlistID))")
         var queue: [any KodiItem] = []
-        
+
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetItems(playlistID: playlistID)) {
             for item in result.items {
@@ -39,7 +39,7 @@ extension Playlist {
         }
         return nil
     }
-    
+
     /// Get all items from playlist (Kodi API)
     fileprivate struct GetItems: KodiAPI {
         /// The ``Playlist/ID``
@@ -66,7 +66,7 @@ extension Playlist {
             let items: [QeueuItem]
         }
     }
-    
+
     /// The struct for a queue item
     struct QeueuItem: Codable, Equatable {
         /// The item

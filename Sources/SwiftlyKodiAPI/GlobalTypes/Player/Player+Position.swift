@@ -6,7 +6,7 @@
 //
 
 public extension Player {
-    
+
     /// The position details of the player (Global Kodi Type)
     enum Position {
         /// Just a placeholder

@@ -9,7 +9,7 @@ import Foundation
 
 /// All JSON related items
 enum JSON {
-    
+
     /// Base for JSON parameters
     struct BaseParameters<T: Encodable>: Encodable {
         /// The JSON version
@@ -21,7 +21,7 @@ enum JSON {
         /// The ID
         var id: String
     }
-    
+
     /// Base for JSON response
     struct BaseResponse<T: Decodable>: Decodable {
         var method: String
@@ -35,7 +35,7 @@ enum JSON {
             case method = "id"
         }
     }
-    
+
     /// List of possible errors
     enum APIError: Error {
         /// Invalid data

@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Video {
-    
+
     /// Video details related items
     enum Details {
         /// Just a placeholder

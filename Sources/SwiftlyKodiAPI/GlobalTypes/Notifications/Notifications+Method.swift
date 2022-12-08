@@ -8,22 +8,22 @@
 import Foundation
 
 extension Notifications {
-    
+
     /// Kodi notifications we can receive (SwiftlyKodi Type)
     public enum Method: String, Decodable {
-        
-        // MARK:  General notifications
-        
+
+        // MARK: General notifications
+
         /// An unsupported method
         case unknown
 
         // MARK: Application notifications
-        
+
         /// The volume of the application has changed
         case applicationOnVolumeChanged = "Application.OnVolumeChanged"
-        
+
         // MARK: Player notifications
-        
+
         /// Audio- or videostream has changed
         case playerOnAVChange = "Player.OnAVChange"
         /// Playback of a media item has been started and first frame is available
@@ -42,18 +42,18 @@ extension Notifications {
         case playerOnSpeedChanged = "Player.OnSpeedChanged"
         /// Playback of a media item has been stopped
         case playerOnStop = "Player.OnStop"
-        
+
         // MARK: Playlist notifications
-        
+
         /// A playlist item has been added
         case playlistOnAdd = "Playlist.OnAdd"
         /// A playlist item has been cleared
         case playlistOnClear = "Playlist.OnClear"
         /// A playlist item has been removed
         case playlistOnRemove = "Playlist.OnRemove"
-        
+
         // MARK: Video library notifications
-        
+
         /// The video library has been cleaned.
         case videoLibraryOnCleanFinished = "VideoLibrary.OnCleanFinished"
         /// A video library clean operation has started.
@@ -70,9 +70,9 @@ extension Notifications {
         case videoLibraryOnScanStarted = "VideoLibrary.OnScanStarted"
         /// A video item has been updated.
         case videoLibraryOnUpdate = "VideoLibrary.OnUpdate"
-        
+
         // MARK: Audio library notifications
-        
+
         /// The audio library has been cleaned
         case audioLibraryOnCleanFinished = "AudioLibrary.OnCleanFinished"
         /// An audio library clean operation has started

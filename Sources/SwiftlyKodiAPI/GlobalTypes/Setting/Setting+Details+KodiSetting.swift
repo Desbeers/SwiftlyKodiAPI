@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Setting.Details {
-    
+
     /// Setting  (Global Kodi Type)
     /// - Note: Renamed to `KodiSetting` because `Setting` is already in use
     struct KodiSetting: Decodable, Identifiable, Hashable {

@@ -21,11 +21,10 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
     ) {
         let kodi: KodiConnector = .shared
         Task {
-            //await kodi.setState(kodi.state == .wakeup ? kodi.previousState : .connectedToWebSocket)
             await kodi.setState(.connectedToWebSocket)
         }
     }
-    
+
     /// Websocket notification when the connection stops
     func urlSession(
         _ session: URLSession,
@@ -36,7 +35,7 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
         let kodi: KodiConnector = .shared
         logger("WebSocket disconnected from \(kodi.host.ip)")
     }
-    
+
     /// Websocket notification when the connection has an error
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError: Error?) {
         let kodi: KodiConnector = .shared
@@ -50,7 +49,7 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
 }
 
 extension KodiConnector {
-    
+
     /// Connect the WebSocket
     /// - Note:
     ///     On iOS, disconnect before going to the background or else Apple will be really upset.
@@ -63,7 +62,7 @@ extension KodiConnector {
         /// Recieve notifications
         receiveNotification()
     }
-    
+
     /// Disconnect from the the Kodi WebSocket
     func disconnectWebSocket() {
         webSocketTask?.cancel(with: .normalClosure, reason: nil)

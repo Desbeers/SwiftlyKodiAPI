@@ -17,7 +17,7 @@ public enum MediaButtons {
 }
 
 public extension MediaButtons {
-    
+
     /// Play/Pause an item in the playlist
     ///
     /// There are a few senario's:
@@ -39,7 +39,11 @@ public extension MediaButtons {
                 Label("Play", systemImage: player.properties.speed == 1 ? "pause.fill" : "play.fill")
             })
             .disabled(player.currentItem == nil)
-            .help(player.properties.speed == 1 ? "Pause your playlist" : player.properties.playlistPosition == -1 ? "Start your playlist" : "Continue playing your playlist")
+            .help(
+                player.properties.speed == 1 ? "Pause your playlist" :
+                    player.properties.playlistPosition == -1 ? "Start your playlist" :
+                    "Continue playing your playlist"
+            )
         }
     }
 
@@ -61,13 +65,11 @@ public extension MediaButtons {
             })
             /// Disable when not playing
             .disabled(player.properties.playlistPosition == -1)
-            /// You can't go back an item when in party mode
-            //.disabled(player.properties.partymode)
             /// A stream cannpot 'goto
             .disabled(player.currentItem?.media == .stream)
         }
     }
-    
+
     /// Play the next item
     struct PlayNext: View {
         @EnvironmentObject var player: KodiPlayer
@@ -88,7 +90,7 @@ public extension MediaButtons {
             .disabled(player.currentItem?.id == player.currentPlaylist?.last?.id)
         }
     }
-    
+
     /// Toggle shuffle button
     struct SetShuffle: View {
         @EnvironmentObject var player: KodiPlayer
@@ -113,7 +115,7 @@ public extension MediaButtons {
             .disabled(player.currentPlaylist?.count == 1)
         }
     }
-    
+
     /// Toggle repeat button
     struct SetRepeat: View {
         @EnvironmentObject var player: KodiPlayer
@@ -129,7 +131,7 @@ public extension MediaButtons {
                 Label("Repeat", systemImage: repeatingIcon)
                     .foregroundColor(player.properties.repeating == .off ? .none : .white)
                     .padding(2)
-                    .background(player.properties.repeating  == .off ? Color.clear : Color.accentColor, in: RoundedRectangle(cornerRadius: 4))
+                    .background(player.properties.repeating == .off ? Color.clear : Color.accentColor, in: RoundedRectangle(cornerRadius: 4))
             })
             .disabled(player.properties.partymode)
             .disabled(!player.properties.canRepeat)
@@ -145,7 +147,7 @@ public extension MediaButtons {
             return icon
         }
     }
-    
+
     /// Partymode button (forced to audio)
     ///
     /// - Note: This will set 'Party Mode' for audio, I don't see a use of videos for this
@@ -174,10 +176,10 @@ public extension MediaButtons {
             .help("Music party mode")
         }
     }
-    
+
     #if !os(tvOS)
     /// Volume slider
-    struct VolumeSlider: View  {
+    struct VolumeSlider: View {
         @EnvironmentObject var player: KodiPlayer
         public init() {}
         public var body: some View {

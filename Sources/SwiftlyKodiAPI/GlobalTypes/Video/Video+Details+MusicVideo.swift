@@ -8,12 +8,12 @@
 import Foundation
 
 public extension Video.Details {
-    
+
     /// Music video details
     struct MusicVideo: KodiItem {
-        
+
         /// # Calculated variables
-        
+
         public var id: String { "\(media)+\(musicVideoID)" }
         public var media: Library.Media = .musicVideo
         public var sortByTitle: String { title }
@@ -24,9 +24,9 @@ public extension Video.Details {
         public var search: String {
             "\(title) \(artist.joined(separator: " ")) \(album)"
         }
-        
+
         /// # Video.Details.MusicVideo
-        
+
         public var album: String = ""
         public var artist: [String] = []
         public var genre: [String] = []
@@ -38,37 +38,37 @@ public extension Video.Details {
         public var track: Int = 0
         public var userRating: Int = 0
         public var year: Int = 0
-        
+
         /// # Video.Details.File
-        
+
         public var director: [String] = []
         public var resume = Video.Resume()
         public var runtime: Int = 0
         public var streamDetails = Video.Streams()
-        
+
         /// # Video.Details.Item
-        
+
         public var dateAdded: String = ""
         public var file: String = ""
         public var lastPlayed: String = ""
         public var plot: String = ""
-        
+
         /// # Video.Details.Media
-        
+
         public var title: String = ""
-        
+
         /// # Video.Details.Base
-        
+
         public var art = Media.Artwork()
         public var playcount: Int = 0
 
         /// # Media.Details.Base
-        
+
         public var fanart: String = ""
         public var thumbnail: String = ""
-        
+
         /// # Coding keys
-        
+
         enum CodingKeys: String, CodingKey {
             case album
             case artist

@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK:  add
+// MARK: add
 
 extension Playlist {
 
@@ -17,9 +17,9 @@ extension Playlist {
         /// Get the shared KodiConnector
         let kodi: KodiConnector = .shared
         /// We need to wait on the result
-        let _ = try? await kodi.sendRequest(request: Add(stream: stream))
+        _ = try? await kodi.sendRequest(request: Add(stream: stream))
     }
-    
+
     /// Add songs to the playlist (Kodi API)
     /// - Parameter songs: An array of ``Audio/Details/Song`` items
     public static func add(songs: [Audio.Details.Song]) async {
@@ -28,9 +28,9 @@ extension Playlist {
         /// Get the shared KodiConnector
         let kodi: KodiConnector = .shared
         /// We need to wait on the result
-        let _ = try? await kodi.sendRequest(request: Add(songs: songs))
+        _ = try? await kodi.sendRequest(request: Add(songs: songs))
     }
-    
+
     /// Add music videos to the playlist (Kodi API)
     /// - Parameter musicVideos: An array of ``Video/Details/MusicVideo`` items
     public static func add(musicVideos: [Video.Details.MusicVideo]) async {
@@ -39,9 +39,9 @@ extension Playlist {
         /// Get the shared KodiConnector
         let kodi: KodiConnector = .shared
         /// We need to wait on the result
-        let _ = try? await kodi.sendRequest(request: Add(musicVideos: musicVideos))
+        _ = try? await kodi.sendRequest(request: Add(musicVideos: musicVideos))
     }
-    
+
     /// Add item(s) to playlist (Kodi API)
     fileprivate struct Add: KodiAPI {
         /// The method

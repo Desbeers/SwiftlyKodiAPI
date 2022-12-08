@@ -84,7 +84,7 @@ class KodiPlayerModel: ObservableObject {
         case playing
         case end
     }
-    
+
     /// Load a video into the player
     /// - Parameter video: The ``KodiItem`` to play
     func loadVideo(video: any KodiItem) {
@@ -107,7 +107,7 @@ class KodiPlayerModel: ObservableObject {
                     self.state = .end
                 }
             }
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             self.stateObserver()
         }
     }
@@ -128,7 +128,7 @@ class KodiPlayerModel: ObservableObject {
 /// - Parameter video: The Kodi video item
 /// - Returns: Meta data for the player
 func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
-    
+
     /// Meta data struct
     struct MetaData {
         var title: String = "title"
@@ -138,7 +138,7 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
         var creationDate: String = "1900"
         var artwork: UIImage = UIImage(named: "poster", in: Bundle.main, compatibleWith: nil) ?? UIImage(systemName: "film")!
     }
-    
+
     /// Helper function
     func createMetadataItem(for identifier: AVMetadataIdentifier, value: Any) -> AVMetadataItem {
         let item = AVMutableMetadataItem()
@@ -146,12 +146,13 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
         item.value = value as? NSCopying & NSObjectProtocol
         // Specify "und" to indicate an undefined language.
         item.extendedLanguageTag = "und"
+        // swiftlint:disable:next force_cast
         return item.copy() as! AVMetadataItem
     }
-    
+
     /// The MetaData of the video
     var metaData = MetaData()
-    
+
     /// Set the MetaData
     switch video {
     case let movie as Video.Details.Movie:
@@ -212,7 +213,9 @@ extension AVPlayer {
     /// https://stackoverflow.com/questions/5401437/knowing-when-avplayer-object-is-ready-to-play
     var readyToPlay: Bool {
         let timeRange = currentItem?.loadedTimeRanges.first as? CMTimeRange
-        guard let duration = timeRange?.duration else { return false }
+        guard let duration = timeRange?.duration else {
+            return false
+        }
         /// value/timescale = seconds
         let timeLoaded = Int(duration.value) / Int(duration.timescale)
         let loaded = timeLoaded > 0
@@ -222,7 +225,7 @@ extension AVPlayer {
 }
 
 extension AVPlayer {
-    
+
     /// Is the AV player playing or not?
     var isPlaying: Bool {
         return rate != 0 && error == nil

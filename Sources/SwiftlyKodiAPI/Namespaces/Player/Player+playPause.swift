@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  playPause
+// MARK: playPause
 
 extension Player {
-    
+
     /// Pauses or unpause playback of the player (Kodi API)
     ///
     /// - Note: When there is nothing in the player, this function will do nothing
@@ -20,7 +20,7 @@ extension Player {
         logger("Player.playPause")
         KodiConnector.shared.sendMessage(message: PlayPause(playerID: playerID))
     }
-    
+
     /// Pauses or unpause playback of the player (Kodi API)
     fileprivate struct PlayPause: KodiAPI {
         /// The ID of the player

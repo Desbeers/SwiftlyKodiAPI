@@ -8,10 +8,9 @@
 import Foundation
 
 extension List.Filter {
-    
+
     /// The field on a filter (SwiftlyKodi Type)
     enum Field: String, Codable {
         case dateModified = "datemodified"
     }
-    
 }

@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  getMovies
+// MARK: getMovies
 
 extension VideoLibrary {
-    
+
     /// Retrieve all movies (Kodi API)
     /// - Returns: All movies in an ``Video/Details/Movie`` array
     public static func getMovies() async -> [Video.Details.Movie] {
@@ -22,7 +22,7 @@ extension VideoLibrary {
         /// There are no movies in the library
         return [Video.Details.Movie]()
     }
-    
+
     /// Retrieve all movies (Kodi API)
     fileprivate struct GetMovies: KodiAPI {
         /// The method
@@ -44,13 +44,13 @@ extension VideoLibrary {
             let movies: [Video.Details.Movie]
         }
     }
-    
+
 }
 
-// MARK:  getMovieDetails
+// MARK: getMovieDetails
 
 extension VideoLibrary {
-    
+
     /// Retrieve details about a specific movie (Kodi API)
     /// - Parameter movieID: The ID of the movie
     /// - Returns: A ``Video/Details/Movie`` item
@@ -65,7 +65,7 @@ extension VideoLibrary {
             return Video.Details.Movie()
         }
     }
-    
+
     /// Retrieve details about a specific movie (Kodi API)
     fileprivate struct GetMovieDetails: KodiAPI {
         /// The movie ID
@@ -96,10 +96,10 @@ extension VideoLibrary {
     }
 }
 
-// MARK:  setMovieDetails
+// MARK: setMovieDetails
 
 extension VideoLibrary {
-    
+
     /// Update the given movie with the given details (Kodi API)
     /// - Parameter movie: The ``Video/Details/Movie`` Item
     public static func setMovieDetails(movie: Video.Details.Movie) async {
@@ -108,7 +108,7 @@ extension VideoLibrary {
         kodi.sendMessage(message: message)
         logger("Details set for '\(movie.title)'")
     }
-    
+
     /// Update the given movie with the given details (Kodi API)
     fileprivate struct SetMovieDetails: KodiAPI {
         /// The movie
@@ -151,5 +151,5 @@ extension VideoLibrary {
         /// The response struct
         struct Response: Decodable { }
     }
-    
+
 }

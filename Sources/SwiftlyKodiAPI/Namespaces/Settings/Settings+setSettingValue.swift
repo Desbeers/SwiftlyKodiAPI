@@ -7,10 +7,10 @@
 
 import Foundation
 
-// MARK:  setSettingValue
+// MARK: setSettingValue
 
 extension Settings {
-    
+
     /// Changes the value of a setting (Kodi API)
     /// - Parameters:
     ///   - setting: The ``Setting/ID`` to set
@@ -22,7 +22,7 @@ extension Settings {
         let message = SetSettingValue(setting: setting, valueInt: int, valueBool: bool, valueString: string)
         KodiConnector.shared.sendMessage(message: message)
     }
-    
+
     /// Changes the value of a setting (Kodi API)
     fileprivate struct SetSettingValue: KodiAPI {
         /// The method
