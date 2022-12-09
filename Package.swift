@@ -15,9 +15,13 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
+//        .package(
+//            url: "https://github.com/realm/SwiftLint.git",
+//            branch: "main"
+//        ),
         .package(
-            url: "https://github.com/realm/SwiftLint.git",
-            branch: "main"
+            url: "https://github.com/apple/swift-docc-plugin",
+            from: "1.0.0"
         ),
     ],
     targets: [
@@ -27,9 +31,8 @@ let package = Package(
             name: "SwiftlyKodiAPI",
             resources: [
                 .process("Resources")
-            ],
-            plugins: [.plugin(name: "SwiftLintPlugin",package: "SwiftLint")]
+            ]
+//            plugins: [.plugin(name: "SwiftLintPlugin",package: "SwiftLint")]
         ),
-        
     ]
 )
