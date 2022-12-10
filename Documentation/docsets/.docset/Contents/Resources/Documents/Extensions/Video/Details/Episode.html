@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Episode Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../../js/jquery.min.js" defer></script>
+    <script src="../../../js/jazzy.js" defer></script>
+    
+    <script src="../../../js/lunr.min.js" defer></script>
+    <script src="../../../js/typeahead.jquery.js" defer></script>
+    <script src="../../../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/Episode" class="dashAnchor"></a>
+    <a title="Episode Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../../index.html">SwiftlyKodiAPI</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/desbeers/swiftlykodiapi/"><img src="../../../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../../../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../../index.html"> Reference</a>
+        <img id="carat" src="../../../img/carat.png" alt=""/>
+        Episode Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../../Kodi%20Namespaces.html">Kodi Namespaces</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Enums/Application.html">Application</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Application/Property.html">– Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/AudioLibrary.html">AudioLibrary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Files.html">Files</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Files/Media.html">– Media</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Files/MediaType.html">– MediaType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Files/Property.html">– Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Player.html">Player</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Player/Audio.html">– Audio</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Player/GoToDirection.html">– GoToDirection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Player/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Player/MediaType.html">– MediaType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Player/PartyMode.html">– PartyMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Player/Position.html">– Position</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Player/Property.html">– Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Player/Repeat.html">– Repeat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Player/Subtitle.html">– Subtitle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Player/Video.html">– Video</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Playlist.html">Playlist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Playlist/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Settings.html">Settings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/VideoLibrary.html">VideoLibrary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/XBMC.html">XBMC</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/XBMC/InfoBoolean.html">– InfoBoolean</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../../Kodi%20Global%20Types.html">Kodi Global Types</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Enums/Audio.html">Audio</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Audio/Album.html">– Album</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Audio/Artist.html">– Artist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Audio/Contributors.html">– Contributors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Audio/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Audio/Property.html">– Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Library.html">Library</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Library/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Library/Items.html">– Items</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Library/Media.html">– Media</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/List.html#/s:14SwiftlyKodiAPI4ListO6FilterV">– Filter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/List/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/List/Limits.html">– Limits</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/List/Sort.html">– Sort</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Media.html">Media</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Media/Artwork.html">– Artwork</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Media/Ratings.html">– Ratings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Notifications.html">Notifications</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Notifications/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Notifications/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Setting.html">Setting</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Setting/Category.html">– Category</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Setting/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Setting/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Setting/Level.html">– Level</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Setting/Section.html">– Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Video.html">Video</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Video/Cast.html">– Cast</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Video.html#/s:14SwiftlyKodiAPI5VideoO7DetailsO">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Video/Resume.html">– Resume</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Video/Streams.html">– Streams</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Extensions/Video.html">Video</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Extensions/Video/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Extensions/Video/Streams.html">– Streams</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../../Observable%20Classes.html">Observable Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Classes/KodiConnector.html">KodiConnector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Classes/KodiConnector/BonjourHost.html">– BonjourHost</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Classes/KodiConnector/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Classes/KodiPlayer.html">KodiPlayer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../../SwiftUI.html">SwiftUI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Enums/KodiArt.html">KodiArt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/KodiArt/Poster.html">– Poster</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/KodiArt/Fanart.html">– Fanart</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/KodiArt/Art.html">– Art</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Structs/KodiPlayerView.html">KodiPlayerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/MediaButtons.html">MediaButtons</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/MediaButtons/PlayPause.html">– PlayPause</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/MediaButtons/PlayPrevious.html">– PlayPrevious</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/MediaButtons/PlayNext.html">– PlayNext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/MediaButtons/SetShuffle.html">– SetShuffle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/MediaButtons/SetRepeat.html">– SetRepeat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/MediaButtons/SetPartyMode.html">– SetPartyMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/MediaButtons/VolumeSlider.html">– VolumeSlider</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../../Other%20Enums.html">Other Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Enums/Cache.html">Cache</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../../Other%20Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Extensions/Sequence.html">Sequence</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../../Other%20Functions.html">Other Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Other%20Functions.html#/s:14SwiftlyKodiAPI6loggeryySSF">logger(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../../Other%20Protocols.html">Other Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Protocols/KodiItem.html">KodiItem</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../../Other%20Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Structs/HostItem.html">HostItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Structs/HostItem/Media.html">– Media</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Episode</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Episode</span> <span class="p">:</span> <span class="kt"><a href="../../../Protocols/KodiItem.html">KodiItem</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Episode details</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV2idSSvp"></a>
+                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV2idSSvp">id</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='calculated-variables' class='heading'>Calculated variables</h1>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B4ItemP5mediaAA7LibraryO5MediaOvp"></a>
+                    <a name="//apple_ref/swift/Property/media" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B4ItemP5mediaAA7LibraryO5MediaOvp">media</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">media</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Library.html">Library</a></span><span class="o">.</span><span class="kt"><a href="../../../Enums/Media.html">Media</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B4ItemP11sortByTitleSSvp"></a>
+                    <a name="//apple_ref/swift/Property/sortByTitle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B4ItemP11sortByTitleSSvp">sortByTitle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sortByTitle</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B4ItemP6posterSSvp"></a>
+                    <a name="//apple_ref/swift/Property/poster" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B4ItemP6posterSSvp">poster</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">poster</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B4ItemP8subtitleSSvp"></a>
+                    <a name="//apple_ref/swift/Property/subtitle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B4ItemP8subtitleSSvp">subtitle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B4ItemP7detailsSSvp"></a>
+                    <a name="//apple_ref/swift/Property/details" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B4ItemP7detailsSSvp">details</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">details</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV6searchSSvp"></a>
+                    <a name="//apple_ref/swift/Property/search" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV6searchSSvp">search</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The search string</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">search</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV4castSayAC4CastVGvp"></a>
+                    <a name="//apple_ref/swift/Property/cast" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV4castSayAC4CastVGvp">cast</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='video-details-episode' class='heading'>Video.Details.Episode</h1>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">cast</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../../../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Cast</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV7episodeSivp"></a>
+                    <a name="//apple_ref/swift/Property/episode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV7episodeSivp">episode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">episode</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV9episodeIDSivp"></a>
+                    <a name="//apple_ref/swift/Property/episodeID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV9episodeIDSivp">episodeID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">episodeID</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Library.html">Library</a></span><span class="o">.</span><span class="n"><a href="../../../Extensions/Video/Details/Episode.html#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV2idSSvp">id</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV10firstAiredSSvp"></a>
+                    <a name="//apple_ref/swift/Property/firstAired" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV10firstAiredSSvp">firstAired</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">firstAired</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV13originalTitleSSvp"></a>
+                    <a name="//apple_ref/swift/Property/originalTitle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV13originalTitleSSvp">originalTitle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">originalTitle</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV14productionCodeSSvp"></a>
+                    <a name="//apple_ref/swift/Property/productionCode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV14productionCodeSSvp">productionCode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">productionCode</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV6ratingSdvp"></a>
+                    <a name="//apple_ref/swift/Property/rating" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV6ratingSdvp">rating</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rating</span><span class="p">:</span> <span class="kt">Double</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV7ratingsAA5MediaO7RatingsVvp"></a>
+                    <a name="//apple_ref/swift/Property/ratings" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV7ratingsAA5MediaO7RatingsVvp">ratings</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">ratings</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Media.html">Media</a></span><span class="o">.</span><span class="kt">Ratings</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV6seasonSivp"></a>
+                    <a name="//apple_ref/swift/Property/season" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV6seasonSivp">season</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">season</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV8seasonIDSivp"></a>
+                    <a name="//apple_ref/swift/Property/seasonID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV8seasonIDSivp">seasonID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">seasonID</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Library.html">Library</a></span><span class="o">.</span><span class="n"><a href="../../../Extensions/Video/Details/Episode.html#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV2idSSvp">id</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV9showTitleSSvp"></a>
+                    <a name="//apple_ref/swift/Property/showTitle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV9showTitleSSvp">showTitle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">showTitle</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV011specialSortF0Sivp"></a>
+                    <a name="//apple_ref/swift/Property/specialSortEpisode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV011specialSortF0Sivp">specialSortEpisode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">specialSortEpisode</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV17specialSortSeasonSivp"></a>
+                    <a name="//apple_ref/swift/Property/specialSortSeason" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV17specialSortSeasonSivp">specialSortSeason</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">specialSortSeason</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV8tvshowIDSivp"></a>
+                    <a name="//apple_ref/swift/Property/tvshowID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV8tvshowIDSivp">tvshowID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">tvshowID</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Library.html">Library</a></span><span class="o">.</span><span class="n"><a href="../../../Extensions/Video/Details/Episode.html#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV2idSSvp">id</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV8uniqueIDSivp"></a>
+                    <a name="//apple_ref/swift/Property/uniqueID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV8uniqueIDSivp">uniqueID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">uniqueID</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B4ItemP10userRatingSivp"></a>
+                    <a name="//apple_ref/swift/Property/userRating" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B4ItemP10userRatingSivp">userRating</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">userRating</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV5votesSSvp"></a>
+                    <a name="//apple_ref/swift/Property/votes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV5votesSSvp">votes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">votes</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV6writerSaySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/writer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV6writerSaySSGvp">writer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">writer</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV8directorSaySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/director" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV8directorSaySSGvp">director</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='video-details-file' class='heading'>Video.Details.File</h1>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">director</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B4ItemP6resumeAA5VideoO6ResumeVvp"></a>
+                    <a name="//apple_ref/swift/Property/resume" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B4ItemP6resumeAA5VideoO6ResumeVvp">resume</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">resume</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Resume</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B4ItemP7runtimeSivp"></a>
+                    <a name="//apple_ref/swift/Property/runtime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B4ItemP7runtimeSivp">runtime</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">runtime</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV06streamE0AC7StreamsVvp"></a>
+                    <a name="//apple_ref/swift/Property/streamDetails" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV06streamE0AC7StreamsVvp">streamDetails</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">streamDetails</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Streams</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV9dateAddedSSvp"></a>
+                    <a name="//apple_ref/swift/Property/dateAdded" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV9dateAddedSSvp">dateAdded</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='video-details-item' class='heading'>Video.Details.Item</h1>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">dateAdded</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B4ItemP4fileSSvp"></a>
+                    <a name="//apple_ref/swift/Property/file" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B4ItemP4fileSSvp">file</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">file</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B4ItemP10lastPlayedSSvp"></a>
+                    <a name="//apple_ref/swift/Property/lastPlayed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B4ItemP10lastPlayedSSvp">lastPlayed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">lastPlayed</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV4plotSSvp"></a>
+                    <a name="//apple_ref/swift/Property/plot" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV4plotSSvp">plot</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">plot</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV5titleSSvp"></a>
+                    <a name="//apple_ref/swift/Property/title" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV5titleSSvp">title</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='video-details-media' class='heading'>Video.Details.Media</h1>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">title</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV3artAA5MediaO7ArtworkVvp"></a>
+                    <a name="//apple_ref/swift/Property/art" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV3artAA5MediaO7ArtworkVvp">art</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='video-details-base' class='heading'>Video.Details.Base</h1>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">art</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Media.html">Media</a></span><span class="o">.</span><span class="kt">Artwork</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B4ItemP9playcountSivp"></a>
+                    <a name="//apple_ref/swift/Property/playcount" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B4ItemP9playcountSivp">playcount</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">playcount</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV6fanartSSvp"></a>
+                    <a name="//apple_ref/swift/Property/fanart" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV6fanartSSvp">fanart</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='media-details-base' class='heading'>Media.Details.Base</h1>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">fanart</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV9thumbnailSSvp"></a>
+                    <a name="//apple_ref/swift/Property/thumbnail" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5VideoO7DetailsO7EpisodeV9thumbnailSSvp">thumbnail</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">thumbnail</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2022 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2022-12-10)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

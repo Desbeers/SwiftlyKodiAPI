@@ -3,5 +3,43 @@ author: Nick Berendsen
 author_url: https://desbeers.nl
 github_url: https://github.com/desbeers/swiftlykodiapi/
 min_acl: public
+output: Documentation
 clean: true
 theme: apple
+
+custom_categories:
+  - name: Kodi Namespaces
+    children:
+    - Application
+    - AudioLibrary
+    - Files
+    - Player
+    - Playlist
+    - Settings
+    - VideoLibrary
+    - XBMC
+
+  - name: Kodi Global Types
+    children:
+    - Application
+    - Audio
+    - Files
+    - Library
+    - List
+    - Media
+    - Notifications
+    - Player
+    - Playlist
+    - Setting
+    - Video
+
+  - name: Observable Classes
+    children:
+    - KodiConnector
+    - KodiPlayer
+
+  - name: SwiftUI
+    children:
+    - KodiArt
+    - KodiPlayerView
+    - MediaButtons
