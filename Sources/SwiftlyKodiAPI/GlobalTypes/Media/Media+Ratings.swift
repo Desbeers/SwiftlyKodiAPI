@@ -12,6 +12,10 @@ public extension Media {
     /// Ratings for a Media item
     /// - Note: This is a 'custom struct; Kodi defines this as an 'any'
     struct Ratings: Codable, Equatable, Hashable {
+        public init(defaults: Media.Ratings.Defaults? = nil) {
+            self.defaults = defaults
+        }
+
         public var defaults: Defaults?
 
         enum CodingKeys: String, CodingKey {

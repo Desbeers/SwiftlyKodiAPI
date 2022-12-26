@@ -58,7 +58,7 @@ extension VideoLibrary {
             return result.setdetails
         }
         /// There are no movie sets in the library
-        return Video.Details.MovieSet()
+        return Video.Details.MovieSet(media: .none)
     }
 
     /// Retrieve details about a specific movie set (Kodi API)

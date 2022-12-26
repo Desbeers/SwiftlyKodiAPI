@@ -63,7 +63,7 @@ extension AudioLibrary {
             return result.artistdetails
         } catch {
             logger("Loading artist details failed with error: \(error)")
-            return Audio.Details.Artist()
+            return Audio.Details.Artist(media: .none)
         }
     }
 

@@ -12,6 +12,79 @@ public extension Video.Details {
     /// TV show details
     struct TVShow: KodiItem {
 
+        /// # Public Init
+        
+        public init(
+            /// Media have to be set; this to indentify the init
+            media: Library.Media,
+            subtitle: String = "",
+            resume: Video.Resume = Video.Resume(),
+            cast: [Video.Cast] = [],
+            episode: Int = 0,
+            episodeGuide: String = "",
+            genre: [String] = [],
+            imdbNumber: String = "",
+            mpaa: String = "",
+            originalTitle: String = "",
+            premiered: String = "",
+            rating: Double = 0,
+            ratings: Media.Ratings = Media.Ratings(),
+            runtime: Int = 0,
+            season: Int = 0,
+            sortTitle: String = "",
+            status: String? = nil,
+            studio: [String] = [],
+            tag: [String] = [],
+            tvshowID: Library.id = 0,
+            userRating: Int = 0,
+            votes: String = "",
+            watchedEpisodes: Int = 0,
+            year: Int = 0,
+            dateAdded: String = "",
+            file: String = "",
+            lastPlayed: String = "",
+            plot: String = "",
+            title: String = "",
+            art: Media.Artwork = Media.Artwork(),
+            playcount: Int = 0,
+            fanart: String = "",
+            thumbnail: String = ""
+        ) {
+            self.media = media
+            self.subtitle = subtitle
+            self.resume = resume
+            self.cast = cast
+            self.episode = episode
+            self.episodeGuide = episodeGuide
+            self.genre = genre
+            self.imdbNumber = imdbNumber
+            self.mpaa = mpaa
+            self.originalTitle = originalTitle
+            self.premiered = premiered
+            self.rating = rating
+            self.ratings = ratings
+            self.runtime = runtime
+            self.season = season
+            self.sortTitle = sortTitle
+            self.status = status
+            self.studio = studio
+            self.tag = tag
+            self.tvshowID = tvshowID
+            self.userRating = userRating
+            self.votes = votes
+            self.watchedEpisodes = watchedEpisodes
+            self.year = year
+            self.dateAdded = dateAdded
+            self.file = file
+            self.lastPlayed = lastPlayed
+            self.plot = plot
+            self.title = title
+            self.art = art
+            self.playcount = playcount
+            self.fanart = fanart
+            self.thumbnail = thumbnail
+        }
+
         /// # Calculated variables
 
         public var id: String { "\(media)+\(tvshowID)" }

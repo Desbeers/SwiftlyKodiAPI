@@ -61,7 +61,7 @@ extension VideoLibrary {
             return result.tvshowdetails
         } catch {
             logger("Loading tv show details failed with error: \(error)")
-            return Video.Details.TVShow()
+            return Video.Details.TVShow(media: .none)
         }
     }
 

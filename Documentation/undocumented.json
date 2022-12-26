@@ -1,6 +1,2021 @@
 {
   "warnings": [
-
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Album+ReleaseType.swift",
+      "line": 13,
+      "symbol": "Audio.Album.ReleaseType.album",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Album+ReleaseType.swift",
+      "line": 14,
+      "symbol": "Audio.Album.ReleaseType.single",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Artist+Roles.swift",
+      "line": 17,
+      "symbol": "Audio.Artist.Roles.media",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Artist+Roles.swift",
+      "line": 22,
+      "symbol": "Audio.Artist.Roles.roleID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Contributors.swift",
+      "line": 22,
+      "symbol": "Audio.Contributors.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Contributors.swift",
+      "line": 23,
+      "symbol": "Audio.Contributors.role",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Contributors.swift",
+      "line": 24,
+      "symbol": "Audio.Contributors.roleID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 35,
+      "symbol": "Audio.Details.Album.albumID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 36,
+      "symbol": "Audio.Details.Album.albumLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 37,
+      "symbol": "Audio.Details.Album.albumStatus",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 38,
+      "symbol": "Audio.Details.Album.compilation",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 39,
+      "symbol": "Audio.Details.Album.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 40,
+      "symbol": "Audio.Details.Album.isBoxset",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 42,
+      "symbol": "Audio.Details.Album.mood",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 43,
+      "symbol": "Audio.Details.Album.musicBrainzAlbumID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 44,
+      "symbol": "Audio.Details.Album.musicBrainzReleasegroupID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 46,
+      "symbol": "Audio.Details.Album.releaseType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 47,
+      "symbol": "Audio.Details.Album.songGenres",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 48,
+      "symbol": "Audio.Details.Album.sourceID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 49,
+      "symbol": "Audio.Details.Album.style",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 50,
+      "symbol": "Audio.Details.Album.theme",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 51,
+      "symbol": "Audio.Details.Album.totalDiscs",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 52,
+      "symbol": "Audio.Details.Album.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 57,
+      "symbol": "Audio.Details.Album.artistID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 58,
+      "symbol": "Audio.Details.Album.displayArtist",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 59,
+      "symbol": "Audio.Details.Album.musicBrainzAlbumArtistID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 60,
+      "symbol": "Audio.Details.Album.originalDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 61,
+      "symbol": "Audio.Details.Album.rating",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 62,
+      "symbol": "Audio.Details.Album.releaseDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 63,
+      "symbol": "Audio.Details.Album.sortArtist",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 66,
+      "symbol": "Audio.Details.Album.votes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 67,
+      "symbol": "Audio.Details.Album.year",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 72,
+      "symbol": "Audio.Details.Album.dateAdded",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 73,
+      "symbol": "Audio.Details.Album.genre",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
+      "line": 78,
+      "symbol": "Audio.Details.Album.thumbnail",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 107,
+      "symbol": "Audio.Details.Artist.artistID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 108,
+      "symbol": "Audio.Details.Artist.born",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 112,
+      "symbol": "Audio.Details.Artist.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 113,
+      "symbol": "Audio.Details.Artist.died",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 114,
+      "symbol": "Audio.Details.Artist.disambiguation",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 115,
+      "symbol": "Audio.Details.Artist.disbanded",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 116,
+      "symbol": "Audio.Details.Artist.formed",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 117,
+      "symbol": "Audio.Details.Artist.gender",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 118,
+      "symbol": "Audio.Details.Artist.instrument",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 119,
+      "symbol": "Audio.Details.Artist.isAlbumArtist",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 120,
+      "symbol": "Audio.Details.Artist.mood",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 121,
+      "symbol": "Audio.Details.Artist.musicBrainzArtistID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 122,
+      "symbol": "Audio.Details.Artist.roles",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 123,
+      "symbol": "Audio.Details.Artist.songGenres",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 124,
+      "symbol": "Audio.Details.Artist.sortName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 126,
+      "symbol": "Audio.Details.Artist.style",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 127,
+      "symbol": "Audio.Details.Artist.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 128,
+      "symbol": "Audio.Details.Artist.yearsActive",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 133,
+      "symbol": "Audio.Details.Artist.dateAdded",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 134,
+      "symbol": "Audio.Details.Artist.genre",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
+      "line": 139,
+      "symbol": "Audio.Details.Artist.thumbnail",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Genres.swift",
+      "line": 18,
+      "symbol": "Audio.Details.Genres.media",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Genres.swift",
+      "line": 23,
+      "symbol": "Audio.Details.Genres.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 34,
+      "symbol": "Audio.Details.Song.albumArtist",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 35,
+      "symbol": "Audio.Details.Song.albumArtistID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 36,
+      "symbol": "Audio.Details.Song.albumID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 37,
+      "symbol": "Audio.Details.Song.albumReleaseType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 38,
+      "symbol": "Audio.Details.Song.bitrate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 39,
+      "symbol": "Audio.Details.Song.bpm",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 40,
+      "symbol": "Audio.Details.Song.channels",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 41,
+      "symbol": "Audio.Details.Song.comment",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 42,
+      "symbol": "Audio.Details.Song.contributors",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 43,
+      "symbol": "Audio.Details.Song.disc",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 44,
+      "symbol": "Audio.Details.Song.discTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 45,
+      "symbol": "Audio.Details.Song.displayComposer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 46,
+      "symbol": "Audio.Details.Song.displayConductor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 47,
+      "symbol": "Audio.Details.Song.displayLyricist",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 48,
+      "symbol": "Audio.Details.Song.displayOrchestra",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 49,
+      "symbol": "Audio.Details.Song.duration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 51,
+      "symbol": "Audio.Details.Song.genreID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 53,
+      "symbol": "Audio.Details.Song.lyrics",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 54,
+      "symbol": "Audio.Details.Song.mood",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 55,
+      "symbol": "Audio.Details.Song.musicBrainzArtistID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 56,
+      "symbol": "Audio.Details.Song.musicBrainzTrackID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 58,
+      "symbol": "Audio.Details.Song.samplerate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 59,
+      "symbol": "Audio.Details.Song.songID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 60,
+      "symbol": "Audio.Details.Song.sourceID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 61,
+      "symbol": "Audio.Details.Song.track",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 66,
+      "symbol": "Audio.Details.Song.artistID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 67,
+      "symbol": "Audio.Details.Song.displayArtist",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 68,
+      "symbol": "Audio.Details.Song.musicBrainzAlbumArtistID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 69,
+      "symbol": "Audio.Details.Song.originalDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 70,
+      "symbol": "Audio.Details.Song.rating",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 71,
+      "symbol": "Audio.Details.Song.releaseDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 72,
+      "symbol": "Audio.Details.Song.sortArtist",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 75,
+      "symbol": "Audio.Details.Song.votes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 76,
+      "symbol": "Audio.Details.Song.year",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 81,
+      "symbol": "Audio.Details.Song.dateAdded",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 82,
+      "symbol": "Audio.Details.Song.genre",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
+      "line": 87,
+      "symbol": "Audio.Details.Song.thumbnail",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Stream.swift",
+      "line": 57,
+      "symbol": "Audio.Details.Stream.station",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Stream.swift",
+      "line": 58,
+      "symbol": "Audio.Details.Stream.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Property+Value.swift",
+      "line": 14,
+      "symbol": "Audio.Property.Value.albumsLastAdded",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Property+Value.swift",
+      "line": 15,
+      "symbol": "Audio.Property.Value.albumsModified",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Property+Value.swift",
+      "line": 16,
+      "symbol": "Audio.Property.Value.artistLinksUpdated",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Property+Value.swift",
+      "line": 17,
+      "symbol": "Audio.Property.Value.artistsLastAdded",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Property+Value.swift",
+      "line": 18,
+      "symbol": "Audio.Property.Value.artistsModified",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Property+Value.swift",
+      "line": 19,
+      "symbol": "Audio.Property.Value.genresLastAdded",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Property+Value.swift",
+      "line": 20,
+      "symbol": "Audio.Property.Value.libraryLastCleaned",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Property+Value.swift",
+      "line": 22,
+      "symbol": "Audio.Property.Value.missingArtistID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Property+Value.swift",
+      "line": 23,
+      "symbol": "Audio.Property.Value.songsLastAdded",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Property+Value.swift",
+      "line": 24,
+      "symbol": "Audio.Property.Value.songsModified",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Library/Library+Details+Genre.swift",
+      "line": 42,
+      "symbol": "Library.Details.Genre.thumbnail",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Artwork.swift",
+      "line": 29,
+      "symbol": "Media.Artwork.fanart",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Artwork.swift",
+      "line": 30,
+      "symbol": "Media.Artwork.poster",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Artwork.swift",
+      "line": 31,
+      "symbol": "Media.Artwork.thumb",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Artwork.swift",
+      "line": 32,
+      "symbol": "Media.Artwork.icon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Artwork.swift",
+      "line": 33,
+      "symbol": "Media.Artwork.seasonPoster",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Ratings.swift",
+      "line": 15,
+      "symbol": "Media.Ratings.init(defaults:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Ratings.swift",
+      "line": 19,
+      "symbol": "Media.Ratings.defaults",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Ratings.swift",
+      "line": 25,
+      "symbol": "Media.Ratings.Defaults",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Ratings.swift",
+      "line": 26,
+      "symbol": "Media.Ratings.Defaults.defaults",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Ratings.swift",
+      "line": 27,
+      "symbol": "Media.Ratings.Defaults.rating",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Ratings.swift",
+      "line": 28,
+      "symbol": "Media.Ratings.Defaults.votes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Audio+Stream.swift",
+      "line": 18,
+      "symbol": "Player.Audio.Stream.channels",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Audio+Stream.swift",
+      "line": 19,
+      "symbol": "Player.Audio.Stream.codec",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Audio+Stream.swift",
+      "line": 20,
+      "symbol": "Player.Audio.Stream.index",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Audio+Stream.swift",
+      "line": 21,
+      "symbol": "Player.Audio.Stream.isDefault",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Audio+Stream.swift",
+      "line": 22,
+      "symbol": "Player.Audio.Stream.isImpaired",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Audio+Stream.swift",
+      "line": 23,
+      "symbol": "Player.Audio.Stream.isOriginal",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Audio+Stream.swift",
+      "line": 24,
+      "symbol": "Player.Audio.Stream.language",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Audio+Stream.swift",
+      "line": 25,
+      "symbol": "Player.Audio.Stream.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Audio+Stream.swift",
+      "line": 26,
+      "symbol": "Player.Audio.Stream.samplerate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Position+Time.swift",
+      "line": 24,
+      "symbol": "Player.Position.Time.milliseconds",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Position+Time.swift",
+      "line": 25,
+      "symbol": "Player.Position.Time.minutes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Position+Time.swift",
+      "line": 26,
+      "symbol": "Player.Position.Time.seconds",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 18,
+      "symbol": "Player.Property.Value.cachePercentage",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 19,
+      "symbol": "Player.Property.Value.canChangeSpeed",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 20,
+      "symbol": "Player.Property.Value.canMove",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 21,
+      "symbol": "Player.Property.Value.canRepeat",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 22,
+      "symbol": "Player.Property.Value.canRotate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 23,
+      "symbol": "Player.Property.Value.canSeek",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 24,
+      "symbol": "Player.Property.Value.canShuffle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 25,
+      "symbol": "Player.Property.Value.canZoom",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 26,
+      "symbol": "Player.Property.Value.currentAudioStream",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 27,
+      "symbol": "Player.Property.Value.currentSubtitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 28,
+      "symbol": "Player.Property.Value.currentVideoStream",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 29,
+      "symbol": "Player.Property.Value.mediaType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 30,
+      "symbol": "Player.Property.Value.live",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 31,
+      "symbol": "Player.Property.Value.partymode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 32,
+      "symbol": "Player.Property.Value.percentage",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 33,
+      "symbol": "Player.Property.Value.playlistID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 34,
+      "symbol": "Player.Property.Value.playlistPosition",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 35,
+      "symbol": "Player.Property.Value.repeating",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 36,
+      "symbol": "Player.Property.Value.shuffled",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 37,
+      "symbol": "Player.Property.Value.speed",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 38,
+      "symbol": "Player.Property.Value.subtitleEnabled",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 39,
+      "symbol": "Player.Property.Value.time",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Property+Value.swift",
+      "line": 40,
+      "symbol": "Player.Property.Value.timeTotal",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Subtitle.swift",
+      "line": 18,
+      "symbol": "Player.Subtitle.isDefault",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Subtitle.swift",
+      "line": 19,
+      "symbol": "Player.Subtitle.isForced",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Subtitle.swift",
+      "line": 20,
+      "symbol": "Player.Subtitle.isImpaired",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Subtitle.swift",
+      "line": 21,
+      "symbol": "Player.Subtitle.language",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Subtitle.swift",
+      "line": 22,
+      "symbol": "Player.Subtitle.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Video+Stream.swift",
+      "line": 18,
+      "symbol": "Player.Video.Stream.height",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Video+Stream.swift",
+      "line": 19,
+      "symbol": "Player.Video.Stream.index",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Video+Stream.swift",
+      "line": 20,
+      "symbol": "Player.Video.Stream.language",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Video+Stream.swift",
+      "line": 21,
+      "symbol": "Player.Video.Stream.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Player/Player+Video+Stream.swift",
+      "line": 22,
+      "symbol": "Player.Video.Stream.width",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Category.swift",
+      "line": 18,
+      "symbol": "Setting.Details.Category.label",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Category.swift",
+      "line": 21,
+      "symbol": "Setting.Details.Category.groups",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlBase.swift",
+      "line": 18,
+      "symbol": "Setting.Details.ControlBase.format",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlType.swift",
+      "line": 14,
+      "symbol": "Setting.Details.ControlType.unknown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlType.swift",
+      "line": 15,
+      "symbol": "Setting.Details.ControlType.list",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlType.swift",
+      "line": 16,
+      "symbol": "Setting.Details.ControlType.spinner",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlType.swift",
+      "line": 17,
+      "symbol": "Setting.Details.ControlType.toggle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlType.swift",
+      "line": 18,
+      "symbol": "Setting.Details.ControlType.edit",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Group.swift",
+      "line": 15,
+      "symbol": "Setting.Details.Group.settings",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+KodiSetting.swift",
+      "line": 16,
+      "symbol": "Setting.Details.KodiSetting.label",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Section.swift",
+      "line": 18,
+      "symbol": "Setting.Details.Section.label",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Section.swift",
+      "line": 19,
+      "symbol": "Setting.Details.Section.help",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Level.swift",
+      "line": 18,
+      "symbol": "Setting.Level.standard",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Level.swift",
+      "line": 19,
+      "symbol": "Setting.Level.advanced",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Level.swift",
+      "line": 20,
+      "symbol": "Setting.Level.expert",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 31,
+      "symbol": "Video.Details.Episode.episode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 32,
+      "symbol": "Video.Details.Episode.episodeID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 33,
+      "symbol": "Video.Details.Episode.firstAired",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 34,
+      "symbol": "Video.Details.Episode.originalTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 35,
+      "symbol": "Video.Details.Episode.productionCode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 36,
+      "symbol": "Video.Details.Episode.rating",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 37,
+      "symbol": "Video.Details.Episode.ratings",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 38,
+      "symbol": "Video.Details.Episode.season",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 39,
+      "symbol": "Video.Details.Episode.seasonID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 40,
+      "symbol": "Video.Details.Episode.showTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 41,
+      "symbol": "Video.Details.Episode.specialSortEpisode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 42,
+      "symbol": "Video.Details.Episode.specialSortSeason",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 43,
+      "symbol": "Video.Details.Episode.tvshowID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 44,
+      "symbol": "Video.Details.Episode.uniqueID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 46,
+      "symbol": "Video.Details.Episode.votes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 47,
+      "symbol": "Video.Details.Episode.writer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 54,
+      "symbol": "Video.Details.Episode.streamDetails",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 61,
+      "symbol": "Video.Details.Episode.plot",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Episode.swift",
+      "line": 75,
+      "symbol": "Video.Details.Episode.thumbnail",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 31,
+      "symbol": "Video.Details.Movie.country",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 32,
+      "symbol": "Video.Details.Movie.genre",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 33,
+      "symbol": "Video.Details.Movie.imdbNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 34,
+      "symbol": "Video.Details.Movie.movieID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 35,
+      "symbol": "Video.Details.Movie.mpaa",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 36,
+      "symbol": "Video.Details.Movie.originalTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 37,
+      "symbol": "Video.Details.Movie.plotOutline",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 38,
+      "symbol": "Video.Details.Movie.premiered",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 39,
+      "symbol": "Video.Details.Movie.rating",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 40,
+      "symbol": "Video.Details.Movie.ratings",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 41,
+      "symbol": "Video.Details.Movie.set",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 42,
+      "symbol": "Video.Details.Movie.setID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 43,
+      "symbol": "Video.Details.Movie.showLink",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 44,
+      "symbol": "Video.Details.Movie.sortTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 45,
+      "symbol": "Video.Details.Movie.studio",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 46,
+      "symbol": "Video.Details.Movie.tag",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 47,
+      "symbol": "Video.Details.Movie.tagline",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 48,
+      "symbol": "Video.Details.Movie.top250",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 49,
+      "symbol": "Video.Details.Movie.trailer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 50,
+      "symbol": "Video.Details.Movie.uniqueID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 52,
+      "symbol": "Video.Details.Movie.votes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 53,
+      "symbol": "Video.Details.Movie.writer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 54,
+      "symbol": "Video.Details.Movie.year",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 61,
+      "symbol": "Video.Details.Movie.streamDetails",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 68,
+      "symbol": "Video.Details.Movie.plot",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+Movie.swift",
+      "line": 82,
+      "symbol": "Video.Details.Movie.thumbnail",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MovieSet+Extended.swift",
+      "line": 17,
+      "symbol": "Video.Details.MovieSet.Extended.label",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MovieSet+Extended.swift",
+      "line": 18,
+      "symbol": "Video.Details.MovieSet.Extended.movieID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MovieSet.swift",
+      "line": 80,
+      "symbol": "Video.Details.MovieSet.setID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MovieSet.swift",
+      "line": 98,
+      "symbol": "Video.Details.MovieSet.thumbnail",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 31,
+      "symbol": "Video.Details.MusicVideo.artist",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 32,
+      "symbol": "Video.Details.MusicVideo.genre",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 33,
+      "symbol": "Video.Details.MusicVideo.musicVideoID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 34,
+      "symbol": "Video.Details.MusicVideo.premiered",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 35,
+      "symbol": "Video.Details.MusicVideo.rating",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 36,
+      "symbol": "Video.Details.MusicVideo.studio",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 37,
+      "symbol": "Video.Details.MusicVideo.tag",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 38,
+      "symbol": "Video.Details.MusicVideo.track",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 40,
+      "symbol": "Video.Details.MusicVideo.year",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 47,
+      "symbol": "Video.Details.MusicVideo.streamDetails",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 54,
+      "symbol": "Video.Details.MusicVideo.plot",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+MusicVideo.swift",
+      "line": 68,
+      "symbol": "Video.Details.MusicVideo.thumbnail",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 106,
+      "symbol": "Video.Details.TVShow.episode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 107,
+      "symbol": "Video.Details.TVShow.episodeGuide",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 108,
+      "symbol": "Video.Details.TVShow.genre",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 109,
+      "symbol": "Video.Details.TVShow.imdbNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 110,
+      "symbol": "Video.Details.TVShow.mpaa",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 111,
+      "symbol": "Video.Details.TVShow.originalTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 112,
+      "symbol": "Video.Details.TVShow.premiered",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 113,
+      "symbol": "Video.Details.TVShow.rating",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 114,
+      "symbol": "Video.Details.TVShow.ratings",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 116,
+      "symbol": "Video.Details.TVShow.season",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 117,
+      "symbol": "Video.Details.TVShow.sortTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 118,
+      "symbol": "Video.Details.TVShow.status",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 120,
+      "symbol": "Video.Details.TVShow.tag",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 121,
+      "symbol": "Video.Details.TVShow.tvshowID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 124,
+      "symbol": "Video.Details.TVShow.votes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 125,
+      "symbol": "Video.Details.TVShow.watchedEpisodes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 126,
+      "symbol": "Video.Details.TVShow.year",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 133,
+      "symbol": "Video.Details.TVShow.plot",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Details+TVShow.swift",
+      "line": 147,
+      "symbol": "Video.Details.TVShow.thumbnail",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Resume.swift",
+      "line": 14,
+      "symbol": "Video.Resume.init(position:total:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Resume.swift",
+      "line": 18,
+      "symbol": "Video.Resume.position",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Resume.swift",
+      "line": 19,
+      "symbol": "Video.Resume.total",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Streams.swift",
+      "line": 30,
+      "symbol": "Video.Streams.Audio.channels",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Streams.swift",
+      "line": 31,
+      "symbol": "Video.Streams.Audio.codec",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Streams.swift",
+      "line": 32,
+      "symbol": "Video.Streams.Audio.language",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Streams.swift",
+      "line": 41,
+      "symbol": "Video.Streams.Subtitle.language",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Streams.swift",
+      "line": 50,
+      "symbol": "Video.Streams.Video.aspect",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Streams.swift",
+      "line": 51,
+      "symbol": "Video.Streams.Video.codec",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Streams.swift",
+      "line": 52,
+      "symbol": "Video.Streams.Video.duration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Streams.swift",
+      "line": 53,
+      "symbol": "Video.Streams.Video.height",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Streams.swift",
+      "line": 54,
+      "symbol": "Video.Streams.Video.language",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Streams.swift",
+      "line": 55,
+      "symbol": "Video.Streams.Video.stereomode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Video/Video+Streams.swift",
+      "line": 56,
+      "symbol": "Video.Streams.Video.width",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/KodiConnector/KodiConnector+Connect.swift",
+      "line": 14,
+      "symbol": "KodiConnector.connect(host:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/KodiConnector/KodiConnector+Connect.swift",
+      "line": 49,
+      "symbol": "KodiConnector.loadLibrary(cache:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/KodiConnector/KodiConnector+JSON.swift",
+      "line": 55,
+      "symbol": "KodiConnector.test()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/Namespaces/XBMC/XBMC+getInfoBooleans.swift",
+      "line": 37,
+      "symbol": "XBMC.InfoBoolean.libraryIsScanning",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/Protocols/KodiItem.swift",
+      "line": 58,
+      "symbol": "KodiItem.playlistID",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/SwiftUI/KodiArt.swift",
+      "line": 37,
+      "symbol": "KodiArt.Poster.init(item:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/SwiftUI/KodiArt.swift",
+      "line": 66,
+      "symbol": "KodiArt.Fanart.init(item:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/SwiftUI/KodiArt.swift",
+      "line": 91,
+      "symbol": "KodiArt.Art.init(file:fallback:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/SwiftUI/MediaButtons.swift",
+      "line": 30,
+      "symbol": "MediaButtons.PlayPause.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/SwiftUI/MediaButtons.swift",
+      "line": 55,
+      "symbol": "MediaButtons.PlayPrevious.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/SwiftUI/MediaButtons.swift",
+      "line": 76,
+      "symbol": "MediaButtons.PlayNext.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/SwiftUI/MediaButtons.swift",
+      "line": 97,
+      "symbol": "MediaButtons.SetShuffle.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/SwiftUI/MediaButtons.swift",
+      "line": 122,
+      "symbol": "MediaButtons.SetRepeat.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/SwiftUI/MediaButtons.swift",
+      "line": 156,
+      "symbol": "MediaButtons.SetPartyMode.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/SwiftUI/MediaButtons.swift",
+      "line": 184,
+      "symbol": "MediaButtons.VolumeSlider.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
   ],
   "source_directory": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI"
 }

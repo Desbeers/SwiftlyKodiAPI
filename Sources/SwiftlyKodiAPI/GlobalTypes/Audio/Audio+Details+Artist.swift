@@ -14,7 +14,8 @@ public extension Audio.Details {
 
         /// # Public Init
         public init(
-            media: Library.Media = .artist,
+            /// Media have to be set; this to indentify the init
+            media: Library.Media,
             playcount: Int = 0,
             file: String = "",
             lastPlayed: String = "",

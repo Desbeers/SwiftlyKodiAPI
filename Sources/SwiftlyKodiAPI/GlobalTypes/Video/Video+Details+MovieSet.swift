@@ -12,6 +12,46 @@ public extension Video.Details {
     /// Movie set details
     struct MovieSet: KodiItem {
 
+        /// # Public Init
+
+        public init(
+            /// Media have to be set; this to indentify the init
+            media: Library.Media,
+            file: String = "",
+            lastPlayed: String = "",
+            subtitle: String = "",
+            details: String = "",
+            runtime: Int = 0,
+            userRating: Int = 0,
+            resume: Video.Resume = Video.Resume(),
+            plot: String = "",
+            setID: Library.id = 0,
+            movies: [Video.Details.MovieSet.Extended]? = nil,
+            title: String = "",
+            art: Media.Artwork = Media.Artwork(),
+            playcount: Int = 0,
+            fanart: String = "",
+            thumbnail: String = ""
+        ) {
+            self.media = media
+            self.file = file
+            self.lastPlayed = lastPlayed
+            self.subtitle = subtitle
+            self.details = details
+            self.runtime = runtime
+            self.userRating = userRating
+            self.resume = resume
+            self.plot = plot
+            self.setID = setID
+            self.movies = movies
+            self.title = title
+            self.art = art
+            self.playcount = playcount
+            self.fanart = fanart
+            self.thumbnail = thumbnail
+        }
+
+
         /// # Calculated variables
 
         public var id: String { "\(media)+\(setID)" }
