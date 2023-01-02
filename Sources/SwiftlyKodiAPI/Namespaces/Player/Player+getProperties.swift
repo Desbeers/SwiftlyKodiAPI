@@ -2,7 +2,7 @@
 //  Player+getProperties.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -28,7 +28,7 @@ extension Player {
         /// The player ID
         let playerID: Player.ID
         /// The method
-        let method = Methods.playerGetProperties
+        let method = Method.playerGetProperties
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(playerid: playerID))

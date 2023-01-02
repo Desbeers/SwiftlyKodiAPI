@@ -2,7 +2,7 @@
 //  KodiConnector+Connect.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -31,6 +31,8 @@ extension KodiConnector {
         await KodiPlayer.shared.getPlayerItem()
         /// Get the properties of the host
         properties = await Application.getProperties()
+        /// Get the addons of the host
+        addons = await Addons.getAddons()
         /// Get the settings of the host
         Task { @MainActor in
             settings = await Settings.getSettings()

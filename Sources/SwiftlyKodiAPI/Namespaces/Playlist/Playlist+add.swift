@@ -2,7 +2,7 @@
 //  Playlist+add.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -45,7 +45,7 @@ extension Playlist {
     /// Add item(s) to playlist (Kodi API)
     fileprivate struct Add: KodiAPI {
         /// The method
-        let method = Methods.playlistAdd
+        let method = Method.playlistAdd
         /// List of optional song ID's
         var songs: [Int]?
         /// List of optional music video ID's

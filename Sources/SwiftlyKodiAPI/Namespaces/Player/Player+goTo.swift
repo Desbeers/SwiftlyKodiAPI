@@ -2,7 +2,7 @@
 //  Player+goTo.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -38,7 +38,7 @@ extension Player {
         /// The position
         var position: Playlist.position = 0
         /// The method
-        let method: Methods = .playerGoTo
+        let method: Method = .playerGoTo
         /// The parameters
         var parameters: Data {
             if let direction = direction {

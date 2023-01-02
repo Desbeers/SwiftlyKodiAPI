@@ -2,7 +2,7 @@
 //  Application+setVolume.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -18,7 +18,7 @@ extension Application {
     /// Set the current volume (Kodi API)
     fileprivate struct SetVolume: KodiAPI {
         /// The method
-        let method = Methods.applicationSetVolume
+        let method = Method.applicationSetVolume
         /// The volume
         let volume: Double
         /// The parameters

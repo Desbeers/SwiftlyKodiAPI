@@ -2,7 +2,7 @@
 //  Setting+Details+Category.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -11,6 +11,10 @@ public extension Setting.Details {
 
     /// Setting category  (Global Kodi Type)
     struct Category: Decodable, Identifiable, Hashable {
+
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
 
         /// # Setting.Details.Base
 
@@ -43,7 +47,7 @@ extension Setting.Details.Category {
             self.help = try container.decodeIfPresent(String.self, forKey: CodingKeys.help)
             self.groups = try container.decode([Setting.Details.Group].self, forKey: CodingKeys.groups)
         }
-
+        //dump(groups)
+        //dump (groups.flatMap({$0.settings}))
     }
-
 }

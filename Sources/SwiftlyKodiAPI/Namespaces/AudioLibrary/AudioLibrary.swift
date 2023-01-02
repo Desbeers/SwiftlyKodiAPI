@@ -2,12 +2,12 @@
 //  AudioLibrary.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
 
 /// Audio Library information (Kodi Namespace)
 public enum AudioLibrary {
-    /// Just a placeholder
+    // Just a namespace
 }

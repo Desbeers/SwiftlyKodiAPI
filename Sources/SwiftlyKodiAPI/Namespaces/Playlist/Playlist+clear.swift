@@ -2,7 +2,7 @@
 //  Playlist+clear.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -21,7 +21,7 @@ extension Playlist {
     /// Clear playlist (Kodi API)
     fileprivate struct Clear: KodiAPI {
         /// The method to use
-        let method = Methods.playlistClear
+        let method = Method.playlistClear
         /// The playlist to clear
         let playlistID: Playlist.ID
         /// The parameters

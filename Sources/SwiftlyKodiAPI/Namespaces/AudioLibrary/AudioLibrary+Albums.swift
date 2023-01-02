@@ -2,7 +2,7 @@
 //  AudioLibrary+Albums.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -27,7 +27,7 @@ extension AudioLibrary {
     /// Retrieve all albums (Kodi API)
     fileprivate struct GetAlbums: KodiAPI {
         /// The method
-        let method = Methods.audioLibraryGetAlbums
+        let method = Method.audioLibraryGetAlbums
         /// The parameters
         var parameters: Data {
             buildParams(params: Params())

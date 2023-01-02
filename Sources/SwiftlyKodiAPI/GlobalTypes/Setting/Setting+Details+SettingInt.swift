@@ -2,7 +2,7 @@
 //  Setting+Details+SettingInt.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -10,14 +10,26 @@ import Foundation
 public extension Setting.Details {
 
     /// Setting Int (Global Kodi Type)
-    struct SettingInt: Hashable, Decodable {
-
-        /// # Setting.Details.Base
-
-        public var label: String = ""
-
-        /// # Setting.Details.SettingInt
+    struct SettingInt: Decodable, Equatable {
 
         public var value: Int
+        public var defaultValue: Int
+        public var maximum: Int?
+        public var minimum: Int?
+        public var step: Int?
+        public var options: [Option]?
+
+        enum CodingKeys: String, CodingKey {
+            case value
+            case defaultValue = "default"
+            case maximum
+            case minimum
+            case step
+            case options
+        }
+
+
+
+
     }
 }

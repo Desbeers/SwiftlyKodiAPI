@@ -2,7 +2,7 @@
 //  KodiConnector+Notifications.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -104,6 +104,10 @@ extension KodiConnector {
             await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
         case .playerOnSeek:
             await KodiPlayer.shared.getPlayerProperties()
+        case .videoLibraryOnRefresh:
+            Task { @MainActor in
+                settings = await Settings.getSettings()
+            }
         default:
             await KodiPlayer.shared.getPlayerProperties()
             await KodiPlayer.shared.getPlayerItem()

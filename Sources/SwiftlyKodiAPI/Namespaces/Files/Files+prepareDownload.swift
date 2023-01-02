@@ -2,7 +2,7 @@
 //  Files+prepareDownload.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -24,7 +24,7 @@ extension Files {
         /// The path
         let path: String
         /// The method
-        let method: Methods = .filesPrepareDownload
+        let method: Method = .filesPrepareDownload
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(path: path))

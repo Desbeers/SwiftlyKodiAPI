@@ -2,7 +2,7 @@
 //  KodiAPI.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -14,7 +14,7 @@ protocol KodiAPI {
     /// The httpBody for the request
     var parameters: Data { get }
     /// The method to use
-    var method: Methods { get }
+    var method: Method { get }
 }
 
 extension KodiAPI {

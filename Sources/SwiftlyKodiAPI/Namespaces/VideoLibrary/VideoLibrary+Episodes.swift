@@ -2,7 +2,7 @@
 //  VideoLibrary+Episodes.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -29,7 +29,7 @@ extension VideoLibrary {
         /// The TV show ID
         var tvshowID: Library.id?
         /// The method
-        let method = Methods.videoLibraryGetEpisodes
+        let method = Method.videoLibraryGetEpisodes
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(tvshowID: tvshowID))
@@ -81,7 +81,7 @@ extension VideoLibrary {
         /// The episode ID
         var episodeID: Library.id
         /// The method
-        var method = Methods.videoLibraryGetEpisodeDetails
+        var method = Method.videoLibraryGetEpisodeDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(episodeID: episodeID))
@@ -124,7 +124,7 @@ extension VideoLibrary {
         /// The episode
         var episode: Video.Details.Episode
         /// The method
-        let method = Methods.videoLibrarySetEpisodeDetails
+        let method = Method.videoLibrarySetEpisodeDetails
         /// The parameters
         var parameters: Data {
             /// The parameters

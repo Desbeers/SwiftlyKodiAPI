@@ -2,7 +2,7 @@
 //  KodiConnector.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
@@ -43,7 +43,10 @@ public final class KodiConnector: ObservableObject {
     @Published public var library = Library.Items()
 
     /// The host settings
-    @Published public var settings: [Setting.Details.Base] = []
+    @Published public var settings: [Setting.Details.KodiSetting] = []
+
+    /// The addons
+    public var addons: [Addon.Details] = []
 
     /// The online hosts
     @Published public var bonjourHosts: [BonjourHost] = []

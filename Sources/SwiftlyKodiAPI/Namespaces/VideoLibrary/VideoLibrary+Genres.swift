@@ -2,7 +2,7 @@
 //  VideoLibrary+Genres.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -31,7 +31,7 @@ extension VideoLibrary {
         /// The media type
         let type: Library.Media
         /// The method
-        let method = Methods.videoLibraryGetGenres
+        let method = Method.videoLibraryGetGenres
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(type: type))

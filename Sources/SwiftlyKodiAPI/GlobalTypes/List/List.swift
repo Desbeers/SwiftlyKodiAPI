@@ -2,12 +2,12 @@
 //  List.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
 
 /// List related items (Global Kodi Type)
 public enum List {
-    /// Just a placeholder
+    // Just a namespace
 }

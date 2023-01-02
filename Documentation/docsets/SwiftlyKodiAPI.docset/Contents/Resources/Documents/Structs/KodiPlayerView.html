@@ -17,7 +17,7 @@
     <a title="KodiPlayerView Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SwiftlyKodiAPI</a> (73% documented)</p>
+        <p><a href="../index.html">SwiftlyKodiAPI</a> (70% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/swiftlykodiapi/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -39,6 +39,9 @@
           <li class="nav-group-name">
             <a href="../Kodi%20Namespaces.html">Kodi Namespaces</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Addons.html">Addons</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/Application.html">Application</a>
               </li>
@@ -116,6 +119,15 @@
           <li class="nav-group-name">
             <a href="../Kodi%20Global%20Types.html">Kodi Global Types</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Addon.html">Addon</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Addon/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Addon/Types.html">– Types</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/Audio.html">Audio</a>
               </li>
@@ -235,6 +247,12 @@
             <a href="../SwiftUI.html">SwiftUI</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/KodiPlayerView.html">KodiPlayerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiSettingView.html">KodiSettingView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/KodiArt.html">KodiArt</a>
               </li>
               <li class="nav-group-task">
@@ -245,9 +263,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/KodiArt/Art.html">– Art</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/KodiPlayerView.html">KodiPlayerView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/MediaButtons.html">MediaButtons</a>
@@ -336,6 +351,11 @@
               </div>
             <p>A SwiftUI View with a player to stream a <code><a href="../Protocols/KodiItem.html">KodiItem</a></code> (SwiftlyKodi Type)</p>
 
+<ul>
+<li>It is using the Apple <code>AVplayer</code> so it only supports <em>Apple Approved</em> formats.</li>
+<li>If your media is on a harddisk and it&rsquo;s sleeping; the media wil sometimes not start because of a timeout. Try again and it will work.</li>
+</ul>
+
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -353,7 +373,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>init: we don&rsquo;t get it for free</p>
+                        <p>Init the View: we don&rsquo;t get it for free</p>
 
                       </div>
                       <div class="declaration">
@@ -363,6 +383,37 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">video</span><span class="p">:</span> <span class="n">any</span> <span class="kt"><a href="../Protocols/KodiItem.html">KodiItem</a></span><span class="p">,</span> <span class="nv">resume</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>video</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Protocols/KodiItem.html">KodiItem</a></code> to play</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resume</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Bool</code> if the item must be resumed or not</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -380,7 +431,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The body of this View</p>
+                        <p>The body of the View</p>
 
                       </div>
                       <div class="declaration">
@@ -399,7 +450,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2022-12-26)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-01-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

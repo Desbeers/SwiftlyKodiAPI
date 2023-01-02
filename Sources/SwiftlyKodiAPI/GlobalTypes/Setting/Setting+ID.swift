@@ -2,7 +2,7 @@
 //  Setting+ID.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -10,16 +10,45 @@ import Foundation
 public extension Setting {
 
     // swiftlint:disable type_name
-    /// The ID of the setting (SwiftlyKodi Type)
+    /// The ID of the Kodi setting (SwiftlyKodi Type)
     enum ID: String, Codable {
+
         /// A setting SwiftlyKodiAPI doesn't know about
         case unknown
 
-        /// # services + general
+        /// No ID (used for parent value)
+        case none
 
-        case servicesDevicename = "services.devicename"
+        // MARK: interface + skin
 
-        /// # player + musicplayer
+        case lookAndFeelSkin = "lookandfeel.skin"
+        case lookAndFeelSkinTheme = "lookandfeel.skintheme"
+        case lookAndFeelSkinColors = "lookandfeel.skincolors"
+        case lookAndFeelFont = "lookandfeel.font"
+        case lookAndFeelSkinZoom = "lookandfeel.skinzoom"
+        case lookAndFeelEnableRssFeeds = "lookandfeel.enablerssfeeds"
+        case lookAndFeelRssEdit = "lookandfeel.rssedit"
+
+        // MARK: interface + regional
+
+        case localeLanguage = "locale.language"
+        case localeCountry = "locale.country"
+
+        // MARK: media + general
+
+        case filelistsIgnoreTheWhenSorting = "filelists.ignorethewhensorting"
+
+        // MARK: media + video
+
+        case videolibraryGroupMovieSets = "videolibrary.groupmoviesets"
+
+        case videolibraryShowuUwatchedPlots = "videolibrary.showunwatchedplots"
+
+        // MARK: player + videoplayer
+
+        case videoplayerAutoPlayNextItem = "videoplayer.autoplaynextitem"
+
+        // MARK: player + musicplayer
 
         /// Read the ReplayGain information encoded in your audio files
         case musicPlayerReplayGainType = "musicplayer.replaygaintype"
@@ -33,6 +62,11 @@ public extension Setting {
         case musicplayerCrossfade = "musicplayer.crossfade"
         /// Allow crossfading to occur when both tracks are from the same album
         case musicplayerCrossfadeAlbumTracks = "musicplayer.crossfadealbumtracks"
+
+        // MARK: services + general
+
+        case servicesDevicename = "services.devicename"
+
     }
     // swiftlint:enable type_name
 }

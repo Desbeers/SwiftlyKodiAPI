@@ -2,7 +2,7 @@
 //  Genres.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -26,7 +26,7 @@ extension AudioLibrary {
     /// Retrieve all genres (Kodi API)
     fileprivate struct GetGenres: KodiAPI {
         /// The method
-        let method = Methods.audioLibraryGetGenres
+        let method = Method.audioLibraryGetGenres
         /// The parameters
         var parameters: Data {
             buildParams(params: Params())

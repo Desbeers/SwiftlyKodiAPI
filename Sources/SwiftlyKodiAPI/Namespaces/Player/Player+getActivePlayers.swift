@@ -2,7 +2,7 @@
 //  Player+getActivePlayers.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -23,7 +23,7 @@ extension Player {
 
     /// Returns all active players (Kodi API)
     fileprivate struct GetActivePlayers: KodiAPI {
-        let method: Methods = .playerGetActivePlayers
+        let method: Method = .playerGetActivePlayers
         /// The parameters
         var parameters: Data {
             /// Params for GetActivePlayers (empty, no need)

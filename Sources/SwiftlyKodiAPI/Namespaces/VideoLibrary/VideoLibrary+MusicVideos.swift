@@ -2,7 +2,7 @@
 //  VideoLibrary+MusicVideos.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -26,7 +26,7 @@ extension VideoLibrary {
     /// Retrieve all music videos (Kodi API)
     fileprivate struct GetMusicVideos: KodiAPI {
         /// The method
-        let method = Methods.videoLibraryGetMusicVideos
+        let method = Method.videoLibraryGetMusicVideos
         /// The parameters
         var parameters: Data {
             buildParams(params: Params())
@@ -70,7 +70,7 @@ extension VideoLibrary {
         /// The music video ID
         let musicVideoID: Library.id
         /// The method
-        let method = Methods.videoLibraryGetMusicVideoDetails
+        let method = Method.videoLibraryGetMusicVideoDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(musicVideoID: musicVideoID))
@@ -113,7 +113,7 @@ extension VideoLibrary {
         /// The music video
         let musicVideo: Video.Details.MusicVideo
         /// The method
-        let method = Methods.videoLibrarySetMusicVideoDetails
+        let method = Method.videoLibrarySetMusicVideoDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(musicVideo: musicVideo))
@@ -174,7 +174,7 @@ extension VideoLibrary {
         /// The music video
         let musicVideo: Video.Details.MusicVideo
         /// The method
-        let method = Methods.videoLibraryRefreshMusicVideo
+        let method = Method.videoLibraryRefreshMusicVideo
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(musicVideo: musicVideo))

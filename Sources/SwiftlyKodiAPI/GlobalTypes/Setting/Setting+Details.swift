@@ -2,15 +2,15 @@
 //  Setting+Details.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
 
 public extension Setting {
-
-    /// Setting details related items
+    
+    /// Setting details related items (SwiftlyKodi Type)
     enum Details {
-        /// Just a placeholder
+        // Just a namespace here
     }
 }

@@ -2,7 +2,7 @@
 //  VideoLibrary+Movies.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -26,7 +26,7 @@ extension VideoLibrary {
     /// Retrieve all movies (Kodi API)
     fileprivate struct GetMovies: KodiAPI {
         /// The method
-        var method = Methods.videoLibraryGetMovies
+        var method = Method.videoLibraryGetMovies
         /// The parameters
         var parameters: Data {
             buildParams(params: Params())
@@ -71,7 +71,7 @@ extension VideoLibrary {
         /// The movie ID
         let movieID: Library.id
         /// The method
-        let method = Methods.videoLibraryGetMovieDetails
+        let method = Method.videoLibraryGetMovieDetails
         /// The parameters we ask for
         var parameters: Data {
             buildParams(params: Params(movieID: movieID))
@@ -114,7 +114,7 @@ extension VideoLibrary {
         /// The movie
         var movie: Video.Details.Movie
         /// The method
-        var method = Methods.videoLibrarySetMovieDetails
+        var method = Method.videoLibrarySetMovieDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(movie: movie))

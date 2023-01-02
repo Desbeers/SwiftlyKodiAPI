@@ -1150,23 +1150,93 @@
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Category.swift",
-      "line": 18,
+      "line": 22,
       "symbol": "Setting.Details.Category.label",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Category.swift",
-      "line": 21,
+      "line": 25,
       "symbol": "Setting.Details.Category.groups",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlBase.swift",
-      "line": 18,
-      "symbol": "Setting.Details.ControlBase.format",
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Control.swift",
+      "line": 20,
+      "symbol": "Setting.Details.Control.format",
       "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Control.swift",
+      "line": 22,
+      "symbol": "Setting.Details.Control.delayed",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlFormat.swift",
+      "line": 14,
+      "symbol": "Setting.Details.ControlFormat.unknown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlFormat.swift",
+      "line": 15,
+      "symbol": "Setting.Details.ControlFormat.bool",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlFormat.swift",
+      "line": 16,
+      "symbol": "Setting.Details.ControlFormat.int",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlFormat.swift",
+      "line": 17,
+      "symbol": "Setting.Details.ControlFormat.addon",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlFormat.swift",
+      "line": 18,
+      "symbol": "Setting.Details.ControlFormat.action",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlFormat.swift",
+      "line": 19,
+      "symbol": "Setting.Details.ControlFormat.string",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlFormat.swift",
+      "line": 20,
+      "symbol": "Setting.Details.ControlFormat.path",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlFormat.swift",
+      "line": 21,
+      "symbol": "Setting.Details.ControlFormat.percentage",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlFormat.swift",
+      "line": 22,
+      "symbol": "Setting.Details.ControlFormat.ip",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
@@ -1205,31 +1275,381 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlType.swift",
+      "line": 19,
+      "symbol": "Setting.Details.ControlType.slider",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+ControlType.swift",
+      "line": 20,
+      "symbol": "Setting.Details.ControlType.button",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Group.swift",
-      "line": 15,
+      "line": 19,
       "symbol": "Setting.Details.Group.settings",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+KodiSetting.swift",
-      "line": 16,
-      "symbol": "Setting.Details.KodiSetting.label",
+      "line": 29,
+      "symbol": "Setting.Details.KodiSetting.parent",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Option.swift",
+      "line": 14,
+      "symbol": "Setting.Details.Option.label",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Option.swift",
+      "line": 15,
+      "symbol": "Setting.Details.Option.value",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Section.swift",
-      "line": 18,
+      "line": 29,
       "symbol": "Setting.Details.Section.label",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+Section.swift",
-      "line": 19,
+      "line": 30,
       "symbol": "Setting.Details.Section.help",
       "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingAddon.swift",
+      "line": 15,
+      "symbol": "Setting.Details.SettingAddon.addonType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingAddon.swift",
+      "line": 17,
+      "symbol": "Setting.Details.SettingAddon.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingAddon.swift",
+      "line": 18,
+      "symbol": "Setting.Details.SettingAddon.defaultValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingAddon.swift",
+      "line": 19,
+      "symbol": "Setting.Details.SettingAddon.allowEmpty",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingAddon.swift",
+      "line": 20,
+      "symbol": "Setting.Details.SettingAddon.options",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingAddon.swift",
+      "line": 29,
+      "symbol": "Setting.Details.SettingAddon.Option",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingAddon.swift",
+      "line": 30,
+      "symbol": "Setting.Details.SettingAddon.Option.label",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingAddon.swift",
+      "line": 31,
+      "symbol": "Setting.Details.SettingAddon.Option.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingBool.swift",
+      "line": 15,
+      "symbol": "Setting.Details.SettingBool.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingBool.swift",
+      "line": 16,
+      "symbol": "Setting.Details.SettingBool.defaultValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingInt.swift",
+      "line": 15,
+      "symbol": "Setting.Details.SettingInt.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingInt.swift",
+      "line": 16,
+      "symbol": "Setting.Details.SettingInt.defaultValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingInt.swift",
+      "line": 17,
+      "symbol": "Setting.Details.SettingInt.maximum",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingInt.swift",
+      "line": 18,
+      "symbol": "Setting.Details.SettingInt.minimum",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingInt.swift",
+      "line": 19,
+      "symbol": "Setting.Details.SettingInt.step",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingInt.swift",
+      "line": 20,
+      "symbol": "Setting.Details.SettingInt.options",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingList.swift",
+      "line": 15,
+      "symbol": "Setting.Details.SettingList.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingList.swift",
+      "line": 16,
+      "symbol": "Setting.Details.SettingList.defaultValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingList.swift",
+      "line": 18,
+      "symbol": "Setting.Details.SettingList.options",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingString.swift",
+      "line": 15,
+      "symbol": "Setting.Details.SettingString.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingString.swift",
+      "line": 16,
+      "symbol": "Setting.Details.SettingString.defaultValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingString.swift",
+      "line": 17,
+      "symbol": "Setting.Details.SettingString.allowEmpty",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingString.swift",
+      "line": 18,
+      "symbol": "Setting.Details.SettingString.options",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingString.swift",
+      "line": 27,
+      "symbol": "Setting.Details.SettingString.Option",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingString.swift",
+      "line": 28,
+      "symbol": "Setting.Details.SettingString.Option.label",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingString.swift",
+      "line": 29,
+      "symbol": "Setting.Details.SettingString.Option.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingType.swift",
+      "line": 15,
+      "symbol": "Setting.Details.SettingType.unknown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingType.swift",
+      "line": 16,
+      "symbol": "Setting.Details.SettingType.bool",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingType.swift",
+      "line": 17,
+      "symbol": "Setting.Details.SettingType.int",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingType.swift",
+      "line": 18,
+      "symbol": "Setting.Details.SettingType.string",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingType.swift",
+      "line": 19,
+      "symbol": "Setting.Details.SettingType.list",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+Details+SettingType.swift",
+      "line": 20,
+      "symbol": "Setting.Details.SettingType.addon",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 24,
+      "symbol": "Setting.ID.lookAndFeelSkin",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 25,
+      "symbol": "Setting.ID.lookAndFeelSkinTheme",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 26,
+      "symbol": "Setting.ID.lookAndFeelSkinColors",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 27,
+      "symbol": "Setting.ID.lookAndFeelFont",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 28,
+      "symbol": "Setting.ID.lookAndFeelSkinZoom",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 29,
+      "symbol": "Setting.ID.lookAndFeelEnableRssFeeds",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 30,
+      "symbol": "Setting.ID.lookAndFeelRssEdit",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 34,
+      "symbol": "Setting.ID.localeLanguage",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 35,
+      "symbol": "Setting.ID.localeCountry",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 39,
+      "symbol": "Setting.ID.filelistsIgnoreTheWhenSorting",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 43,
+      "symbol": "Setting.ID.videolibraryGroupMovieSets",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 45,
+      "symbol": "Setting.ID.videolibraryShowuUwatchedPlots",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 49,
+      "symbol": "Setting.ID.videoplayerAutoPlayNextItem",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Setting/Setting+ID.swift",
+      "line": 68,
+      "symbol": "Setting.ID.servicesDevicename",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
@@ -1920,14 +2340,14 @@
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/KodiConnector/KodiConnector+Connect.swift",
-      "line": 49,
+      "line": 51,
       "symbol": "KodiConnector.loadLibrary(cache:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/KodiConnector/KodiConnector+JSON.swift",
-      "line": 55,
+      "line": 56,
       "symbol": "KodiConnector.test()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

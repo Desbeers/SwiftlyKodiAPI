@@ -1,16 +1,23 @@
 //
-//  KodiConnector+Methods.swift
+//  KodiConnector+Method.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
 
 /// Kodi methods used by KodiAPI
-enum Methods: String {
+enum Method: String {
 
-    /// # Application
+    // MARK: Addons
+
+    ///Gets the details of a specific addon
+    case addonsGetAddonDetails = "Addons.GetAddonDetails"
+    ///Gets all available addons
+    case addonsGetAddons = "Addons.GetAddons"
+
+    // MARK: Application
 
     /// Retrieves the values of the given properties
     case applicationGetProperties = "Application.GetProperties"
@@ -21,7 +28,7 @@ enum Methods: String {
     /// Set the current volume
     case applicationSetVolume = "Application.SetVolume"
 
-    /// # Audio library
+    // MARK: Audio library
 
     /// Cleans the audio library from non-existent items
     case audioLibraryClean = "AudioLibrary.Clean"
@@ -68,19 +75,19 @@ enum Methods: String {
     /// Update the given song with the given details
     case audioLibrarySetSongDetails = "AudioLibrary.SetSongDetails"
 
-    /// # Files
+    // MARK: Files
 
     /// Get the directories and files in the given directory
     case filesGetDirectory = "Files.GetDirectory"
     /// Provides a way to download a given file
     case filesPrepareDownload = "Files.PrepareDownload"
 
-    /// # JSONRPC
+    // MARK: JSONRPC
 
     /// Notify all other connected clients
     case notifyAll = "JSONRPC.NotifyAll"
 
-    /// # Player
+    // MARK: Player
 
     /// Add subtitle to the player
     case playerAddSubtitle = "Player.AddSubtitle"
@@ -129,7 +136,7 @@ enum Methods: String {
     /// Zoom current picture
     case playerZoom = "Player.Zoom"
 
-    /// # Playlists
+    // MARK: Playlists
 
     /// Clear the playlist on the host
     case playlistClear = "Playlist.Clear"
@@ -142,7 +149,7 @@ enum Methods: String {
     /// Get a list of items from a playlist on the host
     case playlistGetItems = "Playlist.GetItems"
 
-    /// # Settings
+    // MARK: Settings
 
     /// Retrieves all setting categories
     case settingsGetSections = "Settings.GetSections"
@@ -153,7 +160,7 @@ enum Methods: String {
     /// Set a setting on the host
     case settingsSetSettingvalue = "Settings.SetSettingvalue"
 
-    /// # Video library
+    // MARK: Video library
 
     /// Cleans the video library for non-existent items
     case videoLibraryClean = "VideoLibrary.Clean"
@@ -230,7 +237,7 @@ enum Methods: String {
     /// Update the given tvshow with the given details
     case videoLibrarySetTVShowDetails = "VideoLibrary.SetTVShowDetails"
 
-    /// ## XBMC
+    // MARK: XBMC
 
     /// Retrieve info booleans about Kodi and the system
     case xbmcGetInfoBooleans = "XBMC.GetInfoBooleans"

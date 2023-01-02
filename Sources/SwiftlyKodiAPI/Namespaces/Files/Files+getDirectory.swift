@@ -2,7 +2,7 @@
 //  Files+getDirectory.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -31,7 +31,7 @@ extension Files {
         /// The media
         let media: Files.Media
         /// The method
-        let method: Methods = .filesGetDirectory
+        let method: Method = .filesGetDirectory
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(directory: directory, media: media))

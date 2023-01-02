@@ -2,7 +2,7 @@
 //  AudioLibrary+Artists.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -25,7 +25,7 @@ extension AudioLibrary {
     /// Retrieve all artists (Kodi API)
     fileprivate struct GetArtists: KodiAPI {
         /// The method
-        var method = Methods.audioLibraryGetArtists
+        var method = Method.audioLibraryGetArtists
         /// The parameters
         var parameters: Data {
             buildParams(params: Params())
@@ -72,7 +72,7 @@ extension AudioLibrary {
         /// The artist ID
         let artistID: Library.id
         /// The method
-        let method = Methods.audioLibraryGetArtistDetails
+        let method = Method.audioLibraryGetArtistDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(artistID: artistID))

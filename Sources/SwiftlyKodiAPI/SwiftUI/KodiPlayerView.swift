@@ -1,14 +1,17 @@
 //
 //  KodiPlayerView.swift
-//  Komodio
+//  SwiftlyKodiAPI
 //
-//  Created by Nick Berendsen on 26/02/2022.
+//  © 2023 Nick Berendsen
 //
+
 import SwiftUI
-import Combine
 import AVKit
 
 /// A SwiftUI View with a player to stream a ``KodiItem`` (SwiftlyKodi Type)
+///
+/// - It is using the Apple `AVplayer` so it only supports *Apple Approved* formats.
+/// - If your media is on a harddisk and it's sleeping; the media wil sometimes not start because of a timeout. Try again and it will work.
 public struct KodiPlayerView: View {
     /// The Video item we want to play
     let video: any KodiItem
@@ -19,12 +22,15 @@ public struct KodiPlayerView: View {
     /// The presentation mode
     /// - Note: Need this to go back a View on iOS after the video has finnished
     @Environment(\.presentationMode) var presentationMode
-    /// init: we don't get it for free
+    /// Init the View: we don't get it for free
+    /// - Parameters:
+    ///   - video: The ``KodiItem`` to play
+    ///   - resume: `Bool` if the item must be resumed or not
     public init(video: any KodiItem, resume: Bool = false) {
         self.video = video
         self.resume = resume
     }
-    /// The body of this View
+    /// The body of the View
     public var body: some View {
         VideoPlayer(player: playerModel.player)
             .task(id: playerModel.state) {

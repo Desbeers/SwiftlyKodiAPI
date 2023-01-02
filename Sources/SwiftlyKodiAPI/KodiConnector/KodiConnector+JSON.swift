@@ -2,7 +2,7 @@
 //  KodiConnector+JSON.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -26,6 +26,7 @@ extension KodiConnector {
             return decoded.result
             } catch let DecodingError.dataCorrupted(context) {
                 print(context)
+                debugJsonResponse(data: data)
             } catch let DecodingError.keyNotFound(key, context) {
                 print("Key '\(key)' not found:", context.debugDescription)
                 print("codingPath:", context.codingPath)

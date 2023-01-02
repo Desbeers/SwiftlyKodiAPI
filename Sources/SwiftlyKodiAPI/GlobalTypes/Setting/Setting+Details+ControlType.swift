@@ -1,8 +1,8 @@
 //
-//  Setting+Details+ControlSpinner.swift
+//  Setting+Details+ControlType.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -16,5 +16,7 @@ public extension Setting.Details {
         case spinner
         case toggle
         case edit
+        case slider
+        case button
     }
 }

@@ -2,7 +2,7 @@
 //  VideoLibrary+TVshows.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -26,7 +26,7 @@ extension VideoLibrary {
     /// Retrieve all TV shows (Kodi API)
     fileprivate struct GetTVShows: KodiAPI {
         /// The method
-        var method = Methods.videoLibraryGetTVShows
+        var method = Method.videoLibraryGetTVShows
         /// The parameters
         var parameters: Data {
             buildParams(params: Params())
@@ -70,7 +70,7 @@ extension VideoLibrary {
         /// The tv show ID
         var tvshowID: Library.id
         /// The method
-        var method = Methods.videoLibraryGetTVShowDetails
+        var method = Method.videoLibraryGetTVShowDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(tvshowID: tvshowID))
@@ -116,7 +116,7 @@ extension VideoLibrary {
         /// The TV show
         var tvshow: Video.Details.TVShow
         /// The method
-        var method = Methods.videoLibrarySetTVShowDetails
+        var method = Method.videoLibrarySetTVShowDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(tvshow: tvshow))

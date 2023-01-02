@@ -2,7 +2,7 @@
 //  AudioLibrary+getProperties.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -25,7 +25,7 @@ extension AudioLibrary {
     /// Retrieves the values of the music library properties (Kodi API)
     fileprivate struct GetProperties: KodiAPI {
         /// The method
-        let method = Methods.audioLibraryGetProperties
+        let method = Method.audioLibraryGetProperties
         /// The parameters
         var parameters: Data {
             buildParams(params: Params())

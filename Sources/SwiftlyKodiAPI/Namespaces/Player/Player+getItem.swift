@@ -2,7 +2,7 @@
 //  Player+getItem.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -43,7 +43,7 @@ extension Player {
         /// The ``Player/ID``
         let playerID: Player.ID
         /// The method
-        let method = Methods.playerGetItem
+        let method = Method.playerGetItem
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(playerID: playerID))

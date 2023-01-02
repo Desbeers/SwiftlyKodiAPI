@@ -2,7 +2,7 @@
 //  Playlist+getItems.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -45,7 +45,7 @@ extension Playlist {
         /// The ``Playlist/ID``
         let playlistID: Playlist.ID
         /// The method to use
-        let method = Methods.playlistGetItems
+        let method = Method.playlistGetItems
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(playlistID: playlistID))

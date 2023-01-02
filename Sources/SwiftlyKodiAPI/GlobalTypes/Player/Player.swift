@@ -2,7 +2,7 @@
 //  Player.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -11,5 +11,5 @@ import Foundation
 ///
 /// - Note: Fuctions in ``Player`` that will give a response are 'Asynchronous'; others are not
 public enum Player {
-    /// Just a placeholder
+    // Just a namespace
 }

@@ -2,7 +2,7 @@
 //  AudioLibrary+Songs.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -89,7 +89,7 @@ extension AudioLibrary {
         /// The sort order
         let sort: List.Sort
         /// The method
-        let method = Methods.audioLibraryGetSongs
+        let method = Method.audioLibraryGetSongs
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(sort: sort, filter: filter, limits: limits))
@@ -137,7 +137,7 @@ extension AudioLibrary {
         /// The song ID
         let songID: Library.id
         /// The method
-        let method = Methods.audioLibraryGetSongDetails
+        let method = Method.audioLibraryGetSongDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(songID: songID))
@@ -181,7 +181,7 @@ extension AudioLibrary {
         /// The song
         let song: Audio.Details.Song
         /// The method
-        let method = Methods.audioLibrarySetSongDetails
+        let method = Method.audioLibrarySetSongDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(song: song))

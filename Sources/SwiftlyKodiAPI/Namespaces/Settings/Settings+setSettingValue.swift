@@ -2,7 +2,7 @@
 //  Settings+setSettingValue.swift.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -17,16 +17,17 @@ extension Settings {
     ///   - int: The optional Int value
     ///   - bool: The optional Bool value
     ///   - string: The optional String value
-    public static func setSettingValue(setting: Setting.ID, int: Int? = nil, bool: Bool? = nil, string: String? = nil) async {
+    ///   - list: The optional [Int] value
+    public static func setSettingValue(setting: Setting.ID, int: Int? = nil, bool: Bool? = nil, string: String? = nil, list: [Int]? = nil) async {
         logger("Settings.SetSettingValue")
-        let message = SetSettingValue(setting: setting, valueInt: int, valueBool: bool, valueString: string)
+        let message = SetSettingValue(setting: setting, valueInt: int, valueBool: bool, valueString: string, valueList: list)
         KodiConnector.shared.sendMessage(message: message)
     }
 
     /// Changes the value of a setting (Kodi API)
     fileprivate struct SetSettingValue: KodiAPI {
         /// The method
-        let method: Methods = .settingsSetSettingvalue
+        let method: Method = .settingsSetSettingvalue
         /// Setting  ID
         let setting: Setting.ID
         /// Setting Int value
@@ -35,6 +36,8 @@ extension Settings {
         let valueBool: Bool?
         /// Setting String value
         let valueString: String?
+        /// Setting List value
+        let valueList: [Int]?
         /// The JSON creator
         var parameters: Data {
             if let valueInt {
@@ -45,6 +48,9 @@ extension Settings {
             }
             if let valueString {
                 return buildParams(params: ParamsString(setting: setting.rawValue, value: valueString))
+            }
+            if let valueList {
+                return buildParams(params: ParamsList(setting: setting.rawValue, value: valueList))
             }
             return Data()
         }
@@ -66,6 +72,12 @@ extension Settings {
             var setting: String
             /// Setting value
             var value: String
+        }
+        struct ParamsList: Encodable {
+            /// Setting ID
+            var setting: String
+            /// Setting value
+            var value: [Int]
         }
         /// The response struct
         struct Response: Decodable { }

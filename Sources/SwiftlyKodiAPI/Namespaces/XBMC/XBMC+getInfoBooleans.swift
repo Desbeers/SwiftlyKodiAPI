@@ -2,7 +2,7 @@
 //  XBMC+getInfoBooleans.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -40,7 +40,7 @@ extension XBMC {
     /// Retrieve info booleans about Kodi and the system (Kodi API)
     fileprivate struct GetInfoBooleans: KodiAPI {
         /// The method
-        let method: Methods = .xbmcGetInfoBooleans
+        let method: Method = .xbmcGetInfoBooleans
         /// The ``XBMC/InfoBoolean``
         let boolean: InfoBoolean
         /// The parameters

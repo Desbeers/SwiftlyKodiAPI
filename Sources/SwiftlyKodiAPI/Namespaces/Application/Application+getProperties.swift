@@ -2,7 +2,7 @@
 //  Application+getProperty.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -22,7 +22,7 @@ extension Application {
     /// Retrieves the values of the given properties (Kodi API)
     fileprivate struct GetProperties: KodiAPI {
         /// The method
-        let method = Methods.applicationGetProperties
+        let method = Method.applicationGetProperties
         /// The parameters
         var parameters: Data {
             buildParams(params: Params())

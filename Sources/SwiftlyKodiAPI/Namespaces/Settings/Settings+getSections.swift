@@ -2,7 +2,7 @@
 //  Settings+getSections.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -31,7 +31,7 @@ extension Settings {
         /// The level
         let level: Setting.Level = .expert
         /// The method
-        let method: Methods = .settingsGetSections
+        let method: Method = .settingsGetSections
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(level: level))

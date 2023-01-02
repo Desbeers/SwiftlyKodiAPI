@@ -2,7 +2,7 @@
 //  MediaButtons.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
@@ -13,7 +13,7 @@ import SwiftUI
 ///
 /// - Note: The buttons are smart and will be disabled when not applicable
 public enum MediaButtons {
-    /// Just a placeholder
+    // Just a namespace
 }
 
 public extension MediaButtons {

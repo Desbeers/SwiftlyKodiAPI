@@ -17,7 +17,7 @@
     <a title="Settings Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SwiftlyKodiAPI</a> (73% documented)</p>
+        <p><a href="../index.html">SwiftlyKodiAPI</a> (70% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/swiftlykodiapi/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -39,6 +39,9 @@
           <li class="nav-group-name">
             <a href="../Kodi%20Namespaces.html">Kodi Namespaces</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Addons.html">Addons</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/Application.html">Application</a>
               </li>
@@ -116,6 +119,15 @@
           <li class="nav-group-name">
             <a href="../Kodi%20Global%20Types.html">Kodi Global Types</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Addon.html">Addon</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Addon/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Addon/Types.html">– Types</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Enums/Audio.html">Audio</a>
               </li>
@@ -235,6 +247,12 @@
             <a href="../SwiftUI.html">SwiftUI</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/KodiPlayerView.html">KodiPlayerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiSettingView.html">KodiSettingView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/KodiArt.html">KodiArt</a>
               </li>
               <li class="nav-group-task">
@@ -245,9 +263,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/KodiArt/Art.html">– Art</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/KodiPlayerView.html">KodiPlayerView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/MediaButtons.html">MediaButtons</a>
@@ -335,11 +350,6 @@
                 </div>
               </div>
             <p>Settings modification (Kodi Namespace)</p>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    Fuctions in <code><a href="../Enums/Playlist.html">Playlist</a></code> that will give a response are &lsquo;Asynchronous&rsquo;; others are not
-
-</div>
 
           </section>
           <section class="section task-group-section">
@@ -470,9 +480,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI8SettingsO03getD07section8categorySayAA7SettingO7DetailsO4BaseVGAH7SectionOSg_AH8CategoryOSgtYaFZ"></a>
+                    <a name="/s:14SwiftlyKodiAPI8SettingsO03getD07section8categorySayAA7SettingO7DetailsO0bH0VGAH7SectionOSg_AH8CategoryOSgtYaFZ"></a>
                     <a name="//apple_ref/swift/Method/getSettings(section:category:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI8SettingsO03getD07section8categorySayAA7SettingO7DetailsO4BaseVGAH7SectionOSg_AH8CategoryOSgtYaFZ">getSettings(section:<wbr>category:<wbr>)</a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI8SettingsO03getD07section8categorySayAA7SettingO7DetailsO0bH0VGAH7SectionOSg_AH8CategoryOSgtYaFZ">getSettings(section:<wbr>category:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -495,7 +505,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getSettings</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Enums/Setting.html">Setting</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">category</span><span class="p">:</span> <span class="kt"><a href="../Enums/Setting.html">Setting</a></span><span class="o">.</span><span class="kt">Category</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Enums/Setting.html">Setting</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">Base</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getSettings</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Enums/Setting.html">Setting</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">category</span><span class="p">:</span> <span class="kt"><a href="../Enums/Setting.html">Setting</a></span><span class="o">.</span><span class="kt">Category</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Enums/Setting.html">Setting</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">KodiSetting</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -553,9 +563,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI8SettingsO15setSettingValue7setting3int4bool6stringyAA0F0O2IDO_SiSgSbSgSSSgtYaFZ"></a>
-                    <a name="//apple_ref/swift/Method/setSettingValue(setting:int:bool:string:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI8SettingsO15setSettingValue7setting3int4bool6stringyAA0F0O2IDO_SiSgSbSgSSSgtYaFZ">setSettingValue(setting:<wbr>int:<wbr>bool:<wbr>string:<wbr>)</a>
+                    <a name="/s:14SwiftlyKodiAPI8SettingsO15setSettingValue7setting3int4bool6string4listyAA0F0O2IDO_SiSgSbSgSSSgSaySiGSgtYaFZ"></a>
+                    <a name="//apple_ref/swift/Method/setSettingValue(setting:int:bool:string:list:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI8SettingsO15setSettingValue7setting3int4bool6string4listyAA0F0O2IDO_SiSgSbSgSSSgSaySiGSgtYaFZ">setSettingValue(setting:<wbr>int:<wbr>bool:<wbr>string:<wbr>list:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -573,7 +583,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">setSettingValue</span><span class="p">(</span><span class="nv">setting</span><span class="p">:</span> <span class="kt"><a href="../Enums/Setting.html">Setting</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">,</span> <span class="nv">int</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">bool</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">async</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">setSettingValue</span><span class="p">(</span><span class="nv">setting</span><span class="p">:</span> <span class="kt"><a href="../Enums/Setting.html">Setting</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">,</span> <span class="nv">int</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">bool</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">list</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">async</span></code></pre>
 
                         </div>
                       </div>
@@ -629,6 +639,18 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>list</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The optional [Int] value</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -640,7 +662,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2022-12-26)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-01-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

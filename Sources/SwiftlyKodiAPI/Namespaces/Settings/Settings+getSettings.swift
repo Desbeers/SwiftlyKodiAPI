@@ -2,7 +2,7 @@
 //  Settings+getSettings.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -19,13 +19,19 @@ extension Settings {
     /// - Note: Both must be nill or set or else it does not work
     ///
     /// - Returns: All settings, filtered by optional section and category
-    public static func getSettings(section: Setting.Section? = nil, category: Setting.Category? = nil) async -> [Setting.Details.Base] {
+    public static func getSettings(section: Setting.Section? = nil, category: Setting.Category? = nil) async -> [Setting.Details.KodiSetting] {
         logger("Settings.GetSettings")
         let kodi: KodiConnector = .shared
         let request = Settings.GetSettings(section: section, category: category)
         do {
             let result = try await kodi.sendRequest(request: request)
-            return result.settings.filter({$0.id != .unknown})
+
+            for setting in result.settings.filter({$0.id != .unknown}) {
+                print(setting.id.rawValue)
+                dump(setting)
+            }
+
+            return result.settings.filter({$0.base.id != .unknown})
         } catch {
             logger("Loading settings failed with error: \(error)")
             return []
@@ -41,7 +47,7 @@ extension Settings {
         /// The level
         let level: Setting.Level = .expert
         /// The method
-        let method: Methods = .settingsGetSettings
+        let method: Method = .settingsGetSettings
         /// The parameters
         var parameters: Data {
             if let section, let category {
@@ -64,7 +70,7 @@ extension Settings {
         }
         /// The response struct
         struct Response: Decodable {
-            let settings: [Setting.Details.Base]
+            let settings: [Setting.Details.KodiSetting]
         }
     }
 }

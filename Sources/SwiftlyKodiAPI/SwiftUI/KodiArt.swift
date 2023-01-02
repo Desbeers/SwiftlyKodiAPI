@@ -2,7 +2,7 @@
 //  KodiArt.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
@@ -13,7 +13,7 @@ import SwiftUI
 ///
 /// For example, when asking for a season poster; you will get the ``Media/Artwork/seasonPoster``
 public enum KodiArt {
-    /// Just a placeholder
+    // Just a namespace
 }
 
 extension KodiArt {

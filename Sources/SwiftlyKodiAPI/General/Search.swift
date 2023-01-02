@@ -2,14 +2,14 @@
 //  Search.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
 
 /// Search related items (SwiftlyKodi Type)
 enum Search {
-    /// Just a placeholder
+    // Just a namespace
 }
 
 extension Search {

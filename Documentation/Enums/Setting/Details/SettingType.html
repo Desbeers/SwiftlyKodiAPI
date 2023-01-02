@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ControlBase Structure Reference</title>
+    <title>SettingType Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,11 +13,11 @@
     <script src="../../../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/ControlBase" class="dashAnchor"></a>
-    <a title="ControlBase Structure Reference"></a>
+    <a name="//apple_ref/swift/Enum/SettingType" class="dashAnchor"></a>
+    <a title="SettingType Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../../index.html">SwiftlyKodiAPI</a> (73% documented)</p>
+        <p><a href="../../../index.html">SwiftlyKodiAPI</a> (70% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/swiftlykodiapi/"><img src="../../../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../../../search.json">
@@ -30,7 +30,7 @@
       <p id="breadcrumbs">
         <a href="../../../index.html">SwiftlyKodiAPI Reference</a>
         <img id="carat" src="../../../img/carat.png" alt=""/>
-        ControlBase Structure Reference
+        SettingType Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -39,6 +39,9 @@
           <li class="nav-group-name">
             <a href="../../../Kodi%20Namespaces.html">Kodi Namespaces</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Enums/Addons.html">Addons</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../../../Enums/Application.html">Application</a>
               </li>
@@ -116,6 +119,15 @@
           <li class="nav-group-name">
             <a href="../../../Kodi%20Global%20Types.html">Kodi Global Types</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../../Enums/Addon.html">Addon</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Addon/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/Addon/Types.html">– Types</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../../../Enums/Audio.html">Audio</a>
               </li>
@@ -235,6 +247,12 @@
             <a href="../../../SwiftUI.html">SwiftUI</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../../../Structs/KodiPlayerView.html">KodiPlayerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Structs/KodiSettingView.html">KodiSettingView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../../Enums/KodiArt.html">KodiArt</a>
               </li>
               <li class="nav-group-task">
@@ -245,9 +263,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../../Enums/KodiArt/Art.html">– Art</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../../Structs/KodiPlayerView.html">KodiPlayerView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../../Enums/MediaButtons.html">MediaButtons</a>
@@ -326,15 +341,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ControlBase</h1>
+            <h1>SettingType</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">ControlBase</span> <span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">SettingType</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Decodable</span></code></pre>
 
                 </div>
               </div>
-            <p>Control Base details</p>
+            <p>Setting Type (SwiftlyKodi type)</p>
 
           </section>
           <section class="section task-group-section">
@@ -343,36 +358,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV7delayedSbvp"></a>
-                    <a name="//apple_ref/swift/Property/delayed" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV7delayedSbvp">delayed</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <h1 id='setting-details-controlbase' class='heading'>Setting.Details.ControlBase</h1>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">delayed</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV6formatSSvp"></a>
-                    <a name="//apple_ref/swift/Property/format" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV6formatSSvp">format</a>
+                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO7unknownyA2GmF"></a>
+                    <a name="//apple_ref/swift/Element/unknown" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO7unknownyA2GmF">unknown</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -387,7 +375,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">format</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unknown</span></code></pre>
 
                         </div>
                       </div>
@@ -397,9 +385,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV11controlTypeAE0fI0Ovp"></a>
-                    <a name="//apple_ref/swift/Property/controlType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV11controlTypeAE0fI0Ovp">controlType</a>
+                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO4boolyA2GmF"></a>
+                    <a name="//apple_ref/swift/Element/bool" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO4boolyA2GmF">bool</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -407,14 +395,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Kodi calls this <code>type</code> but that is a reserved word</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">controlType</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Setting.html">Setting</a></span><span class="o">.</span><span class="kt"><a href="../../../Enums/Setting/Details.html">Details</a></span><span class="o">.</span><span class="kt"><a href="../../../Enums/Setting/Details/ControlType.html">ControlType</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">bool</span> <span class="o">=</span> <span class="s">"boolean"</span></code></pre>
 
                         </div>
                       </div>
@@ -424,9 +412,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV11formatLabelSSvp"></a>
-                    <a name="//apple_ref/swift/Property/formatLabel" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV11formatLabelSSvp">formatLabel</a>
+                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO3intyA2GmF"></a>
+                    <a name="//apple_ref/swift/Element/int" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO3intyA2GmF">int</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -434,14 +422,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <h1 id='setting-details-controlrange-setting-details-controlspinner' class='heading'>Setting.Details.ControlRange + Setting.Details.ControlSpinner</h1>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">formatLabel</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">int</span> <span class="o">=</span> <span class="s">"integer"</span></code></pre>
 
                         </div>
                       </div>
@@ -451,9 +439,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV12minimumLabelSSvp"></a>
-                    <a name="//apple_ref/swift/Property/minimumLabel" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV12minimumLabelSSvp">minimumLabel</a>
+                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO6stringyA2GmF"></a>
+                    <a name="//apple_ref/swift/Element/string" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO6stringyA2GmF">string</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -461,14 +449,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <h1 id='setting-details-controlspinner' class='heading'>Setting.Details.ControlSpinner</h1>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">minimumLabel</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">string</span></code></pre>
 
                         </div>
                       </div>
@@ -478,9 +466,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV4fromAGs7Decoder_p_tKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO11ControlBaseV4fromAGs7Decoder_p_tKcfc">init(from:<wbr>)</a>
+                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO4listyA2GmF"></a>
+                    <a name="//apple_ref/swift/Element/list" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO4listyA2GmF">list</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -488,14 +476,41 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Custom decoder</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">list</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO5addonyA2GmF"></a>
+                    <a name="//apple_ref/swift/Element/addon" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI7SettingO7DetailsO0D4TypeO5addonyA2GmF">addon</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">addon</span></code></pre>
 
                         </div>
                       </div>
@@ -507,7 +522,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2022-12-26)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-01-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

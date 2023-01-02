@@ -2,7 +2,7 @@
 //  Settings+getCategories.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -31,10 +31,10 @@ extension Settings {
     fileprivate struct GetCategories: KodiAPI {
         /// The level
         let level: Setting.Level = .expert
-        /// The Section
+        /// The section
         let section: Setting.Section
         /// The method
-        let method: Methods = .settingsGetCategories
+        let method: Method = .settingsGetCategories
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(level: level, section: section))

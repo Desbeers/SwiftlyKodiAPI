@@ -2,7 +2,7 @@
 //  Player+open.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -33,7 +33,7 @@ extension Player {
     /// or a single file or an item from the database (Kodi API)
     fileprivate struct Open: KodiAPI {
         /// The method
-        let method: Methods = .playerOpen
+        let method: Method = .playerOpen
         /// Shuffle or not
         var shuffle: Bool = false
         /// The optional playlist to play

@@ -2,12 +2,12 @@
 //  VideoLibrary.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
 
 /// Video Library information (Kodi Namespace)
 public enum VideoLibrary {
-    /// Just a placeholder
+    // Just a namespace
 }

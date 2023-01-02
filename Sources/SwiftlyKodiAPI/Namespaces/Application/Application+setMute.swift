@@ -2,7 +2,7 @@
 //  Application+setMute.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -17,7 +17,7 @@ extension Application {
     /// Toggle mute/unmute (Kodi API)
     fileprivate struct SetMute: KodiAPI {
         /// The method
-        let method = Methods.applicationSetMute
+        let method = Method.applicationSetMute
         /// The parameters
         var parameters: Data {
             buildParams(params: Params())

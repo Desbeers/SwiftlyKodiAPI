@@ -2,7 +2,7 @@
 //  Player+playPause.swift
 //  SwiftlyKodiAPI
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -26,7 +26,7 @@ extension Player {
         /// The ID of the player
         let playerID: Player.ID
         /// The method
-        let method: Methods = .playerPlayPause
+        let method: Method = .playerPlayPause
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(playerID: playerID))

@@ -11,6 +11,7 @@ theme: apple
 custom_categories:
   - name: Kodi Namespaces
     children:
+    - Addons
     - Application
     - AudioLibrary
     - Files
@@ -22,6 +23,7 @@ custom_categories:
 
   - name: Kodi Global Types
     children:
+    - Addon
     - Application
     - Audio
     - Files
@@ -41,6 +43,7 @@ custom_categories:
 
   - name: SwiftUI
     children:
-    - KodiArt
     - KodiPlayerView
+    - KodiSettingView
+    - KodiArt
     - MediaButtons
