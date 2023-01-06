@@ -12,11 +12,11 @@ public struct HostItem: Codable, Identifiable, Hashable {
     /// Give it an ID
     public var id: String { ip }
     /// Description of the host
-    public var description: String {
+    public var description: String? {
         if let host = KodiConnector.shared.bonjourHosts.first(where: {$0.ip == ip}) {
             return host.name
         }
-        return "Kodi"
+        return nil
     }
     /// IP of the host
     public var ip: String

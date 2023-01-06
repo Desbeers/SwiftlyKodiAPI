@@ -26,10 +26,10 @@ extension Settings {
         do {
             let result = try await kodi.sendRequest(request: request)
 
-            for setting in result.settings.filter({$0.id != .unknown}) {
-                print(setting.id.rawValue)
-                dump(setting)
-            }
+//            for setting in result.settings.filter({$0.id != .unknown}) {
+//                print(setting.id.rawValue)
+//                dump(setting)
+//            }
 
             return result.settings.filter({$0.base.id != .unknown})
         } catch {

@@ -22,7 +22,7 @@ extension KodiConnector {
     /// The state of the KodiConnector class
     public enum State: String {
         /// Not connected and no host
-        case none = "Not connected to the host"
+        case none = "Not connected to a host"
         /// Connected to the Kodi websocket
         case connectedToWebSocket = "Connected to the host"
         /// Loading the library
@@ -38,9 +38,9 @@ extension KodiConnector {
         /// The device is waking up
         case wakeup = "Waking-up"
         /// The device is offline
-        case offline = "The host is offline"
+        case offline = "The selected host is offline"
         /// The device icame online
-        case online = "The host is online"
+        case online = "The selected host is online"
         /// An error when loading the library or a lost of connection
         case failure
     }

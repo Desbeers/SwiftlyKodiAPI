@@ -56,6 +56,10 @@ extension KodiConnector {
                 await getAudioLibraryUpdates()
             } else {
                 setState(.loadedLibrary)
+                logger("Check for updates")
+                async let updates = getLibrary()
+                library = await updates
+                await setLibraryCache()
             }
         } else {
             library = await getLibrary()
