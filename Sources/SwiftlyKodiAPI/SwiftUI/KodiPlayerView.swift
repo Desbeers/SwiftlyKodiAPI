@@ -103,6 +103,8 @@ class KodiPlayerModel: ObservableObject {
         /// Create a new Player
         player = AVPlayer(playerItem: playerItem)
         player.actionAtItemEnd = .none
+        /// Prevent display sleeping while playing
+        player.preventsDisplaySleepDuringVideoPlayback = true
         /// Get a notification when the video has ended
         NotificationCenter
             .default
