@@ -31,12 +31,12 @@ extension Setting.Details {
 }
 
 extension Setting.Details.Base {
-    
+
     /// # Init
-    
+
     init(from decoder: Decoder) throws {
         let container: KeyedDecodingContainer<Setting.Details.Base.CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         let settingID = try container.decode(String.self, forKey: CodingKeys.settingID)
         /// Only decode settings we know about
         if let settingID = Setting.ID(rawValue: settingID) {

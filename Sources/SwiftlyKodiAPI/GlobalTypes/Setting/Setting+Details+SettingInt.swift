@@ -27,9 +27,5 @@ public extension Setting.Details {
             case step
             case options
         }
-
-
-
-
     }
 }

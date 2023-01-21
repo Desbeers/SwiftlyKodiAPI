@@ -47,7 +47,5 @@ extension Setting.Details.Category {
             self.help = try container.decodeIfPresent(String.self, forKey: CodingKeys.help)
             self.groups = try container.decode([Setting.Details.Group].self, forKey: CodingKeys.groups)
         }
-        //dump(groups)
-        //dump (groups.flatMap({$0.settings}))
     }
 }

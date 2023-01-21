@@ -21,7 +21,6 @@ public extension Setting.Details {
 
         public var delayed: Bool = false
 
-
         /// # Setting.Details.Control*
 
         var hidden: Bool = false
@@ -39,8 +38,6 @@ public extension Setting.Details {
             case controlType = "type"
             case format
             case delayed
-
-
             case hidden
             case verifyNewValue = "verifynewvalue"
             case heading
@@ -49,8 +46,6 @@ public extension Setting.Details {
             case formatValue = "formatvalue"
             case popup
             case minimumLabel = "minimumlabel"
-
-
             /// The container containing the values
             case control
         }

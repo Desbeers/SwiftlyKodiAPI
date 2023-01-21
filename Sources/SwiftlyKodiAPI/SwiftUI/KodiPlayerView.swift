@@ -98,7 +98,9 @@ class KodiPlayerModel: ObservableObject {
         let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(file: video.file, type: .file))!)
 #if os(tvOS)
         /// tvOS can add aditional info to the player
-        playerItem.externalMetadata = createMetadataItems(video: video)
+        Task {
+            playerItem.externalMetadata = await createMetadataItems(video: video)
+        }
 #endif
         /// Create a new Player
         player = AVPlayer(playerItem: playerItem)
@@ -135,9 +137,12 @@ class KodiPlayerModel: ObservableObject {
 /// Create meta data for the video player
 /// - Parameter video: The Kodi video item
 /// - Returns: Meta data for the player
-func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
+func createMetadataItems(video: any KodiItem) async -> [AVMetadataItem] {
 
-    /// Meta data struct
+    /// The Metadata of the video
+    var metaData = MetaData()
+
+    /// The structure for metadata
     struct MetaData {
         var title: String = "title"
         var subtitle: String = "subtitle"
@@ -147,19 +152,34 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
         var artwork: UIImage = UIImage(named: "poster", in: Bundle.main, compatibleWith: nil) ?? UIImage(systemName: "film")!
     }
 
-    /// Helper function
+    /// Helper function to create the metadata
+    /// - Parameters:
+    ///   - identifier: The key
+    ///   - value: The value
+    /// - Returns: An `AVMetadataItem`
     func createMetadataItem(for identifier: AVMetadataIdentifier, value: Any) -> AVMetadataItem {
         let item = AVMutableMetadataItem()
         item.identifier = identifier
         item.value = value as? NSCopying & NSObjectProtocol
-        // Specify "und" to indicate an undefined language.
+        /// Specify "und" to indicate an undefined language.
         item.extendedLanguageTag = "und"
         // swiftlint:disable:next force_cast
         return item.copy() as! AVMetadataItem
     }
 
-    /// The MetaData of the video
-    var metaData = MetaData()
+    /// Get the poster of the item
+    /// - Parameter file: The internal Kodi file of the art
+    /// - Returns: An `UIImage`
+    func getArtwork(file: String) async -> UIImage {
+        if !file.isEmpty, let url = URL(string: Files.getFullPath(file: file, type: .art)) {
+            if let (data, _) = try? await URLSession.shared.data(from: url) {
+                if let image = UIImage(data: data) {
+                    return image
+                }
+            }
+        }
+        return UIImage(named: "poster", in: Bundle.main, compatibleWith: nil) ?? UIImage(systemName: "film")!
+    }
 
     /// Set the MetaData
     switch video {
@@ -167,33 +187,21 @@ func createMetadataItems(video: any KodiItem) -> [AVMetadataItem] {
         metaData.title = movie.title
         metaData.subtitle = movie.tagline
         metaData.description = movie.plot
-        if !movie.art.poster.isEmpty, let data = try? Data(contentsOf: URL(string: Files.getFullPath(file: movie.art.poster, type: .art))!) {
-            if let image = UIImage(data: data) {
-                metaData.artwork = image
-            }
-        }
+        metaData.artwork = await getArtwork(file: movie.art.poster)
         metaData.genre = movie.genre.joined(separator: " ∙ ")
         metaData.creationDate = movie.year.description
     case let episode as Video.Details.Episode:
         metaData.title = episode.title
         metaData.subtitle = episode.showTitle
         metaData.description = episode.plot
-        if !episode.art.seasonPoster.isEmpty, let data = try? Data(contentsOf: URL(string: Files.getFullPath(file: episode.art.seasonPoster, type: .art))!) {
-            if let image = UIImage(data: data) {
-                metaData.artwork = image
-            }
-        }
+        metaData.artwork = await getArtwork(file: episode.art.seasonPoster)
         metaData.genre = episode.showTitle
         metaData.creationDate = "\(episode.firstAired)"
     case let musicVideo as Video.Details.MusicVideo:
         metaData.title = musicVideo.title
         metaData.subtitle = musicVideo.subtitle
         metaData.description = musicVideo.plot
-        if !musicVideo.art.poster.isEmpty, let data = try? Data(contentsOf: URL(string: Files.getFullPath(file: musicVideo.art.poster, type: .art))!) {
-            if let image = UIImage(data: data) {
-                metaData.artwork = image
-            }
-        }
+        metaData.artwork = await getArtwork(file: musicVideo.art.poster)
         metaData.genre = musicVideo.genre.joined(separator: " ∙ ")
         metaData.creationDate = musicVideo.year.description
     default:

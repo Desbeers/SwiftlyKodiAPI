@@ -51,7 +51,6 @@ public extension Video.Details {
             self.thumbnail = thumbnail
         }
 
-
         /// # Calculated variables
 
         public var id: String { "\(media)+\(setID)" }

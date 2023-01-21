@@ -14,9 +14,10 @@ public extension Setting.Details {
 
         /// # Public init
 
-        public init(id: Setting.Section,
-                    label: String = "",
-                    help: String = ""
+        public init(
+            id: Setting.Section,
+            label: String = "",
+            help: String = ""
         ) {
             self.id = id
             self.label = label

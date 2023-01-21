@@ -13,18 +13,52 @@ import SwiftUI
 ///
 /// For example, when asking for a season poster; you will get the ``Media/Artwork/seasonPoster``
 public enum KodiArt {
-    // Just a namespace
+    /// Poster art with 3:2 ratio
+    case poster
+    /// Fanart art with 16:9 ratio
+    case fanart
+    /// Square art with 1:1 ratio
+    case square
 }
 
 extension KodiArt {
 
-    /// Get default art from the assets catalog
-    struct Asset: View {
-        init() { }
+    /// Create a fallback image
+    struct Fallback: View {
+        let item: any KodiItem
+        let art: KodiArt
+        init(item: any KodiItem, art: KodiArt) {
+            self.item = item
+            self.art = art
+        }
+        var size: CGSize {
+            switch art {
+            case .poster:
+                return CGSize(width: 1000, height: 1500)
+            case .fanart:
+                return CGSize(width: 1920, height: 1080)
+            case .square:
+                return CGSize(width: 1000, height: 1000)
+            }
+        }
         var body: some View {
-            Image("poster", bundle: Bundle.module)
-                .resizable()
-                .frame(width: 300, height: 450)
+            ZStack {
+                Rectangle()
+                    .fill(Color.mint.gradient)
+                VStack {
+                    item.media.label
+                        .font(.system(size: 100))
+                        .minimumScaleFactor(0.1)
+                        .foregroundColor(.secondary)
+                        .padding()
+                    Text(item.title)
+                        .font(.system(size: 200))
+                        .minimumScaleFactor(0.1)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                }
+            }
+            .frame(width: size.width, height: size.height)
         }
     }
 }
@@ -38,22 +72,14 @@ public extension KodiArt {
             self.item = item
         }
         public var body: some View {
+
             switch item {
-            case let movie as Video.Details.Movie:
-                Art(file: movie.poster, fallback: "film")
             case let episode as Video.Details.Episode:
-                Art(file: episode.art.seasonPoster)
-            case let musicVideo as Video.Details.MusicVideo:
-                Art(file: musicVideo.art.poster)
-            case _ as Audio.Details.Artist:
-                Art(file: item.poster, fallback: "person")
-            /// A Stream has no poster
-            case _ as Audio.Details.Stream:
-                Image(systemName: "dot.radiowaves.left.and.right")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+                Art(item: item, file: episode.art.seasonPoster, art: .fanart)
+            case let artist as Audio.Details.Artist:
+                Art(item: item, file: artist.poster, art: .square)
             default:
-                Art(file: item.poster)
+                Art(item: item, file: item.poster, art: .poster)
             }
         }
     }
@@ -63,60 +89,60 @@ public extension KodiArt {
     /// - Note: For a ``Video/Details/Episode`` item it will be the ``Media/Artwork/thumb``
     struct Fanart: View {
         let item: any KodiItem
+//        @State var fallback = Image(systemName: "film")
         public init(item: any KodiItem) {
             self.item = item
         }
         public var body: some View {
-            switch item {
-            case let movie as Video.Details.Movie:
-                Art(file: movie.fanart, fallback: "film")
-            case let episode as Video.Details.Episode:
-                Art(file: episode.art.thumb)
-            case let musicVideo as Video.Details.MusicVideo:
-                Art(file: musicVideo.art.fanart.isEmpty ? musicVideo.art.icon : musicVideo.art.fanart)
-            case let artist as Audio.Details.Artist:
-                Art(file: artist.fanart, fallback: "person")
-            default:
-                Art(file: item.fanart)
-            }
+            Art(item: item, file: item.fanart, art: .fanart)
         }
     }
 
     /// Any art passed as an internal Kodi string
     ///
     /// - Note:It will be converted to a 'full' url string
-    struct Art: View {
+    private struct Art: View {
+        let item: any KodiItem
         let file: String
-        let fallback: String
-        public init(file: String, fallback: String = "questionmark") {
+        let art: KodiArt
+        public init(item: any KodiItem, file: String, art: KodiArt) {
+            self.item = item
             self.file = file
-            self.fallback = fallback
+            self.art = art
         }
-        public var body: some View {
-            AsyncImage(
-                url: URL(string: Files.getFullPath(file: file, type: .art)),
-                transaction: Transaction(animation: .easeInOut(duration: 0.1))
-            ) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView()
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .transition(.opacity)
-                case .failure:
-                    Color.black
-                        .overlay(content: {
-                            Image(systemName: fallback)
-                                .padding()
-                                .font(.system(size: 200))
-                                .minimumScaleFactor(0.1)
-                                .foregroundColor(.white)
-                        })
-                @unknown default:
-                    EmptyView()
+        var body: some View {
+            Group {
+                if file.isEmpty {
+                    createFallback()
+                } else {
+                    AsyncImage(
+                        url: URL(string: Files.getFullPath(file: file, type: .art)),
+                        transaction: Transaction(animation: .easeInOut(duration: 0.1))
+                    ) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .transition(.opacity)
+                        case .failure:
+                            createFallback()
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
                 }
+            }
+        }
+        @MainActor func createFallback() -> some View {
+            Group {
+                let fallback = ImageRenderer(content: Fallback(item: item, art: art))
+                if let cgImage = fallback.cgImage {
+                    Image(cgImage, scale: 1, label: Text("test")).resizable()
+                }
+                EmptyView()
             }
         }
     }

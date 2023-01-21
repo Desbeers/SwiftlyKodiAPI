@@ -11,7 +11,7 @@ extension KodiConnector {
 
     /// Set the state of Kodio and act on it
     @MainActor public func setState(_ current: State) {
-        logger("KodiConnector status: \(current.rawValue)")
+        logger("KodiConnector status: \(current.message)")
         /// Set the current state
         state = current
         Task {
@@ -20,29 +20,60 @@ extension KodiConnector {
     }
 
     /// The state of the KodiConnector class
-    public enum State: String {
+    public enum State {
         /// Not connected and no host
-        case none = "Not connected to a host"
+        case none
         /// Connected to the Kodi websocket
-        case connectedToWebSocket = "Connected to the host"
+        case connectedToWebSocket
         /// Loading the library
-        case loadingLibrary = "Loading the library..."
+        case loadingLibrary
         /// Updating the library
-        case updatingLibrary = "Updating the library"
+        case updatingLibrary
         /// The library is  loaded
-        case loadedLibrary = "Loaded the library"
+        case loadedLibrary
         /// The library is  outdated
-        case outdatedLibrary = "Library is outdated"
+        case outdatedLibrary
         /// The device is sleeping
-        case sleeping = "Sleeping"
+        case sleeping
         /// The device is waking up
-        case wakeup = "Waking-up"
+        case wakeup
         /// The device is offline
-        case offline = "The selected host is offline"
+        case offline
         /// The device icame online
-        case online = "The selected host is online"
+        case online
         /// An error when loading the library or a lost of connection
         case failure
+
+        public var message: String {
+
+            let host = KodiConnector.shared.host.name
+
+            switch self {
+
+            case .none:
+                return "Not connected to a Kodi"
+            case .connectedToWebSocket:
+                return "Connected to the host"
+            case .loadingLibrary:
+                return "Loading the library..."
+            case .updatingLibrary:
+                return "Updating the library..."
+            case .loadedLibrary:
+                return "Loaded the library"
+            case .outdatedLibrary:
+                return "Library is outdated"
+            case .sleeping:
+                return "Sleeping"
+            case .wakeup:
+                return "Waking-up"
+            case .offline:
+                return "\(host) is offline"
+            case .online:
+                return "\(host) is online"
+            case .failure:
+                return "Error"
+            }
+        }
     }
 
     /// The actions when the  state of Kodio is changed

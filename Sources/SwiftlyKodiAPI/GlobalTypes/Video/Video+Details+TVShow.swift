@@ -13,7 +13,7 @@ public extension Video.Details {
     struct TVShow: KodiItem {
 
         /// # Public Init
-        
+
         public init(
             /// Media have to be set; this to indentify the init
             media: Library.Media,

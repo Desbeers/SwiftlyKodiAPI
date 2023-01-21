@@ -5,7 +5,7 @@
 //  © 2023 Nick Berendsen
 //
 
-import Foundation
+import SwiftUI
 
 public extension Library {
 
@@ -35,5 +35,24 @@ public extension Library {
         case stream
         /// Unknown
         case unknown
+
+        @ViewBuilder var label: some View {
+            switch self {
+            case .movie:
+                Label("Movie", systemImage: "film")
+            case .movieSet:
+                Label("Movie Set", systemImage: "circle.grid.cross.fill")
+            case .musicVideo:
+                Label("Music Video", systemImage: "music.note.tv")
+            case .tvshow:
+                Label("TV show", systemImage: "tv")
+            case .episode:
+                Label("Episode", systemImage: "tv.inset.filled")
+            case .artist:
+                Label("Artist", systemImage: "music.quarternote.3")
+            default:
+                Label("Unknown", systemImage: "questionmark")
+            }
+        }
     }
 }

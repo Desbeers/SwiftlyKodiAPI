@@ -18,6 +18,9 @@ public extension Video.Details {
         public var media: Library.Media = .episode
         public var sortByTitle: String { title }
         public var poster: String { thumbnail }
+        public var fanart: String {
+            art.thumb
+        }
         public var subtitle: String { showTitle }
         public var details: String { "Season \(season), episode \(episode)" }
         /// The search string
@@ -71,7 +74,6 @@ public extension Video.Details {
 
         /// # Media.Details.Base
 
-        public var fanart: String = ""
         public var thumbnail: String = ""
 
         /// # Coding keys
@@ -106,7 +108,7 @@ public extension Video.Details {
             case title
             case art
             case playcount
-            case fanart
+            // case fanart
             case thumbnail
         }
     }

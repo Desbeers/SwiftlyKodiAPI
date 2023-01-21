@@ -11,13 +11,9 @@ public extension Setting.Details {
 
     /// Setting List (Global Kodi Type)
     struct SettingList: Decodable, Equatable {
-
         public var value: [Int]
         public var defaultValue: [Int]
-
         public var options: [Option]?
-
-        //public var definition: Setting.Details
 
         enum CodingKeys: String, CodingKey {
             case value

@@ -42,6 +42,24 @@ public enum Cache {
         logger("Stored '\(key)' in cache")
     }
 
+    /// Delete a struct from the cache
+    /// - Parameters:
+    ///   - key: The name for the item in the cache
+    ///   - root: Delete it in the root folder; if false, it will delete it from the Host IP folder
+    /// - Throws: an error if it can't be saved
+    public static func delete(key: String, root: Bool = false) throws {
+        let file = self.path(for: key, root: root)
+        let fileManager = FileManager.default
+        /// Check if file exists
+        if fileManager.fileExists(atPath: file.path()) {
+            /// Delete the file
+            try fileManager.removeItem(atPath: file.path())
+            logger("Deleted '\(key)' from cache")
+        } else {
+            logger("'\(key)' does not exist in the cache")
+        }
+    }
+
     /// Get the path to the cache directory
     /// - Parameters:
     ///   - key: The name of the cache item

@@ -37,20 +37,18 @@ public extension Setting.Details {
         }
 
         public init(from decoder: Decoder) throws {
-            let container: KeyedDecodingContainer<Setting.Details.SettingAddon.CodingKeys> = try decoder.container(keyedBy: Setting.Details.SettingAddon.CodingKeys.self)
+            let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            self.addonType = try container.decode(Addon.Types.self, forKey: Setting.Details.SettingAddon.CodingKeys.addonType)
-            self.value = try container.decode(String.self, forKey: Setting.Details.SettingAddon.CodingKeys.value)
-            self.defaultValue = try container.decode(String.self, forKey: Setting.Details.SettingAddon.CodingKeys.defaultValue)
-            self.allowEmpty = try container.decode(Bool.self, forKey: Setting.Details.SettingAddon.CodingKeys.allowEmpty)
-
+            self.addonType = try container.decode(Addon.Types.self, forKey: .addonType)
+            self.value = try container.decode(String.self, forKey: .value)
+            self.defaultValue = try container.decode(String.self, forKey: .defaultValue)
+            self.allowEmpty = try container.decode(Bool.self, forKey: .allowEmpty)
 
             var options = [Option]()
             let addons = KodiConnector.shared.addons.filter({$0.addonType == self.addonType})
                 for addon in addons {
                     options.append(Option(label: addon.name, value: addon.id))
                 }
-            
             self.options = options
 
         }

@@ -114,7 +114,9 @@ public extension KodiConnector {
 public extension KodiConnector {
 
     /// A struct for a Kodi host found by the Bonjour browser
-    struct BonjourHost: Equatable {
+    struct BonjourHost: Equatable, Hashable, Identifiable {
+        /// Make it identifiable
+        public var id: String { ip }
         /// The name of the Kodi service
         /// - Note: This is the name set in Kodi
         public var name: String
@@ -122,5 +124,12 @@ public extension KodiConnector {
         public var ip: String
         /// The port
         public var port: Int
+        /// Bool if thIs this host is new
+        public var new: Bool {
+            if KodiConnector.shared.configuredHosts.contains(where: {$0.ip == ip}) {
+                return false
+            }
+            return true
+        }
     }
 }

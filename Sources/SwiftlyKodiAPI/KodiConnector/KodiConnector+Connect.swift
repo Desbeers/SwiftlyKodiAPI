@@ -11,6 +11,12 @@ import Foundation
 
 extension KodiConnector {
 
+    public func getSelectedHost() {
+        if let host = HostItem.getSelectedHost() {
+            connect(host: host)
+        }
+    }
+
     public func connect(host: HostItem) {
         /// Start with a blank sheet
         Task {
@@ -23,7 +29,10 @@ extension KodiConnector {
     }
 
     func makeConnection() {
+        /// Connect to the websocket
         connectWebSocket()
+        /// Save the selected host
+        HostItem.saveSelectedHost(host: host)
     }
 
     func getKodiState() async {

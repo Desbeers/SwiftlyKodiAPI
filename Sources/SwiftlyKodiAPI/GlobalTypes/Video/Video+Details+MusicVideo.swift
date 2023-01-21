@@ -17,7 +17,8 @@ public extension Video.Details {
         public var id: String { "\(media)+\(musicVideoID)" }
         public var media: Library.Media = .musicVideo
         public var sortByTitle: String { title }
-        public var poster: String { thumbnail }
+        public var poster: String { art.poster }
+        public var fanart: String {art.fanart.isEmpty ? art.icon : art.fanart}
         public var subtitle: String { artist.joined(separator: " ∙ ") }
         public var details: String { album.isEmpty ? genre.joined(separator: " ∙ ") : album }
         /// The search string
@@ -64,7 +65,6 @@ public extension Video.Details {
 
         /// # Media.Details.Base
 
-        public var fanart: String = ""
         public var thumbnail: String = ""
 
         /// # Coding keys
@@ -92,7 +92,7 @@ public extension Video.Details {
             case title
             case art
             case playcount
-            case fanart
+            // case fanart
             case thumbnail
         }
     }

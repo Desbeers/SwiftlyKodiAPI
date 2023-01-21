@@ -5,56 +5,78 @@
 //  © 2023 Nick Berendsen
 //
 
-import Foundation
+import SwiftUI
 
 /// Host information to make a remote connection (SwiftlyKodi Type)
 public struct HostItem: Codable, Identifiable, Hashable {
     /// Give it an ID
     public var id: String { ip }
-    /// Description of the host
-    public var description: String? {
-        if let host = KodiConnector.shared.bonjourHosts.first(where: {$0.ip == ip}) {
-            return host.name
-        }
-        return nil
-    }
+    /// Name of the host
+    public var name: String
     /// IP of the host
     public var ip: String
-    /// Port of the host
-    public var port: String
+    /// Webserver port of the host
+    public var port: Int
     /// TCP of the host
-    public var tcp: String
+    /// - Note: This is found by `Bonjour` on first edit
+    public var tcp: Int {
+        if let host = KodiConnector.shared.bonjourHosts.first(where: {$0.ip == ip}) {
+            return host.port
+        }
+        return 0
+    }
     /// Username of the host
     public var username: String
     /// Password of the host
     public var password: String
     /// Kind of media to load
     public var media: Media
+    /// Status of the host
+    public var status: Status
 
     /// Bool if the host is online
-
     public var isOnline: Bool {
-        if KodiConnector.shared.bonjourHosts.first(where: {$0.ip == ip}) != nil {
+        return bonjour == nil ? false : true
+    }
+    /// The optional `bonjour` result
+    public var bonjour: KodiConnector.BonjourHost? {
+        KodiConnector.shared.bonjourHosts.first(where: {$0.ip == ip})
+    }
+
+    /// Bool if the host is selected
+    public var isSelected: Bool {
+        if KodiConnector.shared.host.ip == ip {
             return true
         }
         return false
     }
 
+    @ViewBuilder var label: some View {
+        Label(title: {
+            Text(name)
+        }, icon: {
+            Image(systemName: status == .configured ? "globe" : "star.fill")
+        })
+
+    }
+
     /// Init the Host struct
     public init(
+        name: String = "Unknown",
         ip: String = "",
-        port: String = "8080",
-        tcp: String = "9090",
+        port: Int = 8080,
         username: String = "kodi",
         password: String = "kodi",
-        media: Media = .video
+        media: Media = .video,
+        status: Status = .new
     ) {
+        self.name = name
         self.ip = ip
         self.port = port
-        self.tcp = tcp
         self.username = username
         self.password = password
         self.media = media
+        self.status = status
     }
 
     /// The kind of media to load when connecting to the host
@@ -67,5 +89,60 @@ public struct HostItem: Codable, Identifiable, Hashable {
         case all
         /// Don't load the library
         case none
+    }
+
+    /// The status of the host
+    public enum Status: String, Codable {
+        /// A new host
+        case new
+        /// A configured host
+        case configured
+    }
+}
+
+extension HostItem {
+
+    /// Save the selected host to the cache
+    /// - Parameter host: The selected ``HostItem``
+    static func saveSelectedHost(host: HostItem) {
+        logger("Save the selected host")
+        do {
+            try Cache.set(key: "SelectedHost", object: host, root: true)
+        } catch {
+            logger("Error saving selected host")
+        }
+    }
+
+    /// Get the selected host
+    /// - Returns: An optional ``HostItem``
+    static func getSelectedHost() -> HostItem? {
+        logger("Get the selected host")
+        if let host = Cache.get(key: "SelectedHost", as: HostItem.self, root: true) {
+            return host
+        }
+        /// No host selected
+        return nil
+    }
+
+    /// Save all configured hosts to the cache
+    /// - Parameter host: The selected host
+    static func saveConfiguredHosts(hosts: [HostItem]) {
+        logger("Save the configured hosts")
+        do {
+            try Cache.set(key: "ConfiguredHosts", object: hosts, root: true)
+        } catch {
+            logger("Error saving configured hosts")
+        }
+    }
+
+    /// Get the configured hosts
+    /// - Returns: An array ``HostItem``
+    static func getConfiguredHosts() -> [HostItem] {
+        logger("Get the configured hosts")
+        if let hosts = Cache.get(key: "ConfiguredHosts", as: [HostItem].self, root: true) {
+            return hosts
+        }
+        /// No host configured
+        return []
     }
 }

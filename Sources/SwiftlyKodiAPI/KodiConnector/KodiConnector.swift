@@ -51,6 +51,9 @@ public final class KodiConnector: ObservableObject {
     /// The online hosts
     @Published public var bonjourHosts: [BonjourHost] = []
 
+    /// The configured hosts
+    @Published public var configuredHosts: [HostItem]
+
     // MARK: Init
 
     /// Private init to make sure we have only one instance
@@ -63,6 +66,8 @@ public final class KodiConnector: ObservableObject {
         configuration.timeoutIntervalForRequest = 300
         configuration.timeoutIntervalForResource = 120
         self.urlSession = URLSession(configuration: configuration)
+        /// Get all configured hosts
+        self.configuredHosts = HostItem.getConfiguredHosts()
         /// Start Bonjour to find Kodi hosts
         startBonjour()
         /// Sleeping and wakeup stuff

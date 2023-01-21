@@ -12,9 +12,9 @@ enum Method: String {
 
     // MARK: Addons
 
-    ///Gets the details of a specific addon
+    /// Gets the details of a specific addon
     case addonsGetAddonDetails = "Addons.GetAddonDetails"
-    ///Gets all available addons
+    /// Gets all available addons
     case addonsGetAddons = "Addons.GetAddons"
 
     // MARK: Application

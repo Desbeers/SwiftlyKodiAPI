@@ -34,15 +34,15 @@ public struct KodiSettingView: View {
 #endif
             switch setting.settingType {
             case .bool:
-                boolSetting(setting: setting)
+                BoolSetting(setting: setting)
             case .string:
-                stringSetting(setting: setting)
+                StringSetting(setting: setting)
             case .int:
-                intSetting(setting: setting)
+                IntSetting(setting: setting)
             case .list:
-                listSetting(setting: setting)
+                ListSetting(setting: setting)
             case .addon:
-                addonSetting(setting: setting)
+                AddonSetting(setting: setting)
             default:
                 Text("Not implemented")
                     .font(.title)
@@ -73,7 +73,7 @@ public struct KodiSettingView: View {
 extension KodiSettingView {
 
     /// SwiftUI View for a Bool setting
-    struct boolSetting: View {
+    struct BoolSetting: View {
         /// The KodiConnector model
         @EnvironmentObject var kodi: KodiConnector
         /// The setting
@@ -105,7 +105,7 @@ extension KodiSettingView {
 extension KodiSettingView {
 
     /// SwiftUI View for a String setting
-    struct stringSetting: View {
+    struct StringSetting: View {
         /// The KodiConnector model
         @EnvironmentObject var kodi: KodiConnector
         /// The setting
@@ -154,7 +154,7 @@ extension KodiSettingView {
 extension KodiSettingView {
 
     /// SwiftUI View for an Int setting
-    struct intSetting: View {
+    struct IntSetting: View {
         /// The KodiConnector model
         @EnvironmentObject var kodi: KodiConnector
         /// The setting
@@ -230,7 +230,7 @@ extension KodiSettingView {
 extension KodiSettingView {
 
     /// SwiftUI View for an Addon setting
-    struct addonSetting: View {
+    struct AddonSetting: View {
         /// The KodiConnector model
         @EnvironmentObject var kodi: KodiConnector
         /// The setting
@@ -274,7 +274,7 @@ extension KodiSettingView {
 extension KodiSettingView {
 
     /// SwiftUI View for a List setting
-    struct listSetting: View {
+    struct ListSetting: View {
         /// The KodiConnector model
         @EnvironmentObject var kodi: KodiConnector
         /// The setting
