@@ -65,8 +65,8 @@ public struct HostItem: Codable, Identifiable, Hashable {
         name: String = "Unknown",
         ip: String = "",
         port: Int = 8080,
-        username: String = "kodi",
-        password: String = "kodi",
+        username: String = "",
+        password: String = "",
         media: Media = .video,
         status: Status = .new
     ) {
