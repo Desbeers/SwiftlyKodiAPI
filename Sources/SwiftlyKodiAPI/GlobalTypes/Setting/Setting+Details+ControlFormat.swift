@@ -10,7 +10,7 @@ import Foundation
 public extension Setting.Details {
 
     /// Control Format (SwiftlyKodi type)
-    enum ControlFormat: String, Decodable {
+    enum ControlFormat: String, Decodable, Sendable {
         case unknown
         case bool = "boolean"
         case int = "integer"

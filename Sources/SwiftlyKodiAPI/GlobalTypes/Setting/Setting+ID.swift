@@ -11,7 +11,7 @@ public extension Setting {
 
     // swiftlint:disable type_name
     /// The ID of the Kodi setting (SwiftlyKodi Type)
-    enum ID: String, Codable {
+    enum ID: String, Codable, Sendable {
 
         /// A setting SwiftlyKodiAPI doesn't know about
         case unknown

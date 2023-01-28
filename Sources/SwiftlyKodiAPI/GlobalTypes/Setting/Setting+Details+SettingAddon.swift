@@ -10,7 +10,7 @@ import Foundation
 public extension Setting.Details {
 
     /// Setting Addon (Global Kodi Type)
-    struct SettingAddon: Decodable, Equatable {
+    struct SettingAddon: Decodable, Equatable, Sendable {
 
         public var addonType: Addon.Types
 
@@ -26,7 +26,7 @@ public extension Setting.Details {
             case allowEmpty = "allowempty"
         }
 
-        public struct Option: Hashable, Decodable {
+        public struct Option: Hashable, Decodable, Sendable {
             public var label: String
             public var value: String
 

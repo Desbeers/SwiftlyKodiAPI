@@ -10,7 +10,7 @@ import Foundation
 public extension Setting.Details {
 
     /// Control Type (SwiftlyKodi type)
-    enum ControlType: String, Decodable {
+    enum ControlType: String, Decodable, Sendable {
         case unknown
         case list
         case spinner

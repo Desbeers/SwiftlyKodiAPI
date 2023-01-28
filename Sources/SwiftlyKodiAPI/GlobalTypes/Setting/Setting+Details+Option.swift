@@ -10,7 +10,7 @@ import Foundation
 public extension Setting.Details {
 
     /// Setting Option (SwiftlyKodi type)
-    struct Option: Hashable, Decodable {
+    struct Option: Hashable, Decodable, Sendable {
         public var label: String
         public var value: Int
 

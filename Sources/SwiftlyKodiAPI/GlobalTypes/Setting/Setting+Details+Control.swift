@@ -10,7 +10,7 @@ import Foundation
 public extension Setting.Details {
 
     /// Setting Details Control (SwiftlyKodi type)
-    struct Control: Decodable, Equatable {
+    struct Control: Decodable, Equatable, Sendable {
 
         /// # Setting.Details.ControlBase
 

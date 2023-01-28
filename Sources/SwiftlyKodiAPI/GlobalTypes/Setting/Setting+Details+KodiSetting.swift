@@ -10,7 +10,7 @@ import Foundation
 public extension Setting.Details {
 
     /// Setting details (SwiftlyKodi Type)
-    struct KodiSetting: Identifiable, Equatable, Decodable {
+    struct KodiSetting: Identifiable, Equatable, Decodable, Sendable {
 //        public static func == (lhs: Setting.Details.KodiSetting, rhs: Setting.Details.KodiSetting) -> Bool {
 //            return lhs.settingInt?.value == rhs.settingInt?.value &&
 //            lhs.settingBool?.value == rhs.settingBool?.value &&

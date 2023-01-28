@@ -10,7 +10,7 @@ import Foundation
 public extension Setting {
 
     /// The  Category of the setting (SwiftlyKodi Type)
-    enum Category: String, Codable {
+    enum Category: String, Codable, Sendable {
         /// A category SwiftlyKodiAPI doesn't know about
         case unknown
         /// General category

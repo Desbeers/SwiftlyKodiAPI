@@ -10,7 +10,7 @@ import Foundation
 public extension Setting.Details {
 
     /// Setting Type (SwiftlyKodi type)
-    enum SettingType: String, Decodable {
+    enum SettingType: String, Decodable, Sendable {
 
         case unknown
         case bool = "boolean"

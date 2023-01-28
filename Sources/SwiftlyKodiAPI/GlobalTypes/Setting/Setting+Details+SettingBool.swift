@@ -10,7 +10,7 @@ import Foundation
 public extension Setting.Details {
 
     /// Setting Bool (Global Kodi Type)
-    struct SettingBool: Decodable, Equatable {
+    struct SettingBool: Decodable, Equatable, Sendable {
 
         public var value: Bool
         public var defaultValue: Bool
