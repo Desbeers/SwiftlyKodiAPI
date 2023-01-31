@@ -36,6 +36,19 @@ public extension Library {
         /// Unknown
         case unknown
 
+        public var description: String {
+            switch self {
+            case .movieSet:
+                return "movie set"
+            case .tvshow:
+                return "TV show"
+            case .musicVideo:
+                return "music video"
+            default:
+                return self.rawValue
+            }
+        }
+
         @ViewBuilder var label: some View {
             switch self {
             case .movie:
