@@ -21,6 +21,8 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     var subtitle: String { get }
     /// The details of the item
     var details: String { get }
+    /// The description of the item (often plot)
+    var description: String { get }
     /// The 'sort by title' of the item
     var sortByTitle: String { get }
     /// The playcount of the item

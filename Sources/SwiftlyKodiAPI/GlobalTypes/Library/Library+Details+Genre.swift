@@ -19,6 +19,7 @@ public extension Library.Details {
         public var subtitle: String = ""
         public var details: String = ""
         public var runtime: Int = 0
+        public var description: String = ""
         /// The search string
         public var search: String {
             "\(title)"

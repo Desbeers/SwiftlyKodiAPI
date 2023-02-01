@@ -20,6 +20,7 @@ public extension Audio.Details {
         public var poster: String { thumbnail }
         public var subtitle: String { displayArtist }
         public var details: String { album }
+        public var description: String { comment }
         public var runtime: Int { duration}
         /// Not in use but needed by protocol
         public var resume = Video.Resume()

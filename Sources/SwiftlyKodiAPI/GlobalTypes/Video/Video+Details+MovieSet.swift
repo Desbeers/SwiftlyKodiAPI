@@ -64,6 +64,7 @@ public extension Video.Details {
         public var poster: String { art.poster }
         public var subtitle: String = ""
         public var details: String = ""
+        public var description: String { plot }
         public var runtime: Int = 0
         public var userRating: Int = 0
         /// Not in use but needed by protocol

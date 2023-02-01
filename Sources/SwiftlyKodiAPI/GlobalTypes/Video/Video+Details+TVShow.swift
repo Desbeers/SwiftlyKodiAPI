@@ -93,6 +93,7 @@ public extension Video.Details {
         public var poster: String { art.poster }
         public var subtitle: String = ""
         public var details: String { studio.joined(separator: " ∙ ") }
+        public var description: String { plot }
         /// Not in use but needed by protocol
         public var resume = Video.Resume()
         /// The search string

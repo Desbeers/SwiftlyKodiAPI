@@ -20,6 +20,7 @@ public extension Video.Details {
         public var poster: String { art.poster }
         public var subtitle: String { tagline.isEmpty ? year.description : tagline }
         public var details: String { genre.joined(separator: " ∙ ") }
+        public var description: String { plot }
         /// The search string
         public var search: String {
             "\(title)"

@@ -21,8 +21,13 @@ public extension Video.Details {
         public var fanart: String {
             art.thumb
         }
+        /// The subtitle is the name of the TV show
         public var subtitle: String { showTitle }
-        public var details: String { "Season \(season), episode \(episode)" }
+        /// Details are season and episode number
+        public var details: String {
+            return (season == 0 ? "Specials" : "Season \(season)") + ", episode \(episode)"
+        }
+        public var description: String { plot }
         /// The search string
         public var search: String {
             "\(title) \(showTitle)"

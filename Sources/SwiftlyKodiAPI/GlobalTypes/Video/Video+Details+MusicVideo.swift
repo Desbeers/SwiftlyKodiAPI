@@ -21,6 +21,7 @@ public extension Video.Details {
         public var fanart: String {art.fanart.isEmpty ? art.icon : art.fanart}
         public var subtitle: String { artist.joined(separator: " ∙ ") }
         public var details: String { album.isEmpty ? genre.joined(separator: " ∙ ") : album }
+        public var description: String { plot }
         /// The search string
         public var search: String {
             "\(title) \(artist.joined(separator: " ")) \(album)"
