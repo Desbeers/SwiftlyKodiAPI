@@ -9,6 +9,76 @@ import Foundation
 
 extension KodiConnector {
 
+    /// Get the video library updates
+    @MainActor func getVideoLibraryUpdates() async {
+
+        if let videoLibraryStatus = Cache.get(key: "VideoLibraryStatus", as: Library.Status.self) {
+            let currentStatus = await getVideoLibraryStatus()
+            if currentStatus.movies != videoLibraryStatus.movies {
+                logger("Movies are outdated")
+                await updateItems(old: videoLibraryStatus.movies, new: currentStatus.movies, media: .movie)
+            }
+            if currentStatus.tvshows != videoLibraryStatus.tvshows {
+                logger("TV shows are outdated")
+                await updateItems(old: videoLibraryStatus.tvshows, new: currentStatus.tvshows, media: .tvshow)
+            }
+            if currentStatus.musicVideos != videoLibraryStatus.musicVideos {
+                logger("Music Videos are outdated")
+                await updateItems(old: videoLibraryStatus.musicVideos, new: currentStatus.musicVideos, media: .musicVideo)
+            }
+        } else {
+            /// Reload the library, status is unknown
+            setState(.updatingLibrary)
+            async let updates = getLibrary()
+            library = await updates
+        }
+
+        /// Helper function
+        /// - Parameters:
+        ///   - old: List of old values
+        ///   - new: List of new values
+        ///   - media: The kind of media
+        func updateItems(old: [List.Item.File], new: [List.Item.File], media: Library.Media) async {
+            setState(.updatingLibrary)
+            /// Get the Library ID's that we have to update
+            var updates = Set(new.arrayDiff(from: old).compactMap({$0.id}))
+            let oldItems = old.compactMap({$0.id}).sorted()
+            let newItems = new.compactMap({$0.id}).sorted()
+            /// Find the differences
+            let difference = newItems.difference(from: oldItems)
+            /// If the media is `TV show`, deal with the `episodes` first
+            switch media {
+            case .tvshow:
+                for tvshowID in updates {
+                    if let index = library.tvshows.firstIndex(where: {$0.tvshowID == tvshowID}) {
+                        library.tvshows.remove(at: index)
+                        library.episodes.removeAll(where: {$0.tvshowID == tvshowID})
+                    }
+                    let episodes = await VideoLibrary.getEpisodes(tvshowID: tvshowID)
+                    library.episodes += episodes
+                }
+            default:
+                break
+            }
+            /// Remove or insert items
+            for change in difference {
+                switch change {
+                case let .remove(_, oldElement, _):
+                    updates.remove(oldElement)
+                    deleteLibraryItem(itemID: oldElement, media: media)
+                case let .insert(_, newElement, _):
+                    updates.remove(newElement)
+                    getLibraryUpdate(itemID: newElement, media: media)
+                }
+            }
+            /// Update the remaining items
+            for update in updates {
+                getLibraryUpdate(itemID: update, media: media)
+            }
+        }
+    }
+
+
     /// Get the audio library updates
     @MainActor func getAudioLibraryUpdates() async {
         let dates = await AudioLibrary.getProperties()
@@ -45,6 +115,9 @@ extension KodiConnector {
     }
 
     /// Update an item in the library
+    ///
+    /// If it is not found in the library, it will be added
+    ///
     /// - Parameters:
     ///   - itemID: The ID of the item
     ///   - media: The kind of ``Media``
@@ -64,12 +137,15 @@ extension KodiConnector {
                     library.songs[index] = await AudioLibrary.getSongDetails(songID: itemID)
                 }
             case .movie:
+                let update = await VideoLibrary.getMovieDetails(movieID: itemID)
                 if let index = library.movies.firstIndex(where: {$0.movieID == itemID}) {
-                    library.movies[index] = await VideoLibrary.getMovieDetails(movieID: itemID)
-                    /// Update movie sets if this movie is a part of it
-                    if library.movies[index].setID != 0 {
-                        getLibraryUpdate(itemID: library.movies[index].setID, media: .movieSet)
-                    }
+                    library.movies[index] = update
+                } else {
+                    library.movies.append(update)
+                }
+                /// Update movie sets if this movie is a part of it
+                if update.setID != 0 {
+                    getLibraryUpdate(itemID: update.setID, media: .movieSet)
                 }
             case .movieSet:
                 let update = await VideoLibrary.getMovieSetDetails(setID: itemID)
@@ -77,19 +153,23 @@ extension KodiConnector {
                     library.movieSets[index].playcount = update.playcount
                 }
             case .tvshow:
+                let update = await VideoLibrary.getTVShowDetails(tvshowID: itemID)
                 if let index = library.tvshows.firstIndex(where: {$0.tvshowID == itemID}) {
-                    library.tvshows[index] = await VideoLibrary.getTVShowDetails(tvshowID: itemID)
+                    library.tvshows[index] = update
+                } else {
+                    library.tvshows.append(update)
                 }
             case .episode:
+                let update = await VideoLibrary.getEpisodeDetails(episodeID: itemID)
                 if let index = library.episodes.firstIndex(where: {$0.episodeID == itemID}) {
-                    library.episodes[index] = await VideoLibrary.getEpisodeDetails(episodeID: itemID)
-                    /// Always check the TV show when an episode is updated
-                    getLibraryUpdate(itemID: library.episodes[index].tvshowID, media: .tvshow)
+                    library.episodes[index] = update
+                } else {
+                    library.episodes.append(update)
                 }
+                /// Always check the TV show when an episode is updated
+                getLibraryUpdate(itemID: update.tvshowID, media: .tvshow)
             case .musicVideo:
-
                 let update = await VideoLibrary.getMusicVideoDetails(musicVideoID: itemID)
-
                 if let index = library.musicVideos.firstIndex(where: {$0.musicVideoID == itemID}) {
                     library.musicVideos[index] = update
                 } else {
@@ -98,6 +178,7 @@ extension KodiConnector {
             default:
                 logger("Library update for \(media) not implemented.")
             }
+            logger("Updated \(media) \(itemID) in the library")
             /// Store the library in the cache
             await setLibraryCache()
         }

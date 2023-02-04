@@ -21,6 +21,8 @@ public extension Library {
         public var audioGenres: [Library.Details.Genre] = []
         /// The audio playlists iin the library
         public var audioPlaylists: [List.Item.File] = []
+        /// The state of the audio library
+        public var audioLibraryProperties = Audio.Property.Value()
         /// The movies in the library
         public var movies: [Video.Details.Movie] = []
         /// The movie sets in the library
@@ -31,9 +33,9 @@ public extension Library {
         public var episodes: [Video.Details.Episode] = []
         /// The music videos in the library
         public var musicVideos: [Video.Details.MusicVideo] = []
+        /// The video playlists iin the library
+        public var videoPlaylists: [List.Item.File] = []
         /// The video genres in the library
         public var videoGenres: [Library.Details.Genre] = []
-        /// The state of the audio library
-        public var audioLibraryProperties = Audio.Property.Value()
     }
 }

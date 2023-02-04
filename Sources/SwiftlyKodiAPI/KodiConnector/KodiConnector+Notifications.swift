@@ -59,28 +59,33 @@ extension KodiConnector {
         case .audioLibraryOnScanStarted, .audioLibraryOnCleanStarted:
             if host.media == .audio || host.media == .all {
                 scanningLibrary = true
+                Task {
+                    await setState(.updatingLibrary)
+                }
             }
 
         case .videoLibraryOnScanStarted, .videoLibraryOnCleanStarted:
             if host.media == .video || host.media == .all {
-                scanningLibrary = true
+                Task {
+                    await setState(.updatingLibrary)
+                }
             }
 
         case .audioLibraryOnScanFinished, .audioLibraryOnCleanFinished:
             if host.media == .audio || host.media == .all {
                 scanningLibrary = false
-                /// Set the library as outdated
+                /// Load the library again
                 Task {
-                    await setState(.outdatedLibrary)
+                    await loadLibrary()
                 }
             }
 
         case .videoLibraryOnScanFinished, .videoLibraryOnCleanFinished:
             if host.media == .video || host.media == .all {
                 scanningLibrary = false
-                /// Set the library as outdated
+                /// Load the library again
                 Task {
-                    await setState(.outdatedLibrary)
+                    await loadLibrary()
                 }
             }
         case .audioLibraryOnRemove, .videoLibraryOnRemove:

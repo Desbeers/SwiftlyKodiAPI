@@ -33,7 +33,7 @@ actor Debouncer {
 /// Debounce functions
 struct Tasks {
     var getCurrentPlaylist = Debouncer(duration: 2)
-    var setLibraryCache = Debouncer(duration: 10)
+    var setLibraryCache = Debouncer(duration: 4)
     var getPlayerState = Debouncer(duration: 4)
     var getPlayerProperties = Debouncer(duration: 2)
     var getPlayerItem = Debouncer(duration: 2)

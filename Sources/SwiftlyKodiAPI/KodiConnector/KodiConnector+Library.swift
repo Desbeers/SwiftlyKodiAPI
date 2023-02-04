@@ -53,8 +53,8 @@ extension KodiConnector {
                                        albums: audio.albums,
                                        songs: audio.songs,
                                        audioGenres: audio.audioGenres,
-                                       musicVideos: musicVideos,
-                                       audioLibraryProperties: audio.audioLibraryProperties
+                                       audioLibraryProperties: audio.audioLibraryProperties,
+                                       musicVideos: musicVideos
             )
 
         case .video:
@@ -93,9 +93,17 @@ extension KodiConnector {
         await task.setLibraryCache.submit {
             do {
                 try Cache.set(key: "MyLibrary", object: self.library)
+                try await Cache.set(key: "VideoLibraryStatus", object: self.getVideoLibraryStatus())
             } catch {
                 print("Saving library failed with error: \(error)")
             }
         }
+    }
+
+    func getVideoLibraryStatus() async -> Library.Status {
+        async let movies = Files.getDirectory(directory: "library://video/movies/titles.xml", media: .video)
+        async let tvshows = Files.getDirectory(directory: "library://video/tvshows/titles.xml", media: .video)
+        async let musicVideos = Files.getDirectory(directory: "library://video/musicvideos/titles.xml", media: .video)
+        return await Library.Status(movies: movies, tvshows: tvshows, musicVideos: musicVideos)
     }
 }

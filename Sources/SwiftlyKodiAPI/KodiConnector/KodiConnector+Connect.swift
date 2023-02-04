@@ -55,27 +55,30 @@ extension KodiConnector {
         await KodiPlayer.shared.getCurrentPlaylist(media: .none)
         /// Get User playlists
         library.audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
+        library.videoPlaylists = await Files.getDirectory(directory: "special://videoplaylists", media: .video)
     }
 
     @MainActor public func loadLibrary(cache: Bool = true) async {
         setState(.loadingLibrary)
         if cache, let libraryItems = Cache.get(key: "MyLibrary", as: Library.Items.self) {
             library = libraryItems
-            if host.media == .audio {
+            logger("Check for updates")
+            switch host.media {
+            case .audio:
                 await getAudioLibraryUpdates()
-            } else {
-                setState(.loadedLibrary)
-                logger("Check for updates")
-                async let updates = getLibrary()
-                library = await updates
-                await setLibraryCache()
+            case .video:
+                await getVideoLibraryUpdates()
+            case .all:
+                await getAudioLibraryUpdates()
+                await getVideoLibraryUpdates()
+            case .none:
+                break
             }
         } else {
             library = await getLibrary()
-            await setLibraryCache()
-            setState(.loadedLibrary)
         }
-
+        setState(.loadedLibrary)
+        await setLibraryCache()
     }
 }
 

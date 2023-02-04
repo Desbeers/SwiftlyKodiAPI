@@ -42,6 +42,8 @@ extension Files {
             let directory: String
             /// Media type we ask for
             let media: Files.Media
+            /// Properties we ask for
+            let properties = List.Fields.files
         }
         /// The response struct
         struct Response: Decodable {

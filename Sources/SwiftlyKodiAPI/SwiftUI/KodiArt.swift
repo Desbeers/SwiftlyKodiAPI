@@ -121,7 +121,7 @@ public extension KodiArt {
                     ) { phase in
                         switch phase {
                         case .empty:
-                            ProgressView()
+                            EmptyView()
                         case .success(let image):
                             image
                                 .resizable()
