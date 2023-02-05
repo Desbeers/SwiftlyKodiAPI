@@ -14,7 +14,7 @@ public extension Setting.Details {
         public func hash(into hasher: inout Hasher) {
             hasher.combine(id)
         }
-
+        /// The ID of the setting
         public var id: String
         public var settings: [KodiSetting]
 
@@ -24,18 +24,13 @@ public extension Setting.Details {
         }
 
         public init(from decoder: Decoder) throws {
-            let container: KeyedDecodingContainer<Setting.Details.Group.CodingKeys> = try decoder.container(keyedBy: Setting.Details.Group.CodingKeys.self)
+            let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-            self.id = try container.decode(String.self, forKey: Setting.Details.Group.CodingKeys.id)
-            let settings = try container.decode([Setting.Details.KodiSetting].self, forKey: Setting.Details.Group.CodingKeys.settings)
+            self.id = try container.decode(String.self, forKey: .id)
+            let settings = try container.decode([Setting.Details.KodiSetting].self, forKey: .settings)
             /// Only show 'root' settings we know about
             self.settings = settings.filter({$0.settingType != .unknown && $0.parent == .none})
 
         }
-
-//        public struct KodiSetting: Decodable, Identifiable, Hashable {
-//            public var id: String { label }
-//            public var label: String
-//        }
     }
 }

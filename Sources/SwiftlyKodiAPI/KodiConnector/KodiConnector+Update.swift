@@ -28,22 +28,22 @@ extension KodiConnector {
             }
         } else {
             /// Reload the library, status is unknown
-            setState(.updatingLibrary)
+            setStatus(.updatingLibrary)
             async let updates = getLibrary()
             library = await updates
         }
 
-        /// Helper function
+        /// Helper function to update video media
         /// - Parameters:
         ///   - old: List of old values
         ///   - new: List of new values
         ///   - media: The kind of media
         func updateItems(old: [List.Item.File], new: [List.Item.File], media: Library.Media) async {
-            setState(.updatingLibrary)
+            setStatus(.updatingLibrary)
             /// Get the Library ID's that we have to update
-            var updates = Set(new.arrayDiff(from: old).compactMap({$0.id}))
-            let oldItems = old.compactMap({$0.id}).sorted()
-            let newItems = new.compactMap({$0.id}).sorted()
+            var updates = Set(new.arrayDiff(from: old).compactMap(\.id))
+            let oldItems = old.compactMap(\.id).sorted()
+            let newItems = new.compactMap(\.id).sorted()
             /// Find the differences
             let difference = newItems.difference(from: oldItems)
             /// If the media is `TV show`, deal with the `episodes` first
@@ -65,15 +65,15 @@ extension KodiConnector {
                 switch change {
                 case let .remove(_, oldElement, _):
                     updates.remove(oldElement)
-                    deleteLibraryItem(itemID: oldElement, media: media)
+                    deleteKodiItem(itemID: oldElement, media: media)
                 case let .insert(_, newElement, _):
                     updates.remove(newElement)
-                    getLibraryUpdate(itemID: newElement, media: media)
+                    updateKodiItem(itemID: newElement, media: media)
                 }
             }
             /// Update the remaining items
             for update in updates {
-                getLibraryUpdate(itemID: update, media: media)
+                updateKodiItem(itemID: update, media: media)
             }
         }
     }
@@ -84,7 +84,7 @@ extension KodiConnector {
         let dates = await AudioLibrary.getProperties()
         /// Check if we are outdated
         if dates != library.audioLibraryProperties {
-            setState(.updatingLibrary)
+            setStatus(.updatingLibrary)
             if library.audioLibraryProperties.songsModified != dates.songsModified {
                 logger("Songs are modified")
                 /// Update the songs
@@ -110,18 +110,18 @@ extension KodiConnector {
             /// Store the library in the cache
             await setLibraryCache()
         }
-        /// Set the state
-        setState(dates == library.audioLibraryProperties ? State.loadedLibrary : State.outdatedLibrary)
+        /// Set the status
+        setStatus(dates == library.audioLibraryProperties ? .loadedLibrary : .outdatedLibrary)
     }
 
-    /// Update an item in the library
+    /// Update a ``KodiItem`` in the library
     ///
     /// If it is not found in the library, it will be added
     ///
     /// - Parameters:
-    ///   - itemID: The ID of the item
+    ///   - itemID: The ``Library/id`` of the item
     ///   - media: The kind of ``Media``
-    func getLibraryUpdate(itemID: Library.id, media: Library.Media) {
+    func updateKodiItem(itemID: Library.id, media: Library.Media) {
         Task { @MainActor in
             switch media {
             case .artist:
@@ -145,7 +145,7 @@ extension KodiConnector {
                 }
                 /// Update movie sets if this movie is a part of it
                 if update.setID != 0 {
-                    getLibraryUpdate(itemID: update.setID, media: .movieSet)
+                    updateKodiItem(itemID: update.setID, media: .movieSet)
                 }
             case .movieSet:
                 let update = await VideoLibrary.getMovieSetDetails(setID: itemID)
@@ -167,7 +167,7 @@ extension KodiConnector {
                     library.episodes.append(update)
                 }
                 /// Always check the TV show when an episode is updated
-                getLibraryUpdate(itemID: update.tvshowID, media: .tvshow)
+                updateKodiItem(itemID: update.tvshowID, media: .tvshow)
             case .musicVideo:
                 let update = await VideoLibrary.getMusicVideoDetails(musicVideoID: itemID)
                 if let index = library.musicVideos.firstIndex(where: {$0.musicVideoID == itemID}) {
@@ -184,7 +184,11 @@ extension KodiConnector {
         }
     }
 
-    func deleteLibraryItem(itemID: Library.id, media: Library.Media) {
+    /// Delete a ``KodiItem`` from the library
+    /// - Parameters:
+    ///   - itemID: The ``Library/id`` of the item
+    ///   - media: The kind of ``Media``
+    func deleteKodiItem(itemID: Library.id, media: Library.Media) {
         Task { @MainActor in
             switch media {
             case .artist:

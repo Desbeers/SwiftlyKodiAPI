@@ -21,7 +21,7 @@ public extension Video.Details {
             lastPlayed: String = "",
             subtitle: String = "",
             details: String = "",
-            runtime: Int = 0,
+            duration: Int = 0,
             userRating: Int = 0,
             resume: Video.Resume = Video.Resume(),
             plot: String = "",
@@ -38,7 +38,7 @@ public extension Video.Details {
             self.lastPlayed = lastPlayed
             self.subtitle = subtitle
             self.details = details
-            self.runtime = runtime
+            self.duration = duration
             self.userRating = userRating
             self.resume = resume
             self.plot = plot
@@ -53,21 +53,29 @@ public extension Video.Details {
 
         /// # Calculated variables
 
+        /// The ID of the movie set
         public var id: String { "\(media)+\(setID)" }
+        /// The type of media
         public var media: Library.Media = .movieSet
+        /// The location of the media file
         public var file: String = ""
         public var lastPlayed: String = ""
+        /// Calculated sort title
+        /// - Note: Kodi has no sortTitle for sets
         public var sortByTitle: String {
-            /// Kodi has no sortTitle for sets
             title.removePrefixes(["De", "The"])
         }
+        /// The poster of the movie set
         public var poster: String { art.poster }
+        /// The subtitle of the movie set
         public var subtitle: String = ""
+        /// The details of the movie set
         public var details: String = ""
         public var description: String { plot }
-        public var runtime: Int = 0
+        public var duration: Int = 0
         public var userRating: Int = 0
-        /// Not in use but needed by protocol
+        /// The resume position of the movie set
+        /// - Note: Not in use but needed by protocol
         public var resume = Video.Resume()
         /// The search string
         public var search: String {

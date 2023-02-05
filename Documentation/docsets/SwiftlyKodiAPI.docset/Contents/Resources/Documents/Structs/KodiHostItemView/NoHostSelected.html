@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>State Enumeration Reference</title>
+    <title>NoHostSelected Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,11 +13,11 @@
     <script src="../../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/State" class="dashAnchor"></a>
-    <a title="State Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Struct/NoHostSelected" class="dashAnchor"></a>
+    <a title="NoHostSelected Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">SwiftlyKodiAPI</a> (70% documented)</p>
+        <p><a href="../../index.html">SwiftlyKodiAPI</a> (73% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/swiftlykodiapi/"><img src="../../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../../search.json">
@@ -30,7 +30,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html">SwiftlyKodiAPI Reference</a>
         <img id="carat" src="../../img/carat.png" alt=""/>
-        State Enumeration Reference
+        NoHostSelected Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -159,7 +159,13 @@
                 <a href="../../Enums/Library/Media.html">– Media</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../Enums/Library/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../Enums/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/List.html#/s:14SwiftlyKodiAPI4ListO6FieldsO">– Fields</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Enums/List.html#/s:14SwiftlyKodiAPI4ListO6FilterV">– Filter</a>
@@ -236,7 +242,7 @@
                 <a href="../../Classes/KodiConnector/BonjourHost.html">– BonjourHost</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/KodiConnector/State.html">– State</a>
+                <a href="../../Classes/KodiConnector/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Classes/KodiPlayer.html">KodiPlayer</a>
@@ -260,9 +266,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../Enums/KodiArt/Fanart.html">– Fanart</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Enums/KodiArt/Art.html">– Art</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Enums/MediaButtons.html">MediaButtons</a>
@@ -334,6 +337,21 @@
               <li class="nav-group-task">
                 <a href="../../Structs/HostItem/Media.html">– Media</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/HostItem/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/KodiHostItemView.html">KodiHostItemView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/KodiHostItemView/KodiSettings.html">– KodiSettings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/KodiHostItemView/NoHostSelected.html">– NoHostSelected</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/KodiHostItemView/HostIsOffline.html">– HostIsOffline</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -341,15 +359,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>State</h1>
+            <h1>NoHostSelected</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">State</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">NoHostSelected</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
 
                 </div>
               </div>
-            <p>The state of the KodiConnector class</p>
+            <p>SwiftUI View to show information when no host is selected</p>
 
           </section>
           <section class="section task-group-section">
@@ -358,9 +376,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC5StateO4noneyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/none" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC5StateO4noneyA2EmF">none</a>
+                    <a name="/s:14SwiftlyKodiAPI0B12HostItemViewV02NoD8SelectedVAEycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B12HostItemViewV02NoD8SelectedVAEycfc">init()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -368,14 +386,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Not connected and no host</p>
+                        <p>Init the struct</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="k">none</span> <span class="o">=</span> <span class="s">"Not connected to the host"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -385,9 +403,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC5StateO20connectedToWebSocketyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/connectedToWebSocket" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC5StateO20connectedToWebSocketyA2EmF">connectedToWebSocket</a>
+                    <a name="/s:7SwiftUI4ViewP4body4BodyQzvp"></a>
+                    <a name="//apple_ref/swift/Property/body" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7SwiftUI4ViewP4body4BodyQzvp">body</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -395,257 +413,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Connected to the Kodi websocket</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">connectedToWebSocket</span> <span class="o">=</span> <span class="s">"Connected to the host"</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC5StateO14loadingLibraryyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/loadingLibrary" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC5StateO14loadingLibraryyA2EmF">loadingLibrary</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Loading the library</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">loadingLibrary</span> <span class="o">=</span> <span class="s">"Loading the library..."</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC5StateO15updatingLibraryyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/updatingLibrary" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC5StateO15updatingLibraryyA2EmF">updatingLibrary</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Updating the library</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">updatingLibrary</span> <span class="o">=</span> <span class="s">"Updating the library"</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC5StateO13loadedLibraryyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/loadedLibrary" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC5StateO13loadedLibraryyA2EmF">loadedLibrary</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The library is  loaded</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">loadedLibrary</span> <span class="o">=</span> <span class="s">"Loaded the library"</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC5StateO15outdatedLibraryyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/outdatedLibrary" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC5StateO15outdatedLibraryyA2EmF">outdatedLibrary</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The library is  outdated</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">outdatedLibrary</span> <span class="o">=</span> <span class="s">"Library is outdated"</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC5StateO8sleepingyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/sleeping" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC5StateO8sleepingyA2EmF">sleeping</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The device is sleeping</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">sleeping</span> <span class="o">=</span> <span class="s">"Sleeping"</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC5StateO6wakeupyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/wakeup" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC5StateO6wakeupyA2EmF">wakeup</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The device is waking up</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">wakeup</span> <span class="o">=</span> <span class="s">"Waking-up"</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC5StateO7offlineyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/offline" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC5StateO7offlineyA2EmF">offline</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The device is offline</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">offline</span> <span class="o">=</span> <span class="s">"The host is offline"</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC5StateO6onlineyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/online" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC5StateO6onlineyA2EmF">online</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The device icame online</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">online</span> <span class="o">=</span> <span class="s">"The host is online"</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC5StateO7failureyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/failure" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC5StateO7failureyA2EmF">failure</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>An error when loading the library or a lost of connection</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">failure</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -657,7 +431,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-01-02)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-02-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

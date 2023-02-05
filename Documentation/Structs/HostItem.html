@@ -17,7 +17,7 @@
     <a title="HostItem Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SwiftlyKodiAPI</a> (70% documented)</p>
+        <p><a href="../index.html">SwiftlyKodiAPI</a> (73% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/swiftlykodiapi/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -159,7 +159,13 @@
                 <a href="../Enums/Library/Media.html">– Media</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/Library/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/List.html#/s:14SwiftlyKodiAPI4ListO6FieldsO">– Fields</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/List.html#/s:14SwiftlyKodiAPI4ListO6FilterV">– Filter</a>
@@ -236,7 +242,7 @@
                 <a href="../Classes/KodiConnector/BonjourHost.html">– BonjourHost</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/KodiConnector/State.html">– State</a>
+                <a href="../Classes/KodiConnector/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/KodiPlayer.html">KodiPlayer</a>
@@ -260,9 +266,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/KodiArt/Fanart.html">– Fanart</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/KodiArt/Art.html">– Art</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/MediaButtons.html">MediaButtons</a>
@@ -334,6 +337,21 @@
               <li class="nav-group-task">
                 <a href="../Structs/HostItem/Media.html">– Media</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HostItem/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView.html">KodiHostItemView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView/KodiSettings.html">– KodiSettings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView/NoHostSelected.html">– NoHostSelected</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView/HostIsOffline.html">– HostIsOffline</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -368,7 +386,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Give it an ID</p>
+                        <p>The ID of the host</p>
 
                       </div>
                       <div class="declaration">
@@ -385,9 +403,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI8HostItemV11descriptionSSvp"></a>
-                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV11descriptionSSvp">description</a>
+                    <a name="/s:14SwiftlyKodiAPI8HostItemV4nameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV4nameSSvp">name</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -395,14 +413,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Description of the host</p>
+                        <p>Name of the host</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -439,9 +457,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI8HostItemV4portSSvp"></a>
+                    <a name="/s:14SwiftlyKodiAPI8HostItemV4portSivp"></a>
                     <a name="//apple_ref/swift/Property/port" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV4portSSvp">port</a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV4portSivp">port</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -449,14 +467,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Port of the host</p>
+                        <p>Webserver port of the host</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">port</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">port</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
@@ -466,9 +484,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI8HostItemV3tcpSSvp"></a>
+                    <a name="/s:14SwiftlyKodiAPI8HostItemV3tcpSivp"></a>
                     <a name="//apple_ref/swift/Property/tcp" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV3tcpSSvp">tcp</a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV3tcpSivp">tcp</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -477,13 +495,18 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>TCP of the host</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This is found by <code>Bonjour</code> on first edit
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">tcp</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">tcp</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -574,6 +597,33 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14SwiftlyKodiAPI8HostItemV6statusAC6StatusOvp"></a>
+                    <a name="//apple_ref/swift/Property/status" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV6statusAC6StatusOvp">status</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Status of the host</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">status</span><span class="p">:</span> <span class="kt"><a href="../Structs/HostItem/Status.html">Status</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14SwiftlyKodiAPI8HostItemV8isOnlineSbvp"></a>
                     <a name="//apple_ref/swift/Property/isOnline" class="dashAnchor"></a>
                     <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV8isOnlineSbvp">isOnline</a>
@@ -601,9 +651,63 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI8HostItemV2ip4port3tcp8username8password5mediaACSS_S4SAC5MediaOtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(ip:port:tcp:username:password:media:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV2ip4port3tcp8username8password5mediaACSS_S4SAC5MediaOtcfc">init(ip:<wbr>port:<wbr>tcp:<wbr>username:<wbr>password:<wbr>media:<wbr>)</a>
+                    <a name="/s:14SwiftlyKodiAPI8HostItemV7bonjourAA0B9ConnectorC07BonjourD0VSgvp"></a>
+                    <a name="//apple_ref/swift/Property/bonjour" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV7bonjourAA0B9ConnectorC07BonjourD0VSgvp">bonjour</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The optional <code>bonjour</code> result</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">bonjour</span><span class="p">:</span> <span class="kt"><a href="../Classes/KodiConnector.html">KodiConnector</a></span><span class="o">.</span><span class="kt">BonjourHost</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI8HostItemV10isSelectedSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isSelected" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV10isSelectedSbvp">isSelected</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Bool if the host is selected</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isSelected</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI8HostItemV4name2ip4port8username8password5media6statusACSS_SSSiS2SAC5MediaOAC6StatusOtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(name:ip:port:username:password:media:status:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV4name2ip4port8username8password5media6statusACSS_SSSiS2SAC5MediaOAC6StatusOtcfc">init(name:<wbr>ip:<wbr>port:<wbr>username:<wbr>password:<wbr>media:<wbr>status:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -619,12 +723,13 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"Unknown"</span><span class="p">,</span>
     <span class="nv">ip</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span><span class="p">,</span>
-    <span class="nv">port</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"8080"</span><span class="p">,</span>
-    <span class="nv">tcp</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"9090"</span><span class="p">,</span>
-    <span class="nv">username</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"kodi"</span><span class="p">,</span>
-    <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"kodi"</span><span class="p">,</span>
-    <span class="nv">media</span><span class="p">:</span> <span class="kt"><a href="../Structs/HostItem/Media.html">Media</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">video</span>
+    <span class="nv">port</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">8080</span><span class="p">,</span>
+    <span class="nv">username</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span><span class="p">,</span>
+    <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span><span class="p">,</span>
+    <span class="nv">media</span><span class="p">:</span> <span class="kt"><a href="../Structs/HostItem/Media.html">Media</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">video</span><span class="p">,</span>
+    <span class="nv">status</span><span class="p">:</span> <span class="kt"><a href="../Structs/HostItem/Status.html">Status</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">new</span>
 <span class="p">)</span></code></pre>
 
                         </div>
@@ -660,12 +765,40 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI8HostItemV6StatusO"></a>
+                    <a name="//apple_ref/swift/Enum/Status" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI8HostItemV6StatusO">Status</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The status of the host</p>
+
+                        <a href="../Structs/HostItem/Status.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Status</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-01-02)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-02-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

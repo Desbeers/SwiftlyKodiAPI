@@ -60,14 +60,14 @@ extension KodiConnector {
             if host.media == .audio || host.media == .all {
                 scanningLibrary = true
                 Task {
-                    await setState(.updatingLibrary)
+                    await setStatus(.updatingLibrary)
                 }
             }
 
         case .videoLibraryOnScanStarted, .videoLibraryOnCleanStarted:
             if host.media == .video || host.media == .all {
                 Task {
-                    await setState(.updatingLibrary)
+                    await setStatus(.updatingLibrary)
                 }
             }
 
@@ -90,11 +90,11 @@ extension KodiConnector {
             }
         case .audioLibraryOnRemove, .videoLibraryOnRemove:
             if !scanningLibrary {
-                deleteLibraryItem(itemID: notification.itemID, media: notification.media)
+                deleteKodiItem(itemID: notification.itemID, media: notification.media)
             }
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
             if !scanningLibrary {
-                getLibraryUpdate(itemID: notification.itemID, media: notification.media)
+                updateKodiItem(itemID: notification.itemID, media: notification.media)
                 await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
             }
         case .playlistOnAdd, .playlistOnRemove, .playlistOnClear:

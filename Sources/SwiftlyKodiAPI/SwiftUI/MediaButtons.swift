@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-/// SwiftUI media buttons (SwiftlyKodi Type)
+// MARK: Media Buttons
+
+/// Collection of SwiftUI media buttons (SwiftlyKodi Type)
 ///
 /// The Views require to have the ``KodiPlayer`` Observable Class in the 'environment' or else your Application will crash
 ///
@@ -26,8 +28,11 @@ public extension MediaButtons {
     /// - Player is playing: do method .playerPlayPause to play
     /// - Player is stopped: do method .playerOpen to start the playlist
     struct PlayPause: View {
+        /// The KodiPlayer model
         @EnvironmentObject var player: KodiPlayer
+        /// Init the View
         public init() {}
+        /// The body of the View
         public var body: some View {
             Button(action: {
                 Task {
@@ -51,8 +56,11 @@ public extension MediaButtons {
     ///
     /// - Note: Kodi is a bit weird; going to 'previous' goes to the beginning of an item when it played for a while; else it reallly goes to the previous item
     struct PlayPrevious: View {
+        /// The KodiPlayer model
         @EnvironmentObject var player: KodiPlayer
+        /// Init the View
         public init() {}
+        /// The body of the View
         public var body: some View {
             Button(action: {
                 Task {
@@ -72,8 +80,11 @@ public extension MediaButtons {
 
     /// Play the next item
     struct PlayNext: View {
+        /// The KodiPlayer model
         @EnvironmentObject var player: KodiPlayer
+        /// Init the View
         public init() {}
+        /// The body of the View
         public var body: some View {
             Button(action: {
                 Task {
@@ -93,8 +104,11 @@ public extension MediaButtons {
 
     /// Toggle shuffle button
     struct SetShuffle: View {
+        /// The KodiPlayer model
         @EnvironmentObject var player: KodiPlayer
+        /// Init the View
         public init() {}
+        /// The body of the View
         public var body: some View {
             Button(action: {
                 Task {
@@ -118,8 +132,11 @@ public extension MediaButtons {
 
     /// Toggle repeat button
     struct SetRepeat: View {
+        /// The KodiPlayer model
         @EnvironmentObject var player: KodiPlayer
+        /// Init the View
         public init() {}
+        /// The body of the View
         public var body: some View {
             Button(action: {
                 Task {
@@ -152,8 +169,11 @@ public extension MediaButtons {
     ///
     /// - Note: This will set 'Party Mode' for audio, I don't see a use of videos for this
     struct SetPartyMode: View {
+        /// The KodiPlayer model
         @EnvironmentObject var player: KodiPlayer
+        /// Init the View
         public init() {}
+        /// The body of the View
         public var body: some View {
             Button(action: {
                 Task {
@@ -180,8 +200,11 @@ public extension MediaButtons {
     #if !os(tvOS)
     /// Volume slider
     struct VolumeSlider: View {
+        /// The KodiPlayer model
         @EnvironmentObject var player: KodiPlayer
+        /// Init the View
         public init() {}
+        /// The body of the View
         public var body: some View {
             Label {
                 Text("Volume")

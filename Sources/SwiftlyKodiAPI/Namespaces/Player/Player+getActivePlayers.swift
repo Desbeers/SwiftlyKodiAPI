@@ -16,7 +16,7 @@ extension Player {
     public static func getActivePlayers() async -> [Player.ID]? {
         logger("Player.getActivePlayer")
         if let result = try? await KodiConnector.shared.sendRequest(request: GetActivePlayers()) {
-            return result.map { $0.playerid}
+            return result.map(\.playerid)
         }
         return nil
     }

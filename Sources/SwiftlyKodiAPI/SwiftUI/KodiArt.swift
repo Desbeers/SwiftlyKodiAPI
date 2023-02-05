@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Kodi Art Views
+
 /// SwiftUI Views for Kodi art (SwiftlyKodi Type)
 ///
 /// It will give the most fitting art for the ``KodiItem``
@@ -65,14 +67,16 @@ extension KodiArt {
 
 public extension KodiArt {
 
-    /// Poster of a ``KodiItem``
+    /// SwiftUI View for a ``KodiItem`` poster
     struct Poster: View {
+        /// The ``KodiItem``
         let item: any KodiItem
+        /// Init the View
         public init(item: any KodiItem) {
             self.item = item
         }
+        /// The body of the View
         public var body: some View {
-
             switch item {
             case let episode as Video.Details.Episode:
                 Art(item: item, file: episode.art.seasonPoster, art: .fanart)
@@ -84,15 +88,15 @@ public extension KodiArt {
         }
     }
 
-    /// Fanart of a ``KodiItem``
-    ///
-    /// - Note: For a ``Video/Details/Episode`` item it will be the ``Media/Artwork/thumb``
+    /// SwiftUI View for a ``KodiItem`` fanart
     struct Fanart: View {
+        /// The ``KodiItem``
         let item: any KodiItem
-//        @State var fallback = Image(systemName: "film")
+        /// Init the View
         public init(item: any KodiItem) {
             self.item = item
         }
+        /// The body of the View
         public var body: some View {
             Art(item: item, file: item.fanart, art: .fanart)
         }

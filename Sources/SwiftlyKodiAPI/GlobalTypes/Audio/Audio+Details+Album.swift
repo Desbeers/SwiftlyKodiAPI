@@ -9,20 +9,29 @@ import Foundation
 
 public extension Audio.Details {
 
-    /// Album details
+    /// Album details  (Global Kodi Type)
     struct Album: KodiItem {
 
         /// # Calculated variables
 
+        /// The ID of the album
         public var id: String { "\(media)+\(albumID)" }
+        /// The type of media
         public var media: Library.Media = .album
+        /// The location of the media file
         public var file: String = ""
+        /// Calculated sort title
         public var sortByTitle: String { title }
+        /// The poster of the album
         public var poster: String { thumbnail }
+        /// The subtitle of the album
         public var subtitle: String { displayArtist }
+        /// The details of the album
         public var details: String { year.description }
-        public var runtime: Int { albumDuration }
-        /// Not in use but needed by protocol
+        /// The duration of the album
+        public var duration: Int { albumDuration }
+        /// The resume position of the album
+        /// - Note: Not in use but needed by protocol
         public var resume = Video.Resume()
         /// The search string
         public var search: String {

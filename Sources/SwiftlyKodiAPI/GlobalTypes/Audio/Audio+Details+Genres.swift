@@ -14,7 +14,9 @@ public extension Audio.Details {
 
         /// # Computed values
 
+        /// The ID of the genre
         public var id: Int { genreID }
+        /// The type of media
         public var media: Library.Media = .genre
 
         /// # Audio.Details.Genres

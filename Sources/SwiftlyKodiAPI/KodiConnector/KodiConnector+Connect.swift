@@ -11,21 +11,49 @@ import Foundation
 
 extension KodiConnector {
 
+    /// Get the last selected host, if any, and try connect to it
     public func getSelectedHost() {
         if let host = HostItem.getSelectedHost() {
             connect(host: host)
         }
     }
 
+    /// Connect to a specifiv host
+    /// - Parameter host: The configured ``HostItem``
     public func connect(host: HostItem) {
         /// Start with a blank sheet
         Task {
-            await setState(.offline)
+            await setStatus(.offline)
         }
         self.host = host
         if host.isOnline {
             makeConnection()
         }
+    }
+
+    /// Load the library
+    /// - Parameter cache: Bool if it should try to load the library from the cache
+    @MainActor public func loadLibrary(cache: Bool = true) async {
+        setStatus(.loadingLibrary)
+        if cache, let libraryItems = Cache.get(key: "MyLibrary", as: Library.Items.self) {
+            library = libraryItems
+            logger("Check for updates")
+            switch host.media {
+            case .audio:
+                await getAudioLibraryUpdates()
+            case .video:
+                await getVideoLibraryUpdates()
+            case .all:
+                await getAudioLibraryUpdates()
+                await getVideoLibraryUpdates()
+            case .none:
+                break
+            }
+        } else {
+            library = await getLibrary()
+        }
+        setStatus(.loadedLibrary)
+        await setLibraryCache()
     }
 
     func makeConnection() {
@@ -56,29 +84,6 @@ extension KodiConnector {
         /// Get User playlists
         library.audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
         library.videoPlaylists = await Files.getDirectory(directory: "special://videoplaylists", media: .video)
-    }
-
-    @MainActor public func loadLibrary(cache: Bool = true) async {
-        setState(.loadingLibrary)
-        if cache, let libraryItems = Cache.get(key: "MyLibrary", as: Library.Items.self) {
-            library = libraryItems
-            logger("Check for updates")
-            switch host.media {
-            case .audio:
-                await getAudioLibraryUpdates()
-            case .video:
-                await getVideoLibraryUpdates()
-            case .all:
-                await getAudioLibraryUpdates()
-                await getVideoLibraryUpdates()
-            case .none:
-                break
-            }
-        } else {
-            library = await getLibrary()
-        }
-        setState(.loadedLibrary)
-        await setLibraryCache()
     }
 }
 

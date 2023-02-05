@@ -14,20 +14,26 @@ public extension Video.Details {
 
         /// # Calculated variables
 
+        /// The ID of the episode
         public var id: String { "\(media)+\(episodeID)" }
+        /// The type of media
         public var media: Library.Media = .episode
+        /// Calculated sort title
         public var sortByTitle: String { title }
+        /// The poster of the episode
         public var poster: String { thumbnail }
         public var fanart: String {
             art.thumb
         }
-        /// The subtitle is the name of the TV show
+        /// The subtitle of the TV show
         public var subtitle: String { showTitle }
-        /// Details are season and episode number
+        /// The details of the TV show
         public var details: String {
             return (season == 0 ? "Specials" : "Season \(season)") + ", episode \(episode)"
         }
         public var description: String { plot }
+        /// The duration of the episode
+        public var duration: Int { runtime }
         /// The search string
         public var search: String {
             "\(title) \(showTitle)"
@@ -57,6 +63,7 @@ public extension Video.Details {
         /// # Video.Details.File
 
         public var director: [String] = []
+        /// The resume position of the episode
         public var resume = Video.Resume()
         public var runtime: Int = 0
         public var streamDetails = Video.Streams()
@@ -64,6 +71,7 @@ public extension Video.Details {
         /// # Video.Details.Item
 
         public var dateAdded: String = ""
+        /// The location of the media file
         public var file: String = ""
         public var lastPlayed: String = ""
         public var plot: String = ""

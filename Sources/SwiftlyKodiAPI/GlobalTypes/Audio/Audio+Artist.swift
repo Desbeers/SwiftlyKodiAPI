@@ -8,7 +8,7 @@ import Foundation
 
 public extension Audio {
 
-    /// Artist related items
+    /// Artist related items (Global Kodi Type)
     enum Artist {
         // Just a namespace
     }

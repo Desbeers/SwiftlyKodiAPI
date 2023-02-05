@@ -27,6 +27,7 @@ public extension Media {
 
         public var banner: String = ""
         public var fanart: String = ""
+        /// The poster of the item
         public var poster: String = ""
         public var thumb: String = ""
         public var icon: String = ""

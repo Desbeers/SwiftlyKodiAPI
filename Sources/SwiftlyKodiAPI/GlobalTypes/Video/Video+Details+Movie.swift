@@ -14,13 +14,22 @@ public extension Video.Details {
 
         /// # Calculated variables
 
+        /// The ID of the movie
         public var id: String { "\(media)+\(movieID)" }
+        /// The type of media
         public var media: Library.Media = .movie
+        /// Calculated sort title
+        /// - Note: If `sortTitle` is set for the item it will be used, else the `title`
         public var sortByTitle: String { sortTitle.isEmpty ? title : sortTitle}
+        /// The poster of the movie
         public var poster: String { art.poster }
+        /// The subtitle of the movie
         public var subtitle: String { tagline.isEmpty ? year.description : tagline }
+        /// The details of the movie
         public var details: String { genre.joined(separator: " ∙ ") }
         public var description: String { plot }
+        /// The duration of the movie
+        public var duration: Int { runtime }
         /// The search string
         public var search: String {
             "\(title)"
@@ -57,6 +66,7 @@ public extension Video.Details {
         /// # Video.Details.File
 
         public var director: [String] = []
+        /// The resume position of the movie
         public var resume = Video.Resume()
         public var runtime: Int = 0
         public var streamDetails = Video.Streams()
@@ -64,6 +74,7 @@ public extension Video.Details {
         /// # Video.Details.Item
 
         public var dateAdded: String = ""
+        /// The location of the media file
         public var file: String = ""
         public var lastPlayed: String = ""
         public var plot: String = ""

@@ -9,7 +9,7 @@ import Network
 
 // MARK: Bonjour
 
-public extension KodiConnector {
+extension KodiConnector {
 
     /// Start Bonjour to find Kodi hosts
     func startBonjour() {
@@ -80,7 +80,7 @@ public extension KodiConnector {
                         /// Set the current host as 'online' if this is the new one
                         if self.host.ip == ip {
                             Task {
-                                await self.setState(.online)
+                                await self.setStatus(.online)
                             }
                         }
                         logger("'\(name)' is online")
@@ -102,9 +102,9 @@ public extension KodiConnector {
             bonjourHosts.removeAll(where: {$0.name == name})
             logger("'\(name)' is offline")
             /// Check if the removed Kodi is the active Kodi and act on it
-            if self.state != .offline, self.bonjourHosts.first(where: { $0.name == name}) != nil {
+            if self.status != .offline, self.bonjourHosts.first(where: { $0.name == name}) != nil {
                 Task {
-                    await self.setState(.offline)
+                    await self.setStatus(.offline)
                 }
             }
         }
@@ -113,23 +113,20 @@ public extension KodiConnector {
 
 public extension KodiConnector {
 
-    /// A struct for a Kodi host found by the Bonjour browser
+    /// Struct for a Kodi host found by the Bonjour browser
     struct BonjourHost: Equatable, Hashable, Identifiable {
-        /// Make it identifiable
+        /// The ID of the bonjour host
         public var id: String { ip }
         /// The name of the Kodi service
         /// - Note: This is the name set in Kodi
         public var name: String
-        /// The IP V4 address
+        /// The IP V4 address of the host
         public var ip: String
-        /// The port
+        /// The port of the host
         public var port: Int
-        /// Bool if thIs this host is new
+        /// Bool if thIs this host is new or not
         public var new: Bool {
-            if KodiConnector.shared.configuredHosts.contains(where: {$0.ip == ip}) {
-                return false
-            }
-            return true
+            return KodiConnector.shared.configuredHosts.contains(where: {$0.ip == ip}) ? false : true
         }
     }
 }

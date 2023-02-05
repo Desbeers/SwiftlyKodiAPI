@@ -44,12 +44,12 @@ extension Player {
         var parameters: Data {
             var params = Params()
 
-            if let playlistID = playlistID {
+            if let playlistID {
                 params.item.playlistID = playlistID
                 params.item.position = 0
             }
 
-            if let partyMode = partyMode {
+            if let partyMode {
                 params.item.partyMode = partyMode
             }
             params.options.shuffled = shuffle

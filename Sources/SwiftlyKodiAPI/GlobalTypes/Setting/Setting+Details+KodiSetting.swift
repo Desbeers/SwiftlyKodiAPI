@@ -19,6 +19,7 @@ public extension Setting.Details {
 
         /// # Calculated variables
 
+        /// The ID of the setting
         public var id: Setting.ID {
             base.id
         }

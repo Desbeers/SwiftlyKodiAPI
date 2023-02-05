@@ -9,7 +9,7 @@ import Foundation
 
 public extension Audio {
 
-    /// Audio details related items
+    /// Audio details related items (Global Kodi Type)
     enum Details {
         // Just a namespace
     }

@@ -10,7 +10,7 @@ import Foundation
 public extension List.Item {
 
     /// File item (Global Kodi Type)
-    struct File: Codable, Hashable {
+    struct File: Codable, Hashable, Sendable {
 
         /// # List.Item.File
 

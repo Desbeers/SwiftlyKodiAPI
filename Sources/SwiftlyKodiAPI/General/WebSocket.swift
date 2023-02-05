@@ -21,7 +21,7 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
     ) {
         let kodi: KodiConnector = .shared
         Task {
-            await kodi.setState(.connectedToWebSocket)
+            await kodi.setStatus(.connectedToWebSocket)
         }
     }
 
@@ -39,10 +39,10 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
     /// Websocket notification when the connection has an error
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError: Error?) {
         let kodi: KodiConnector = .shared
-        if let error = didCompleteWithError, kodi.state != .offline {
+        if let error = didCompleteWithError, kodi.status != .offline {
             logger("Network error: \(error.localizedDescription)")
             Task {
-                await kodi.setState(.offline)
+                await kodi.setStatus(.offline)
             }
         }
     }

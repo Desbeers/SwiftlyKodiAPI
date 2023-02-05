@@ -281,7 +281,7 @@ extension KodiSettingView {
         let setting: Setting.Details.KodiSetting
         /// The options
         @State var options: [Option]
-        /// init: we don't get it for free
+        /// Init: we don't get it for free
         public init(setting: Setting.Details.KodiSetting) {
             self.setting = setting
             let value = setting.settingList?.value ?? []
@@ -303,7 +303,7 @@ extension KodiSettingView {
             .onChange(of: options) { _ in
                 Task { @MainActor in
                     /// Grab the enabled items
-                    let result = options.filter({$0.isSelected}).map({$0.id})
+                    let result = options.filter({$0.isSelected}).map(\.id)
                     /// Update the setting
                     await Settings.setSettingValue(setting: setting.id, list: result)
                     /// Get the settings of the host
@@ -324,7 +324,7 @@ extension KodiSettingView {
 
 extension KodiSettingView {
 
-    /// View a specific setting by its ID
+    /// ViewBuilder for a specific setting by its ID
     /// - Parameter setting: The ``Setting/ID``
     /// - Returns: A SwiftUI View with the setting
     @ViewBuilder public static func setting(for setting: Setting.Details.KodiSetting.ID) -> some View {

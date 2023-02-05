@@ -42,27 +42,35 @@ public extension Audio.Details {
 
         /// # Calculated variables
 
+        /// The ID of the stream
         public var id: String { station }
         /// The search string
         public var search: String { title }
+        /// Calculated sort title
         public var sortByTitle: String { title }
+        /// The details of the stream
         public var details: String = "Stream"
-        public var runtime: Int = 0
-        /// Not in use but needed by protocol
+        public var duration: Int = 0
+        /// The resume position of the stream
+        /// - Note: Not in use but needed by protocol
         public var resume = Video.Resume()
 
         /// # Audio.Details.Stream
 
+        /// The type of media
         public var media: Library.Media
         public var station: String
         public var description: String
         public var title: String
+        /// The subtitle of the stream
         public var subtitle: String
+        /// The poster of the stream
         public var poster: String
         public var playcount: Int
         public var lastPlayed: String
         public var userRating: Int
         public var fanart: String
+        /// The location of the media file
         public var file: String
     }
 }

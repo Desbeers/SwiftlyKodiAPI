@@ -12,13 +12,17 @@ public extension Library.Details {
     /// Genre details
     struct Genre: KodiItem {
 
-        /// # Computed values
+        /// # Calculated variables
 
+        /// The ID of the genre
         public var id: String { "\(media)+\(genreID)" }
+        /// The type of media
         public var media: Library.Media = .genre
+        /// The subtitle of the genre
         public var subtitle: String = ""
+        /// The details of the genre
         public var details: String = ""
-        public var runtime: Int = 0
+        public var duration: Int = 0
         public var description: String = ""
         /// The search string
         public var search: String {
@@ -27,13 +31,18 @@ public extension Library.Details {
 
         /// Protocol requirements
 
+        /// Calculated sort title
         public var sortByTitle: String { title }
         public var playcount: Int = 0
         public var lastPlayed: String = ""
         public var userRating: Int = 0
+        /// The poster of the genre
         public var poster: String = ""
         public var fanart: String = ""
+        /// The location of the media file
         public var file: String = ""
+        /// The resume position of the genre
+        /// - Note: Not in use but needed by protocol
         public var resume = Video.Resume()
 
         /// # Library.Details.Genre

@@ -17,7 +17,7 @@
     <a title="Cache Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SwiftlyKodiAPI</a> (70% documented)</p>
+        <p><a href="../index.html">SwiftlyKodiAPI</a> (73% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/swiftlykodiapi/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -159,7 +159,13 @@
                 <a href="../Enums/Library/Media.html">– Media</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/Library/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/List.html#/s:14SwiftlyKodiAPI4ListO6FieldsO">– Fields</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/List.html#/s:14SwiftlyKodiAPI4ListO6FilterV">– Filter</a>
@@ -236,7 +242,7 @@
                 <a href="../Classes/KodiConnector/BonjourHost.html">– BonjourHost</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/KodiConnector/State.html">– State</a>
+                <a href="../Classes/KodiConnector/Status.html">– Status</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/KodiPlayer.html">KodiPlayer</a>
@@ -260,9 +266,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/KodiArt/Fanart.html">– Fanart</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/KodiArt/Art.html">– Art</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/MediaButtons.html">MediaButtons</a>
@@ -333,6 +336,21 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/HostItem/Media.html">– Media</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HostItem/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView.html">KodiHostItemView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView/KodiSettings.html">– KodiSettings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView/NoHostSelected.html">– NoHostSelected</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView/HostIsOffline.html">– HostIsOffline</a>
               </li>
             </ul>
           </li>
@@ -504,12 +522,75 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5CacheO6delete3key4rootySS_SbtKFZ"></a>
+                    <a name="//apple_ref/swift/Method/delete(key:root:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5CacheO6delete3key4rootySS_SbtKFZ">delete(key:<wbr>root:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delete a struct from the cache</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    an error if it can&rsquo;t be saved
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">delete</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">root</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name for the item in the cache</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>root</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Delete it in the root folder; if false, it will delete it from the Host IP folder</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-01-02)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-02-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

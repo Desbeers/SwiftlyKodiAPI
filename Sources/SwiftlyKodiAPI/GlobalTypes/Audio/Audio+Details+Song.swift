@@ -14,15 +14,21 @@ public extension Audio.Details {
 
         /// # Calculated variables
 
+        /// The ID of the song
         public var id: String { "\(media)+\(songID)" }
+        /// The type of media
         public var media: Library.Media = .song
+        /// Calculated sort title
         public var sortByTitle: String { title }
+        /// The poster of the song
         public var poster: String { thumbnail }
+        /// The subtitle of the song
         public var subtitle: String { displayArtist }
+        /// The details of the song
         public var details: String { album }
         public var description: String { comment }
-        public var runtime: Int { duration}
-        /// Not in use but needed by protocol
+        /// The resume position of the song
+        /// - Note: Not in use but needed by protocol
         public var resume = Video.Resume()
         /// The search string
         public var search: String {
@@ -47,7 +53,9 @@ public extension Audio.Details {
         public var displayConductor: String = ""
         public var displayLyricist: String = ""
         public var displayOrchestra: String = ""
+        /// The duration of the song
         public var duration: Int = 0
+        /// The location of the media file
         public var file: String = ""
         public var genreID: [Int] = []
         public var lastPlayed: String = ""

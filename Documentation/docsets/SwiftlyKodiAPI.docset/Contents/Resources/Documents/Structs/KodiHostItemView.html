@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>KodiHostItemView Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/KodiHostItemView" class="dashAnchor"></a>
+    <a title="KodiHostItemView Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">SwiftlyKodiAPI</a> (73% documented)</p>
+        <p class="header-right"><a href="https://github.com/desbeers/swiftlykodiapi/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">SwiftlyKodiAPI Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        KodiHostItemView Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Kodi%20Namespaces.html">Kodi Namespaces</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Addons.html">Addons</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Application.html">Application</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Application/Property.html">– Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AudioLibrary.html">AudioLibrary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Files.html">Files</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Files/Media.html">– Media</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Files/MediaType.html">– MediaType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Files/Property.html">– Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Player.html">Player</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Player/Audio.html">– Audio</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Player/GoToDirection.html">– GoToDirection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Player/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Player/MediaType.html">– MediaType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Player/PartyMode.html">– PartyMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Player/Position.html">– Position</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Player/Property.html">– Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Player/Repeat.html">– Repeat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Player/Subtitle.html">– Subtitle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Player/Video.html">– Video</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Playlist.html">Playlist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Playlist/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Settings.html">Settings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/VideoLibrary.html">VideoLibrary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/XBMC.html">XBMC</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/XBMC/InfoBoolean.html">– InfoBoolean</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Kodi%20Global%20Types.html">Kodi Global Types</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Addon.html">Addon</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Addon/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Addon/Types.html">– Types</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Audio.html">Audio</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Audio/Album.html">– Album</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Audio/Artist.html">– Artist</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Audio/Contributors.html">– Contributors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Audio/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Audio/Property.html">– Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Library.html">Library</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Library/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Library/Items.html">– Items</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Library/Media.html">– Media</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Library/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/List.html#/s:14SwiftlyKodiAPI4ListO6FieldsO">– Fields</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/List.html#/s:14SwiftlyKodiAPI4ListO6FilterV">– Filter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/List/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/List/Limits.html">– Limits</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/List/Sort.html">– Sort</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Media.html">Media</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Media/Artwork.html">– Artwork</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Media/Ratings.html">– Ratings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Notifications.html">Notifications</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Notifications/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Notifications/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Setting.html">Setting</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Setting/Category.html">– Category</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Setting/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Setting/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Setting/Level.html">– Level</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Setting/Section.html">– Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Video.html">Video</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Video/Cast.html">– Cast</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Video.html#/s:14SwiftlyKodiAPI5VideoO7DetailsO">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Video/Resume.html">– Resume</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Video/Streams.html">– Streams</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Observable%20Classes.html">Observable Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/KodiConnector.html">KodiConnector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KodiConnector/BonjourHost.html">– BonjourHost</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KodiConnector/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KodiPlayer.html">KodiPlayer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../SwiftUI.html">SwiftUI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/KodiPlayerView.html">KodiPlayerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiSettingView.html">KodiSettingView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KodiArt.html">KodiArt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KodiArt/Poster.html">– Poster</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KodiArt/Fanart.html">– Fanart</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MediaButtons.html">MediaButtons</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MediaButtons/PlayPause.html">– PlayPause</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MediaButtons/PlayPrevious.html">– PlayPrevious</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MediaButtons/PlayNext.html">– PlayNext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MediaButtons/SetShuffle.html">– SetShuffle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MediaButtons/SetRepeat.html">– SetRepeat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MediaButtons/SetPartyMode.html">– SetPartyMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MediaButtons/VolumeSlider.html">– VolumeSlider</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Enums.html">Other Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Cache.html">Cache</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Sequence.html">Sequence</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Functions.html">Other Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Functions.html#/s:14SwiftlyKodiAPI6loggeryySSF">logger(_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Protocols.html">Other Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/KodiItem.html">KodiItem</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/HostItem.html">HostItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HostItem/Media.html">– Media</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HostItem/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView.html">KodiHostItemView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView/KodiSettings.html">– KodiSettings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView/NoHostSelected.html">– NoHostSelected</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KodiHostItemView/HostIsOffline.html">– HostIsOffline</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>KodiHostItemView</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KodiHostItemView</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                </div>
+              </div>
+            <p>SwiftUI View to edit or delete a <code><a href="../Structs/HostItem.html">HostItem</a></code></p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B12HostItemViewV4hostAcA0dE0V_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(host:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B12HostItemViewV4hostAcA0dE0V_tcfc">init(host:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Init the struct</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">host</span><span class="p">:</span> <span class="kt"><a href="../Structs/HostItem.html">HostItem</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B12HostItemViewV4bodyQrvp"></a>
+                    <a name="//apple_ref/swift/Property/body" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B12HostItemViewV4bodyQrvp">body</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The body of the View</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B12HostItemViewV4formQrvp"></a>
+                    <a name="//apple_ref/swift/Property/form" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B12HostItemViewV4formQrvp">form</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The form for the View</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">form</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Kodi%20HostItem%20View"></a>
+                <a name="//apple_ref/swift/Section/Kodi HostItem View" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Kodi%20HostItem%20View"></a>
+                  <h3 class="section-name"><span>Kodi HostItem View</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B12HostItemViewV0B8SettingsV"></a>
+                    <a name="//apple_ref/swift/Struct/KodiSettings" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B12HostItemViewV0B8SettingsV">KodiSettings</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SwiftUI View to show information about Kodi settings</p>
+
+                        <a href="../Structs/KodiHostItemView/KodiSettings.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">KodiSettings</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B12HostItemViewV02NoD8SelectedV"></a>
+                    <a name="//apple_ref/swift/Struct/NoHostSelected" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B12HostItemViewV02NoD8SelectedV">NoHostSelected</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SwiftUI View to show information when no host is selected</p>
+
+                        <a href="../Structs/KodiHostItemView/NoHostSelected.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">NoHostSelected</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B12HostItemViewV0D9IsOfflineV"></a>
+                    <a name="//apple_ref/swift/Struct/HostIsOffline" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B12HostItemViewV0D9IsOfflineV">HostIsOffline</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SwiftUI View to show information when a host is offline</p>
+
+                        <a href="../Structs/KodiHostItemView/HostIsOffline.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">HostIsOffline</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-02-05)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

@@ -26,6 +26,7 @@ public extension Setting.Details {
 
         /// # Setting.Details.Base
 
+        /// The ID of the setting
         public var id: Setting.Section = .unknown
         public var label: String = ""
         public var help: String = ""

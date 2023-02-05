@@ -14,14 +14,22 @@ public extension Video.Details {
 
         /// # Calculated variables
 
+        /// The ID of the music video
         public var id: String { "\(media)+\(musicVideoID)" }
+        /// The type of media
         public var media: Library.Media = .musicVideo
+        /// Calculated sort title
         public var sortByTitle: String { title }
+        /// The poster of the music video
         public var poster: String { art.poster }
         public var fanart: String {art.fanart.isEmpty ? art.icon : art.fanart}
+        /// The subtitle of the music video
         public var subtitle: String { artist.joined(separator: " ∙ ") }
+        /// The details of the music video
         public var details: String { album.isEmpty ? genre.joined(separator: " ∙ ") : album }
         public var description: String { plot }
+        /// The duration of the episode
+        public var duration: Int { runtime }
         /// The search string
         public var search: String {
             "\(title) \(artist.joined(separator: " ")) \(album)"
@@ -44,6 +52,7 @@ public extension Video.Details {
         /// # Video.Details.File
 
         public var director: [String] = []
+        /// The resume position of the music video
         public var resume = Video.Resume()
         public var runtime: Int = 0
         public var streamDetails = Video.Streams()
@@ -51,6 +60,7 @@ public extension Video.Details {
         /// # Video.Details.Item
 
         public var dateAdded: String = ""
+        /// The location of the media file
         public var file: String = ""
         public var lastPlayed: String = ""
         public var plot: String = ""

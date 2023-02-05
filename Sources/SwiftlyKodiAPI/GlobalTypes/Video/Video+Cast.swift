@@ -14,6 +14,7 @@ extension Video {
 
         /// # Calculated variables
 
+        /// The ID of the cast
         public var id: Int { order }
 
         /// # Video.Cast
@@ -29,6 +30,7 @@ extension Video {
 
         /// # Coding keys
 
+        /// Coding keys
         enum CodingKeys: String, CodingKey {
             /// The keys for this Actor Item
             case name, order, role, thumbnail

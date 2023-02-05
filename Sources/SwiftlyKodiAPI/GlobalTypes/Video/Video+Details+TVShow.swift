@@ -87,14 +87,24 @@ public extension Video.Details {
 
         /// # Calculated variables
 
+        /// The ID of the tv show
         public var id: String { "\(media)+\(tvshowID)" }
+        /// The type of media
         public var media: Library.Media = .tvshow
+        /// Calculated sort title
+        /// - Note: If `sortTitle` is set for the item it will be used, else the `title`
         public var sortByTitle: String { sortTitle.isEmpty ? title : sortTitle }
+        /// The poster of the TV show
         public var poster: String { art.poster }
+        /// The subtitle of the TV show
         public var subtitle: String = ""
+        /// The details of the TV show
         public var details: String { studio.joined(separator: " ∙ ") }
         public var description: String { plot }
-        /// Not in use but needed by protocol
+        /// The duration of the TV show
+        public var duration: Int { runtime }
+        /// The resume position of the TV show
+        /// - Note: Not in use but needed by protocol
         public var resume = Video.Resume()
         /// The search string
         public var search: String {
@@ -129,6 +139,7 @@ public extension Video.Details {
         /// # Video.Details.Item
 
         public var dateAdded: String = ""
+        /// The location of the media file
         public var file: String = ""
         public var lastPlayed: String = ""
         public var plot: String = ""

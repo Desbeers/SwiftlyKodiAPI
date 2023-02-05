@@ -1,5 +1,5 @@
 //
-//  KodiConnector+State.swift
+//  KodiConnector+Status.swift
 //  SwiftlyKodiAPI
 //
 //  © 2023 Nick Berendsen
@@ -7,20 +7,22 @@
 
 import Foundation
 
+// MARK: Connection status
+
 extension KodiConnector {
 
-    /// Set the state of Kodio and act on it
-    @MainActor public func setState(_ current: State) {
+    /// Set the state of the KodiConnector and act on it
+    @MainActor public func setStatus(_ current: Status) {
         logger("KodiConnector status: \(current.message)")
-        /// Set the current state
-        state = current
+        /// Set the current status
+        status = current
         Task {
-            stateAction(state: current)
+            statusAction(status: current)
         }
     }
 
-    /// The state of the KodiConnector class
-    public enum State {
+    /// The status of the KodiConnector
+    public enum Status {
         /// Not connected and no host
         case none
         /// Connected to the Kodi websocket
@@ -76,10 +78,10 @@ extension KodiConnector {
         }
     }
 
-    /// The actions when the  state of Kodio is changed
-    /// - Parameter state: the current ``State``
-    private func stateAction(state: State) {
-        switch state {
+    /// The actions when the  status of the KodiConnector is changed
+    /// - Parameter status: the current ``Status``
+    private func statusAction(status: Status) {
+        switch status {
 
         case .online:
             makeConnection()
@@ -92,7 +94,6 @@ extension KodiConnector {
             Task {
                 await getCurrentPlaylists()
             }
-
         case .sleeping:
             disconnectWebSocket()
             stopBonjour()

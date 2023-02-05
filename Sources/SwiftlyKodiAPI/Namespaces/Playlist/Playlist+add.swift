@@ -24,7 +24,7 @@ extension Playlist {
     /// - Parameter songs: An array of ``Audio/Details/Song`` items
     public static func add(songs: [Audio.Details.Song]) async {
         /// Map the song ID's
-        let songs = songs.map({$0.songID})
+        let songs = songs.map(\.songID)
         /// Get the shared KodiConnector
         let kodi: KodiConnector = .shared
         /// We need to wait on the result
@@ -35,7 +35,7 @@ extension Playlist {
     /// - Parameter musicVideos: An array of ``Video/Details/MusicVideo`` items
     public static func add(musicVideos: [Video.Details.MusicVideo]) async {
         /// Map the music video ID's
-        let musicVideos = musicVideos.map({$0.musicVideoID})
+        let musicVideos = musicVideos.map(\.musicVideoID)
         /// Get the shared KodiConnector
         let kodi: KodiConnector = .shared
         /// We need to wait on the result
@@ -57,21 +57,21 @@ extension Playlist {
             logger("Playlist.add")
             var params = Params()
             /// # Add songs
-            if let songs = songs {
+            if let songs {
                 params.playlistID = .audio
                 for song in songs {
                     params.item.append(Playlist.Item(songID: song))
                 }
             }
             /// # Add music videos
-            if let musicVideos = musicVideos {
+            if let musicVideos {
                 params.playlistID = .video
                 for musicVideo in musicVideos {
                     params.item.append(Playlist.Item(musicVideoID: musicVideo))
                 }
             }
             /// # Add a stream
-            if let stream = stream {
+            if let stream {
                 params.playlistID = .audio
                 params.item.append(Playlist.Item(file: stream.file))
             }

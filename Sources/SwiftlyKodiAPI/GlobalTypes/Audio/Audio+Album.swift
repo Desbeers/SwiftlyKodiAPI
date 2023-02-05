@@ -8,7 +8,7 @@ import Foundation
 
 public extension Audio {
 
-    /// Album related items
+    /// Album related items (Global Kodi Type)
     enum Album {
         // Just a namespace
     }

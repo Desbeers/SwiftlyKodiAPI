@@ -8,7 +8,9 @@
 import SwiftUI
 import AVKit
 
-/// A SwiftUI View with a player to stream a ``KodiItem`` (SwiftlyKodi Type)
+// MARK: Kodi Player View
+
+/// SwiftUI View with a player to stream a ``KodiItem`` (SwiftlyKodi Type)
 ///
 /// - It is using the Apple `AVplayer` so it only supports *Apple Approved* formats.
 /// - If your media is on a harddisk and it's sleeping; the media wil sometimes not start because of a timeout. Try again and it will work.

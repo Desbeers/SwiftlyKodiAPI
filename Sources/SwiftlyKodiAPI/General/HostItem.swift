@@ -9,7 +9,7 @@ import SwiftUI
 
 /// Host information to make a remote connection (SwiftlyKodi Type)
 public struct HostItem: Codable, Identifiable, Hashable {
-    /// Give it an ID
+    /// The ID of the host
     public var id: String { ip }
     /// Name of the host
     public var name: String

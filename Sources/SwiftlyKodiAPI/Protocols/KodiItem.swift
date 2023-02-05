@@ -37,15 +37,17 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     var fanart: String { get }
     /// The location of the file
     var file: String { get }
-    /// The runtime of the item
-    var runtime: Int { get }
-    /// The resume state of the file
+    /// The duration of the item
+    var duration: Int { get }
+    /// The resume position of the item
     var resume: Video.Resume { get set }
     /// The search string
     var search: String { get }
 }
 
 extension KodiItem {
+
+    /// The ``Player/ID`` of the player
     var playerID: Player.ID {
         switch self.media {
         case .song, .stream:
@@ -57,6 +59,8 @@ extension KodiItem {
 }
 
 extension KodiItem {
+
+    /// The ID of the playlist
     public var playlistID: Int? {
         if let index = KodiPlayer.shared.currentPlaylist?.firstIndex(where: {$0.id == id}) {
             return index

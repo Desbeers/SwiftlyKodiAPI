@@ -10,7 +10,7 @@ import Foundation
 public extension Files {
 
     /// The kind of media for ``Files`` (Global Kodi Type)
-    enum Media: String, Codable {
+    enum Media: String, Codable, Sendable {
         /// Video items
         case video
         /// Music items

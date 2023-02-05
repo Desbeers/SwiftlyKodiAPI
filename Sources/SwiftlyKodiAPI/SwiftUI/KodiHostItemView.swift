@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Kodi HostItem View
+
 /// SwiftUI View to edit or delete a ``HostItem``
 public struct KodiHostItemView: View {
     /// The ``HostItem``
@@ -80,6 +82,7 @@ public struct KodiHostItemView: View {
         }
     }
 
+    /// The form for the View
     public var form: some View {
         Grid(alignment: .center, horizontalSpacing: 10, verticalSpacing: 10) {
             GridRow {
@@ -154,7 +157,7 @@ public struct KodiHostItemView: View {
             /// If this host is selected, delete it
             if kodi.host.ip == host.ip {
                 kodi.host = HostItem()
-                kodi.setState(.none)
+                kodi.setStatus(.none)
                 do {
                     try Cache.delete(key: "SelectedHost", root: true)
                 } catch {
@@ -171,6 +174,7 @@ public struct KodiHostItemView: View {
 
 public extension KodiHostItemView {
 
+    /// SwiftUI View to show information about Kodi settings
     struct KodiSettings: View {
         public init() {}
         public var body: some View {
@@ -197,6 +201,7 @@ public extension KodiHostItemView {
 
 public extension KodiHostItemView {
 
+    /// SwiftUI View to show information when no host is selected
     struct NoHostSelected: View {
         /// The KodiConnector model
         @EnvironmentObject var kodi: KodiConnector
@@ -230,6 +235,7 @@ public extension KodiHostItemView {
 
 public extension KodiHostItemView {
 
+    /// SwiftUI View to show information when a host is offline
     struct HostIsOffline: View {
         /// The KodiConnector model
         @EnvironmentObject var kodi: KodiConnector
@@ -262,6 +268,9 @@ public extension KodiHostItemView {
 
 extension KodiHostItemView {
 
+    /// SwiftUI View for a message header
+    /// - Parameter header: The text of the header
+    /// - Returns: A formatted View
     static func messageHeader(header: String) -> some View {
         Text(header)
             .font(.title)

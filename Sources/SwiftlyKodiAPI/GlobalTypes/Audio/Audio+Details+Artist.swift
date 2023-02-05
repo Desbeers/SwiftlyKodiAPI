@@ -19,7 +19,7 @@ public extension Audio.Details {
             playcount: Int = 0,
             file: String = "",
             lastPlayed: String = "",
-            runtime: Int = 0,
+            duration: Int = 0,
             userRating: Int = 0,
             resume: Video.Resume = Video.Resume(),
             artist: String = "",
@@ -51,7 +51,7 @@ public extension Audio.Details {
             self.playcount = playcount
             self.file = file
             self.lastPlayed = lastPlayed
-            self.runtime = runtime
+            self.duration = duration
             self.userRating = userRating
             self.resume = resume
             self.artist = artist
@@ -82,23 +82,32 @@ public extension Audio.Details {
 
         /// # Calculated variables
 
+        /// The ID of the artist
         public var id: String { "\(media)+\(artistID)" }
+        /// The type of media
         public var media: Library.Media = .artist
+        /// Calculated sort title
+        /// - Note: If `sortName` is set for the item it will be used, else the `artist`
         public var sortByTitle: String { sortName.isEmpty ? artist : sortName }
         public var playcount: Int = 0
+        /// The location of the media file
         public var file: String = ""
         public var lastPlayed: String = ""
+        /// The poster of the artist
         public var poster: String { thumbnail }
-        public var runtime: Int = 0
+        public var duration: Int = 0
         public var userRating: Int = 0
-        /// Not in use but needed by protocol
+        /// The resume position of the artist
+        /// - Note: Not in use but needed by protocol
         public var resume = Video.Resume()
         /// The search string
         public var search: String {
             "\(title)"
         }
         public var title: String { artist }
-        public var subtitle: String { songGenres.map({$0.title}).joined(separator: " ∙ ") }
+        /// The subtitle of the artist
+        public var subtitle: String { songGenres.map(\.title).joined(separator: " ∙ ") }
+        /// The details of the artist
         public var details: String { description }
 
         /// # Audio.Details.Artist
