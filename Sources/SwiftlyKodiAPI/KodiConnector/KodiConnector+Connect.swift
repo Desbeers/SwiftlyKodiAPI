@@ -77,14 +77,6 @@ extension KodiConnector {
         /// Send the properties to the KodiPlayer Class
         await KodiPlayer.shared.setApplicationProperties(properties: properties)
     }
-
-    @MainActor func getCurrentPlaylists() async {
-        /// Get Player playlists
-        await KodiPlayer.shared.getCurrentPlaylist(media: .none)
-        /// Get User playlists
-        library.audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
-        library.videoPlaylists = await Files.getDirectory(directory: "special://videoplaylists", media: .video)
-    }
 }
 
 extension KodiConnector {

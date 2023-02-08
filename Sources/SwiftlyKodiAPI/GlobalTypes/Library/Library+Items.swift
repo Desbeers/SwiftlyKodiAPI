@@ -33,8 +33,8 @@ public extension Library {
         public var episodes: [Video.Details.Episode] = []
         /// The music videos in the library
         public var musicVideos: [Video.Details.MusicVideo] = []
-        /// The video playlists iin the library
-        public var videoPlaylists: [List.Item.File] = []
+        /// The movie playlists in the library
+        public var moviePlaylists: [List.Item.File] = []
         /// The video genres in the library
         public var videoGenres: [Library.Details.Genre] = []
     }

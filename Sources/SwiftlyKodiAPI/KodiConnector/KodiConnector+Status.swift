@@ -92,6 +92,7 @@ extension KodiConnector {
             }
         case .loadedLibrary:
             Task {
+                await getUserPlaylists()
                 await getCurrentPlaylists()
             }
         case .sleeping:
