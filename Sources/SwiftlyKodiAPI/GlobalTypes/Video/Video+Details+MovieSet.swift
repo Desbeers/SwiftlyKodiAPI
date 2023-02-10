@@ -81,6 +81,12 @@ public extension Video.Details {
         public var search: String {
             "\(title)"
         }
+        /// The release year of the item
+        /// - Note: Not in use but needed by protocol
+        public var year: Int = 0
+        /// The date the movieset is added
+        /// - Note: Not in use but needed by protocol
+        public var dateAdded: String = ""
 
         /// # Video.Details.MovieSet
 

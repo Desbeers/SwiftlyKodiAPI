@@ -27,6 +27,10 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     var sortByTitle: String { get }
     /// The playcount of the item
     var playcount: Int { get set }
+    /// The date the item is added
+    var dateAdded: String { get set }
+    /// The release year of the item
+    var year: Int { get set }
     /// The last played date of the item
     var lastPlayed: String { get set }
     /// The user rating of the item

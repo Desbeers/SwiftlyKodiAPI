@@ -38,6 +38,9 @@ public extension Video.Details {
         public var search: String {
             "\(title) \(showTitle)"
         }
+        /// The release year of the item
+        /// - Note: Not in use but needed by protocol
+        public var year: Int = 0
 
         /// # Video.Details.Episode
 

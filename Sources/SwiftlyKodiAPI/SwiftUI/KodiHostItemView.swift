@@ -45,7 +45,7 @@ public struct KodiHostItemView: View {
 #if !os(iOS)
                 .prefersDefaultFocus(in: mainNamespace)
 #endif
-                .disabled(validateForm())
+                .disabled(validateForm() || (values == host && kodi.host == values))
                 if values.status == .configured {
                     Button(action: {
                         forgetHost()

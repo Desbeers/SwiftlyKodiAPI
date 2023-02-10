@@ -44,6 +44,12 @@ public extension Library.Details {
         /// The resume position of the genre
         /// - Note: Not in use but needed by protocol
         public var resume = Video.Resume()
+        /// The date the genre is added
+        /// - Note: Not in use but needed by protocol
+        public var dateAdded: String = ""
+        /// The release year of the item
+        /// - Note: Not in use but needed by protocol
+        public var year: Int = 0
 
         /// # Library.Details.Genre
 
