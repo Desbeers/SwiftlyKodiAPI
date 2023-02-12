@@ -67,7 +67,7 @@ public extension Audio.Details {
         public var displayArtist: String = ""
         public var musicBrainzAlbumArtistID: [String] = []
         public var originalDate: String = ""
-        public var rating: Int = 0
+        public var rating: Double = 0
         public var releaseDate: String = ""
         public var sortArtist: String = ""
         public var title: String = ""

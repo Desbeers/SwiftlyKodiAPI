@@ -73,6 +73,7 @@ public extension Video.Details {
         public var details: String = ""
         public var description: String { plot }
         public var duration: Int = 0
+        public var rating: Double = 0
         public var userRating: Int = 0
         /// The resume position of the movie set
         /// - Note: Not in use but needed by protocol

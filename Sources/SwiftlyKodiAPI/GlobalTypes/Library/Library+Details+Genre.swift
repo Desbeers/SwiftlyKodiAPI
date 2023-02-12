@@ -35,6 +35,7 @@ public extension Library.Details {
         public var sortByTitle: String { title }
         public var playcount: Int = 0
         public var lastPlayed: String = ""
+        public var rating: Double = 0
         public var userRating: Int = 0
         /// The poster of the genre
         public var poster: String = ""

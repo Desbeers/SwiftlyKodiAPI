@@ -96,6 +96,7 @@ public extension Audio.Details {
         /// The poster of the artist
         public var poster: String { thumbnail }
         public var duration: Int = 0
+        public var rating: Double = 0
         public var userRating: Int = 0
         /// The resume position of the artist
         /// - Note: Not in use but needed by protocol

@@ -74,6 +74,7 @@ public extension Audio.Details {
         public var poster: String
         public var playcount: Int
         public var lastPlayed: String
+        public var rating: Double = 0
         public var userRating: Int
         public var fanart: String
         /// The location of the media file

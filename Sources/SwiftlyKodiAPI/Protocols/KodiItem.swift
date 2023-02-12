@@ -33,6 +33,8 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     var year: Int { get set }
     /// The last played date of the item
     var lastPlayed: String { get set }
+    /// The rating of the item
+    var rating: Double { get set }
     /// The user rating of the item
     var userRating: Int { get set }
     /// The poster of the item

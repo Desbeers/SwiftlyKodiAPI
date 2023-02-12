@@ -68,6 +68,16 @@ extension KodiItem {
         return dateFormatter.string(from: date)
     }
 
+    /// Convert a Kodi date string to a `Date`
+    /// - Parameter date: The Kodi date string
+    /// - Returns: A Swift `Date`
+    public func swiftDateFromKodiDate(_ date: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return dateFormatter.date(from: date) ?? Date()
+        //return dateFormatter.string(from: date)
+    }
+
     /// Set the details of a ``KodiItem``
     /// - Parameter item: The ``KodiItem`` to set
     func setDetails(_ item: any KodiItem) async {
