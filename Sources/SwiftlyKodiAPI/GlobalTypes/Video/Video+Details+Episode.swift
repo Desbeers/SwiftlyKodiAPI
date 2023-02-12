@@ -16,6 +16,8 @@ public extension Video.Details {
 
         /// The ID of the episode
         public var id: String { "\(media)+\(episodeID)" }
+        /// The Kodi ID of the episode
+        public var kodiID: Library.id { episodeID }
         /// The type of media
         public var media: Library.Media = .episode
         /// Calculated sort title

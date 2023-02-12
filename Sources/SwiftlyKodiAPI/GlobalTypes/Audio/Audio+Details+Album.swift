@@ -16,6 +16,8 @@ public extension Audio.Details {
 
         /// The ID of the album
         public var id: String { "\(media)+\(albumID)" }
+        /// The Kodi ID of the album
+        public var kodiID: Library.id { albumID }
         /// The type of media
         public var media: Library.Media = .album
         /// The location of the media file

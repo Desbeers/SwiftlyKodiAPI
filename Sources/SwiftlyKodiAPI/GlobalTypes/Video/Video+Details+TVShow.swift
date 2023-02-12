@@ -87,8 +87,10 @@ public extension Video.Details {
 
         /// # Calculated variables
 
-        /// The ID of the tv show
+        /// The ID of the TV show
         public var id: String { "\(media)+\(tvshowID)" }
+        /// The Kodi ID of the TV show
+        public var kodiID: Library.id { tvshowID }
         /// The type of media
         public var media: Library.Media = .tvshow
         /// Calculated sort title

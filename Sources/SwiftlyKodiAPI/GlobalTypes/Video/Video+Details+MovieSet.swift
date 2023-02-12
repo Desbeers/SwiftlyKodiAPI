@@ -55,6 +55,8 @@ public extension Video.Details {
 
         /// The ID of the movie set
         public var id: String { "\(media)+\(setID)" }
+        /// The Kodi ID of the movie set
+        public var kodiID: Library.id { setID }
         /// The type of media
         public var media: Library.Media = .movieSet
         /// The location of the media file

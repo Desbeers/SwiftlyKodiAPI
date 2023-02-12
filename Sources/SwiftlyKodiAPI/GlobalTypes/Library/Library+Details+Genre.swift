@@ -16,6 +16,8 @@ public extension Library.Details {
 
         /// The ID of the genre
         public var id: String { "\(media)+\(genreID)" }
+        /// The Kodi ID of the genre
+        public var kodiID: Library.id { genreID }
         /// The type of media
         public var media: Library.Media = .genre
         /// The subtitle of the genre

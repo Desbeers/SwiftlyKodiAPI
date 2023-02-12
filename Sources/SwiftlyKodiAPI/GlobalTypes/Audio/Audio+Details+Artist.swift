@@ -84,6 +84,8 @@ public extension Audio.Details {
 
         /// The ID of the artist
         public var id: String { "\(media)+\(artistID)" }
+        /// The Kodi ID of the artist
+        public var kodiID: Library.id { artistID }
         /// The type of media
         public var media: Library.Media = .artist
         /// Calculated sort title

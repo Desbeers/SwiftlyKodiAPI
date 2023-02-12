@@ -44,6 +44,8 @@ public extension Audio.Details {
 
         /// The ID of the stream
         public var id: String { station }
+        /// The Kodi ID of the stream
+        public var kodiID: Library.id = 0
         /// The search string
         public var search: String { title }
         /// Calculated sort title

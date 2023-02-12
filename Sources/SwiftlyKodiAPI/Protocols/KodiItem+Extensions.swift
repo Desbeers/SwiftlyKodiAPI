@@ -55,6 +55,18 @@ public extension KodiItem {
         newItem.userRating = self.userRating < 10 ? 10 : 0
         await setDetails(newItem)
     }
+
+    /// Set the user rating of a  ``KodiItem``
+    func setUserRating(rating: Int) async {
+        var newItem = self
+        newItem.userRating = rating
+        await setDetails(newItem)
+        /// This will not trigger a notification so we have to call the update ourself
+        Task {
+            try await Task.sleep(until: .now + .seconds(1), clock: .continuous)
+            KodiConnector.shared.updateKodiItem(itemID: self.kodiID, media: self.media)
+        }
+    }
 }
 
 extension KodiItem {
@@ -75,7 +87,6 @@ extension KodiItem {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return dateFormatter.date(from: date) ?? Date()
-        //return dateFormatter.string(from: date)
     }
 
     /// Set the details of a ``KodiItem``
