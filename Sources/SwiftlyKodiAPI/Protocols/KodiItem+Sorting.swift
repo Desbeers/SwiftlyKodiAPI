@@ -19,6 +19,8 @@ extension List.Sort {
     }
 }
 
+// MARK: Return a sorted Array
+
 extension Array where Element == any KodiItem {
 
     /// Sort an Array of any KodiItem's
@@ -71,8 +73,86 @@ extension Array where Element: KodiItem {
                 KeyPathComparator(\.year, order: sortItem.order.value),
                 KeyPathComparator(\.title, order: .forward)
             ])
+        case .rating:
+            return self.sorted(using: [
+                KeyPathComparator(\.rating, order: sortItem.order.value),
+                KeyPathComparator(\.title, order: .forward)
+            ])
+        case .userRating:
+            return self.sorted(using: [
+                KeyPathComparator(\.userRating, order: sortItem.order.value),
+                KeyPathComparator(\.title, order: .forward)
+            ])
         default:
             return self
+        }
+    }
+}
+
+// MARK: Sort in place
+
+extension Array where Element == any KodiItem {
+
+    /// Sort an Array of any KodiItem's
+    /// - Parameter sortItem: The sorting
+    /// - Returns: A sorted Array
+    public mutating func sort(sortItem: List.Sort) {
+        switch sortItem.method {
+        case .duration:
+            self.sort(using: KeyPathComparator(\.duration, order: sortItem.order.value))
+        case .dateAdded:
+            self.sort(using: KeyPathComparator(\.dateAdded, order: sortItem.order.value))
+        case .year:
+            self.sort(using: [
+                KeyPathComparator(\.year, order: sortItem.order.value),
+                KeyPathComparator(\.title, order: .forward)
+            ])
+        case .rating:
+            self.sort(using: [
+                KeyPathComparator(\.rating, order: sortItem.order.value),
+                KeyPathComparator(\.title, order: .forward)
+            ])
+        case .userRating:
+            self.sort(using: [
+                KeyPathComparator(\.userRating, order: sortItem.order.value),
+                KeyPathComparator(\.title, order: .forward)
+            ])
+        default:
+            /// Default to title
+            self.sort(using: KeyPathComparator(\.sortByTitle, order: sortItem.order.value))
+        }
+    }
+}
+
+extension Array where Element: KodiItem {
+
+    /// Sort an Array of any KodiItem's
+    /// - Parameter sortItem: The sorting
+    /// - Returns: A sorted Array
+    public mutating func sort(sortItem: List.Sort) {
+        switch sortItem.method {
+        case .duration:
+            self.sort(using: KeyPathComparator(\.duration, order: sortItem.order.value))
+        case .dateAdded:
+            self.sort(using: KeyPathComparator(\.dateAdded, order: sortItem.order.value))
+        case .year:
+            self.sort(using: [
+                KeyPathComparator(\.year, order: sortItem.order.value),
+                KeyPathComparator(\.title, order: .forward)
+            ])
+        case .rating:
+            self.sort(using: [
+                KeyPathComparator(\.rating, order: sortItem.order.value),
+                KeyPathComparator(\.title, order: .forward)
+            ])
+        case .userRating:
+            self.sort(using: [
+                KeyPathComparator(\.userRating, order: sortItem.order.value),
+                KeyPathComparator(\.title, order: .forward)
+            ])
+        default:
+            /// Default to title
+            self.sort(using: KeyPathComparator(\.sortByTitle, order: sortItem.order.value))
         }
     }
 }

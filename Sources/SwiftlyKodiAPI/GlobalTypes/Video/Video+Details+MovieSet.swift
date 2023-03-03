@@ -65,7 +65,7 @@ public extension Video.Details {
         /// Calculated sort title
         /// - Note: Kodi has no sortTitle for sets
         public var sortByTitle: String {
-            title.removePrefixes(["De", "The"])
+            title.removePrefixes(["De", "The", "A"])
         }
         /// The poster of the movie set
         public var poster: String { art.poster }
