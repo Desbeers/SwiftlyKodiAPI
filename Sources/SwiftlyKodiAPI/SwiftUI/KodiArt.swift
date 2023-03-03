@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+#if os(macOS)
+typealias SWIFTImage = NSImage
+#else
+typealias SWIFTImage = UIImage
+#endif
+
 // MARK: Kodi Art Views
 
 /// SwiftUI Views for Kodi art (SwiftlyKodi Type)
@@ -21,6 +27,8 @@ public enum KodiArt {
     case fanart
     /// Square art with 1:1 ratio
     case square
+
+    private static let cache = NSCache<NSString, SWIFTImage>()
 }
 
 extension KodiArt {
@@ -101,11 +109,66 @@ public extension KodiArt {
             Art(item: item, file: item.fanart, art: .fanart)
         }
     }
+}
 
-    /// Any art passed as an internal Kodi string
-    ///
-    /// - Note:It will be converted to a 'full' url string
-    private struct Art: View {
+
+extension KodiArt {
+
+    enum NetworkError: Error {
+        case badRequest
+        case unsupportedImage
+        case badUrl
+    }
+
+    @MainActor class ImageLoader: ObservableObject {
+
+        @Published var kodiImage: Image?
+
+        var image: SWIFTImage?
+
+        func fetchImage (item: any KodiItem, file: String, art: KodiArt) async throws {
+            guard !file.isEmpty, let url = URL(string: Files.getFullPath(file: file, type: .art)) else {
+                createFallback(item: item, art: art)
+                return
+            }
+            let request = URLRequest(url: url)
+            /// Check if in cache
+            if let cachedImage = KodiArt.cache.object(forKey: url.absoluteString as NSString) {
+                image = cachedImage
+            } else {
+                let (data, response) = try await URLSession.shared.data(for: request)
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                    createFallback(item: item, art: art)
+                    return
+                }
+                guard let image = SWIFTImage(data: data) else {
+                    createFallback(item: item, art: art)
+                    return
+                }
+                /// Store it in the cache
+                KodiArt.cache.setObject(image, forKey: url.absoluteString as NSString)
+                self.image = image
+            }
+            if let image {
+#if os(macOS)
+                kodiImage = Image(nsImage: image)
+#else
+                kodiImage = Image(uiImage: image)
+#endif
+            }
+        }
+
+        private func createFallback(item: any KodiItem, art: KodiArt) {
+                let fallback = ImageRenderer(content: Fallback(item: item, art: art))
+                if let cgImage = fallback.cgImage {
+                    kodiImage = Image(cgImage, scale: 1, label: Text("test")).resizable()
+                }
+        }
+    }
+
+    struct Art: View {
+        @StateObject private var imageLoader = ImageLoader()
+
         let item: any KodiItem
         let file: String
         let art: KodiArt
@@ -114,40 +177,29 @@ public extension KodiArt {
             self.file = file
             self.art = art
         }
+
         var body: some View {
-            Group {
-                if file.isEmpty {
-                    createFallback()
+            VStack {
+                if let image = imageLoader.kodiImage {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .transition(.opacity)
                 } else {
-                    AsyncImage(
-                        url: URL(string: Files.getFullPath(file: file, type: .art)),
-                        transaction: Transaction(animation: .easeInOut(duration: 0.1))
-                    ) { phase in
-                        switch phase {
-                        case .empty:
-                            EmptyView()
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .transition(.opacity)
-                        case .failure:
-                            createFallback()
-                        @unknown default:
-                            EmptyView()
-                        }
-                    }
+                    ProgressView()
                 }
+            }
+            .task {
+                await downloadImage()
             }
         }
-        @MainActor func createFallback() -> some View {
-            Group {
-                let fallback = ImageRenderer(content: Fallback(item: item, art: art))
-                if let cgImage = fallback.cgImage {
-                    Image(cgImage, scale: 1, label: Text("test")).resizable()
+
+        private func downloadImage() async {
+                do {
+                    try await imageLoader.fetchImage(item: item, file: file, art: art)
+                } catch {
+                    /// Ignore
                 }
-                EmptyView()
-            }
         }
     }
 }
