@@ -100,13 +100,23 @@ public extension KodiArt {
     struct Fanart: View {
         /// The ``KodiItem``
         let item: any KodiItem
+        /// The fanart file
+        /// - Hide episode thumb if set so by Kodi for unwatched episodes
+        var file: String {
+            if item.media == .episode &&
+                !KodiConnector.shared.getKodiSetting(id: .videolibraryShowuUwatchedPlots).list.contains(2) &&
+                item.playcount == 0 {
+                return ""
+            }
+            return item.fanart
+        }
         /// Init the View
         public init(item: any KodiItem) {
             self.item = item
         }
         /// The body of the View
         public var body: some View {
-            Art(item: item, file: item.fanart, art: .fanart)
+            Art(item: item, file: file, art: .fanart)
         }
     }
 }
