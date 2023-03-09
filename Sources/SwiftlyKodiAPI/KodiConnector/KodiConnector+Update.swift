@@ -179,6 +179,8 @@ extension KodiConnector {
                 logger("Library update for \(media) not implemented.")
             }
             logger("Updated \(media) \(itemID) in the library")
+            /// Update the favorites
+            favourites = await getFavourites()
             /// Store the library in the cache
             await setLibraryCache()
         }

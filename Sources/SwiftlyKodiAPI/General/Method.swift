@@ -237,6 +237,11 @@ enum Method: String {
     /// Update the given tvshow with the given details
     case videoLibrarySetTVShowDetails = "VideoLibrary.SetTVShowDetails"
 
+    // MARK: Favourites
+
+    /// Retrieve info booleans about Kodi and the system
+    case favouritesGetFavourites = "Favourites.GetFavourites"
+
     // MARK: XBMC
 
     /// Retrieve info booleans about Kodi and the system

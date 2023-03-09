@@ -87,8 +87,8 @@ extension KodiConnector {
             makeConnection()
         case .connectedToWebSocket:
             Task {
-                await getKodiState()
                 await loadLibrary()
+                await getKodiState()
             }
         case .loadedLibrary:
             Task {

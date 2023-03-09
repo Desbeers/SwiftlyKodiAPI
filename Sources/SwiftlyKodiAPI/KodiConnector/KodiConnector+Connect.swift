@@ -73,6 +73,7 @@ extension KodiConnector {
         /// Get the settings of the host
         Task { @MainActor in
             settings = await Settings.getSettings()
+            favourites = await getFavourites()
         }
         /// Send the properties to the KodiPlayer Class
         await KodiPlayer.shared.setApplicationProperties(properties: properties)
