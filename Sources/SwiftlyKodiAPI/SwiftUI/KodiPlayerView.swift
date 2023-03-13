@@ -59,8 +59,16 @@ public struct KodiPlayerView: View {
                     switch playerModel.state {
                     case .playing:
                         /// Video is playing, set resume point
+                        /// - Note: Not exacly as Kodi does it and ignoring 'advancedsettings'
                         if let time = playerModel.player.currentItem?.currentTime() {
-                            await video.setResumeTime(time: time.seconds)
+                            let percentage = time.seconds / Double(video.duration)
+                            if percentage > 0.9 {
+                                /// A video that is almost done will be marked as played
+                                await video.markAsPlayed()
+                            } else if time.seconds > 180 {
+                                /// Set resume point
+                                await video.setResumeTime(time: time.seconds)
+                            }
                         }
                     case .end:
                         /// End of video, mark as played
