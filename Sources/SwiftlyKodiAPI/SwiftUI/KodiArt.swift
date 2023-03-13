@@ -202,6 +202,7 @@ extension KodiArt {
             .task {
                 await downloadImage()
             }
+            .id(file)
         }
 
         private func downloadImage() async {
