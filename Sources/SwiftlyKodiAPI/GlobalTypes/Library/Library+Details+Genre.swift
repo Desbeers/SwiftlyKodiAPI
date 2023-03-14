@@ -10,7 +10,7 @@ import Foundation
 public extension Library.Details {
 
     /// Genre details
-    struct Genre: KodiItem {
+    struct Genre: KodiItem, Sendable {
 
         /// # Calculated variables
 

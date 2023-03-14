@@ -10,7 +10,7 @@ import Foundation
 public extension Audio {
 
     /// The artist and the role they contribute to a song (Global Kodi Type)
-    struct Contributors: Codable, Identifiable, Equatable, Hashable {
+    struct Contributors: Codable, Identifiable, Equatable, Hashable, Sendable {
 
         /// # Computed values
 

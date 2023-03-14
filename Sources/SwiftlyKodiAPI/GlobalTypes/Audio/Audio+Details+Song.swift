@@ -10,7 +10,7 @@ import Foundation
 public extension Audio.Details {
 
     /// Song details
-    struct Song: KodiItem {
+    struct Song: KodiItem, Sendable {
 
         /// # Calculated variables
 

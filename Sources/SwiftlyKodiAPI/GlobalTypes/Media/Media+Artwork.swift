@@ -10,7 +10,7 @@ import Foundation
 public extension Media {
 
     /// Artwork for a Media item (Global Kodi Type)
-    struct Artwork: Codable, Equatable, Hashable {
+    struct Artwork: Codable, Equatable, Hashable, Sendable {
 
         /// # Public init
 

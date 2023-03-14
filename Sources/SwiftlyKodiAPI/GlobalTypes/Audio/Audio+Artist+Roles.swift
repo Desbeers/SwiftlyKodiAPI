@@ -9,7 +9,7 @@ import Foundation
 public extension Audio.Artist {
 
     /// The various roles contributed by an artist to one or more songs (Global Kodi Type)
-    struct Roles: Codable, Identifiable, Equatable, Hashable {
+    struct Roles: Codable, Identifiable, Equatable, Hashable, Sendable {
 
         /// # Computed values
 

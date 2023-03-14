@@ -10,7 +10,7 @@ import Foundation
 public extension Audio.Details {
 
     /// Artist details
-    struct Artist: KodiItem {
+    struct Artist: KodiItem, Sendable {
 
         /// # Public Init
         public init(

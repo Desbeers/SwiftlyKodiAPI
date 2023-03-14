@@ -10,7 +10,7 @@ import Foundation
 extension Video {
 
     /// The resume details of a video item
-    public struct Resume: Codable, Hashable {
+    public struct Resume: Codable, Hashable, Sendable {
         public init(position: Double = 0, total: Double = 0) {
             self.position = position
             self.total = total
