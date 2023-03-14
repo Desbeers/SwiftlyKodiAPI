@@ -49,10 +49,13 @@ extension KodiConnector {
             case .none:
                 break
             }
+            if status != .outdatedLibrary {
+                setStatus(.loadedLibrary)
+            }
         } else {
             library = await getLibrary()
+            setStatus(.loadedLibrary)
         }
-        setStatus(.loadedLibrary)
         await setLibraryCache()
     }
 
