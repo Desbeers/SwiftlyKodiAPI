@@ -42,6 +42,20 @@ public struct HostItem: Codable, Identifiable, Hashable {
     public var bonjour: KodiConnector.BonjourHost? {
         KodiConnector.shared.bonjourHosts.first(where: {$0.ip == ip})
     }
+    /// Content of the library
+    /// - Note: Used as filter for notifications
+    public var content: [Library.Media] {
+        switch media {
+        case .audio:
+            return [.none, .artist, .album, .song, .genre, .musicVideo]
+        case .video:
+            return [.none, .movie, .movieSet, .tvshow, .episode, .genre, .artist, .musicVideo]
+        case .all:
+            return Library.Media.allCases
+        case .none:
+            return []
+        }
+    }
 
     /// Bool if the host is selected
     public var isSelected: Bool {
@@ -80,6 +94,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
     }
 
     /// The kind of media to load when connecting to the host
+    /// - Note: Audio and Video both load Artists and Music Videos
     public enum Media: String, Codable {
         /// Load the audio library
         case audio

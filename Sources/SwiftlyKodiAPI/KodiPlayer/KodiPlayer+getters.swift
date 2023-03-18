@@ -44,23 +44,25 @@ extension KodiPlayer {
 
     /// Get the current playlist for the active player
     func getCurrentPlaylist(media: Library.Media) async {
-        await task.getCurrentPlaylist.submit { [self] in
-            switch media {
-            case .none:
-                await setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
-                await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
-            case .movie:
-                await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
-            case .episode:
-                await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
-            case .musicVideo:
-                await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
-            case .song:
-                await setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
-            default:
-                break
+        if KodiConnector.shared.host.content.contains(media) {
+            await task.getCurrentPlaylist.submit { [self] in
+                switch media {
+                case .none:
+                    await setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
+                    await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                case .movie:
+                    await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                case .episode:
+                    await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                case .musicVideo:
+                    await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                case .song:
+                    await setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
+                default:
+                    break
+                }
+                await setPlaylistUpdate()
             }
-            await setPlaylistUpdate()
         }
     }
 }

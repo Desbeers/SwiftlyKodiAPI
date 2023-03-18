@@ -10,7 +10,7 @@ import SwiftUI
 public extension Library {
 
     /// Media types in the library (SwiftlyKodi Type)
-    enum Media: String, Equatable, Codable, Sendable {
+    enum Media: String, Equatable, Codable, Sendable, CaseIterable {
         /// Not a media type
         case none
         /// Movies

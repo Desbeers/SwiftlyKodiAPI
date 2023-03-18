@@ -89,16 +89,19 @@ extension KodiConnector {
                 }
             }
         case .audioLibraryOnRemove, .videoLibraryOnRemove:
-            if !scanningLibrary {
+            if !scanningLibrary && host.content.contains(notification.media)  {
                 deleteKodiItem(itemID: notification.itemID, media: notification.media)
             }
+
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
-            if !scanningLibrary {
+            if !scanningLibrary && host.content.contains(notification.media) {
                 updateKodiItem(itemID: notification.itemID, media: notification.media)
                 await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
             }
+
         case .playlistOnAdd, .playlistOnRemove, .playlistOnClear:
             await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
+
         case .applicationOnVolumeChanged:
             Task {
                 properties = await Application.getProperties()
