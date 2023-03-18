@@ -93,7 +93,9 @@ extension KodiConnector {
         case .loadedLibrary:
             Task {
                 await getUserPlaylists()
-                await getCurrentPlaylists()
+                if host.player == .local {
+                    await getCurrentPlaylists()
+                }
             }
         case .sleeping:
             disconnectWebSocket()

@@ -67,8 +67,6 @@ extension KodiConnector {
     }
 
     func getKodiState() async {
-        await KodiPlayer.shared.getPlayerProperties()
-        await KodiPlayer.shared.getPlayerItem()
         /// Get the properties of the host
         properties = await Application.getProperties()
         /// Get the addons of the host
@@ -78,8 +76,12 @@ extension KodiConnector {
             settings = await Settings.getSettings()
             favourites = await getFavourites()
         }
-        /// Send the properties to the KodiPlayer Class
-        await KodiPlayer.shared.setApplicationProperties(properties: properties)
+        if host.player == .local {
+            await KodiPlayer.shared.getPlayerProperties()
+            await KodiPlayer.shared.getPlayerItem()
+            /// Send the properties to the KodiPlayer Class
+            await KodiPlayer.shared.setApplicationProperties(properties: properties)
+        }
     }
 }
 

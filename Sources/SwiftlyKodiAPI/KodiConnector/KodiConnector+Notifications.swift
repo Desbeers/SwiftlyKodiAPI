@@ -29,10 +29,8 @@ extension KodiConnector {
                     else {
                         /// Not an interesting notification
                         logger("Unknown notification")
-                        dump(message)
                         return
                     }
-                    logger("Notification: \(notification.method.rawValue)")
                     /// Perform notification action
                     Task {
                         await self.notificationAction(notification: notification)
@@ -52,8 +50,7 @@ extension KodiConnector {
     /// - Parameter notification: The received notification
     func notificationAction(notification: Notifications.Item) async {
 
-        logger(notification.method.rawValue)
-
+        /// General notifications
         switch notification.method {
 
         case .audioLibraryOnScanStarted, .audioLibraryOnCleanStarted:
@@ -99,26 +96,39 @@ extension KodiConnector {
                 await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
             }
 
-        case .playlistOnAdd, .playlistOnRemove, .playlistOnClear:
-            await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
-
-        case .applicationOnVolumeChanged:
-            Task {
-                properties = await Application.getProperties()
-                await KodiPlayer.shared.setApplicationProperties(properties: properties)
-            }
-        case .playerOnPropertyChanged, .playerOnPause, .playerOnResume:
-            await KodiPlayer.shared.setProperties(properties: await Player.getProperties(playerID: notification.playerID))
-            await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
-        case .playerOnSeek:
-            await KodiPlayer.shared.getPlayerProperties()
         case .videoLibraryOnRefresh:
             Task { @MainActor in
                 settings = await Settings.getSettings()
             }
         default:
-            await KodiPlayer.shared.getPlayerProperties()
-            await KodiPlayer.shared.getPlayerItem()
+            break
         }
+
+        /// Player notifications
+        if host.player == .local {
+            switch notification.method {
+
+            case .applicationOnVolumeChanged:
+                Task {
+                    properties = await Application.getProperties()
+                    await KodiPlayer.shared.setApplicationProperties(properties: properties)
+                }
+
+            case .playerOnPropertyChanged, .playerOnPause, .playerOnResume:
+                await KodiPlayer.shared.setProperties(properties: await Player.getProperties(playerID: notification.playerID))
+                await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
+
+            case .playerOnSeek:
+                await KodiPlayer.shared.getPlayerProperties()
+
+            case .playlistOnAdd, .playlistOnRemove, .playlistOnClear:
+                await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
+
+            default:
+                await KodiPlayer.shared.getPlayerProperties()
+                await KodiPlayer.shared.getPlayerItem()
+            }
+        }
+
     }
 }

@@ -74,6 +74,7 @@ public struct KodiHostItemView: View {
                                   username: host.username,
                                   password: host.password,
                                   media: host.media,
+                                  player: host.player,
                                   status: host.status
                 )
             } else {

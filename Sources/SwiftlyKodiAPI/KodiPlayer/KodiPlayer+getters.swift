@@ -46,9 +46,13 @@ extension KodiPlayer {
     func getCurrentPlaylist(media: Library.Media) async {
         if KodiConnector.shared.host.content.contains(media) {
             await task.getCurrentPlaylist.submit { [self] in
+                let kodi = KodiConnector.shared
                 switch media {
                 case .none:
-                    await setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
+                    if kodi.host.media == .audio || kodi.host.media == .all {
+                        await setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
+                    }
+                    /// Always get the video playlist because of Music Videos
                     await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
                 case .movie:
                     await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])

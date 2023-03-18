@@ -31,6 +31,8 @@ public struct HostItem: Codable, Identifiable, Hashable {
     public var password: String
     /// Kind of media to load
     public var media: Media
+    /// Kind of player to use
+    public var player: Player
     /// Status of the host
     public var status: Status
 
@@ -82,6 +84,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
         username: String = "",
         password: String = "",
         media: Media = .video,
+        player: Player = .local,
         status: Status = .new
     ) {
         self.name = name
@@ -90,6 +93,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
         self.username = username
         self.password = password
         self.media = media
+        self.player = player
         self.status = status
     }
 
@@ -112,6 +116,15 @@ public struct HostItem: Codable, Identifiable, Hashable {
         case new
         /// A configured host
         case configured
+    }
+
+    /// The player the client want to use
+    /// - Note: This will only influence Player status and Playlists updates
+    public enum Player: String, Codable {
+        /// Use the local player
+        case local
+        /// Use a custom player
+        case stream
     }
 }
 
