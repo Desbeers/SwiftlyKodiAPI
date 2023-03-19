@@ -51,7 +51,7 @@ public struct KodiSettingView: View {
                 .font(.caption)
                 .padding(.bottom)
             /// Recursive load child settings
-            ForEach(kodi.settings.filter({$0.parent == setting.id && $0.enabled})) { child in
+            ForEach(kodi.settings.filter { $0.parent == setting.id && $0.enabled }) { child in
                 KodiSettingView(setting: child)
             }
         }
@@ -288,9 +288,10 @@ extension KodiSettingView {
             let allOptions = setting.settingList?.options ?? []
             var options: [Option] = []
             for option in allOptions {
-                options.append(Option(id: option.value,
-                                      label: option.label,
-                                      isSelected: value.contains(option.value) ? true : false)
+                options.append(Option(
+                    id: option.value,
+                    label: option.label,
+                    isSelected: value.contains(option.value) ? true : false)
                 )
             }
             self.options = options
@@ -303,7 +304,7 @@ extension KodiSettingView {
             .onChange(of: options) { _ in
                 Task { @MainActor in
                     /// Grab the enabled items
-                    let result = options.filter({$0.isSelected}).map(\.id)
+                    let result = options.filter { $0.isSelected } .map(\.id)
                     /// Update the setting
                     await Settings.setSettingValue(setting: setting.id, list: result)
                     /// Get the settings of the host
@@ -328,7 +329,7 @@ extension KodiSettingView {
     /// - Parameter setting: The ``Setting/ID``
     /// - Returns: A SwiftUI View with the setting
     @ViewBuilder public static func setting(for setting: Setting.Details.KodiSetting.ID) -> some View {
-        if let result = KodiConnector.shared.settings.first(where: {$0.id == setting}) {
+        if let result = KodiConnector.shared.settings.first(where: { $0.id == setting }) {
             KodiSettingView(setting: result)
                 .padding(.bottom)
         }

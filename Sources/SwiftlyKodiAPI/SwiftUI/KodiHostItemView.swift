@@ -67,15 +67,17 @@ public struct KodiHostItemView: View {
 #endif
         .animation(.default, value: values.ip)
         .task(id: host) {
-            if let bonjour = host.bonjour {
-                values = HostItem(name: bonjour.name,
-                                  ip: bonjour.ip,
-                                  port: host.port,
-                                  username: host.username,
-                                  password: host.password,
-                                  media: host.media,
-                                  player: host.player,
-                                  status: host.status
+            if
+                let bonjour = host.bonjour {
+                values = HostItem(
+                    name: bonjour.name,
+                    ip: bonjour.ip,
+                    port: host.port,
+                    username: host.username,
+                    password: host.password,
+                    media: host.media,
+                    player: host.player,
+                    status: host.status
                 )
             } else {
                 values = host
@@ -144,7 +146,7 @@ public struct KodiHostItemView: View {
             values.status = .configured
             kodi.configuredHosts.append(values)
         case .configured:
-            if let index = kodi.configuredHosts.firstIndex(where: {$0.ip == host.ip}) {
+            if let index = kodi.configuredHosts.firstIndex(where: { $0.ip == host.ip }) {
                 kodi.configuredHosts[index] = host
             }
         }
@@ -152,7 +154,7 @@ public struct KodiHostItemView: View {
     }
 
     func forgetHost() {
-        if let index = kodi.configuredHosts.firstIndex(where: {$0.ip == host.ip}) {
+        if let index = kodi.configuredHosts.firstIndex(where: { $0.ip == host.ip }) {
             kodi.configuredHosts.remove(at: index)
             HostItem.saveConfiguredHosts(hosts: kodi.configuredHosts)
             /// If this host is selected, delete it
@@ -215,7 +217,7 @@ public extension KodiHostItemView {
                 self.message = "You can add a Kodi that is found on your network."
             } else {
                 var content = "You can select a configured host"
-                if !KodiConnector.shared.bonjourHosts.filter({$0.new}).isEmpty {
+                if !KodiConnector.shared.bonjourHosts.filter({ $0.new }).isEmpty {
                     content += " or add a new host that is found on your network"
                 }
                 self.message = "\(content)."
@@ -246,10 +248,10 @@ public extension KodiHostItemView {
         public init() {
 
             var content = "There are no other configured Kodi's online."
-            if !KodiConnector.shared.configuredHosts.filter({$0.isOnline}).isEmpty {
+            if !KodiConnector.shared.configuredHosts.filter({ $0.isOnline }).isEmpty {
                 content = "You can select another configured Kodi."
             }
-            if !KodiConnector.shared.bonjourHosts.filter({$0.new}).isEmpty {
+            if !KodiConnector.shared.bonjourHosts.filter({ $0.new }).isEmpty {
                 content += "\n\nThere is another Kodi available on your network."
             }
             self.message = content
@@ -278,6 +280,5 @@ extension KodiHostItemView {
             .padding()
             .minimumScaleFactor(0.2)
             .lineLimit(1)
-
     }
 }

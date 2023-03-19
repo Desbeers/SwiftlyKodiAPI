@@ -19,11 +19,11 @@ extension KodiConnector {
             async let songs = AudioLibrary.getSongs()
             async let audioGenres = AudioLibrary.getGenres()
             async let audioLibraryProperties = AudioLibrary.getProperties()
-
-            return await Library.Items(albums: albums,
-                                       songs: songs,
-                                       audioGenres: audioGenres,
-                                       audioLibraryProperties: audioLibraryProperties
+            return await Library.Items(
+                albums: albums,
+                songs: songs,
+                audioGenres: audioGenres,
+                audioLibraryProperties: audioLibraryProperties
             )
         }
 
@@ -33,53 +33,53 @@ extension KodiConnector {
             async let tvshows = VideoLibrary.getTVShows()
             async let episodes = VideoLibrary.getEpisodes()
             async let videoGenres = getAllVideoGenres()
-
-            return await Library.Items(movies: movies,
-                                      movieSets: movieSets,
-                                      tvshows: tvshows,
-                                      episodes: episodes,
-                                      videoGenres: videoGenres
+            return await Library.Items(
+                movies: movies,
+                movieSets: movieSets,
+                tvshows: tvshows,
+                episodes: episodes,
+                videoGenres: videoGenres
             )
         }
 
         async let artist = AudioLibrary.getArtists()
         async let musicVideos = VideoLibrary.getMusicVideos()
-
         switch host.media {
-
         case .audio:
             async let audio = getAudio()
-            return await Library.Items(artists: artist,
-                                       albums: audio.albums,
-                                       songs: audio.songs,
-                                       audioGenres: audio.audioGenres,
-                                       audioLibraryProperties: audio.audioLibraryProperties,
-                                       musicVideos: musicVideos
+            return await Library.Items(
+                artists: artist,
+                albums: audio.albums,
+                songs: audio.songs,
+                audioGenres: audio.audioGenres,
+                audioLibraryProperties: audio.audioLibraryProperties,
+                musicVideos: musicVideos
             )
-
         case .video:
             async let video = getVideo()
-            return await Library.Items(artists: artist,
-                                       movies: video.movies,
-                                       movieSets: video.movieSets,
-                                       tvshows: video.tvshows,
-                                       episodes: video.episodes,
-                                       musicVideos: musicVideos,
-                                       videoGenres: video.videoGenres
+            return await Library.Items(
+                artists: artist,
+                movies: video.movies,
+                movieSets: video.movieSets,
+                tvshows: video.tvshows,
+                episodes: video.episodes,
+                musicVideos: musicVideos,
+                videoGenres: video.videoGenres
             )
         case .all:
             async let audio = getAudio()
             async let video = getVideo()
-            return await Library.Items(artists: artist,
-                                       albums: audio.albums,
-                                       songs: audio.songs,
-                                       audioGenres: audio.audioGenres,
-                                       movies: video.movies,
-                                       movieSets: video.movieSets,
-                                       tvshows: video.tvshows,
-                                       episodes: video.episodes,
-                                       musicVideos: musicVideos,
-                                       videoGenres: video.videoGenres
+            return await Library.Items(
+                artists: artist,
+                albums: audio.albums,
+                songs: audio.songs,
+                audioGenres: audio.audioGenres,
+                movies: video.movies,
+                movieSets: video.movieSets,
+                tvshows: video.tvshows,
+                episodes: video.episodes,
+                musicVideos: musicVideos,
+                videoGenres: video.videoGenres
             )
         default:
             return Library.Items()

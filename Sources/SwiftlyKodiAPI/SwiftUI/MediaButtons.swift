@@ -120,7 +120,10 @@ public extension MediaButtons {
                 Label("Shuffle", systemImage: "shuffle")
                     .foregroundColor(player.properties.shuffled ? .white : .none)
                     .padding(2)
-                    .background(player.properties.shuffled ? Color.accentColor : Color.clear, in: RoundedRectangle(cornerRadius: 4))
+                    .background(
+                        player.properties.shuffled ? Color.accentColor : Color.clear,
+                        in: RoundedRectangle(cornerRadius: 4)
+                    )
             })
             .help("Shuffle the playlist")
             .disabled(player.properties.partymode)
@@ -148,7 +151,10 @@ public extension MediaButtons {
                 Label("Repeat", systemImage: repeatingIcon)
                     .foregroundColor(player.properties.repeating == .off ? .none : .white)
                     .padding(2)
-                    .background(player.properties.repeating == .off ? Color.clear : Color.accentColor, in: RoundedRectangle(cornerRadius: 4))
+                    .background(
+                        player.properties.repeating == .off ? Color.clear : Color.accentColor,
+                        in: RoundedRectangle(cornerRadius: 4)
+                    )
             })
             .disabled(player.properties.partymode)
             .disabled(!player.properties.canRepeat)
@@ -191,7 +197,10 @@ public extension MediaButtons {
                         .padding(2)
                         .foregroundColor(player.properties.partymode ? .white : .none)
                 })
-                .background(player.properties.partymode ? Color.red : Color.clear, in: RoundedRectangle(cornerRadius: 4))
+                .background(
+                    player.properties.partymode ? Color.red : Color.clear,
+                    in: RoundedRectangle(cornerRadius: 4)
+                )
             })
             .help("Music party mode")
         }
@@ -222,15 +231,19 @@ public extension MediaButtons {
                         }
                     )
                     .font(.caption)
-                    /// - Note: Using 'onEditingChanged' because that will only be trickered when using the slider
-                    ///         and not when programmaticly changing its value after a notification.
-                    Slider(value: $player.volume, in: 0...100,
-                           onEditingChanged: { _ in
-                        logger("Volume changed: \(player.volume)")
-                        Task {
-                            await Application.setVolume(volume: player.volume)
+                    // swiftlint:disable:next trailing_closure
+                    Slider(
+                        value: $player.volume,
+                        in: 0...100,
+                        onEditingChanged: { _ in
+                            /// - Note: Using 'onEditingChanged' because that will only be trickered when using the slider
+                            ///         and not when programmaticly changing its value after a notification.
+                            logger("Volume changed: \(player.volume)")
+                            Task {
+                                await Application.setVolume(volume: player.volume)
+                            }
                         }
-                    })
+                    )
                     Image(systemName: "speaker.wave.3.fill")
                         .font(.caption)
                 }

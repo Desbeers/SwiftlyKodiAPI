@@ -45,12 +45,11 @@ public extension Setting.Details {
             self.allowEmpty = try container.decode(Bool.self, forKey: .allowEmpty)
 
             var options = [Option]()
-            let addons = KodiConnector.shared.addons.filter({$0.addonType == self.addonType})
+            let addons = KodiConnector.shared.addons.filter { $0.addonType == self.addonType }
                 for addon in addons {
                     options.append(Option(label: addon.name, value: addon.id))
                 }
             self.options = options
-
         }
     }
 }

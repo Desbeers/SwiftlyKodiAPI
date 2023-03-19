@@ -87,10 +87,12 @@ public struct KodiPlayerView: View {
 
 /// The KodiPlayerModel class
 class KodiPlayerModel: ObservableObject {
+    // swiftlint:disable implicitly_unwrapped_optional
     /// The AVplayer
     var player: AVPlayer!
     /// The timer to keep an eye on the player
     var timer: Timer!
+    // swiftlint:enable implicitly_unwrapped_optional
     /// The state of the player
     @Published var state: KodiPlayerState = .load
     /// All the states of the player
@@ -104,7 +106,7 @@ class KodiPlayerModel: ObservableObject {
     /// Load a video into the player
     /// - Parameter video: The ``KodiItem`` to play
     func loadVideo(video: any KodiItem) {
-        /// Setup the player
+        // swiftlint:disable:next force_unwrapping
         let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(file: video.file, type: .file))!)
 #if os(tvOS)
         /// tvOS can add aditional info to the player
@@ -120,9 +122,11 @@ class KodiPlayerModel: ObservableObject {
         /// Get a notification when the video has ended
         NotificationCenter
             .default
-            .addObserver(forName: .AVPlayerItemDidPlayToEndTime,
-                         object: nil,
-                         queue: nil) { _ in
+            .addObserver(
+                forName: .AVPlayerItemDidPlayToEndTime,
+                object: nil,
+                queue: nil
+            ) { _ in
                 Task { @MainActor in
                     self.state = .end
                 }
@@ -159,7 +163,13 @@ func createMetadataItems(video: any KodiItem) async -> [AVMetadataItem] {
         var description: String = "description"
         var genre: String = "genre"
         var creationDate: String = "1900"
-        var artwork: UIImage = UIImage(named: "poster", in: Bundle.main, compatibleWith: nil) ?? UIImage(systemName: "film")!
+        // swiftlint:disable force_unwrapping
+        var artwork: UIImage = UIImage(
+            named: "poster",
+            in: Bundle.main,
+            compatibleWith: nil) ?? UIImage(systemName: "film"
+            )!
+        // swiftlint:enable force_unwrapping
     }
 
     /// Helper function to create the metadata
@@ -188,6 +198,7 @@ func createMetadataItems(video: any KodiItem) async -> [AVMetadataItem] {
                 }
             }
         }
+        // swiftlint:disable:next force_unwrapping
         return UIImage(named: "poster", in: Bundle.main, compatibleWith: nil) ?? UIImage(systemName: "film")!
     }
 

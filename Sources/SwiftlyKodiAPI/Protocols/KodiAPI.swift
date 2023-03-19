@@ -23,9 +23,11 @@ extension KodiAPI {
     /// - Returns: `Data` formatted JSON request
     func buildParams<T: Encodable>(params: T) -> Data {
         let parameters = JSON
-            .BaseParameters(method: method.rawValue,
-                            params: params.self,
-                            id: KodiConnector.shared.kodiConnectorID)
+            .BaseParameters(
+                method: method.rawValue,
+                params: params.self,
+                id: KodiConnector.shared.kodiConnectorID
+            )
         do {
             return try JSONEncoder().encode(parameters)
         } catch {
@@ -40,6 +42,7 @@ extension KodiAPI {
     var urlRequest: URLRequest {
         let host = KodiConnector.shared.host
         var request = URLRequest(
+            // swiftlint:disable:next force_unwrapping
             url: URL(string: "http://\(host.username):\(host.password)@\(host.ip):\(host.port)/jsonrpc")!
         )
         request.httpMethod = "POST"

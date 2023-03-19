@@ -44,7 +44,6 @@ extension VideoLibrary {
             let movies: [Video.Details.Movie]
         }
     }
-
 }
 
 // MARK: getMovieDetails
@@ -151,5 +150,4 @@ extension VideoLibrary {
         /// The response struct
         struct Response: Decodable { }
     }
-
 }

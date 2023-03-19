@@ -16,7 +16,7 @@ It is currently very much work in progress....
 
 I'm using this package in a few of my projects:
 
-- [Kodio](https://github.com/Desbeers/Kodio): an macOS and iPad music remote application
+- [Kodio](https://github.com/Desbeers/Kodio): a macOS music remote application
 - [Komodio](https://github.com/Desbeers/Komodio): an Apple TV Video Client
 
 ## Documentation

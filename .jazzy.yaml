@@ -9,11 +9,19 @@ clean: true
 theme: apple
 
 custom_categories:
+  - name: SwiftlyKodiAPI
+    children:
+    - KodiItem
+    - HostItem
+    - Cache
+    - logger(_:)
+
   - name: Kodi Namespaces
     children:
     - Addons
     - Application
     - AudioLibrary
+    - Favourites
     - Files
     - Player
     - Playlist
@@ -26,6 +34,7 @@ custom_categories:
     - Addon
     - Application
     - Audio
+    - Favourite
     - Files
     - Library
     - List
@@ -45,5 +54,11 @@ custom_categories:
     children:
     - KodiPlayerView
     - KodiSettingView
+    - KodiHostItemView
     - KodiArt
     - MediaButtons
+
+  - name: Extensions
+    children:
+    - Array
+    - Sequence

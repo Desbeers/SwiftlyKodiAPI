@@ -126,6 +126,5 @@ public extension Video.Details {
             case thumbnail
             case movies
         }
-
     }
 }

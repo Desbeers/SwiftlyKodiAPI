@@ -25,13 +25,7 @@ extension Settings {
         let request = Settings.GetSettings(section: section, category: category)
         do {
             let result = try await kodi.sendRequest(request: request)
-
-//            for setting in result.settings.filter({$0.id != .unknown}) {
-//                print(setting.id.rawValue)
-//                dump(setting)
-//            }
-
-            return result.settings.filter({$0.base.id != .unknown})
+            return result.settings.filter { $0.base.id != .unknown }
         } catch {
             logger("Loading settings failed with error: \(error)")
             return []

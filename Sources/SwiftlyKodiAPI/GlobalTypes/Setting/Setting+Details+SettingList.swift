@@ -37,7 +37,6 @@ public extension Setting.Details {
             if let definition = try? container.nestedContainer(keyedBy: Definition.self, forKey: .definition) {
                 self.options = try definition.decode([Option].self, forKey: .options)
             }
-
         }
     }
 }

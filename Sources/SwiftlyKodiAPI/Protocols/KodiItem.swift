@@ -70,7 +70,7 @@ extension KodiItem {
 
     /// The ID of the playlist
     public var playlistID: Int? {
-        if let index = KodiPlayer.shared.currentPlaylist?.firstIndex(where: {$0.id == id}) {
+        if let index = KodiPlayer.shared.currentPlaylist?.firstIndex(where: { $0.id == id }) {
             return index
         }
         return nil

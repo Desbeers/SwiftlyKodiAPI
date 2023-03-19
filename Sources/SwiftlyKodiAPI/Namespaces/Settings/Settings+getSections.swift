@@ -19,7 +19,7 @@ extension Settings {
         let request = Settings.GetSections()
         do {
             let result = try await kodi.sendRequest(request: request)
-            return result.sections.filter({$0.id != .unknown})
+            return result.sections.filter { $0.id != .unknown }
         } catch {
             logger("Loading sections failed with error: \(error)")
             return []

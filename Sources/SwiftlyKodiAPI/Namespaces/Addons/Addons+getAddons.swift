@@ -22,7 +22,8 @@ extension Addons {
         let request = GetAddons()
         do {
             let result = try await kodi.sendRequest(request: request)
-            return result.addons.filter({$0.addonType != .unknown})
+            return result.addons
+                .filter { $0.addonType != .unknown }
         } catch {
             logger("Loading addons failed with error: \(error)")
             return []

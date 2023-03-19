@@ -95,6 +95,6 @@ extension KodiConnector {
         let tvGenres = await VideoLibrary.getGenres(type: .tvshow)
         let musicGenres = await VideoLibrary.getGenres(type: .musicVideo)
         /// Combine and return them
-        return (movieGenres + tvGenres + musicGenres).unique { $0.id}
+        return (movieGenres + tvGenres + musicGenres).unique { $0.id }
     }
 }

@@ -20,7 +20,7 @@ extension Settings {
         let request = Settings.GetCategories(section: section)
         do {
             let result = try await kodi.sendRequest(request: request)
-            return result.categories.filter({$0.id != .unknown})
+            return result.categories.filter { $0.id != .unknown }
         } catch {
             logger("Loading categories failed with error: \(error)")
             return []

@@ -34,6 +34,5 @@ public extension Addon {
                 self.addonType = addonType
             }
         }
-
     }
 }

@@ -20,7 +20,13 @@ extension Settings {
     ///   - list: The optional [Int] value
     public static func setSettingValue(setting: Setting.ID, int: Int? = nil, bool: Bool? = nil, string: String? = nil, list: [Int]? = nil) async {
         logger("Settings.SetSettingValue")
-        let message = SetSettingValue(setting: setting, valueInt: int, valueBool: bool, valueString: string, valueList: list)
+        let message = SetSettingValue(
+            setting: setting,
+            valueInt: int,
+            valueBool: bool,
+            valueString: string,
+            valueList: list
+        )
         KodiConnector.shared.sendMessage(message: message)
     }
 

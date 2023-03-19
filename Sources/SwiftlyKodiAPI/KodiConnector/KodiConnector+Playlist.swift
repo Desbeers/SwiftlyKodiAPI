@@ -18,7 +18,6 @@ extension KodiConnector {
     @MainActor func getUserPlaylists() async {
         /// Audio is easy, it is just songs
         library.audioPlaylists = await Files.getDirectory(directory: "special://musicplaylists", media: .music)
-        //library.videoPlaylists = await Files.getDirectory(directory: "special://videoplaylists", media: .video)
 
         var moviePlaylists: [List.Item.File] = []
 

@@ -27,6 +27,11 @@ extension Files {
         allowed.insert(charactersIn: ":-._~") /// as per RFC 3986
         /// Image URL
         let kodiImageAddress = "http://\(host.username):\(host.password)@\(host.ip):\(host.port)/\(type.rawValue)/"
-        return kodiImageAddress + file.addingPercentEncoding(withAllowedCharacters: allowed)!
+
+        if let path = file.addingPercentEncoding(withAllowedCharacters: allowed) {
+            return kodiImageAddress + path
+        }
+        /// This should not happen
+        return kodiImageAddress
     }
 }

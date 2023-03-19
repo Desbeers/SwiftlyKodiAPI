@@ -13,8 +13,7 @@ extension KodiConnector {
     /// - Parameter id: The ID of the setting
     /// - Returns: The setting values
     public func getKodiSetting(id: Setting.ID) -> KodiSetting {
-        if let setting = settings.filter({$0.id == id}).first {
-            //dump(setting)
+        if let setting = settings.first(where: { $0.id == id }) {
             return KodiSetting(
                 bool: setting.settingBool?.value ?? false,
                 list: setting.settingList?.value ?? []
@@ -22,7 +21,7 @@ extension KodiConnector {
         }
         return KodiSetting()
     }
-    
+
     /// Simplified struct for a kodi setting
     public struct KodiSetting {
         public var bool: Bool = false

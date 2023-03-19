@@ -137,6 +137,5 @@ public extension Video.Details {
             case fanart
             case thumbnail
         }
-
     }
 }

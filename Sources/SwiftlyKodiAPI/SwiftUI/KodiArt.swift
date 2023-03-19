@@ -169,10 +169,10 @@ extension KodiArt {
         }
 
         private func createFallback(item: any KodiItem, art: KodiArt) {
-                let fallback = ImageRenderer(content: Fallback(item: item, art: art))
-                if let cgImage = fallback.cgImage {
-                    kodiImage = Image(cgImage, scale: 1, label: Text("test")).resizable()
-                }
+            let fallback = ImageRenderer(content: Fallback(item: item, art: art))
+            if let cgImage = fallback.cgImage {
+                kodiImage = Image(cgImage, scale: 1, label: Text("test")).resizable()
+            }
         }
     }
 
@@ -206,11 +206,11 @@ extension KodiArt {
         }
 
         private func downloadImage() async {
-                do {
-                    try await imageLoader.fetchImage(item: item, file: file, art: art)
-                } catch {
-                    /// Ignore
-                }
+            do {
+                try await imageLoader.fetchImage(item: item, file: file, art: art)
+            } catch {
+                /// Ignore
+            }
         }
     }
 }

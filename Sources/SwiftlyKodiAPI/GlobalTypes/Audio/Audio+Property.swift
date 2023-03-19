@@ -13,5 +13,4 @@ extension Audio {
     public enum Property {
         // Just a namespace
     }
-
 }

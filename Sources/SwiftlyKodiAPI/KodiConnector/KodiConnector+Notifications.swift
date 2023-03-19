@@ -23,9 +23,10 @@ extension KodiConnector {
             case .success(let message):
                 if case .string(let text) = message {
                     /// get the notification
-                    guard let data = text.data(using: .utf8),
-                          let notification = try? JSONDecoder().decode(Notifications.Item.self, from: data),
-                          notification.sender != self.kodiConnectorID
+                    guard
+                        let data = text.data(using: .utf8),
+                        let notification = try? JSONDecoder().decode(Notifications.Item.self, from: data),
+                        notification.sender != self.kodiConnectorID
                     else {
                         /// Not an interesting notification
                         logger("Unknown notification")
@@ -86,7 +87,7 @@ extension KodiConnector {
                 }
             }
         case .audioLibraryOnRemove, .videoLibraryOnRemove:
-            if !scanningLibrary && host.content.contains(notification.media)  {
+            if !scanningLibrary && host.content.contains(notification.media) {
                 deleteKodiItem(itemID: notification.itemID, media: notification.media)
             }
 
@@ -115,7 +116,9 @@ extension KodiConnector {
                 }
 
             case .playerOnPropertyChanged, .playerOnPause, .playerOnResume:
-                await KodiPlayer.shared.setProperties(properties: await Player.getProperties(playerID: notification.playerID))
+                await KodiPlayer.shared.setProperties(
+                    properties: await Player.getProperties(playerID: notification.playerID)
+                )
                 await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
 
             case .playerOnSeek:
@@ -129,6 +132,5 @@ extension KodiConnector {
                 await KodiPlayer.shared.getPlayerItem()
             }
         }
-
     }
 }

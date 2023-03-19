@@ -28,9 +28,10 @@ extension Player {
                 return item
             } else {
                 /// Return it as a stream item
-                return SwiftlyKodiAPI.Audio.Details.Stream(title: result.item.label,
-                                                           subtitle: result.item.artist?.first ?? "Streaming",
-                                                           file: result.item.mediapath
+                return SwiftlyKodiAPI.Audio.Details.Stream(
+                    title: result.item.label,
+                    subtitle: result.item.artist?.first ?? "Streaming",
+                    file: result.item.mediapath
                 )
             }
         }

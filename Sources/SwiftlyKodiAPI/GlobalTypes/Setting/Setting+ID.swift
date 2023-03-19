@@ -66,7 +66,6 @@ public extension Setting {
         // MARK: services + general
 
         case servicesDevicename = "services.devicename"
-
     }
     // swiftlint:enable type_name
 }

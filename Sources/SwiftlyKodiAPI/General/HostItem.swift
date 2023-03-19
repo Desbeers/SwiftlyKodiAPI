@@ -20,7 +20,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
     /// TCP of the host
     /// - Note: This is found by `Bonjour` on first edit
     public var tcp: Int {
-        if let host = KodiConnector.shared.bonjourHosts.first(where: {$0.ip == ip}) {
+        if let host = KodiConnector.shared.bonjourHosts.first(where: { $0.ip == ip }) {
             return host.port
         }
         return 0
@@ -42,7 +42,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
     }
     /// The optional `bonjour` result
     public var bonjour: KodiConnector.BonjourHost? {
-        KodiConnector.shared.bonjourHosts.first(where: {$0.ip == ip})
+        KodiConnector.shared.bonjourHosts.first { $0.ip == ip }
     }
     /// Content of the library
     /// - Note: Used as filter for notifications
@@ -73,7 +73,6 @@ public struct HostItem: Codable, Identifiable, Hashable {
         }, icon: {
             Image(systemName: status == .configured ? "globe" : "star.fill")
         })
-
     }
 
     /// Init the Host struct

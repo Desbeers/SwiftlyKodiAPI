@@ -75,37 +75,47 @@ public final class KodiConnector: ObservableObject {
         startBonjour()
         /// Sleeping and wakeup stuff
 #if !os(macOS)
-        NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { _ in
-            logger("tvOS or iOS goes to the background")
-            Task {
-                await self.setStatus(.sleeping)
-            }
-        }
-        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
-            logger("tvOS or iOS comes to the foreground")
-            if self.status == .sleeping {
+        NotificationCenter
+            .default
+            .addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { _ in
+                logger("tvOS or iOS goes to the background")
                 Task {
-                    /// Set the state
-                    await self.setStatus(.wakeup)
+                    await self.setStatus(.sleeping)
                 }
             }
-        }
+        NotificationCenter
+            .default
+            .addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
+                logger("tvOS or iOS comes to the foreground")
+                if self.status == .sleeping {
+                    Task {
+                        /// Set the state
+                        await self.setStatus(.wakeup)
+                    }
+                }
+            }
 #else
-        NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: .main) { _ in
-            logger("macOS goes to sleep")
-            Task {
-                await self.setStatus(.sleeping)
-            }
-        }
-        NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didWakeNotification, object: nil, queue: .main) { _ in
-            logger("macOS wakes up")
-            if self.status == .sleeping {
+        NSWorkspace
+            .shared
+            .notificationCenter
+            .addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: .main) { _ in
+                logger("macOS goes to sleep")
                 Task {
-                    /// Set the status
-                    await self.setStatus(.wakeup)
+                    await self.setStatus(.sleeping)
                 }
             }
-        }
+        NSWorkspace
+            .shared
+            .notificationCenter
+            .addObserver(forName: NSWorkspace.didWakeNotification, object: nil, queue: .main) { _ in
+                logger("macOS wakes up")
+                if self.status == .sleeping {
+                    Task {
+                        /// Set the status
+                        await self.setStatus(.wakeup)
+                    }
+                }
+            }
 #endif
     }
 }

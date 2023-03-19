@@ -27,5 +27,4 @@ extension List.Filter {
         // case false
         case between
     }
-
 }

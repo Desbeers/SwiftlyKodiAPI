@@ -17,8 +17,11 @@ extension Files {
     ///
     /// - Returns: All items received in a  ``List/Item/File`` array
     public static func getDirectory(directory: String, media: Files.Media) async -> [List.Item.File] {
-
-        if let result = try? await KodiConnector.shared.sendRequest(request: GetDirectory(directory: directory, media: media)) {
+        if
+            let result = try? await KodiConnector.shared.sendRequest(
+                request: GetDirectory(directory: directory, media: media)
+            )
+        {
             return result.files
         }
         return [List.Item.File]()
@@ -50,5 +53,4 @@ extension Files {
             let files: [List.Item.File]
         }
     }
-
 }

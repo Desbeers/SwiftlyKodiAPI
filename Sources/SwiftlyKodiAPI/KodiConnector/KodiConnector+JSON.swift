@@ -16,10 +16,11 @@ extension KodiConnector {
     /// - Returns: The decoded response
     func sendRequest<T: KodiAPI>(request: T) async throws -> T.Response {
         let (data, response) = try await urlSession.data(for: request.urlRequest)
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
+        guard
+            let httpResponse = response as? HTTPURLResponse,
+            httpResponse.statusCode == 200 else {
             throw JSON.APIError.responseUnsuccessful
-              }
+        }
         do {
             // debugJsonResponse(data: data)
             let decoded = try JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data)

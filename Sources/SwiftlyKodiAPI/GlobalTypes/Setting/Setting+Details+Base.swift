@@ -35,14 +35,14 @@ extension Setting.Details.Base {
     /// # Init
 
     init(from decoder: Decoder) throws {
-        let container: KeyedDecodingContainer<Setting.Details.Base.CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
+        let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-        let settingID = try container.decode(String.self, forKey: CodingKeys.settingID)
+        let settingID = try container.decode(String.self, forKey: .settingID)
         /// Only decode settings we know about
         if let settingID = Setting.ID(rawValue: settingID) {
             self.id = settingID
-            self.label = try container.decode(String.self, forKey: Setting.Details.Base.CodingKeys.label)
-            self.help = try container.decodeIfPresent(String.self, forKey: Setting.Details.Base.CodingKeys.help) ?? self.help
+            self.label = try container.decode(String.self, forKey: .label)
+            self.help = try container.decodeIfPresent(String.self, forKey: .help) ?? self.help
         }
     }
 }

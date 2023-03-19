@@ -29,8 +29,7 @@ public extension Setting.Details {
             self.id = try container.decode(String.self, forKey: .id)
             let settings = try container.decode([Setting.Details.KodiSetting].self, forKey: .settings)
             /// Only show 'root' settings we know about
-            self.settings = settings.filter({$0.settingType != .unknown && $0.parent == .none})
-
+            self.settings = settings.filter { $0.settingType != .unknown && $0.parent == .none }
         }
     }
 }

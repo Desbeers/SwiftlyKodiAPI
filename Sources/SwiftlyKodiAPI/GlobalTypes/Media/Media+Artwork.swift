@@ -50,13 +50,12 @@ public extension Media.Artwork {
 
     /// Custom decoder
     init(from decoder: Decoder) throws {
-        let container: KeyedDecodingContainer<Media.Artwork.CodingKeys> = try decoder.container(keyedBy: Media.Artwork.CodingKeys.self)
-        self.banner = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.banner) ?? ""
-        self.fanart = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.fanart) ?? ""
-        self.poster = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.poster) ?? ""
-        self.thumb = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.thumb) ?? ""
-        self.icon = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.icon) ?? ""
-        self.seasonPoster = try container.decodeIfPresent(String.self, forKey: Media.Artwork.CodingKeys.seasonPoster) ?? ""
+        let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
+        self.banner = try container.decodeIfPresent(String.self, forKey: .banner) ?? ""
+        self.fanart = try container.decodeIfPresent(String.self, forKey: .fanart) ?? ""
+        self.poster = try container.decodeIfPresent(String.self, forKey: .poster) ?? ""
+        self.thumb = try container.decodeIfPresent(String.self, forKey: .thumb) ?? ""
+        self.icon = try container.decodeIfPresent(String.self, forKey: .icon) ?? ""
+        self.seasonPoster = try container.decodeIfPresent(String.self, forKey: .seasonPoster) ?? ""
     }
-
 }

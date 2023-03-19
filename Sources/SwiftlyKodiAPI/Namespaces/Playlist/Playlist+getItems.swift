@@ -26,10 +26,12 @@ extension Playlist {
                     queue.append(item)
                 } else {
                     /// Return it as a stream item
-                    queue.append(SwiftlyKodiAPI.Audio.Details.Stream(title: item.label,
-                                                                     subtitle: "Stream",
-                                                                     file: item.label
-                                                                    )
+                    queue.append(SwiftlyKodiAPI.Audio.Details
+                        .Stream(
+                            title: item.label,
+                            subtitle: "Stream",
+                            file: item.label
+                        )
                     )
                 }
             }

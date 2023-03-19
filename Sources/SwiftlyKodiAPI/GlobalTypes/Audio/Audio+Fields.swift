@@ -13,5 +13,4 @@ extension Audio {
     enum Fields {
         // Just a namespace
     }
-
 }

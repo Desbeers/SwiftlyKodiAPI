@@ -65,16 +65,21 @@ extension KodiConnector {
         if case let NWEndpoint.service(name: name, type: _, domain: _, interface: _) = host.endpoint {
             /// We want the IP V4 address
             let params = NWParameters.tcp
-            // swiftlint:disable:next force_cast
+            // swiftlint:disable force_cast
+            // swiftlint:disable force_unwrapping
             let ip = params.defaultProtocolStack.internetProtocol! as! NWProtocolIP.Options
+            // swiftlint:enable force_cast
+            // swiftlint:enable force_unwrapping
             ip.version = .v4
             let connection = NWConnection(to: host.endpoint, using: params)
             connection.stateUpdateHandler = { state in
                 switch state {
                 case .ready:
-                    if let innerEndpoint = connection.currentPath?.remoteEndpoint,
-                       case .hostPort(let host, let port) = innerEndpoint,
-                       let ip = String(describing: host).split(separator: "%").first {
+                    if
+                        let innerEndpoint = connection.currentPath?.remoteEndpoint,
+                        case let .hostPort(host, port) = innerEndpoint,
+                        let ip = String(describing: host).split(separator: "%").first
+                    {
                         /// Add the host the the Bonjour list
                         self.bonjourHosts.append(BonjourHost(name: name, ip: ip.description, port: Int(port.rawValue)))
                         /// Set the current host as 'online' if this is the new one
@@ -99,10 +104,10 @@ extension KodiConnector {
     /// - Parameter host: The host to remove
     func removeHost(host: NWBrowser.Result) {
         if case let NWEndpoint.service(name: name, type: _, domain: _, interface: _) = host.endpoint {
-            bonjourHosts.removeAll(where: {$0.name == name})
+            bonjourHosts.removeAll { $0.name == name }
             logger("'\(name)' is offline")
             /// Check if the removed Kodi is the active Kodi and act on it
-            if self.status != .offline, self.bonjourHosts.first(where: { $0.name == name}) != nil {
+            if self.status != .offline, self.bonjourHosts.first(where: { $0.name == name }) != nil {
                 Task {
                     await self.setStatus(.offline)
                 }
@@ -126,7 +131,7 @@ public extension KodiConnector {
         public var port: Int
         /// Bool if thIs this host is new or not
         public var new: Bool {
-            return KodiConnector.shared.configuredHosts.contains(where: {$0.ip == ip}) ? false : true
+            return KodiConnector.shared.configuredHosts.contains { $0.ip == ip } ? false : true
         }
     }
 }

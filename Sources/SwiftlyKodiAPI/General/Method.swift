@@ -246,5 +246,4 @@ enum Method: String {
 
     /// Retrieve info booleans about Kodi and the system
     case xbmcGetInfoBooleans = "XBMC.GetInfoBooleans"
-
 }

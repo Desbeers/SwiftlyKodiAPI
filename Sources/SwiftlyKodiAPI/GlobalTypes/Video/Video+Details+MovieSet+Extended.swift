@@ -26,6 +26,5 @@ public extension Video.Details.MovieSet {
             case label
             case movieID = "movieid"
         }
-
     }
 }

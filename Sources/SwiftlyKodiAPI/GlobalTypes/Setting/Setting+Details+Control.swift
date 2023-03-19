@@ -56,7 +56,7 @@ extension Setting.Details.Control {
 
     /// Custom decoder
     public init(from decoder: Decoder) throws {
-        let container: KeyedDecodingContainer<Setting.Details.Control.CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
+        let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
         if let control = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .control) {
 
