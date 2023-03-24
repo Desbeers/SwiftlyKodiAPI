@@ -71,6 +71,10 @@ public final class KodiConnector: ObservableObject {
         self.urlSession = URLSession(configuration: configuration)
         /// Get all configured hosts
         self.configuredHosts = HostItem.getConfiguredHosts()
+        /// Get the optional selected host
+        if let host = HostItem.getSelectedHost() {
+            self.host = host
+        }
         /// Start Bonjour to find Kodi hosts
         startBonjour()
         /// Sleeping and wakeup stuff
