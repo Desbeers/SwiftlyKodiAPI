@@ -86,7 +86,7 @@ extension Array where Element == any KodiItem {
     /// - Returns: A sorted Array
     public mutating func sort(sortItem: List.Sort) {
         let sorting = buildKeyPathComparator(sortItem: sortItem)
-        sort(using: sorting)
+        self.sort(using: sorting)
     }
 }
 

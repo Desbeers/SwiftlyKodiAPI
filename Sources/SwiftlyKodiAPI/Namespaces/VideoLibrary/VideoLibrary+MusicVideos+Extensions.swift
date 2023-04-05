@@ -63,8 +63,8 @@ extension Array where Element == Video.Details.MusicVideo {
     public func uniqueAlbum() -> [Video.Details.MusicVideo] {
         var knownAlbums = Set<String>()
         return self.filter { element -> Bool in
-            let album = element.album
-            if album.isEmpty || !knownAlbums.contains(album) {
+            let album = element.album.isEmpty ? element.title : element.album
+            if !knownAlbums.contains(album) {
                 knownAlbums.insert(album)
                 return true
             }
