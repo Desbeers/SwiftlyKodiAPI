@@ -23,7 +23,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
         if let host = KodiConnector.shared.bonjourHosts.first(where: { $0.ip == ip }) {
             return host.port
         }
-        return 0
+        return 9090
     }
     /// Username of the host
     public var username: String
@@ -42,7 +42,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
     }
     /// The optional `bonjour` result
     public var bonjour: KodiConnector.BonjourHost? {
-        KodiConnector.shared.bonjourHosts.first { $0.ip == ip }
+        KodiConnector.shared.bonjourHosts.first { $0.name == name }
     }
     /// Content of the library
     /// - Note: Used as filter for notifications

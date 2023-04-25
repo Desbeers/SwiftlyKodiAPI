@@ -83,7 +83,7 @@ extension KodiConnector {
                         /// Add the host the the Bonjour list
                         self.bonjourHosts.append(BonjourHost(name: name, ip: ip.description, port: Int(port.rawValue)))
                         /// Set the current host as 'online' if this is the new one
-                        if self.host.ip == ip {
+                        if self.host.name == name {
                             Task {
                                 await self.setStatus(.online)
                             }
