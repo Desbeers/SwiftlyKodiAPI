@@ -25,7 +25,7 @@ public final class KodiConnector: ObservableObject {
     public var properties = Application.Property.Value()
     /// Bool if the host is scanning content
     /// - Note: Used to stop Notifications and Library updates or else the Host and the KodiConnector get nuts
-    var scanningLibrary: Bool = false
+    public var scanningLibrary: Bool = false
     /// Debounced tasks
     var task = Tasks()
     /// ZeroConf browser

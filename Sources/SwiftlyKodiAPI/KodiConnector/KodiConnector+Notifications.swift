@@ -64,6 +64,7 @@ extension KodiConnector {
 
         case .videoLibraryOnScanStarted, .videoLibraryOnCleanStarted:
             if host.media == .video || host.media == .all {
+                scanningLibrary = true
                 Task {
                     await setStatus(.updatingLibrary)
                 }

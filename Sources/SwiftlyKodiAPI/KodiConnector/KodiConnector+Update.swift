@@ -92,7 +92,7 @@ extension KodiConnector {
 
 
     /// Get the audio library updates
-    @MainActor func getAudioLibraryUpdates() async {
+    @MainActor public func getAudioLibraryUpdates() async {
         let dates = await AudioLibrary.getProperties()
         /// Check if we are outdated
         if dates != library.audioLibraryProperties {
