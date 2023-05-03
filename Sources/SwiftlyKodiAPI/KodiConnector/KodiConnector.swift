@@ -30,6 +30,8 @@ public final class KodiConnector: ObservableObject {
     var task = Tasks()
     /// ZeroConf browser
     var browser: NWBrowser?
+    /// The settings to sort a list of Kodi items
+    var listSortSettings: [SwiftlyKodiAPI.List.Sort] = []
 
     // MARK: Published properties
 
@@ -77,6 +79,8 @@ public final class KodiConnector: ObservableObject {
         }
         /// Start Bonjour to find Kodi hosts
         startBonjour()
+        /// Get all List sortings
+        listSortSettings = KodiListSort.getAllSortSettings()
         /// Sleeping and wakeup stuff
 #if !os(macOS)
         NotificationCenter
