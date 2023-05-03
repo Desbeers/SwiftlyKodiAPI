@@ -36,17 +36,17 @@ func buildKeyPathComparator(sortItem: List.Sort) -> [KeyPathComparator<any KodiI
     case .year:
         return [
             KeyPathComparator(\.year, order: sortItem.order.value),
-            KeyPathComparator(\.title, order: .forward)
+            KeyPathComparator(\.sortByTitle, order: .forward)
         ]
     case .rating:
         return [
             KeyPathComparator(\.rating, order: sortItem.order.value),
-            KeyPathComparator(\.title, order: .forward)
+            KeyPathComparator(\.sortByTitle, order: .forward)
         ]
     case .userRating:
         return [
             KeyPathComparator(\.userRating, order: sortItem.order.value),
-            KeyPathComparator(\.title, order: .forward)
+            KeyPathComparator(\.sortByTitle, order: .forward)
         ]
     default:
         return [ KeyPathComparator(\.sortByTitle, order: sortItem.order.value) ]

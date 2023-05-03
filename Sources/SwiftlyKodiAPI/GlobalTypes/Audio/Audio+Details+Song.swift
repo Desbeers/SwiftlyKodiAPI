@@ -21,7 +21,9 @@ public extension Audio.Details {
         /// The type of media
         public var media: Library.Media = .song
         /// Calculated sort title
-        public var sortByTitle: String { title }
+        public var sortByTitle: String {
+            title.folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
+        }
         /// The poster of the song
         public var poster: String { thumbnail }
         /// The subtitle of the song

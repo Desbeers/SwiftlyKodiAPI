@@ -23,7 +23,9 @@ public extension Audio.Details {
         /// The location of the media file
         public var file: String = ""
         /// Calculated sort title
-        public var sortByTitle: String { title }
+        public var sortByTitle: String {
+            title.folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
+        }
         /// The poster of the album
         public var poster: String { thumbnail }
         /// The subtitle of the album

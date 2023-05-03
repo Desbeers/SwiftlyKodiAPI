@@ -90,7 +90,9 @@ public extension Audio.Details {
         public var media: Library.Media = .artist
         /// Calculated sort title
         /// - Note: If `sortName` is set for the item it will be used, else the `artist`
-        public var sortByTitle: String { sortName.isEmpty ? artist : sortName }
+        public var sortByTitle: String {
+            (sortName.isEmpty ? artist : sortName).folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
+        }
         public var playcount: Int = 0
         /// The location of the media file
         public var file: String = ""
@@ -105,7 +107,7 @@ public extension Audio.Details {
         public var resume = Video.Resume()
         /// The search string
         public var search: String {
-            "\(title)"
+            sortByTitle
         }
         public var title: String { artist }
         /// The subtitle of the artist

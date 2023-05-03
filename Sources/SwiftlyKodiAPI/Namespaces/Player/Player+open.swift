@@ -24,7 +24,7 @@ extension Player {
     /// Start playback in party mode (Kodi API)
     /// - Parameter partyMode: The ``Player/PartyMode``
     public static func open(partyMode: Player.PartyMode) {
-        logger("Player.open (party mmode")
+        logger("Player.open (party mode)")
         KodiConnector.shared.sendMessage(message: Open(partyMode: partyMode))
     }
 
