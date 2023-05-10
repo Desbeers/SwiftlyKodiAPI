@@ -87,9 +87,13 @@ public extension KodiArt {
         public var body: some View {
             switch item {
             case let episode as Video.Details.Episode:
+                /// Use the thumb of the season
                 Art(item: item, file: episode.art.seasonPoster, art: .fanart)
             case let artist as Audio.Details.Artist:
                 Art(item: item, file: artist.poster, art: .square)
+            case let song as Audio.Details.Song:
+                /// Use the thumb of the album
+                Art(item: item, file: song.art.albumThumb, art: .square)
             default:
                 Art(item: item, file: item.poster, art: .poster)
             }

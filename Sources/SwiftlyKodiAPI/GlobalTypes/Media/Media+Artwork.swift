@@ -14,14 +14,7 @@ public extension Media {
 
         /// # Public init
 
-        public init(banner: String = "", fanart: String = "", poster: String = "", thumb: String = "", icon: String = "", seasonPoster: String = "") {
-            self.banner = banner
-            self.fanart = fanart
-            self.poster = poster
-            self.thumb = thumb
-            self.icon = icon
-            self.seasonPoster = seasonPoster
-        }
+        public init() {}
 
         /// # Media.Artwork
 
@@ -31,6 +24,9 @@ public extension Media {
         public var poster: String = ""
         public var thumb: String = ""
         public var icon: String = ""
+        /// Song art: the poster of the album
+        public var albumThumb: String = ""
+        /// Episode art: the poster of the season
         public var seasonPoster: String = ""
 
         /// # Coding keys
@@ -41,6 +37,7 @@ public extension Media {
             case poster
             case thumb
             case icon
+            case albumThumb = "album.thumb"
             case seasonPoster = "season.poster"
         }
     }
@@ -56,6 +53,7 @@ public extension Media.Artwork {
         self.poster = try container.decodeIfPresent(String.self, forKey: .poster) ?? ""
         self.thumb = try container.decodeIfPresent(String.self, forKey: .thumb) ?? ""
         self.icon = try container.decodeIfPresent(String.self, forKey: .icon) ?? ""
+        self.albumThumb = try container.decodeIfPresent(String.self, forKey: .albumThumb) ?? ""
         self.seasonPoster = try container.decodeIfPresent(String.self, forKey: .seasonPoster) ?? ""
     }
 }

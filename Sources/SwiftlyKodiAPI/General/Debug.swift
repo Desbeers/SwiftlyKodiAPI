@@ -9,7 +9,9 @@ import SwiftUI
 
 /// Debug messages
 public func logger(_ string: String) {
+#if DEBUG
     print("\(Thread.isMainThread ? "👀 " : "⺓ ")\(string) \(Date())")
+#endif
 }
 
 /// Print raw JSON to the console

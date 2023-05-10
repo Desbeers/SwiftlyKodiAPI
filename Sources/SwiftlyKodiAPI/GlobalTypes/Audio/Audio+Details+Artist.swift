@@ -14,7 +14,7 @@ public extension Audio.Details {
 
         /// # Public Init
         public init(
-            /// Media have to be set; this to indentify the init
+            /// Media have to be set; this to identify the init
             media: Library.Media,
             playcount: Int = 0,
             file: String = "",
@@ -82,41 +82,44 @@ public extension Audio.Details {
 
         /// # Calculated variables
 
-        /// The ID of the artist
-        public var id: String { "\(media)+\(artistID)" }
-        /// The Kodi ID of the artist
-        public var kodiID: Library.id { artistID }
+        /// The ID of the album
+        public var id: String = ""
+        /// The Kodi ID of the album
+        public var kodiID: Library.id = 0
         /// The type of media
         public var media: Library.Media = .artist
-        /// Calculated sort title
+        /// The title of the artist ('artist' property)
+        public var title: String = ""
+        /// The sort title of the artist
         /// - Note: If `sortName` is set for the item it will be used, else the `artist`
-        public var sortByTitle: String {
-            (sortName.isEmpty ? artist : sortName).folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
-        }
-        public var playcount: Int = 0
-        /// The location of the media file
-        public var file: String = ""
-        public var lastPlayed: String = ""
-        /// The poster of the artist
-        public var poster: String { thumbnail }
-        public var duration: Int = 0
-        public var rating: Double = 0
-        public var userRating: Int = 0
-        /// The resume position of the artist
-        /// - Note: Not in use but needed by protocol
-        public var resume = Video.Resume()
+        public var sortByTitle: String = ""
+        /// The subtitle of the album ('displayArtist' property)
+        public var subtitle: String = ""
+        /// The details of the album ('year' property)
+        public var details: String = ""
         /// The search string
-        public var search: String {
-            sortByTitle
-        }
-        public var title: String { artist }
-        /// The subtitle of the artist
-        public var subtitle: String { songGenres.map(\.title).joined(separator: " ∙ ") }
-        /// The details of the artist
-        public var details: String { description }
-        /// The release year of the item
-        /// - Note: Not in use but needed by protocol
+        public var search: String = ""
+        /// The poster of the album
+        public var poster: String = ""
+
+        /// # Not in use but needed by protocol
+
+        /// The resume position of the artist
+        public var resume = Video.Resume()
+        /// The location of the artist
+        public var file: String = ""
+        /// The rating of the artist
+        public var rating: Double = 0
+        /// The user rating of the artist
+        public var userRating: Int = 0
+        /// The playcount of the artist
+        public var playcount: Int = 0
+        /// The release year of the artist
         public var year: Int = 0
+        /// The last played date of the artist
+        public var lastPlayed: String = ""
+        /// The duration of the artist
+        public var duration: Int = 0
 
         /// # Audio.Details.Artist
 
@@ -221,5 +224,16 @@ public extension Audio.Details.Artist {
         self.genre = try container.decode([String].self, forKey: .genre)
         self.fanart = try container.decode(String.self, forKey: .fanart)
         self.thumbnail = try container.decode(String.self, forKey: .thumbnail)
+
+        /// # Custom variables
+
+        self.id = "\(media)+\(artistID)"
+        self.kodiID = artistID
+        self.title = artist
+        self.sortByTitle = (sortName.isEmpty ? artist : sortName).simplify()
+        self.subtitle = songGenres.map(\.title).joined(separator: " ∙ ")
+        self.details = description
+        self.search = artist
+        self.poster = thumbnail
     }
 }

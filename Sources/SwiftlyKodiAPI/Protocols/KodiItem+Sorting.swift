@@ -16,6 +16,8 @@ extension List.Sort {
         switch media {
         case .movie:
             return [.title, .year, .duration, .dateAdded, .rating, .userRating]
+        case .song:
+            return [.title, .artist, .dateAdded, .lastPlayed, .playcount, .userRating]
         default:
             return []
         }
@@ -25,7 +27,7 @@ extension List.Sort {
 /// Build the sorting method and order for a ``KodiItem`` array
 /// - Parameter sortItem: The sorting
 /// - Returns: An array with `KeyPathComparator`
-func buildKeyPathComparator(sortItem: List.Sort) -> [KeyPathComparator<any KodiItem>] {
+public func buildKeyPathComparator(sortItem: List.Sort) -> [KeyPathComparator<any KodiItem>] {
     switch sortItem.method {
     case .title:
         return [ KeyPathComparator(\.sortByTitle, order: sortItem.order.value) ]
@@ -43,9 +45,24 @@ func buildKeyPathComparator(sortItem: List.Sort) -> [KeyPathComparator<any KodiI
             KeyPathComparator(\.rating, order: sortItem.order.value),
             KeyPathComparator(\.sortByTitle, order: .forward)
         ]
+    case .lastPlayed:
+        return [
+            KeyPathComparator(\.lastPlayed, order: sortItem.order.value),
+            KeyPathComparator(\.sortByTitle, order: .forward)
+        ]
     case .userRating:
         return [
             KeyPathComparator(\.userRating, order: sortItem.order.value),
+            KeyPathComparator(\.sortByTitle, order: .forward)
+        ]
+    case .playcount:
+        return [
+            KeyPathComparator(\.playcount, order: sortItem.order.value),
+            KeyPathComparator(\.sortByTitle, order: .forward)
+        ]
+    case .artist:
+        return [
+            KeyPathComparator(\.subtitle, order: sortItem.order.value),
             KeyPathComparator(\.sortByTitle, order: .forward)
         ]
     default:
@@ -96,7 +113,8 @@ extension Array where Element: KodiItem {
     /// - Parameter sortItem: The sorting
     /// - Returns: A sorted Array
     public mutating func sort(sortItem: List.Sort) {
-        let items = self as [any KodiItem]
-        self = items.sorted(sortItem: sortItem)  as? [Element] ?? []
+        var items = self as [any KodiItem]
+        items.sort(sortItem: sortItem)
+        self = items as? [Element] ?? []
     }
 }

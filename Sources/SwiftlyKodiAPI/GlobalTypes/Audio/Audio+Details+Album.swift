@@ -15,32 +15,31 @@ public extension Audio.Details {
         /// # Calculated variables
 
         /// The ID of the album
-        public var id: String { "\(media)+\(albumID)" }
+        public var id: String = ""
         /// The Kodi ID of the album
-        public var kodiID: Library.id { albumID }
+        public var kodiID: Library.id = 0
         /// The type of media
         public var media: Library.Media = .album
-        /// The location of the media file
-        public var file: String = ""
-        /// Calculated sort title
-        public var sortByTitle: String {
-            title.folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
-        }
-        /// The poster of the album
-        public var poster: String { thumbnail }
-        /// The subtitle of the album
-        public var subtitle: String { displayArtist }
-        /// The details of the album
-        public var details: String { year.description }
+        /// The sort title of the album
+        public var sortByTitle: String = ""
+        /// The subtitle of the album ('displayArtist' property)
+        public var subtitle: String = ""
+        /// The details of the album ('year' property)
+        public var details: String = ""
         /// The duration of the album
-        public var duration: Int { albumDuration }
-        /// The resume position of the album
-        /// - Note: Not in use but needed by protocol
-        public var resume = Video.Resume()
+        public var duration: Int = 0
         /// The search string
-        public var search: String {
-            "\(title) \(displayArtist)"
-        }
+        public var search: String = ""
+        /// The poster of the album
+        public var poster: String = ""
+
+        /// # Not in use but needed by protocol
+
+        /// The resume position of the album
+        public var resume = Video.Resume()
+        /// # Calculated variables
+        /// The location of the album
+        public var file: String = ""
 
         /// # Audio.Details.Album
 
@@ -130,5 +129,60 @@ public extension Audio.Details {
             case fanart
             case thumbnail
         }
+    }
+}
+
+extension Audio.Details.Album {
+
+    public init(from decoder: Decoder) throws {
+        let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.albumDuration = try container.decode(Int.self, forKey: .albumDuration)
+        self.albumID = try container.decode(Library.id.self, forKey: .albumID)
+        self.albumLabel = try container.decode(String.self, forKey: .albumLabel)
+        self.albumStatus = try container.decode(String.self, forKey: .albumStatus)
+        self.compilation = try container.decode(Bool.self, forKey: .compilation)
+        self.description = try container.decode(String.self, forKey: .description)
+        self.isBoxset = try container.decode(Bool.self, forKey: .isBoxset)
+        self.lastPlayed = try container.decode(String.self, forKey: .lastPlayed)
+        self.mood = try container.decode([String].self, forKey: .mood)
+        self.musicBrainzAlbumID = try container.decode(String.self, forKey: .musicBrainzAlbumID)
+        self.musicBrainzReleasegroupID = try container.decode(String.self, forKey: .musicBrainzReleasegroupID)
+        self.playcount = try container.decode(Int.self, forKey: .playcount)
+        self.releaseType = try container.decode(Audio.Album.ReleaseType.self, forKey: .releaseType)
+        self.songGenres = try container.decode([Audio.Details.Genres].self, forKey: .songGenres)
+        self.sourceID = try container.decode([Int].self, forKey: .sourceID)
+        self.style = try container.decode([String].self, forKey: .style)
+        self.theme = try container.decode([String].self, forKey: .theme)
+        self.totalDiscs = try container.decode(Int.self, forKey: .totalDiscs)
+        self.type = try container.decode(String.self, forKey: .type)
+        self.artist = try container.decode([String].self, forKey: .artist)
+        self.artistID = try container.decode([Int].self, forKey: .artistID)
+        self.displayArtist = try container.decode(String.self, forKey: .displayArtist)
+        self.musicBrainzAlbumArtistID = try container.decode([String].self, forKey: .musicBrainzAlbumArtistID)
+        self.originalDate = try container.decode(String.self, forKey: .originalDate)
+        self.rating = try container.decode(Double.self, forKey: .rating)
+        self.releaseDate = try container.decode(String.self, forKey: .releaseDate)
+        self.sortArtist = try container.decode(String.self, forKey: .sortArtist)
+        self.title = try container.decode(String.self, forKey: .title)
+        self.userRating = try container.decode(Int.self, forKey: .userRating)
+        self.votes = try container.decode(Int.self, forKey: .votes)
+        self.year = try container.decode(Int.self, forKey: .year)
+        self.art = try container.decode(Media.Artwork.self, forKey: .art)
+        self.dateAdded = try container.decode(String.self, forKey: .dateAdded)
+        self.genre = try container.decode([String].self, forKey: .genre)
+        self.fanart = try container.decode(String.self, forKey: .fanart)
+        self.thumbnail = try container.decode(String.self, forKey: .thumbnail)
+
+        /// # Custom variables
+
+        self.id = "\(media)+\(albumID)"
+        self.kodiID = albumID
+        self.sortByTitle = title.simplify()
+        self.search = "\(title) \(displayArtist)"
+        self.subtitle = displayArtist
+        self.details = year.description
+        self.duration = albumDuration
+        self.poster = thumbnail
     }
 }

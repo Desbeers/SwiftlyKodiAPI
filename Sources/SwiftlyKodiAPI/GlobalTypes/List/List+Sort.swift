@@ -10,7 +10,7 @@ import Foundation
 extension List {
 
     /// The sort fields for JSON requests (Global Kodi Type)
-    public struct Sort: Codable, Equatable {
+    public struct Sort: Codable, Equatable, Hashable {
         /// Init the sort order
         public init(id: String = "ID", method: List.Sort.Method = .title, order: List.Sort.Order = .ascending, useartistsortname: Bool = true) {
             self.id = id
