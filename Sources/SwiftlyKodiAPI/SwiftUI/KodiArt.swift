@@ -52,6 +52,7 @@ extension KodiArt {
             }
         }
         var body: some View {
+            let _ = dump(item)
             ZStack {
                 Rectangle()
                     .fill(Color.mint.gradient)
