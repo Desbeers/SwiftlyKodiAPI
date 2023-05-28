@@ -32,7 +32,7 @@ extension VideoLibrary {
                 return artistDetails
             }
             /// Return an unknown artist
-            return Audio.Details.Artist(media: .artist, title: artist, artistID: UUID().hashValue)
+            return Audio.Details.Artist(media: .artist, title: artist, artist: artist, artistID: UUID().hashValue)
         }
     }
 }
