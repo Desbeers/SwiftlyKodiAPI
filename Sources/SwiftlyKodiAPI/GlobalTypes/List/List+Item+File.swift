@@ -31,7 +31,7 @@ public extension List.Item {
         /// The type of media
         public var type: Library.Media
         /// The optional Library ID
-        public var id: Library.id?
+        public var id: Library.ID?
         /// The calculated title based on the label
         public var title: String {
             label.components(separatedBy: ".").first ?? label

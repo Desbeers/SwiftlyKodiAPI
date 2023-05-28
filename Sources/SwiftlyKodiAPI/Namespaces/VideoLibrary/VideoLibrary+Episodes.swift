@@ -14,7 +14,7 @@ extension VideoLibrary {
     /// Retrieve all episodes of a TV show (Kodi API)
     /// - Parameter tvshowID: The optional TV show ID
     /// - Returns: All TV shows in an ``Video/Details/Episode`` array
-    public static func getEpisodes(tvshowID: Library.id? = nil) async -> [Video.Details.Episode] {
+    public static func getEpisodes(tvshowID: Library.ID? = nil) async -> [Video.Details.Episode] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetEpisodes(tvshowID: tvshowID)) {
             logger("Loaded \(result.episodes.count) episodes from the Kodi host")
@@ -27,7 +27,7 @@ extension VideoLibrary {
     /// Retrieve all episodes of a TV show (Kodi API)
     fileprivate struct GetEpisodes: KodiAPI {
         /// The TV show ID
-        var tvshowID: Library.id?
+        var tvshowID: Library.ID?
         /// The method
         let method = Method.videoLibraryGetEpisodes
         /// The parameters
@@ -37,7 +37,7 @@ extension VideoLibrary {
         /// The parameters struct
         struct Params: Encodable {
             /// The TV show ID
-            let tvshowID: Library.id?
+            let tvshowID: Library.ID?
             /// The properties that we ask from Kodi
             let properties = Video.Fields.episode
             /// The sorting
@@ -64,7 +64,7 @@ extension VideoLibrary {
     /// Retrieve details about a specific episode (Kodi API)
     /// - Parameter episodeID: The ID of the episode
     /// - Returns: A ``Video/Details/Episode`` item
-    public static func getEpisodeDetails(episodeID: Library.id) async -> Video.Details.Episode {
+    public static func getEpisodeDetails(episodeID: Library.ID) async -> Video.Details.Episode {
         let kodi: KodiConnector = .shared
         let request = GetEpisodeDetails(episodeID: episodeID)
         do {
@@ -79,7 +79,7 @@ extension VideoLibrary {
     /// Retrieve details about a specific episode (Kodi API)
     fileprivate struct GetEpisodeDetails: KodiAPI {
         /// The episode ID
-        var episodeID: Library.id
+        var episodeID: Library.ID
         /// The method
         var method = Method.videoLibraryGetEpisodeDetails
         /// The parameters
@@ -91,7 +91,7 @@ extension VideoLibrary {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.episode
             /// The ID of the episode
-            let episodeID: Library.id
+            let episodeID: Library.ID
             /// Coding keys
             enum CodingKeys: String, CodingKey {
                 case properties
@@ -142,7 +142,7 @@ extension VideoLibrary {
                 self.resume = episode.resume
             }
             /// The episode ID
-            let episodeID: Library.id
+            let episodeID: Library.ID
             /// The rating of the song
             let userRating: Int
             /// The play count of the song

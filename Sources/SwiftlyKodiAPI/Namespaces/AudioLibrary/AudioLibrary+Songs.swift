@@ -119,7 +119,7 @@ extension AudioLibrary {
     /// Retrieve details about a specific song (Kodi API)
     /// - Parameter songID: The ID of the song
     /// - Returns: An ``Audio/Details/Song`` item
-    public static func getSongDetails(songID: Library.id) async -> Audio.Details.Song {
+    public static func getSongDetails(songID: Library.ID) async -> Audio.Details.Song {
         logger("AudioLibrary.getSongDetails")
         let kodi: KodiConnector = .shared
         let request = AudioLibrary.GetSongDetails(songID: songID)
@@ -135,7 +135,7 @@ extension AudioLibrary {
     /// Retrieve details about a specific song (Kodi API)
     fileprivate struct GetSongDetails: KodiAPI {
         /// The song ID
-        let songID: Library.id
+        let songID: Library.ID
         /// The method
         let method = Method.audioLibraryGetSongDetails
         /// The parameters
@@ -147,7 +147,7 @@ extension AudioLibrary {
             /// The properties that we ask from Kodi
             let properties = Audio.Fields.song
             /// The ID of the song
-            let songID: Library.id
+            let songID: Library.ID
             /// Coding keys
             enum CodingKeys: String, CodingKey {
                 case properties
@@ -196,7 +196,7 @@ extension AudioLibrary {
                 self.lastPlayed = song.lastPlayed
             }
             /// The song ID
-            let songID: Library.id
+            let songID: Library.ID
             /// The rating of the song
             let userRating: Int
             /// The play count of the song

@@ -68,7 +68,7 @@ extension Player {
         }
         /// The current player item
         struct PlayerItem: Decodable {
-            let id: Library.id?
+            let id: Library.ID?
             let label: String
             let title: String
             let artist: [String]?

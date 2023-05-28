@@ -21,7 +21,7 @@ public extension Audio.Details {
 
         /// # Audio.Details.Genres
 
-        public var genreID: Library.id = 0
+        public var genreID: Library.ID = 0
         public var title: String = ""
 
         /// # Coding keys

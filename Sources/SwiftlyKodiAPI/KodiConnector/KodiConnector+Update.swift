@@ -133,7 +133,7 @@ extension KodiConnector {
     /// - Parameters:
     ///   - itemID: The ``Library/id`` of the item
     ///   - media: The kind of ``Media``
-    func updateKodiItem(itemID: Library.id, media: Library.Media) {
+    func updateKodiItem(itemID: Library.ID, media: Library.Media) {
         Task { @MainActor in
             switch media {
             case .artist:
@@ -202,7 +202,7 @@ extension KodiConnector {
     /// - Parameters:
     ///   - itemID: The ``Library/id`` of the item
     ///   - media: The kind of ``Media``
-    func deleteKodiItem(itemID: Library.id, media: Library.Media) {
+    func deleteKodiItem(itemID: Library.ID, media: Library.Media) {
         Task { @MainActor in
             switch media {
             case .artist:

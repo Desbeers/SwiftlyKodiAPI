@@ -17,7 +17,7 @@ public extension Audio.Details {
         /// The ID of the album
         public var id: String = ""
         /// The Kodi ID of the album
-        public var kodiID: Library.id = 0
+        public var kodiID: Library.ID = 0
         /// The type of media
         public var media: Library.Media = .album
         /// The sort title of the album
@@ -44,7 +44,7 @@ public extension Audio.Details {
         /// # Audio.Details.Album
 
         public var albumDuration: Int = 0
-        public var albumID: Library.id = 0
+        public var albumID: Library.ID = 0
         public var albumLabel: String = ""
         public var albumStatus: String = ""
         public var compilation: Bool = false
@@ -138,7 +138,7 @@ extension Audio.Details.Album {
         let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
         self.albumDuration = try container.decode(Int.self, forKey: .albumDuration)
-        self.albumID = try container.decode(Library.id.self, forKey: .albumID)
+        self.albumID = try container.decode(Library.ID.self, forKey: .albumID)
         self.albumLabel = try container.decode(String.self, forKey: .albumLabel)
         self.albumStatus = try container.decode(String.self, forKey: .albumStatus)
         self.compilation = try container.decode(Bool.self, forKey: .compilation)

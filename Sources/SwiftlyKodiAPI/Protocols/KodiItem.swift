@@ -14,7 +14,7 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     /// The ID of the item
     var id: String { get }
     /// The Kodi ID of the item
-    var kodiID: Library.id { get }
+    var kodiID: Library.ID { get }
     /// The kind of ``Library/Media``
     var media: Library.Media { get }
     /// The title of the item

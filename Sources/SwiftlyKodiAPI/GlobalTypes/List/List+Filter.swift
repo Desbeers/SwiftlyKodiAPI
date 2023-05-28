@@ -12,9 +12,9 @@ extension List {
     /// Filter fields for JSON requests (SwiftlyKodi Type)
     public struct Filter: Codable {
         /// Filter by album ID
-        var albumID: Library.id?
+        var albumID: Library.ID?
         /// Filter by artist ID
-        var artistID: Library.id?
+        var artistID: Library.ID?
         /// The field of the filter
         var field: List.Filter.Field?
         /// The operator of the filter

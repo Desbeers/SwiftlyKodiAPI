@@ -23,7 +23,7 @@ public extension Audio.Details {
             userRating: Int = 0,
             resume: Video.Resume = Video.Resume(),
             artist: String = "",
-            artistID: Library.id = 0,
+            artistID: Library.ID = 0,
             born: String = "",
             description: String = "",
             died: String = "",
@@ -85,7 +85,7 @@ public extension Audio.Details {
         /// The ID of the album
         public var id: String = ""
         /// The Kodi ID of the album
-        public var kodiID: Library.id = 0
+        public var kodiID: Library.ID = 0
         /// The type of media
         public var media: Library.Media = .artist
         /// The title of the artist ('artist' property)
@@ -124,7 +124,7 @@ public extension Audio.Details {
         /// # Audio.Details.Artist
 
         public var artist: String = ""
-        public var artistID: Library.id = 0
+        public var artistID: Library.ID = 0
         public var born: String = ""
         /// This always returns nil
         /// public var compilationArtist: Bool = false

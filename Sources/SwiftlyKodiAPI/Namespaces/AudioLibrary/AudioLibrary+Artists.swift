@@ -54,7 +54,7 @@ extension AudioLibrary {
     /// Retrieve details about a specific artist (Kodi API)
     /// - Parameter artistID: The ID of the artist
     /// - Returns: An ``Audio/Details/Artist`` item
-    public static func getArtistDetails(artistID: Library.id) async -> Audio.Details.Artist {
+    public static func getArtistDetails(artistID: Library.ID) async -> Audio.Details.Artist {
         logger("AudioLibrary.getArtistDetails")
         let kodi: KodiConnector = .shared
         let request = AudioLibrary.GetArtistDetails(artistID: artistID)
@@ -70,7 +70,7 @@ extension AudioLibrary {
     /// Retrieve details about a specific artist (Kodi API)
     fileprivate struct GetArtistDetails: KodiAPI {
         /// The artist ID
-        let artistID: Library.id
+        let artistID: Library.ID
         /// The method
         let method = Method.audioLibraryGetArtistDetails
         /// The parameters
@@ -82,7 +82,7 @@ extension AudioLibrary {
             /// The properties that we ask from Kodi
             let properties = Audio.Fields.artist
             /// The ID of the artist
-            let artistID: Library.id
+            let artistID: Library.ID
             /// Coding keys
             enum CodingKeys: String, CodingKey {
                 case properties

@@ -17,7 +17,7 @@ public extension Video.Details {
         /// The ID of the movie
         public var id: String { "\(media)+\(movieID)" }
         /// The Kodi ID of the movie
-        public var kodiID: Library.id { movieID }
+        public var kodiID: Library.ID { movieID }
         /// The type of media
         public var media: Library.Media = .movie
         /// Calculated sort title
@@ -43,7 +43,7 @@ public extension Video.Details {
         public var country: [String] = []
         public var genre: [String] = []
         public var imdbNumber: String = ""
-        public var movieID: Library.id = 0
+        public var movieID: Library.ID = 0
         public var mpaa: String = ""
         public var originalTitle: String = ""
         public var plotOutline: String = ""

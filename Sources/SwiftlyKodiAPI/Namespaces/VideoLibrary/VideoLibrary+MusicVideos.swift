@@ -53,7 +53,7 @@ extension VideoLibrary {
     /// Retrieve details about a specific music video (Kodi API)
     /// - Parameter musicVideoID: The ID of the music video
     /// - Returns: A ``Video/Details/MusicVideo`` Item
-    public static func getMusicVideoDetails(musicVideoID: Library.id) async -> Video.Details.MusicVideo {
+    public static func getMusicVideoDetails(musicVideoID: Library.ID) async -> Video.Details.MusicVideo {
         let kodi: KodiConnector = .shared
         let request = GetMusicVideoDetails(musicVideoID: musicVideoID)
         do {
@@ -68,7 +68,7 @@ extension VideoLibrary {
     /// Retrieve details about a specific music video (Kodi API)
     fileprivate struct GetMusicVideoDetails: KodiAPI {
         /// The music video ID
-        let musicVideoID: Library.id
+        let musicVideoID: Library.ID
         /// The method
         let method = Method.videoLibraryGetMusicVideoDetails
         /// The parameters
@@ -80,7 +80,7 @@ extension VideoLibrary {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.musicVideo
             /// The ID of the music video
-            let musicVideoID: Library.id
+            let musicVideoID: Library.ID
             /// Coding keys
             enum CodingKeys: String, CodingKey {
                 case properties
@@ -129,7 +129,7 @@ extension VideoLibrary {
                 self.resume = musicVideo.resume
             }
             /// The music video ID
-            let musicVideoID: Library.id
+            let musicVideoID: Library.ID
             /// The rating of the song
             let userRating: Int
             /// The play count of the song
@@ -186,7 +186,7 @@ extension VideoLibrary {
                 self.musicVideoID = musicVideo.musicVideoID
             }
             /// The music video ID
-            let musicVideoID: Library.id
+            let musicVideoID: Library.ID
             /// Ignore existing NFO
             let ignoreNFO: Bool = false
             /// Coding keys

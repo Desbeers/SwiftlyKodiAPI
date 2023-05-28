@@ -23,7 +23,7 @@ public extension Audio.Artist {
         /// The role of the artist
         public var role: String = ""
         /// The ID of the role
-        public var roleID: Library.id = 0
+        public var roleID: Library.ID = 0
 
         /// # Coding keys
 

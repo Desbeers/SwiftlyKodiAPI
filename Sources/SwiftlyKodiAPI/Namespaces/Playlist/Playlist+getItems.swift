@@ -72,7 +72,7 @@ extension Playlist {
     /// The struct for a queue item
     struct QeueuItem: Codable, Equatable {
         /// The item
-        let id: Library.id?
+        let id: Library.ID?
         let label: String
         var type: Library.Media = .none
     }

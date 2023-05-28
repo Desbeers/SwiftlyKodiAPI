@@ -12,7 +12,7 @@ import Foundation
 extension Application {
 
     /// Get an item from the application (SwiftlyKodi API)
-    public static func getItem(type: Library.Media, id: Library.id) async -> (any KodiItem)? {
+    public static func getItem(type: Library.Media, id: Library.ID) async -> (any KodiItem)? {
 
         let kodi: KodiConnector = .shared
 

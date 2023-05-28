@@ -19,7 +19,7 @@ public extension Audio.Property {
         public var genresLastAdded: String = ""
         public var libraryLastCleaned: String = ""
         // public var libraryLastUpdated: String = ""
-        public var missingArtistID: Library.id = -1
+        public var missingArtistID: Library.ID = -1
         public var songsLastAdded: String = ""
         public var songsModified: String = ""
         /// Coding keys

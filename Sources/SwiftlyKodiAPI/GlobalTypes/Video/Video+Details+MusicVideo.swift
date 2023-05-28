@@ -17,7 +17,7 @@ public extension Video.Details {
         /// The ID of the music video
         public var id: String { "\(media)+\(musicVideoID)" }
         /// The Kodi ID of the music video
-        public var kodiID: Library.id { musicVideoID }
+        public var kodiID: Library.ID { musicVideoID }
         /// The type of media
         public var media: Library.Media = .musicVideo
         /// Calculated sort title
@@ -42,7 +42,7 @@ public extension Video.Details {
         public var album: String = ""
         public var artist: [String] = []
         public var genre: [String] = []
-        public var musicVideoID: Library.id = 0
+        public var musicVideoID: Library.ID = 0
         public var premiered: String = ""
         public var rating: Double = 0
         public var studio: [String] = []

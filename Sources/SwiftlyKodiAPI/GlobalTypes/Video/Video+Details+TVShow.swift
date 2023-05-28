@@ -35,7 +35,7 @@ public extension Video.Details {
             status: String? = nil,
             studio: [String] = [],
             tag: [String] = [],
-            tvshowID: Library.id = 0,
+            tvshowID: Library.ID = 0,
             userRating: Int = 0,
             votes: String = "",
             watchedEpisodes: Int = 0,
@@ -90,7 +90,7 @@ public extension Video.Details {
         /// The ID of the TV show
         public var id: String { "\(media)+\(tvshowID)" }
         /// The Kodi ID of the TV show
-        public var kodiID: Library.id { tvshowID }
+        public var kodiID: Library.ID { tvshowID }
         /// The type of media
         public var media: Library.Media = .tvshow
         /// Calculated sort title
@@ -131,7 +131,7 @@ public extension Video.Details {
         public var status: String? /// BUG: This always returns nil
         public var studio: [String] = []
         public var tag: [String] = []
-        public var tvshowID: Library.id = 0
+        public var tvshowID: Library.ID = 0
         // public var uniqueID: Int = 0
         public var userRating: Int = 0
         public var votes: String = ""

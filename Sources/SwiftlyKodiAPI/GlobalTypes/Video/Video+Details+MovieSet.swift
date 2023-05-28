@@ -25,7 +25,7 @@ public extension Video.Details {
             userRating: Int = 0,
             resume: Video.Resume = Video.Resume(),
             plot: String = "",
-            setID: Library.id = 0,
+            setID: Library.ID = 0,
             movies: [Video.Details.MovieSet.Extended]? = nil,
             title: String = "",
             art: Media.Artwork = Media.Artwork(),
@@ -56,7 +56,7 @@ public extension Video.Details {
         /// The ID of the movie set
         public var id: String { "\(media)+\(setID)" }
         /// The Kodi ID of the movie set
-        public var kodiID: Library.id { setID }
+        public var kodiID: Library.ID { setID }
         /// The type of media
         public var media: Library.Media = .movieSet
         /// The location of the media file
@@ -94,7 +94,7 @@ public extension Video.Details {
         /// # Video.Details.MovieSet
 
         public var plot: String = ""
-        public var setID: Library.id = 0
+        public var setID: Library.ID = 0
 
         /// # Video.Details.MovieSet.Extended (optional)
 

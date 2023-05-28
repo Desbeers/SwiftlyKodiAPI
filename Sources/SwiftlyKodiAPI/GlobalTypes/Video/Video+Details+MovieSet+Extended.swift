@@ -14,11 +14,11 @@ public extension Video.Details.MovieSet {
     struct Extended: Codable, Identifiable, Hashable {
 
         /// The ID of the movie
-        public var id: Library.id { movieID }
+        public var id: Library.ID { movieID }
         /// The label of the movie
         public var label: String = ""
         /// The ID of the movie
-        public var movieID: Library.id = 0
+        public var movieID: Library.ID = 0
 
         /// # Coding keys
 

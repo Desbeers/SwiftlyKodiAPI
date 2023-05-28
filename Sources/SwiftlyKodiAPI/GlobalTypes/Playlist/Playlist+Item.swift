@@ -15,9 +15,9 @@ extension Playlist {
         /// # Playlist.Item
 
         /// The optional song ID
-        var songID: Library.id?
+        var songID: Library.ID?
         /// The optional music video ID
-        var musicVideoID: Library.id?
+        var musicVideoID: Library.ID?
         /// The optional file location of the item
         var file: String?
 

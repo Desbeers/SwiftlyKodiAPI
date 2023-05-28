@@ -53,7 +53,7 @@ extension VideoLibrary {
     /// Retrieve details about a specific movie (Kodi API)
     /// - Parameter movieID: The ID of the movie
     /// - Returns: A ``Video/Details/Movie`` item
-    public static func getMovieDetails(movieID: Library.id) async -> Video.Details.Movie {
+    public static func getMovieDetails(movieID: Library.ID) async -> Video.Details.Movie {
         let kodi: KodiConnector = .shared
         let request = GetMovieDetails(movieID: movieID)
         do {
@@ -68,7 +68,7 @@ extension VideoLibrary {
     /// Retrieve details about a specific movie (Kodi API)
     fileprivate struct GetMovieDetails: KodiAPI {
         /// The movie ID
-        let movieID: Library.id
+        let movieID: Library.ID
         /// The method
         let method = Method.videoLibraryGetMovieDetails
         /// The parameters we ask for
@@ -80,7 +80,7 @@ extension VideoLibrary {
             /// The properties that we ask from Kodi
             let properties = Video.Fields.movie
             /// The ID of the movie
-            let movieID: Library.id
+            let movieID: Library.ID
             /// Coding keys
             enum CodingKeys: String, CodingKey {
                 case properties
@@ -129,7 +129,7 @@ extension VideoLibrary {
                 self.resume = movie.resume
             }
             /// The movie ID
-            let movieID: Library.id
+            let movieID: Library.ID
             /// The rating of the movie
             let userRating: Int
             /// The playcount of the movie

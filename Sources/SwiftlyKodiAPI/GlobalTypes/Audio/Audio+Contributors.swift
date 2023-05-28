@@ -20,13 +20,13 @@ public extension Audio {
         /// # Audio.Contributors
 
         /// The ID of the artist
-        public var artistID: Library.id = 0
+        public var artistID: Library.ID = 0
         /// The name of the artist
         public var name: String = ""
         /// The role of the artist
         public var role: String = ""
         /// The ID of the role
-        public var roleID: Library.id = 0
+        public var roleID: Library.ID = 0
 
         /// # Coding keys
 
