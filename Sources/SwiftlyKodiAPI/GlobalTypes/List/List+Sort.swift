@@ -9,6 +9,8 @@ import Foundation
 
 extension List {
 
+    // MARK: List.Sort
+
     /// The sort fields for JSON requests (Global Kodi Type)
     public struct Sort: Codable, Equatable, Hashable {
         /// Init the sort order

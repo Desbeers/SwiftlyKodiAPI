@@ -9,7 +9,9 @@ import Foundation
 
 extension List.Sort {
 
-    /// The sort method
+    // MARK: List.Sort.Method
+
+    /// The sort method (SwiftlyKodi Type)
     public enum Method: String, Codable, CaseIterable {
         /// Order by date added
         case dateAdded = "dateadded"

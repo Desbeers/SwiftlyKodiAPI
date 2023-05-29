@@ -4,13 +4,14 @@
 //
 //  © 2023 Nick Berendsen
 //
-import Foundation
 
-// MARK: VideoLibrary.getMusicVideoArtists
+import Foundation
 
 extension VideoLibrary {
 
-    /// Find all Music Video Artists
+    // MARK: VideoLibrary.getMusicVideoArtists
+
+    /// Get all Music Video Artists  (SwiftlyKodi API)
     ///
     /// If the artist is not know in the Music database, a new Artist item will be created
     /// - Returns: All artists

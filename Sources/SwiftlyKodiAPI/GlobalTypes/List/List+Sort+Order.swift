@@ -9,7 +9,9 @@ import Foundation
 
 extension List.Sort {
 
-    /// The sort order
+    // MARK: List.Sort.Order
+
+    /// The sort order (SwiftlyKodi Type)
     public enum Order: String, Codable, CaseIterable {
         /// Order ascending
         case ascending

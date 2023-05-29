@@ -84,17 +84,3 @@ extension KodiConnector {
         }
     }
 }
-
-extension KodiConnector {
-
-    /// Get all video genres from the Kodi host
-    /// - Returns: All video genres from the Kodi host
-    func getAllVideoGenres() async -> [Library.Details.Genre] {
-        /// Get the genres for all media types
-        let movieGenres = await VideoLibrary.getGenres(type: .movie)
-        let tvGenres = await VideoLibrary.getGenres(type: .tvshow)
-        let musicGenres = await VideoLibrary.getGenres(type: .musicVideo)
-        /// Combine and return them
-        return (movieGenres + tvGenres + musicGenres).unique { $0.id }
-    }
-}

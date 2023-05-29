@@ -17,7 +17,7 @@
     <a title="Album Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../../index.html">SwiftlyKodiAPI</a> (75% documented)</p>
+        <p><a href="../../../index.html">SwiftlyKodiAPI</a> (76% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/swiftlykodiapi/"><img src="../../../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../../../search.json">
@@ -318,6 +318,12 @@
                 <a href="../../../Enums/KodiArt/Fanart.html">– Fanart</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../../Enums/KodiListSort.html">KodiListSort</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/KodiListSort/PickerView.html">– PickerView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../../Enums/MediaButtons.html">MediaButtons</a>
               </li>
               <li class="nav-group-task">
@@ -395,7 +401,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -422,7 +428,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">kodiID</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Library.html">Library</a></span><span class="o">.</span><span class="n"><a href="../../../Enums/Audio/Details/Album.html#/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV2idSSvp">id</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">kodiID</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Library.html">Library</a></span><span class="o">.</span><span class="kt">ID</span></code></pre>
 
                         </div>
                       </div>
@@ -459,33 +465,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV4fileSSvp"></a>
-                    <a name="//apple_ref/swift/Property/file" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV4fileSSvp">file</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The location of the media file</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">file</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV11sortByTitleSSvp"></a>
                     <a name="//apple_ref/swift/Property/sortByTitle" class="dashAnchor"></a>
                     <a class="token" href="#/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV11sortByTitleSSvp">sortByTitle</a>
@@ -496,41 +475,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Calculated sort title</p>
+                        <p>The sort title of the album</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sortByTitle</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV6posterSSvp"></a>
-                    <a name="//apple_ref/swift/Property/poster" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV6posterSSvp">poster</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The poster of the album</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">poster</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sortByTitle</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -550,14 +502,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The subtitle of the album</p>
+                        <p>The subtitle of the album (&lsquo;displayArtist&rsquo; property)</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">subtitle</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -577,14 +529,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The details of the album</p>
+                        <p>The details of the album (&lsquo;year&rsquo; property)</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">details</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">details</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -611,39 +563,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">duration</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV6resumeAA5VideoO6ResumeVvp"></a>
-                    <a name="//apple_ref/swift/Property/resume" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV6resumeAA5VideoO6ResumeVvp">resume</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The resume position of the album</p>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    Not in use but needed by protocol
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">resume</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Resume</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">duration</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
@@ -670,7 +590,92 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">search</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">search</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV6posterSSvp"></a>
+                    <a name="//apple_ref/swift/Property/poster" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV6posterSSvp">poster</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The poster of the album</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">poster</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV6resumeAA5VideoO6ResumeVvp"></a>
+                    <a name="//apple_ref/swift/Property/resume" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV6resumeAA5VideoO6ResumeVvp">resume</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='not-in-use-but-needed-by-protocol' class='heading'>Not in use but needed by protocol</h1>
+
+<p>The resume position of the album</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">resume</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Resume</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV4fileSSvp"></a>
+                    <a name="//apple_ref/swift/Property/file" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV4fileSSvp">file</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='calculated-variables' class='heading'>Calculated variables</h1>
+
+<p>The location of the album</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">file</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -724,7 +729,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">albumID</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Library.html">Library</a></span><span class="o">.</span><span class="n"><a href="../../../Enums/Audio/Details/Album.html#/s:14SwiftlyKodiAPI5AudioO7DetailsO5AlbumV2idSSvp">id</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">albumID</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/Library.html">Library</a></span><span class="o">.</span><span class="kt">ID</span></code></pre>
 
                         </div>
                       </div>
@@ -1641,12 +1646,38 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Se4fromxs7Decoder_p_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Se4fromxs7Decoder_p_tKcfc">init(from:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-03-19)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-05-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

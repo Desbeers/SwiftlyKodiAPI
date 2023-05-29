@@ -2,301 +2,301 @@
   "warnings": [
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 46,
+      "line": 47,
       "symbol": "Audio.Details.Album.albumID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 47,
+      "line": 48,
       "symbol": "Audio.Details.Album.albumLabel",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 48,
+      "line": 49,
       "symbol": "Audio.Details.Album.albumStatus",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 49,
+      "line": 50,
       "symbol": "Audio.Details.Album.compilation",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 51,
+      "line": 52,
       "symbol": "Audio.Details.Album.isBoxset",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 53,
+      "line": 54,
       "symbol": "Audio.Details.Album.mood",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 54,
+      "line": 55,
       "symbol": "Audio.Details.Album.musicBrainzAlbumID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 55,
+      "line": 56,
       "symbol": "Audio.Details.Album.musicBrainzReleasegroupID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 57,
+      "line": 58,
       "symbol": "Audio.Details.Album.releaseType",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 58,
+      "line": 59,
       "symbol": "Audio.Details.Album.songGenres",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 59,
+      "line": 60,
       "symbol": "Audio.Details.Album.sourceID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 60,
+      "line": 61,
       "symbol": "Audio.Details.Album.style",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 61,
+      "line": 62,
       "symbol": "Audio.Details.Album.theme",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 62,
+      "line": 63,
       "symbol": "Audio.Details.Album.totalDiscs",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 63,
+      "line": 64,
       "symbol": "Audio.Details.Album.type",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 68,
+      "line": 69,
       "symbol": "Audio.Details.Album.artistID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 69,
+      "line": 70,
       "symbol": "Audio.Details.Album.displayArtist",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 70,
+      "line": 71,
       "symbol": "Audio.Details.Album.musicBrainzAlbumArtistID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 71,
+      "line": 72,
       "symbol": "Audio.Details.Album.originalDate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 73,
+      "line": 74,
       "symbol": "Audio.Details.Album.releaseDate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 74,
+      "line": 75,
       "symbol": "Audio.Details.Album.sortArtist",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 77,
+      "line": 78,
       "symbol": "Audio.Details.Album.votes",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 84,
+      "line": 85,
       "symbol": "Audio.Details.Album.genre",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Album.swift",
-      "line": 89,
+      "line": 90,
       "symbol": "Audio.Details.Album.thumbnail",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 122,
+      "line": 129,
       "symbol": "Audio.Details.Artist.artistID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 123,
+      "line": 130,
       "symbol": "Audio.Details.Artist.born",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 128,
+      "line": 135,
       "symbol": "Audio.Details.Artist.died",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 129,
+      "line": 136,
       "symbol": "Audio.Details.Artist.disambiguation",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 130,
+      "line": 137,
       "symbol": "Audio.Details.Artist.disbanded",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 131,
+      "line": 138,
       "symbol": "Audio.Details.Artist.formed",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 132,
+      "line": 139,
       "symbol": "Audio.Details.Artist.gender",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 133,
+      "line": 140,
       "symbol": "Audio.Details.Artist.instrument",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 134,
+      "line": 141,
       "symbol": "Audio.Details.Artist.isAlbumArtist",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 135,
+      "line": 142,
       "symbol": "Audio.Details.Artist.mood",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 136,
+      "line": 143,
       "symbol": "Audio.Details.Artist.musicBrainzArtistID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 137,
+      "line": 144,
       "symbol": "Audio.Details.Artist.roles",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 138,
+      "line": 145,
       "symbol": "Audio.Details.Artist.songGenres",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 139,
+      "line": 146,
       "symbol": "Audio.Details.Artist.sortName",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 141,
+      "line": 148,
       "symbol": "Audio.Details.Artist.style",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 142,
+      "line": 149,
       "symbol": "Audio.Details.Artist.type",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 143,
+      "line": 150,
       "symbol": "Audio.Details.Artist.yearsActive",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 149,
+      "line": 156,
       "symbol": "Audio.Details.Artist.genre",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Artist.swift",
-      "line": 154,
+      "line": 161,
       "symbol": "Audio.Details.Artist.thumbnail",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -310,231 +310,231 @@
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 43,
+      "line": 44,
       "symbol": "Audio.Details.Song.albumArtist",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 44,
+      "line": 45,
       "symbol": "Audio.Details.Song.albumArtistID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 45,
+      "line": 46,
       "symbol": "Audio.Details.Song.albumID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 46,
+      "line": 47,
       "symbol": "Audio.Details.Song.albumReleaseType",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 47,
+      "line": 48,
       "symbol": "Audio.Details.Song.bitrate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 48,
+      "line": 49,
       "symbol": "Audio.Details.Song.bpm",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 49,
+      "line": 50,
       "symbol": "Audio.Details.Song.channels",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 50,
+      "line": 51,
       "symbol": "Audio.Details.Song.comment",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 51,
+      "line": 52,
       "symbol": "Audio.Details.Song.contributors",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 52,
+      "line": 53,
       "symbol": "Audio.Details.Song.disc",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 53,
+      "line": 54,
       "symbol": "Audio.Details.Song.discTitle",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 54,
+      "line": 55,
       "symbol": "Audio.Details.Song.displayComposer",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 55,
+      "line": 56,
       "symbol": "Audio.Details.Song.displayConductor",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 56,
+      "line": 57,
       "symbol": "Audio.Details.Song.displayLyricist",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 57,
+      "line": 58,
       "symbol": "Audio.Details.Song.displayOrchestra",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 62,
+      "line": 63,
       "symbol": "Audio.Details.Song.genreID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 64,
+      "line": 65,
       "symbol": "Audio.Details.Song.lyrics",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 65,
+      "line": 66,
       "symbol": "Audio.Details.Song.mood",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 66,
+      "line": 67,
       "symbol": "Audio.Details.Song.musicBrainzArtistID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 67,
+      "line": 68,
       "symbol": "Audio.Details.Song.musicBrainzTrackID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 69,
+      "line": 70,
       "symbol": "Audio.Details.Song.samplerate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 70,
+      "line": 71,
       "symbol": "Audio.Details.Song.songID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 71,
+      "line": 72,
       "symbol": "Audio.Details.Song.sourceID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 72,
+      "line": 73,
       "symbol": "Audio.Details.Song.track",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 77,
+      "line": 78,
       "symbol": "Audio.Details.Song.artistID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 78,
+      "line": 79,
       "symbol": "Audio.Details.Song.displayArtist",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 79,
+      "line": 80,
       "symbol": "Audio.Details.Song.musicBrainzAlbumArtistID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 80,
+      "line": 81,
       "symbol": "Audio.Details.Song.originalDate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 82,
+      "line": 83,
       "symbol": "Audio.Details.Song.releaseDate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 83,
+      "line": 84,
       "symbol": "Audio.Details.Song.sortArtist",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 86,
+      "line": 88,
       "symbol": "Audio.Details.Song.votes",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 93,
+      "line": 95,
       "symbol": "Audio.Details.Song.genre",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Audio/Audio+Details+Song.swift",
-      "line": 98,
+      "line": 100,
       "symbol": "Audio.Details.Song.thumbnail",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -632,29 +632,22 @@
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Artwork.swift",
-      "line": 29,
+      "line": 22,
       "symbol": "Media.Artwork.fanart",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Artwork.swift",
-      "line": 32,
+      "line": 25,
       "symbol": "Media.Artwork.thumb",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Artwork.swift",
-      "line": 33,
+      "line": 26,
       "symbol": "Media.Artwork.icon",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/GlobalTypes/Media/Media+Artwork.swift",
-      "line": 34,
-      "symbol": "Media.Artwork.seasonPoster",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -2175,13 +2168,6 @@
       "line": 37,
       "symbol": "XBMC.InfoBoolean.libraryIsScanning",
       "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Documents/Github/SwiftlyKodiAPI/Sources/SwiftlyKodiAPI/Protocols/KodiItem+Sorting.swift",
-      "line": 12,
-      "symbol": "List.Sort.getMethods(media:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {

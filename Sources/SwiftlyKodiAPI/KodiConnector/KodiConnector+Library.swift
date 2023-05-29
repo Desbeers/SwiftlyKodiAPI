@@ -32,7 +32,7 @@ extension KodiConnector {
             async let movieSets = VideoLibrary.getMovieSets()
             async let tvshows = VideoLibrary.getTVShows()
             async let episodes = VideoLibrary.getEpisodes()
-            async let videoGenres = getAllVideoGenres()
+            async let videoGenres = VideoLibrary.getAllVideoGenres()
             return await Library.Items(
                 movies: movies,
                 movieSets: movieSets,
@@ -93,17 +93,10 @@ extension KodiConnector {
         await task.setLibraryCache.submit {
             do {
                 try Cache.set(key: "MyLibrary", object: self.library)
-                try await Cache.set(key: "VideoLibraryStatus", object: self.getVideoLibraryStatus())
+                try await Cache.set(key: "VideoLibraryStatus", object: VideoLibrary.getVideoLibraryStatus())
             } catch {
                 print("Saving library failed with error: \(error)")
             }
         }
-    }
-
-    func getVideoLibraryStatus() async -> Library.Status {
-        async let movies = Files.getDirectory(directory: "library://video/movies/titles.xml", media: .video)
-        async let tvshows = Files.getDirectory(directory: "library://video/tvshows/titles.xml", media: .video)
-        async let musicVideos = Files.getDirectory(directory: "library://video/musicvideos/titles.xml", media: .video)
-        return await Library.Status(movies: movies, tvshows: tvshows, musicVideos: musicVideos)
     }
 }

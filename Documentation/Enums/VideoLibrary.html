@@ -17,7 +17,7 @@
     <a title="VideoLibrary Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SwiftlyKodiAPI</a> (75% documented)</p>
+        <p><a href="../index.html">SwiftlyKodiAPI</a> (76% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/swiftlykodiapi/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -318,6 +318,12 @@
                 <a href="../Enums/KodiArt/Fanart.html">– Fanart</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/KodiListSort.html">KodiListSort</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KodiListSort/PickerView.html">– PickerView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/MediaButtons.html">MediaButtons</a>
               </li>
               <li class="nav-group-task">
@@ -405,7 +411,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getEpisodes</span><span class="p">(</span><span class="nv">tvshowID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="n">id</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">Episode</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getEpisodes</span><span class="p">(</span><span class="nv">tvshowID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">Episode</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -471,7 +477,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getEpisodeDetails</span><span class="p">(</span><span class="nv">episodeID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">Episode</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getEpisodeDetails</span><span class="p">(</span><span class="nv">episodeID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">Episode</span></code></pre>
 
                         </div>
                       </div>
@@ -712,7 +718,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getMovieSetDetails</span><span class="p">(</span><span class="nv">setID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">MovieSet</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getMovieSetDetails</span><span class="p">(</span><span class="nv">setID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">MovieSet</span></code></pre>
 
                         </div>
                       </div>
@@ -806,7 +812,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getMovieDetails</span><span class="p">(</span><span class="nv">movieID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">Movie</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getMovieDetails</span><span class="p">(</span><span class="nv">movieID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">Movie</span></code></pre>
 
                         </div>
                       </div>
@@ -981,7 +987,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getMusicVideoDetails</span><span class="p">(</span><span class="nv">musicVideoID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">MusicVideo</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getMusicVideoDetails</span><span class="p">(</span><span class="nv">musicVideoID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">MusicVideo</span></code></pre>
 
                         </div>
                       </div>
@@ -1218,7 +1224,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getTVShowDetails</span><span class="p">(</span><span class="nv">tvshowID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">TVShow</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getTVShowDetails</span><span class="p">(</span><span class="nv">tvshowID</span><span class="p">:</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Video.html">Video</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">TVShow</span></code></pre>
 
                         </div>
                       </div>
@@ -1317,10 +1323,150 @@
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/VideoLibrary.getAllVideoGenres"></a>
+                <a name="//apple_ref/swift/Section/VideoLibrary.getAllVideoGenres" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/VideoLibrary.getAllVideoGenres"></a>
+                  <h3 class="section-name"><span>VideoLibrary.getAllVideoGenres</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI12VideoLibraryO06getAllD6GenresSayAA0E0O7DetailsO5GenreVGyYaFZ"></a>
+                    <a name="//apple_ref/swift/Method/getAllVideoGenres()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI12VideoLibraryO06getAllD6GenresSayAA0E0O7DetailsO5GenreVGyYaFZ">getAllVideoGenres()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get all video genres from the Kodi host (SwiftlyKodi API)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getAllVideoGenres</span><span class="p">()</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">Genre</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>All video genres from the Kodi host</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/VideoLibrary.getMusicVideoArtists"></a>
+                <a name="//apple_ref/swift/Section/VideoLibrary.getMusicVideoArtists" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/VideoLibrary.getMusicVideoArtists"></a>
+                  <h3 class="section-name"><span>VideoLibrary.getMusicVideoArtists</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI12VideoLibraryO08getMusicD7ArtistsSayAA5AudioO7DetailsO6ArtistVGyFZ"></a>
+                    <a name="//apple_ref/swift/Method/getMusicVideoArtists()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI12VideoLibraryO08getMusicD7ArtistsSayAA5AudioO7DetailsO6ArtistVGyFZ">getMusicVideoArtists()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get all Music Video Artists  (SwiftlyKodi API)</p>
+
+<p>If the artist is not know in the Music database, a new Artist item will be created</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getMusicVideoArtists</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Enums/Audio.html">Audio</a></span><span class="o">.</span><span class="kt">Details</span><span class="o">.</span><span class="kt">Artist</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>All artists</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/VideoLibrary.getVideoLibraryStatus"></a>
+                <a name="//apple_ref/swift/Section/VideoLibrary.getVideoLibraryStatus" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/VideoLibrary.getVideoLibraryStatus"></a>
+                  <h3 class="section-name"><span>VideoLibrary.getVideoLibraryStatus</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI12VideoLibraryO03getdE6StatusAA0E0O0G0VyYaFZ"></a>
+                    <a name="//apple_ref/swift/Method/getVideoLibraryStatus()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI12VideoLibraryO03getdE6StatusAA0E0O0G0VyYaFZ">getVideoLibraryStatus()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the status of the Video Library  (SwiftlyKodi API)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">getVideoLibraryStatus</span><span class="p">()</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Library.html">Library</a></span><span class="o">.</span><span class="kt">Status</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Current status of all video items</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-03-19)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-05-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

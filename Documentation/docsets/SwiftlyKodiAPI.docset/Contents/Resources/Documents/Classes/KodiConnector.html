@@ -17,7 +17,7 @@
     <a title="KodiConnector Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">SwiftlyKodiAPI</a> (75% documented)</p>
+        <p><a href="../index.html">SwiftlyKodiAPI</a> (76% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/swiftlykodiapi/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -318,6 +318,12 @@
                 <a href="../Enums/KodiArt/Fanart.html">– Fanart</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/KodiListSort.html">KodiListSort</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/KodiListSort/PickerView.html">– PickerView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/MediaButtons.html">MediaButtons</a>
               </li>
               <li class="nav-group-task">
@@ -430,6 +436,38 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">properties</span><span class="p">:</span> <span class="kt"><a href="../Enums/Application.html">Application</a></span><span class="o">.</span><span class="kt">Property</span><span class="o">.</span><span class="kt">Value</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC15scanningLibrarySbvp"></a>
+                    <a name="//apple_ref/swift/Property/scanningLibrary" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC15scanningLibrarySbvp">scanningLibrary</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Bool if the host is scanning content</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Used to stop Notifications and Library updates or else the Host and the KodiConnector get nuts
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">scanningLibrary</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1048,12 +1086,43 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14SwiftlyKodiAPI0B9ConnectorC22getAudioLibraryUpdatesyyYaF"></a>
+                    <a name="//apple_ref/swift/Method/getAudioLibraryUpdates()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14SwiftlyKodiAPI0B9ConnectorC22getAudioLibraryUpdatesyyYaF">getAudioLibraryUpdates()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the audio library updates</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getAudioLibraryUpdates</span><span class="p">()</span> <span class="k">async</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-03-19)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-05-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
