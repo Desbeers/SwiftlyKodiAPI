@@ -19,3 +19,21 @@ extension Array where Element == Video.Details.Movie {
         }
     }
 }
+
+extension Array where Element == Video.Details.Movie {
+
+    /// Swap movies for a set item
+    ///
+    /// Movies that are part of a set will be removed and replaced with the set when enabled in the Kodi host
+    /// - Returns: An array of ``KodiItem``
+    public func swapMoviesForSet() -> [any KodiItem] {
+        let kodi = KodiConnector.shared
+        if kodi.getKodiSetting(id: .videolibraryGroupMovieSets).bool {
+            let movieSetIDs = Set(self.map(\.setID))
+            let movieSets = kodi.library.movieSets
+                .filter { movieSetIDs.contains($0.setID) }
+            return (self.filter { $0.setID == 0 } + movieSets)
+        }
+        return self
+    }
+}

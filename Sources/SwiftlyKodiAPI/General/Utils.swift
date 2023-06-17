@@ -37,6 +37,22 @@ public extension Utils {
         return dateFormatter
     }
 }
+
+public extension Utils {
+
+    /// Convert 'seconds' to a formatted time string
+    /// - Parameters:
+    ///   - seconds: The seconds
+    ///   - style: The time format
+    /// - Returns: A formatted String
+    static func secondsToTimeString(seconds: Int, style: DateComponentsFormatter.UnitsStyle = .brief) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.unitsStyle = style
+        return formatter.string(from: TimeInterval(Double(seconds))) ?? ""
+    }
+}
+
 extension String {
 
     /// Make a string lowercase and without funny accents
