@@ -232,7 +232,7 @@ public extension Audio.Details.Artist {
         self.id = "\(media)+\(artistID)"
         self.kodiID = artistID
         self.title = artist
-        self.sortByTitle = (sortName.isEmpty ? artist : sortName).simplify()
+        self.sortByTitle = (sortName.isEmpty ? artist : sortName).simplifyString()
         self.subtitle = songGenres.map(\.title).joined(separator: " ∙ ")
         self.details = description
         self.search = artist

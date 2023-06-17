@@ -178,7 +178,7 @@ extension Audio.Details.Album {
 
         self.id = "\(media)+\(albumID)"
         self.kodiID = albumID
-        self.sortByTitle = title.simplify()
+        self.sortByTitle = title.simplifyString()
         self.search = "\(title) \(displayArtist)"
         self.subtitle = displayArtist
         self.details = year.description

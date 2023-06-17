@@ -13,7 +13,7 @@ public extension KodiItem {
     func markAsPlayed() async {
         var newItem = self
         newItem.playcount += 1
-        newItem.lastPlayed = kodiDateFromSwiftDate(Date())
+        newItem.lastPlayed = Utils.kodiDateFromSwiftDate(Date())
         newItem.resume.position = 0
         await setDetails(newItem)
     }
@@ -43,7 +43,7 @@ public extension KodiItem {
     func setResumeTime(time: Double) async {
         var newItem = self
         newItem.resume.position = Double(Int(time))
-        newItem.lastPlayed = kodiDateFromSwiftDate(Date())
+        newItem.lastPlayed = Utils.kodiDateFromSwiftDate(Date())
         await setDetails(newItem)
     }
 
@@ -71,23 +71,23 @@ public extension KodiItem {
 
 extension KodiItem {
 
-    /// Convert a `Date` to a Kodi date string
-    /// - Parameter date: The `Date`
-    /// - Returns: A string with the date
-    func kodiDateFromSwiftDate(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return dateFormatter.string(from: date)
-    }
-
-    /// Convert a Kodi date string to a `Date`
-    /// - Parameter date: The Kodi date string
-    /// - Returns: A Swift `Date`
-    public func swiftDateFromKodiDate(_ date: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return dateFormatter.date(from: date) ?? Date()
-    }
+//    /// Convert a `Date` to a Kodi date string
+//    /// - Parameter date: The `Date`
+//    /// - Returns: A string with the date
+//    func kodiDateFromSwiftDate(_ date: Date) -> String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//        return dateFormatter.string(from: date)
+//    }
+//
+//    /// Convert a Kodi date string to a `Date`
+//    /// - Parameter date: The Kodi date string
+//    /// - Returns: A Swift `Date`
+//    public func swiftDateFromKodiDate(_ date: String) -> Date {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//        return dateFormatter.date(from: date) ?? Date()
+//    }
 
     /// Set the details of a ``KodiItem``
     /// - Parameter item: The ``KodiItem`` to set
