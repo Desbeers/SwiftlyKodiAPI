@@ -32,8 +32,9 @@ extension VideoLibrary {
             if let artistDetails = KodiConnector.shared.library.artists.first(where: { $0.artist == artist }) {
                 return artistDetails
             }
-            /// Return an unknown artist
-            return Audio.Details.Artist(media: .artist, title: artist, artist: artist, artistID: UUID().hashValue)
+            /// Return an unknown artist with an unique ID
+            let id = UUID().hashValue
+            return Audio.Details.Artist(id: String(id), media: .artist, title: artist, artist: artist, artistID: UUID().hashValue)
         }
     }
 }

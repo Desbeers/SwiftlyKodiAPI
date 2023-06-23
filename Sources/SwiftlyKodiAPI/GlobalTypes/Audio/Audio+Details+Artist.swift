@@ -14,6 +14,7 @@ public extension Audio.Details {
 
         /// # Public Init
         public init(
+            id: String = "",
             /// Media have to be set; this to identify the init
             media: Library.Media,
             title: String = "",
@@ -48,6 +49,7 @@ public extension Audio.Details {
             fanart: String = "",
             thumbnail: String = ""
         ) {
+            self.id = id
             self.media = media
             self.title = title
             self.playcount = playcount
