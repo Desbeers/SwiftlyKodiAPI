@@ -62,6 +62,22 @@ public extension KodiListSort {
                     sortOrder
                 }
 #endif
+
+#if os(iOS)
+                VStack {
+                    ForEach(SwiftlyKodiAPI.List.Sort.getMethods(media: media), id: \.rawValue) { method in
+                        Button(action: {
+                            sorting.method = method
+                        }, label: {
+                            Text(method.displayLabel)
+                                .fontWeight(sorting.method == method ? .heavy : .regular)
+                        })
+                        .padding()
+                    }
+                    sortOrder
+                }
+                .padding()
+#endif
             }
             .onChange(of: sorting) { item in
                 if let index = kodi.listSortSettings.firstIndex(where: { $0.id == sorting.id }) {

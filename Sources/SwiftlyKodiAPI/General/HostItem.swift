@@ -77,7 +77,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
 
     /// Init the Host struct
     public init(
-        name: String = "Unknown",
+        name: String = "No Kodi connected",
         ip: String = "",
         port: Int = 8080,
         username: String = "",

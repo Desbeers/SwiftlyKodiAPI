@@ -13,6 +13,8 @@ import SwiftUI
 public struct KodiHostItemView: View {
     /// The ``HostItem``
     let host: HostItem
+    /// The closure action
+    let action: () -> Void
     /// The KodiConnector model
     @EnvironmentObject var kodi: KodiConnector
     /// The values of the form
@@ -20,9 +22,10 @@ public struct KodiHostItemView: View {
     /// The namespace of the View
     @Namespace var mainNamespace
     /// Init the struct
-    public init(host: HostItem) {
+    public init(host: HostItem, action: @escaping () -> Void) {
         self.host = host
         _values = State(initialValue: self.host)
+        self.action = action
     }
     /// The body of the View
     public var body: some View {
@@ -32,6 +35,9 @@ public struct KodiHostItemView: View {
             Text(values.ip)
                 .padding(.bottom)
             form
+#if os(iOS)
+                .autocapitalization(.none)
+#endif
                 .disabled(!host.isOnline)
             HStack {
                 Button(action: {
@@ -39,6 +45,8 @@ public struct KodiHostItemView: View {
                     saveSettings()
                     /// Connect to the host
                     kodi.connect(host: values)
+                    /// Do the action
+                    action()
                 }, label: {
                     Text("Connect to host")
                 })
@@ -49,6 +57,8 @@ public struct KodiHostItemView: View {
                 if values.status == .configured {
                     Button(action: {
                         forgetHost()
+                        /// Do the action
+                        action()
                     }, label: {
                         Text("Forget '\(values.name)'")
                     })
