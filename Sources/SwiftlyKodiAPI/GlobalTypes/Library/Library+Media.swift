@@ -19,6 +19,8 @@ public extension Library {
         case movieSet = "movieset"
         /// TV shows
         case tvshow
+        /// Seasons
+        case season
         /// Episodes
         case episode
         /// Music Videos
@@ -59,6 +61,8 @@ public extension Library {
                 Label("Music Video", systemImage: "music.note.tv")
             case .tvshow:
                 Label("TV show", systemImage: "tv")
+            case .season:
+                Label("Season", systemImage: "tv.inset.filled")
             case .episode:
                 Label("Episode", systemImage: "tv.inset.filled")
             case .artist:
