@@ -17,7 +17,6 @@ public extension Video.Details {
         public init(
             /// Media have to be set; this to indentify the init
             media: Library.Media,
-            subtitle: String = "",
             resume: Video.Resume = Video.Resume(),
             cast: [Video.Cast] = [],
             episode: Int = 0,
@@ -51,7 +50,6 @@ public extension Video.Details {
             thumbnail: String = ""
         ) {
             self.media = media
-            self.subtitle = subtitle
             self.resume = resume
             self.cast = cast
             self.episode = episode
@@ -99,7 +97,7 @@ public extension Video.Details {
         /// The poster of the TV show
         public var poster: String { art.poster }
         /// The subtitle of the TV show
-        public var subtitle: String = ""
+        public var subtitle: String { genre.joined(separator: " ∙ ") }
         /// The details of the TV show
         public var details: String { studio.joined(separator: " ∙ ") }
         public var description: String { plot }

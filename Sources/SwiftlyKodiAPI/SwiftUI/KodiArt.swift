@@ -139,7 +139,7 @@ extension KodiArt {
                     /// Ignore; this should not happen...
                 }
             }
-            .id(file)
+            .id("\(file)+\(item.playcount)")
         }
     }
 }
