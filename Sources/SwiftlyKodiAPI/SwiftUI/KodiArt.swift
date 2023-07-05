@@ -102,7 +102,17 @@ public extension KodiArt {
         }
         /// The body of the View
         public var body: some View {
-            LoadView(item: item, file: item.fanart, art: .fanart)
+            switch item {
+            case let episode as Video.Details.Episode:
+                if !KodiConnector.shared.getKodiSetting(id: .videolibraryShowuUwatchedPlots).list.contains(2) &&
+                    episode.playcount == 0 {
+                    LoadView(item: item, file: item.fanart, art: .fanart, hidden: true)
+                } else {
+                    LoadView(item: item, file: item.fanart, art: .fanart)
+                }
+            default:
+                LoadView(item: item, file: item.fanart, art: .fanart)
+            }
         }
     }
 }
@@ -119,6 +129,8 @@ extension KodiArt {
         let file: String
         /// The kind of art
         let art: KodiArt
+        /// Should the art be hidden as per Kodo setting
+        var hidden: Bool = false
         /// The body of the `View`
         var body: some View {
             VStack {
@@ -132,14 +144,20 @@ extension KodiArt {
                 }
             }
             .task {
-                /// Download the art from the Kodi host
-                do {
-                    try await imageLoader.getImage(item: item, file: file, art: art)
-                } catch {
-                    /// Ignore; this should not happen...
+                /// Hide episode thumb if set so by Kodi for unwatched episodes
+                if hidden {
+                    imageLoader.kodiImage = createFallback(kodiItem: item, art: .fanart, error: ArtError.hidden)
+                } else {
+                    /// Download the art from the Kodi host
+                    do {
+                        try await imageLoader.getImage(item: item, file: file, art: art)
+                    } catch {
+                        /// Ignore; this should not happen...
+                    }
                 }
             }
-            .id("\(file)+\(item.playcount)")
+            /// Give hidden art its own ID so it can be replaced if the playcount is changed
+            .id(hidden ? "\(file)\(item.playcount)" : "\(file)")
         }
     }
 }
@@ -165,13 +183,6 @@ extension KodiArt {
                 guard !file.isEmpty else {
                     throw ArtError.noURL
                 }
-                /// Hide episode thumb if set so by Kodi for unwatched episodes
-                if art == .fanart, item.media == .episode &&
-                    !KodiConnector.shared.getKodiSetting(id: .videolibraryShowuUwatchedPlots).list.contains(2) &&
-                    item.playcount == 0 {
-                    throw ArtError.hidden
-                }
-
                 guard let url = URL(string: Files.getFullPath(file: file, type: .art)) else {
                     throw ArtError.badURL
                 }
