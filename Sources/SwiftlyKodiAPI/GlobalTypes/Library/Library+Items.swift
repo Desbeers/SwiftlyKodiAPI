@@ -10,7 +10,7 @@ import Foundation
 public extension Library {
 
     /// The items in the library (SwiftlyKodi Type)
-    struct Items: Codable {
+    struct Items: Codable, Equatable {
         /// The artist in the library
         public var artists: [Audio.Details.Artist] = []
         /// The albums in the library
