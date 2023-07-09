@@ -46,11 +46,26 @@ extension KodiArt {
 
     /// The Error message we can expect
     enum ArtError: Error {
+        case none
+        case noKodiItem
         case badRequest
         case unsupportedImage
         case badURL
         case noURL
         case hidden
+    }
+}
+
+extension KodiArt {
+
+    /// Structure of and Art Item
+    struct Item {
+        var item: (any KodiItem)?
+        var art: KodiArt
+        var id: String = "AAAfallback"
+        var file: String = ""
+        var error: ArtError = .none
+        var fallback: Image?
     }
 }
 
@@ -66,53 +81,95 @@ public extension KodiArt {
 
     /// SwiftUI `View` for a ``KodiItem`` poster
     struct Poster: View {
-        /// The ``KodiItem``
-        let item: any KodiItem
+        /// The Art Item
+        let art: Item
         /// Init the `View`
-        public init(item: any KodiItem) {
-            self.item = item
+        public init(item: (any KodiItem)?, fallback: Image? = nil) {
+            var art = Item(item: item, art: .poster, fallback: fallback)
+            if let item {
+                art.error = item.file.isEmpty ? .noURL : .none
+                art.id = item.fanart
+                art.file = item.fanart
+                switch item {
+
+                case let season as Video.Details.Season:
+                    /// Use the thumb of the season
+                    art.file = season.art.seasonPoster
+                    art.art = .poster
+                case let episode as Video.Details.Episode:
+                    /// Use the thumb of the season
+                    art.file = episode.art.seasonPoster
+                    art.art = .poster
+                case let artist as Audio.Details.Artist:
+                    art.file = artist.poster
+                    art.art = .square
+                case let song as Audio.Details.Song:
+                    /// Use the thumb of the album
+                    art.file = song.art.albumThumb
+                    art.art = .square
+                default:
+                    art.file = item.poster
+                    art.art = .poster
+                }
+            } else  {
+                art.error = .noKodiItem
+            }
+            art.id = art.file
+            self.art = art
         }
         /// The body of the View
         public var body: some View {
-            switch item {
-            case let season as Video.Details.Season:
-                /// Use the thumb of the season
-                LoadView(item: item, file: season.art.seasonPoster, art: .poster)
-            case let episode as Video.Details.Episode:
-                /// Use the thumb of the season
-                LoadView(item: item, file: episode.art.seasonPoster, art: .poster)
-            case let artist as Audio.Details.Artist:
-                LoadView(item: item, file: artist.poster, art: .square)
-            case let song as Audio.Details.Song:
-                /// Use the thumb of the album
-                LoadView(item: item, file: song.art.albumThumb, art: .square)
-            default:
-                LoadView(item: item, file: item.poster, art: .poster)
-            }
+            LoadView(art: art)
         }
     }
 
     /// SwiftUI `View` for a ``KodiItem`` fanart
     struct Fanart: View {
-        /// The ``KodiItem``
-        let item: any KodiItem
+        /// The Art Item
+        let art: Item
         /// Init the `View`
-        public init(item: any KodiItem) {
-            self.item = item
+        public init(item: (any KodiItem)?, fallback: Image? = nil) {
+            var art = Item(item: item, art: .fanart, fallback: fallback)
+            if let item {
+                art.error = item.fanart.isEmpty ? .noURL : .none
+                art.id = item.fanart
+                art.file = item.fanart
+                switch item {
+                case let episode as Video.Details.Episode:
+                    if !KodiConnector.shared.getKodiSetting(id: .videolibraryShowuUwatchedPlots).list.contains(2) &&
+                        episode.playcount == 0 {
+                        art.error = .hidden
+                        /// Give hidden art its own ID so it can be replaced if the playcount is changed
+                        art.id += "\(item.playcount)"
+                    }
+                default:
+                    break
+                }
+            } else  {
+                art.error = .noKodiItem
+            }
+            art.id = art.error == .none ? art.id : "BBBfallback"
+            self.art = art
         }
         /// The body of the View
         public var body: some View {
-            switch item {
-            case let episode as Video.Details.Episode:
-                if !KodiConnector.shared.getKodiSetting(id: .videolibraryShowuUwatchedPlots).list.contains(2) &&
-                    episode.playcount == 0 {
-                    LoadView(item: item, file: item.fanart, art: .fanart, hidden: true)
-                } else {
-                    LoadView(item: item, file: item.fanart, art: .fanart)
-                }
-            default:
-                LoadView(item: item, file: item.fanart, art: .fanart)
-            }
+            LoadView(art: art)
+        }
+    }
+}
+
+extension KodiArt {
+
+    /// SwiftUI `View` for the final Kodi art
+    struct ArtView: View {
+        /// The Art image
+        let image: Image
+        /// The body of the `View`
+        var body: some View {
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .transition(.opacity)
         }
     }
 }
@@ -123,41 +180,30 @@ extension KodiArt {
     struct LoadView: View {
         /// The Image Loader model
         @StateObject private var imageLoader = ImageLoader()
-        /// The ``KodiItem``
-        let item: any KodiItem
-        /// The file of the art
-        let file: String
-        /// The kind of art
-        let art: KodiArt
-        /// Should the art be hidden as per Kodo setting
-        var hidden: Bool = false
+        /// The Art Item
+        let art: Item
         /// The body of the `View`
         var body: some View {
             VStack {
                 if let image = imageLoader.kodiImage {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .transition(.opacity)
+                    ArtView(image: image)
                 } else {
                     ProgressView()
                 }
             }
             .task {
-                /// Hide episode thumb if set so by Kodi for unwatched episodes
-                if hidden {
-                    imageLoader.kodiImage = createFallback(kodiItem: item, art: .fanart, error: ArtError.hidden)
+                if art.error != .none, let fallback = art.fallback {
+                    imageLoader.kodiImage = fallback
                 } else {
                     /// Download the art from the Kodi host
                     do {
-                        try await imageLoader.getImage(item: item, file: file, art: art)
+                        try await imageLoader.getImage(art: art)
                     } catch {
                         /// Ignore; this should not happen...
                     }
                 }
             }
-            /// Give hidden art its own ID so it can be replaced if the playcount is changed
-            .id(hidden ? "\(file)\(item.playcount)" : "\(file)")
+            .id(art.id)
         }
     }
 }
@@ -175,15 +221,16 @@ extension KodiArt {
 
         /// Get art from the Kodi host
         /// - Parameters:
-        ///   - item: The ``KodiItem``
-        ///   - file: The file of the art
-        ///   - art: The kind of art
-        func getImage (item: any KodiItem, file: String, art: KodiArt) async throws {
+        ///   - item: The Art Item
+        func getImage (art: Item) async throws {
             do {
-                guard !file.isEmpty else {
+                guard art.error != .hidden else {
+                    throw ArtError.hidden
+                }
+                guard !art.file.isEmpty else {
                     throw ArtError.noURL
                 }
-                guard let url = URL(string: Files.getFullPath(file: file, type: .art)) else {
+                guard let url = URL(string: Files.getFullPath(file: art.file, type: .art)) else {
                     throw ArtError.badURL
                 }
                 /// Check if in cache
@@ -215,7 +262,9 @@ extension KodiArt {
 #endif
                 }
             } catch {
-                kodiImage = createFallback(kodiItem: item, art: art, error: error)
+                if let item = art.item {
+                    kodiImage = createFallback(kodiItem: item, art: art.art, error: error)
+                }
             }
         }
     }
@@ -302,5 +351,4 @@ extension KodiArt {
             return wordcount.count > 1 ? 2 : 1
         }
     }
-
 }
