@@ -24,7 +24,6 @@ public extension Video.Details {
         public var sortByTitle: String { title }
         /// The poster of the music video
         public var poster: String { art.poster }
-        public var fanart: String {art.fanart.isEmpty ? art.icon : art.fanart}
         /// The subtitle of the music video
         public var subtitle: String { artist.joined(separator: " ∙ ") }
         /// The details of the music video
@@ -78,6 +77,7 @@ public extension Video.Details {
 
         /// # Media.Details.Base
 
+        public var fanart: String {art.fanart.isEmpty ? art.icon : art.fanart}
         public var thumbnail: String = ""
 
         /// # Coding keys

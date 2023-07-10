@@ -73,3 +73,34 @@ extension Array where Element == Video.Details.MusicVideo {
         }
     }
 }
+
+extension Array where Element == Video.Details.MusicVideo {
+
+    /// Swap Music Videos for Albums
+    ///
+    /// Music Videos that are part of an album will be added as Album
+    /// This function is expecting music videos from one artist only
+    /// - Returns: An array of ``KodiItem``
+    public func swapMusicVideosForAlbums() -> [any KodiItem] {
+        /// Get all album titles
+        let musicVideoAlbums = Set(self.map(\.album))
+        /// The list of item to return
+        var items: [any KodiItem] = []
+        /// Add the albums
+        for album in musicVideoAlbums where album != "" {
+            let musicVideos = self.filter { $0.album == album }
+            if let musicVideo = musicVideos.first {
+                switch musicVideos.count {
+                case 1:
+                    /// Add it as normal Music Video
+                    items.append(musicVideo)
+                default:
+                    /// Add it as Music Video Album
+                    items.append(Video.Details.MusicVideoAlbum(album: musicVideo, musicVideos: musicVideos))
+                }
+            }
+        }
+        /// Return the new array
+        return (self.filter { $0.album == "" } + items)
+    }
+}

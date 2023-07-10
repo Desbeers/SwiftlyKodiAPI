@@ -25,6 +25,8 @@ public extension Library {
         case episode
         /// Music Videos
         case musicVideo = "musicvideo"
+        /// Music Video Album (SwiftlyKodi Type)
+        case musicVideoAlbum
         /// Artists
         case artist
         /// Albums
@@ -46,6 +48,8 @@ public extension Library {
                 return "TV show"
             case .musicVideo:
                 return "music video"
+            case .musicVideoAlbum:
+                return "music video album"
             default:
                 return self.rawValue
             }
@@ -59,6 +63,8 @@ public extension Library {
                 Label("Movie Set", systemImage: "circle.grid.cross.fill")
             case .musicVideo:
                 Label("Music Video", systemImage: "music.note.tv")
+            case .musicVideoAlbum:
+                Label("Music Video Album", systemImage: "music.note.tv")
             case .tvshow:
                 Label("TV show", systemImage: "tv")
             case .season:
