@@ -28,8 +28,15 @@ public extension Video.Details {
             self.fanart = album.fanart
             self.thumbnail = album.thumbnail
             /// Set the watched state for an album
-            if musicVideos.filter({ $0.playcount == 0 }).isEmpty {
+            let playcount = musicVideos.filter({ $0.playcount == 0 })
+            switch playcount.count {
+            case 0:
                 self.playcount = 1
+            case musicVideos.count:
+                self.playcount = 0
+            default:
+                self.playcount = 0
+                self.resume.position = 1
             }
             self.musicVideos = musicVideos
         }

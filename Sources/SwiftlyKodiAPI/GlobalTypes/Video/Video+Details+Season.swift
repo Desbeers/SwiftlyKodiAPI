@@ -18,18 +18,27 @@ public extension Video.Details {
 
         public init(
             tvshow: Video.Details.TVShow,
-            season: Int,
-            episodes: [Video.Details.Episode] = [],
-            playcount: Int = 1,
-            art: Media.Artwork = Media.Artwork()
+            episodes: [Video.Details.Episode] = []
         ) {
             self.tvshow = tvshow
-            self.season = season
             self.episodes = episodes
-            self.playcount = playcount
-            self.art = art
-
             self.description = "All the seasons from \(tvshow.title)"
+
+            if let episode = episodes.first {
+                self.season = episode.season
+                self.art = episode.art
+            }
+            /// Set the watched state for the season
+            let playcount = episodes.filter({ $0.playcount == 0 })
+            switch playcount.count {
+            case 0:
+                self.playcount = 1
+            case episodes.count:
+                self.playcount = 0
+            default:
+                self.playcount = 0
+                self.resume.position = 1
+            }
         }
 
         public var id: String {
@@ -70,12 +79,12 @@ public extension Video.Details {
         public var search: String = ""
 
         public var tvshow: Video.Details.TVShow
-        public var season: Int
+        public var season: Int = -1
         public var episodes: [Video.Details.Episode]
 
         /// # Video.Details.Base
 
         public var art = Media.Artwork()
-        public var playcount: Int = 1
+        public var playcount: Int = 0
     }
 }
