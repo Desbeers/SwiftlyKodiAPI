@@ -227,7 +227,7 @@ extension KodiArt {
                 guard art.error != .hidden else {
                     throw ArtError.hidden
                 }
-                guard !art.file.isEmpty else {
+                guard !art.file.isEmpty, !art.file.starts(with: "image://Default") else {
                     throw ArtError.noURL
                 }
                 guard let url = URL(string: Files.getFullPath(file: art.file, type: .art)) else {
