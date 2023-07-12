@@ -35,14 +35,11 @@ public struct KodiHostItemView: View {
             Text(values.ip)
                 .padding(.bottom)
             form
-#if os(iOS)
-                .autocapitalization(.none)
-#endif
                 .disabled(!host.isOnline)
             HStack {
                 Button(action: {
-                    /// Save the settings
-                    saveSettings()
+                    /// Save the host
+                    saveHost()
                     /// Connect to the host
                     kodi.connect(host: values)
                     /// Do the action
@@ -77,8 +74,7 @@ public struct KodiHostItemView: View {
 #endif
         .animation(.default, value: values.ip)
         .task(id: host) {
-            if
-                let bonjour = host.bonjour {
+            if let bonjour = host.bonjour {
                 values = HostItem(
                     name: bonjour.name,
                     ip: bonjour.ip,
@@ -97,48 +93,44 @@ public struct KodiHostItemView: View {
 
     /// The form for the View
     public var form: some View {
-        Grid(alignment: .center, horizontalSpacing: 10, verticalSpacing: 10) {
-            GridRow {
-                label(text: "Port")
-                    .gridColumnAlignment(.trailing)
-                TextField("Port", value: $values.port, formatter: NumberFormatter(), prompt: Text("Webserver port"))
-                    .gridColumnAlignment(.leading)
+        Form {
+            LabeledContent("Port:") {
+                //TextField("Port", value: $values.port, formatter: NumberFormatter(), prompt: Text("Webserver port"))
+                TextField(value: $values.port, formatter: NumberFormatter()) {}
+#if !os(macOS)
+                    .keyboardType(.numberPad)
+#endif
             }
-            #if os(tvOS)
-            .keyboardType(.numberPad)
-            #endif
             footer(text: "The port of the webserver", type: values.port.description.isEmpty ? .error : .valid)
-            GridRow {
-                label(text: "Username")
-                TextField("Username", text: $values.username, prompt: Text("Username"))
+            LabeledContent("Username:") {
+                TextField(text: $values.username, prompt: Text("Username")) {}
             }
             footer(text: "Your username", type: values.username.isEmpty ? .error : .valid)
-            GridRow {
-                label(text: "Password")
-                SecureField("Password", text: $values.password, prompt: Text("Password"))
+            LabeledContent("Password:") {
+                SecureField(text: $values.password, prompt: Text("Password")) {}
             }
             footer(text: "Your password", type: values.password.isEmpty ? .error : .valid)
         }
-    }
-
-    /// The label for a form item
-    /// - Parameter text: The text to display
-    /// - Returns: A Text View
-    func label(text: String) -> some View {
-        Text("\(text):")
+        .formStyle(.columns)
+#if os(macOS)
+        .frame(maxWidth: 200)
+#elseif os(tvOS)
+        .frame(maxWidth: 500)
+#elseif os(iOS)
+        .frame(maxWidth: 300)
+        .textFieldStyle(.roundedBorder)
+        .autocapitalization(.none)
+#endif
     }
 
     /// The text underneath a form item
     /// - Parameter text: The text to display
     /// - Returns: A Text View
     func footer(text: String, type: FooterType = .valid) -> some View {
-        GridRow {
-            Color.clear.gridCellUnsizedAxes([.horizontal, .vertical])
-            Text(type == .valid ? text : "\(text) (required)")
-                .font(.caption)
-                .foregroundColor(type == .valid ? .primary : .red)
-                .padding(.bottom)
-        }
+        Text(type == .valid ? text : "\(text) (required)")
+            .font(.caption)
+            .foregroundColor(type == .valid ? .primary : .red)
+            .padding(.bottom)
     }
     /// The type of footer
     enum FooterType {
@@ -148,10 +140,9 @@ public struct KodiHostItemView: View {
         case error
     }
 
-    func saveSettings() {
-
+    /// Save the host
+    func saveHost() {
         switch host.status {
-
         case .new:
             values.status = .configured
             kodi.configuredHosts.append(values)
@@ -163,6 +154,7 @@ public struct KodiHostItemView: View {
         HostItem.saveConfiguredHosts(hosts: kodi.configuredHosts)
     }
 
+    /// Forget the host
     func forgetHost() {
         if let index = kodi.configuredHosts.firstIndex(where: { $0.ip == host.ip }) {
             kodi.configuredHosts.remove(at: index)
@@ -180,10 +172,14 @@ public struct KodiHostItemView: View {
         }
     }
 
+    /// Validate the form
+    /// - Returns: True when validaded; else False
     func validateForm() -> Bool {
         return values.port.description.isEmpty || values.username.isEmpty || values.password.isEmpty || !host.isOnline
     }
 }
+
+// MARK: Messages
 
 public extension KodiHostItemView {
 
@@ -191,8 +187,7 @@ public extension KodiHostItemView {
     struct KodiSettings: View {
         public init() {}
         public var body: some View {
-            VStack {
-                messageHeader(header: "Kodi Settings")
+            Message(header: "Kodi Settings") {
                 Text("""
                 To have remote access, you need the following settings on the host
 
@@ -222,7 +217,6 @@ public extension KodiHostItemView {
         private var message: String
         /// Init the struct
         public init() {
-
             if KodiConnector.shared.configuredHosts.isEmpty {
                 self.message = "You can add a Kodi that is found on your network."
             } else {
@@ -234,8 +228,7 @@ public extension KodiHostItemView {
             }
         }
         public var body: some View {
-            VStack {
-                messageHeader(header: "No Kodi \(kodi.configuredHosts.isEmpty ? "configured" : "selected")")
+            Message(header: "No Kodi \(kodi.configuredHosts.isEmpty ? "configured" : "selected")") {
                 if kodi.bonjourHosts.isEmpty {
                     Text("There seems to be no Kodi running on your network")
                 } else {
@@ -256,7 +249,6 @@ public extension KodiHostItemView {
         private var message: String
         /// Init the struct
         public init() {
-
             var content = "There are no other configured Kodi's online."
             if !KodiConnector.shared.configuredHosts.filter({ $0.isOnline }).isEmpty {
                 content = "You can select another configured Kodi."
@@ -267,8 +259,7 @@ public extension KodiHostItemView {
             self.message = content
         }
         public var body: some View {
-            VStack {
-                messageHeader(header: "\(kodi.host.name) is offline")
+            Message(header: "\(kodi.host.name) is offline") {
                 if kodi.bonjourHosts.isEmpty {
                     Text("There are no Kodi's on your network available.")
                 } else {
@@ -281,14 +272,19 @@ public extension KodiHostItemView {
 
 extension KodiHostItemView {
 
-    /// SwiftUI View for a message header
-    /// - Parameter header: The text of the header
-    /// - Returns: A formatted View
-    static func messageHeader(header: String) -> some View {
-        Text(header)
-            .font(.title)
-            .padding()
-            .minimumScaleFactor(0.2)
-            .lineLimit(1)
+    struct Message<Content: View>: View {
+        let header: String
+        @ViewBuilder var content: () -> Content
+        public var body: some View {
+            VStack {
+                Text(header)
+                    .font(.title)
+                    .padding()
+                    .minimumScaleFactor(0.2)
+                    .lineLimit(1)
+                content()
+            }
+            .padding(.bottom)
+        }
     }
 }
