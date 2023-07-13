@@ -62,7 +62,7 @@ extension KodiArt {
     struct Item {
         var item: (any KodiItem)?
         var art: KodiArt
-        var id: String = "AAAfallback"
+        var id: String = UUID().uuidString
         var file: String = ""
         var error: ArtError = .none
         var fallback: Image?
@@ -87,11 +87,7 @@ public extension KodiArt {
         public init(item: (any KodiItem)?, fallback: Image? = nil) {
             var art = Item(item: item, art: .poster, fallback: fallback)
             if let item {
-                art.error = item.file.isEmpty ? .noURL : .none
-                art.id = item.fanart
-                art.file = item.fanart
                 switch item {
-
                 case let season as Video.Details.Season:
                     /// Use the thumb of the season
                     art.file = season.art.seasonPoster
@@ -111,10 +107,11 @@ public extension KodiArt {
                     art.file = item.poster
                     art.art = .poster
                 }
+                art.error = item.file.isEmpty ? .noURL : .none
             } else  {
                 art.error = .noKodiItem
             }
-            art.id = art.file
+            art.id = art.error == .none ? art.id : UUID().uuidString
             self.art = art
         }
         /// The body of the View
@@ -139,8 +136,6 @@ public extension KodiArt {
                     if !KodiConnector.shared.getKodiSetting(id: .videolibraryShowuUwatchedPlots).list.contains(2) &&
                         episode.playcount == 0 {
                         art.error = .hidden
-                        /// Give hidden art its own ID so it can be replaced if the playcount is changed
-                        art.id += "\(item.playcount)"
                     }
                 default:
                     break
@@ -148,7 +143,7 @@ public extension KodiArt {
             } else  {
                 art.error = .noKodiItem
             }
-            art.id = art.error == .none ? art.id : "BBBfallback"
+            art.id = art.error == .none ? art.id : fallback == nil ? UUID().uuidString : "fallback"
             self.art = art
         }
         /// The body of the View
