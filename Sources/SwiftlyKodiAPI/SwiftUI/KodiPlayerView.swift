@@ -183,7 +183,7 @@ public struct KodiPlayerView: View {
             // swiftlint:disable force_unwrapping
             var artwork: UIImage = UIImage(
                 named: "poster",
-                in: Bundle.main,
+                in: Bundle.module,
                 compatibleWith: nil) ?? UIImage(systemName: "film"
                 )!
             // swiftlint:enable force_unwrapping
@@ -216,7 +216,7 @@ public struct KodiPlayerView: View {
                 }
             }
             // swiftlint:disable:next force_unwrapping
-            return UIImage(named: "poster", in: Bundle.main, compatibleWith: nil) ?? UIImage(systemName: "film")!
+            return UIImage(named: "poster", in: Bundle.module, compatibleWith: nil) ?? UIImage(systemName: "film")!
         }
 
         /// Set the MetaData
