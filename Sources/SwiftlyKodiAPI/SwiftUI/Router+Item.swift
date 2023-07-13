@@ -82,6 +82,15 @@ public extension Router {
                 icon: "gear",
                 color: Color("AccentColor")
             )
+        case .nowPlayingQueue:
+            return Item(
+                title: "Now Playing",
+                description: "The current queue",
+                loading: "Loading the queue",
+                empty: "There is nothing in your queue at the moment",
+                icon: "list.triangle",
+                color: .purple
+            )
 
             // MARK: Movies
 
@@ -136,8 +145,8 @@ public extension Router {
             return Item(
                 title: "\(file.label)",
                 description: "Movie playlist",
-                loading: "Connecting",
-                empty: "Not connected",
+                loading: "Loading the playlist",
+                empty: "The playlist is empty",
                 icon: "list.triangle",
                 color: .purple
             )
@@ -222,7 +231,7 @@ public extension Router {
                 loading: "Loading your Music Videos",
                 empty: "There are no Music Videos in your Library",
                 icon: "music.note.tv",
-                color: .cyan
+                color: .indigo
             )
         case .musicVideo(let musicVideo):
             return Item(
@@ -243,6 +252,72 @@ public extension Router {
                 icon: "music.note.tv",
                 color: .cyan,
                 kodiItem: musicVideoAlbum
+            )
+
+            // MARK: Music
+
+        case .musicBrowser:
+            return Item(
+                title: "All Music",
+                description: "All the Music in your Library",
+                loading: "Loading your Music",
+                empty: "There is no Music in your Library",
+                icon: "music.quarternote.3",
+                color: .indigo
+            )
+        case .musicMatch:
+            return Item(
+                title: "Music Match",
+                description: "Match playcounts and ratings between Kodi and Music",
+                loading: "Matching your Music",
+                empty: "Music Match is not available",
+                icon: "arrow.triangle.2.circlepath",
+                color: .brown
+            )
+        case .musicPlaylist(let file):
+            return Item(
+                title: "\(file.label)",
+                description: "Music playlist",
+                loading: "Loading the playlist",
+                empty: "The playlist is empty",
+                icon: "list.triangle",
+                color: .purple
+            )
+        case .compilationAlbums:
+            return Item(
+                title: "Compilations",
+                description: "All compilation albums",
+                loading: "Loading your compilation albums",
+                empty: "You have no compilation albums in your Library",
+                icon: "person.2",
+                color: .indigo
+            )
+        case .recentlyAddedMusic:
+            return Item(
+                title: "Recently Added",
+                description: "Your recently added music",
+                loading: "Loading your recently added music",
+                empty: "You have no recently added music in your Library",
+                icon: "star",
+                color: .indigo
+            )
+        case .recentlyPlayedMusic:
+            return Item(
+                title: "Recently Played",
+                description: "Your recently played music",
+                loading: "Loading your recently played music",
+                empty: "You have no recently played music in your Library",
+                icon: "gobackward",
+                color: .indigo
+            )
+        case .mostPlayedMusic:
+            return Item(
+                title: "Most Played",
+                description: "Your most played music",
+                loading: "Loading your most played music",
+                empty: "You have no most played music in your Library",
+                icon: "infinity",
+                color: .indigo
             )
 
             // MARK: Fallback

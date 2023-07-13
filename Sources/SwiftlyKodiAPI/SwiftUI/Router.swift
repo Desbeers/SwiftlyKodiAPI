@@ -22,6 +22,8 @@ public enum Router: Hashable {
     case kodiSettings
     /// Kodi Host connection settings
     case hostItemSettings(host: HostItem)
+    /// Now playing qeue View
+    case nowPlayingQueue
     /// Fallback
     case fallback
 
@@ -65,4 +67,21 @@ public enum Router: Hashable {
     case musicVideo(musicVideo: Video.Details.MusicVideo)
     /// A music video album
     case musicVideoAlbum(musicVideoAlbum: Video.Details.MusicVideoAlbum)
+
+    // MARK: Music
+
+    /// Music browser View
+    case musicBrowser
+    /// Music match View
+    case musicMatch
+    /// A specific music playlist
+    case musicPlaylist(file: SwiftlyKodiAPI.List.Item.File)
+    /// All compilation albums
+    case compilationAlbums
+    /// Recently added music
+    case recentlyAddedMusic
+    /// Recently played music
+    case recentlyPlayedMusic
+    /// Most played music
+    case mostPlayedMusic
 }
