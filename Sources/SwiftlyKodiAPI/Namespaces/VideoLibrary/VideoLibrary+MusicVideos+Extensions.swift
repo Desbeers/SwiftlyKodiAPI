@@ -80,8 +80,9 @@ extension Array where Element == Video.Details.MusicVideo {
     ///
     /// Music Videos that are part of an album will be added as Album
     /// This function is expecting music videos from one artist only
+    /// - Parameter artist: The artist of the videos
     /// - Returns: An array of ``KodiItem``
-    public func swapMusicVideosForAlbums() -> [any KodiItem] {
+    public func swapMusicVideosForAlbums(artist: Audio.Details.Artist) -> [any KodiItem] {
         /// Get all album titles
         let musicVideoAlbums = Set(self.map(\.album))
         /// The list of item to return
@@ -96,7 +97,7 @@ extension Array where Element == Video.Details.MusicVideo {
                     items.append(musicVideo)
                 default:
                     /// Add it as Music Video Album
-                    items.append(Video.Details.MusicVideoAlbum(album: musicVideo, musicVideos: musicVideos))
+                    items.append(Video.Details.MusicVideoAlbum(artist: artist, musicVideos: musicVideos))
                 }
             }
         }

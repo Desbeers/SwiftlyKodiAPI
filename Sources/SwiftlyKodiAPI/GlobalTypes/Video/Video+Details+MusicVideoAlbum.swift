@@ -17,16 +17,18 @@ public extension Video.Details {
         /// # Public Init
 
         public init(
-            album: Video.Details.MusicVideo,
+            artist: Audio.Details.Artist,
             musicVideos: [Video.Details.MusicVideo]
         ) {
-            self.artist = album.artist
-            self.album = album.album
-            self.year = album.year
-            self.art = album.art
-            self.poster = album.poster
-            self.fanart = album.fanart
-            self.thumbnail = album.thumbnail
+            self.artist = artist
+            if let album = musicVideos.first {
+                self.album = album.album
+                self.year = album.year
+                self.art = album.art
+                self.poster = album.poster
+                self.fanart = album.fanart
+                self.thumbnail = album.thumbnail
+            }
             /// Set the watched state for an album
             let playcount = musicVideos.filter({ $0.playcount == 0 })
             switch playcount.count {
@@ -46,7 +48,7 @@ public extension Video.Details {
         public var id: String { album }
         public var media: Library.Media = .musicVideoAlbum
         public var title: String { album }
-        public var subtitle: String { artist.joined(separator: " ∙ ") }
+        public var subtitle: String { artist.artist }
         public var details: String = ""
         public var description: String = ""
         /// Calculated sort title
@@ -54,7 +56,9 @@ public extension Video.Details {
         public var sortByTitle: String {
             album.removePrefixes(["De", "The", "A"])
         }
-        public var poster: String
+        public var poster: String = ""
+
+        public var artist: Audio.Details.Artist
 
         public var musicVideos: [Video.Details.MusicVideo]
 
@@ -73,18 +77,17 @@ public extension Video.Details {
 
         /// # Video.Details.MusicVideo
 
-        public var album: String
-        public var artist: [String]
-        public var year: Int
+        public var album: String = ""
+        public var year: Int = 0
 
         /// # Video.Details.Base
 
-        public var art: Media.Artwork
+        public var art = Media.Artwork()
         public var playcount: Int = 0
 
         /// # Media.Details.Base
 
-        public var fanart: String
-        public var thumbnail: String
+        public var fanart: String = ""
+        public var thumbnail: String = ""
     }
 }
