@@ -231,6 +231,7 @@ public extension KodiHostItemView {
             Message(header: "No Kodi \(kodi.configuredHosts.isEmpty ? "configured" : "selected")") {
                 if kodi.bonjourHosts.isEmpty {
                     Text("There seems to be no Kodi running on your network")
+                    KodiSettings()
                 } else {
                     Text(message)
                 }
