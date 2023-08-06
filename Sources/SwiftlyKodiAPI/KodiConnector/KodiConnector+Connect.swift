@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftlyStructCache
 
 // MARK: Connecting and loading functions
 
@@ -35,7 +36,7 @@ extension KodiConnector {
     /// - Parameter cache: Bool if it should try to load the library from the cache
     @MainActor public func loadLibrary(cache: Bool = true) async {
         setStatus(.loadingLibrary)
-        if cache, let libraryItems = Cache.get(key: "MyLibrary", as: Library.Items.self) {
+        if cache, let libraryItems = try? Cache.get(key: "MyLibrary", as: Library.Items.self, folder: host.ip) {
             library = libraryItems
             logger("Check for updates")
             switch host.media {

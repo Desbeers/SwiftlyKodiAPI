@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyStructCache
 
 /// SwiftUI Views for sorting of Kodi items (SwiftlyKodi Type)
 public enum KodiListSort {
@@ -109,7 +110,7 @@ extension KodiListSort {
     /// - Returns: The stored List Sort settings
     static func getAllSortSettings() -> [SwiftlyKodiAPI.List.Sort] {
         logger("Get ListSort settings")
-        if let settings = Cache.get(key: "ListSort", as: [SwiftlyKodiAPI.List.Sort].self, root: true) {
+        if let settings = try? Cache.get(key: "ListSort", as: [SwiftlyKodiAPI.List.Sort].self, folder: KodiConnector.shared.host.ip) {
             return settings
         }
         /// No settings found
@@ -120,7 +121,7 @@ extension KodiListSort {
     /// - Parameter settings: All the current List Sort settings
     static func saveSortSettings(settings: [SwiftlyKodiAPI.List.Sort]) {
         do {
-            try Cache.set(key: "ListSort", object: settings, root: true)
+            try Cache.set(key: "ListSort", object: settings, folder: KodiConnector.shared.host.ip)
         } catch {
             logger("Error saving ListSort settings")
         }

@@ -87,6 +87,8 @@ extension KodiConnector {
             makeConnection()
         case .connectedToWebSocket:
             Task {
+                /// Get all List sortings
+                listSortSettings = KodiListSort.getAllSortSettings()
                 await loadLibrary()
                 await getKodiState()
             }

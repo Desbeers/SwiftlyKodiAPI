@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import SwiftlyStructCache
 
 extension KodiConnector {
 
     /// Get the video library updates
     @MainActor func getVideoLibraryUpdates() async {
 
-        if let videoLibraryStatus = Cache.get(key: "VideoLibraryStatus", as: Library.Status.self) {
+        if let videoLibraryStatus = try? Cache.get(key: "VideoLibraryStatus", as: Library.Status.self, folder: host.ip) {
             let currentStatus = await VideoLibrary.getVideoLibraryStatus()
             if currentStatus.movies != videoLibraryStatus.movies {
                 logger("Movies are outdated")

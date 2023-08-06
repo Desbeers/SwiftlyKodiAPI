@@ -79,8 +79,8 @@ public final class KodiConnector: ObservableObject {
         }
         /// Start Bonjour to find Kodi hosts
         startBonjour()
-        /// Get all List sortings
-        listSortSettings = KodiListSort.getAllSortSettings()
+//        /// Get all List sortings
+//        listSortSettings = KodiListSort.getAllSortSettings()
         /// Sleeping and wakeup stuff
 #if !os(macOS)
         NotificationCenter

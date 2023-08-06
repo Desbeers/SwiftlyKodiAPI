@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyStructCache
 
 /// Host information to make a remote connection (SwiftlyKodi Type)
 public struct HostItem: Codable, Identifiable, Hashable {
@@ -134,7 +135,7 @@ extension HostItem {
     static func saveSelectedHost(host: HostItem) {
         logger("Save the selected host")
         do {
-            try Cache.set(key: "SelectedHost", object: host, root: true)
+            try Cache.set(key: "SelectedHost", object: host)
         } catch {
             logger("Error saving selected host")
         }
@@ -144,7 +145,7 @@ extension HostItem {
     /// - Returns: An optional ``HostItem``
     static func getSelectedHost() -> HostItem? {
         logger("Get the selected host")
-        if let host = Cache.get(key: "SelectedHost", as: HostItem.self, root: true) {
+        if let host = try? Cache.get(key: "SelectedHost", as: HostItem.self) {
             return host
         }
         /// No host selected
@@ -156,7 +157,7 @@ extension HostItem {
     static func saveConfiguredHosts(hosts: [HostItem]) {
         logger("Save the configured hosts")
         do {
-            try Cache.set(key: "ConfiguredHosts", object: hosts, root: true)
+            try Cache.set(key: "ConfiguredHosts", object: hosts)
         } catch {
             logger("Error saving configured hosts")
         }
@@ -166,7 +167,7 @@ extension HostItem {
     /// - Returns: An array ``HostItem``
     static func getConfiguredHosts() -> [HostItem] {
         logger("Get the configured hosts")
-        if let hosts = Cache.get(key: "ConfiguredHosts", as: [HostItem].self, root: true) {
+        if let hosts = try? Cache.get(key: "ConfiguredHosts", as: [HostItem].self) {
             return hosts
         }
         /// No host configured

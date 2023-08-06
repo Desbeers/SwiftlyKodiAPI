@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyStructCache
 
 // MARK: Kodi HostItem View
 
@@ -164,7 +165,7 @@ public struct KodiHostItemView: View {
                 kodi.host = HostItem()
                 kodi.setStatus(.none)
                 do {
-                    try Cache.delete(key: "SelectedHost", root: true)
+                    try Cache.delete(key: "SelectedHost")
                 } catch {
                     logger("Error deleting selected host")
                 }

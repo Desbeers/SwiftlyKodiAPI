@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftlyStructCache
 
 extension KodiConnector {
 
@@ -92,8 +93,8 @@ extension KodiConnector {
     func setLibraryCache() async {
         await task.setLibraryCache.submit {
             do {
-                try Cache.set(key: "MyLibrary", object: self.library)
-                try await Cache.set(key: "VideoLibraryStatus", object: VideoLibrary.getVideoLibraryStatus())
+                try Cache.set(key: "MyLibrary", object: self.library, folder: self.host.ip)
+                try await Cache.set(key: "VideoLibraryStatus", object: VideoLibrary.getVideoLibraryStatus(), folder: self.host.ip)
             } catch {
                 print("Saving library failed with error: \(error)")
             }
