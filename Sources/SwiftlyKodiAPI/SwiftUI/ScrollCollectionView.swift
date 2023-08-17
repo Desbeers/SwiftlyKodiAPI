@@ -34,6 +34,8 @@ public enum ScrollCollectionStyle {
     case asList
     /// Vies as grid
     case asGrid
+    /// View as plain (no sections and index)
+    case asPlain
 }
 
 // MARK: ScrollCollectionView
@@ -104,6 +106,14 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
                 case .asGrid:
                     LazyVGrid(columns: grid, alignment: .center, spacing: 0, pinnedViews: pinnedViews) {
                         content
+                    }
+                case .asPlain:
+                    LazyVStack(alignment: .center, spacing: 0) {
+                        ForEach(collection, id: \.0) { _, elements in
+                            ForEach(elements) { element in
+                                cell(element)
+                            }
+                        }
                     }
                 }
             }

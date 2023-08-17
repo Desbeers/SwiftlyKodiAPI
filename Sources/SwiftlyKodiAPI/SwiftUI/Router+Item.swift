@@ -183,9 +183,13 @@ public extension Router {
                 kodiItem: tvshow
             )
         case .season(let season):
+            var description = "All the Episodes from Season \(season.season)"
+            if season.season == 0 {
+                description = "All the Specials"
+            }
             return Item(
                 title: "\(season.title)",
-                description: "All the Episodes from Season \(season.season)",
+                description: description,
                 loading: "Loading your Episodes",
                 empty: "There are no Episodes in Season \(season.season)",
                 icon: "tv",
