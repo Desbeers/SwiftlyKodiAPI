@@ -98,11 +98,11 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
             ScrollView {
                 switch style {
                 case .asList:
-                    LazyVStack(alignment: .center, spacing: 10, pinnedViews: pinnedViews) {
+                    LazyVStack(alignment: .center, spacing: 0, pinnedViews: pinnedViews) {
                         content
                     }
                 case .asGrid:
-                    LazyVGrid(columns: grid, alignment: .center, spacing: 10, pinnedViews: pinnedViews) {
+                    LazyVGrid(columns: grid, alignment: .center, spacing: 0, pinnedViews: pinnedViews) {
                         content
                     }
                 }
