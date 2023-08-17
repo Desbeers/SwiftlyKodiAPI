@@ -34,7 +34,7 @@ extension Favourites {
         }
         /// The parameters struct
         struct Params: Encodable {
-            let properties = ["path", "window", "windowparameter"]
+            let properties = ["path", "window", "windowparameter", "thumbnail"]
         }
         /// The response struct
         struct Response: Decodable {

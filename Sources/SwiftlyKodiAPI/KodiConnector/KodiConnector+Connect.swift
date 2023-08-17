@@ -57,6 +57,7 @@ extension KodiConnector {
             library = await getLibrary()
             setStatus(.loadedLibrary)
         }
+        favourites = await getFavourites()
         await setLibraryCache()
     }
 
@@ -75,7 +76,7 @@ extension KodiConnector {
         /// Get the settings of the host
         Task { @MainActor in
             settings = await Settings.getSettings()
-            favourites = await getFavourites()
+//            favourites = await getFavourites()
         }
         if host.player == .local {
             await KodiPlayer.shared.getPlayerProperties()

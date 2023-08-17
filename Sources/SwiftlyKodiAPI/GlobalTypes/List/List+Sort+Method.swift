@@ -39,6 +39,10 @@ extension List.Sort {
         case rating = "rating"
         /// Order by user rating
         case userRating = "userrating"
+        /// Order by genre
+        case genre = "genre"
+        /// Order by media
+        case media = "media"
 
         /// The label of the method (not complete)
         public var displayLabel: String {
@@ -55,6 +59,34 @@ extension List.Sort {
                 return "Sort by system rating"
             case .userRating:
                 return "Sort by your rating"
+            case .genre:
+                return "Sort by genre"
+            case .media:
+                return "Sort by media"
+            default:
+                return rawValue
+            }
+        }
+
+        /// The label of the method (not complete)
+        public var shortLabel: String {
+            switch self {
+            case .dateAdded:
+                return "Added"
+            case .year:
+                return "Year"
+            case .title:
+                return "Title"
+            case .duration:
+                return "Duration"
+            case .rating:
+                return "Rating"
+            case .userRating:
+                return "Rating"
+            case .genre:
+                return "Genre"
+            case .media:
+                return "Media"
             default:
                 return rawValue
             }

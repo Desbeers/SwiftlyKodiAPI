@@ -15,13 +15,11 @@ public enum KodiListSort {
 
 public extension KodiListSort {
 
-    // MARK: PickerView
+    // MARK: SortPickerView
 
-    /// Sort a list: Two pickers to select the method and order
-    ///
-    /// For `tvOS` it will be Buttons for the method instead of a picker because it might be too many items
-    struct PickerView: View {
-        /// The current sorting
+    /// Sort a list
+    struct SortPickerView: View {
+        /// The current sorting option
         @Binding var sorting: SwiftlyKodiAPI.List.Sort
         /// The kind of media
         let media: Library.Media
@@ -32,53 +30,16 @@ public extension KodiListSort {
             self._sorting = sorting
             self.media = media
         }
+
         // MARK: Body of the View
 
         /// The body of the View
         public var body: some View {
-            Group {
-#if os(macOS)
-                HStack {
-                    Picker(selection: $sorting.method, label: Text("Sort method")) {
-                        ForEach(SwiftlyKodiAPI.List.Sort.getMethods(media: media), id: \.rawValue) { method in
-                            Text(method.displayLabel)
-                                .tag(method)
-                        }
-                    }
-                    sortOrder
+            Picker(selection: $sorting, label: Text("Sort method")) {
+                ForEach(List.Sort.Option.getMethods(media: media), id: \.rawValue) { option in
+                    Text(option.label)
+                        .tag(List.Sort(id: sorting.id, method: option.sorting.method, order: option.sorting.order))
                 }
-#endif
-
-#if os(tvOS)
-                VStack {
-                    ForEach(SwiftlyKodiAPI.List.Sort.getMethods(media: media), id: \.rawValue) { method in
-                        Button(action: {
-                            sorting.method = method
-                        }, label: {
-                            Text(method.displayLabel)
-                                .frame(width: 600)
-                                .fontWeight(sorting.method == method ? .heavy : .regular)
-                        })
-                    }
-                    sortOrder
-                }
-#endif
-
-#if os(iOS)
-                VStack {
-                    ForEach(SwiftlyKodiAPI.List.Sort.getMethods(media: media), id: \.rawValue) { method in
-                        Button(action: {
-                            sorting.method = method
-                        }, label: {
-                            Text(method.displayLabel)
-                                .fontWeight(sorting.method == method ? .heavy : .regular)
-                        })
-                        .padding()
-                    }
-                    sortOrder
-                }
-                .padding()
-#endif
             }
             .onChange(of: sorting) { item in
                 if let index = kodi.listSortSettings.firstIndex(where: { $0.id == sorting.id }) {
@@ -89,17 +50,6 @@ public extension KodiListSort {
                 KodiListSort.saveSortSettings(settings: kodi.listSortSettings)
             }
             .labelsHidden()
-        }
-
-        /// The sort order of the View
-        var sortOrder: some View {
-            Picker(selection: $sorting.order, label: Text("Sort order")) {
-                ForEach(SwiftlyKodiAPI.List.Sort.Order.allCases, id: \.rawValue) { order in
-                    Text(order.displayLabel(method: sorting.method))
-                        .tag(order)
-                }
-            }
-            .pickerStyle(.segmented)
         }
     }
 }

@@ -73,6 +73,9 @@ public extension Video.Details {
         public var duration: Int = 0
         public var resume = Video.Resume()
         public var search: String = ""
+        /// The genre of the item
+        /// - Note: Not in use but needed by protocol
+        public var genre: [String] = []
 
 
         /// # Video.Details.MusicVideo

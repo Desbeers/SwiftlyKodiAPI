@@ -71,6 +71,11 @@ extension List.Sort {
                 KeyPathComparator(\.subtitle, order: sortItem.order.value),
                 KeyPathComparator(\.sortByTitle, order: .forward)
             ]
+        case .media:
+            return [
+                KeyPathComparator(\.media.rawValue, order: sortItem.order.value),
+                KeyPathComparator(\.sortByTitle, order: .forward)
+            ]
         default:
             return [ KeyPathComparator(\.sortByTitle, order: sortItem.order.value) ]
         }

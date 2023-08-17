@@ -87,6 +87,9 @@ public extension Video.Details {
         /// The release year of the item
         /// - Note: Not in use but needed by protocol
         public var year: Int = 0
+        /// The genre of the item
+        /// - Note: Not in use but needed by protocol
+        public var genre: [String] = []
         /// The date the movieset is added
         /// - Note: Not in use but needed by protocol
         public var dateAdded: String = ""

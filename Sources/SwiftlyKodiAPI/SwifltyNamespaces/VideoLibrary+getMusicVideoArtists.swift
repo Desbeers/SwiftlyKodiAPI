@@ -34,7 +34,14 @@ extension VideoLibrary {
             }
             /// Return an unknown artist with an unique ID
             let id = UUID().hashValue
-            return Audio.Details.Artist(id: String(id), media: .artist, title: artist, artist: artist, artistID: UUID().hashValue)
+            return Audio.Details.Artist(
+                id: String(id),
+                media: .artist,
+                title: artist,
+                artist: artist,
+                artistID: UUID().hashValue,
+                sortByTitle: artist.removePrefixes(["The"])
+            )
         }
     }
 }

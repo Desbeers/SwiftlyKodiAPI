@@ -53,6 +53,9 @@ public extension Library.Details {
         /// The release year of the item
         /// - Note: Not in use but needed by protocol
         public var year: Int = 0
+        /// The genre of the item
+        /// - Note: Not in use but needed by protocol
+        public var genre: [String] = []
 
         /// # Library.Details.Genre
 

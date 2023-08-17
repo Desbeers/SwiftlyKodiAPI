@@ -31,6 +31,8 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     var playcount: Int { get set }
     /// The date the item is added
     var dateAdded: String { get set }
+    /// The genre of the item
+    var genre: [String] { get set }
     /// The release year of the item
     var year: Int { get set }
     /// The last played date of the item

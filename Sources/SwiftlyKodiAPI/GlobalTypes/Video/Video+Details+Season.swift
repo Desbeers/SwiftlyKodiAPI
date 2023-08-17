@@ -64,6 +64,9 @@ public extension Video.Details {
         }
         public var dateAdded: String = ""
         public var year: Int = 0
+        /// The genre of the item
+        /// - Note: Not in use but needed by protocol
+        public var genre: [String] = []
         public var lastPlayed: String = ""
         public var rating: Double = 0
         public var userRating: Int = 0

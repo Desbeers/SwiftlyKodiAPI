@@ -37,6 +37,8 @@ public extension Library {
         case genre
         /// Stream
         case stream
+        /// Favorite
+        case favorite
         /// Unknown
         case unknown
 
@@ -50,6 +52,25 @@ public extension Library {
                 return "music video"
             case .musicVideoAlbum:
                 return "music video album"
+            default:
+                return self.rawValue
+            }
+        }
+
+        public var plural: String {
+            switch self {
+            case .movie:
+                return "Movies"
+            case .movieSet:
+                return "Movie Sets"
+            case .tvshow:
+                return "TV shows"
+            case .episode:
+                return "TV episodes"
+            case .musicVideo:
+                return "Music Videos"
+            case .musicVideoAlbum:
+                return "Music Video albums"
             default:
                 return self.rawValue
             }

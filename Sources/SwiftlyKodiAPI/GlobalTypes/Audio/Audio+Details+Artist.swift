@@ -40,6 +40,7 @@ public extension Audio.Details {
             roles: [Audio.Artist.Roles] = [],
             songGenres: [Audio.Details.Genres] = [],
             sortName: String = "",
+            sortByTitle: String = "",
             style: [String] = [],
             type: String = "",
             yearsActive: [String] = [],
@@ -74,6 +75,7 @@ public extension Audio.Details {
             self.roles = roles
             self.songGenres = songGenres
             self.sortName = sortName
+            self.sortByTitle = sortByTitle
             self.style = style
             self.type = type
             self.yearsActive = yearsActive

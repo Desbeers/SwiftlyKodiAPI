@@ -14,6 +14,7 @@ public extension Favourite.Details {
         var path: String?
         var title: String = ""
         var type: String = ""
+        var thumbnail: String = ""
         var window: String?
         var windowparameter: String?
     }
