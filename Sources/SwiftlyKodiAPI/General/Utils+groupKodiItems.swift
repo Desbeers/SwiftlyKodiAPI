@@ -103,13 +103,17 @@ public extension Utils {
             return Dictionary(grouping: items) { item in
                 let title = item.item.sortByTitle.trimmingCharacters(in: .punctuationCharacters)
                 var firstLetter = title.prefix(1).uppercased()
+                var sectionLabel = firstLetter
+                var indexLabel = firstLetter
+
                 if Int(firstLetter) != nil {
-                    firstLetter = "0-9"
+                    sectionLabel = "0-9"
+                    indexLabel = "0"
                 }
                 return ScrollCollectionHeader(
-                    sectionLabel: firstLetter,
-                    indexLabel: firstLetter,
-                    sort: firstLetter
+                    sectionLabel: sectionLabel,
+                    indexLabel: indexLabel,
+                    sort: indexLabel
                 )
             }
             .sorted(using: KeyPathComparator(\.key.sort))

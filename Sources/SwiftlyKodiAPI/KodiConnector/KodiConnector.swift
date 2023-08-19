@@ -51,7 +51,7 @@ public final class KodiConnector: ObservableObject {
     public var addons: [Addon.Details] = []
 
     /// The favourites
-    @Published public var favourites: [any KodiItem] = []
+    @Published public var favourites: [AnyKodiItem] = []
 
     /// The online hosts
     @Published public var bonjourHosts: [BonjourHost] = []

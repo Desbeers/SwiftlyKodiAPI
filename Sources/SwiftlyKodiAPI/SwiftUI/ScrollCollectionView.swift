@@ -52,8 +52,6 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
     let anchor: UnitPoint
     /// The Grid
     let grid: [GridItem]
-    /// Show index
-    let showIndex: Bool
     /// The header view for each element in the collection
     let header: (ScrollCollectionHeader) -> HeaderView
     /// The cell view for each element in the collection
@@ -61,15 +59,9 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
     /// State to store the selected letter from the section index
     @State private var selectedLetter = ""
     /// Extract the headers from the collection by the unique index label
-    private var headers: [ScrollCollectionHeader] {
-        collection.map(\.0).uniqued(by: \.indexLabel)
-    }
-#if os(tvOS)
-    /// Don't pin headers on tvOS, it will stutter
-    let pinnedViews: PinnedScrollableViews = []
-#else
-    let pinnedViews: PinnedScrollableViews = [.sectionHeaders]
-#endif
+    let headers: [ScrollCollectionHeader]
+    /// Pinned Views in the grid
+    let pinnedViews: PinnedScrollableViews
 
     // MARK: Init
 
@@ -78,6 +70,7 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
         collection: ScrollCollection<Element>,
         style: ScrollCollectionStyle,
         anchor: UnitPoint,
+        pinnedViews: PinnedScrollableViews = [.sectionHeaders],
         grid: [GridItem] = [GridItem(.adaptive(minimum: 140))],
         showIndex: Bool = true,
         @ViewBuilder header: @escaping (ScrollCollectionHeader) -> HeaderView,
@@ -89,7 +82,13 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
         self.anchor = anchor
         self.header = header
         self.grid = grid
-        self.showIndex = showIndex
+        self.pinnedViews = pinnedViews
+        if showIndex {
+            let headers = collection.map(\.0).uniqued(by: \.indexLabel)
+            self.headers = ( headers.count > 1 ) ? headers : []
+        } else {
+            self.headers = []
+        }
     }
 
     // MARK: Body of the View
@@ -119,10 +118,10 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
             }
 #if !os(tvOS)
             .overlay {
-                if showIndex, !headers.isEmpty {
+                if !headers.isEmpty {
                     HStack {
                         Spacer()
-                        Index(
+                        ScrollCollectionIndex(
                             headers: headers,
                             selectedLetter: $selectedLetter,
                             pageScroller: pageScroller,
@@ -156,79 +155,78 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
 }
 
 #if !os(tvOS)
-extension ScrollCollectionView {
 
-    // MARK: ScrollCollectionView Index
+// MARK: ScrollCollectionView Index
 
-    /// SwiftUI `View` with the index for the sections
-    struct Index: View {
+/// SwiftUI `View` with the index for the sections
+struct ScrollCollectionIndex: View {
 
-        // MARK: Properties
+    // MARK: Properties
 
-        /// The array containing the section headers to be displayed
-        let headers: [ScrollCollectionHeader]
-        /// The selected letter that the ScrollViewProxy will scroll to
-        @Binding var selectedLetter: String
-        /// The ScrollViewProxy used to scroll to the selected letter
-        let pageScroller: ScrollViewProxy
-        /// The anchor point for scrolling to the selected letter
-        let anchor: UnitPoint
-        /// The current drag location for gesture tracking
-        @GestureState private var dragLocation: CGPoint = .zero
+    /// The array containing the section headers to be displayed
+    let headers: [ScrollCollectionHeader]
+    /// The selected letter that the ScrollViewProxy will scroll to
+    @Binding var selectedLetter: String
+    /// The ScrollViewProxy used to scroll to the selected letter
+    let pageScroller: ScrollViewProxy
+    /// The anchor point for scrolling to the selected letter
+    let anchor: UnitPoint
+    /// The current drag location for gesture tracking
+    @GestureState private var dragLocation: CGPoint = .zero
 
-        // MARK: Body of the View
+    // MARK: Body of the View
 
-        /// The body of the `View`
-        var body: some View {
-            VStack {
-                ForEach(headers, id: \.self) { header in
-                    Text(header.indexLabel)
-                        .font(.headline)
-                    /// Background modifier for tracking gestures
-                        .background(dragObserver(title: header.sectionLabel, anchor: anchor))
+    /// The body of the `View`
+    var body: some View {
+        VStack {
+            ForEach(headers, id: \.self) { header in
+                Text(header.indexLabel)
+                    .font(.headline)
+                /// Background modifier for tracking gestures
+                    .background(dragObserver(title: header.sectionLabel, anchor: anchor))
+            }
+        }
+        .gesture(
+            DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                .updating($dragLocation) { value, state, _ in
+                    state = value.location // Update the dragLocation with the current gesture location.
                 }
-            }
-            .gesture(
-                DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                    .updating($dragLocation) { value, state, _ in
-                        state = value.location // Update the dragLocation with the current gesture location.
-                    }
-            )
-            .padding(.trailing, 3)
-            .background(.thinMaterial)
+        )
+        .padding(3)
+        .background(.thickMaterial)
+        .cornerRadius(3)
+    }
+
+    // MARK: Methods
+
+    // Method to add a GeometryReader for drag gesture tracking.
+    private func dragObserver(title: String, anchor: UnitPoint) -> some View {
+        GeometryReader { geometry in
+            dragObserver(geometry: geometry, title: title, anchor: anchor)
         }
+    }
 
-        // MARK: Methods
-
-        // Method to add a GeometryReader for drag gesture tracking.
-        private func dragObserver(title: String, anchor: UnitPoint) -> some View {
-            GeometryReader { geometry in
-                dragObserver(geometry: geometry, title: title, anchor: anchor)
-            }
-        }
-
-        // Method to handle the drag gesture and scrolling to the selected letter.
-        private func dragObserver(geometry: GeometryProxy, title: String, anchor: UnitPoint) -> some View {
-            if geometry.frame(in: .global).contains(dragLocation) {
-                Task {
-                    /// Scroll to the selected letter in the ScrollViewProxy
-                    withAnimation {
-                        pageScroller.scrollTo(title, anchor: anchor)
-                    }
-                    /// Update the selectedLetter binding with the current letter
-                    selectedLetter = title
+    // Method to handle the drag gesture and scrolling to the selected letter.
+    private func dragObserver(geometry: GeometryProxy, title: String, anchor: UnitPoint) -> some View {
+        if geometry.frame(in: .global).contains(dragLocation) {
+            Task {
+                /// Scroll to the selected letter in the ScrollViewProxy
+                withAnimation {
+                    pageScroller.scrollTo(title, anchor: anchor)
                 }
+                /// Update the selectedLetter binding with the current letter
+                selectedLetter = title
             }
-            /// Invisible filler rectangle
-            return Rectangle().fill(Color(.white).opacity(0.001))
         }
+        /// Invisible filler rectangle
+        return Rectangle().fill(Color(.white).opacity(0.001))
     }
 }
 #endif
 
 // MARK: Sequence extension
 
-extension Sequence {
+public extension Sequence {
 
     /// Filter a Sequence by an unique keypath
     /// - Parameter keyPath: The keypath

@@ -62,3 +62,12 @@ extension String {
     }
 
 }
+
+extension Bundle {
+
+    /// The name of the client
+    var clientName: String {
+            return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ??
+                object(forInfoDictionaryKey: "CFBundleName") as? String ?? "Kodi Client"
+    }
+}

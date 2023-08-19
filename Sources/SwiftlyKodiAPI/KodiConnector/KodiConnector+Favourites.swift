@@ -14,7 +14,7 @@ extension KodiConnector {
     /// Get Favourites
     /// - Note: Only 'real' media' is supported
     /// - Returns: All 'media' favourites
-    public func getFavourites() async -> [any KodiItem] {
+    public func getFavourites() async -> [AnyKodiItem] {
         var items: [any KodiItem] = []
         let favs = await Favourites
             .getFavourites()
@@ -54,6 +54,6 @@ extension KodiConnector {
 //                items.append(musicVideo)
 //            }
         }
-        return items
+        return items.anykodiItem()
     }
 }

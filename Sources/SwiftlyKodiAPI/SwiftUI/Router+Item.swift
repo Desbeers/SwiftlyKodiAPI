@@ -37,7 +37,7 @@ public extension Router {
             // MARK: General
 
         case .start:
-            let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? "Kodi Client"
+            let appName = Bundle.main.clientName
             return Item(
                 title: "\(appName)",
                 description: "Welcome to \(appName)",
