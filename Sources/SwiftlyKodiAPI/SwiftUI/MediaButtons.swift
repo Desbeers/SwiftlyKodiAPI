@@ -206,7 +206,38 @@ public extension MediaButtons {
         }
     }
 
-    #if !os(tvOS)
+#if !os(tvOS)
+    /// Volume mute
+    struct VolumeMute: View {
+        /// The KodiPlayer model
+        @EnvironmentObject var player: KodiPlayer
+        /// Init the View
+        public init() {}
+        /// The body of the View
+        public var body: some View {
+            Button(
+                action: {
+                    Task {
+                        await Application.setMute()
+                    }
+                },
+                label: {
+                    Label(
+                        title: {
+                            Text("Mute")
+                        },
+                        icon: {
+                            Image(systemName: player.muted ? "speaker.slash.fill" : "speaker.fill")
+                                .foregroundColor(player.muted ? .red : .primary)
+                        }
+                    )
+                }
+            )
+        }
+    }
+#endif
+
+#if !os(tvOS)
     /// Volume slider
     struct VolumeSlider: View {
         /// The KodiPlayer model
@@ -215,41 +246,23 @@ public extension MediaButtons {
         public init() {}
         /// The body of the View
         public var body: some View {
-            Label {
-                Text("Volume")
-            } icon: {
-                HStack {
-                    Button(
-                        action: {
-                            Task {
-                                await Application.setMute()
-                            }
-                        },
-                        label: {
-                            Image(systemName: player.muted ? "speaker.slash.fill" : "speaker.fill")
-                                .foregroundColor(player.muted ? .red : .primary)
-                        }
-                    )
-                    .font(.caption)
-                    // swiftlint:disable:next trailing_closure
-                    Slider(
-                        value: $player.volume,
-                        in: 0...100,
-                        onEditingChanged: { _ in
-                            /// - Note: Using 'onEditingChanged' because that will only be trickered when using the slider
-                            ///         and not when programmaticly changing its value after a notification.
-                            logger("Volume changed: \(player.volume)")
-                            Task {
-                                await Application.setVolume(volume: player.volume)
-                            }
-                        }
-                    )
-                    Image(systemName: "speaker.wave.3.fill")
-                        .font(.caption)
+            Slider(
+                value: $player.volume,
+                in: 0...100,
+                label: {
+                    Text("Volume")
+                },
+                onEditingChanged: { _ in
+                    /// - Note: Using 'onEditingChanged' because that will only be trickered when using the slider
+                    ///         and not when programmaticly changing its value after a notification.
+                    logger("Volume changed: \(player.volume)")
+                    Task {
+                        await Application.setVolume(volume: player.volume)
+                    }
                 }
-            }
-            .frame(width: 160)
+            )
+            .frame(minWidth: 120)
         }
     }
-    #endif
+#endif
 }
