@@ -35,20 +35,17 @@ public struct KodiPlayerView: View {
     /// The body of the View
     public var body: some View {
         VideoPlayer(player: playerModel.player)
-#if os(iOS)
+#if !os(macOS) && !os(tvOS)
             .overlay(alignment: .topLeading) {
-
-
-                            Button(
-                                action: {
-                                    presentationMode.wrappedValue.dismiss()
-                                },
-                                label: {
-                                    Image(systemName: "x.circle")
-                                        .font(.largeTitle)
-                                        .foregroundColor(.white.opacity(0.5))
-                                })
-                            //.opacity(0.4)
+                Button(
+                    action: {
+                        presentationMode.wrappedValue.dismiss()
+                    },
+                    label: {
+                        Image(systemName: "x.circle")
+                            .font(.largeTitle)
+                            .foregroundColor(.white.opacity(0.5))
+                    })
             }
 #endif
 
@@ -135,7 +132,9 @@ public struct KodiPlayerView: View {
             player = AVPlayer(playerItem: playerItem)
             player.actionAtItemEnd = .none
             /// Prevent display sleeping while playing
+#if os(macOS) || os(tvOS) || os(iOS)
             player.preventsDisplaySleepDuringVideoPlayback = true
+#endif
             /// Get a notification when the video has ended
             NotificationCenter
                 .default
