@@ -48,7 +48,7 @@ public struct KodiHostItemView: View {
                 }, label: {
                     Text("Connect to host")
                 })
-#if !os(iOS)
+#if os(macOS) || os(tvOS)
                 .prefersDefaultFocus(in: mainNamespace)
 #endif
                 .disabled(validateForm() || (values == host && kodi.host == values))
@@ -70,7 +70,7 @@ public struct KodiHostItemView: View {
                     .padding()
             }
         }
-#if !os(iOS)
+#if os(macOS) || os(tvOS)
         .focusScope(mainNamespace)
 #endif
         .animation(.default, value: values.ip)
