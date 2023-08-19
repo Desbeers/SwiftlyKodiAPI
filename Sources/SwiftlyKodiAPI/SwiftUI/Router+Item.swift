@@ -73,6 +73,16 @@ public extension Router {
                 icon: "gear",
                 color: Color("AccentColor")
             )
+        case .appSettings:
+            let appName = Bundle.main.clientName
+            return Item(
+                title: "Settings",
+                description: "The settings for \(appName)",
+                loading: "Loading your settings",
+                empty: "There are no settings",
+                icon: "gear",
+                color: Color("AccentColor")
+            )
         case .hostItemSettings(let host):
             return Item(
                 title: "Host settings",

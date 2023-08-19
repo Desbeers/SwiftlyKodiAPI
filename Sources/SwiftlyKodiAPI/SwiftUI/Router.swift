@@ -20,6 +20,8 @@ public enum Router: Hashable {
     case search
     /// The Kodi settings View
     case kodiSettings
+    /// The App settings View
+    case appSettings
     /// Kodi Host connection settings
     case hostItemSettings(host: HostItem)
     /// Now playing qeue View
