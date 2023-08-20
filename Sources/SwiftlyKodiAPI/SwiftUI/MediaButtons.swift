@@ -14,6 +14,7 @@ import SwiftUI
 /// The Views require to have the ``KodiPlayer`` Observable Class in the 'environment' or else your Application will crash
 ///
 /// - Note: The buttons are smart and will be disabled when not applicable
+/// - Note: Buttons with a help modifier do not work on visionOS
 public enum MediaButtons {
     // Just a namespace
 }
@@ -30,6 +31,11 @@ public extension MediaButtons {
     struct PlayPause: View {
         /// The KodiPlayer model
         @EnvironmentObject var player: KodiPlayer
+        var help: String {
+            player.properties.speed == 1 ? "Pause your playlist" :
+                player.properties.playlistPosition == -1 ? "Start your playlist" :
+                "Continue playing your playlist"
+        }
         /// Init the View
         public init() {}
         /// The body of the View
@@ -43,12 +49,8 @@ public extension MediaButtons {
             }, label: {
                 Label("Play", systemImage: player.properties.speed == 1 ? "pause.fill" : "play.fill")
             })
+            .mediaButtonStyle(help: help)
             .disabled(player.currentItem == nil)
-            .help(
-                player.properties.speed == 1 ? "Pause your playlist" :
-                    player.properties.playlistPosition == -1 ? "Start your playlist" :
-                    "Continue playing your playlist"
-            )
         }
     }
 
@@ -71,6 +73,7 @@ public extension MediaButtons {
             }, label: {
                 Label("Previous", systemImage: "backward.fill")
             })
+            .mediaButtonStyle(help: "Previous")
             /// Disable when not playing
             .disabled(player.properties.playlistPosition == -1)
             /// A stream cannpot 'goto
@@ -95,6 +98,7 @@ public extension MediaButtons {
             }, label: {
                 Label("Next", systemImage: "forward.fill")
             })
+            .mediaButtonStyle(help: "Next")
             /// Disable when not playing
             .disabled(player.properties.playlistPosition == -1)
             /// Disabled when we play the last item
@@ -118,18 +122,13 @@ public extension MediaButtons {
                 }
             }, label: {
                 Label("Shuffle", systemImage: "shuffle")
-                    .foregroundColor(player.properties.shuffled ? .white : .none)
-                    .padding(2)
-                    .background(
-                        player.properties.shuffled ? Color.accentColor : Color.clear,
-                        in: RoundedRectangle(cornerRadius: 4)
-                    )
             })
-            .help("Shuffle the playlist")
+            .mediaButtonStyle(background: player.properties.shuffled, help: "Shuffle the playlist")
             .disabled(player.properties.partymode)
             .disabled(!player.properties.canShuffle)
             /// You can't shuffle when there is only one item in the playlist
             .disabled(player.currentPlaylist?.count == 1)
+
         }
     }
 
@@ -149,13 +148,8 @@ public extension MediaButtons {
                 }
             }, label: {
                 Label("Repeat", systemImage: repeatingIcon)
-                    .foregroundColor(player.properties.repeating == .off ? .none : .white)
-                    .padding(2)
-                    .background(
-                        player.properties.repeating == .off ? Color.clear : Color.accentColor,
-                        in: RoundedRectangle(cornerRadius: 4)
-                    )
             })
+            .mediaButtonStyle(background: !(player.properties.repeating == .off), help: "Repeat")
             .disabled(player.properties.partymode)
             .disabled(!player.properties.canRepeat)
         }
@@ -194,15 +188,9 @@ public extension MediaButtons {
                     Text("Party Mode")
                 }, icon: {
                     Image(systemName: "wand.and.stars.inverse")
-                        .padding(2)
-                        .foregroundColor(player.properties.partymode ? .white : .none)
                 })
-                .background(
-                    player.properties.partymode ? Color.red : Color.clear,
-                    in: RoundedRectangle(cornerRadius: 4)
-                )
             })
-            .help("Music party mode")
+            .mediaButtonStyle(background: player.properties.partymode, color: .red, help: "Music party mode")
         }
     }
 
@@ -228,11 +216,11 @@ public extension MediaButtons {
                         },
                         icon: {
                             Image(systemName: player.muted ? "speaker.slash.fill" : "speaker.fill")
-                                .foregroundColor(player.muted ? .red : .primary)
                         }
                     )
                 }
             )
+            .mediaButtonStyle(background: player.muted , color: .red, help: "Mute")
         }
     }
 #endif
@@ -266,3 +254,60 @@ public extension MediaButtons {
     }
 #endif
 }
+
+public extension MediaButtons {
+
+    struct ButtonStyle: ViewModifier {
+        /// Bool if the button should have a background
+        let background: Bool
+        /// The background color
+        let color: Color
+        /// The optional help
+        var help: String?
+        /// The modifier
+        public func body(content: Content) -> some View {
+            content
+
+#if os(macOS)
+            /// Below is ignored by macOS
+            // .foregroundStyle(background ? .white : .secondary)
+            .background(
+                background ? color : Color.clear
+            )
+            .cornerRadius(4)
+            .help(help ?? "")
+#elseif os(iOS)
+            .buttonStyle(.plain)
+            .padding(8)
+            .foregroundStyle(background ? .white : .secondary)
+            .background(
+                background ? color : Color.clear
+            )
+            .cornerRadius(8)
+#else
+            /// visionOS
+            .buttonStyle(.bordered)
+            .tint(background ? color : .clear)
+#endif
+        }
+    }
+}
+
+extension View {
+
+    /// A `ViewModifier` to style the fanart of a `KodiItem`
+    public func mediaButtonStyle(
+        background: Bool = false,
+        color: Color = .accentColor,
+        help: String? = nil
+    ) -> some View {
+        modifier(
+            MediaButtons.ButtonStyle(
+                background: background,
+                color: color,
+                help: help
+            )
+        )
+    }
+}
+
