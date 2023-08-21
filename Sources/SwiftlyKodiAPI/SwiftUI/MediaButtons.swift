@@ -257,7 +257,25 @@ public extension MediaButtons {
 
 public extension MediaButtons {
 
-    struct ButtonStyle: ViewModifier {
+    struct MediaLabelStyle: LabelStyle {
+        /// Bool if the button should have a background
+        var background: Bool = false
+        /// The background color
+        var color: Color = .accentColor
+        /// The modifier
+        public func makeBody(configuration: Configuration) -> some View {
+            configuration
+                .icon
+                .foregroundStyle(background ? .white : .secondary)
+                .padding(4)
+                .background(
+                    background ? color.opacity(1) : Color.clear
+                )
+                .cornerRadius(4)
+        }
+    }
+
+    struct MediaButtonStyle: ViewModifier {
         /// Bool if the button should have a background
         let background: Bool
         /// The background color
@@ -267,27 +285,23 @@ public extension MediaButtons {
         /// The modifier
         public func body(content: Content) -> some View {
             content
-
 #if os(macOS)
-            /// Below is ignored by macOS
-            // .foregroundStyle(background ? .white : .secondary)
-            .background(
-                background ? color : Color.clear
-            )
-            .cornerRadius(4)
-            .help(help ?? "")
+            /// 'foregroundStyle' is ignored by macOS so style the label instead
+                .buttonStyle(.plain)
+                .labelStyle(MediaLabelStyle(background: background, color: color))
+                .help(help ?? "")
 #elseif os(iOS)
-            .buttonStyle(.plain)
-            .padding(8)
-            .foregroundStyle(background ? .white : .secondary)
-            .background(
-                background ? color : Color.clear
-            )
-            .cornerRadius(8)
+                .buttonStyle(.plain)
+                .padding(8)
+                .foregroundStyle(background ? .white : .secondary)
+                .background(
+                    background ? color : Color.clear
+                )
+                .cornerRadius(8)
 #else
             /// visionOS
-            .buttonStyle(.bordered)
-            .tint(background ? color : .clear)
+                .buttonStyle(.bordered)
+                .tint(background ? color : .clear)
 #endif
         }
     }
@@ -295,14 +309,13 @@ public extension MediaButtons {
 
 extension View {
 
-    /// A `ViewModifier` to style the fanart of a `KodiItem`
     public func mediaButtonStyle(
         background: Bool = false,
         color: Color = .accentColor,
         help: String? = nil
     ) -> some View {
         modifier(
-            MediaButtons.ButtonStyle(
+            MediaButtons.MediaButtonStyle(
                 background: background,
                 color: color,
                 help: help

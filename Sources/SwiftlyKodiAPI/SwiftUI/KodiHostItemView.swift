@@ -112,7 +112,6 @@ public struct KodiHostItemView: View {
             }
             footer(text: "Your password", type: values.password.isEmpty ? .error : .valid)
         }
-        .formStyle(.columns)
 #if os(macOS)
         .frame(maxWidth: 200)
 #elseif os(tvOS)
@@ -121,7 +120,12 @@ public struct KodiHostItemView: View {
         .frame(maxWidth: 300)
         .textFieldStyle(.roundedBorder)
         .autocapitalization(.none)
+        #else
+        /// visionOS can't show column style
+        .formStyle(.grouped)
+        .autocapitalization(.none)
 #endif
+        .formStyle(.columns)
     }
 
     /// The text underneath a form item

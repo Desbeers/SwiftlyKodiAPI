@@ -102,7 +102,7 @@ public extension Utils {
         default:
             return Dictionary(grouping: items) { item in
                 let title = item.item.sortByTitle.trimmingCharacters(in: .punctuationCharacters)
-                var firstLetter = title.prefix(1).uppercased()
+                let firstLetter = title.prefix(1).uppercased()
                 var sectionLabel = firstLetter
                 var indexLabel = firstLetter
 
