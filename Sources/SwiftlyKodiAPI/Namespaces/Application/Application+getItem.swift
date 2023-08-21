@@ -33,7 +33,7 @@ extension Application {
             if kodi.library.movies.isEmpty {
                 return await VideoLibrary.getMovieDetails(movieID: id)
             } else {
-                return kodi.library.musicVideos.first(where: { $0.musicVideoID == id })
+                return kodi.library.movies.first(where: { $0.movieID == id })
             }
         case .episode:
             if kodi.library.episodes.isEmpty {
