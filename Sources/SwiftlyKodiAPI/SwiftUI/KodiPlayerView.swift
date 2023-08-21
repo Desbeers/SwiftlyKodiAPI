@@ -39,12 +39,18 @@ public struct KodiPlayerView: View {
             .overlay(alignment: .topLeading) {
                 Button(
                     action: {
+                        /// visionOS keeps on playing... This might not the the best solution :-)
+                        playerModel.player.pause()
                         presentationMode.wrappedValue.dismiss()
                     },
                     label: {
                         Image(systemName: "x.circle")
                             .font(.largeTitle)
                             .foregroundColor(.white.opacity(0.5))
+                        #if !os(iOS)
+                        /// visionOS
+                            .padding()
+                        #endif
                     })
             }
 #endif
