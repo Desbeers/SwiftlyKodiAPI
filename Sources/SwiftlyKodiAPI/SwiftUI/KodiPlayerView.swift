@@ -21,9 +21,8 @@ public struct KodiPlayerView: View {
     let resume: Bool
     /// Observe the player
     @StateObject private var playerModel = KodiPlayerModel()
-    /// The presentation mode
-    /// - Note: Need this to go back a View on iOS after the video has finnished
-    @Environment(\.presentationMode) var presentationMode
+    /// The dismiss action
+    @Environment(\.dismiss) private var dismiss
     /// Init the View: we don't get it for free
     /// - Parameters:
     ///   - video: The ``KodiItem`` to play
@@ -36,21 +35,24 @@ public struct KodiPlayerView: View {
     public var body: some View {
         VideoPlayer(player: playerModel.player)
 #if !os(macOS) && !os(tvOS)
+        /// Show a close button to exit the video
             .overlay(alignment: .topLeading) {
                 Button(
                     action: {
-                        /// visionOS keeps on playing... This might not the the best solution :-)
-                        playerModel.player.pause()
-                        presentationMode.wrappedValue.dismiss()
+#if !os(iOS)
+                        /// visionOS does not call .onDissapear, so this is a workaround:
+                        endAction()
+#endif
+                        dismiss()
                     },
                     label: {
                         Image(systemName: "x.circle")
                             .font(.largeTitle)
                             .foregroundColor(.white.opacity(0.5))
-                        #if !os(iOS)
+#if !os(iOS)
                         /// visionOS
                             .padding()
-                        #endif
+#endif
                     })
             }
 #endif
@@ -70,223 +72,229 @@ public struct KodiPlayerView: View {
                 case .playing:
                     break
                 case .end:
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }
             }
             .ignoresSafeArea(.all)
+        /// This got not called on visionOS:
             .onDisappear {
-                Task {
-                    switch playerModel.state {
-                    case .playing:
-                        /// Video is playing, set resume point
-                        /// - Note: Not exacly as Kodi does it and ignoring 'advancedsettings'
-                        if let time = playerModel.player.currentItem?.currentTime() {
-                            let percentage = time.seconds / Double(video.duration)
-                            if percentage > 0.9 {
-                                /// A video that is almost done will be marked as played
-                                await video.markAsPlayed()
-                            } else if time.seconds > 180 {
-                                /// Set resume point
-                                await video.setResumeTime(time: time.seconds)
-                            }
-                        }
-                    case .end:
-                        /// End of video, mark as played
+                logger("BYE VIDEO!")
+                endAction()
+            }
+    }
+
+    func endAction() {
+        Task {
+            switch playerModel.state {
+            case .playing:
+                /// Video is playing, set resume point
+                /// - Note: Not exacly as Kodi does it and ignoring 'advancedsettings'
+                if let time = playerModel.player.currentItem?.currentTime() {
+                    let percentage = time.seconds / Double(video.duration)
+                    if percentage > 0.9 {
+                        /// A video that is almost done will be marked as played
                         await video.markAsPlayed()
-                    default:
-                        break
+                    } else if time.seconds > 180 {
+                        /// Set resume point
+                        await video.setResumeTime(time: time.seconds)
                     }
-                    /// Stop the video
-                    playerModel.player.replaceCurrentItem(with: nil)
-                    /// Stop the timer
-                    playerModel.timer.invalidate()
                 }
+            case .end:
+                /// End of video, mark as played
+                await video.markAsPlayed()
+            default:
+                break
             }
+            /// Stop the video
+            playerModel.player.replaceCurrentItem(with: nil)
+            /// Stop the timer
+            playerModel.timer.invalidate()
         }
     }
+}
 
-    /// The KodiPlayerModel class
-    class KodiPlayerModel: ObservableObject {
-        // swiftlint:disable implicitly_unwrapped_optional
-        /// The AVplayer
-        var player: AVPlayer!
-        /// The timer to keep an eye on the player
-        var timer: Timer!
-        // swiftlint:enable implicitly_unwrapped_optional
-        /// The state of the player
-        @Published var state: KodiPlayerState = .load
-        /// All the states of the player
-        enum KodiPlayerState {
-            case load
-            case readyToPlay
-            case playing
-            case end
-        }
+/// The KodiPlayerModel class
+class KodiPlayerModel: ObservableObject {
+    // swiftlint:disable implicitly_unwrapped_optional
+    /// The AVplayer
+    var player: AVPlayer!
+    /// The timer to keep an eye on the player
+    var timer: Timer!
+    // swiftlint:enable implicitly_unwrapped_optional
+    /// The state of the player
+    @Published var state: KodiPlayerState = .load
+    /// All the states of the player
+    enum KodiPlayerState {
+        case load
+        case readyToPlay
+        case playing
+        case end
+    }
 
-        /// Load a video into the player
-        /// - Parameter video: The ``KodiItem`` to play
-        func loadVideo(video: any KodiItem) {
-            // swiftlint:disable:next force_unwrapping
-            let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(file: video.file, type: .file))!)
+    /// Load a video into the player
+    /// - Parameter video: The ``KodiItem`` to play
+    func loadVideo(video: any KodiItem) {
+        // swiftlint:disable:next force_unwrapping
+        let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(file: video.file, type: .file))!)
 #if os(tvOS)
-            /// tvOS can add aditional info to the player
-            Task {
-                playerItem.externalMetadata = await createMetadataItems(video: video)
-            }
+        /// tvOS can add aditional info to the player
+        Task {
+            playerItem.externalMetadata = await createMetadataItems(video: video)
+        }
 #endif
-            /// Create a new Player
-            player = AVPlayer(playerItem: playerItem)
-            player.actionAtItemEnd = .none
-            /// Prevent display sleeping while playing
+        /// Create a new Player
+        player = AVPlayer(playerItem: playerItem)
+        player.actionAtItemEnd = .none
+        /// Prevent display sleeping while playing
 #if os(macOS) || os(tvOS) || os(iOS)
-            player.preventsDisplaySleepDuringVideoPlayback = true
+        player.preventsDisplaySleepDuringVideoPlayback = true
 #endif
-            /// Get a notification when the video has ended
-            NotificationCenter
-                .default
-                .addObserver(
-                    forName: .AVPlayerItemDidPlayToEndTime,
-                    object: nil,
-                    queue: nil
-                ) { _ in
-                    Task { @MainActor in
-                        self.state = .end
-                    }
-                }
-            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-                self.stateObserver()
-            }
-        }
-        /// Check if the player is ready to play
-        func stateObserver() {
-            if player.readyToPlay {
+        /// Get a notification when the video has ended
+        NotificationCenter
+            .default
+            .addObserver(
+                forName: .AVPlayerItemDidPlayToEndTime,
+                object: nil,
+                queue: nil
+            ) { _ in
                 Task { @MainActor in
-                    state = .readyToPlay
+                    self.state = .end
                 }
-                timer.invalidate()
             }
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            self.stateObserver()
         }
     }
+    /// Check if the player is ready to play
+    func stateObserver() {
+        if player.readyToPlay {
+            Task { @MainActor in
+                state = .readyToPlay
+            }
+            timer.invalidate()
+        }
+    }
+}
 
 #if os(tvOS)
 
-    /// Create meta data for the video player
-    /// - Parameter video: The Kodi video item
-    /// - Returns: Meta data for the player
-    func createMetadataItems(video: any KodiItem) async -> [AVMetadataItem] {
+/// Create meta data for the video player
+/// - Parameter video: The Kodi video item
+/// - Returns: Meta data for the player
+func createMetadataItems(video: any KodiItem) async -> [AVMetadataItem] {
 
-        /// The Metadata of the video
-        var metaData = MetaData()
+    /// The Metadata of the video
+    var metaData = MetaData()
 
-        /// The structure for metadata
-        struct MetaData {
-            var title: String = "title"
-            var subtitle: String = "subtitle"
-            var description: String = "description"
-            var genre: String = "genre"
-            var creationDate: String = "1900"
-            // swiftlint:disable force_unwrapping
-            var artwork: UIImage = UIImage(
-                named: "poster",
-                in: Bundle.module,
-                compatibleWith: nil) ?? UIImage(systemName: "film"
-                )!
-            // swiftlint:enable force_unwrapping
-        }
+    /// The structure for metadata
+    struct MetaData {
+        var title: String = "title"
+        var subtitle: String = "subtitle"
+        var description: String = "description"
+        var genre: String = "genre"
+        var creationDate: String = "1900"
+        // swiftlint:disable force_unwrapping
+        var artwork: UIImage = UIImage(
+            named: "poster",
+            in: Bundle.module,
+            compatibleWith: nil) ?? UIImage(systemName: "film"
+            )!
+        // swiftlint:enable force_unwrapping
+    }
 
-        /// Helper function to create the metadata
-        /// - Parameters:
-        ///   - identifier: The key
-        ///   - value: The value
-        /// - Returns: An `AVMetadataItem`
-        func createMetadataItem(for identifier: AVMetadataIdentifier, value: Any) -> AVMetadataItem {
-            let item = AVMutableMetadataItem()
-            item.identifier = identifier
-            item.value = value as? NSCopying & NSObjectProtocol
-            /// Specify "und" to indicate an undefined language.
-            item.extendedLanguageTag = "und"
-            // swiftlint:disable:next force_cast
-            return item.copy() as! AVMetadataItem
-        }
+    /// Helper function to create the metadata
+    /// - Parameters:
+    ///   - identifier: The key
+    ///   - value: The value
+    /// - Returns: An `AVMetadataItem`
+    func createMetadataItem(for identifier: AVMetadataIdentifier, value: Any) -> AVMetadataItem {
+        let item = AVMutableMetadataItem()
+        item.identifier = identifier
+        item.value = value as? NSCopying & NSObjectProtocol
+        /// Specify "und" to indicate an undefined language.
+        item.extendedLanguageTag = "und"
+        // swiftlint:disable:next force_cast
+        return item.copy() as! AVMetadataItem
+    }
 
-        /// Get the poster of the item
-        /// - Parameter file: The internal Kodi file of the art
-        /// - Returns: An `UIImage`
-        func getArtwork(file: String) async -> UIImage {
-            if !file.isEmpty, let url = URL(string: Files.getFullPath(file: file, type: .art)) {
-                if let (data, _) = try? await URLSession.shared.data(from: url) {
-                    if let image = UIImage(data: data) {
-                        return image
-                    }
+    /// Get the poster of the item
+    /// - Parameter file: The internal Kodi file of the art
+    /// - Returns: An `UIImage`
+    func getArtwork(file: String) async -> UIImage {
+        if !file.isEmpty, let url = URL(string: Files.getFullPath(file: file, type: .art)) {
+            if let (data, _) = try? await URLSession.shared.data(from: url) {
+                if let image = UIImage(data: data) {
+                    return image
                 }
             }
-            // swiftlint:disable:next force_unwrapping
-            return UIImage(named: "poster", in: Bundle.module, compatibleWith: nil) ?? UIImage(systemName: "film")!
         }
-
-        /// Set the MetaData
-        switch video {
-        case let movie as Video.Details.Movie:
-            metaData.title = movie.title
-            metaData.subtitle = movie.tagline
-            metaData.description = movie.plot
-            metaData.artwork = await getArtwork(file: movie.art.poster)
-            metaData.genre = movie.genre.joined(separator: " ∙ ")
-            metaData.creationDate = movie.year.description
-        case let episode as Video.Details.Episode:
-            metaData.title = episode.title
-            metaData.subtitle = episode.showTitle
-            metaData.description = episode.plot
-            metaData.artwork = await getArtwork(file: episode.art.seasonPoster)
-            metaData.genre = episode.showTitle
-            metaData.creationDate = "\(episode.firstAired)"
-        case let musicVideo as Video.Details.MusicVideo:
-            metaData.title = musicVideo.title
-            metaData.subtitle = musicVideo.subtitle
-            metaData.description = musicVideo.plot
-            metaData.artwork = await getArtwork(file: musicVideo.art.poster)
-            metaData.genre = musicVideo.genre.joined(separator: " ∙ ")
-            metaData.creationDate = musicVideo.year.description
-        default:
-            break
-        }
-        let mapping: [AVMetadataIdentifier: Any] = [
-            .commonIdentifierTitle: metaData.title,
-            .iTunesMetadataTrackSubTitle: metaData.subtitle,
-            .commonIdentifierArtwork: metaData.artwork.pngData() as Any,
-            .commonIdentifierDescription: metaData.description,
-            .quickTimeMetadataGenre: metaData.genre,
-            .iTunesMetadataReleaseDate: metaData.creationDate.utf8,
-            .quickTimeMetadataCreationDate: metaData.creationDate.utf8,
-            .commonIdentifierCreationDate: metaData.creationDate.utf8,
-            .quickTimeUserDataCreationDate: metaData.creationDate.utf8
-        ]
-        return mapping.compactMap { createMetadataItem(for: $0, value: $1) }
+        // swiftlint:disable:next force_unwrapping
+        return UIImage(named: "poster", in: Bundle.module, compatibleWith: nil) ?? UIImage(systemName: "film")!
     }
+
+    /// Set the MetaData
+    switch video {
+    case let movie as Video.Details.Movie:
+        metaData.title = movie.title
+        metaData.subtitle = movie.tagline
+        metaData.description = movie.plot
+        metaData.artwork = await getArtwork(file: movie.art.poster)
+        metaData.genre = movie.genre.joined(separator: " ∙ ")
+        metaData.creationDate = movie.year.description
+    case let episode as Video.Details.Episode:
+        metaData.title = episode.title
+        metaData.subtitle = episode.showTitle
+        metaData.description = episode.plot
+        metaData.artwork = await getArtwork(file: episode.art.seasonPoster)
+        metaData.genre = episode.showTitle
+        metaData.creationDate = "\(episode.firstAired)"
+    case let musicVideo as Video.Details.MusicVideo:
+        metaData.title = musicVideo.title
+        metaData.subtitle = musicVideo.subtitle
+        metaData.description = musicVideo.plot
+        metaData.artwork = await getArtwork(file: musicVideo.art.poster)
+        metaData.genre = musicVideo.genre.joined(separator: " ∙ ")
+        metaData.creationDate = musicVideo.year.description
+    default:
+        break
+    }
+    let mapping: [AVMetadataIdentifier: Any] = [
+        .commonIdentifierTitle: metaData.title,
+        .iTunesMetadataTrackSubTitle: metaData.subtitle,
+        .commonIdentifierArtwork: metaData.artwork.pngData() as Any,
+        .commonIdentifierDescription: metaData.description,
+        .quickTimeMetadataGenre: metaData.genre,
+        .iTunesMetadataReleaseDate: metaData.creationDate.utf8,
+        .quickTimeMetadataCreationDate: metaData.creationDate.utf8,
+        .commonIdentifierCreationDate: metaData.creationDate.utf8,
+        .quickTimeUserDataCreationDate: metaData.creationDate.utf8
+    ]
+    return mapping.compactMap { createMetadataItem(for: $0, value: $1) }
+}
 #endif
 
-    extension AVPlayer {
+extension AVPlayer {
 
-        /// Bool if the Player is ready to play
-        ///
-        /// https://stackoverflow.com/questions/5401437/knowing-when-avplayer-object-is-ready-to-play
-        var readyToPlay: Bool {
-            let timeRange = currentItem?.loadedTimeRanges.first as? CMTimeRange
-            guard let duration = timeRange?.duration else {
-                return false
-            }
-            /// value/timescale = seconds
-            let timeLoaded = Int(duration.value) / Int(duration.timescale)
-            let loaded = timeLoaded > 0
-            /// Return the status
-            return status == .readyToPlay && loaded
+    /// Bool if the Player is ready to play
+    ///
+    /// https://stackoverflow.com/questions/5401437/knowing-when-avplayer-object-is-ready-to-play
+    var readyToPlay: Bool {
+        let timeRange = currentItem?.loadedTimeRanges.first as? CMTimeRange
+        guard let duration = timeRange?.duration else {
+            return false
         }
+        /// value/timescale = seconds
+        let timeLoaded = Int(duration.value) / Int(duration.timescale)
+        let loaded = timeLoaded > 0
+        /// Return the status
+        return status == .readyToPlay && loaded
     }
+}
 
-    extension AVPlayer {
+extension AVPlayer {
 
-        /// Is the AV player playing or not?
-        var isPlaying: Bool {
-            return rate != 0 && error == nil
-        }
+    /// Is the AV player playing or not?
+    var isPlaying: Bool {
+        return rate != 0 && error == nil
     }
+}
