@@ -290,7 +290,7 @@ public extension Router {
             )
         case .musicPlaylist(let file):
             return Item(
-                title: "\(file.label)",
+                title: "\(file.title)",
                 description: "Music playlist",
                 loading: "Loading the playlist",
                 empty: "The playlist is empty",
