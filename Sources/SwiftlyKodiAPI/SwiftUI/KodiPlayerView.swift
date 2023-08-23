@@ -23,6 +23,9 @@ public struct KodiPlayerView: View {
     @StateObject private var playerModel = KodiPlayerModel()
     /// The dismiss action
     @Environment(\.dismiss) private var dismiss
+#if os(visionOS)
+    @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
+#endif
     /// Init the View: we don't get it for free
     /// - Parameters:
     ///   - video: The ``KodiItem`` to play
@@ -34,29 +37,39 @@ public struct KodiPlayerView: View {
     /// The body of the View
     public var body: some View {
         VideoPlayer(player: playerModel.player)
-#if !os(macOS) && !os(tvOS)
+#if os(visionOS)
+            .ornament(attachmentAnchor: .scene(alignment: .bottom)) {
+                Button(
+                    action: {
+                        /// visionOS does not call .onDissapear, so this is a workaround:
+                        endAction()
+                        dismiss()
+                        Task {
+                            await dismissImmersiveSpace()
+                        }
+                    },
+                    label: {
+                        Label("Close", systemImage: "x.circle")
+                    }
+                )
+                .padding(.top)
+            }
+#endif
+#if os(iOS)
         /// Show a close button to exit the video
             .overlay(alignment: .topLeading) {
                 Button(
                     action: {
-#if !os(iOS)
-                        /// visionOS does not call .onDissapear, so this is a workaround:
-                        endAction()
-#endif
                         dismiss()
                     },
                     label: {
                         Image(systemName: "x.circle")
                             .font(.largeTitle)
                             .foregroundColor(.white.opacity(0.5))
-#if !os(iOS)
-                        /// visionOS
-                            .padding()
-#endif
-                    })
+                    }
+                )
             }
 #endif
-
             .task(id: playerModel.state) {
                 switch playerModel.state {
                 case .load:

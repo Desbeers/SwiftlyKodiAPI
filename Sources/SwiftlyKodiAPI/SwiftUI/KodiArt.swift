@@ -8,9 +8,9 @@
 import SwiftUI
 
 #if os(macOS)
-typealias SWIFTImage = NSImage
+public typealias SWIFTImage = NSImage
 #else
-typealias SWIFTImage = UIImage
+public typealias SWIFTImage = UIImage
 #endif
 
 /// SwiftUI Views for Kodi art (SwiftlyKodi Type)
@@ -72,7 +72,7 @@ extension KodiArt {
 extension KodiArt {
 
     /// Store art in a memory cache
-    private static let cache = NSCache<NSString, SWIFTImage>()
+    public static let cache = NSCache<NSString, SWIFTImage>()
 }
 
 // MARK: Kodi Art Views
