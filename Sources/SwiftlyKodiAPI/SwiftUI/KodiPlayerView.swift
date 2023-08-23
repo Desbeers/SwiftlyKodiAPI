@@ -38,21 +38,27 @@ public struct KodiPlayerView: View {
     public var body: some View {
         VideoPlayer(player: playerModel.player)
 #if os(visionOS)
-            .ornament(attachmentAnchor: .scene(alignment: .bottom)) {
-                Button(
-                    action: {
-                        /// visionOS does not call .onDissapear, so this is a workaround:
-                        endAction()
-                        dismiss()
-                        Task {
-                            await dismissImmersiveSpace()
+            .toolbar(id: "Player") {
+                ToolbarItem(
+                    id: "closeButton",
+                    placement: .bottomOrnament,
+                    showsByDefault: true
+                ) {
+                    Button(
+                        action: {
+                            /// visionOS does not call .onDissapear, so this is a workaround:
+                            endAction()
+                            dismiss()
+                            Task {
+                                await dismissImmersiveSpace()
+                            }
+                        },
+                        label: {
+                            Label("Close", systemImage: "xmark")
                         }
-                    },
-                    label: {
-                        Label("Close", systemImage: "x.circle")
-                    }
-                )
-                .padding(.top)
+                    )
+                    .labelStyle(.titleAndIcon)
+                }
             }
 #endif
 #if os(iOS)
