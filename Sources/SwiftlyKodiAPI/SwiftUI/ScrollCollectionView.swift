@@ -55,7 +55,7 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
     /// The header view for each element in the collection
     let header: (ScrollCollectionHeader) -> HeaderView
     /// The cell view for each element in the collection
-    let cell: (Element) -> CellView
+    let cell: (Int, Element) -> CellView
     /// State to store the selected letter from the section index
     @State private var selectedLetter = ""
     /// Extract the headers from the collection by the unique index label
@@ -74,7 +74,7 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
         grid: [GridItem] = [GridItem(.adaptive(minimum: 140))],
         showIndex: Bool = true,
         @ViewBuilder header: @escaping (ScrollCollectionHeader) -> HeaderView,
-        @ViewBuilder cell: @escaping (Element) -> CellView
+        @ViewBuilder cell: @escaping (Int, Element) -> CellView
     ) {
         self.style = style
         self.collection = collection
@@ -110,7 +110,7 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
                     LazyVStack(alignment: .center, spacing: 0) {
                         ForEach(collection, id: \.0) { _, elements in
                             ForEach(elements) { element in
-                                cell(element)
+                                cell(1, element)
                             }
                         }
                     }
@@ -142,8 +142,9 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
         ForEach(collection, id: \.0) { section, elements in
             Section(
                 content: {
-                    ForEach(elements) { element in
-                        cell(element)
+                    ForEach(Array(zip(elements.indices, elements)), id: \.0) { index, element in
+                        cell(index, element)
+                            .id(element.id)
                     }
                 }, header: {
                     header(section)
