@@ -82,7 +82,12 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
         self.anchor = anchor
         self.header = header
         self.grid = grid
+#if os(tvOS)
+        /// Pinned views are jumping in tvOS
+        self.pinnedViews = []
+#else
         self.pinnedViews = pinnedViews
+#endif
         if showIndex {
             let headers = collection.map(\.0).uniqued(by: \.indexLabel)
             self.headers = ( headers.count > 1 ) ? headers : []
