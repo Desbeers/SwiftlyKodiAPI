@@ -24,7 +24,7 @@ public extension KodiListSort {
         /// The kind of media
         let media: Library.Media
         /// The KodiConnector model
-        @EnvironmentObject private var kodi: KodiConnector
+        @Environment(KodiConnector.self) private var kodi
         /// Init the View
         public init(sorting: Binding<List.Sort>, media: Library.Media) {
             self._sorting = sorting
@@ -41,7 +41,7 @@ public extension KodiListSort {
                         .tag(List.Sort(id: sorting.id, method: option.sorting.method, order: option.sorting.order))
                 }
             }
-            .onChange(of: sorting) { item in
+            .onChange(of: sorting) { _, item in
                 if let index = kodi.listSortSettings.firstIndex(where: { $0.id == sorting.id }) {
                     kodi.listSortSettings[index] = item
                 } else {

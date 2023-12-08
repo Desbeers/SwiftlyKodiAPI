@@ -183,7 +183,7 @@ extension KodiArt {
                 if let image = imageLoader.kodiImage {
                     ArtView(image: image)
                 } else {
-                    ProgressView()
+                    Image(systemName: "scribble")
                 }
             }
             .task {

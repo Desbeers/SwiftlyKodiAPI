@@ -17,7 +17,7 @@ public struct KodiSettingView: View {
     /// The Kodi setting
     let setting: Setting.Details.KodiSetting
     /// The KodiConnector model
-    @EnvironmentObject var kodi: KodiConnector
+    @Environment(KodiConnector.self) private var kodi
     /// init: we don't get it for free
     public init(setting: Setting.Details.KodiSetting) {
         self.setting = setting
@@ -75,7 +75,7 @@ extension KodiSettingView {
     /// SwiftUI View for a Bool setting
     struct BoolSetting: View {
         /// The KodiConnector model
-        @EnvironmentObject var kodi: KodiConnector
+        @Environment(KodiConnector.self) private var kodi
         /// The setting
         let setting: Setting.Details.KodiSetting
         /// The state of the setting
@@ -88,7 +88,7 @@ extension KodiSettingView {
         /// The body of the View
         var body: some View {
             Toggle(setting.base.label, isOn: $state)
-                .onChange(of: state) { _ in
+                .onChange(of: state) {
                     Task { @MainActor in
                         print("valueBool")
                         await Settings.setSettingValue(setting: setting.id, bool: state)
@@ -107,7 +107,7 @@ extension KodiSettingView {
     /// SwiftUI View for a String setting
     struct StringSetting: View {
         /// The KodiConnector model
-        @EnvironmentObject var kodi: KodiConnector
+        @Environment(KodiConnector.self) private var kodi
         /// The setting
         let setting: Setting.Details.KodiSetting
         /// The value of the setting
@@ -120,7 +120,7 @@ extension KodiSettingView {
         /// The body of the View
         var body: some View {
             content
-                .onChange(of: value) { _ in
+                .onChange(of: value) {
                     Task { @MainActor in
                         await Settings.setSettingValue(setting: setting.id, string: value)
                         /// Get the settings of the host
@@ -156,7 +156,7 @@ extension KodiSettingView {
     /// SwiftUI View for an Int setting
     struct IntSetting: View {
         /// The KodiConnector model
-        @EnvironmentObject var kodi: KodiConnector
+        @Environment(KodiConnector.self) private var kodi
         /// The setting
         let setting: Setting.Details.KodiSetting
 
@@ -181,7 +181,7 @@ extension KodiSettingView {
 
         var body: some View {
             picker
-                .onChange(of: value) { _ in
+                .onChange(of: value) {
                     Task { @MainActor in
                         print("valueBool")
                         await Settings.setSettingValue(setting: setting.id, int: value)
@@ -232,7 +232,7 @@ extension KodiSettingView {
     /// SwiftUI View for an Addon setting
     struct AddonSetting: View {
         /// The KodiConnector model
-        @EnvironmentObject var kodi: KodiConnector
+        @Environment(KodiConnector.self) private var kodi
         /// The setting
         let setting: Setting.Details.KodiSetting
 
@@ -257,7 +257,7 @@ extension KodiSettingView {
                 }
             }
             .labelsHidden()
-            .onChange(of: value) { _ in
+            .onChange(of: value) {
                 Task { @MainActor in
                     print("valueString")
                     await Settings.setSettingValue(setting: setting.id, string: value)
@@ -276,7 +276,7 @@ extension KodiSettingView {
     /// SwiftUI View for a List setting
     struct ListSetting: View {
         /// The KodiConnector model
-        @EnvironmentObject var kodi: KodiConnector
+        @Environment(KodiConnector.self) private var kodi
         /// The setting
         let setting: Setting.Details.KodiSetting
         /// The options
@@ -301,7 +301,7 @@ extension KodiSettingView {
             ForEach(options) { option in
                 Toggle(option.label, isOn: $options[option.id].isSelected)
             }
-            .onChange(of: options) { _ in
+            .onChange(of: options) {
                 Task { @MainActor in
                     /// Grab the enabled items
                     let result = options.filter { $0.isSelected } .map(\.id)

@@ -41,7 +41,7 @@ extension KodiConnector {
         case wakeup
         /// The device is offline
         case offline
-        /// The device icame online
+        /// The device came online
         case online
         /// An error when loading the library or a lost of connection
         case failure

@@ -30,7 +30,7 @@ public extension MediaButtons {
     /// - Player is stopped: do method .playerOpen to start the playlist
     struct PlayPause: View {
         /// The KodiPlayer model
-        @EnvironmentObject var player: KodiPlayer
+        @Environment(KodiPlayer.self) private var player
         var help: String {
             player.properties.speed == 1 ? "Pause your playlist" :
                 player.properties.playlistPosition == -1 ? "Start your playlist" :
@@ -59,7 +59,7 @@ public extension MediaButtons {
     /// - Note: Kodi is a bit weird; going to 'previous' goes to the beginning of an item when it played for a while; else it reallly goes to the previous item
     struct PlayPrevious: View {
         /// The KodiPlayer model
-        @EnvironmentObject var player: KodiPlayer
+        @Environment(KodiPlayer.self) private var player
         /// Init the View
         public init() {}
         /// The body of the View
@@ -84,7 +84,7 @@ public extension MediaButtons {
     /// Play the next item
     struct PlayNext: View {
         /// The KodiPlayer model
-        @EnvironmentObject var player: KodiPlayer
+        @Environment(KodiPlayer.self) private var player
         /// Init the View
         public init() {}
         /// The body of the View
@@ -109,7 +109,7 @@ public extension MediaButtons {
     /// Toggle shuffle button
     struct SetShuffle: View {
         /// The KodiPlayer model
-        @EnvironmentObject var player: KodiPlayer
+        @Environment(KodiPlayer.self) private var player
         /// Init the View
         public init() {}
         /// The body of the View
@@ -135,7 +135,7 @@ public extension MediaButtons {
     /// Toggle repeat button
     struct SetRepeat: View {
         /// The KodiPlayer model
-        @EnvironmentObject var player: KodiPlayer
+        @Environment(KodiPlayer.self) private var player
         /// Init the View
         public init() {}
         /// The body of the View
@@ -170,7 +170,7 @@ public extension MediaButtons {
     /// - Note: This will set 'Party Mode' for audio, I don't see a use of videos for this
     struct SetPartyMode: View {
         /// The KodiPlayer model
-        @EnvironmentObject var player: KodiPlayer
+        @Environment(KodiPlayer.self) private var player
         /// Init the View
         public init() {}
         /// The body of the View
@@ -198,7 +198,7 @@ public extension MediaButtons {
     /// Volume mute
     struct VolumeMute: View {
         /// The KodiPlayer model
-        @EnvironmentObject var player: KodiPlayer
+        @Environment(KodiPlayer.self) private var player
         /// Init the View
         public init() {}
         /// The body of the View
@@ -229,11 +229,12 @@ public extension MediaButtons {
     /// Volume slider
     struct VolumeSlider: View {
         /// The KodiPlayer model
-        @EnvironmentObject var player: KodiPlayer
+        @Environment(KodiPlayer.self) private var player
         /// Init the View
         public init() {}
         /// The body of the View
         public var body: some View {
+            @Bindable var player = player
             Slider(
                 value: $player.volume,
                 in: 0...100,

@@ -39,7 +39,7 @@ extension Application {
             if kodi.library.episodes.isEmpty {
                 return await VideoLibrary.getEpisodeDetails(episodeID: id)
             } else {
-                return kodi.library.episodes.first(where: { $0.episode == id })
+                return kodi.library.episodes.first(where: { $0.episodeID == id })
             }
         default:
             return nil

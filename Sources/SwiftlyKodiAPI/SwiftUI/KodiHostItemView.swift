@@ -17,7 +17,7 @@ public struct KodiHostItemView: View {
     /// The closure action
     let action: () -> Void
     /// The KodiConnector model
-    @EnvironmentObject var kodi: KodiConnector
+    @Environment(KodiConnector.self) private var kodi
     /// The values of the form
     @State private var values: HostItem
     /// The namespace of the View
@@ -160,7 +160,7 @@ public struct KodiHostItemView: View {
     }
 
     /// Forget the host
-    func forgetHost() {
+    @MainActor func forgetHost() {
         if let index = kodi.configuredHosts.firstIndex(where: { $0.ip == host.ip }) {
             kodi.configuredHosts.remove(at: index)
             HostItem.saveConfiguredHosts(hosts: kodi.configuredHosts)
@@ -217,7 +217,7 @@ public extension KodiHostItemView {
     /// SwiftUI View to show information when no host is selected
     struct NoHostSelected: View {
         /// The KodiConnector model
-        @EnvironmentObject var kodi: KodiConnector
+        @Environment(KodiConnector.self) private var kodi
         /// The message
         private var message: String
         /// Init the struct
@@ -250,7 +250,7 @@ public extension KodiHostItemView {
     /// SwiftUI View to show information when a host is offline
     struct HostIsOffline: View {
         /// The KodiConnector model
-        @EnvironmentObject var kodi: KodiConnector
+        @Environment(KodiConnector.self) private var kodi
         /// The message
         private var message: String
         /// Init the struct

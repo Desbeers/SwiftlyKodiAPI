@@ -9,7 +9,7 @@ import SwiftUI
 import Network
 
 /// The Observable Class that provides the connection with a remote host (SwiftlyKodi Type)
-public final class KodiConnector: ObservableObject {
+@Observable public final class KodiConnector {
 
     // MARK: Constants and Variables
 
@@ -36,28 +36,28 @@ public final class KodiConnector: ObservableObject {
     // MARK: Published properties
 
     /// The status of the KodiConnector class
-    @Published public var status: Status = .none
+    public var status: Status = .none
 
     /// The remote host to make a connection
-    @Published public var host = HostItem()
+    public var host = HostItem()
 
     /// The library on the Kodi host
-    @Published public var library = Library.Items()
+    public var library = Library.Items()
 
     /// The host settings
-    @Published public var settings: [Setting.Details.KodiSetting] = []
+    public var settings: [Setting.Details.KodiSetting] = []
 
     /// The addons
     public var addons: [Addon.Details] = []
 
     /// The favourites
-    @Published public var favourites: [AnyKodiItem] = []
+    public var favourites: [AnyKodiItem] = []
 
     /// The online hosts
-    @Published public var bonjourHosts: [BonjourHost] = []
+    public var bonjourHosts: [BonjourHost] = []
 
     /// The configured hosts
-    @Published public var configuredHosts: [HostItem]
+    public var configuredHosts: [HostItem]
 
     // MARK: Init
 

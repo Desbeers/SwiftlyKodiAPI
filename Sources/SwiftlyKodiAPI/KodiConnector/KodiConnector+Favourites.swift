@@ -40,19 +40,6 @@ extension KodiConnector {
                     items.append(episode)
                 }
             }
-
-//            if let movie = library.movies.first(where: { $0.file == fav }) {
-//                items.append(movie)
-//            }
-//            if let tvshow = library.tvshows.first(where: { $0.file == fav }) {
-//                items.append(tvshow)
-//            }
-//            if let episode = library.episodes.first(where: { $0.file == fav }) {
-//                items.append(episode)
-//            }
-//            if let musicVideo = library.musicVideos.first(where: { $0.file == fav }) {
-//                items.append(musicVideo)
-//            }
         }
         return items.anykodiItem()
     }

@@ -16,7 +16,7 @@ import SwiftUI
 /// - The volume of the player
 ///
 /// - Note: Volume is part of the Application properties but it makes sense here
-public final class KodiPlayer: ObservableObject {
+@Observable public final class KodiPlayer {
 
     // MARK: Constants and Variables
 
@@ -28,22 +28,22 @@ public final class KodiPlayer: ObservableObject {
     // MARK: Published properties
 
     /// The properties of the player
-    @Published public private(set) var properties = Player.Property.Value()
+    public private(set) var properties = Player.Property.Value()
     /// The optional current item in the player
-    @Published public private(set) var currentItem: (any KodiItem)?
+    public private(set) var currentItem: (any KodiItem)?
     /// The current audio playlist
-    @Published public private(set) var audioPlaylist: [(any KodiItem)]?
+    public private(set) var audioPlaylist: [(any KodiItem)]?
     /// The current video playlist
-    @Published public private(set) var videoPlaylist: [(any KodiItem)]?
+    public private(set) var videoPlaylist: [(any KodiItem)]?
     /// The time of latest playlist update
     /// - Note: SwiftUI can't observe the playlists because they have Protocol items
-    @Published public private(set) var playlistUpdate = Date()
+    public private(set) var playlistUpdate = Date()
     /// The volume setting of the application
     /// - Note: This is an Application property but it makes more sense here
-    @Published public var volume: Double = 0
+    public var volume: Double = 0
     /// Bool if the volume of the application is muted or not
     /// - Note: This is an Application property but it makes more sense here
-    @Published public private(set) var muted: Bool = false
+    public private(set) var muted: Bool = false
 
     // MARK: Calculated stuff
 
