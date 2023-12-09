@@ -29,8 +29,8 @@ extension ViewStatus {
     /// - Returns: A SwiftUI View
     @ViewBuilder public func message(router: Router, progress: Bool = false) -> some View {
         if !progress && self == .loading {
-            EmptyView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            /// - Note: Don't use EmptyView() because otherwise animations are weird
+            Color.clear
         } else {
             ContentUnavailableView {
                 Label(router.item.title, systemImage: router.item.icon)
