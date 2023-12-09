@@ -28,17 +28,27 @@ extension ViewStatus {
     ///   - progress: Show progress when loading content
     /// - Returns: A SwiftUI View
     @ViewBuilder public func message(router: Router, progress: Bool = false) -> some View {
-        if !progress && self == .loading {
-            /// - Note: Don't use EmptyView() because otherwise animations are weird
-            Color.clear
+        if self == .loading {
+            switch progress {
+            case true:
+                ContentUnavailableView {
+                    Label(
+                        title: { Text(router.item.title) },
+                        icon: { ProgressView() }
+                    )
+                } description: {
+                        Text(router.item.loading)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            case false:
+                /// - Note: Don't use EmptyView() because otherwise animations are weird
+                Color.clear
+            }
         } else {
             ContentUnavailableView {
                 Label(router.item.title, systemImage: router.item.icon)
             } description: {
                 switch self {
-                case .loading:
-                    Text(router.item.loading)
-                    ProgressView()
                 case .empty:
                     Text(router.item.empty)
                 case .offline:
