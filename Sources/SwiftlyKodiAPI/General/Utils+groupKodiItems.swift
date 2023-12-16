@@ -52,7 +52,7 @@ public extension Utils {
                 var sectionLabel = "No rating"
                 var indexLabel = "􀕧"
                 if item.item.userRating != 0 {
-                    sectionLabel = String(repeating: "*", count: item.item.userRating)
+                    sectionLabel = "\(item.item.userRating) " + String(repeating: "*", count: item.item.userRating)
                     indexLabel = String(item.item.userRating)
                 }
                 return ScrollCollectionHeader(

@@ -234,8 +234,9 @@ extension KodiArt {
                 } else {
                     let request = URLRequest(url: url)
                     let configuration = URLSessionConfiguration.default
-                    configuration.timeoutIntervalForRequest = 1
-                    configuration.timeoutIntervalForResource = 1
+                    configuration.waitsForConnectivity = true
+                    configuration.timeoutIntervalForRequest = 3
+                    configuration.timeoutIntervalForResource = 3
                     let session = URLSession(configuration: configuration)
                     let (data, response) = try await session.data(for: request)
                     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
