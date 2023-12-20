@@ -165,7 +165,7 @@ extension KodiSettingView {
         let step: Int
         let options: [Setting.Details.Option]
 
-        @State var value: Int
+        @State private var value: Int
 
         /// init: we don't get it for free
         public init(setting: Setting.Details.KodiSetting) {
@@ -238,7 +238,7 @@ extension KodiSettingView {
 
         let options: [Setting.Details.SettingAddon.Option]
 
-        @State var value: String
+        @State private var value: String
 
         /// init: we don't get it for free
         public init(setting: Setting.Details.KodiSetting) {
@@ -280,7 +280,7 @@ extension KodiSettingView {
         /// The setting
         let setting: Setting.Details.KodiSetting
         /// The options
-        @State var options: [Option]
+        @State private var options: [Option]
         /// Init: we don't get it for free
         public init(setting: Setting.Details.KodiSetting) {
             self.setting = setting
