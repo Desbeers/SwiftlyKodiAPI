@@ -135,7 +135,7 @@ extension KodiConnector {
     ///   - itemID: The ``Library/id`` of the item
     ///   - media: The kind of ``Media``
     func updateKodiItem(itemID: Library.ID, media: Library.Media) {
-        Task { @MainActor in
+        Task {
             switch media {
             case .artist:
                 let dates = await AudioLibrary.getProperties()

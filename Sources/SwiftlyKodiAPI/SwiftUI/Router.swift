@@ -8,7 +8,7 @@
 import Foundation
 
 /// Router for Kodi client navigation
-public enum Router: Hashable {
+public enum Router: Hashable, Codable {
 
     // MARK: General
 
@@ -43,6 +43,8 @@ public enum Router: Hashable {
     case moviePlaylists
     /// A specific movie playlist
     case moviePlaylist(file: SwiftlyKodiAPI.List.Item.File)
+    /// Random movies
+    case randomMovies
 
     // MARK: TV shows
 

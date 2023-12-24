@@ -192,7 +192,7 @@ public extension KodiHostItemView {
     struct KodiSettings: View {
         public init() {}
         public var body: some View {
-            Message(header: "Kodi Settings") {
+            Message(header: "Access your Kodi") {
                 Text("""
                 To have remote access, you need the following settings on the host
 
@@ -236,7 +236,6 @@ public extension KodiHostItemView {
             Message(header: "No Kodi \(kodi.configuredHosts.isEmpty ? "configured" : "selected")") {
                 if kodi.bonjourHosts.isEmpty {
                     Text("There seems to be no Kodi running on your network")
-                    KodiSettings()
                 } else {
                     Text(message)
                 }
@@ -255,19 +254,19 @@ public extension KodiHostItemView {
         private var message: String
         /// Init the struct
         public init() {
-            var content = "There are no other configured Kodi's online."
+            var content = "There are no other configured Kodi's online"
             if !KodiConnector.shared.configuredHosts.filter({ $0.isOnline }).isEmpty {
-                content = "You can select another configured Kodi."
+                content = "You can select another configured Kodi"
             }
             if !KodiConnector.shared.bonjourHosts.filter({ $0.new }).isEmpty {
-                content += "\n\nThere is another Kodi available on your network."
+                content += "\n\nThere is another Kodi available on your network"
             }
             self.message = content
         }
         public var body: some View {
             Message(header: "\(kodi.host.name) is offline") {
                 if kodi.bonjourHosts.isEmpty {
-                    Text("There are no Kodi's on your network available.")
+                    Text("There are no Kodi's on your network available")
                 } else {
                     Text(message)
                 }
@@ -284,12 +283,18 @@ extension KodiHostItemView {
         public var body: some View {
             VStack {
                 Text(header)
+                #if os(tvOS)
+                    .font(.title3)
+                #else
                     .font(.title)
+                #endif
                     .padding()
                     .minimumScaleFactor(0.2)
                     .lineLimit(1)
                 content()
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .frame(maxWidth: .infinity)
             .padding(.bottom)
         }
     }

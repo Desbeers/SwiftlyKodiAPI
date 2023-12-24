@@ -160,6 +160,15 @@ public extension Router {
                 icon: "list.triangle",
                 color: .purple
             )
+        case .randomMovies:
+            return Item(
+                title: "Random Movies",
+                description: "Random movies from your Library",
+                loading: "Loading your Movies",
+                empty: "There are no Movies in your Library",
+                icon: "film",
+                color: .teal
+            )
 
             // MARK: TV shows
 

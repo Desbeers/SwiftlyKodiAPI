@@ -78,7 +78,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
 
     /// Init the Host struct
     public init(
-        name: String = "No Kodi connected",
+        name: String = Bundle.main.clientName,
         ip: String = "",
         port: Int = 8080,
         username: String = "",

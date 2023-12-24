@@ -74,10 +74,7 @@ extension KodiConnector {
         /// Get the addons of the host
         addons = await Addons.getAddons()
         /// Get the settings of the host
-        Task { @MainActor in
-            settings = await Settings.getSettings()
-//            favourites = await getFavourites()
-        }
+        settings = await Settings.getSettings()
         if host.player == .local {
             await KodiPlayer.shared.getPlayerProperties()
             await KodiPlayer.shared.getPlayerItem()

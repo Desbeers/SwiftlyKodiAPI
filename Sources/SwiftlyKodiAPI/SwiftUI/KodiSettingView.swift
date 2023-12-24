@@ -55,16 +55,7 @@ public struct KodiSettingView: View {
                 KodiSettingView(setting: child)
             }
         }
-#if os(tvOS)
-        .padding()
-        .buttonStyle(.bordered)
-        .pickerStyle(.navigationLink)
-#endif
-        .padding(setting.parent == .none ? [.top, .horizontal] : .horizontal)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.thickMaterial)
-        .cornerRadius(10)
-        .animation(.default, value: kodi.settings)
+        .modifier(SettingWrapper(setting: setting))
     }
 }
 
@@ -89,7 +80,7 @@ extension KodiSettingView {
         var body: some View {
             Toggle(setting.base.label, isOn: $state)
                 .onChange(of: state) {
-                    Task { @MainActor in
+                    Task {
                         print("valueBool")
                         await Settings.setSettingValue(setting: setting.id, bool: state)
                         /// Get the settings of the host
@@ -121,7 +112,7 @@ extension KodiSettingView {
         var body: some View {
             content
                 .onChange(of: value) {
-                    Task { @MainActor in
+                    Task {
                         await Settings.setSettingValue(setting: setting.id, string: value)
                         /// Get the settings of the host
                         kodi.settings = await Settings.getSettings()
@@ -182,7 +173,7 @@ extension KodiSettingView {
         var body: some View {
             picker
                 .onChange(of: value) {
-                    Task { @MainActor in
+                    Task {
                         print("valueBool")
                         await Settings.setSettingValue(setting: setting.id, int: value)
                         /// Get the settings of the host
@@ -258,7 +249,7 @@ extension KodiSettingView {
             }
             .labelsHidden()
             .onChange(of: value) {
-                Task { @MainActor in
+                Task {
                     print("valueString")
                     await Settings.setSettingValue(setting: setting.id, string: value)
                     /// Get the settings of the host
@@ -302,7 +293,7 @@ extension KodiSettingView {
                 Toggle(option.label, isOn: $options[option.id].isSelected)
             }
             .onChange(of: options) {
-                Task { @MainActor in
+                Task {
                     /// Grab the enabled items
                     let result = options.filter { $0.isSelected } .map(\.id)
                     /// Update the setting
@@ -333,5 +324,53 @@ extension KodiSettingView {
             KodiSettingView(setting: result)
                 .padding(.bottom)
         }
+    }
+}
+
+extension KodiSettingView {
+
+    /// SwiftUI View for a Waning
+    public struct Warning: View {
+        /// The KodiConnector model
+        @Environment(KodiConnector.self) private var kodi
+        public init() {}
+        public var body: some View {
+            Label(
+                title: {
+                    // swiftlint:disable:next line_length
+                    Text("These are the **Kodi** settings on '\(kodi.host.name)', not **Komodio** settings.\n\n**Komodio** will use these settings, however, it will affect all clients, not just **Komodio**.")
+                }, icon: {
+                    Image(systemName: "exclamationmark.circle.fill")
+                        .foregroundColor(.red)
+                }
+            )
+            .padding(.vertical)
+            .modifier(SettingWrapper())
+        }
+    }
+}
+
+
+// MARK: Setting Wrapper modifier
+
+/// A `ViewModifier` to wrap a setting
+struct SettingWrapper: ViewModifier {
+    /// The Kodi setting
+    var setting: Setting.Details.KodiSetting?
+    /// The KodiConnector model
+    @Environment(KodiConnector.self) private var kodi
+    /// The modifier
+    func body(content: Content) -> some View {
+        content
+#if os(tvOS)
+        .padding()
+        .buttonStyle(.bordered)
+        .pickerStyle(.navigationLink)
+#endif
+        .padding(setting?.parent == Setting.ID.none ? [.top, .horizontal] : .horizontal)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.thickMaterial)
+        .cornerRadius(10)
+        .animation(.default, value: kodi.settings)
     }
 }
