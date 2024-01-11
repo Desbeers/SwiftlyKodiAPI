@@ -13,10 +13,10 @@ extension VideoLibrary {
 
     /// Get the status of the Video Library  (SwiftlyKodi API)
     /// - Returns: Current status of all video items
-    public static func getVideoLibraryStatus() async -> Library.Status {
+    public static func getVideoLibraryStatus() async -> Library.VideoFiles {
         async let movies = Files.getDirectory(directory: "library://video/movies/titles.xml", media: .video)
         async let tvshows = Files.getDirectory(directory: "library://video/tvshows/titles.xml", media: .video)
         async let musicVideos = Files.getDirectory(directory: "library://video/musicvideos/titles.xml", media: .video)
-        return await Library.Status(movies: movies, tvshows: tvshows, musicVideos: musicVideos)
+        return await Library.VideoFiles(movies: movies, tvshows: tvshows, musicVideos: musicVideos)
     }
 }

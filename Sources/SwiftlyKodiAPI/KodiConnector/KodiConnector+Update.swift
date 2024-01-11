@@ -14,7 +14,7 @@ extension KodiConnector {
     /// Get the video library updates
     @MainActor func getVideoLibraryUpdates() async {
 
-        if let videoLibraryStatus = try? Cache.get(key: "VideoLibraryStatus", as: Library.Status.self, folder: host.ip) {
+        if let videoLibraryStatus = try? Cache.get(key: "VideoLibraryStatus", as: Library.VideoFiles.self, folder: host.ip) {
             let currentStatus = await VideoLibrary.getVideoLibraryStatus()
             if currentStatus.movies != videoLibraryStatus.movies {
                 Logger.library.warning("Movies are outdated")
