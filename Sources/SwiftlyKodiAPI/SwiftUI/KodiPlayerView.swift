@@ -2,7 +2,7 @@
 //  KodiPlayerView.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -97,7 +97,6 @@ public struct KodiPlayerView: View {
             .ignoresSafeArea(.all)
         /// This got not called on visionOS:
             .onDisappear {
-                logger("BYE VIDEO!")
                 endAction()
             }
     }

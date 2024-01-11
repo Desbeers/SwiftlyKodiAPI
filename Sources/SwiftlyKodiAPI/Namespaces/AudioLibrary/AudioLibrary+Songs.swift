@@ -2,10 +2,11 @@
 //  AudioLibrary+Songs.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getSongs
 
@@ -47,21 +48,21 @@ extension AudioLibrary {
         sort: List.Sort = List.Sort(method: .track, order: .ascending),
         limits: List.Limits? = nil
     ) async -> [Audio.Details.Song] {
-        logger("AudioLibrary.getSongs")
         let kodi: KodiConnector = .shared
-        if let result = try? await kodi.sendRequest(request: GetSongs(filter: filter, limits: limits, sort: sort)) {
-            logger("Loaded \(result.songs.count) songs from the Kodi host")
+        do {
+            let result = try await kodi.sendRequest(request: GetSongs(filter: filter, limits: limits, sort: sort))
+            Logger.library.info("Loaded \(result.songs.count) songs from the Kodi host")
             return result.songs
+        } catch {
+            Logger.library.error("Loading songs failed with error: \(error.localizedDescription)")
+            return [Audio.Details.Song]()
         }
-        /// There are no songs in the library
-        return [Audio.Details.Song]()
     }
 
     /// Retrieve all songs after a modification date (Kodi API)
     /// - Parameter modificationDate: The date as a Kodi string
     /// - Returns: The ``Audio/Details/Song`` array after the modified date
     public static func getSongs(modificationDate: String) async -> [Audio.Details.Song] {
-        logger("AudioLibrary.getSongs")
         let kodi: KodiConnector = .shared
         let request = GetSongs(
             filter: List.Filter(
@@ -72,12 +73,14 @@ extension AudioLibrary {
             limits: nil,
             sort: List.Sort()
         )
-        if let result = try? await kodi.sendRequest(request: request) {
-            logger("Loaded \(result.songs.count) songs from the Kodi host")
+        do {
+            let result = try await kodi.sendRequest(request: request)
+            Logger.library.info("Loaded \(result.songs.count) songs from the Kodi host")
             return result.songs
+        } catch {
+            Logger.library.error("Loading songs failed with error: \(error.localizedDescription)")
+            return [Audio.Details.Song]()
         }
-        /// There are no songs after the modification date
-        return [Audio.Details.Song]()
     }
 
     /// Retrieve all songs (Kodi API)
@@ -120,14 +123,14 @@ extension AudioLibrary {
     /// - Parameter songID: The ID of the song
     /// - Returns: An ``Audio/Details/Song`` item
     public static func getSongDetails(songID: Library.ID) async -> Audio.Details.Song {
-        logger("AudioLibrary.getSongDetails")
         let kodi: KodiConnector = .shared
         let request = AudioLibrary.GetSongDetails(songID: songID)
         do {
             let result = try await kodi.sendRequest(request: request)
+            Logger.kodiAPI.info("Fetched details for '\(result.songdetails.title)'")
             return result.songdetails
         } catch {
-            logger("Loading song details failed with error: \(error)")
+            Logger.kodiAPI.error("Fetching song details failed with error: \(error)")
             return Audio.Details.Song()
         }
     }
@@ -169,11 +172,10 @@ extension AudioLibrary {
     /// Update the given song with the given details (Kodi API)
     /// - Parameter song: The ``Audio/Details/Song`` item
     public static func setSongDetails(song: Audio.Details.Song) async {
-        logger("AudioLibrary.setSongDetails")
         let kodi: KodiConnector = .shared
         let message = AudioLibrary.SetSongDetails(song: song)
         kodi.sendMessage(message: message)
-        logger("Details set for '\(song.title)'")
+        Logger.library.info("Details set for '\(song.title)'")
     }
 
     /// Update the given song with the given details (Kodi API)

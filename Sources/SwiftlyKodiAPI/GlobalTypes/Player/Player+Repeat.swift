@@ -2,13 +2,13 @@
 //  Player+repeat.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 public extension Player {
 
     /// The repeat mode of the player (Global Kodi Type)
-    enum Repeat: String, Decodable {
+    enum Repeat: String, Decodable, Sendable {
 
         /// # Player.Repeat
 

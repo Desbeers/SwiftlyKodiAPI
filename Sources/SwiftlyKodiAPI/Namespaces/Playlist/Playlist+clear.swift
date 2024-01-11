@@ -2,10 +2,11 @@
 //  Playlist+clear.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: clear
 
@@ -14,7 +15,6 @@ extension Playlist {
     /// Clear playlist (Kodi API)
     /// - Parameter playlistID: The ``Playlist/ID`` of the player to clear
     public static func clear(playlistID: Playlist.ID) {
-        logger("Playlist.clear")
         KodiConnector.shared.sendMessage(message: Clear(playlistID: playlistID))
     }
 

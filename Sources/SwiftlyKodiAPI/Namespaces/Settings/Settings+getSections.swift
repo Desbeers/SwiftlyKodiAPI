@@ -2,10 +2,11 @@
 //  Settings+getSections.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getSections
 
@@ -14,14 +15,13 @@ extension Settings {
     /// Retrieves all setting sections (Kodi API)
     /// - Returns: All setting sections
     public static func getSections() async -> [Setting.Details.Section] {
-        logger("Settings.GetSections")
         let kodi: KodiConnector = .shared
         let request = Settings.GetSections()
         do {
             let result = try await kodi.sendRequest(request: request)
             return result.sections.filter { $0.id != .unknown }
         } catch {
-            logger("Loading sections failed with error: \(error)")
+            Logger.kodiAPI.error("Getting sections failed with error: \(error)")
             return []
         }
     }

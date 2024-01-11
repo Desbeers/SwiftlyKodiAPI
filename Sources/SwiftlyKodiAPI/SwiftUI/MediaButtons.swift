@@ -2,10 +2,11 @@
 //  MediaButtons.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
+import OSLog
 
 // MARK: Media Buttons
 
@@ -244,7 +245,7 @@ public extension MediaButtons {
                 onEditingChanged: { _ in
                     /// - Note: Using 'onEditingChanged' because that will only be trickered when using the slider
                     ///         and not when programmaticly changing its value after a notification.
-                    logger("Volume changed: \(player.volume)")
+                    Logger.player.info("Volume changed: \(player.volume)")
                     Task {
                         await Application.setVolume(volume: player.volume)
                     }

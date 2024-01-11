@@ -2,10 +2,11 @@
 //  XBMC+getInfoBooleans.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getInfoBooleans
 
@@ -17,7 +18,6 @@ extension XBMC {
     ///
     /// - Returns: True or false for the ``InfoBoolean``
     public static func getInfoBooleans(info: InfoBoolean) async -> Bool {
-        logger("Settings.GetSettings")
         let kodi: KodiConnector = .shared
         let request = GetInfoBooleans(boolean: info)
         do {
@@ -27,7 +27,7 @@ extension XBMC {
             }
             return false
         } catch {
-            logger("Loading info booleans failed with error: \(error)")
+            Logger.kodiAPI.error("Loading info booleans failed with error: \(error)")
             return false
         }
     }

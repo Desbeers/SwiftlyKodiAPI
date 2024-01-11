@@ -2,10 +2,11 @@
 //  Player+playPause.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: playPause
 
@@ -17,7 +18,6 @@ extension Player {
     ///
     /// - Parameter playerID: The ``Player/ID`` of the  player
     public static func playPause(playerID: Player.ID) {
-        logger("Player.playPause")
         KodiConnector.shared.sendMessage(message: PlayPause(playerID: playerID))
     }
 

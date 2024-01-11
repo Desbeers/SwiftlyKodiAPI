@@ -2,10 +2,11 @@
 //  VideoLibrary+TVshows.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getTVShows
 
@@ -16,10 +17,11 @@ extension VideoLibrary {
     public static func getTVShows() async -> [Video.Details.TVShow] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetTVShows()) {
-            logger("Loaded \(result.tvshows.count) TV shows from the Kodi host")
+            Logger.library.info("Loaded \(result.tvshows.count) TV shows from the Kodi host")
             return result.tvshows
         }
         /// There are no TV shows in the library
+        Logger.library.warning("There are no TV shows on the Kodi host")
         return [Video.Details.TVShow]()
     }
 
@@ -60,7 +62,7 @@ extension VideoLibrary {
             let result = try await kodi.sendRequest(request: request)
             return result.tvshowdetails
         } catch {
-            logger("Loading tv show details failed with error: \(error)")
+            Logger.kodiAPI.error("Loading tv show details failed with error: \(error)")
             return Video.Details.TVShow(media: .none)
         }
     }
@@ -108,7 +110,7 @@ extension VideoLibrary {
         let kodi: KodiConnector = .shared
         let message = SetTVShowDetails(tvshow: tvshow)
         kodi.sendMessage(message: message)
-        logger("Details set for '\(tvshow.title)'")
+        Logger.library.notice("Details set for '\(tvshow.title)'")
     }
 
     /// Update the given tv show with the given details (Kodi API)

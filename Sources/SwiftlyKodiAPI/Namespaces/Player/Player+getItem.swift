@@ -2,10 +2,11 @@
 //  Player+getItem.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getItem
 
@@ -20,9 +21,11 @@ extension Player {
     /// - Parameter playerID: The ``Player/ID`` of the  player
     /// - Returns: a ``KodiItem`` if there is a current item
     public static func getItem(playerID: Player.ID) async -> (any KodiItem)? {
-        logger("Player.getItem")
         let kodi: KodiConnector = .shared
-        if let result = try? await kodi.sendRequest(request: GetItem(playerID: playerID)) {
+        let request = GetItem(playerID: playerID)
+        do {
+            let result = try await kodi.sendRequest(request: request)
+            Logger.player.info("Playing '\(result.item.title)'")
             /// If the result has an ID, it is from the library
             if let id = result.item.id, let item = await Application.getItem(type: result.item.type, id: id) {
                 return item
@@ -34,9 +37,10 @@ extension Player {
                     file: result.item.mediapath
                 )
             }
+        } catch {
+            Logger.kodiAPI.error("Fetching player item with error: \(error)")
+            return nil
         }
-        /// Nothing is playing
-        return nil
     }
 
     /// Retrieves the currently played item (Kodi API)

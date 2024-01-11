@@ -2,10 +2,11 @@
 //  AudioLibrary+Albums.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getAlbums
 
@@ -15,11 +16,12 @@ extension AudioLibrary {
     /// - Returns: All albums in an ``Audio/Details/Album`` array
     public static func getAlbums() async -> [Audio.Details.Album] {
         let kodi: KodiConnector = .shared
-        if let request = try? await kodi.sendRequest(request: GetAlbums()) {
-            logger("Loaded \(request.albums.count) albums from the Kodi host")
-            return request.albums
-        } else {
-            /// There are no albums in the library
+        do {
+            let result = try await kodi.sendRequest(request: GetAlbums())
+            Logger.library.info("Loaded \(result.albums.count) albums from the Kodi host")
+            return result.albums
+        } catch {
+            Logger.library.error("Loading albums failed with error: \(error.localizedDescription)")
             return [Audio.Details.Album]()
         }
     }

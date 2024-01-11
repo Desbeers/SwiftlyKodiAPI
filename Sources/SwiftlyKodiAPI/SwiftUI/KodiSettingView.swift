@@ -2,7 +2,7 @@
 //  KodiSettingView.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -81,7 +81,6 @@ extension KodiSettingView {
             Toggle(setting.base.label, isOn: $state)
                 .onChange(of: state) {
                     Task {
-                        print("valueBool")
                         await Settings.setSettingValue(setting: setting.id, bool: state)
                         /// Get the settings of the host
                         kodi.settings = await Settings.getSettings()
@@ -174,7 +173,6 @@ extension KodiSettingView {
             picker
                 .onChange(of: value) {
                     Task {
-                        print("valueBool")
                         await Settings.setSettingValue(setting: setting.id, int: value)
                         /// Get the settings of the host
                         kodi.settings = await Settings.getSettings()
@@ -250,7 +248,6 @@ extension KodiSettingView {
             .labelsHidden()
             .onChange(of: value) {
                 Task {
-                    print("valueString")
                     await Settings.setSettingValue(setting: setting.id, string: value)
                     /// Get the settings of the host
                     kodi.settings = await Settings.getSettings()

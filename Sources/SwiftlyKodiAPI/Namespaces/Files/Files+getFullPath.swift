@@ -2,7 +2,7 @@
 //  Files+getFullPath.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
@@ -13,7 +13,7 @@ extension Files {
     ///
     /// Kodi does not store the full path of a file in the database; it must be converted to a full path
     ///
-    /// - Note: Because of performance, I do't use 'Files.prepareDownload' here
+    /// - Note: Because of performance, I don't use 'Files.prepareDownload' here
     ///
     /// - Parameters:
     ///   - file: The internal Kodi path

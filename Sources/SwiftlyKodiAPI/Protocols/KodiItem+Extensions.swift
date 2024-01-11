@@ -2,10 +2,11 @@
 //  KodiItem+Extensions.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 public extension KodiItem {
 
@@ -71,24 +72,6 @@ public extension KodiItem {
 
 extension KodiItem {
 
-//    /// Convert a `Date` to a Kodi date string
-//    /// - Parameter date: The `Date`
-//    /// - Returns: A string with the date
-//    func kodiDateFromSwiftDate(_ date: Date) -> String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//        return dateFormatter.string(from: date)
-//    }
-//
-//    /// Convert a Kodi date string to a `Date`
-//    /// - Parameter date: The Kodi date string
-//    /// - Returns: A Swift `Date`
-//    public func swiftDateFromKodiDate(_ date: String) -> Date {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//        return dateFormatter.date(from: date) ?? Date()
-//    }
-
     /// Set the details of a ``KodiItem``
     /// - Parameter item: The ``KodiItem`` to set
     func setDetails(_ item: any KodiItem) async {
@@ -107,7 +90,7 @@ extension KodiItem {
         case let song as Audio.Details.Song:
             await AudioLibrary.setSongDetails(song: song)
         default:
-            logger("Updating \(self.media) not implemented")
+            Logger.library.warning("Updating \(self.media.description) not implemented")
         }
     }
 

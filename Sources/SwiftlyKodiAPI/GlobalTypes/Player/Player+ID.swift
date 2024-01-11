@@ -2,14 +2,14 @@
 //  Player+ID.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 public extension Player {
 
     // swiftlint:disable type_name
     /// The ID of the player (Global Kodi Type)
-    enum ID: Int, Codable {
+    enum ID: Int, Codable, Sendable {
 
         /// # Player.Id
 

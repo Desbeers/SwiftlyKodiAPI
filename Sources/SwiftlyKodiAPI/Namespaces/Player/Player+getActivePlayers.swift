@@ -2,10 +2,11 @@
 //  Player+getActivePlayers.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getActivePlayers
 
@@ -14,11 +15,20 @@ extension Player {
     /// Returns all active players, if any (Kodi API)
     /// - Returns: The active players in an ``Player/ID`` array
     public static func getActivePlayers() async -> [Player.ID]? {
-        logger("Player.getActivePlayers")
-        if let result = try? await KodiConnector.shared.sendRequest(request: GetActivePlayers()) {
-            return result.map(\.playerid)
+        let kodi: KodiConnector = .shared
+        let request = GetActivePlayers()
+        do {
+            let result = try await kodi.sendRequest(request: request)
+            if result.isEmpty {
+                Logger.player.info("There is no player active at the moment")
+            } else {
+                Logger.player.info("Current player: \(result.map(\.type.rawValue).joined())")
+            }
+            return result.map(\.playerID)
+        } catch {
+            Logger.kodiAPI.error("Fetching active players failed with error: \(error)")
+            return nil
         }
-        return nil
     }
 
     /// Returns all active players (Kodi API)
@@ -34,9 +44,15 @@ extension Player {
         typealias Response = [ActivePlayer]
         /// The response struct
         struct ActivePlayer: Decodable {
-            let playerid: ID
-            let playertype: String
+            let playerID: ID
+            let playerType: String
             let type: MediaType
+
+            enum CodingKeys: String, CodingKey {
+                case playerID = "playerid"
+                case playerType = "playertype"
+                case type
+            }
         }
     }
 }

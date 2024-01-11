@@ -2,11 +2,12 @@
 //  KodiHost.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
 import SwiftlyStructCache
+import OSLog
 
 /// Host information to make a remote connection (SwiftlyKodi Type)
 public struct HostItem: Codable, Identifiable, Hashable {
@@ -133,44 +134,45 @@ extension HostItem {
     /// Save the selected host to the cache
     /// - Parameter host: The selected ``HostItem``
     static func saveSelectedHost(host: HostItem) {
-        logger("Save the selected host")
         do {
             try Cache.set(key: "SelectedHost", object: host)
         } catch {
-            logger("Error saving selected host")
+            Logger.connection.error("Error saving selected host")
         }
     }
 
     /// Get the selected host
     /// - Returns: An optional ``HostItem``
     static func getSelectedHost() -> HostItem? {
-        logger("Get the selected host")
         if let host = try? Cache.get(key: "SelectedHost", as: HostItem.self) {
+            Logger.connection.info("'\(host.name)' is the selected host")
             return host
         }
         /// No host selected
+        Logger.connection.warning("There is no host selected")
         return nil
     }
 
     /// Save all configured hosts to the cache
     /// - Parameter host: The selected host
     static func saveConfiguredHosts(hosts: [HostItem]) {
-        logger("Save the configured hosts")
         do {
             try Cache.set(key: "ConfiguredHosts", object: hosts)
         } catch {
-            logger("Error saving configured hosts")
+            Logger.connection.error("Error saving the configured hosts")
         }
     }
 
     /// Get the configured hosts
     /// - Returns: An array ``HostItem``
     static func getConfiguredHosts() -> [HostItem] {
-        logger("Get the configured hosts")
         if let hosts = try? Cache.get(key: "ConfiguredHosts", as: [HostItem].self) {
+            let hostCount = hosts.count
+            Logger.connection.info("\(hostCount) configured \(hostCount == 1 ? "host" : "hosts") found")
             return hosts
         }
         /// No host configured
+        Logger.connection.warning("There is no host configured")
         return []
     }
 }

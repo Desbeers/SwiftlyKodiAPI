@@ -2,10 +2,11 @@
 //  AudioLibrary+Artists.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getArtists
 
@@ -15,11 +16,14 @@ extension AudioLibrary {
     /// - Returns: All artists in an ``Audio/Details/Artist`` array
     public static func getArtists() async -> [Audio.Details.Artist] {
         let kodi: KodiConnector = .shared
-        if let request = try? await kodi.sendRequest(request: GetArtists()) {
-            logger("Loaded \(request.artists.count) artists from the Kodi host")
-            return request.artists
+        do {
+            let result = try await kodi.sendRequest(request: GetArtists())
+            Logger.library.info("Loaded \(result.artists.count) artists from the Kodi host")
+            return result.artists
+        } catch {
+            Logger.library.error("Loading artists failed with error: \(error.localizedDescription)")
+            return [Audio.Details.Artist]()
         }
-        return [Audio.Details.Artist]()
     }
 
     /// Retrieve all artists (Kodi API)
@@ -55,14 +59,13 @@ extension AudioLibrary {
     /// - Parameter artistID: The ID of the artist
     /// - Returns: An ``Audio/Details/Artist`` item
     public static func getArtistDetails(artistID: Library.ID) async -> Audio.Details.Artist {
-        logger("AudioLibrary.getArtistDetails")
         let kodi: KodiConnector = .shared
         let request = AudioLibrary.GetArtistDetails(artistID: artistID)
         do {
             let result = try await kodi.sendRequest(request: request)
             return result.artistdetails
         } catch {
-            logger("Loading artist details failed with error: \(error)")
+            Logger.kodiAPI.error("Loading artist details failed with error: \(error)")
             return Audio.Details.Artist(media: .none)
         }
     }

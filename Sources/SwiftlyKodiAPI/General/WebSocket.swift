@@ -2,10 +2,11 @@
 //  Websocket.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: - WebSocket (Class)
 
@@ -33,16 +34,16 @@ class WebSocket: NSObject, URLSessionWebSocketDelegate {
         reason: Data?
     ) {
         let kodi: KodiConnector = .shared
-        logger("WebSocket disconnected from \(kodi.host.ip)")
+        Logger.connection.warning("WebSocket disconnected from \(kodi.host.ip)")
     }
 
     /// Websocket notification when the connection has an error
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError: Error?) {
         let kodi: KodiConnector = .shared
         if let error = didCompleteWithError, kodi.status != .offline {
-            logger("Network error: \(error.localizedDescription)")
+            Logger.connection.error("Network error: \(error.localizedDescription)")
             Task {
-                await kodi.setStatus(.offline)
+                await kodi.setStatus(.offline, level: .fault)
             }
         }
     }

@@ -2,10 +2,11 @@
 //  Playlist+getItems.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getItems
 
@@ -15,11 +16,12 @@ extension Playlist {
     /// - Parameter playlistID: The ``Playlist/ID`` of the playlist
     /// - Returns: All items in an ``KodiItem`` array
     public static func getItems(playlistID: Playlist.ID) async -> [(any KodiItem)]? {
-        logger("Playlist.getItems (\(playlistID))")
+        Logger.library.info("Playlist.getItems (\(playlistID.rawValue))")
         var queue: [any KodiItem] = []
-
         let kodi: KodiConnector = .shared
-        if let result = try? await kodi.sendRequest(request: GetItems(playlistID: playlistID)) {
+        let request = GetItems(playlistID: playlistID)
+        do {
+            let result = try await kodi.sendRequest(request: request)
             for item in result.items {
                 /// If the result has an ID, it is from the library
                 if let id = item.id, let item = await Application.getItem(type: item.type, id: id) {
@@ -35,11 +37,11 @@ extension Playlist {
                     )
                 }
             }
-            if !queue.isEmpty {
-                return queue
-            }
+            return queue
+        } catch {
+            Logger.kodiAPI.error("Getting items from playlist failed with error: \(error)")
+            return nil
         }
-        return nil
     }
 
     /// Get all items from playlist (Kodi API)

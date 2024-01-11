@@ -2,7 +2,7 @@
 //  List+Limits.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
@@ -10,7 +10,7 @@ import Foundation
 extension List {
 
     /// The limits fields for JSON requests (SwiftlyKodi Type)
-    public struct Limits: Codable {
+    public struct Limits: Codable, Sendable {
         /// Init the limits
         public init(end: Int = -1, start: Int = 0) {
             self.end = end

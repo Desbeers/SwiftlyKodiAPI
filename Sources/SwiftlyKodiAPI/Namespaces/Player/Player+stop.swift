@@ -2,10 +2,11 @@
 //  Player+stop.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: setShuffle
 
@@ -14,7 +15,6 @@ extension Player {
     /// Stops playback (Kodi API)
     /// - Parameter playerID: The ``Player/ID`` of the  player
     static func stop(playerID: Player.ID) {
-        logger("Player.stop")
         KodiConnector.shared.sendMessage(message: Stop(playerID: playerID))
     }
 

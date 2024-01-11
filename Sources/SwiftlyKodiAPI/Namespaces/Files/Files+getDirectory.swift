@@ -2,7 +2,7 @@
 //  Files+getDirectory.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
@@ -17,14 +17,14 @@ extension Files {
     ///
     /// - Returns: All items received in a  ``List/Item/File`` array
     public static func getDirectory(directory: String, media: Files.Media) async -> [List.Item.File] {
-        if
-            let result = try? await KodiConnector.shared.sendRequest(
-                request: GetDirectory(directory: directory, media: media)
-            )
-        {
+        let kodi: KodiConnector = .shared
+        let request = GetDirectory(directory: directory, media: media)
+        do {
+            let result = try await kodi.sendRequest(request: request)
             return result.files
+        } catch {
+            return [List.Item.File]()
         }
-        return [List.Item.File]()
     }
 
     /// Get the directories and files in the given directory (Kodi API)

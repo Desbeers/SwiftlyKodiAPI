@@ -2,10 +2,11 @@
 //  AudioLibrary+getProperties.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getProperties
 
@@ -15,9 +16,11 @@ extension AudioLibrary {
     /// - Returns: The properties in a ``Audio/Property/Value`` struct
     public static func getProperties() async -> Audio.Property.Value {
         let kodi: KodiConnector = .shared
-        if let request = try? await kodi.sendRequest(request: GetProperties()) {
+        do {
+            let request = try await kodi.sendRequest(request: GetProperties())
             return request
-        } else {
+        } catch {
+            Logger.library.error("Loading audio properties failed with error: \(error.localizedDescription)")
             return Audio.Property.Value()
         }
     }

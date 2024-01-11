@@ -2,10 +2,15 @@
 //  KodiConnector+Notifications.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
-import Foundation
+import SwiftUI
+import OSLog
+
+public extension Notification.Name {
+    static let kodiNotification = Notification.Name("KodiNotification")
+}
 
 extension KodiConnector {
 
@@ -29,9 +34,16 @@ extension KodiConnector {
                         notification.sender != self.kodiConnectorID
                     else {
                         /// Not an interesting notification
-                        logger("Unknown notification")
+                        Logger.notice.notice("Received an unknown notification")
                         return
                     }
+                    Logger.notice.notice("Received '\(notification.method.rawValue)' notification")
+
+                    /// Pass the notice to the notification center
+                    Task { @MainActor in
+                        NotificationCenter.default.post(name: Notification.Name.kodiNotification, object: notification)
+                    }
+
                     /// Perform notification action
                     Task {
                         await self.notificationAction(notification: notification)

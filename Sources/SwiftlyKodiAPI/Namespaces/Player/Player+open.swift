@@ -2,10 +2,11 @@
 //  Player+open.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: open
 
@@ -17,14 +18,12 @@ extension Player {
     ///   - playlistID: The ``Playlist/ID`` of the  playlist
     ///   - shuffle: Shuffle the playlist
     public static func open(playlistID: Playlist.ID, shuffle: Bool = false) {
-        logger("Player.open (with playlist)")
         KodiConnector.shared.sendMessage(message: Open(shuffle: shuffle, playlistID: playlistID))
     }
 
     /// Start playback in party mode (Kodi API)
     /// - Parameter partyMode: The ``Player/PartyMode``
     public static func open(partyMode: Player.PartyMode) {
-        logger("Player.open (party mode)")
         KodiConnector.shared.sendMessage(message: Open(partyMode: partyMode))
     }
 

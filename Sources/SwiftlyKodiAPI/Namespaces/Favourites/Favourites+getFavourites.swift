@@ -2,24 +2,25 @@
 //  Favourites+getFavourites.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 extension Favourites {
 
     /// Retrieve all favourites (Kodi API)
     /// - Returns: All favourites
     public static func getFavourites() async -> [Favourite.Details.Favourite] {
-        logger("Favourites.GetFavourites")
         let kodi: KodiConnector = .shared
         let request = GetFavourites()
         do {
             let result = try await kodi.sendRequest(request: request)
             return result.favourites
         } catch {
-            logger("Loading favourites failed with error: \(error)")
+            /// There are no favorites
+            Logger.library.info("There are no favorites on '\(kodi.host.name)'")
             return []
         }
     }

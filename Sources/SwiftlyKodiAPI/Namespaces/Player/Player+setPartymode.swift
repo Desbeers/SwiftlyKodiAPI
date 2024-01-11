@@ -2,10 +2,11 @@
 //  Player+setPartyMode.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: setPartyMode
 
@@ -14,7 +15,6 @@ extension Player {
     /// Turn partymode on or off (Kodi API)
     /// - Parameter playerID: The ``Player/ID`` of the  player
     static public func setPartyMode(playerID: Player.ID) {
-        logger("Player.setPartyMode")
         KodiConnector.shared.sendMessage(message: SetPartyMode(playerID: playerID))
     }
 

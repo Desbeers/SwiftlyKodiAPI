@@ -2,11 +2,12 @@
 //  KodiConnector+Update.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
 import SwiftlyStructCache
+import OSLog
 
 extension KodiConnector {
 
@@ -16,7 +17,7 @@ extension KodiConnector {
         if let videoLibraryStatus = try? Cache.get(key: "VideoLibraryStatus", as: Library.Status.self, folder: host.ip) {
             let currentStatus = await VideoLibrary.getVideoLibraryStatus()
             if currentStatus.movies != videoLibraryStatus.movies {
-                logger("Movies are outdated")
+                Logger.library.warning("Movies are outdated")
                 await updateItems(
                     old: videoLibraryStatus.movies,
                     new: currentStatus.movies,
@@ -24,7 +25,7 @@ extension KodiConnector {
                 )
             }
             if currentStatus.tvshows != videoLibraryStatus.tvshows {
-                logger("TV shows are outdated")
+                Logger.library.warning("TV shows are outdated")
                 await updateItems(
                     old: videoLibraryStatus.tvshows,
                     new: currentStatus.tvshows,
@@ -32,7 +33,7 @@ extension KodiConnector {
                 )
             }
             if currentStatus.musicVideos != videoLibraryStatus.musicVideos {
-                logger("Music Videos are outdated")
+                Logger.library.warning("Music Videos are outdated")
                 await updateItems(
                     old: videoLibraryStatus.musicVideos,
                     new: currentStatus.musicVideos,
@@ -99,7 +100,7 @@ extension KodiConnector {
         if dates != library.audioLibraryProperties {
             setStatus(.updatingLibrary)
             if library.audioLibraryProperties.songsModified != dates.songsModified {
-                logger("Songs are modified")
+                Logger.library.warning("Songs are modified")
                 /// Update the songs
                 let songs = await AudioLibrary.getSongs(modificationDate: library.audioLibraryProperties.songsModified)
                 /// Don't bother if there are too many songs to update; just mark the library as 'outdated'
@@ -107,17 +108,17 @@ extension KodiConnector {
                     for song in songs {
                         if let index = library.songs.firstIndex(where: { $0.songID == song.songID }) {
                             library.songs[index] = song
-                            logger("Updated \(song.title)")
+                            Logger.library.notice("Updated \(song.title)")
                         }
                     }
                     /// Store the date
                     library.audioLibraryProperties.songsModified = dates.songsModified
                 } else {
-                    logger("Too many songs are modified")
+                    Logger.library.error("Too many songs are modified")
                 }
             }
             if library.audioLibraryProperties.artistsModified != dates.artistsModified {
-                logger("Artists are modified")
+                Logger.library.warning("Artists are modified")
             }
 
             /// Store the library in the cache
@@ -136,6 +137,8 @@ extension KodiConnector {
     ///   - media: The kind of ``Media``
     func updateKodiItem(itemID: Library.ID, media: Library.Media) {
         Task {
+            /// The title of the item that needs an update
+            var title = ""
             switch media {
             case .artist:
                 let dates = await AudioLibrary.getProperties()
@@ -145,9 +148,11 @@ extension KodiConnector {
                 }
             case .song:
                 let dates = await AudioLibrary.getProperties()
+                let update = await AudioLibrary.getSongDetails(songID: itemID)
+                title = update.title
                 library.audioLibraryProperties.songsModified = dates.songsModified
                 if let index = library.songs.firstIndex(where: { $0.songID == itemID }) {
-                    library.songs[index] = await AudioLibrary.getSongDetails(songID: itemID)
+                    library.songs[index] = update
                 }
             case .movie:
                 let update = await VideoLibrary.getMovieDetails(movieID: itemID)
@@ -189,9 +194,10 @@ extension KodiConnector {
                     library.musicVideos.append(update)
                 }
             default:
-                logger("Library update for \(media) not implemented.")
+                Logger.library.warning("Library update for \(media.description) not implemented.")
             }
-            logger("Updated \(media) \(itemID) in the library")
+            /// Log the update
+            Logger.library.info("Updated \(media.description) '\(title )' in the library")
             /// Update the favorites
             favourites = await getFavourites()
             /// Store the library in the cache
@@ -231,9 +237,9 @@ extension KodiConnector {
                     library.musicVideos.remove(at: index)
                 }
             default:
-                logger("Library delete for \(media) not implemented.")
+                Logger.library.warning("Library delete for \(media.description) not implemented.")
             }
-            logger("Removed \(media) \(itemID) from the library")
+            Logger.library.notice("Removed \(media.description) \(itemID) from the library")
             /// Store the library in the cache
             await setLibraryCache()
         }

@@ -2,7 +2,7 @@
 //  List+Sort+Method.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
@@ -12,7 +12,7 @@ extension List.Sort {
     // MARK: List.Sort.Method
 
     /// The sort method (SwiftlyKodi Type)
-    public enum Method: String, Codable, CaseIterable {
+    public enum Method: String, Codable, CaseIterable, Sendable {
         /// Order by date added
         case dateAdded = "dateadded"
         /// Order by last played

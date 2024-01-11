@@ -2,10 +2,11 @@
 //  VideoLibrary+MovieSets.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getMovieSets
 
@@ -16,10 +17,11 @@ extension VideoLibrary {
     public static func getMovieSets() async -> [Video.Details.MovieSet] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetMovieSets()) {
-            logger("Loaded \(result.sets.count) movie sets from the Kodi host")
+            Logger.library.info("Loaded \(result.sets.count) movie sets from the Kodi host")
             return result.sets
         }
         /// There are no movie sets in the library
+        Logger.library.warning("There are no movie sets on the Kodi host")
         return [Video.Details.MovieSet]()
     }
 

@@ -2,10 +2,11 @@
 //  Genres.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getGenres
 
@@ -15,12 +16,14 @@ extension AudioLibrary {
     /// - Returns: All genres in a ``Library/Details/Genre`` array
     public static func getGenres() async -> [Library.Details.Genre] {
         let kodi: KodiConnector = .shared
-        if let result = try? await kodi.sendRequest(request: GetGenres()) {
-            logger("Loaded \(result.genres.count) audio genres from the Kodi host")
+        do {
+            let result = try await kodi.sendRequest(request: GetGenres())
+            Logger.library.info("Loaded \(result.genres.count) audio genres from the Kodi host")
             return result.genres
+        } catch {
+            Logger.library.error("Loading audio genres failed with error: \(error.localizedDescription)")
+            return [Library.Details.Genre]()
         }
-        /// There are no audio genres in the library
-        return [Library.Details.Genre]()
     }
 
     /// Retrieve all genres (Kodi API)

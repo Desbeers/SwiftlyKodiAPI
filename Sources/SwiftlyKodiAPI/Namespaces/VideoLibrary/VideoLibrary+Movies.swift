@@ -2,10 +2,11 @@
 //  VideoLibrary+Movies.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getMovies
 
@@ -16,10 +17,11 @@ extension VideoLibrary {
     public static func getMovies() async -> [Video.Details.Movie] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetMovies()) {
-            logger("Loaded \(result.movies.count) movies from the Kodi host")
+            Logger.library.info("Loaded \(result.movies.count) movies from the Kodi host")
             return result.movies
         }
         /// There are no movies in the library
+        Logger.library.warning("There are no movies on the Kodi host")
         return [Video.Details.Movie]()
     }
 
@@ -60,7 +62,7 @@ extension VideoLibrary {
             let result = try await kodi.sendRequest(request: request)
             return result.moviedetails
         } catch {
-            logger("Loading movie details failed with error: \(error)")
+            Logger.kodiAPI.error("Loading movie details failed with error: \(error)")
             return Video.Details.Movie()
         }
     }
@@ -105,7 +107,7 @@ extension VideoLibrary {
         let kodi: KodiConnector = .shared
         let message = SetMovieDetails(movie: movie)
         kodi.sendMessage(message: message)
-        logger("Details set for '\(movie.title)'")
+        Logger.library.notice("Details set for '\(movie.title)'")
     }
 
     /// Update the given movie with the given details (Kodi API)

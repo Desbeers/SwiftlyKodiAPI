@@ -2,7 +2,7 @@
 //  KodiArt.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -78,6 +78,24 @@ extension KodiArt {
 // MARK: Kodi Art Views
 
 public extension KodiArt {
+
+
+    /// SwiftUI `View` for art
+    struct Art: View {
+        /// The Art Item
+        let art: Item
+        /// Init the `View`
+        public init(file: String) {
+            var art = Item(item: nil, art: .poster, fallback: nil)
+            art.file = file
+            art.id = art.error == .none ? art.id : UUID().uuidString
+            self.art = art
+        }
+        /// The body of the View
+        public var body: some View {
+            LoadView(art: art)
+        }
+    }
 
     /// SwiftUI `View` for a ``KodiItem`` poster
     struct Poster: View {

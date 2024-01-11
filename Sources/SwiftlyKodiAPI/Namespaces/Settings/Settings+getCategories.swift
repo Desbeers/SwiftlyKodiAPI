@@ -2,10 +2,11 @@
 //  Settings+getCategories.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getCategories
 
@@ -15,14 +16,13 @@ extension Settings {
     /// - Parameter section: The section for the categories
     /// - Returns: All categories from the selected section
     public static func getCategories(section: Setting.Section) async -> [Setting.Details.Category] {
-        logger("Settings.GetCategories")
         let kodi: KodiConnector = .shared
         let request = Settings.GetCategories(section: section)
         do {
             let result = try await kodi.sendRequest(request: request)
             return result.categories.filter { $0.id != .unknown }
         } catch {
-            logger("Loading categories failed with error: \(error)")
+            Logger.kodiAPI.error("Getting categories failed with error: \(error)")
             return []
         }
     }

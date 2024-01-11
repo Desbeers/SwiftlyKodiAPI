@@ -2,10 +2,11 @@
 //  Player+getProperties.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getProperties
 
@@ -15,10 +16,14 @@ extension Player {
     /// - Parameter playerID: The ``Player/ID`` of the  player
     /// - Returns: The ``Player/Property/Value``
     public static func getProperties(playerID: Player.ID) async -> Player.Property.Value {
-        logger("Player.getProperties")
-        if let result = try? await KodiConnector.shared.sendRequest(request: GetProperties(playerID: playerID)) {
+        let kodi: KodiConnector = .shared
+        let request = GetProperties(playerID: playerID)
+        do {
+            let result = try await kodi.sendRequest(request: request)
+            Logger.player.info("Fetched player properties")
             return result
-        } else {
+        } catch {
+            Logger.player.error("Fetching player properties failed with error: \(error)")
             return Player.Property.Value()
         }
     }

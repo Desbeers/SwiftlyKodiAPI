@@ -2,10 +2,11 @@
 //  KodiConnector+Bonjour.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 import Foundation
 import Network
+import OSLog
 
 // MARK: Bonjour
 
@@ -13,7 +14,7 @@ extension KodiConnector {
 
     /// Start Bonjour to find Kodi hosts
     func startBonjour() {
-        logger("Starting Bonjour")
+        Logger.connection.info("Starting Bonjour")
         let browser = NWBrowser(for: .bonjour(type: "_xbmc-jsonrpc._tcp", domain: "local."), using: NWParameters())
         self.browser = browser
         browser.stateUpdateHandler = { newState in
@@ -21,11 +22,11 @@ extension KodiConnector {
             case .failed(let error):
                 // Restart Bonjour if it loses its connection.
                 if error == NWError.dns(DNSServiceErrorType(kDNSServiceErr_DefunctConnection)) {
-                    logger("Browser failed with \(error), restarting")
+                    Logger.connection.error("Browser failed with \(error), restarting")
                     browser.cancel()
                     self.startBonjour()
                 } else {
-                    logger("Browser failed with \(error), stopping")
+                    Logger.connection.error("Browser failed with \(error), stopping")
                     browser.cancel()
                 }
             default:
@@ -54,7 +55,7 @@ extension KodiConnector {
 
     /// Stop Bonjour
     func stopBonjour() {
-        logger("Stopping Bonjour")
+        Logger.connection.notice("Stopping Bonjour")
         browser?.cancel()
         bonjourHosts = []
     }
@@ -88,7 +89,6 @@ extension KodiConnector {
                                 await self.setStatus(.online)
                             }
                         }
-                        logger("'\(name)' is online")
                         /// Cancel the connection because it was only made to get the IP address
                         connection.cancel()
                     }
@@ -105,11 +105,11 @@ extension KodiConnector {
     func removeHost(host: NWBrowser.Result) {
         if case let NWEndpoint.service(name: name, type: _, domain: _, interface: _) = host.endpoint {
             bonjourHosts.removeAll { $0.name == name }
-            logger("'\(name)' is offline")
+            Logger.connection.warning("'\(name)' is offline")
             /// Check if the removed Kodi is the active Kodi and act on it
             if self.status != .offline, self.bonjourHosts.first(where: { $0.name == name }) != nil {
                 Task {
-                    await self.setStatus(.offline)
+                    await self.setStatus(.offline, level: .fault)
                 }
             }
         }

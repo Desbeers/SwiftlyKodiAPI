@@ -2,11 +2,12 @@
 //  KodiConnector.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
 import Network
+import OSLog
 
 /// The Observable Class that provides the connection with a remote host (SwiftlyKodi Type)
 @Observable public final class KodiConnector {
@@ -73,20 +74,14 @@ import Network
         self.urlSession = URLSession(configuration: configuration)
         /// Get all configured hosts
         self.configuredHosts = HostItem.getConfiguredHosts()
-        /// Get the optional selected host
-        if let host = HostItem.getSelectedHost() {
-            self.host = host
-        }
         /// Start Bonjour to find Kodi hosts
         startBonjour()
-//        /// Get all List sortings
-//        listSortSettings = KodiListSort.getAllSortSettings()
         /// Sleeping and wakeup stuff
 #if !os(macOS)
         NotificationCenter
             .default
             .addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { _ in
-                logger("tvOS or iOS goes to the background")
+                Logger.connection.notice("tvOS or iOS goes to the background")
                 Task {
                     await self.setStatus(.sleeping)
                 }
@@ -94,7 +89,7 @@ import Network
         NotificationCenter
             .default
             .addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
-                logger("tvOS or iOS comes to the foreground")
+                Logger.connection.notice("tvOS or iOS comes to the foreground")
                 if self.status == .sleeping {
                     Task {
                         /// Set the state
@@ -107,7 +102,7 @@ import Network
             .shared
             .notificationCenter
             .addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: .main) { _ in
-                logger("macOS goes to sleep")
+                Logger.connection.notice("macOS goes to sleep")
                 Task {
                     await self.setStatus(.sleeping)
                 }
@@ -116,7 +111,7 @@ import Network
             .shared
             .notificationCenter
             .addObserver(forName: NSWorkspace.didWakeNotification, object: nil, queue: .main) { _ in
-                logger("macOS wakes up")
+                Logger.connection.notice("macOS wakes up")
                 if self.status == .sleeping {
                     Task {
                         /// Set the status

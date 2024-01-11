@@ -2,7 +2,7 @@
 //  List+Sort.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
@@ -12,7 +12,7 @@ extension List {
     // MARK: List.Sort
 
     /// The sort fields for JSON requests (Global Kodi Type)
-    public struct Sort: Codable, Equatable, Hashable {
+    public struct Sort: Codable, Equatable, Hashable, Sendable {
         /// Init the sort order
         public init(
             id: String = "ID",

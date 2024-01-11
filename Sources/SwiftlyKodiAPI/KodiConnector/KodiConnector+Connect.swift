@@ -2,11 +2,12 @@
 //  KodiConnector+Connect.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
 import SwiftlyStructCache
+import OSLog
 
 // MARK: Connecting and loading functions
 
@@ -38,7 +39,7 @@ extension KodiConnector {
         setStatus(.loadingLibrary)
         if cache, let libraryItems = try? Cache.get(key: "MyLibrary", as: Library.Items.self, folder: host.ip) {
             library = libraryItems
-            logger("Check for updates")
+            Logger.library.info("Check for library updates")
             switch host.media {
             case .audio:
                 await getAudioLibraryUpdates()

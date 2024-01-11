@@ -2,11 +2,12 @@
 //  KodiHostItemView.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
 import SwiftlyStructCache
+import OSLog
 
 // MARK: Kodi HostItem View
 
@@ -171,7 +172,7 @@ public struct KodiHostItemView: View {
                 do {
                     try Cache.delete(key: "SelectedHost")
                 } catch {
-                    logger("Error deleting selected host")
+                    Logger.connection.error("Error deleting selected host")
                 }
             }
         }

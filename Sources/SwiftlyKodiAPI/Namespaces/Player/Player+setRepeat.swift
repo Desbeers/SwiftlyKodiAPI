@@ -2,10 +2,11 @@
 //  Player+setRepeat.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: setRepeat
 
@@ -14,7 +15,6 @@ extension Player {
     /// Set the repeat mode of the player (Kodi API)
     /// - Parameter playerID: The ``Player/ID`` of the  player
     static public func setRepeat(playerID: Player.ID) {
-        logger("Player.setRepeat")
         KodiConnector.shared.sendMessage(message: SetRepeat(playerID: playerID))
     }
 

@@ -2,10 +2,11 @@
 //  VideoLibrary+MusicVideos.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getMusicVideos
 
@@ -16,10 +17,11 @@ extension VideoLibrary {
     public static func getMusicVideos() async -> [Video.Details.MusicVideo] {
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetMusicVideos()) {
-            logger("Loaded \(result.musicvideos.count) music videos from the Kodi host")
+            Logger.library.info("Loaded \(result.musicvideos.count) music videos from the Kodi host")
             return result.musicvideos
         }
         /// There are no music videos in the library
+        Logger.library.warning("There are no music videos on the Kodi host")
         return [Video.Details.MusicVideo]()
     }
 
@@ -60,7 +62,7 @@ extension VideoLibrary {
             let result = try await kodi.sendRequest(request: request)
             return result.musicvideodetails
         } catch {
-            logger("Loading music video details failed with error: \(error)")
+            Logger.kodiAPI.error("Loading music video details failed with error: \(error)")
             return Video.Details.MusicVideo()
         }
     }
@@ -105,7 +107,7 @@ extension VideoLibrary {
         let kodi: KodiConnector = .shared
         let message = SetMusicVideoDetails(musicVideo: musicVideo)
         kodi.sendMessage(message: message)
-        logger("Details set for '\(musicVideo.title)'")
+        Logger.kodiAPI.info("Details set for '\(musicVideo.title)'")
     }
 
     /// Update the given music video with the given details (Kodi API)
@@ -163,9 +165,9 @@ extension VideoLibrary {
         let message = RefreshMusicVideo(musicVideo: musicVideo)
         do {
             _ = try await kodi.sendRequest(request: message)
-            logger("Refreshed '\(musicVideo.title)'")
+            Logger.kodiAPI.info("Refreshed '\(musicVideo.title)'")
         } catch {
-            logger("Refreshing music video details failed with error: \(error)")
+            Logger.kodiAPI.error("Refreshing music video details failed with error: \(error)")
         }
     }
 

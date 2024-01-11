@@ -2,10 +2,11 @@
 //  VideoLibrary+Genres.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getGenres
 
@@ -19,10 +20,11 @@ extension VideoLibrary {
 
         let kodi: KodiConnector = .shared
         if let result = try? await kodi.sendRequest(request: GetGenres(type: type)) {
-            logger("Loaded \(result.genres.count) \(type) genres from the Kodi host")
+            Logger.library.info("Loaded \(result.genres.count) \(type.description) genres from the Kodi host")
             return result.genres
         }
         /// There are no genres of this type in the library
+        Logger.kodiAPI.error("There are no genres of type \(type.description) on the host")
         return [Library.Details.Genre]()
     }
 

@@ -2,10 +2,11 @@
 //  Addons+getAddons.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: getAddons
 
@@ -17,7 +18,6 @@ extension Addons {
     ///
     /// - Returns: All addons from the Kodi host that have a known type for SwiflyKodiAPI
     public static func getAddons() async -> [Addon.Details] {
-        logger("Addons.GetAddons")
         let kodi: KodiConnector = .shared
         let request = GetAddons()
         do {
@@ -25,7 +25,7 @@ extension Addons {
             return result.addons
                 .filter { $0.addonType != .unknown }
         } catch {
-            logger("Loading addons failed with error: \(error)")
+            Logger.kodiAPI.error("Loading addons failed with error: \(error.localizedDescription)")
             return []
         }
     }

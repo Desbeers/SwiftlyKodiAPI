@@ -2,18 +2,20 @@
 //  KodiConnector+Status.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: Connection status
 
 extension KodiConnector {
 
     /// Set the state of the KodiConnector and act on it
-    @MainActor public func setStatus(_ current: Status) {
-        logger("KodiConnector status: \(current.message)")
+    @MainActor public func setStatus(_ current: Status, level: OSLogType = .info) {
+        Logger.connection.log(level: level, "KodiConnector status: \(current.message)")
+        //Logger.connection.info("KodiConnector status: \(current.message)")
         /// Set the current status
         status = current
         Task {
@@ -89,7 +91,9 @@ extension KodiConnector {
             Task {
                 /// Get all List sortings
                 listSortSettings = KodiListSort.getAllSortSettings()
-                await loadLibrary()
+                if host.media != .none {
+                    await loadLibrary()
+                }
                 await getKodiState()
             }
         case .loadedLibrary:

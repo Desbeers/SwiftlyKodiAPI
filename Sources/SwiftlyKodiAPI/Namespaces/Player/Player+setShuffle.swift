@@ -2,10 +2,11 @@
 //  Player+setShuffle.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: setShuffle
 
@@ -14,7 +15,6 @@ extension Player {
     /// Shuffle/Unshuffle items in the player (Kodi API)
     /// - Parameter playerID: The ``Player/ID`` of the  player
     static func setShuffle(playerID: Player.ID) {
-        logger("Player.setShuffle")
         KodiConnector.shared.sendMessage(message: SetShuffle(playerID: playerID))
     }
 

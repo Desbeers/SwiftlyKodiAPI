@@ -2,7 +2,7 @@
 //  Notifications+Item.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
@@ -18,32 +18,32 @@ public extension Notifications {
     ///
     /// Also, a library item can have it's ID on different placed in the JSON.
     /// The decoder for this struct will check all placed and just put it in the 'root' of the struct.
-    struct Item: Decodable, Equatable {
+    struct Item: Decodable, Equatable, Sendable {
 
         /// Top level
         public var method: Method = .unknown
 
         /// Params level
-        var sender: String = "self"
+        public var sender: String = "self"
 
         /// Item level
-        var media: Library.Media = .none
-        var itemID: Library.ID = 0
+        public var media: Library.Media = .none
+        public var itemID: Library.ID = 0
 
         /// The ID of the player
-        var playerID: Player.ID = .audio
+        public var playerID: Player.ID = .audio
         /// The speed of the player
-        var playerSpeed: Int = 0
+        public var playerSpeed: Int = 0
 
-        var playlistID: Int = -1
-        var playlistEnded: Bool = false
+        public var playlistID: Int = -1
+        public var playlistEnded: Bool = false
 
         /// ### Property level
         /// Partymode
         /// - Note: Kodi does not notify when you turn partymode on
-        var partymode: Bool = false
-        var shuffled: Bool = false
-        var repeating: Player.Repeat = .off
+        public var partymode: Bool = false
+        public var shuffled: Bool = false
+        public var repeating: Player.Repeat = .off
     }
 }
 

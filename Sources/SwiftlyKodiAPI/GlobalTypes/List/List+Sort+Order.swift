@@ -2,7 +2,7 @@
 //  List+Sort+Order.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
@@ -12,7 +12,7 @@ extension List.Sort {
     // MARK: List.Sort.Order
 
     /// The sort order (SwiftlyKodi Type)
-    public enum Order: String, Codable, CaseIterable {
+    public enum Order: String, Codable, CaseIterable, Sendable {
         /// Order ascending
         case ascending
         /// Order descending

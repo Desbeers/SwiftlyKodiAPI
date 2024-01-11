@@ -2,19 +2,23 @@
 //  Application+getProperty.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 extension Application {
 
     /// Retrieves the properties of the application (Kodi API)
     /// - Returns: The ``Application/Property/Value`` of the application
     public static func getProperties() async -> Application.Property.Value {
-        if let result = try? await KodiConnector.shared.sendRequest(request: GetProperties()) {
+        let kodi: KodiConnector = .shared
+        do { 
+            let result = try await kodi.sendRequest(request: GetProperties())
             return result
-        } else {
+        } catch {
+            Logger.library.error("Loading application property failed with error: \(error.localizedDescription)")
             return Application.Property.Value()
         }
     }

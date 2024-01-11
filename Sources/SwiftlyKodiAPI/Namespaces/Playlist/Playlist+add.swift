@@ -2,10 +2,11 @@
 //  Playlist+add.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: add
 
@@ -54,7 +55,6 @@ extension Playlist {
         var stream: Audio.Details.Stream?
         /// The parameters
         var parameters: Data {
-            logger("Playlist.add")
             var params = Params()
             /// # Add songs
             if let songs {

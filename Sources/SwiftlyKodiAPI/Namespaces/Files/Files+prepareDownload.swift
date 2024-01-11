@@ -2,7 +2,7 @@
 //  Files+prepareDownload.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
@@ -13,10 +13,14 @@ extension Files {
     /// - Parameter path: The internal Kodi path of the file
     /// - Returns: The properties of the file
     public static func prepareDownload(path: String) async -> Files.Property.Value {
-        if let result = try? await KodiConnector.shared.sendRequest(request: PrepareDownload(path: path)) {
+        let kodi: KodiConnector = .shared
+        let request = PrepareDownload(path: path)
+        do {
+            let result = try await kodi.sendRequest(request: request)
             return result
+        } catch {
+            return Files.Property.Value()
         }
-        return Files.Property.Value()
     }
 
     /// Provides a way to download a given file(Kodi API)

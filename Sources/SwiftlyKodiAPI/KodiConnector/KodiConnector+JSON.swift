@@ -2,10 +2,11 @@
 //  KodiConnector+JSON.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 extension KodiConnector {
 
@@ -15,6 +16,7 @@ extension KodiConnector {
     /// - Parameter request: A prepared JSON request
     /// - Returns: The decoded response
     func sendRequest<T: KodiAPI>(request: T) async throws -> T.Response {
+        Logger.kodiAPI.notice("KodiAPI: \(request.method.rawValue, privacy: .public)")
         let (data, response) = try await urlSession.data(for: request.urlRequest)
         guard
             let httpResponse = response as? HTTPURLResponse,
@@ -23,25 +25,18 @@ extension KodiConnector {
             throw JSON.APIError.responseUnsuccessful
         }
         do {
-            // debugJsonResponse(data: data)
             let decoded = try JSONDecoder().decode(JSON.BaseResponse<T.Response>.self, from: data)
             return decoded.result
         } catch let DecodingError.dataCorrupted(context) {
-            print(context)
-            debugJsonResponse(data: data)
+            Logger.kodiAPI.error("\(context.codingPath)")
         } catch let DecodingError.keyNotFound(key, context) {
-            print("Key '\(key)' not found:", context.debugDescription)
-            print("codingPath:", context.codingPath)
-            debugJsonResponse(data: data)
+            Logger.kodiAPI.error("Key '\(key.description)' not found: \(context.debugDescription)\ncodingPath: \(context.codingPath)")
         } catch let DecodingError.valueNotFound(value, context) {
-            print("Value '\(value)' not found:", context.debugDescription)
-            print("codingPath:", context.codingPath)
+            Logger.kodiAPI.error("Value '\(value)' not found: \(context.debugDescription)\ncodingPath: \(context.codingPath)")
         } catch let DecodingError.typeMismatch(type, context) {
-            print("Type '\(type)' mismatch:", context.debugDescription)
-            print("codingPath:", context.codingPath)
-            debugJsonResponse(data: data)
+            Logger.kodiAPI.error("Type '\(type)' mismatch: \(context.debugDescription)\ncodingPath: \(context.codingPath)")
         } catch {
-            print("error: ", error)
+            Logger.kodiAPI.error("Error: \(error.localizedDescription)")
         }
         throw JSON.APIError.invalidData
     }
@@ -51,6 +46,7 @@ extension KodiConnector {
     func sendMessage<T: KodiAPI>(
         message: T
     ) {
+        Logger.kodiAPI.notice("KodiAPI: \(message.method.rawValue)")
         urlSession.dataTask(with: message.urlRequest).resume()
     }
 }

@@ -2,16 +2,16 @@
 //  KodiConnector+Library.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
 import SwiftlyStructCache
+import OSLog
 
 extension KodiConnector {
 
     func getLibrary() async -> Library.Items {
-        logger("Getting your library")
 
         /// # Helpers
 
@@ -96,7 +96,7 @@ extension KodiConnector {
                 try Cache.set(key: "MyLibrary", object: self.library, folder: self.host.ip)
                 try await Cache.set(key: "VideoLibraryStatus", object: VideoLibrary.getVideoLibraryStatus(), folder: self.host.ip)
             } catch {
-                print("Saving library failed with error: \(error)")
+                Logger.library.error("Saving library failed with error: \(error)")
             }
         }
     }

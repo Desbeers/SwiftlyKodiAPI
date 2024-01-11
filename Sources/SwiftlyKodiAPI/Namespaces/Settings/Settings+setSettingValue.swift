@@ -2,10 +2,11 @@
 //  Settings+setSettingValue.swift.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
+import OSLog
 
 // MARK: setSettingValue
 
@@ -18,8 +19,13 @@ extension Settings {
     ///   - bool: The optional Bool value
     ///   - string: The optional String value
     ///   - list: The optional [Int] value
-    public static func setSettingValue(setting: Setting.ID, int: Int? = nil, bool: Bool? = nil, string: String? = nil, list: [Int]? = nil) async {
-        logger("Settings.SetSettingValue")
+    public static func setSettingValue(
+        setting: Setting.ID,
+        int: Int? = nil,
+        bool: Bool? = nil,
+        string: String? = nil,
+        list: [Int]? = nil
+    ) async {
         let message = SetSettingValue(
             setting: setting,
             valueInt: int,

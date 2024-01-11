@@ -2,7 +2,7 @@
 //  List+Filter.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
@@ -10,7 +10,7 @@ import Foundation
 extension List {
 
     /// Filter fields for JSON requests (SwiftlyKodi Type)
-    public struct Filter: Codable {
+    public struct Filter: Codable, Sendable {
         /// Filter by album ID
         var albumID: Library.ID?
         /// Filter by artist ID

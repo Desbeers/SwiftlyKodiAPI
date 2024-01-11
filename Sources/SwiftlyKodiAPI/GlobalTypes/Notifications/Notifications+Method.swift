@@ -2,7 +2,7 @@
 //  Notifications+Methods.swift
 //  SwiftlyKodiAPI
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
@@ -10,7 +10,7 @@ import Foundation
 extension Notifications {
 
     /// Kodi notifications we can receive (SwiftlyKodi Type)
-    public enum Method: String, Decodable {
+    public enum Method: String, Decodable, Sendable {
 
         // MARK: General notifications
 
