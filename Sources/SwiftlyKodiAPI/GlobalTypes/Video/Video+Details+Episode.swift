@@ -9,7 +9,7 @@ import Foundation
 
 public extension Video.Details {
 
-    /// Episode details
+    /// Episode details (Global Kodi Type)
     struct Episode: KodiItem {
 
         /// # Calculated variables

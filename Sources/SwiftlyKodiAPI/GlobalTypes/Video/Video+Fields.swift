@@ -9,7 +9,7 @@ import Foundation
 
 extension Video {
 
-    /// Static fields for Video
+    /// Static fields for Video (Global Kodi Type)
     enum Fields {
         // Just a namespace
     }

@@ -9,7 +9,7 @@ import Foundation
 
 public extension Audio.Details {
 
-    /// Artist details
+    /// Artist details (Global Kodi Type)
     struct Artist: KodiItem, Sendable {
 
         /// # Public Init

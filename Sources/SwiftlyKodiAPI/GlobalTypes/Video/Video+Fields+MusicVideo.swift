@@ -9,7 +9,7 @@ import Foundation
 
 extension Video.Fields {
 
-    /// The properties of a music video
+    /// The properties of a music video (Global Kodi Type)
     static let musicVideo = [
         "title",
         "playcount",

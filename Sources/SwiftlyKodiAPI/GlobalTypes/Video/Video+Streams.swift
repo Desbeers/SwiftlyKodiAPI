@@ -9,7 +9,7 @@ import Foundation
 
 extension Video {
 
-    /// The streaming details of a video item
+    /// The streaming details of a video item (Global Kodi Type)
     public struct Streams: Codable, Identifiable, Hashable {
         /// Make it identifiable
         public var id = UUID()

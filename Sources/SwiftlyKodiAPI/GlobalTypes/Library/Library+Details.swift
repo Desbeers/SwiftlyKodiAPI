@@ -9,7 +9,7 @@ import Foundation
 
 public extension Library {
 
-    ///  Library details
+    ///  Library details (Global Kodi Type)
     enum Details {
         // Just a namespace
     }

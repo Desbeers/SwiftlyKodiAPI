@@ -9,7 +9,7 @@ import Foundation
 
 public extension Favourite.Details {
 
-    /// Favourite details
+    /// Favourite details (Global Kodi Type)
     struct Favourite: Decodable {
         var path: String?
         var title: String = ""

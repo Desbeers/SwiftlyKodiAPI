@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Library related items  (Global Kodi Type)
+/// Library related items (Global Kodi Type)
 public enum Library {
     // Just a namespace
 }

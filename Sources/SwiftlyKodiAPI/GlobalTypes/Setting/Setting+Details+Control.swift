@@ -9,7 +9,7 @@ import Foundation
 
 public extension Setting.Details {
 
-    /// Setting Details Control (SwiftlyKodi type)
+    /// Setting Details Control (Global Kodi Type)
     struct Control: Decodable, Equatable, Sendable {
 
         /// # Setting.Details.ControlBase

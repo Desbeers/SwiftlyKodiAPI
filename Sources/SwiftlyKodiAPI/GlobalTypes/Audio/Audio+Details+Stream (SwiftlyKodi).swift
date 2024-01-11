@@ -9,7 +9,7 @@ import Foundation
 
 public extension Audio.Details {
 
-    /// Stream details
+    /// Stream details (SwiftlyKodi Type)
     struct Stream: KodiItem {
 
         /// # Public Init

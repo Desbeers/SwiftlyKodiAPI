@@ -9,7 +9,7 @@ import Foundation
 
 extension Audio.Property {
 
-    /// Name for audio properties
+    /// Name for audio properties (Global Kodi Type)
     static let name = [
         "missingartistid",
         // "librarylastupdated",

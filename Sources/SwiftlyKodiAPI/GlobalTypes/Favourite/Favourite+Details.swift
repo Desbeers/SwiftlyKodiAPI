@@ -9,7 +9,7 @@ import Foundation
 
 public extension Favourite {
 
-    /// Favourite details related items
+    /// Favourite details related items (Global Kodi Type)
     enum Details {
         // Just a namespace
     }

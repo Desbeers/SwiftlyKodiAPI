@@ -9,7 +9,7 @@ import Foundation
 
 extension Video {
 
-    /// The cast of a video item
+    /// The cast of a video item (Global Kodi Type)
     public struct Cast: Codable, Identifiable, Hashable {
 
         /// # Calculated variables

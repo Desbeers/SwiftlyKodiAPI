@@ -9,7 +9,7 @@ import Foundation
 
 public extension Files.Property {
 
-    /// The properties of a file (SwiftlyKodi Type)
+    /// The property value of a file (SwiftlyKodi Type)
     struct Value: Codable {
         var details = Details()
         var mode: Mode = .redirect

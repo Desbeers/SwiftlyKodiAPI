@@ -27,13 +27,13 @@ public struct AnyKodiItem: Identifiable, Equatable {
 extension Array where Element == any KodiItem {
 
     public func anykodiItem() -> [AnyKodiItem] {
-        return self.map { AnyKodiItem($0) }
+        self.map { AnyKodiItem($0) }
     }
 }
 
 extension Array where Element: KodiItem {
 
     public func anykodiItem() -> [AnyKodiItem] {
-        return self.map { AnyKodiItem($0) }
+        self.map { AnyKodiItem($0) }
     }
 }

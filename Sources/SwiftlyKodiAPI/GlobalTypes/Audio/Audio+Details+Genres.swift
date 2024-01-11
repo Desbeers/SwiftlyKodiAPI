@@ -9,7 +9,7 @@ import Foundation
 
 public extension Audio.Details {
 
-    /// Genre details
+    /// Genre details (Global Kodi Type)
     struct Genres: Codable, Identifiable, Equatable, Hashable, Sendable {
 
         /// # Computed values

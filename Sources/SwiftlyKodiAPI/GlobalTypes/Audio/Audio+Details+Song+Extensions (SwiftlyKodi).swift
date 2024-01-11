@@ -1,8 +1,8 @@
 //
-//  AudioLibrary+Songs+Extensions.swift
+//  Audio+Details+Song+Extensions.swift
+//  SwiftlyKodiAPI
 //
-//
-//  Created by Nick Berendsen on 16/07/2022.
+//  © 2024 Nick Berendsen
 //
 
 import Foundation

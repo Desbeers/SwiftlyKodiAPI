@@ -1,5 +1,5 @@
 //
-//  VideoLibrary+Episodes+Extensions.swift
+//  Video+Details+Episode+Extensions.swift
 //  SwiftlyKodiAPI
 //
 //  © 2024 Nick Berendsen

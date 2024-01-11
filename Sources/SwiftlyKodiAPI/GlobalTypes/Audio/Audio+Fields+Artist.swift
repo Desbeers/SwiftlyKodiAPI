@@ -9,7 +9,7 @@ import Foundation
 
 extension Audio.Fields {
 
-    /// The properties of an artist
+    /// The properties of an artist (Global Kodi Type)
     static let artist = [
         "instrument",
         "style",

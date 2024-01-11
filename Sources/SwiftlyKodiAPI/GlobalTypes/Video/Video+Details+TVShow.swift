@@ -9,7 +9,7 @@ import Foundation
 
 public extension Video.Details {
 
-    /// TV show details
+    /// TV show details (Global Kodi Type)
     struct TVShow: KodiItem {
 
         /// # Public Init

@@ -9,7 +9,7 @@ import Foundation
 
 extension Video.Fields {
 
-    /// The properties of a movies set
+    /// The properties of a movies set (Global Kodi Type)
     static let movieSet = [
         "title",
         "playcount",

@@ -9,7 +9,7 @@ import Foundation
 
 public extension Media {
 
-    /// Ratings for a Media item
+    /// Ratings for a Media item (SwiftlyKodi Type)
     /// - Note: This is a 'custom struct; Kodi defines this as an 'any'
     struct Ratings: Codable, Equatable, Hashable {
         public init(defaults: Media.Ratings.Defaults? = nil) {

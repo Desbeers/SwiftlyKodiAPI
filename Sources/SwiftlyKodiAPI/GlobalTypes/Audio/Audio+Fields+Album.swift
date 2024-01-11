@@ -9,7 +9,7 @@ import Foundation
 
 extension Audio.Fields {
 
-    /// The properties of an album
+    /// The properties of an album (Global Kodi Type)
     static let album = [
         "title",
         "description",

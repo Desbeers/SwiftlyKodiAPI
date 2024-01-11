@@ -9,7 +9,7 @@ import Foundation
 
 extension Audio {
 
-    /// Static fields for audio
+    /// Static fields for audio (Global Kodi Type)
     enum Fields {
         // Just a namespace
     }

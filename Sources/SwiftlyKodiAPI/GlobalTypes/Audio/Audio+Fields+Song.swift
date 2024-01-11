@@ -9,7 +9,7 @@ import Foundation
 
 extension Audio.Fields {
 
-    /// The properties of a song
+    /// The properties of a song (Global Kodi Type)
     static var song = [
         "title",
         "artist",

@@ -9,7 +9,7 @@ import Foundation
 
 public extension Video.Details {
 
-    /// Movie set details
+    /// Movie set details (Global Kodi Type)
     struct MovieSet: KodiItem {
 
         /// # Public Init

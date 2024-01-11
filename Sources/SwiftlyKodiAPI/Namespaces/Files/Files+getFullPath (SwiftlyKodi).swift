@@ -25,9 +25,9 @@ extension Files {
         /// Encoding
         var allowed = CharacterSet.alphanumerics
         allowed.insert(charactersIn: ":-._~") /// as per RFC 3986
-        /// Image URL
+        /// Base URL as String
         let kodiImageAddress = "http://\(host.username):\(host.password)@\(host.ip):\(host.port)/\(type.rawValue)/"
-
+        /// Complete URL a s String
         if let path = file.addingPercentEncoding(withAllowedCharacters: allowed) {
             return kodiImageAddress + path
         }

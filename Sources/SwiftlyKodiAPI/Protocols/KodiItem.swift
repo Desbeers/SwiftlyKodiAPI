@@ -61,9 +61,9 @@ extension KodiItem {
     var playerID: Player.ID {
         switch self.media {
         case .song, .stream:
-            return .audio
+            .audio
         default:
-            return .video
+            .video
         }
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 extension Video.Fields {
 
-    /// The properties of a tv show
+    /// The properties of a tv show (Global Kodi Type)
     static let tvshow = [
         "title",
         "genre",

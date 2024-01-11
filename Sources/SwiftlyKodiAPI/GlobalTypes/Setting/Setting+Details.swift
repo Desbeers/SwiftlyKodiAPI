@@ -9,7 +9,7 @@ import Foundation
 
 public extension Setting {
 
-    /// Setting details related items (SwiftlyKodi Type)
+    /// Setting details related items (Global Kodi Type)
     enum Details {
         // Just a namespace here
     }

@@ -9,7 +9,7 @@ import Foundation
 
 public extension Video.Details.MovieSet {
 
-    /// Movies in a movie set
+    /// Movies in a movie set (Global Kodi Type)
     /// - Note: Only used for 'VideoLibrary.GetMovieSetDetails'
     struct Extended: Codable, Identifiable, Hashable {
 

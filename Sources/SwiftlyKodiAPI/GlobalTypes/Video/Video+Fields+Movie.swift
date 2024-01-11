@@ -9,7 +9,7 @@ import Foundation
 
 extension Video.Fields {
 
-    /// The properties of a movie
+    /// The properties of a movie (Global Kodi Type)
     static let movie = [
         "title",
         "genre",
