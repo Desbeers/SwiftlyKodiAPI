@@ -17,7 +17,7 @@ extension KodiConnector {
     /// - Returns: The decoded response
     func sendRequest<T: KodiAPI>(request: T) async throws -> T.Response {
         Logger.kodiAPI.notice("KodiAPI: \(request.method.rawValue, privacy: .public)")
-        let (data, response) = try await urlSession.data(for: request.urlRequest)
+        let (data, response) = try await urlSession.data(for: request.urlRequest(host: host))
         guard
             let httpResponse = response as? HTTPURLResponse,
             httpResponse.statusCode == 200
@@ -47,6 +47,6 @@ extension KodiConnector {
         message: T
     ) {
         Logger.kodiAPI.notice("KodiAPI: \(message.method.rawValue)")
-        urlSession.dataTask(with: message.urlRequest).resume()
+        urlSession.dataTask(with: message.urlRequest(host: host)).resume()
     }
 }

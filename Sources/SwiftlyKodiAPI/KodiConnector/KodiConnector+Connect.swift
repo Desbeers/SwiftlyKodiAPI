@@ -28,7 +28,7 @@ extension KodiConnector {
             await setStatus(.offline)
         }
         self.host = host
-        if host.isOnline {
+        if hostIsOnline(host) {
             makeConnection()
         }
     }

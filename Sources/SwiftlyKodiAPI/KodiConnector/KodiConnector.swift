@@ -39,8 +39,8 @@ import OSLog
     /// The status of the KodiConnector class
     public var status: Status = .none
 
-    /// The remote host to make a connection
-    public var host = HostItem()
+    /// The current host of the ``KodiConnector``
+    public var host = HostItem(ip: "", port: 8080, tcpPort: 9090)
 
     /// The library on the Kodi host
     public var library = Library.Items()
@@ -55,7 +55,7 @@ import OSLog
     public var favourites: [AnyKodiItem] = []
 
     /// The online hosts
-    public var bonjourHosts: [BonjourHost] = []
+    public var bonjourHosts: [HostItem] = []
 
     /// The configured hosts
     public var configuredHosts: [HostItem]

@@ -8,11 +8,11 @@
 import Foundation
 
 /// Search related items (SwiftlyKodi Type)
-enum Search {
+public enum Search {
     // Just a namespace
 }
 
-extension Search {
+public extension Search {
 
     /// A struct for searching the library a bit smart
     /// - Note: Based on code from https://github.com/hacknicity/SmartSearchExample
@@ -25,7 +25,7 @@ extension Search {
                 .sorted { $0.count > $1.count }
         }
         /// Check if `candidateString` matches `searchString`.
-        func matches(_ candidateString: String) -> Bool {
+        public func matches(_ candidateString: String) -> Bool {
             /// If there are no search tokens, everything matches
             guard !searchTokens.isEmpty else {
                 return true

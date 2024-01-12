@@ -141,6 +141,8 @@ class KodiPlayerModel: ObservableObject {
     // swiftlint:enable implicitly_unwrapped_optional
     /// The state of the player
     @Published var state: KodiPlayerState = .load
+    /// The KodiConnector model
+    @Environment(KodiConnector.self) private var kodi
     /// All the states of the player
     enum KodiPlayerState {
         case load
@@ -153,7 +155,7 @@ class KodiPlayerModel: ObservableObject {
     /// - Parameter video: The ``KodiItem`` to play
     func loadVideo(video: any KodiItem) {
         // swiftlint:disable:next force_unwrapping
-        let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(file: video.file, type: .file))!)
+        let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(host: kodi.host, file: video.file, type: .file))!)
 #if os(tvOS)
         /// tvOS can add aditional info to the player
         Task {

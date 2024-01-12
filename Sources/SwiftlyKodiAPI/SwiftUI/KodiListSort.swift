@@ -48,7 +48,7 @@ public extension KodiListSort {
                 } else {
                     kodi.listSortSettings.append(item)
                 }
-                KodiListSort.saveSortSettings(settings: kodi.listSortSettings)
+                KodiListSort.saveSortSettings(host: kodi.host, settings: kodi.listSortSettings)
             }
             .labelsHidden()
         }
@@ -58,10 +58,11 @@ public extension KodiListSort {
 extension KodiListSort {
 
     /// Get all the `List Sort` settings
+    /// - Parameter host: The curren ``HostItem``
     /// - Returns: The stored List Sort settings
-    static func getAllSortSettings() -> [SwiftlyKodiAPI.List.Sort] {
+    static func getAllSortSettings(host: HostItem) -> [SwiftlyKodiAPI.List.Sort] {
         Logger.library.info("Get all the sorting settings")
-        if let settings = try? Cache.get(key: "ListSort", as: [SwiftlyKodiAPI.List.Sort].self, folder: KodiConnector.shared.host.ip) {
+        if let settings = try? Cache.get(key: "ListSort", as: [SwiftlyKodiAPI.List.Sort].self, folder: host.ip) {
             return settings
         }
         /// No settings found
@@ -69,10 +70,11 @@ extension KodiListSort {
     }
 
     /// Save the `List Sort` settings to the cache
+    /// - Parameter host: The curren ``HostItem``
     /// - Parameter settings: All the current List Sort settings
-    static func saveSortSettings(settings: [SwiftlyKodiAPI.List.Sort]) {
+    static func saveSortSettings(host: HostItem, settings: [SwiftlyKodiAPI.List.Sort]) {
         do {
-            try Cache.set(key: "ListSort", object: settings, folder: KodiConnector.shared.host.ip)
+            try Cache.set(key: "ListSort", object: settings, folder: host.ip)
         } catch {
             Logger.library.error("Error saving ListSort settings")
         }

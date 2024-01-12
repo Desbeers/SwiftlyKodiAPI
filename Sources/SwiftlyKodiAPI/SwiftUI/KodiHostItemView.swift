@@ -32,12 +32,18 @@ public struct KodiHostItemView: View {
     /// The body of the View
     public var body: some View {
         VStack {
-            values.label
-                .font(.largeTitle)
+            Label(
+                title: {
+                    Text(host.name)
+                }, icon: {
+                    Image(systemName: host.status == .configured ? "globe" : "star.fill")
+                }
+            )
+            .font(.largeTitle)
             Text(values.ip)
                 .padding(.bottom)
             form
-                .disabled(!host.isOnline)
+                .disabled(!kodi.hostIsOnline(host))
             HStack {
                 Button(action: {
                     /// Save the host
@@ -64,7 +70,7 @@ public struct KodiHostItemView: View {
                 }
             }
             .buttonStyle(.borderedProminent)
-            if !host.isOnline {
+            if !kodi.hostIsOnline(host) {
                 Text("'\(values.name)' is offline")
                     .foregroundColor(.red)
                     .font(.caption)
@@ -76,11 +82,12 @@ public struct KodiHostItemView: View {
 #endif
         .animation(.default, value: values.ip)
         .task(id: host) {
-            if let bonjour = host.bonjour {
+            if let bonjour = kodi.bonjourHosts.first(where: { $0.name == host.name }) {
                 values = HostItem(
                     name: bonjour.name,
                     ip: bonjour.ip,
-                    port: host.port,
+                    port: host.port, 
+                    tcpPort: bonjour.tcpPort,
                     username: host.username,
                     password: host.password,
                     media: host.media,
@@ -97,7 +104,6 @@ public struct KodiHostItemView: View {
     public var form: some View {
         Form {
             LabeledContent("Port:") {
-                //TextField("Port", value: $values.port, formatter: NumberFormatter(), prompt: Text("Webserver port"))
                 TextField(value: $values.port, formatter: NumberFormatter()) {}
 #if !os(macOS)
                     .keyboardType(.numberPad)
@@ -167,7 +173,7 @@ public struct KodiHostItemView: View {
             HostItem.saveConfiguredHosts(hosts: kodi.configuredHosts)
             /// If this host is selected, delete it
             if kodi.host.ip == host.ip {
-                kodi.host = HostItem()
+                kodi.host = HostItem(ip: "", port: 8080, tcpPort: 9090)
                 kodi.setStatus(.none)
                 do {
                     try Cache.delete(key: "SelectedHost")
@@ -181,7 +187,7 @@ public struct KodiHostItemView: View {
     /// Validate the form
     /// - Returns: True when validaded; else False
     func validateForm() -> Bool {
-        return values.port.description.isEmpty || values.username.isEmpty || values.password.isEmpty || !host.isOnline
+        return values.port.description.isEmpty || values.username.isEmpty || values.password.isEmpty || !kodi.hostIsOnline(host)
     }
 }
 
@@ -227,7 +233,7 @@ public extension KodiHostItemView {
                 self.message = "You can add a Kodi that is found on your network."
             } else {
                 var content = "You can select a configured host"
-                if !KodiConnector.shared.bonjourHosts.filter({ $0.new }).isEmpty {
+                if !KodiConnector.shared.bonjourHosts.filter({ $0.status == .new }).isEmpty {
                     content += " or add a new host that is found on your network"
                 }
                 self.message = "\(content)."
@@ -252,18 +258,10 @@ public extension KodiHostItemView {
         /// The KodiConnector model
         @Environment(KodiConnector.self) private var kodi
         /// The message
-        private var message: String
+        @State private var message: String = ""
         /// Init the struct
-        public init() {
-            var content = "There are no other configured Kodi's online"
-            if !KodiConnector.shared.configuredHosts.filter({ $0.isOnline }).isEmpty {
-                content = "You can select another configured Kodi"
-            }
-            if !KodiConnector.shared.bonjourHosts.filter({ $0.new }).isEmpty {
-                content += "\n\nThere is another Kodi available on your network"
-            }
-            self.message = content
-        }
+        public init() {}
+        /// The body of the `View`
         public var body: some View {
             Message(header: "\(kodi.host.name) is offline") {
                 if kodi.bonjourHosts.isEmpty {
@@ -271,6 +269,16 @@ public extension KodiHostItemView {
                 } else {
                     Text(message)
                 }
+            }
+            .task {
+                var content = "There are no other configured Kodi's online"
+                if !kodi.configuredHosts.filter({ kodi.hostIsOnline($0) }).isEmpty {
+                    content = "You can select another configured Kodi"
+                }
+                if !KodiConnector.shared.bonjourHosts.filter({ $0.status == .new }).isEmpty {
+                    content += "\n\nThere is another Kodi available on your network"
+                }
+                self.message = content
             }
         }
     }

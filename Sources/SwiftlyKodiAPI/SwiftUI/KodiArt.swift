@@ -191,6 +191,8 @@ extension KodiArt {
 
     /// SwiftUI `View` for loading any kind of Kodi art
     struct LoadView: View {
+        /// The KodiConnector model
+        @Environment(KodiConnector.self) private var kodi
         /// The Image Loader model
         @StateObject private var imageLoader = ImageLoader()
         /// The Art Item
@@ -205,6 +207,7 @@ extension KodiArt {
                 }
             }
             .task {
+                imageLoader.host = kodi.host
                 if art.error != .none, let fallback = art.fallback {
                     imageLoader.kodiImage = fallback
                 } else {
@@ -231,19 +234,23 @@ extension KodiArt {
         @Published var kodiImage: Image?
         /// The NSImage or UIImage
         var image: SWIFTImage?
-
+        /// The current host
+        var host: HostItem? = nil
         /// Get art from the Kodi host
         /// - Parameters:
         ///   - item: The Art Item
         func getImage (art: Item) async throws {
             do {
-                guard art.error != .hidden else {
+                guard
+                    let host,
+                    art.error != .hidden
+                else {
                     throw ArtError.hidden
                 }
                 guard !art.file.isEmpty, !art.file.starts(with: "image://Default") else {
                     throw ArtError.noURL
                 }
-                guard let url = URL(string: Files.getFullPath(file: art.file, type: .art)) else {
+                guard let url = URL(string: Files.getFullPath(host: host, file: art.file, type: .art)) else {
                     throw ArtError.badURL
                 }
                 /// Check if in cache

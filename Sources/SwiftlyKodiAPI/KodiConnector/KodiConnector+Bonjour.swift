@@ -20,7 +20,7 @@ extension KodiConnector {
         browser.stateUpdateHandler = { newState in
             switch newState {
             case .failed(let error):
-                // Restart Bonjour if it loses its connection.
+                /// Restart Bonjour if it loses its connection
                 if error == NWError.dns(DNSServiceErrorType(kDNSServiceErr_DefunctConnection)) {
                     Logger.connection.error("Browser failed with \(error), restarting")
                     browser.cancel()
@@ -81,8 +81,21 @@ extension KodiConnector {
                         case let .hostPort(host, port) = innerEndpoint,
                         let ip = String(describing: host).split(separator: "%").first
                     {
+                        /// Check if it is a configured host
+                        let status: HostItem.Status = self
+                            .configuredHosts
+                            .contains(where: {$0.ip == ip.description }) ? .configured : .new
                         /// Add the host the the Bonjour list
-                        self.bonjourHosts.append(BonjourHost(name: name, ip: ip.description, port: Int(port.rawValue)))
+                        self.bonjourHosts.append(
+                            HostItem(
+                                name: name,
+                                ip: ip.description,
+                                port: 8080,
+                                tcpPort: Int(port.rawValue),
+                                status: status
+                            )
+                        )
+                        //self.bonjourHosts.append(BonjourHost(name: name, ip: ip.description, tcpPort: Int(port.rawValue)))
                         /// Set the current host as 'online' if this is the new one
                         if self.host.name == name {
                             Task {
@@ -112,26 +125,6 @@ extension KodiConnector {
                     await self.setStatus(.offline, level: .fault)
                 }
             }
-        }
-    }
-}
-
-public extension KodiConnector {
-
-    /// Struct for a Kodi host found by the Bonjour browser
-    struct BonjourHost: Equatable, Hashable, Identifiable {
-        /// The ID of the bonjour host
-        public var id: String { ip }
-        /// The name of the Kodi service
-        /// - Note: This is the name set in Kodi
-        public var name: String
-        /// The IP V4 address of the host
-        public var ip: String
-        /// The port of the host
-        public var port: Int
-        /// Bool if thIs this host is new or not
-        public var new: Bool {
-            return KodiConnector.shared.configuredHosts.contains { $0.ip == ip } ? false : true
         }
     }
 }

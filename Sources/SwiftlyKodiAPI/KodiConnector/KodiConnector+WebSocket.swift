@@ -56,7 +56,7 @@ extension KodiConnector {
     ///     On iOS, disconnect before going to the background or else Apple will be really upset.
     func connectWebSocket() {
         // swiftlint:disable:next force_unwrapping
-        let url = URL(string: "ws://\(host.ip):\(host.tcp)/jsonrpc")!
+        let url = URL(string: "ws://\(host.ip):\(host.tcpPort)/jsonrpc")!
         let webSocketDelegate = WebSocket()
         let session = URLSession(configuration: .default, delegate: webSocketDelegate, delegateQueue: OperationQueue())
         webSocketTask = session.webSocketTask(with: url)

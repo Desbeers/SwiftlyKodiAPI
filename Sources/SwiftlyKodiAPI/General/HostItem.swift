@@ -10,7 +10,31 @@ import SwiftlyStructCache
 import OSLog
 
 /// Host information to make a remote connection (SwiftlyKodi Type)
-public struct HostItem: Codable, Identifiable, Hashable {
+public struct HostItem: Codable, Identifiable, Hashable, Sendable {
+
+    /// Init the HostItem struct
+    public init(
+        name: String = Bundle.main.clientName,
+        ip: String,
+        port: Int,
+        tcpPort: Int,
+        username: String = "",
+        password: String = "",
+        media: Media = .video,
+        player: Player = .local,
+        status: Status = .new
+    ) {
+        self.name = name
+        self.ip = ip
+        self.port = port
+        self.tcpPort = tcpPort
+        self.username = username
+        self.password = password
+        self.media = media
+        self.player = player
+        self.status = status
+    }
+
     /// The ID of the host
     public var id: String { ip }
     /// Name of the host
@@ -19,14 +43,8 @@ public struct HostItem: Codable, Identifiable, Hashable {
     public var ip: String
     /// Webserver port of the host
     public var port: Int
-    /// TCP of the host
-    /// - Note: This is found by `Bonjour` on first edit
-    public var tcp: Int {
-        if let host = KodiConnector.shared.bonjourHosts.first(where: { $0.ip == ip }) {
-            return host.port
-        }
-        return 9090
-    }
+    /// TCP port of the host
+    public var tcpPort: Int
     /// Username of the host
     public var username: String
     /// Password of the host
@@ -37,18 +55,9 @@ public struct HostItem: Codable, Identifiable, Hashable {
     public var player: Player
     /// Status of the host
     public var status: Status
-
-    /// Bool if the host is online
-    public var isOnline: Bool {
-        return bonjour == nil ? false : true
-    }
-    /// The optional `bonjour` result
-    public var bonjour: KodiConnector.BonjourHost? {
-        KodiConnector.shared.bonjourHosts.first { $0.name == name }
-    }
     /// Content of the library
     /// - Note: Used as filter for notifications
-    public var content: [Library.Media] {
+    public var libraryContent: [Library.Media] {
         switch media {
         case .audio:
             return [.none, .artist, .album, .song, .genre, .musicVideo]
@@ -61,46 +70,11 @@ public struct HostItem: Codable, Identifiable, Hashable {
         }
     }
 
-    /// Bool if the host is selected
-    public var isSelected: Bool {
-        if KodiConnector.shared.host.ip == ip {
-            return true
-        }
-        return false
-    }
-
-    @ViewBuilder var label: some View {
-        Label(title: {
-            Text(name)
-        }, icon: {
-            Image(systemName: status == .configured ? "globe" : "star.fill")
-        })
-    }
-
-    /// Init the Host struct
-    public init(
-        name: String = Bundle.main.clientName,
-        ip: String = "",
-        port: Int = 8080,
-        username: String = "",
-        password: String = "",
-        media: Media = .video,
-        player: Player = .local,
-        status: Status = .new
-    ) {
-        self.name = name
-        self.ip = ip
-        self.port = port
-        self.username = username
-        self.password = password
-        self.media = media
-        self.player = player
-        self.status = status
-    }
+    // MARK: Enums for host options
 
     /// The kind of media to load when connecting to the host
     /// - Note: Audio and Video both load Artists and Music Videos
-    public enum Media: String, Codable {
+    public enum Media: String, Codable, Sendable {
         /// Load the audio library
         case audio
         /// Load the video library
@@ -112,7 +86,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
     }
 
     /// The status of the host
-    public enum Status: String, Codable {
+    public enum Status: String, Codable, Sendable {
         /// A new host
         case new
         /// A configured host
@@ -121,7 +95,7 @@ public struct HostItem: Codable, Identifiable, Hashable {
 
     /// The player the client want to use
     /// - Note: This will only influence Player status and Playlists updates
-    public enum Player: String, Codable {
+    public enum Player: String, Codable, Sendable {
         /// Use the local player
         case local
         /// Use a custom player

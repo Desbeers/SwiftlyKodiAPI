@@ -41,6 +41,6 @@ extension KodiConnector {
 
     @MainActor func getCurrentPlaylists() async {
         /// Get Player playlists
-        await KodiPlayer.shared.getCurrentPlaylist(media: .none)
+        await KodiPlayer.shared.getCurrentPlaylist(host: host, media: .none)
     }
 }

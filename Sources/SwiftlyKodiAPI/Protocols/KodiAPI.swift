@@ -39,8 +39,9 @@ extension KodiAPI {
 extension KodiAPI {
 
     /// Build the URL request
-    var urlRequest: URLRequest {
-        let host = KodiConnector.shared.host
+    /// - Parameter host: The curren ``HostItem``
+    /// - Returns: A complete `URLRequest`
+    func urlRequest(host: HostItem) -> URLRequest {
         var request = URLRequest(
             // swiftlint:disable:next force_unwrapping
             url: URL(string: "http://\(host.username):\(host.password)@\(host.ip):\(host.port)/jsonrpc")!

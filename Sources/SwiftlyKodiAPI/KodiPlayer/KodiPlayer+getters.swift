@@ -43,8 +43,11 @@ extension KodiPlayer {
     }
 
     /// Get the current playlist for the active player
-    func getCurrentPlaylist(media: Library.Media) async {
-        if KodiConnector.shared.host.content.contains(media) {
+    /// - Parameters:
+    ///   - host: The current ``HostItem``
+    ///   - media: The kind of ``Library/Media``
+    func getCurrentPlaylist(host: HostItem, media: Library.Media) async {
+        if host.libraryContent.contains(media) {
             await task.getCurrentPlaylist.submit { [self] in
                 let kodi = KodiConnector.shared
                 switch media {

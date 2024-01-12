@@ -49,33 +49,29 @@ extension KodiConnector {
         case failure
 
         public var message: String {
-
-            let host = KodiConnector.shared.host.name
-
             switch self {
-
             case .none:
-                return "Not connected to a Kodi"
+                "Not connected to a Kodi"
             case .connectedToWebSocket:
-                return "Connected to the host"
+                "Connected to the host"
             case .loadingLibrary:
-                return "Loading the library..."
+                "Loading the library..."
             case .updatingLibrary:
-                return "Updating the library..."
+                "Updating the library..."
             case .loadedLibrary:
-                return "Loaded the library"
+                "Loaded the library"
             case .outdatedLibrary:
-                return "Library is outdated"
+                "Library is outdated"
             case .sleeping:
-                return "Sleeping"
+                "Sleeping"
             case .wakeup:
-                return "Waking-up"
+                "Waking-up"
             case .offline:
-                return "\(host) is offline"
+                "The host is offline"
             case .online:
-                return "\(host) is online"
+                "The host is online"
             case .failure:
-                return "Error"
+                "Error"
             }
         }
     }
@@ -90,7 +86,7 @@ extension KodiConnector {
         case .connectedToWebSocket:
             Task {
                 /// Get all List sortings
-                listSortSettings = KodiListSort.getAllSortSettings()
+                listSortSettings = KodiListSort.getAllSortSettings(host: host)
                 if host.media != .none {
                     await loadLibrary()
                 }

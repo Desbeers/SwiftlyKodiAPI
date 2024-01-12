@@ -100,14 +100,14 @@ extension KodiConnector {
                 }
             }
         case .audioLibraryOnRemove, .videoLibraryOnRemove:
-            if !scanningLibrary && host.content.contains(notification.media) {
+            if !scanningLibrary && host.libraryContent.contains(notification.media) {
                 deleteKodiItem(itemID: notification.itemID, media: notification.media)
             }
 
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
-            if !scanningLibrary && host.content.contains(notification.media) {
+            if !scanningLibrary && host.libraryContent.contains(notification.media) {
                 updateKodiItem(itemID: notification.itemID, media: notification.media)
-                await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
+                await KodiPlayer.shared.getCurrentPlaylist(host: host, media: notification.media)
             }
 
         case .videoLibraryOnRefresh:
@@ -132,13 +132,13 @@ extension KodiConnector {
                 await KodiPlayer.shared.setProperties(
                     properties: await Player.getProperties(playerID: notification.playerID)
                 )
-                await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
+                await KodiPlayer.shared.getCurrentPlaylist(host: host, media: notification.media)
 
             case .playerOnSeek:
                 await KodiPlayer.shared.getPlayerProperties()
 
             case .playlistOnAdd, .playlistOnRemove, .playlistOnClear:
-                await KodiPlayer.shared.getCurrentPlaylist(media: notification.media)
+                await KodiPlayer.shared.getCurrentPlaylist(host: host, media: notification.media)
 
             default:
                 await KodiPlayer.shared.getPlayerProperties()
