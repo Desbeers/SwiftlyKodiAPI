@@ -12,8 +12,9 @@ extension Video.Details.MusicVideo {
     /// Play a  ``Video/Details/MusicVideo`` item
     public func play() {
         Task {
-            /// Check if this song is in the current playlist
-            if let position = self.playlistID {
+            /// Check if this music video is in the current playlist
+            let musicVideoPlaylist = await Playlist.getItems(playlistID: .video)
+            if let position = musicVideoPlaylist?.firstIndex(where: { $0.id == id }) {
                 Player.goTo(playerID: .video, position: position)
             } else {
                 Playlist.clear(playlistID: .video)

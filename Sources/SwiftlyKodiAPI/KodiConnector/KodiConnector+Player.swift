@@ -1,5 +1,5 @@
 //
-//  KodiPlayer+getters.swift
+//  KodiConnector+Player.swift
 //  SwiftlyKodiAPI
 //
 //  © 2024 Nick Berendsen
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension KodiPlayer {
+extension KodiConnector {
 
     /// Get the first active player ID
     /// - Returns: The active  `playerID`, if any, else `nil`
@@ -26,7 +26,7 @@ extension KodiPlayer {
             if let playerID = await self.getPlayerID() {
                 properties = await Player.getProperties(playerID: playerID)
             }
-            await self.setProperties(properties: properties)
+            await self.player.setProperties(properties: properties)
         }
     }
 
@@ -38,7 +38,7 @@ extension KodiPlayer {
             if let playerID = await self.getPlayerID() {
                 currentItem = await Player.getItem(playerID: playerID)
             }
-            await self.setCurrentItem(item: currentItem)
+            await self.player.setCurrentItem(item: currentItem)
         }
     }
 
@@ -49,26 +49,25 @@ extension KodiPlayer {
     func getCurrentPlaylist(host: HostItem, media: Library.Media) async {
         if host.libraryContent.contains(media) {
             await task.getCurrentPlaylist.submit { [self] in
-                let kodi = KodiConnector.shared
                 switch media {
                 case .none:
-                    if kodi.host.media == .audio || kodi.host.media == .all {
-                        await setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
+                    if host.media == .audio || host.media == .all {
+                        await player.setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
                     }
                     /// Always get the video playlist because of Music Videos
-                    await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                    await player.setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
                 case .movie:
-                    await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                    await player.setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
                 case .episode:
-                    await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                    await player.setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
                 case .musicVideo:
-                    await setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                    await player.setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
                 case .song:
-                    await setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
+                    await player.setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
                 default:
                     break
                 }
-                await setPlaylistUpdate()
+                await player.setPlaylistUpdate()
             }
         }
     }

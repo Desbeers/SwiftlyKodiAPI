@@ -62,35 +62,41 @@ import SwiftUI
     // MARK: Init
 
     /// Private init to make sure we have only one instance
-    private init() { }
+    //private init() { }
 }
 
 // MARK: Kodi Player setters
 
 extension KodiPlayer {
 
-    @MainActor func setApplicationProperties(properties: Application.Property.Value) {
+    @MainActor 
+    func setApplicationProperties(properties: Application.Property.Value) {
         volume = properties.volume
         muted = properties.muted
     }
 
-    @MainActor func setProperties(properties: Player.Property.Value) {
+    @MainActor 
+    func setProperties(properties: Player.Property.Value) {
         self.properties = properties
     }
 
-    @MainActor func setAudioPlaylist(playlist: [any KodiItem]) {
+    @MainActor 
+    func setAudioPlaylist(playlist: [any KodiItem]) {
         audioPlaylist = playlist
     }
 
-    @MainActor func setVideoPlaylist(playlist: [any KodiItem]) {
+    @MainActor 
+    func setVideoPlaylist(playlist: [any KodiItem]) {
         videoPlaylist = playlist
     }
 
-    @MainActor func setPlaylistUpdate() {
+    @MainActor 
+    func setPlaylistUpdate() {
         playlistUpdate = Date()
     }
 
-    @MainActor func setCurrentItem(item: (any KodiItem)?) {
+    @MainActor 
+    func setCurrentItem(item: (any KodiItem)?) {
         currentItem = item
     }
 }

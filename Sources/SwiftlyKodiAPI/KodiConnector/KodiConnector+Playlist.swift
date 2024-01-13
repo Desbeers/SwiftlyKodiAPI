@@ -9,11 +9,11 @@ import Foundation
 
 extension KodiConnector {
 
-    struct Playlist {
-        var media: Library.Media
-        var title: String
-        var movies: [Video.Details.Movie]
-    }
+//    struct Playlist {
+//        var media: Library.Media
+//        var title: String
+//        var movies: [Video.Details.Movie]
+//    }
 
     @MainActor func getUserPlaylists() async {
         /// Audio is easy, it is just songs
@@ -41,6 +41,6 @@ extension KodiConnector {
 
     @MainActor func getCurrentPlaylists() async {
         /// Get Player playlists
-        await KodiPlayer.shared.getCurrentPlaylist(host: host, media: .none)
+        await getCurrentPlaylist(host: host, media: .none)
     }
 }

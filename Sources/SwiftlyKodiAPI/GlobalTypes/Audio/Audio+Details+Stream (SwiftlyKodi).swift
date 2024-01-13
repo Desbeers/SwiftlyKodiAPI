@@ -95,7 +95,7 @@ extension Audio.Details.Stream {
     public func play() {
         Task {
             /// Make sure party mode is off
-            if KodiPlayer.shared.properties.partymode {
+            if await Player.getProperties(playerID: .audio).partymode {
                 Player.setPartyMode(playerID: .audio)
             }
             Playlist.clear(playlistID: .audio)

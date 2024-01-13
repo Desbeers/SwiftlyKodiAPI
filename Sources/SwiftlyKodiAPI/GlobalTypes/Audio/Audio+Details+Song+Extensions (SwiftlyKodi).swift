@@ -13,7 +13,8 @@ extension Audio.Details.Song {
     public func play() {
         Task {
             /// Check if this song is in the current playlist
-            if let position = self.playlistID {
+            let audioPlaylist = await Playlist.getItems(playlistID: .audio) 
+            if let position = audioPlaylist?.firstIndex(where: { $0.id == id }) {
                 Player.goTo(playerID: .audio, position: position)
             } else {
                 Playlist.clear(playlistID: .audio)
@@ -30,7 +31,7 @@ extension Array where Element == Audio.Details.Song {
     public func play(shuffle: Bool = false) {
         Task {
             /// Make sure party mode is off
-            if KodiPlayer.shared.properties.partymode {
+            if await Player.getProperties(playerID: .audio).partymode {
                 Player.setPartyMode(playerID: .audio)
             }
             Playlist.clear(playlistID: .audio)

@@ -77,10 +77,10 @@ extension KodiConnector {
         /// Get the settings of the host
         settings = await Settings.getSettings()
         if host.player == .local {
-            await KodiPlayer.shared.getPlayerProperties()
-            await KodiPlayer.shared.getPlayerItem()
+            await getPlayerProperties()
+            await getPlayerItem()
             /// Send the properties to the KodiPlayer Class
-            await KodiPlayer.shared.setApplicationProperties(properties: properties)
+            await player.setApplicationProperties(properties: properties)
         }
     }
 }

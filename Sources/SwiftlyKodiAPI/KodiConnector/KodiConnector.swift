@@ -60,6 +60,9 @@ import OSLog
     /// The configured hosts
     public var configuredHosts: [HostItem]
 
+    /// The Kodi Player
+    public var player: KodiPlayer = KodiPlayer()
+
     // MARK: Init
 
     /// Private init to make sure we have only one instance

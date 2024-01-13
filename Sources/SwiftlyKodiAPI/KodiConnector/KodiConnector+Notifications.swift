@@ -107,7 +107,7 @@ extension KodiConnector {
         case .audioLibraryOnUpdate, .videoLibraryOnUpdate:
             if !scanningLibrary && host.libraryContent.contains(notification.media) {
                 updateKodiItem(itemID: notification.itemID, media: notification.media)
-                await KodiPlayer.shared.getCurrentPlaylist(host: host, media: notification.media)
+                await getCurrentPlaylist(host: host, media: notification.media)
             }
 
         case .videoLibraryOnRefresh:
@@ -123,26 +123,24 @@ extension KodiConnector {
             switch notification.method {
 
             case .applicationOnVolumeChanged:
-                Task {
-                    properties = await Application.getProperties()
-                    await KodiPlayer.shared.setApplicationProperties(properties: properties)
-                }
-
+                await player.setApplicationProperties(
+                    properties: await Application.getProperties()
+                )
             case .playerOnPropertyChanged, .playerOnPause, .playerOnResume:
-                await KodiPlayer.shared.setProperties(
+                await player.setProperties(
                     properties: await Player.getProperties(playerID: notification.playerID)
                 )
-                await KodiPlayer.shared.getCurrentPlaylist(host: host, media: notification.media)
+                await getCurrentPlaylist(host: host, media: notification.media)
 
             case .playerOnSeek:
-                await KodiPlayer.shared.getPlayerProperties()
+                await getPlayerProperties()
 
             case .playlistOnAdd, .playlistOnRemove, .playlistOnClear:
-                await KodiPlayer.shared.getCurrentPlaylist(host: host, media: notification.media)
+                await getCurrentPlaylist(host: host, media: notification.media)
 
             default:
-                await KodiPlayer.shared.getPlayerProperties()
-                await KodiPlayer.shared.getPlayerItem()
+                await getPlayerProperties()
+                await getPlayerItem()
             }
         }
     }
