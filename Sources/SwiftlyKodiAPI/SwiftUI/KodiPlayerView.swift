@@ -204,105 +204,105 @@ class KodiPlayerModel: ObservableObject {
             timer.invalidate()
         }
     }
-}
+
 
 #if os(tvOS)
 
-/// Create meta data for the video player
-/// - Parameter video: The Kodi video item
-/// - Returns: Meta data for the player
-func createMetadataItems(video: any KodiItem) async -> [AVMetadataItem] {
+    /// Create meta data for the video player
+    /// - Parameter video: The Kodi video item
+    /// - Returns: Meta data for the player
+    func createMetadataItems(video: any KodiItem) async -> [AVMetadataItem] {
 
-    /// The Metadata of the video
-    var metaData = MetaData()
+        /// The Metadata of the video
+        var metaData = MetaData()
 
-    /// The structure for metadata
-    struct MetaData {
-        var title: String = "title"
-        var subtitle: String = "subtitle"
-        var description: String = "description"
-        var genre: String = "genre"
-        var creationDate: String = "1900"
-        // swiftlint:disable force_unwrapping
-        var artwork: UIImage = UIImage(
-            named: "poster",
-            in: Bundle.module,
-            compatibleWith: nil) ?? UIImage(systemName: "film"
-            )!
-        // swiftlint:enable force_unwrapping
-    }
+        /// The structure for metadata
+        struct MetaData {
+            var title: String = "title"
+            var subtitle: String = "subtitle"
+            var description: String = "description"
+            var genre: String = "genre"
+            var creationDate: String = "1900"
+            // swiftlint:disable force_unwrapping
+            var artwork: UIImage = UIImage(
+                named: "poster",
+                in: Bundle.module,
+                compatibleWith: nil) ?? UIImage(systemName: "film"
+                )!
+            // swiftlint:enable force_unwrapping
+        }
 
-    /// Helper function to create the metadata
-    /// - Parameters:
-    ///   - identifier: The key
-    ///   - value: The value
-    /// - Returns: An `AVMetadataItem`
-    func createMetadataItem(for identifier: AVMetadataIdentifier, value: Any) -> AVMetadataItem {
-        let item = AVMutableMetadataItem()
-        item.identifier = identifier
-        item.value = value as? NSCopying & NSObjectProtocol
-        /// Specify "und" to indicate an undefined language.
-        item.extendedLanguageTag = "und"
-        // swiftlint:disable:next force_cast
-        return item.copy() as! AVMetadataItem
-    }
+        /// Helper function to create the metadata
+        /// - Parameters:
+        ///   - identifier: The key
+        ///   - value: The value
+        /// - Returns: An `AVMetadataItem`
+        func createMetadataItem(for identifier: AVMetadataIdentifier, value: Any) -> AVMetadataItem {
+            let item = AVMutableMetadataItem()
+            item.identifier = identifier
+            item.value = value as? NSCopying & NSObjectProtocol
+            /// Specify "und" to indicate an undefined language.
+            item.extendedLanguageTag = "und"
+            // swiftlint:disable:next force_cast
+            return item.copy() as! AVMetadataItem
+        }
 
-    /// Get the poster of the item
-    /// - Parameter file: The internal Kodi file of the art
-    /// - Returns: An `UIImage`
-    func getArtwork(file: String) async -> UIImage {
-        if !file.isEmpty, let url = URL(string: Files.getFullPath(file: file, type: .art)) {
-            if let (data, _) = try? await URLSession.shared.data(from: url) {
-                if let image = UIImage(data: data) {
-                    return image
+        /// Get the poster of the item
+        /// - Parameter file: The internal Kodi file of the art
+        /// - Returns: An `UIImage`
+        func getArtwork(file: String) async -> UIImage {
+            if !file.isEmpty, let url = URL(string: Files.getFullPath(host: host, file: file, type: .art)) {
+                if let (data, _) = try? await URLSession.shared.data(from: url) {
+                    if let image = UIImage(data: data) {
+                        return image
+                    }
                 }
             }
+            // swiftlint:disable:next force_unwrapping
+            return UIImage(named: "poster", in: Bundle.module, compatibleWith: nil) ?? UIImage(systemName: "film")!
         }
-        // swiftlint:disable:next force_unwrapping
-        return UIImage(named: "poster", in: Bundle.module, compatibleWith: nil) ?? UIImage(systemName: "film")!
-    }
 
-    /// Set the MetaData
-    switch video {
-    case let movie as Video.Details.Movie:
-        metaData.title = movie.title
-        metaData.subtitle = movie.tagline
-        metaData.description = movie.plot
-        metaData.artwork = await getArtwork(file: movie.art.poster)
-        metaData.genre = movie.genre.joined(separator: " ∙ ")
-        metaData.creationDate = movie.year.description
-    case let episode as Video.Details.Episode:
-        metaData.title = episode.title
-        metaData.subtitle = episode.showTitle
-        metaData.description = episode.plot
-        metaData.artwork = await getArtwork(file: episode.art.seasonPoster)
-        metaData.genre = episode.showTitle
-        metaData.creationDate = "\(episode.firstAired)"
-    case let musicVideo as Video.Details.MusicVideo:
-        metaData.title = musicVideo.title
-        metaData.subtitle = musicVideo.subtitle
-        metaData.description = musicVideo.plot
-        metaData.artwork = await getArtwork(file: musicVideo.art.poster)
-        metaData.genre = musicVideo.genre.joined(separator: " ∙ ")
-        metaData.creationDate = musicVideo.year.description
-    default:
-        break
+        /// Set the MetaData
+        switch video {
+        case let movie as Video.Details.Movie:
+            metaData.title = movie.title
+            metaData.subtitle = movie.tagline
+            metaData.description = movie.plot
+            metaData.artwork = await getArtwork(file: movie.art.poster)
+            metaData.genre = movie.genre.joined(separator: " ∙ ")
+            metaData.creationDate = movie.year.description
+        case let episode as Video.Details.Episode:
+            metaData.title = episode.title
+            metaData.subtitle = episode.showTitle
+            metaData.description = episode.plot
+            metaData.artwork = await getArtwork(file: episode.art.seasonPoster)
+            metaData.genre = episode.showTitle
+            metaData.creationDate = "\(episode.firstAired)"
+        case let musicVideo as Video.Details.MusicVideo:
+            metaData.title = musicVideo.title
+            metaData.subtitle = musicVideo.subtitle
+            metaData.description = musicVideo.plot
+            metaData.artwork = await getArtwork(file: musicVideo.art.poster)
+            metaData.genre = musicVideo.genre.joined(separator: " ∙ ")
+            metaData.creationDate = musicVideo.year.description
+        default:
+            break
+        }
+        let mapping: [AVMetadataIdentifier: Any] = [
+            .commonIdentifierTitle: metaData.title,
+            .iTunesMetadataTrackSubTitle: metaData.subtitle,
+            .commonIdentifierArtwork: metaData.artwork.pngData() as Any,
+            .commonIdentifierDescription: metaData.description,
+            .quickTimeMetadataGenre: metaData.genre,
+            .iTunesMetadataReleaseDate: metaData.creationDate.utf8,
+            .quickTimeMetadataCreationDate: metaData.creationDate.utf8,
+            .commonIdentifierCreationDate: metaData.creationDate.utf8,
+            .quickTimeUserDataCreationDate: metaData.creationDate.utf8
+        ]
+        return mapping.compactMap { createMetadataItem(for: $0, value: $1) }
     }
-    let mapping: [AVMetadataIdentifier: Any] = [
-        .commonIdentifierTitle: metaData.title,
-        .iTunesMetadataTrackSubTitle: metaData.subtitle,
-        .commonIdentifierArtwork: metaData.artwork.pngData() as Any,
-        .commonIdentifierDescription: metaData.description,
-        .quickTimeMetadataGenre: metaData.genre,
-        .iTunesMetadataReleaseDate: metaData.creationDate.utf8,
-        .quickTimeMetadataCreationDate: metaData.creationDate.utf8,
-        .commonIdentifierCreationDate: metaData.creationDate.utf8,
-        .quickTimeUserDataCreationDate: metaData.creationDate.utf8
-    ]
-    return mapping.compactMap { createMetadataItem(for: $0, value: $1) }
-}
 #endif
-
+}
 extension AVPlayer {
 
     /// Bool if the Player is ready to play
