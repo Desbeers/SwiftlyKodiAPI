@@ -14,12 +14,14 @@ extension Settings {
 
     /// Changes the value of a setting (Kodi API)
     /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
     ///   - setting: The ``Setting/ID`` to set
     ///   - int: The optional Int value
     ///   - bool: The optional Bool value
     ///   - string: The optional String value
     ///   - list: The optional [Int] value
     public static func setSettingValue(
+        host: HostItem,
         setting: Setting.ID,
         int: Int? = nil,
         bool: Bool? = nil,
@@ -27,30 +29,23 @@ extension Settings {
         list: [Int]? = nil
     ) async {
         let message = SetSettingValue(
+            host: host,
             setting: setting,
             valueInt: int,
             valueBool: bool,
             valueString: string,
             valueList: list
         )
-        KodiConnector.shared.sendMessage(message: message)
+        JSON.sendMessage(message: message)
     }
 
     /// Changes the value of a setting (Kodi API)
     fileprivate struct SetSettingValue: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         let method: Method = .settingsSetSettingvalue
-        /// Setting  ID
-        let setting: Setting.ID
-        /// Setting Int value
-        let valueInt: Int?
-        /// Setting Bool value
-        let valueBool: Bool?
-        /// Setting String value
-        let valueString: String?
-        /// Setting List value
-        let valueList: [Int]?
-        /// The JSON creator
+        /// The parameters
         var parameters: Data {
             if let valueInt {
                 return buildParams(params: ParamsInt(setting: setting.rawValue, value: valueInt))
@@ -66,6 +61,16 @@ extension Settings {
             }
             return Data()
         }
+        /// Setting ID
+        let setting: Setting.ID
+        /// Setting Int value
+        let valueInt: Int?
+        /// Setting Bool value
+        let valueBool: Bool?
+        /// Setting String value
+        let valueString: String?
+        /// Setting List value
+        let valueList: [Int]?
         /// The request struct
         struct ParamsInt: Encodable {
             /// Setting ID

@@ -13,46 +13,42 @@ import OSLog
 extension Playlist {
 
     /// Add a stream to the playlist (Kodi API)
-    /// - Parameter stream: The ``Audio/Details/Stream`` item
-    public static func add(stream: Audio.Details.Stream) async {
-        /// Get the shared KodiConnector
-        let kodi: KodiConnector = .shared
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - stream: The ``Audio/Details/Stream`` item
+    public static func add(host: HostItem, stream: Audio.Details.Stream) async {
         /// We need to wait on the result
-        _ = try? await kodi.sendRequest(request: Add(stream: stream))
+        _ = try? await JSON.sendRequest(request: Add(host: host, stream: stream))
     }
 
     /// Add songs to the playlist (Kodi API)
-    /// - Parameter songs: An array of ``Audio/Details/Song`` items
-    public static func add(songs: [Audio.Details.Song]) async {
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - songs: An array of ``Audio/Details/Song`` items
+    public static func add(host: HostItem, songs: [Audio.Details.Song]) async {
         /// Map the song ID's
         let songs = songs.map(\.songID)
-        /// Get the shared KodiConnector
-        let kodi: KodiConnector = .shared
         /// We need to wait on the result
-        _ = try? await kodi.sendRequest(request: Add(songs: songs))
+        _ = try? await JSON.sendRequest(request: Add(host: host, songs: songs))
     }
 
     /// Add music videos to the playlist (Kodi API)
-    /// - Parameter musicVideos: An array of ``Video/Details/MusicVideo`` items
-    public static func add(musicVideos: [Video.Details.MusicVideo]) async {
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - musicVideos: An array of ``Video/Details/MusicVideo`` items
+    public static func add(host: HostItem, musicVideos: [Video.Details.MusicVideo]) async {
         /// Map the music video ID's
         let musicVideos = musicVideos.map(\.musicVideoID)
-        /// Get the shared KodiConnector
-        let kodi: KodiConnector = .shared
         /// We need to wait on the result
-        _ = try? await kodi.sendRequest(request: Add(musicVideos: musicVideos))
+        _ = try? await JSON.sendRequest(request: Add(host: host, musicVideos: musicVideos))
     }
 
     /// Add item(s) to playlist (Kodi API)
     fileprivate struct Add: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.playlistAdd
-        /// List of optional song ID's
-        var songs: [Int]?
-        /// List of optional music video ID's
-        var musicVideos: [Int]?
-        /// An optional stream item
-        var stream: Audio.Details.Stream?
         /// The parameters
         var parameters: Data {
             var params = Params()
@@ -77,6 +73,12 @@ extension Playlist {
             }
             return buildParams(params: params)
         }
+        /// List of optional song ID's
+        var songs: [Int]?
+        /// List of optional music video ID's
+        var musicVideos: [Int]?
+        /// An optional stream item
+        var stream: Audio.Details.Stream?
         /// The parameters struct
         struct Params: Encodable {
             /// The array with playlist items

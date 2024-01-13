@@ -35,21 +35,15 @@ public extension Setting.Details {
                 case value
             }
         }
-
+        
+        /// Init the addon settings
+        /// - Note: The options will be filled by the `Settings.getSettings` function
         public init(from decoder: Decoder) throws {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
-
             self.addonType = try container.decode(Addon.Types.self, forKey: .addonType)
             self.value = try container.decode(String.self, forKey: .value)
             self.defaultValue = try container.decode(String.self, forKey: .defaultValue)
             self.allowEmpty = try container.decode(Bool.self, forKey: .allowEmpty)
-
-            var options = [Option]()
-            let addons = KodiConnector.shared.addons.filter { $0.addonType == self.addonType }
-                for addon in addons {
-                    options.append(Option(label: addon.name, value: addon.id))
-                }
-            self.options = options
         }
     }
 }

@@ -12,10 +12,9 @@ extension Application {
 
     /// Retrieves the properties of the application (Kodi API)
     /// - Returns: The ``Application/Property/Value`` of the application
-    public static func getProperties() async -> Application.Property.Value {
-        let kodi: KodiConnector = .shared
+    public static func getProperties(host: HostItem) async -> Application.Property.Value {
         do { 
-            let result = try await kodi.sendRequest(request: GetProperties())
+            let result = try await JSON.sendRequest(request: GetProperties(host: host))
             return result
         } catch {
             Logger.library.error("Loading application property failed with error: \(error.localizedDescription)")
@@ -25,6 +24,8 @@ extension Application {
 
     /// Retrieves the values of the given properties (Kodi API)
     fileprivate struct GetProperties: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.applicationGetProperties
         /// The parameters

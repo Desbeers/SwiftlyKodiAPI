@@ -61,7 +61,7 @@ extension List.Sort {
             }
         }
 
-        /// Get the sorting methods for a  ``KodiItem``
+        /// Get the sorting methods for a ``KodiItem``
         /// - Parameter media: The kind of media
         /// - Returns: The available methods
         static public func getMethods(media: Library.Media) -> [Option] {

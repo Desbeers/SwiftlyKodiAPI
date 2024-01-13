@@ -23,17 +23,21 @@ extension Array where Element == Video.Details.Movie {
 extension Array where Element == Video.Details.Movie {
 
     /// Swap movies for a set item
-    ///
+    /// 
     /// Movies that are part of a set will be removed and replaced with the set when enabled in the Kodi host
     /// - Returns: An array of ``KodiItem``
-    public func swapMoviesForSet() -> [any KodiItem] {
-        let kodi = KodiConnector.shared
-        if kodi.getKodiSetting(id: .videolibraryGroupMovieSets).bool {
+    /// - Parameter host: The ``HostItem`` that has the movie sets
+    public func swapMoviesForSet(host: HostItem) async -> [any KodiItem] {
+        if await Settings.getSettingValue(
+            host: host,
+            setting: .videolibraryGroupMovieSets
+        ).boolean ?? false {
+            var movieSets = await VideoLibrary.getMovieSets(host: host)
             let movieSetIDs = Set(self.map(\.setID))
-            let movieSets = kodi.library.movieSets
-                .filter { movieSetIDs.contains($0.setID) }
+            movieSets = movieSets.filter { movieSetIDs.contains($0.setID) }
             return (self.filter { $0.setID == 0 } + movieSets)
+        } else {
+            return self
         }
-        return self
     }
 }

@@ -226,25 +226,27 @@ public extension KodiHostItemView {
         /// The KodiConnector model
         @Environment(KodiConnector.self) private var kodi
         /// The message
-        private var message: String
+        @State private var message: String = ""
         /// Init the struct
-        public init() {
-            if KodiConnector.shared.configuredHosts.isEmpty {
-                self.message = "You can add a Kodi that is found on your network."
-            } else {
-                var content = "You can select a configured host"
-                if !KodiConnector.shared.bonjourHosts.filter({ $0.status == .new }).isEmpty {
-                    content += " or add a new host that is found on your network"
-                }
-                self.message = "\(content)."
-            }
-        }
+        public init() {}
+        /// The body of the `View`
         public var body: some View {
             Message(header: "No Kodi \(kodi.configuredHosts.isEmpty ? "configured" : "selected")") {
                 if kodi.bonjourHosts.isEmpty {
                     Text("There seems to be no Kodi running on your network")
                 } else {
                     Text(message)
+                }
+            }
+            .task {
+                if kodi.configuredHosts.isEmpty {
+                    self.message = "You can add a Kodi that is found on your network."
+                } else {
+                    var content = "You can select a configured host"
+                    if !kodi.bonjourHosts.filter({ $0.status == .new }).isEmpty {
+                        content += " or add a new host that is found on your network"
+                    }
+                    self.message = "\(content)."
                 }
             }
         }
@@ -275,7 +277,7 @@ public extension KodiHostItemView {
                 if !kodi.configuredHosts.filter({ kodi.hostIsOnline($0) }).isEmpty {
                     content = "You can select another configured Kodi"
                 }
-                if !KodiConnector.shared.bonjourHosts.filter({ $0.status == .new }).isEmpty {
+                if !kodi.bonjourHosts.filter({ $0.status == .new }).isEmpty {
                     content += "\n\nThere is another Kodi available on your network"
                 }
                 self.message = content

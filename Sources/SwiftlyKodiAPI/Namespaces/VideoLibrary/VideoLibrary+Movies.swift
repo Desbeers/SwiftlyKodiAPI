@@ -13,20 +13,23 @@ import OSLog
 extension VideoLibrary {
 
     /// Retrieve all movies (Kodi API)
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: All movies in an ``Video/Details/Movie`` array
-    public static func getMovies() async -> [Video.Details.Movie] {
-        let kodi: KodiConnector = .shared
-        if let result = try? await kodi.sendRequest(request: GetMovies()) {
+    public static func getMovies(host: HostItem) async -> [Video.Details.Movie] {
+        do {
+            let result = try await JSON.sendRequest(request: GetMovies(host: host))
             Logger.library.info("Loaded \(result.movies.count) movies from the Kodi host")
             return result.movies
+        } catch {
+            Logger.kodiAPI.error("Loading movies failed with error: \(error)")
+            return [Video.Details.Movie]()
         }
-        /// There are no movies in the library
-        Logger.library.warning("There are no movies on the Kodi host")
-        return [Video.Details.Movie]()
     }
 
     /// Retrieve all movies (Kodi API)
     fileprivate struct GetMovies: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         var method = Method.videoLibraryGetMovies
         /// The parameters
@@ -53,13 +56,14 @@ extension VideoLibrary {
 extension VideoLibrary {
 
     /// Retrieve details about a specific movie (Kodi API)
-    /// - Parameter movieID: The ID of the movie
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - movieID: The ID of the movie
     /// - Returns: A ``Video/Details/Movie`` item
-    public static func getMovieDetails(movieID: Library.ID) async -> Video.Details.Movie {
-        let kodi: KodiConnector = .shared
-        let request = GetMovieDetails(movieID: movieID)
+    public static func getMovieDetails(host: HostItem, movieID: Library.ID) async -> Video.Details.Movie {
+        let request = GetMovieDetails(host: host, movieID: movieID)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             return result.moviedetails
         } catch {
             Logger.kodiAPI.error("Loading movie details failed with error: \(error)")
@@ -69,14 +73,16 @@ extension VideoLibrary {
 
     /// Retrieve details about a specific movie (Kodi API)
     fileprivate struct GetMovieDetails: KodiAPI {
-        /// The movie ID
-        let movieID: Library.ID
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.videoLibraryGetMovieDetails
         /// The parameters we ask for
         var parameters: Data {
             buildParams(params: Params(movieID: movieID))
         }
+        /// The movie ID
+        let movieID: Library.ID
         /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
@@ -102,16 +108,19 @@ extension VideoLibrary {
 extension VideoLibrary {
 
     /// Update the given movie with the given details (Kodi API)
-    /// - Parameter movie: The ``Video/Details/Movie`` Item
-    public static func setMovieDetails(movie: Video.Details.Movie) async {
-        let kodi: KodiConnector = .shared
-        let message = SetMovieDetails(movie: movie)
-        kodi.sendMessage(message: message)
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - movie: The ``Video/Details/Movie`` Item
+    public static func setMovieDetails(host: HostItem, movie: Video.Details.Movie) async {
+        let message = SetMovieDetails(host: host, movie: movie)
+        JSON.sendMessage(message: message)
         Logger.library.notice("Details set for '\(movie.title)'")
     }
 
     /// Update the given movie with the given details (Kodi API)
     fileprivate struct SetMovieDetails: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The movie
         var movie: Video.Details.Movie
         /// The method

@@ -70,22 +70,14 @@ extension KodiListSort {
     }
 
     /// Save the `List Sort` settings to the cache
-    /// - Parameter host: The curren ``HostItem``
-    /// - Parameter settings: All the current List Sort settings
+    /// - Parameters:
+    ///   - host: The curren ``HostItem``
+    ///   - settings: All the current List Sort settings
     static func saveSortSettings(host: HostItem, settings: [SwiftlyKodiAPI.List.Sort]) {
         do {
             try Cache.set(key: "ListSort", object: settings, folder: host.ip)
         } catch {
             Logger.library.error("Error saving ListSort settings")
         }
-    }
-
-    /// Get the `List Sort` settings for a View
-    /// - Parameter sortID: The ID of the sorting
-    public static func getSortSetting(sortID: String) -> SwiftlyKodiAPI.List.Sort {
-        if let sorting = KodiConnector.shared.listSortSettings.first(where: { $0.id == sortID }) {
-            return sorting
-        }
-        return SwiftlyKodiAPI.List.Sort(id: sortID)
     }
 }

@@ -13,15 +13,13 @@ import OSLog
 extension XBMC {
 
     /// Retrieve info booleans about Kodi and the system (Kodi API)
-    ///
-    /// - Note: Unlike the 'real Kodi API', this function can only handle one info boolean at the time
-    ///
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: True or false for the ``InfoBoolean``
-    public static func getInfoBooleans(info: InfoBoolean) async -> Bool {
-        let kodi: KodiConnector = .shared
-        let request = GetInfoBooleans(boolean: info)
+    /// - Note: Unlike the 'real Kodi API', this function can only handle one info boolean at the time
+    public static func getInfoBooleans(host: HostItem, info: InfoBoolean) async -> Bool {
+        let request = GetInfoBooleans(host: host, boolean: info)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             if let response = result.first {
                 return response.value
             }
@@ -39,25 +37,22 @@ extension XBMC {
 
     /// Retrieve info booleans about Kodi and the system (Kodi API)
     fileprivate struct GetInfoBooleans: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         let method: Method = .xbmcGetInfoBooleans
-        /// The ``XBMC/InfoBoolean``
-        let boolean: InfoBoolean
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(booleans: [boolean.rawValue]))
         }
+        /// The ``XBMC/InfoBoolean``
+        let boolean: InfoBoolean
         /// The parameters struct
         struct Params: Encodable {
             /// The Boolean we want to get
             let booleans: [String]
         }
         /// The response struct
-        ///         /// The response struct
         typealias Response = [String: Bool]
-//        struct Response: Decodable {
-//            [String: Bool]
-//            //let settings: [Setting.Details.Base]
-//        }
     }
 }

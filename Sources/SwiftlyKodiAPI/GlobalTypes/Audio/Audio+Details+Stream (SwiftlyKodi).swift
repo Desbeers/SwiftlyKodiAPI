@@ -92,15 +92,16 @@ public extension Audio.Details {
 extension Audio.Details.Stream {
 
     /// Play an audio stream
-    public func play() {
+    /// - Parameter host: The ``HostItem`` to play the stream
+    public func play(host: HostItem) {
         Task {
             /// Make sure party mode is off
-            if await Player.getProperties(playerID: .audio).partymode {
-                Player.setPartyMode(playerID: .audio)
+            if await Player.getProperties(host: host, playerID: .audio).partymode {
+                Player.setPartyMode(host: host, playerID: .audio)
             }
-            Playlist.clear(playlistID: .audio)
-            await Playlist.add(stream: self)
-            Player.open(playlistID: .audio)
+            Playlist.clear(host: host, playlistID: .audio)
+            await Playlist.add(host: host, stream: self)
+            Player.open(host: host, playlistID: .audio)
         }
     }
 }

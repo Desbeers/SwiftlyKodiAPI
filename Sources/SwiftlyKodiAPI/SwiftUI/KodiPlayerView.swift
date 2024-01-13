@@ -19,8 +19,10 @@ public struct KodiPlayerView: View {
     let video: any KodiItem
     /// Resume the video or not
     let resume: Bool
+    /// The host
+    let host: HostItem
     /// Observe the player
-    @StateObject private var playerModel = KodiPlayerModel()
+    @StateObject private var playerModel: KodiPlayerModel
     /// The dismiss action
     @Environment(\.dismiss) private var dismiss
 #if os(visionOS)
@@ -30,9 +32,11 @@ public struct KodiPlayerView: View {
     /// - Parameters:
     ///   - video: The ``KodiItem`` to play
     ///   - resume: `Bool` if the item must be resumed or not
-    public init(video: any KodiItem, resume: Bool = false) {
+    public init(host: HostItem, video: any KodiItem, resume: Bool = false) {
         self.video = video
         self.resume = resume
+        self.host = host
+        self._playerModel = StateObject(wrappedValue: KodiPlayerModel(host: host))
     }
     /// The body of the View
     public var body: some View {
@@ -111,15 +115,15 @@ public struct KodiPlayerView: View {
                     let percentage = time.seconds / Double(video.duration)
                     if percentage > 0.9 {
                         /// A video that is almost done will be marked as played
-                        await video.markAsPlayed()
+                        await video.markAsPlayed(host: host)
                     } else if time.seconds > 180 {
                         /// Set resume point
-                        await video.setResumeTime(time: time.seconds)
+                        await video.setResumeTime(host: host, time: time.seconds)
                     }
                 }
             case .end:
                 /// End of video, mark as played
-                await video.markAsPlayed()
+                await video.markAsPlayed(host: host)
             default:
                 break
             }
@@ -133,6 +137,11 @@ public struct KodiPlayerView: View {
 
 /// The KodiPlayerModel class
 class KodiPlayerModel: ObservableObject {
+    /// Innit the class
+    init(host: HostItem) {
+        self.host = host
+    }
+
     // swiftlint:disable implicitly_unwrapped_optional
     /// The AVplayer
     var player: AVPlayer!
@@ -141,8 +150,9 @@ class KodiPlayerModel: ObservableObject {
     // swiftlint:enable implicitly_unwrapped_optional
     /// The state of the player
     @Published var state: KodiPlayerState = .load
-    /// The KodiConnector model
-    @Environment(KodiConnector.self) private var kodi
+    /// The current host
+    let host: HostItem
+
     /// All the states of the player
     enum KodiPlayerState {
         case load
@@ -155,7 +165,7 @@ class KodiPlayerModel: ObservableObject {
     /// - Parameter video: The ``KodiItem`` to play
     func loadVideo(video: any KodiItem) {
         // swiftlint:disable:next force_unwrapping
-        let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(host: kodi.host, file: video.file, type: .file))!)
+        let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(host: host, file: video.file, type: .file))!)
 #if os(tvOS)
         /// tvOS can add aditional info to the player
         Task {

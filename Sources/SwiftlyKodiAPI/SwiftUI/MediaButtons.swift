@@ -44,7 +44,7 @@ public extension MediaButtons {
             Button(action: {
                 Task {
                     if let playerID = kodi.player.currentItem?.playerID {
-                        Player.playPause(playerID: playerID)
+                        Player.playPause(host: kodi.host, playerID: playerID)
                     }
                 }
             }, label: {
@@ -68,7 +68,7 @@ public extension MediaButtons {
             Button(action: {
                 Task {
                     if let playerID = kodi.player.currentItem?.playerID {
-                        Player.goTo(playerID: playerID, direction: .previous)
+                        Player.goTo(host: kodi.host, playerID: playerID, direction: .previous)
                     }
                 }
             }, label: {
@@ -93,7 +93,7 @@ public extension MediaButtons {
             Button(action: {
                 Task {
                     if let playerID = kodi.player.currentItem?.playerID {
-                        Player.goTo(playerID: playerID, direction: .next)
+                        Player.goTo(host: kodi.host, playerID: playerID, direction: .next)
                     }
                 }
             }, label: {
@@ -118,7 +118,7 @@ public extension MediaButtons {
             Button(action: {
                 Task {
                     if let playerID = kodi.player.currentItem?.playerID {
-                        Player.setShuffle(playerID: playerID)
+                        Player.setShuffle(host: kodi.host, playerID: playerID)
                     }
                 }
             }, label: {
@@ -144,7 +144,7 @@ public extension MediaButtons {
             Button(action: {
                 Task {
                     if let playerID = kodi.player.currentItem?.playerID {
-                        Player.setRepeat(playerID: playerID)
+                        Player.setRepeat(host: kodi.host, playerID: playerID)
                     }
                 }
             }, label: {
@@ -179,9 +179,9 @@ public extension MediaButtons {
             Button(action: {
                 Task {
                     if kodi.player.properties.partymode {
-                        Player.setPartyMode(playerID: .audio)
+                        Player.setPartyMode(host: kodi.host, playerID: .audio)
                     } else {
-                        Player.open(partyMode: .music)
+                        Player.open(host: kodi.host, partyMode: .music)
                     }
                 }
             }, label: {
@@ -207,7 +207,7 @@ public extension MediaButtons {
             Button(
                 action: {
                     Task {
-                        await Application.setMute()
+                        await Application.setMute(host: kodi.host)
                     }
                 },
                 label: {
@@ -247,7 +247,7 @@ public extension MediaButtons {
                     ///         and not when programmaticly changing its value after a notification.
                     Logger.player.info("Volume changed: \(player.volume)")
                     Task {
-                        await Application.setVolume(volume: player.volume)
+                        await Application.setVolume(host: kodi.host, volume: player.volume)
                     }
                 }
             )

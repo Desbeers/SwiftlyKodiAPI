@@ -12,37 +12,23 @@ import Foundation
 extension Application {
 
     /// Get an item from the application (SwiftlyKodi API)
-    public static func getItem(type: Library.Media, id: Library.ID) async -> (any KodiItem)? {
-
-        let kodi: KodiConnector = .shared
-
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - type: The ``Library/Media`` type
+    ///   - id: Ithe ID of the library item
+    /// - Returns: A ``KodiItem``, if found, else `nil`
+    public static func getItem(host: HostItem, type: Library.Media, id: Library.ID) async -> (any KodiItem)? {
         switch type {
         case .song:
-            if kodi.library.songs.isEmpty {
-                return await AudioLibrary.getSongDetails(songID: id)
-            } else {
-                return kodi.library.songs.first(where: { $0.songID == id })
-            }
+            await AudioLibrary.getSongDetails(host: host, songID: id)
         case .musicVideo:
-            if kodi.library.musicVideos.isEmpty {
-                return await VideoLibrary.getMusicVideoDetails(musicVideoID: id)
-            } else {
-                return kodi.library.musicVideos.first(where: { $0.musicVideoID == id })
-            }
+            await VideoLibrary.getMusicVideoDetails(host: host, musicVideoID: id)
         case .movie:
-            if kodi.library.movies.isEmpty {
-                return await VideoLibrary.getMovieDetails(movieID: id)
-            } else {
-                return kodi.library.movies.first(where: { $0.movieID == id })
-            }
+            await VideoLibrary.getMovieDetails(host: host, movieID: id)
         case .episode:
-            if kodi.library.episodes.isEmpty {
-                return await VideoLibrary.getEpisodeDetails(episodeID: id)
-            } else {
-                return kodi.library.episodes.first(where: { $0.episodeID == id })
-            }
+            await VideoLibrary.getEpisodeDetails(host: host, episodeID: id)
         default:
-            return nil
+            nil
         }
     }
 }

@@ -8,25 +8,29 @@
 import Foundation
 import OSLog
 
+// MARK: getFavourites
+
 extension Favourites {
 
     /// Retrieve all favourites (Kodi API)
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: All favourites
-    public static func getFavourites() async -> [Favourite.Details.Favourite] {
-        let kodi: KodiConnector = .shared
-        let request = GetFavourites()
+    public static func getFavourites(host: HostItem) async -> [Favourite.Details.Favourite] {
+        let request = GetFavourites(host: host)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             return result.favourites
         } catch {
             /// There are no favorites
-            Logger.library.info("There are no favorites on '\(kodi.host.name)'")
+            Logger.library.info("There are no favorites on '\(host.name)'")
             return []
         }
     }
 
     /// Retrieve all favourites (Kodi API)
     fileprivate struct GetFavourites: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         let method: Method = .favouritesGetFavourites
         /// The parameters

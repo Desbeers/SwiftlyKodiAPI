@@ -11,7 +11,7 @@ extension List.Sort {
 
     // MARK: List.Sort.getMethods
 
-    /// Get the sorting methods for a  ``KodiItem``
+    /// Get the sorting methods for a ``KodiItem``
     /// - Parameter media: The kind of media
     /// - Returns: The available methods
     static public func getMethods(media: Library.Media) -> [Method] {
@@ -79,5 +79,17 @@ extension List.Sort {
         default:
             return [ KeyPathComparator(\.sortByTitle, order: sortItem.order.value) ]
         }
+    }
+}
+
+extension Array where Element == List.Sort {
+
+    /// Get the `List Sort` settings for a View
+    /// - Parameter sortID: The ID of the sorting
+    public func getSortSetting(sortID: String) -> SwiftlyKodiAPI.List.Sort {
+        if let sorting = self.first(where: { $0.id == sortID }) {
+            return sorting
+        }
+        return SwiftlyKodiAPI.List.Sort(id: sortID)
     }
 }

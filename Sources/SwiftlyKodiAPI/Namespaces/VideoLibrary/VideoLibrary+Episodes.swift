@@ -13,11 +13,12 @@ import OSLog
 extension VideoLibrary {
 
     /// Retrieve all episodes of a TV show (Kodi API)
-    /// - Parameter tvshowID: The optional TV show ID
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - tvshowID: The optional TV show ID
     /// - Returns: All TV shows in an ``Video/Details/Episode`` array
-    public static func getEpisodes(tvshowID: Library.ID? = nil) async -> [Video.Details.Episode] {
-        let kodi: KodiConnector = .shared
-        if let result = try? await kodi.sendRequest(request: GetEpisodes(tvshowID: tvshowID)) {
+    public static func getEpisodes(host: HostItem, tvshowID: Library.ID? = nil) async -> [Video.Details.Episode] {
+        if let result = try? await JSON.sendRequest(request: GetEpisodes(host: host, tvshowID: tvshowID)) {
             Logger.library.info("Loaded \(result.episodes.count) episodes from the Kodi host")
             return result.episodes
         }
@@ -28,14 +29,16 @@ extension VideoLibrary {
 
     /// Retrieve all episodes of a TV show (Kodi API)
     fileprivate struct GetEpisodes: KodiAPI {
-        /// The TV show ID
-        var tvshowID: Library.ID?
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.videoLibraryGetEpisodes
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(tvshowID: tvshowID))
         }
+        /// The TV show ID
+        var tvshowID: Library.ID?
         /// The parameters struct
         struct Params: Encodable {
             /// The TV show ID
@@ -62,15 +65,16 @@ extension VideoLibrary {
 // MARK: getEpisodeDetails
 
 extension VideoLibrary {
-
+    
     /// Retrieve details about a specific episode (Kodi API)
-    /// - Parameter episodeID: The ID of the episode
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - episodeID: The ID of the episode
     /// - Returns: A ``Video/Details/Episode`` item
-    public static func getEpisodeDetails(episodeID: Library.ID) async -> Video.Details.Episode {
-        let kodi: KodiConnector = .shared
-        let request = GetEpisodeDetails(episodeID: episodeID)
+    public static func getEpisodeDetails(host: HostItem, episodeID: Library.ID) async -> Video.Details.Episode {
+        let request = GetEpisodeDetails(host: host, episodeID: episodeID)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             return result.episodedetails
         } catch {
             Logger.kodiAPI.error("Loading episode details failed with error: \(error)")
@@ -80,14 +84,16 @@ extension VideoLibrary {
 
     /// Retrieve details about a specific episode (Kodi API)
     fileprivate struct GetEpisodeDetails: KodiAPI {
-        /// The episode ID
-        var episodeID: Library.ID
+        /// The host
+        let host: HostItem
         /// The method
         var method = Method.videoLibraryGetEpisodeDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(episodeID: episodeID))
         }
+        /// The episode ID
+        var episodeID: Library.ID
         /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
@@ -113,18 +119,19 @@ extension VideoLibrary {
 extension VideoLibrary {
 
     /// Update the given episode with the given details (Kodi API)
-    /// - Parameter episode: The ``Video/Details/Episode`` item
-    public static func setEpisodeDetails(episode: Video.Details.Episode) async {
-        let kodi: KodiConnector = .shared
-        let message = SetEpisodeDetails(episode: episode)
-        kodi.sendMessage(message: message)
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - episode: The ``Video/Details/Episode`` item
+    public static func setEpisodeDetails(host: HostItem, episode: Video.Details.Episode) async {
+        let message = SetEpisodeDetails(host: host, episode: episode)
+        JSON.sendMessage(message: message)
         Logger.library.info("Details set for '\(episode.title)'")
     }
 
     /// Update the given episode with the given details (Kodi API)
     fileprivate struct SetEpisodeDetails: KodiAPI {
-        /// The episode
-        var episode: Video.Details.Episode
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.videoLibrarySetEpisodeDetails
         /// The parameters
@@ -133,6 +140,8 @@ extension VideoLibrary {
             let params = Params(episode: episode)
             return buildParams(params: params)
         }
+        /// The episode
+        var episode: Video.Details.Episode
         /// The parameters struct
         struct Params: Encodable {
             /// Init the params

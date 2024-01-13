@@ -15,6 +15,8 @@ protocol KodiAPI {
     var parameters: Data { get }
     /// The method to use
     var method: Method { get }
+    /// The Kodi host
+    var host: HostItem { get }
 }
 
 extension KodiAPI {
@@ -26,7 +28,7 @@ extension KodiAPI {
             .BaseParameters(
                 method: method.rawValue,
                 params: params.self,
-                id: KodiConnector.shared.kodiConnectorID
+                id: host.ip
             )
         do {
             return try JSONEncoder().encode(parameters)

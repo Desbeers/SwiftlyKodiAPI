@@ -13,13 +13,14 @@ import OSLog
 extension Player {
 
     /// Retrieves the properties of the player (Kodi API)
-    /// - Parameter playerID: The ``Player/ID`` of the  player
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - playerID: The ``Player/ID`` of the player
     /// - Returns: The ``Player/Property/Value``
-    public static func getProperties(playerID: Player.ID) async -> Player.Property.Value {
-        let kodi: KodiConnector = .shared
-        let request = GetProperties(playerID: playerID)
+    public static func getProperties(host: HostItem, playerID: Player.ID) async -> Player.Property.Value {
+        let request = GetProperties(host: host, playerID: playerID)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             Logger.player.info("Fetched player properties")
             return result
         } catch {
@@ -30,20 +31,27 @@ extension Player {
 
     /// Retrieves the properties of the player (Kodi API)
     fileprivate struct GetProperties: KodiAPI {
-        /// The player ID
-        let playerID: Player.ID
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.playerGetProperties
         /// The parameters
         var parameters: Data {
-            buildParams(params: Params(playerid: playerID))
+            buildParams(params: Params(playerID: playerID))
         }
+        /// The player ID
+        let playerID: Player.ID
         /// The parameters struct
         struct Params: Encodable {
             /// The player ID
-            let playerid: Player.ID
+            let playerID: Player.ID
             /// The properties we ask from Kodi
             let properties = Player.Property.name
+            /// Coding keys
+            enum CodingKeys: String, CodingKey {
+                case playerID = "playerid"
+                case properties
+            }
         }
         /// The response struct
         typealias Response = Player.Property.Value

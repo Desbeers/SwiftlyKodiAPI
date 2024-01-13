@@ -159,6 +159,8 @@ enum Method: String {
     case settingsGetSettings = "Settings.GetSettings"
     /// Set a setting on the host
     case settingsSetSettingvalue = "Settings.SetSettingvalue"
+    /// Retreive a setting on the host
+    case settingsGetSettingValue = "Settings.GetSettingValue"
 
     // MARK: Video library
 

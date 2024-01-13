@@ -8,7 +8,7 @@
 import Foundation
 import OSLog
 
-// MARK: - WebSocket (Class)
+// MARK: WebSocket (Class)
 
 /// The Delegate for the WebSocket connection
 ///

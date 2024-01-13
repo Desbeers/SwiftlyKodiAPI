@@ -13,11 +13,11 @@ import OSLog
 extension AudioLibrary {
 
     /// Retrieves the values of the music library properties (Kodi API)
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: The properties in a ``Audio/Property/Value`` struct
-    public static func getProperties() async -> Audio.Property.Value {
-        let kodi: KodiConnector = .shared
+    public static func getProperties(host: HostItem) async -> Audio.Property.Value {
         do {
-            let request = try await kodi.sendRequest(request: GetProperties())
+            let request = try await JSON.sendRequest(request: GetProperties(host: host))
             return request
         } catch {
             Logger.library.error("Loading audio properties failed with error: \(error.localizedDescription)")
@@ -27,6 +27,8 @@ extension AudioLibrary {
 
     /// Retrieves the values of the music library properties (Kodi API)
     fileprivate struct GetProperties: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.audioLibraryGetProperties
         /// The parameters

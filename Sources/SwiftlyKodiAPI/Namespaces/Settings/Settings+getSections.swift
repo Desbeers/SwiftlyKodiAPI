@@ -13,12 +13,12 @@ import OSLog
 extension Settings {
 
     /// Retrieves all setting sections (Kodi API)
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: All setting sections
-    public static func getSections() async -> [Setting.Details.Section] {
-        let kodi: KodiConnector = .shared
-        let request = Settings.GetSections()
+    public static func getSections(host: HostItem) async -> [Setting.Details.Section] {
+        let request = Settings.GetSections(host: host)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             return result.sections.filter { $0.id != .unknown }
         } catch {
             Logger.kodiAPI.error("Getting sections failed with error: \(error)")
@@ -28,14 +28,16 @@ extension Settings {
 
     /// Retrieves all setting sections (Kodi API)
     fileprivate struct GetSections: KodiAPI {
-        /// The level
-        let level: Setting.Level = .expert
+        /// The host
+        let host: HostItem
         /// The method
         let method: Method = .settingsGetSections
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(level: level))
         }
+        /// The level
+        let level: Setting.Level = .expert
         /// The parameters struct
         struct Params: Encodable {
             /// The settings level

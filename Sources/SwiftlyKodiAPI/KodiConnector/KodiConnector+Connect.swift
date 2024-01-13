@@ -71,11 +71,11 @@ extension KodiConnector {
 
     func getKodiState() async {
         /// Get the properties of the host
-        properties = await Application.getProperties()
+        properties = await Application.getProperties(host: host)
         /// Get the addons of the host
-        addons = await Addons.getAddons()
+        addons = await Addons.getAddons(host: host)
         /// Get the settings of the host
-        settings = await Settings.getSettings()
+        settings = await Settings.getSettings(host: host)
         if host.player == .local {
             await getPlayerProperties()
             await getPlayerItem()

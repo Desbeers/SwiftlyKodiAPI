@@ -13,10 +13,10 @@ import OSLog
 extension VideoLibrary {
 
     /// Retrieve all TV shows (Kodi API)
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: All TV shows in an ``Video/Details/TVShow`` array
-    public static func getTVShows() async -> [Video.Details.TVShow] {
-        let kodi: KodiConnector = .shared
-        if let result = try? await kodi.sendRequest(request: GetTVShows()) {
+    public static func getTVShows(host: HostItem) async -> [Video.Details.TVShow] {
+        if let result = try? await JSON.sendRequest(request: GetTVShows(host: host)) {
             Logger.library.info("Loaded \(result.tvshows.count) TV shows from the Kodi host")
             return result.tvshows
         }
@@ -27,6 +27,8 @@ extension VideoLibrary {
 
     /// Retrieve all TV shows (Kodi API)
     fileprivate struct GetTVShows: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         var method = Method.videoLibraryGetTVShows
         /// The parameters
@@ -53,13 +55,14 @@ extension VideoLibrary {
 extension VideoLibrary {
 
     /// Retrieve details about a specific tv show (Kodi API)
-    /// - Parameter tvshowID: The ID of the TV show
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - tvshowID: The ID of the TV show
     /// - Returns: A ``Video/Details/TVShow`` Item
-    public static func getTVShowDetails(tvshowID: Library.ID) async -> Video.Details.TVShow {
-        let kodi: KodiConnector = .shared
-        let request = GetTVShowDetails(tvshowID: tvshowID)
+    public static func getTVShowDetails(host: HostItem, tvshowID: Library.ID) async -> Video.Details.TVShow {
+        let request = GetTVShowDetails(host: host, tvshowID: tvshowID)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             return result.tvshowdetails
         } catch {
             Logger.kodiAPI.error("Loading tv show details failed with error: \(error)")
@@ -69,14 +72,16 @@ extension VideoLibrary {
 
     /// Retrieve details about a specific tv show (Kodi API)
     fileprivate struct GetTVShowDetails: KodiAPI {
-        /// The tv show ID
-        var tvshowID: Library.ID
+        /// The host
+        let host: HostItem
         /// The method
         var method = Method.videoLibraryGetTVShowDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(tvshowID: tvshowID))
         }
+        /// The tv show ID
+        var tvshowID: Library.ID
         /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
@@ -102,27 +107,28 @@ extension VideoLibrary {
 extension VideoLibrary {
 
     /// Update the given tv show with the given details (Kodi API)
-    ///
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - tvshow: The ``Video/Details/TVShow`` Item
     /// - Note: Kodi does not send a notification if a TV show is changed
-    ///
-    /// - Parameter tvshow: The ``Video/Details/TVShow`` Item
-    public static func setTVShowDetails(tvshow: Video.Details.TVShow) async {
-        let kodi: KodiConnector = .shared
-        let message = SetTVShowDetails(tvshow: tvshow)
-        kodi.sendMessage(message: message)
+    public static func setTVShowDetails(host: HostItem, tvshow: Video.Details.TVShow) async {
+        let message = SetTVShowDetails(host: host, tvshow: tvshow)
+        JSON.sendMessage(message: message)
         Logger.library.notice("Details set for '\(tvshow.title)'")
     }
 
     /// Update the given tv show with the given details (Kodi API)
     fileprivate struct SetTVShowDetails: KodiAPI {
-        /// The TV show
-        var tvshow: Video.Details.TVShow
+        /// The host
+        let host: HostItem
         /// The method
         var method = Method.videoLibrarySetTVShowDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(tvshow: tvshow))
         }
+        /// The TV show
+        var tvshow: Video.Details.TVShow
         /// The parameters struct
         struct Params: Encodable {
             /// Init the params

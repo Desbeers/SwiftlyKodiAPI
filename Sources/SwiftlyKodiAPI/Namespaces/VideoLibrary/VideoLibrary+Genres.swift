@@ -13,13 +13,12 @@ import OSLog
 extension VideoLibrary {
 
     /// Retrieve all genres (Kodi API)
-    /// - Parameter type: The type of ``Library/Media``
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - type: The type of ``Library/Media``
     /// - Returns: All genres in a ``Library/Details/Genre`` array
-
-    public static func getGenres(type: Library.Media) async -> [Library.Details.Genre] {
-
-        let kodi: KodiConnector = .shared
-        if let result = try? await kodi.sendRequest(request: GetGenres(type: type)) {
+    public static func getGenres(host: HostItem, type: Library.Media) async -> [Library.Details.Genre] {
+        if let result = try? await JSON.sendRequest(request: GetGenres(host: host, type: type)) {
             Logger.library.info("Loaded \(result.genres.count) \(type.description) genres from the Kodi host")
             return result.genres
         }
@@ -30,14 +29,16 @@ extension VideoLibrary {
 
     /// Retrieve all genres (Kodi API)
     struct GetGenres: KodiAPI {
-        /// The media type
-        let type: Library.Media
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.videoLibraryGetGenres
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(type: type))
         }
+        /// The media type
+        let type: Library.Media
         /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi

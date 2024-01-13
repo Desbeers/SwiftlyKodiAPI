@@ -13,12 +13,12 @@ import OSLog
 extension Player {
 
     /// Returns all active players, if any (Kodi API)
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: The active players in an ``Player/ID`` array
-    public static func getActivePlayers() async -> [Player.ID]? {
-        let kodi: KodiConnector = .shared
-        let request = GetActivePlayers()
+    public static func getActivePlayers(host: HostItem) async -> [Player.ID]? {
+        let request = GetActivePlayers(host: host)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             if result.isEmpty {
                 Logger.player.info("There is no player active at the moment")
             } else {
@@ -33,6 +33,9 @@ extension Player {
 
     /// Returns all active players (Kodi API)
     fileprivate struct GetActivePlayers: KodiAPI {
+        /// The host
+        let host: HostItem
+        /// The method
         let method: Method = .playerGetActivePlayers
         /// The parameters
         var parameters: Data {

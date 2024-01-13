@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Notifications related items  (Global Kodi Type)
+/// Notifications related items (Global Kodi Type)
 public enum Notifications {
     // Just a namespace
 }

@@ -13,11 +13,11 @@ import OSLog
 extension AudioLibrary {
 
     /// Retrieve all genres (Kodi API)
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: All genres in a ``Library/Details/Genre`` array
-    public static func getGenres() async -> [Library.Details.Genre] {
-        let kodi: KodiConnector = .shared
+    public static func getGenres(host: HostItem) async -> [Library.Details.Genre] {
         do {
-            let result = try await kodi.sendRequest(request: GetGenres())
+            let result = try await JSON.sendRequest(request: GetGenres(host: host))
             Logger.library.info("Loaded \(result.genres.count) audio genres from the Kodi host")
             return result.genres
         } catch {
@@ -28,6 +28,8 @@ extension AudioLibrary {
 
     /// Retrieve all genres (Kodi API)
     fileprivate struct GetGenres: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.audioLibraryGetGenres
         /// The parameters

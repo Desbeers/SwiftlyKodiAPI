@@ -10,9 +10,9 @@ import Foundation
 extension KodiConnector {
 
     /// Get the first active player ID
-    /// - Returns: The active  `playerID`, if any, else `nil`
+    /// - Returns: The active `playerID`, if any, else `nil`
     func getPlayerID() async -> Player.ID? {
-        if let players = await Player.getActivePlayers(), let activePlayer = players.first {
+        if let players = await Player.getActivePlayers(host: host), let activePlayer = players.first {
             return activePlayer
         }
         return nil
@@ -24,7 +24,7 @@ extension KodiConnector {
             var properties = Player.Property.Value()
             /// Check if we have an active player
             if let playerID = await self.getPlayerID() {
-                properties = await Player.getProperties(playerID: playerID)
+                properties = await Player.getProperties(host: self.host, playerID: playerID)
             }
             await self.player.setProperties(properties: properties)
         }
@@ -36,7 +36,7 @@ extension KodiConnector {
             var currentItem: (any KodiItem)?
             /// Check if we have an active player
             if let playerID = await self.getPlayerID() {
-                currentItem = await Player.getItem(playerID: playerID)
+                currentItem = await Player.getItem(host: self.host, playerID: playerID)
             }
             await self.player.setCurrentItem(item: currentItem)
         }
@@ -52,18 +52,18 @@ extension KodiConnector {
                 switch media {
                 case .none:
                     if host.media == .audio || host.media == .all {
-                        await player.setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
+                        await player.setAudioPlaylist(playlist: await Playlist.getItems(host: host, playlistID: .audio) ?? [])
                     }
                     /// Always get the video playlist because of Music Videos
-                    await player.setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                    await player.setVideoPlaylist(playlist: await Playlist.getItems(host: host, playlistID: .video) ?? [])
                 case .movie:
-                    await player.setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                    await player.setVideoPlaylist(playlist: await Playlist.getItems(host: host, playlistID: .video) ?? [])
                 case .episode:
-                    await player.setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                    await player.setVideoPlaylist(playlist: await Playlist.getItems(host: host, playlistID: .video) ?? [])
                 case .musicVideo:
-                    await player.setVideoPlaylist(playlist: await Playlist.getItems(playlistID: .video) ?? [])
+                    await player.setVideoPlaylist(playlist: await Playlist.getItems(host: host, playlistID: .video) ?? [])
                 case .song:
-                    await player.setAudioPlaylist(playlist: await Playlist.getItems(playlistID: .audio) ?? [])
+                    await player.setAudioPlaylist(playlist: await Playlist.getItems(host: host, playlistID: .audio) ?? [])
                 default:
                     break
                 }

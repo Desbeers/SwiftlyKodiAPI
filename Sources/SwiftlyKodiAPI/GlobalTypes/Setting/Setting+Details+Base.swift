@@ -11,7 +11,7 @@ import Foundation
 
 extension Setting.Details {
 
-    /// Setting Details Base  (Global Kodi Type)
+    /// Setting Details Base (Global Kodi Type)
     struct Base: Decodable, Equatable {
         /// The ID of the setting
         public var id: Setting.ID = .unknown

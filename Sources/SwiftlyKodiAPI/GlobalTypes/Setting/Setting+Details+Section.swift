@@ -9,7 +9,7 @@ import Foundation
 
 public extension Setting.Details {
 
-    /// Settings section  (Global Kodi Type)
+    /// Settings section (Global Kodi Type)
     struct Section: Decodable, Identifiable, Hashable, Sendable {
 
         /// # Public init

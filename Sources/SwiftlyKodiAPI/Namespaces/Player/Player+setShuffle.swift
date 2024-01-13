@@ -13,21 +13,25 @@ import OSLog
 extension Player {
 
     /// Shuffle/Unshuffle items in the player (Kodi API)
-    /// - Parameter playerID: The ``Player/ID`` of the  player
-    static func setShuffle(playerID: Player.ID) {
-        KodiConnector.shared.sendMessage(message: SetShuffle(playerID: playerID))
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - playerID: The ``Player/ID`` of the player
+    static func setShuffle(host: HostItem, playerID: Player.ID) {
+        JSON.sendMessage(message: SetShuffle(host: host, playerID: playerID))
     }
 
     /// Shuffle/Unshuffle items in the player (Kodi API)
     fileprivate struct SetShuffle: KodiAPI {
-        /// The ID of the player
-        let playerID: Player.ID
+        /// The host
+        let host: HostItem
         /// The method
         let method: Method = .playerSetShuffle
         /// The parameters
         var parameters: Data {
             buildParams(params: Parameters(playerID: playerID))
         }
+        /// The ID of the player
+        let playerID: Player.ID
         /// The parameters struct
         struct Parameters: Encodable {
             /// The player ID

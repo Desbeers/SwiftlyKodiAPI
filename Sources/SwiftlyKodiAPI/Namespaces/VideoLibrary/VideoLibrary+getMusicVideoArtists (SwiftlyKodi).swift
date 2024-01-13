@@ -7,17 +7,17 @@
 
 import Foundation
 
+// MARK: getMusicVideoArtists
+
 extension VideoLibrary {
 
-    // MARK: VideoLibrary.getMusicVideoArtists
-
-    /// Get all Music Video Artists  (SwiftlyKodi API)
-    ///
-    /// If the artist is not know in the Music database, a new Artist item will be created
+    /// Get all Music Video Artists (SwiftlyKodi API)
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: All artists
-    public static func getMusicVideoArtists() -> [Audio.Details.Artist] {
+    /// - Note: If the artist is not know in the Music database, a new Artist item will be created
+    public static func getMusicVideoArtists(library: Library.Items) -> [Audio.Details.Artist] {
         var artistList: [Audio.Details.Artist] = []
-        let allArtists = KodiConnector.shared.library.musicVideos
+        let allArtists = library.musicVideos
             .unique { $0.artist }
             .flatMap { $0.artist }
         for artist in allArtists {
@@ -29,7 +29,7 @@ extension VideoLibrary {
         /// - Parameter artist: Name of the artist
         /// - Returns: A `KodiItem`
         func artistItem(artist: String) -> Audio.Details.Artist {
-            if let artistDetails = KodiConnector.shared.library.artists.first(where: { $0.artist == artist }) {
+            if let artistDetails = library.artists.first(where: { $0.artist == artist }) {
                 return artistDetails
             }
             /// Return an unknown artist with an unique ID

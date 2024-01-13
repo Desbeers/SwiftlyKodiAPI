@@ -9,7 +9,7 @@ import Foundation
 
 public extension Setting.Details {
 
-    /// Settings group  (Global Kodi Type)
+    /// Settings group (Global Kodi Type)
     struct Group: Decodable, Identifiable, Hashable, Sendable {
         public func hash(into hasher: inout Hasher) {
             hasher.combine(id)

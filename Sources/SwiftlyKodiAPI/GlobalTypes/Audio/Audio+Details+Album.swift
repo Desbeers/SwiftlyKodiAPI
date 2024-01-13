@@ -9,7 +9,7 @@ import Foundation
 
 public extension Audio.Details {
 
-    /// Album details  (Global Kodi Type)
+    /// Album details (Global Kodi Type)
     struct Album: KodiItem, Sendable {
 
         /// # Calculated variables

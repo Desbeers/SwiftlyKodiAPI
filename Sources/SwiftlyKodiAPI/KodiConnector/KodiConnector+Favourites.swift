@@ -16,8 +16,7 @@ extension KodiConnector {
     /// - Returns: All 'media' favourites
     public func getFavourites() async -> [AnyKodiItem] {
         var items: [any KodiItem] = []
-        let favs = await Favourites
-            .getFavourites()
+        let favs = await Favourites.getFavourites(host: host)
 
         for fav in favs {
 

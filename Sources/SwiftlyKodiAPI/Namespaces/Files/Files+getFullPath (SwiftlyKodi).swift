@@ -7,19 +7,19 @@
 
 import Foundation
 
+// MARK: getFullPath
+
 extension Files {
 
     /// Convert an internal Kodi path to a full path (SwiftlyKodi API)
-    ///
-    /// Kodi does not store the full path of a file in the database; it must be converted to a full path
-    ///
-    /// - Note: Because of performance, I don't use 'Files.prepareDownload' here
-    ///
     /// - Parameters:
     ///   - host: The current ``HostItem``
     ///   - file: The internal Kodi path
     ///   - type: The ``Files/MediaType``; an image or a file
     /// - Returns: A string with the full path to the file
+    ///
+    /// Kodi does not store the full path of a file in the database; it must be converted to a full path
+    /// - Note: Because of performance, I don't use 'Files.prepareDownload' here
     public static func getFullPath(host: HostItem, file: String, type: Files.MediaType) -> String {
         /// Encoding
         var allowed = CharacterSet.alphanumerics

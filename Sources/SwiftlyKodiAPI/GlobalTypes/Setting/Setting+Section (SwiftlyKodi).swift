@@ -9,7 +9,7 @@ import Foundation
 
 public extension Setting {
 
-    /// The  settings section (SwiftlyKodi Type)
+    /// The settings section (SwiftlyKodi Type)
     enum Section: String, Codable, Sendable {
         /// A section SwiftlyKodiAPI doesn't know about
         case unknown

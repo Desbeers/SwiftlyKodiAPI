@@ -13,32 +13,30 @@ import OSLog
 extension Player {
 
     /// Start playback of a playlist with the given ID (Kodi API)
-    ///
     /// - Parameters:
-    ///   - playlistID: The ``Playlist/ID`` of the  playlist
+    ///   - host: The ``HostItem`` for the request
+    ///   - playlistID: The ``Playlist/ID`` of the playlist
     ///   - shuffle: Shuffle the playlist
-    public static func open(playlistID: Playlist.ID, shuffle: Bool = false) {
-        KodiConnector.shared.sendMessage(message: Open(shuffle: shuffle, playlistID: playlistID))
+    public static func open(host: HostItem, playlistID: Playlist.ID, shuffle: Bool = false) {
+        JSON.sendMessage(message: Open(host: host, shuffle: shuffle, playlistID: playlistID))
     }
 
     /// Start playback in party mode (Kodi API)
-    /// - Parameter partyMode: The ``Player/PartyMode``
-    public static func open(partyMode: Player.PartyMode) {
-        KodiConnector.shared.sendMessage(message: Open(partyMode: partyMode))
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - partyMode: The ``Player/PartyMode``
+    public static func open(host: HostItem, partyMode: Player.PartyMode) {
+        JSON.sendMessage(message: Open(host: host, partyMode: partyMode))
     }
 
     /// Start playback of either the playlist with the given ID,
     /// a slideshow with the pictures from the given directory
     /// or a single file or an item from the database (Kodi API)
     fileprivate struct Open: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         let method: Method = .playerOpen
-        /// Shuffle or not
-        var shuffle: Bool = false
-        /// The optional playlist to play
-        var playlistID: Playlist.ID?
-        /// The optional party mode
-        var partyMode: Player.PartyMode?
         /// The parameters
         var parameters: Data {
             var params = Params()
@@ -54,6 +52,13 @@ extension Player {
             params.options.shuffled = shuffle
             return buildParams(params: params)
         }
+        /// Shuffle or not
+        var shuffle: Bool = false
+        /// The optional playlist to play
+        var playlistID: Playlist.ID?
+        /// The optional party mode
+        var partyMode: Player.PartyMode?
+
         /// The parameters struct
         struct Params: Encodable {
             /// Item to open

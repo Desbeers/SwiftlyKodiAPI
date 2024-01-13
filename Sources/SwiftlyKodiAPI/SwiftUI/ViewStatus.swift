@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// The status of  loading a View
+/// The status of loading a View
 /// - Note: This `enum`  can be used in SwiftUI Views that load items via a `Task`
 public enum ViewStatus: Sendable {
     /// The Task is loading the items

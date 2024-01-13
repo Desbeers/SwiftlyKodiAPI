@@ -16,10 +16,10 @@ extension KodiConnector {
         /// # Helpers
 
         @Sendable func getAudio() async -> Library.Items {
-            async let albums = AudioLibrary.getAlbums()
-            async let songs = AudioLibrary.getSongs()
-            async let audioGenres = AudioLibrary.getGenres()
-            async let audioLibraryProperties = AudioLibrary.getProperties()
+            async let albums = AudioLibrary.getAlbums(host: host)
+            async let songs = AudioLibrary.getSongs(host: host)
+            async let audioGenres = AudioLibrary.getGenres(host: host)
+            async let audioLibraryProperties = AudioLibrary.getProperties(host: host)
             return await Library.Items(
                 albums: albums,
                 songs: songs,
@@ -29,11 +29,11 @@ extension KodiConnector {
         }
 
         @Sendable func getVideo() async -> Library.Items {
-            async let movies = VideoLibrary.getMovies()
-            async let movieSets = VideoLibrary.getMovieSets()
-            async let tvshows = VideoLibrary.getTVShows()
-            async let episodes = VideoLibrary.getEpisodes()
-            async let videoGenres = VideoLibrary.getAllVideoGenres()
+            async let movies = VideoLibrary.getMovies(host: host)
+            async let movieSets = VideoLibrary.getMovieSets(host: host)
+            async let tvshows = VideoLibrary.getTVShows(host: host)
+            async let episodes = VideoLibrary.getEpisodes(host: host)
+            async let videoGenres = VideoLibrary.getAllVideoGenres(host: host)
             return await Library.Items(
                 movies: movies,
                 movieSets: movieSets,
@@ -43,8 +43,8 @@ extension KodiConnector {
             )
         }
 
-        async let artist = AudioLibrary.getArtists()
-        async let musicVideos = VideoLibrary.getMusicVideos()
+        async let artist = AudioLibrary.getArtists(host: host)
+        async let musicVideos = VideoLibrary.getMusicVideos(host: host)
         switch host.media {
         case .audio:
             async let audio = getAudio()
@@ -93,8 +93,16 @@ extension KodiConnector {
     func setLibraryCache() async {
         await task.setLibraryCache.submit {
             do {
-                try Cache.set(key: "MyLibrary", object: self.library, folder: self.host.ip)
-                try await Cache.set(key: "VideoLibraryStatus", object: VideoLibrary.getVideoLibraryStatus(), folder: self.host.ip)
+                try Cache.set(
+                    key: "MyLibrary",
+                    object: self.library,
+                    folder: self.host.ip
+                )
+                try await Cache.set(
+                    key: "VideoLibraryStatus",
+                    object: VideoLibrary.getVideoLibraryStatus(host: self.host),
+                    folder: self.host.ip
+                )
             } catch {
                 Logger.library.error("Saving library failed with error: \(error)")
             }

@@ -12,31 +12,27 @@ import Foundation
 extension Player {
 
     /// Go to previous/next in the playlist (Kodi API)
-    ///
     /// - Parameters:
-    ///   - playerID: The ``Player/ID`` of the  player
+    ///   - host: The ``HostItem`` for the request
+    ///   - playerID: The ``Player/ID`` of the player
     ///   - direction: The ``Player/GoToDirection``
-    public static func goTo(playerID: Player.ID, direction: Player.GoToDirection) {
-        KodiConnector.shared.sendMessage(message: GoTo(playerID: playerID, direction: direction))
+    public static func goTo(host: HostItem, playerID: Player.ID, direction: Player.GoToDirection) {
+        JSON.sendMessage(message: GoTo(host: host, playerID: playerID, direction: direction))
     }
 
     /// Go to specific item in the playlist (Kodi API)
-    ///
     /// - Parameters:
-    ///   - playerID: The ``Player/ID`` of the  player
-    ///   - position: The  ``Playlist/position`` in the playlist
-    public static func goTo(playerID: Player.ID, position: Playlist.position) {
-        KodiConnector.shared.sendMessage(message: GoTo(playerID: playerID, position: position))
+    ///   - host: The ``HostItem`` for the request
+    ///   - playerID: The ``Player/ID`` of the player
+    ///   - position: The ``Playlist/position`` in the playlist
+    public static func goTo(host: HostItem, playerID: Player.ID, position: Playlist.position) {
+        JSON.sendMessage(message: GoTo(host: host, playerID: playerID, position: position))
     }
 
     /// Go to previous/next/specific item in the playlist (Kodi API)
     fileprivate struct GoTo: KodiAPI {
-        /// The ID of the player
-        let playerID: Player.ID
-        /// The direction
-        var direction: Player.GoToDirection?
-        /// The position
-        var position: Playlist.position = 0
+        /// The host
+        let host: HostItem
         /// The method
         let method: Method = .playerGoTo
         /// The parameters
@@ -46,6 +42,12 @@ extension Player {
             }
             return buildParams(params: Position(playerID: playerID, position: position))
         }
+        /// The ID of the player
+        let playerID: Player.ID
+        /// The direction
+        var direction: Player.GoToDirection?
+        /// The position
+        var position: Playlist.position = 0
         /// The parameters struct for an action
         struct Direction: Encodable {
             /// The player ID

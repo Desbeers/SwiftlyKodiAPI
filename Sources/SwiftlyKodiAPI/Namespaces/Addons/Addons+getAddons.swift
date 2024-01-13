@@ -13,15 +13,14 @@ import OSLog
 extension Addons {
 
     /// Gets all available addons (Kodi API)
-    ///
-    /// - The result fill be filtered by 'known' ``Addon/Types``
-    ///
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: All addons from the Kodi host that have a known type for SwiflyKodiAPI
-    public static func getAddons() async -> [Addon.Details] {
-        let kodi: KodiConnector = .shared
-        let request = GetAddons()
+    /// 
+    /// The result fill be filtered by 'known' ``Addon/Types``
+    public static func getAddons(host: HostItem) async -> [Addon.Details] {
+        let request = GetAddons(host: host)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             return result.addons
                 .filter { $0.addonType != .unknown }
         } catch {
@@ -32,6 +31,8 @@ extension Addons {
 
     /// Gets all available addons (Kodi API)
     fileprivate struct GetAddons: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         let method: Method = .addonsGetAddons
         /// The parameters

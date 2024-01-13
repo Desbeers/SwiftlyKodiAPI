@@ -13,21 +13,19 @@ import OSLog
 extension Player {
 
     /// Retrieves the currently played item (Kodi API)
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - playerID: The ``Player/ID`` of the player
+    /// - Returns: a ``KodiItem`` if there is a current item
     ///
     /// If the result has an ID, it is from the Library and media details will be asked
-    ///
-    /// - Note: This method does not depend on a 'loaded library'
-    ///
-    /// - Parameter playerID: The ``Player/ID`` of the  player
-    /// - Returns: a ``KodiItem`` if there is a current item
-    public static func getItem(playerID: Player.ID) async -> (any KodiItem)? {
-        let kodi: KodiConnector = .shared
-        let request = GetItem(playerID: playerID)
+    public static func getItem(host: HostItem, playerID: Player.ID) async -> (any KodiItem)? {
+        let request = GetItem(host: host, playerID: playerID)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             Logger.player.info("Playing '\(result.item.title)'")
             /// If the result has an ID, it is from the library
-            if let id = result.item.id, let item = await Application.getItem(type: result.item.type, id: id) {
+            if let id = result.item.id, let item = await Application.getItem(host: host, type: result.item.type, id: id) {
                 return item
             } else {
                 /// Return it as a stream item
@@ -45,14 +43,16 @@ extension Player {
 
     /// Retrieves the currently played item (Kodi API)
     fileprivate struct GetItem: KodiAPI {
-        /// The ``Player/ID``
-        let playerID: Player.ID
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.playerGetItem
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(playerID: playerID))
         }
+        /// The ``Player/ID``
+        let playerID: Player.ID
         /// The parameters struct
         struct Params: Encodable {
             /// The properties we ask for

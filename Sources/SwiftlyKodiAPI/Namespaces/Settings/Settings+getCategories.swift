@@ -13,13 +13,14 @@ import OSLog
 extension Settings {
 
     /// Retrieves all setting categories (Kodi API)
-    /// - Parameter section: The section for the categories
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - section: The section for the categories
     /// - Returns: All categories from the selected section
-    public static func getCategories(section: Setting.Section) async -> [Setting.Details.Category] {
-        let kodi: KodiConnector = .shared
-        let request = Settings.GetCategories(section: section)
+    public static func getCategories(host: HostItem, section: Setting.Section) async -> [Setting.Details.Category] {
+        let request = Settings.GetCategories(host: host, section: section)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             return result.categories.filter { $0.id != .unknown }
         } catch {
             Logger.kodiAPI.error("Getting categories failed with error: \(error)")
@@ -29,16 +30,18 @@ extension Settings {
 
     /// Retrieves all setting categories (Kodi API)
     fileprivate struct GetCategories: KodiAPI {
-        /// The level
-        let level: Setting.Level = .expert
-        /// The section
-        let section: Setting.Section
+        /// The host
+        let host: HostItem
         /// The method
         let method: Method = .settingsGetCategories
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(level: level, section: section))
         }
+        /// The level
+        let level: Setting.Level = .expert
+        /// The section
+        let section: Setting.Section
         /// The parameters struct
         struct Params: Encodable {
             /// The settings level

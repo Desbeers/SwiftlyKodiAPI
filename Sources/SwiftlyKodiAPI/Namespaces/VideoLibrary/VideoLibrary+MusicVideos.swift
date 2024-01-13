@@ -13,10 +13,10 @@ import OSLog
 extension VideoLibrary {
 
     /// Retrieve all music videos (Kodi API)
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: All music videos in an ``Video/Details/MusicVideo`` array
-    public static func getMusicVideos() async -> [Video.Details.MusicVideo] {
-        let kodi: KodiConnector = .shared
-        if let result = try? await kodi.sendRequest(request: GetMusicVideos()) {
+    public static func getMusicVideos(host: HostItem) async -> [Video.Details.MusicVideo] {
+        if let result = try? await JSON.sendRequest(request: GetMusicVideos(host: host)) {
             Logger.library.info("Loaded \(result.musicvideos.count) music videos from the Kodi host")
             return result.musicvideos
         }
@@ -27,6 +27,8 @@ extension VideoLibrary {
 
     /// Retrieve all music videos (Kodi API)
     fileprivate struct GetMusicVideos: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.videoLibraryGetMusicVideos
         /// The parameters
@@ -53,13 +55,14 @@ extension VideoLibrary {
 extension VideoLibrary {
 
     /// Retrieve details about a specific music video (Kodi API)
-    /// - Parameter musicVideoID: The ID of the music video
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - musicVideoID: The ID of the music video
     /// - Returns: A ``Video/Details/MusicVideo`` Item
-    public static func getMusicVideoDetails(musicVideoID: Library.ID) async -> Video.Details.MusicVideo {
-        let kodi: KodiConnector = .shared
-        let request = GetMusicVideoDetails(musicVideoID: musicVideoID)
+    public static func getMusicVideoDetails(host: HostItem, musicVideoID: Library.ID) async -> Video.Details.MusicVideo {
+        let request = GetMusicVideoDetails(host: host, musicVideoID: musicVideoID)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             return result.musicvideodetails
         } catch {
             Logger.kodiAPI.error("Loading music video details failed with error: \(error)")
@@ -69,14 +72,16 @@ extension VideoLibrary {
 
     /// Retrieve details about a specific music video (Kodi API)
     fileprivate struct GetMusicVideoDetails: KodiAPI {
-        /// The music video ID
-        let musicVideoID: Library.ID
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.videoLibraryGetMusicVideoDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(musicVideoID: musicVideoID))
         }
+        /// The music video ID
+        let musicVideoID: Library.ID
         /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
@@ -102,24 +107,27 @@ extension VideoLibrary {
 extension VideoLibrary {
 
     /// Update the given music video with the given details (Kodi API)
-    /// - Parameter musicVideo: The ``Video/Details/MusicVideo`` item
-    public static func setMusicVideoDetails(musicVideo: Video.Details.MusicVideo) async {
-        let kodi: KodiConnector = .shared
-        let message = SetMusicVideoDetails(musicVideo: musicVideo)
-        kodi.sendMessage(message: message)
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - musicVideo: The ``Video/Details/MusicVideo`` item
+    public static func setMusicVideoDetails(host: HostItem, musicVideo: Video.Details.MusicVideo) async {
+        let message = SetMusicVideoDetails(host: host, musicVideo: musicVideo)
+        JSON.sendMessage(message: message)
         Logger.kodiAPI.info("Details set for '\(musicVideo.title)'")
     }
 
     /// Update the given music video with the given details (Kodi API)
     fileprivate struct SetMusicVideoDetails: KodiAPI {
-        /// The music video
-        let musicVideo: Video.Details.MusicVideo
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.videoLibrarySetMusicVideoDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(musicVideo: musicVideo))
         }
+        /// The music video
+        let musicVideo: Video.Details.MusicVideo
         /// The parameters struct
         struct Params: Encodable {
             /// Init the params
@@ -159,12 +167,13 @@ extension VideoLibrary {
 extension VideoLibrary {
 
     /// Refresh the given music video in the library (Kodi API)
-    /// - Parameter musicVideo: The ``Video/Details/MusicVideo`` item
-    public static func refreshMusicVideo(musicVideo: Video.Details.MusicVideo) async {
-        let kodi: KodiConnector = .shared
-        let message = RefreshMusicVideo(musicVideo: musicVideo)
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - musicVideo: The ``Video/Details/MusicVideo`` item
+    public static func refreshMusicVideo(host: HostItem, musicVideo: Video.Details.MusicVideo) async {
+        let message = RefreshMusicVideo(host: host, musicVideo: musicVideo)
         do {
-            _ = try await kodi.sendRequest(request: message)
+            _ = try await JSON.sendRequest(request: message)
             Logger.kodiAPI.info("Refreshed '\(musicVideo.title)'")
         } catch {
             Logger.kodiAPI.error("Refreshing music video details failed with error: \(error)")
@@ -173,14 +182,16 @@ extension VideoLibrary {
 
     /// Refresh the given music video in the library (Kodi API)
     fileprivate struct RefreshMusicVideo: KodiAPI {
-        /// The music video
-        let musicVideo: Video.Details.MusicVideo
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.videoLibraryRefreshMusicVideo
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(musicVideo: musicVideo))
         }
+        /// The music video
+        let musicVideo: Video.Details.MusicVideo
         /// The parameters struct
         struct Params: Encodable {
             /// Init the params

@@ -20,8 +20,8 @@ import OSLog
     let urlSession: URLSession
     /// The WebSocket task
     var webSocketTask: URLSessionWebSocketTask?
-    /// ID of this Kodi Connector instance; used to send  notifications
-    var kodiConnectorID: String
+//    /// ID of this Kodi Connector instance; used to send notifications
+//    var kodiConnectorID: String
     /// The host properties
     public var properties = Application.Property.Value()
     /// Bool if the host is scanning content
@@ -32,7 +32,7 @@ import OSLog
     /// ZeroConf browser
     var browser: NWBrowser?
     /// The settings to sort a list of Kodi items
-    var listSortSettings: [SwiftlyKodiAPI.List.Sort] = []
+    public var listSortSettings: [SwiftlyKodiAPI.List.Sort] = []
 
     // MARK: Published properties
 
@@ -67,8 +67,6 @@ import OSLog
 
     /// Private init to make sure we have only one instance
     private init() {
-        /// Give this KodiConnector an unique ID
-        kodiConnectorID = UUID().uuidString
         /// Network stuff
         let configuration = URLSessionConfiguration.ephemeral
         configuration.waitsForConnectivity = true

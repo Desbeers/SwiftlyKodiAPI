@@ -14,21 +14,31 @@ extension Settings {
 
     /// Retrieves all settings (Kodi API)
     /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
     ///   - section: Optional section
     ///   - category: Optional category
-    ///
-    /// - Note: Both must be nill or set or else it does not work
-    ///
     /// - Returns: All settings, filtered by optional section and category
+    /// - Note: Both must be nill or set or else it does not work
     public static func getSettings(
+        host: HostItem,
         section: Setting.Section? = nil,
         category: Setting.Category? = nil
     ) async -> [Setting.Details.KodiSetting] {
-        let kodi: KodiConnector = .shared
-        let request = Settings.GetSettings(section: section, category: category)
+        let request = Settings.GetSettings(host: host, section: section, category: category)
         do {
-            let result = try await kodi.sendRequest(request: request)
-            return result.settings.filter { $0.base.id != .unknown }
+            let result = try await JSON.sendRequest(request: request)
+            var knownSettings = result.settings.filter { $0.base.id != .unknown }
+            /// Add optional addon settings
+            let addons = await Addons.getAddons(host: host)
+            knownSettings.indices.forEach { index in
+                if knownSettings[index].settingType == .addon {
+                    let options = addons.filter({$0.addonType == knownSettings[index].settingAddon?.addonType}).map { option in
+                        Setting.Details.SettingAddon.Option(label: option.name, value: option.id)
+                    }
+                    knownSettings[index].settingAddon?.options.append(contentsOf: options)
+                }
+            }
+            return knownSettings
         } catch {
             Logger.kodiAPI.error("Getting settings failed with error: \(error)")
             return []
@@ -37,12 +47,8 @@ extension Settings {
 
     /// Retrieves all settings (Kodi API)
     fileprivate struct GetSettings: KodiAPI {
-        /// The optional section
-        let section: Setting.Section?
-        /// The optional category
-        let category: Setting.Category?
-        /// The level
-        let level: Setting.Level = .expert
+        /// The host
+        let host: HostItem
         /// The method
         let method: Method = .settingsGetSettings
         /// The parameters
@@ -53,6 +59,12 @@ extension Settings {
                 return buildParams(params: Params(level: level, filter: nil))
             }
         }
+        /// The optional section
+        let section: Setting.Section?
+        /// The optional category
+        let category: Setting.Category?
+        /// The level
+        let level: Setting.Level = .expert
         /// The parameters struct
         struct Params: Encodable {
             /// The settings level

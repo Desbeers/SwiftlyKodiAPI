@@ -81,9 +81,9 @@ extension KodiSettingView {
             Toggle(setting.base.label, isOn: $state)
                 .onChange(of: state) {
                     Task {
-                        await Settings.setSettingValue(setting: setting.id, bool: state)
+                        await Settings.setSettingValue(host: kodi.host, setting: setting.id, bool: state)
                         /// Get the settings of the host
-                        kodi.settings = await Settings.getSettings()
+                        kodi.settings = await Settings.getSettings(host: kodi.host)
                     }
                 }
         }
@@ -112,9 +112,9 @@ extension KodiSettingView {
             content
                 .onChange(of: value) {
                     Task {
-                        await Settings.setSettingValue(setting: setting.id, string: value)
+                        await Settings.setSettingValue(host: kodi.host, setting: setting.id, string: value)
                         /// Get the settings of the host
-                        kodi.settings = await Settings.getSettings()
+                        kodi.settings = await Settings.getSettings(host: kodi.host)
                     }
                 }
         }
@@ -173,9 +173,9 @@ extension KodiSettingView {
             picker
                 .onChange(of: value) {
                     Task {
-                        await Settings.setSettingValue(setting: setting.id, int: value)
+                        await Settings.setSettingValue(host: kodi.host, setting: setting.id, int: value)
                         /// Get the settings of the host
-                        kodi.settings = await Settings.getSettings()
+                        kodi.settings = await Settings.getSettings(host: kodi.host)
                     }
                 }
         }
@@ -248,9 +248,9 @@ extension KodiSettingView {
             .labelsHidden()
             .onChange(of: value) {
                 Task {
-                    await Settings.setSettingValue(setting: setting.id, string: value)
+                    await Settings.setSettingValue(host: kodi.host, setting: setting.id, string: value)
                     /// Get the settings of the host
-                    kodi.settings = await Settings.getSettings()
+                    kodi.settings = await Settings.getSettings(host: kodi.host)
                 }
             }
         }
@@ -294,9 +294,9 @@ extension KodiSettingView {
                     /// Grab the enabled items
                     let result = options.filter { $0.isSelected } .map(\.id)
                     /// Update the setting
-                    await Settings.setSettingValue(setting: setting.id, list: result)
+                    await Settings.setSettingValue(host: kodi.host, setting: setting.id, list: result)
                     /// Get the settings of the host
-                    kodi.settings = await Settings.getSettings()
+                    kodi.settings = await Settings.getSettings(host: kodi.host)
                 }
             }
         }
@@ -313,13 +313,31 @@ extension KodiSettingView {
 
 extension KodiSettingView {
 
-    /// ViewBuilder for a specific setting by its ID
-    /// - Parameter setting: The ``Setting/ID``
-    /// - Returns: A SwiftUI View with the setting
-    @ViewBuilder public static func setting(for setting: Setting.Details.KodiSetting.ID) -> some View {
-        if let result = KodiConnector.shared.settings.first(where: { $0.id == setting }) {
-            KodiSettingView(setting: result)
-                .padding(.bottom)
+//    /// ViewBuilder for a specific setting by its ID
+//    /// - Parameter setting: The ``Setting/ID``
+//    /// - Returns: A SwiftUI View with the setting
+//    @ViewBuilder public func setting(for setting: Setting.Details.KodiSetting.ID) -> some View {
+//        if let result = kodi.settings.first(where: { $0.id == setting }) {
+//            KodiSettingView(setting: result)
+//                .padding(.bottom)
+//        }
+//    }
+
+    /// SwiftUI `View` for a specific setting by its ID
+    public struct SingleSetting: View {
+        public init(setting: Setting.Details.KodiSetting.ID) {
+            self.setting = setting
+        }
+        /// The KodiConnector model
+        @Environment(KodiConnector.self) private var kodi
+        /// The ``Setting/ID``
+        private let setting: Setting.Details.KodiSetting.ID
+        /// The body of the `View`
+        public var body: some View {
+            if let result = kodi.settings.first(where: { $0.id == setting }) {
+                KodiSettingView(setting: result)
+                    .padding(.bottom)
+            }
         }
     }
 }

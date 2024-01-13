@@ -31,7 +31,7 @@ extension KodiConnector {
                     guard
                         let data = text.data(using: .utf8),
                         let notification = try? JSONDecoder().decode(Notifications.Item.self, from: data),
-                        notification.sender != self.kodiConnectorID
+                        notification.sender != self.host.ip
                     else {
                         /// Not an interesting notification
                         Logger.notice.notice("Received an unknown notification")
@@ -112,7 +112,7 @@ extension KodiConnector {
 
         case .videoLibraryOnRefresh:
             Task { @MainActor in
-                settings = await Settings.getSettings()
+                settings = await Settings.getSettings(host: host)
             }
         default:
             break
@@ -124,11 +124,11 @@ extension KodiConnector {
 
             case .applicationOnVolumeChanged:
                 await player.setApplicationProperties(
-                    properties: await Application.getProperties()
+                    properties: await Application.getProperties(host: host)
                 )
             case .playerOnPropertyChanged, .playerOnPause, .playerOnResume:
                 await player.setProperties(
-                    properties: await Player.getProperties(playerID: notification.playerID)
+                    properties: await Player.getProperties(host: host, playerID: notification.playerID)
                 )
                 await getCurrentPlaylist(host: host, media: notification.media)
 

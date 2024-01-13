@@ -9,25 +9,27 @@ import Foundation
 
 extension Video.Details.MusicVideo {
 
-    /// Play a  ``Video/Details/MusicVideo`` item
-    public func play() {
+    /// Play a ``Video/Details/MusicVideo`` item
+    /// - Parameter host: The ``HostItem`` to play the music video
+    public func play(host: HostItem) {
         Task {
             /// Check if this music video is in the current playlist
-            let musicVideoPlaylist = await Playlist.getItems(playlistID: .video)
+            let musicVideoPlaylist = await Playlist.getItems(host: host, playlistID: .video)
             if let position = musicVideoPlaylist?.firstIndex(where: { $0.id == id }) {
-                Player.goTo(playerID: .video, position: position)
+                Player.goTo(host: host, playerID: .video, position: position)
             } else {
-                Playlist.clear(playlistID: .video)
-                await Playlist.add(musicVideos: [self])
-                Player.open(playlistID: .video)
+                Playlist.clear(host: host, playlistID: .video)
+                await Playlist.add(host: host, musicVideos: [self])
+                Player.open(host: host, playlistID: .video)
             }
         }
     }
 
-    /// Refresh a  ``Video/Details/MusicVideo`` item
-    public func refresh() {
+    /// Refresh a ``Video/Details/MusicVideo`` item
+    /// - Parameter host: The ``HostItem`` that has the music video
+    public func refresh(host: HostItem) {
         Task {
-            await VideoLibrary.refreshMusicVideo(musicVideo: self)
+            await VideoLibrary.refreshMusicVideo(host: host, musicVideo: self)
         }
     }
 }
@@ -48,11 +50,12 @@ extension Array where Element == Video.Details.MusicVideo {
 extension Array where Element == Video.Details.MusicVideo {
 
     /// Play an array of ``Video.Details.MusicVideo``
-    public func play(shuffle: Bool = false) {
+    /// - Parameter host: The ``HostItem`` to play the music videos
+    public func play(host: HostItem, shuffle: Bool = false) {
         Task {
-            Playlist.clear(playlistID: .video)
-            await Playlist.add(musicVideos: self)
-            Player.open(playlistID: .video, shuffle: shuffle)
+            Playlist.clear(host: host, playlistID: .video)
+            await Playlist.add(host: host, musicVideos: self)
+            Player.open(host: host, playlistID: .video, shuffle: shuffle)
         }
     }
 }

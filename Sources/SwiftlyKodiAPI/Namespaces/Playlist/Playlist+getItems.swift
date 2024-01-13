@@ -13,18 +13,19 @@ import OSLog
 extension Playlist {
 
     /// Get all items from playlist (Kodi API)
-    /// - Parameter playlistID: The ``Playlist/ID`` of the playlist
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - playlistID: The ``Playlist/ID`` of the playlist
     /// - Returns: All items in an ``KodiItem`` array
-    public static func getItems(playlistID: Playlist.ID) async -> [(any KodiItem)]? {
+    public static func getItems(host: HostItem, playlistID: Playlist.ID) async -> [(any KodiItem)]? {
         Logger.library.info("Playlist.getItems (\(playlistID.rawValue))")
         var queue: [any KodiItem] = []
-        let kodi: KodiConnector = .shared
-        let request = GetItems(playlistID: playlistID)
+        let request = GetItems(host: host, playlistID: playlistID)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             for item in result.items {
                 /// If the result has an ID, it is from the library
-                if let id = item.id, let item = await Application.getItem(type: item.type, id: id) {
+                if let id = item.id, let item = await Application.getItem(host: host, type: item.type, id: id) {
                     queue.append(item)
                 } else {
                     /// Return it as a stream item
@@ -46,10 +47,12 @@ extension Playlist {
 
     /// Get all items from playlist (Kodi API)
     fileprivate struct GetItems: KodiAPI {
-        /// The ``Playlist/ID``
-        let playlistID: Playlist.ID
+        /// The host
+        let host: HostItem
         /// The method to use
         let method = Method.playlistGetItems
+        /// The ``Playlist/ID``
+        let playlistID: Playlist.ID
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(playlistID: playlistID))

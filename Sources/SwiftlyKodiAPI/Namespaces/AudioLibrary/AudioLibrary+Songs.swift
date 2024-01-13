@@ -13,44 +13,21 @@ import OSLog
 extension AudioLibrary {
 
     /// Retrieve all songs (Kodi API)
-    ///
-    /// ## Limitations
-    ///
-    ///  Loading songs from the host can be expensive!
-    ///
-    /// ## Examples
-    ///
-    /// *The 10 last played songs:*
-    ///
-    ///  ```swift
-    ///     let lastPlayed = await AudioLibrary.getSongs(
-    ///         sort: List.Sort(method: .lastPlayed, order: .descending),
-    ///         limits: List.Limits(end: 10)
-    ///     )
-    /// ```
-    ///
-    /// *The tracks from a specific album:*
-    ///
-    ///  ```swift
-    ///     let albumTracks = await AudioLibrary.getSongs(
-    ///         filter: List.Filter(albumID: 3),
-    ///         sort: List.Sort(method: .track, order: .ascending)
-    ///     )
-    /// ```
-    ///
     /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
     ///   - filter: An optional filter
     ///   - sort: The sort order
     ///   - limits: The optional limits of the request
     /// - Returns: All requested songs from the library
     public static func getSongs(
+        host: HostItem,
         filter: List.Filter? = nil,
         sort: List.Sort = List.Sort(method: .track, order: .ascending),
         limits: List.Limits? = nil
     ) async -> [Audio.Details.Song] {
-        let kodi: KodiConnector = .shared
+        let request = GetSongs(host: host, filter: filter, limits: limits, sort: sort)
         do {
-            let result = try await kodi.sendRequest(request: GetSongs(filter: filter, limits: limits, sort: sort))
+            let result = try await JSON.sendRequest(request: request)
             Logger.library.info("Loaded \(result.songs.count) songs from the Kodi host")
             return result.songs
         } catch {
@@ -60,11 +37,13 @@ extension AudioLibrary {
     }
 
     /// Retrieve all songs after a modification date (Kodi API)
-    /// - Parameter modificationDate: The date as a Kodi string
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - modificationDate: The date as a Kodi string
     /// - Returns: The ``Audio/Details/Song`` array after the modified date
-    public static func getSongs(modificationDate: String) async -> [Audio.Details.Song] {
-        let kodi: KodiConnector = .shared
+    public static func getSongs(host: HostItem, modificationDate: String) async -> [Audio.Details.Song] {
         let request = GetSongs(
+            host: host,
             filter: List.Filter(
                 field: .dateModified,
                 operate: .greaterThan,
@@ -74,7 +53,7 @@ extension AudioLibrary {
             sort: List.Sort()
         )
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             Logger.library.info("Loaded \(result.songs.count) songs from the Kodi host")
             return result.songs
         } catch {
@@ -85,18 +64,20 @@ extension AudioLibrary {
 
     /// Retrieve all songs (Kodi API)
     fileprivate struct GetSongs: KodiAPI {
-        /// The optional filter
-        let filter: List.Filter?
-        /// The optional limits
-        let limits: List.Limits?
-        /// The sort order
-        let sort: List.Sort
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.audioLibraryGetSongs
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(sort: sort, filter: filter, limits: limits))
         }
+        /// The optional filter
+        let filter: List.Filter?
+        /// The optional limits
+        let limits: List.Limits?
+        /// The sort order
+        let sort: List.Sort
         /// The parameters struct
         struct Params: Encodable {
             let properties = Audio.Fields.song
@@ -120,31 +101,34 @@ extension AudioLibrary {
 extension AudioLibrary {
 
     /// Retrieve details about a specific song (Kodi API)
-    /// - Parameter songID: The ID of the song
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - songID: The ID of the song
     /// - Returns: An ``Audio/Details/Song`` item
-    public static func getSongDetails(songID: Library.ID) async -> Audio.Details.Song {
-        let kodi: KodiConnector = .shared
-        let request = AudioLibrary.GetSongDetails(songID: songID)
+    public static func getSongDetails(host: HostItem, songID: Library.ID) async -> Audio.Details.Song {
+        let request = AudioLibrary.GetSongDetails(host: host, songID: songID)
         do {
-            let result = try await kodi.sendRequest(request: request)
-            Logger.kodiAPI.info("Fetched details for '\(result.songdetails.title)'")
+            let result = try await JSON.sendRequest(request: request)
+            Logger.kodiAPI.info("Received details for '\(result.songdetails.title)'")
             return result.songdetails
         } catch {
-            Logger.kodiAPI.error("Fetching song details failed with error: \(error)")
+            Logger.kodiAPI.error("Receiving song details failed with error: \(error)")
             return Audio.Details.Song()
         }
     }
 
     /// Retrieve details about a specific song (Kodi API)
     fileprivate struct GetSongDetails: KodiAPI {
-        /// The song ID
-        let songID: Library.ID
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.audioLibraryGetSongDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(songID: songID))
         }
+        /// The song ID
+        let songID: Library.ID
         /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi
@@ -170,20 +154,23 @@ extension AudioLibrary {
 extension AudioLibrary {
 
     /// Update the given song with the given details (Kodi API)
-    /// - Parameter song: The ``Audio/Details/Song`` item
-    public static func setSongDetails(song: Audio.Details.Song) async {
-        let kodi: KodiConnector = .shared
-        let message = AudioLibrary.SetSongDetails(song: song)
-        kodi.sendMessage(message: message)
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - song: The ``Audio/Details/Song`` item
+    public static func setSongDetails(host: HostItem, song: Audio.Details.Song) async {
+        let message = AudioLibrary.SetSongDetails(host: host, song: song)
+        JSON.sendMessage(message: message)
         Logger.library.info("Details set for '\(song.title)'")
     }
 
     /// Update the given song with the given details (Kodi API)
     fileprivate struct SetSongDetails: KodiAPI {
-        /// The song
-        let song: Audio.Details.Song
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.audioLibrarySetSongDetails
+        /// The song
+        let song: Audio.Details.Song
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(song: song))

@@ -11,12 +11,14 @@ import OSLog
 extension Application {
 
     /// Toggle mute/unmute (Kodi API)
-    public static func setMute() async {
-        KodiConnector.shared.sendMessage(message: SetMute())
+    public static func setMute(host: HostItem) async {
+        JSON.sendMessage(message: SetMute(host: host))
     }
 
     /// Toggle mute/unmute (Kodi API)
     fileprivate struct SetMute: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.applicationSetMute
         /// The parameters

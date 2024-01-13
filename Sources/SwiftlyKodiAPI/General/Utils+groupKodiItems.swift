@@ -76,16 +76,20 @@ public extension Utils {
             .sorted(using: KeyPathComparator(\.key.sort))
 
         case .genre:
+            /// Find all genres
+            let genres = Set(items.flatMap { $0.item.genre })
+            /// Create a new dictionary
             var dict = ScrollCollection<AnyKodiItem>()
-            for genre in KodiConnector.shared.library.videoGenres {
-                let videos = items.filter { $0.item.genre.contains(genre.title) }
-                if !videos.isEmpty {
+            /// Add the items
+            for genre in genres {
+                let items = items.filter { $0.item.genre.contains(genre) }
+                if !items.isEmpty {
                     let key = ScrollCollectionHeader(
-                        sectionLabel: genre.title,
-                        indexLabel: genre.title.prefix(1).uppercased(),
-                        sort: genre.title
+                        sectionLabel: genre,
+                        indexLabel: genre.prefix(1).uppercased(),
+                        sort: genre
                     )
-                    dict.append((key, videos))
+                    dict.append((key, items))
                 }
             }
             return dict.sorted(using: KeyPathComparator(\.0.sort))

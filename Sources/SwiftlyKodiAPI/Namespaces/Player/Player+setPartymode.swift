@@ -13,13 +13,17 @@ import OSLog
 extension Player {
 
     /// Turn partymode on or off (Kodi API)
-    /// - Parameter playerID: The ``Player/ID`` of the  player
-    static public func setPartyMode(playerID: Player.ID) {
-        KodiConnector.shared.sendMessage(message: SetPartyMode(playerID: playerID))
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - playerID: The ``Player/ID`` of the player
+    static public func setPartyMode(host: HostItem, playerID: Player.ID) {
+        JSON.sendMessage(message: SetPartyMode(host: host, playerID: playerID))
     }
 
     /// Turn partymode on or off (Kodi API)
     fileprivate struct SetPartyMode: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The ID of the player
         let playerID: Player.ID
         /// The method

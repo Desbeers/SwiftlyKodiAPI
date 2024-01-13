@@ -13,83 +13,31 @@ public typealias SWIFTImage = NSImage
 public typealias SWIFTImage = UIImage
 #endif
 
-/// SwiftUI Views for Kodi art (SwiftlyKodi Type)
-///
-/// It will give the most fitting art for the ``KodiItem``
-///
-/// For example, when asking for a season poster; you will get the ``Media/Artwork/seasonPoster``
+/// All Kodi art related items
 public enum KodiArt {
-    /// Poster art with 3:2 ratio
-    case poster
-    /// Fanart art with 16:9 ratio
-    case fanart
-    /// Square art with 1:1 ratio
-    case square
+    // Just a placeholder
 }
 
-extension KodiArt {
-
-    /// The size for fallback images
-    var size: CGSize {
-        switch self {
-        case .poster:
-            return CGSize(width: 1000, height: 1500)
-        case .fanart:
-            return CGSize(width: 1920, height: 1080)
-        case .square:
-            return CGSize(width: 1000, height: 1000)
-        }
-    }
-}
-
-extension KodiArt {
-
-    /// The Error message we can expect
-    enum ArtError: Error {
-        case none
-        case noKodiItem
-        case badRequest
-        case unsupportedImage
-        case badURL
-        case noURL
-        case hidden
-    }
-}
-
-extension KodiArt {
-
-    /// Structure of and Art Item
-    struct Item {
-        var item: (any KodiItem)?
-        var art: KodiArt
-        var id: String = UUID().uuidString
-        var file: String = ""
-        var error: ArtError = .none
-        var fallback: Image?
-    }
-}
-
-extension KodiArt {
-
-    /// Store art in a memory cache
-    public static let cache = NSCache<NSString, SWIFTImage>()
-}
-
-// MARK: Kodi Art Views
+// MARK: Public Kodi Art Views
 
 public extension KodiArt {
 
-
-    /// SwiftUI `View` for art
+    /// SwiftUI `View` for any Kodi art by it's internal file location
     struct Art: View {
         /// The Art Item
-        let art: Item
+        private let art: ArtItem
         /// Init the `View`
-        public init(file: String) {
-            var art = Item(item: nil, art: .poster, fallback: nil)
-            art.file = file
-            art.id = art.error == .none ? art.id : UUID().uuidString
-            self.art = art
+        /// - Parameters:
+        ///   - file: The internal file location of the art
+        ///   - ratio: The ratio of the art
+        public init(file: String, ratio: Ratio = .poster) {
+            self.art = ArtItem(
+                id: file,
+                /// A 'dummy' item, can be anything...
+                item: Audio.Details.Song(),
+                ratio: ratio,
+                file: file
+            )
         }
         /// The body of the View
         public var body: some View {
@@ -100,35 +48,32 @@ public extension KodiArt {
     /// SwiftUI `View` for a ``KodiItem`` poster
     struct Poster: View {
         /// The Art Item
-        let art: Item
+        let art: ArtItem
         /// Init the `View`
-        public init(item: (any KodiItem)?, fallback: Image? = nil) {
-            var art = Item(item: item, art: .poster, fallback: fallback)
-            if let item {
-                switch item {
-                case let season as Video.Details.Season:
-                    /// Use the thumb of the season
-                    art.file = season.art.seasonPoster
-                    art.art = .poster
-                case let episode as Video.Details.Episode:
-                    /// Use the thumb of the season
-                    art.file = episode.art.seasonPoster
-                    art.art = .poster
-                case let artist as Audio.Details.Artist:
-                    art.file = artist.poster
-                    art.art = .square
-                case let song as Audio.Details.Song:
-                    /// Use the thumb of the album
-                    art.file = song.art.albumThumb
-                    art.art = .square
-                default:
-                    art.file = item.poster
-                    art.art = .poster
-                }
-                art.error = item.file.isEmpty ? .noURL : .none
-            } else  {
-                art.error = .noKodiItem
+        /// - Parameter item: The ``KodiItem``
+        public init(item: (any KodiItem)) {
+            var art = ArtItem(item: item, ratio: .poster)
+            switch item {
+            case let season as Video.Details.Season:
+                /// Use the thumb of the season
+                art.file = season.art.seasonPoster
+                art.ratio = .poster
+            case let episode as Video.Details.Episode:
+                /// Use the thumb of the season
+                art.file = episode.art.seasonPoster
+                art.ratio = .poster
+            case let artist as Audio.Details.Artist:
+                art.file = artist.poster
+                art.ratio = .square
+            case let song as Audio.Details.Song:
+                /// Use the thumb of the album
+                art.file = song.art.albumThumb
+                art.ratio = .square
+            default:
+                art.file = item.poster
+                art.ratio = .poster
             }
+            art.error = item.poster.isEmpty ? .noURL : .none
             art.id = art.error == .none ? art.id : UUID().uuidString
             self.art = art
         }
@@ -141,27 +86,13 @@ public extension KodiArt {
     /// SwiftUI `View` for a ``KodiItem`` fanart
     struct Fanart: View {
         /// The Art Item
-        let art: Item
+        let art: ArtItem
         /// Init the `View`
-        public init(item: (any KodiItem)?, fallback: Image? = nil) {
-            var art = Item(item: item, art: .fanart, fallback: fallback)
-            if let item {
-                art.error = item.fanart.isEmpty ? .noURL : .none
-                art.id = item.fanart
-                art.file = item.fanart
-                switch item {
-                case let episode as Video.Details.Episode:
-                    if !KodiConnector.shared.getKodiSetting(id: .videolibraryShowuUwatchedPlots).list.contains(2) &&
-                        episode.playcount == 0 {
-                        art.error = .hidden
-                    }
-                default:
-                    break
-                }
-            } else  {
-                art.error = .noKodiItem
-            }
-            art.id = art.error == .none ? art.id : fallback == nil ? UUID().uuidString : "fallback"
+        public init(item: (any KodiItem)) {
+            var art = ArtItem(item: item, ratio: .fanart, file: item.fanart)
+            /// Finetune the ArtItem
+            art.error = item.fanart.isEmpty ? .noURL : .none
+            art.id = art.error == .none ? item.fanart : UUID().uuidString
             self.art = art
         }
         /// The body of the View
@@ -170,6 +101,8 @@ public extension KodiArt {
         }
     }
 }
+
+// MARK: Internal Kodi Art Views
 
 extension KodiArt {
 
@@ -194,9 +127,9 @@ extension KodiArt {
         /// The KodiConnector model
         @Environment(KodiConnector.self) private var kodi
         /// The Image Loader model
-        @StateObject private var imageLoader = ImageLoader()
+        @State private var imageLoader = ImageLoader()
         /// The Art Item
-        let art: Item
+        let art: ArtItem
         /// The body of the `View`
         var body: some View {
             VStack {
@@ -207,17 +140,23 @@ extension KodiArt {
                 }
             }
             .task {
+                var artItem = art
                 imageLoader.host = kodi.host
-                if art.error != .none, let fallback = art.fallback {
-                    imageLoader.kodiImage = fallback
-                } else {
-                    /// Download the art from the Kodi host
-                    do {
-                        try await imageLoader.getImage(art: art)
-                    } catch {
-                        /// Ignore; this should not happen...
+                /// Optionally hide episode fanart (thumbs)
+                switch art.item {
+                case let episode as Video.Details.Episode:
+                    if art.ratio == .fanart &&
+                        episode.playcount == 0 &&
+                        !kodi.getKodiSetting(id: .videolibraryShowuUwatchedPlots).list.contains(2)
+                    {
+                        artItem.error = .hidden
                     }
+                default:
+                    break
                 }
+                /// Download the art from the Kodi host
+                try? await imageLoader.getImage(art: artItem)
+
             }
             .id(art.id)
         }
@@ -229,9 +168,10 @@ extension KodiArt {
 extension KodiArt {
 
     /// Observable class for loading Kodi art
-    @MainActor class ImageLoader: ObservableObject {
+    @Observable
+    final class ImageLoader {
         /// The final Image
-        @Published var kodiImage: Image?
+        var kodiImage: Image?
         /// The NSImage or UIImage
         var image: SWIFTImage?
         /// The current host
@@ -239,7 +179,7 @@ extension KodiArt {
         /// Get art from the Kodi host
         /// - Parameters:
         ///   - item: The Art Item
-        func getImage (art: Item) async throws {
+        func getImage (art: ArtItem) async throws {
             do {
                 guard
                     let host,
@@ -258,12 +198,7 @@ extension KodiArt {
                     image = cachedImage
                 } else {
                     let request = URLRequest(url: url)
-                    let configuration = URLSessionConfiguration.default
-                    configuration.waitsForConnectivity = true
-                    configuration.timeoutIntervalForRequest = 3
-                    configuration.timeoutIntervalForResource = 3
-                    let session = URLSession(configuration: configuration)
-                    let (data, response) = try await session.data(for: request)
+                    let (data, response) = try await JSON.urlSession.data(for: request)
                     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                         throw ArtError.badRequest
                     }
@@ -273,7 +208,6 @@ extension KodiArt {
                     /// Store it in the cache
                     KodiArt.cache.setObject(image, forKey: url.absoluteString as NSString)
                     self.image = image
-
                 }
                 if let image {
 #if os(macOS)
@@ -283,9 +217,8 @@ extension KodiArt {
 #endif
                 }
             } catch {
-                if let item = art.item {
-                    kodiImage = createFallback(kodiItem: item, art: art.art, error: error)
-                }
+                /// Create a allback image
+                kodiImage = await createFallback(item: art.item, ratio: art.ratio, error: error)
             }
         }
     }
@@ -302,8 +235,9 @@ extension KodiArt {
     ///   - kodiIitem: The ``KodiItem``
     ///   - art: The kind of ``KodiArt``
     ///   - error: The Error that made us create a fallback
-    @MainActor static func createFallback(kodiItem: any KodiItem, art: KodiArt, error: Error) -> Image? {
-        let fallback = ImageRenderer(content: Fallback(item: kodiItem, art: art, error: error))
+    @MainActor
+    static func createFallback(item: any KodiItem, ratio: Ratio, error: Error) -> Image? {
+        let fallback = ImageRenderer(content: Fallback(item: item, ratio: ratio, error: error))
         if let cgImage = fallback.cgImage {
             return Image(cgImage, scale: 1, label: Text("Image")).resizable()
         }
@@ -314,8 +248,8 @@ extension KodiArt {
     struct Fallback: View {
         /// The ``KodiItem``
         let item: any KodiItem
-        /// The kind of ``KodiArt``
-        let art: KodiArt
+        /// The ratio of the ``KodiArt``
+        let ratio: Ratio
         /// The Error that made us create a fallback
         let error: Error
         /// The calculated label
@@ -361,7 +295,7 @@ extension KodiArt {
                 .allowsTightening(true)
                 .padding()
             }
-            .frame(width: art.size.width, height: art.size.height)
+            .frame(width: ratio.size.width, height: ratio.size.height)
         }
 
         /// Calculate the line limit
@@ -372,4 +306,72 @@ extension KodiArt {
             return wordcount.count > 1 ? 2 : 1
         }
     }
+}
+
+// MARK: Bits and pieces
+
+extension KodiArt {
+
+    /// The ratio of the art
+    public enum Ratio {
+        /// Poster art with 3:2 ratio
+        case poster
+        /// Fanart art with 16:9 ratio
+        case fanart
+        /// Square art with 1:1 ratio
+        case square
+        /// The size for fallback images
+        var size: CGSize {
+            switch self {
+            case .poster:
+                return CGSize(width: 1000, height: 1500)
+            case .fanart:
+                return CGSize(width: 1920, height: 1080)
+            case .square:
+                return CGSize(width: 1000, height: 1000)
+            }
+        }
+    }
+}
+
+extension KodiArt {
+
+    /// The Error message we can expect when retreiving art
+    enum ArtError: Error {
+        /// Not an error
+        case none
+        /// Bad request
+        case badRequest
+        /// Unsupprted image
+        case unsupportedImage
+        /// Bad URL
+        case badURL
+        /// No URL
+        case noURL
+        /// Art is hidden on request
+        case hidden
+    }
+}
+
+extension KodiArt {
+
+    /// Structure of and Art Item
+    struct ArtItem {
+        /// The ID of the art
+        var id: String = UUID().uuidString
+        /// The complete ``KodiItem``
+        var item: (any KodiItem)
+        /// The ratio of the art
+        var ratio: Ratio
+        /// The internal file location of the art
+        var file: String = ""
+        /// The optional error when retreiving the art
+        var error: ArtError = .none
+    }
+}
+
+extension KodiArt {
+
+    /// Store art in a memory cache
+    public static let cache = NSCache<NSString, SWIFTImage>()
 }

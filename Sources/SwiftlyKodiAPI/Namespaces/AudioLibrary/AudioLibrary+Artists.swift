@@ -13,11 +13,11 @@ import OSLog
 extension AudioLibrary {
 
     /// Retrieve all artists (Kodi API)
+    /// - Parameter host: The ``HostItem`` for the request
     /// - Returns: All artists in an ``Audio/Details/Artist`` array
-    public static func getArtists() async -> [Audio.Details.Artist] {
-        let kodi: KodiConnector = .shared
+    public static func getArtists(host: HostItem) async -> [Audio.Details.Artist] {
         do {
-            let result = try await kodi.sendRequest(request: GetArtists())
+            let result = try await JSON.sendRequest(request: GetArtists(host: host))
             Logger.library.info("Loaded \(result.artists.count) artists from the Kodi host")
             return result.artists
         } catch {
@@ -28,6 +28,8 @@ extension AudioLibrary {
 
     /// Retrieve all artists (Kodi API)
     fileprivate struct GetArtists: KodiAPI {
+        /// The host
+        let host: HostItem
         /// The method
         var method = Method.audioLibraryGetArtists
         /// The parameters
@@ -56,13 +58,14 @@ extension AudioLibrary {
 extension AudioLibrary {
 
     /// Retrieve details about a specific artist (Kodi API)
-    /// - Parameter artistID: The ID of the artist
+    /// - Parameters:
+    ///   - host: The ``HostItem`` for the request
+    ///   - artistID: The ID of the artist
     /// - Returns: An ``Audio/Details/Artist`` item
-    public static func getArtistDetails(artistID: Library.ID) async -> Audio.Details.Artist {
-        let kodi: KodiConnector = .shared
-        let request = AudioLibrary.GetArtistDetails(artistID: artistID)
+    public static func getArtistDetails(host: HostItem, artistID: Library.ID) async -> Audio.Details.Artist {
+        let request = AudioLibrary.GetArtistDetails(host: host, artistID: artistID)
         do {
-            let result = try await kodi.sendRequest(request: request)
+            let result = try await JSON.sendRequest(request: request)
             return result.artistdetails
         } catch {
             Logger.kodiAPI.error("Loading artist details failed with error: \(error)")
@@ -72,14 +75,16 @@ extension AudioLibrary {
 
     /// Retrieve details about a specific artist (Kodi API)
     fileprivate struct GetArtistDetails: KodiAPI {
-        /// The artist ID
-        let artistID: Library.ID
+        /// The host
+        let host: HostItem
         /// The method
         let method = Method.audioLibraryGetArtistDetails
         /// The parameters
         var parameters: Data {
             buildParams(params: Params(artistID: artistID))
         }
+        /// The artist ID
+        let artistID: Library.ID
         /// The parameters struct
         struct Params: Encodable {
             /// The properties that we ask from Kodi

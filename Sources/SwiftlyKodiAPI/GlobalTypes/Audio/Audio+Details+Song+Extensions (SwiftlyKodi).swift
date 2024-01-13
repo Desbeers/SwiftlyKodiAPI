@@ -9,17 +9,18 @@ import Foundation
 
 extension Audio.Details.Song {
 
-    /// Play an  ``Audio/Details/Song`` item
-    public func play() {
+    /// Play an ``Audio/Details/Song`` item
+    /// - Parameter host: The ``HostItem`` to play the song
+    public func play(host: HostItem) {
         Task {
             /// Check if this song is in the current playlist
-            let audioPlaylist = await Playlist.getItems(playlistID: .audio) 
+            let audioPlaylist = await Playlist.getItems(host: host, playlistID: .audio)
             if let position = audioPlaylist?.firstIndex(where: { $0.id == id }) {
-                Player.goTo(playerID: .audio, position: position)
+                Player.goTo(host: host, playerID: .audio, position: position)
             } else {
-                Playlist.clear(playlistID: .audio)
-                await Playlist.add(songs: [self])
-                Player.open(playlistID: .audio)
+                Playlist.clear(host: host, playlistID: .audio)
+                await Playlist.add(host: host, songs: [self])
+                Player.open(host: host, playlistID: .audio)
             }
         }
     }
@@ -28,15 +29,18 @@ extension Audio.Details.Song {
 extension Array where Element == Audio.Details.Song {
 
     /// Play an array of ``Audio/Details/Song``
-    public func play(shuffle: Bool = false) {
+    /// - Parameters:
+    ///   - host: The ``HostItem`` to play the songs
+    ///   - shuffle: Bool to shuffle the songs or not
+    public func play(host: HostItem, shuffle: Bool = false) {
         Task {
             /// Make sure party mode is off
-            if await Player.getProperties(playerID: .audio).partymode {
-                Player.setPartyMode(playerID: .audio)
+            if await Player.getProperties(host: host, playerID: .audio).partymode {
+                Player.setPartyMode(host: host, playerID: .audio)
             }
-            Playlist.clear(playlistID: .audio)
-            await Playlist.add(songs: self)
-            Player.open(playlistID: .audio, shuffle: shuffle)
+            Playlist.clear(host: host, playlistID: .audio)
+            await Playlist.add(host: host, songs: self)
+            Player.open(host: host, playlistID: .audio, shuffle: shuffle)
         }
     }
 }

@@ -33,9 +33,9 @@ extension KodiConnector {
         case loadingLibrary
         /// Updating the library
         case updatingLibrary
-        /// The library is  loaded
+        /// The library is loaded
         case loadedLibrary
-        /// The library is  outdated
+        /// The library is outdated
         case outdatedLibrary
         /// The device is sleeping
         case sleeping
@@ -76,7 +76,7 @@ extension KodiConnector {
         }
     }
 
-    /// The actions when the  status of the KodiConnector is changed
+    /// The actions when the status of the KodiConnector is changed
     /// - Parameter status: the current ``Status``
     private func statusAction(status: Status) {
         switch status {
