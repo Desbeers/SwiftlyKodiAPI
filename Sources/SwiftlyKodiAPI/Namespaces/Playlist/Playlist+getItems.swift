@@ -46,7 +46,7 @@ extension Playlist {
     }
 
     /// Get all items from playlist (Kodi API)
-    fileprivate struct GetItems: KodiAPI {
+    private struct GetItems: KodiAPI {
         /// The host
         let host: HostItem
         /// The method to use

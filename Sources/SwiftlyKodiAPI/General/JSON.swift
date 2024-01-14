@@ -62,9 +62,6 @@ enum JSON {
         JSON.urlSession.dataTask(with: message.urlRequest(host: message.host)).resume()
     }
 
-
-
-
     /// Base for JSON parameters
     struct BaseParameters<T: Encodable>: Encodable {
         /// The JSON version

@@ -32,7 +32,7 @@ extension Player {
     }
 
     /// Returns all active players (Kodi API)
-    fileprivate struct GetActivePlayers: KodiAPI {
+    private struct GetActivePlayers: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

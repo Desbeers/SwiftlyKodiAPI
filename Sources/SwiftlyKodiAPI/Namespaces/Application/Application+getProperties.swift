@@ -13,7 +13,7 @@ extension Application {
     /// Retrieves the properties of the application (Kodi API)
     /// - Returns: The ``Application/Property/Value`` of the application
     public static func getProperties(host: HostItem) async -> Application.Property.Value {
-        do { 
+        do {
             let result = try await JSON.sendRequest(request: GetProperties(host: host))
             return result
         } catch {
@@ -23,7 +23,7 @@ extension Application {
     }
 
     /// Retrieves the values of the given properties (Kodi API)
-    fileprivate struct GetProperties: KodiAPI {
+    private struct GetProperties: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

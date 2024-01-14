@@ -30,7 +30,7 @@ public extension Video.Details {
                 self.thumbnail = album.thumbnail
             }
             /// Set the watched state for an album
-            let playcount = musicVideos.filter({ $0.playcount == 0 })
+            let playcount = musicVideos.filter { $0.playcount == 0 }
             switch playcount.count {
             case 0:
                 self.playcount = 1

@@ -29,7 +29,7 @@ extension Settings {
     }
 
     /// Retrieves all setting categories (Kodi API)
-    fileprivate struct GetCategories: KodiAPI {
+    private struct GetCategories: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

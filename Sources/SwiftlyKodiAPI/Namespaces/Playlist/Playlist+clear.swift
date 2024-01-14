@@ -21,7 +21,7 @@ extension Playlist {
     }
 
     /// Clear playlist (Kodi API)
-    fileprivate struct Clear: KodiAPI {
+    private struct Clear: KodiAPI {
         /// The host
         let host: HostItem
         /// The method to use

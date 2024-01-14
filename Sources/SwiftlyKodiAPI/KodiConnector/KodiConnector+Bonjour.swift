@@ -84,7 +84,7 @@ extension KodiConnector {
                         /// Check if it is a configured host
                         let status: HostItem.Status = self
                             .configuredHosts
-                            .contains(where: {$0.ip == ip.description }) ? .configured : .new
+                            .contains { $0.ip == ip.description } ? .configured : .new
                         /// Add the host the the Bonjour list
                         self.bonjourHosts.append(
                             HostItem(
@@ -95,7 +95,7 @@ extension KodiConnector {
                                 status: status
                             )
                         )
-                        //self.bonjourHosts.append(BonjourHost(name: name, ip: ip.description, tcpPort: Int(port.rawValue)))
+                        Logger.connection.info("Found a Kodi at '\(name)'")
                         /// Set the current host as 'online' if this is the new one
                         if self.host.name == name {
                             Task {
@@ -120,7 +120,8 @@ extension KodiConnector {
             bonjourHosts.removeAll { $0.name == name }
             Logger.connection.warning("'\(name)' is offline")
             /// Check if the removed Kodi is the active Kodi and act on it
-            if self.status != .offline, self.bonjourHosts.first(where: { $0.name == name }) != nil {
+            if self.status != .offline && self.host.name == name {
+                print("SET HOST AS OFFLINE")
                 Task {
                     await self.setStatus(.offline, level: .fault)
                 }

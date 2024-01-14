@@ -27,7 +27,7 @@ extension Files {
     }
 
     /// Provides a way to download a given file(Kodi API)
-    fileprivate struct PrepareDownload: KodiAPI {
+    private struct PrepareDownload: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

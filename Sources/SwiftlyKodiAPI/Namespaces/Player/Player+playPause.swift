@@ -22,7 +22,7 @@ extension Player {
     }
 
     /// Pauses or unpause playback of the player (Kodi API)
-    fileprivate struct PlayPause: KodiAPI {
+    private struct PlayPause: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

@@ -92,7 +92,7 @@ extension Array where Element == Video.Details.MusicVideo {
         /// The list of item to return
         var items: [any KodiItem] = []
         /// Add the albums
-        for album in musicVideoAlbums where album != "" {
+        for album in musicVideoAlbums where !album.isEmpty {
             let musicVideos = self.filter { $0.album == album }
             if let musicVideo = musicVideos.first {
                 switch musicVideos.count {
@@ -106,6 +106,6 @@ extension Array where Element == Video.Details.MusicVideo {
             }
         }
         /// Return the new array
-        return (self.filter { $0.album == "" } + items)
+        return (self.filter { $0.album.isEmpty } + items)
     }
 }

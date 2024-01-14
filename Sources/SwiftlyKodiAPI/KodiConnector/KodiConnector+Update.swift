@@ -12,7 +12,8 @@ import OSLog
 extension KodiConnector {
 
     /// Get the video library updates
-    @MainActor func getVideoLibraryUpdates() async {
+    @MainActor
+    func getVideoLibraryUpdates() async {
 
         if let videoLibraryStatus = try? Cache.get(key: "VideoLibraryStatus", as: Library.VideoFiles.self, folder: host.ip) {
             let currentStatus = await VideoLibrary.getVideoLibraryStatus(host: host)
@@ -94,7 +95,8 @@ extension KodiConnector {
 
 
     /// Get the audio library updates
-    @MainActor public func getAudioLibraryUpdates() async {
+    @MainActor
+    public func getAudioLibraryUpdates() async {
         let dates = await AudioLibrary.getProperties(host: host)
         /// Check if we are outdated
         if dates != library.audioLibraryProperties {

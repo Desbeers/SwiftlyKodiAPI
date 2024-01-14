@@ -31,7 +31,8 @@ public extension MediaButtons {
     /// - Player is stopped: do method .playerOpen to start the playlist
     struct PlayPause: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         var help: String {
             kodi.player.properties.speed == 1 ? "Pause your playlist" :
             kodi.player.properties.playlistPosition == -1 ? "Start your playlist" :
@@ -60,7 +61,8 @@ public extension MediaButtons {
     /// - Note: Kodi is a bit weird; going to 'previous' goes to the beginning of an item when it played for a while; else it reallly goes to the previous item
     struct PlayPrevious: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// Init the View
         public init() {}
         /// The body of the View
@@ -85,7 +87,8 @@ public extension MediaButtons {
     /// Play the next item
     struct PlayNext: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// Init the View
         public init() {}
         /// The body of the View
@@ -110,7 +113,8 @@ public extension MediaButtons {
     /// Toggle shuffle button
     struct SetShuffle: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// Init the View
         public init() {}
         /// The body of the View
@@ -129,14 +133,14 @@ public extension MediaButtons {
             .disabled(!kodi.player.properties.canShuffle)
             /// You can't shuffle when there is only one item in the playlist
             .disabled(kodi.player.currentPlaylist?.count == 1)
-
         }
     }
 
     /// Toggle repeat button
     struct SetRepeat: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// Init the View
         public init() {}
         /// The body of the View
@@ -171,7 +175,8 @@ public extension MediaButtons {
     /// - Note: This will set 'Party Mode' for audio, I don't see a use of videos for this
     struct SetPartyMode: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// Init the View
         public init() {}
         /// The body of the View
@@ -199,7 +204,8 @@ public extension MediaButtons {
     /// Volume mute
     struct VolumeMute: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// Init the View
         public init() {}
         /// The body of the View
@@ -221,7 +227,7 @@ public extension MediaButtons {
                     )
                 }
             )
-            .mediaButtonStyle(background: kodi.player.muted , color: .red, help: "Mute")
+            .mediaButtonStyle(background: kodi.player.muted, color: .red, help: "Mute")
         }
     }
 #endif
@@ -230,7 +236,8 @@ public extension MediaButtons {
     /// Volume slider
     struct VolumeSlider: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// Init the View
         public init() {}
         /// The body of the View
@@ -325,4 +332,3 @@ extension View {
         )
     }
 }
-

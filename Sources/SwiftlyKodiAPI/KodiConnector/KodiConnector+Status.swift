@@ -13,9 +13,9 @@ import OSLog
 extension KodiConnector {
 
     /// Set the state of the KodiConnector and act on it
-    @MainActor public func setStatus(_ current: Status, level: OSLogType = .info) {
+    @MainActor
+    public func setStatus(_ current: Status, level: OSLogType = .info) {
         Logger.connection.log(level: level, "KodiConnector status: \(current.message)")
-        //Logger.connection.info("KodiConnector status: \(current.message)")
         /// Set the current status
         status = current
         Task {
@@ -27,8 +27,8 @@ extension KodiConnector {
     public enum Status {
         /// Not connected and no host
         case none
-        /// Connected to the Kodi websocket
-        case connectedToWebSocket
+        /// Connecting to a host
+        case connecting
         /// Loading the library
         case loadingLibrary
         /// Updating the library
@@ -52,8 +52,8 @@ extension KodiConnector {
             switch self {
             case .none:
                 "Not connected to a Kodi"
-            case .connectedToWebSocket:
-                "Connected to the host"
+            case .connecting:
+                "Connecting..."
             case .loadingLibrary:
                 "Loading the library..."
             case .updatingLibrary:
@@ -71,7 +71,7 @@ extension KodiConnector {
             case .online:
                 "The host is online"
             case .failure:
-                "Error"
+                "Failure"
             }
         }
     }
@@ -82,15 +82,8 @@ extension KodiConnector {
         switch status {
 
         case .online:
-            makeConnection()
-        case .connectedToWebSocket:
             Task {
-                /// Get all List sortings
-                listSortSettings = KodiListSort.getAllSortSettings(host: host)
-                if host.media != .none {
-                    await loadLibrary()
-                }
-                await getKodiState()
+                await makeConnection()
             }
         case .loadedLibrary:
             Task {

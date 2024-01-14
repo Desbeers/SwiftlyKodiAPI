@@ -32,7 +32,7 @@ extension Player {
     /// Start playback of either the playlist with the given ID,
     /// a slideshow with the pictures from the given directory
     /// or a single file or an item from the database (Kodi API)
-    fileprivate struct Open: KodiAPI {
+    private struct Open: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

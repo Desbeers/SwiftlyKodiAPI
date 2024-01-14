@@ -25,17 +25,18 @@ extension KodiConnector {
     public func connect(host: HostItem) {
         /// Start with a blank sheet
         Task {
-            await setStatus(.offline)
-        }
-        self.host = host
-        if hostIsOnline(host) {
-            makeConnection()
+            await setStatus(.connecting)
+            self.host = host
+            if bonjourHosts.contains(where: { $0.name == host.name }) {
+                await setStatus(.online)
+            }
         }
     }
 
     /// Load the library
     /// - Parameter cache: Bool if it should try to load the library from the cache
-    @MainActor public func loadLibrary(cache: Bool = true) async {
+    @MainActor
+    public func loadLibrary(cache: Bool = true) async {
         setStatus(.loadingLibrary)
         if cache, let libraryItems = try? Cache.get(key: "MyLibrary", as: Library.Items.self, folder: host.ip) {
             library = libraryItems
@@ -62,11 +63,17 @@ extension KodiConnector {
         await setLibraryCache()
     }
 
-    func makeConnection() {
+    func makeConnection() async {
         /// Connect to the websocket
         connectWebSocket()
         /// Save the selected host
         HostItem.saveSelectedHost(host: host)
+        /// Get all List sortings
+        listSortSettings = KodiListSort.getAllSortSettings(host: host)
+        if host.media != .none {
+            await loadLibrary()
+        }
+        await getKodiState()
     }
 
     func getKodiState() async {

@@ -29,11 +29,10 @@ extension Settings {
             Logger.kodiAPI.error("Loading setting failed with error: \(error)")
             return Setting.Value.Extended()
         }
-
     }
 
     /// Retrieves the value of a setting (Kodi API)
-    fileprivate struct GetSettingValue: KodiAPI {
+    private struct GetSettingValue: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

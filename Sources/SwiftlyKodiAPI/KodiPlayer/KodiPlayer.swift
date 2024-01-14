@@ -16,7 +16,8 @@ import SwiftUI
 /// - The volume of the player
 ///
 /// - Note: Volume is part of the Application properties but it makes sense here
-@Observable public final class KodiPlayer {
+@Observable
+public final class KodiPlayer {
 
     // MARK: Constants and Variables
 
@@ -58,44 +59,39 @@ import SwiftUI
             return nil
         }
     }
-
-    // MARK: Init
-
-    /// Private init to make sure we have only one instance
-    //private init() { }
 }
 
 // MARK: Kodi Player setters
 
 extension KodiPlayer {
 
-    @MainActor 
+    @MainActor
     func setApplicationProperties(properties: Application.Property.Value) {
         volume = properties.volume
         muted = properties.muted
     }
 
-    @MainActor 
+    @MainActor
     func setProperties(properties: Player.Property.Value) {
         self.properties = properties
     }
 
-    @MainActor 
+    @MainActor
     func setAudioPlaylist(playlist: [any KodiItem]) {
         audioPlaylist = playlist
     }
 
-    @MainActor 
+    @MainActor
     func setVideoPlaylist(playlist: [any KodiItem]) {
         videoPlaylist = playlist
     }
 
-    @MainActor 
+    @MainActor
     func setPlaylistUpdate() {
         playlistUpdate = Date()
     }
 
-    @MainActor 
+    @MainActor
     func setCurrentItem(item: (any KodiItem)?) {
         currentItem = item
     }

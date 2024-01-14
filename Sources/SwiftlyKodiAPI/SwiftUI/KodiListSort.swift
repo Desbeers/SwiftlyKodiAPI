@@ -25,7 +25,8 @@ public extension KodiListSort {
         /// The kind of media
         let media: Library.Media
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// Init the View
         public init(sorting: Binding<List.Sort>, media: Library.Media) {
             self._sorting = sorting

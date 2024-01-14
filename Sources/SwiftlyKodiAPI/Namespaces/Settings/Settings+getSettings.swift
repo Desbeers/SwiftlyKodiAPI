@@ -32,7 +32,7 @@ extension Settings {
             let addons = await Addons.getAddons(host: host)
             knownSettings.indices.forEach { index in
                 if knownSettings[index].settingType == .addon {
-                    let options = addons.filter({$0.addonType == knownSettings[index].settingAddon?.addonType}).map { option in
+                    let options = addons.filter { $0.addonType == knownSettings[index].settingAddon?.addonType } .map { option in
                         Setting.Details.SettingAddon.Option(label: option.name, value: option.id)
                     }
                     knownSettings[index].settingAddon?.options.append(contentsOf: options)
@@ -46,7 +46,7 @@ extension Settings {
     }
 
     /// Retrieves all settings (Kodi API)
-    fileprivate struct GetSettings: KodiAPI {
+    private struct GetSettings: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

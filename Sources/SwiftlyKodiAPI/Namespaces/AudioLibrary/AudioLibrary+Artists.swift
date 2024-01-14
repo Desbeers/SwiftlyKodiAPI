@@ -27,7 +27,7 @@ extension AudioLibrary {
     }
 
     /// Retrieve all artists (Kodi API)
-    fileprivate struct GetArtists: KodiAPI {
+    private struct GetArtists: KodiAPI {
         /// The host
         let host: HostItem
         /// The method
@@ -74,7 +74,7 @@ extension AudioLibrary {
     }
 
     /// Retrieve details about a specific artist (Kodi API)
-    fileprivate struct GetArtistDetails: KodiAPI {
+    private struct GetArtistDetails: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

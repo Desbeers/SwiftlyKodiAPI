@@ -21,13 +21,14 @@ public enum ViewStatus: Sendable {
 }
 
 extension ViewStatus {
-    
+
     /// SwiftUI View with the status message
     /// - Parameters:
     ///   - router: The current ``Router``
     ///   - progress: Show progress when loading content
     /// - Returns: A SwiftUI View
-    @ViewBuilder public func message(router: Router, progress: Bool = false) -> some View {
+    @ViewBuilder
+    public func message(router: Router, progress: Bool = false) -> some View {
         if self == .loading {
             switch progress {
             case true:
@@ -37,7 +38,7 @@ extension ViewStatus {
                         icon: { ProgressView() }
                     )
                 } description: {
-                        Text(router.item.loading)
+                    Text(router.item.loading)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             case false:

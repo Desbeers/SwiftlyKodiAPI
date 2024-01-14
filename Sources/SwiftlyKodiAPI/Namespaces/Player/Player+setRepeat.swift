@@ -21,7 +21,7 @@ extension Player {
     }
 
     /// Set the repeat mode of the player (Kodi API)
-    fileprivate struct SetRepeat: KodiAPI {
+    private struct SetRepeat: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

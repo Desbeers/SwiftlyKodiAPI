@@ -26,7 +26,7 @@ extension VideoLibrary {
     }
 
     /// Retrieve all music videos (Kodi API)
-    fileprivate struct GetMusicVideos: KodiAPI {
+    private struct GetMusicVideos: KodiAPI {
         /// The host
         let host: HostItem
         /// The method
@@ -71,7 +71,7 @@ extension VideoLibrary {
     }
 
     /// Retrieve details about a specific music video (Kodi API)
-    fileprivate struct GetMusicVideoDetails: KodiAPI {
+    private struct GetMusicVideoDetails: KodiAPI {
         /// The host
         let host: HostItem
         /// The method
@@ -117,7 +117,7 @@ extension VideoLibrary {
     }
 
     /// Update the given music video with the given details (Kodi API)
-    fileprivate struct SetMusicVideoDetails: KodiAPI {
+    private struct SetMusicVideoDetails: KodiAPI {
         /// The host
         let host: HostItem
         /// The method
@@ -181,7 +181,7 @@ extension VideoLibrary {
     }
 
     /// Refresh the given music video in the library (Kodi API)
-    fileprivate struct RefreshMusicVideo: KodiAPI {
+    private struct RefreshMusicVideo: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

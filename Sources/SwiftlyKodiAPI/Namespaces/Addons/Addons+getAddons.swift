@@ -30,7 +30,7 @@ extension Addons {
     }
 
     /// Gets all available addons (Kodi API)
-    fileprivate struct GetAddons: KodiAPI {
+    private struct GetAddons: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

@@ -45,7 +45,7 @@ opt_in_rules:
   - prefer_self_type_over_type_of_self
   - redundant_nil_coalescing
   #- redundant_type_annotation
-  #- strict_fileprivate
+  - strict_fileprivate
   - toggle_bool
   - trailing_closure
   - unneeded_parentheses_in_closure_argument
@@ -87,9 +87,14 @@ indentation_width:
   include_compiler_directives: false
 
 line_length:
+  warning: 140
   ignores_urls: true
   ignores_function_declarations: true
   ignores_comments: true
+
+large_tuple:
+  warning: 3
+  error: 5
 
 multiline_arguments:
   first_argument_location: next_line

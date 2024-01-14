@@ -42,7 +42,7 @@ extension Player {
     }
 
     /// Retrieves the currently played item (Kodi API)
-    fileprivate struct GetItem: KodiAPI {
+    private struct GetItem: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

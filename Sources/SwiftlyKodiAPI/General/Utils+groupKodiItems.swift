@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Utils {
-
+    // swiftlint: disable:next function_body_length
     static func groupKodiItems(items: [any KodiItem], sorting: SwiftlyKodiAPI.List.Sort) -> ScrollCollection<AnyKodiItem> {
 
         let items = items.anykodiItem()

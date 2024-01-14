@@ -9,7 +9,7 @@ import Foundation
 
 /// Helper functions for Host Items
 public extension KodiConnector {
-    
+
     /// Bool if the host is online
     /// - Parameter host: The ``HostItem``
     /// - Returns: True when online; else false
@@ -17,7 +17,7 @@ public extension KodiConnector {
         let host = bonjourHosts.first { $0.name == host.name }
         return host == nil ? false : true
     }
-    
+
     /// Bool if the host is the current selected host
     /// - Parameter host: The ``HostItem``
     /// - Returns: True when the host is selected; else false

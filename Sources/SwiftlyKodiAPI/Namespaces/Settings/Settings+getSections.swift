@@ -27,7 +27,7 @@ extension Settings {
     }
 
     /// Retrieves all setting sections (Kodi API)
-    fileprivate struct GetSections: KodiAPI {
+    private struct GetSections: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

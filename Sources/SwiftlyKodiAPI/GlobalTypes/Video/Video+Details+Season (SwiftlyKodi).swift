@@ -29,7 +29,7 @@ public extension Video.Details {
                 self.art = episode.art
             }
             /// Set the watched state for the season
-            let playcount = episodes.filter({ $0.playcount == 0 })
+            let playcount = episodes.filter { $0.playcount == 0 }
             switch playcount.count {
             case 0:
                 self.playcount = 1

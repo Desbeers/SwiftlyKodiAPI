@@ -30,7 +30,7 @@ extension Player {
     }
 
     /// Go to previous/next/specific item in the playlist (Kodi API)
-    fileprivate struct GoTo: KodiAPI {
+    private struct GoTo: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

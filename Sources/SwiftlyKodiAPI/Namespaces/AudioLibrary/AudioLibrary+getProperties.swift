@@ -26,7 +26,7 @@ extension AudioLibrary {
     }
 
     /// Retrieves the values of the music library properties (Kodi API)
-    fileprivate struct GetProperties: KodiAPI {
+    private struct GetProperties: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

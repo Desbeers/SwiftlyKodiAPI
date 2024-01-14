@@ -27,7 +27,7 @@ extension AudioLibrary {
     }
 
     /// Retrieve all genres (Kodi API)
-    fileprivate struct GetGenres: KodiAPI {
+    private struct GetGenres: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

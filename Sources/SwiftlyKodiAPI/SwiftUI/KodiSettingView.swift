@@ -17,7 +17,8 @@ public struct KodiSettingView: View {
     /// The Kodi setting
     let setting: Setting.Details.KodiSetting
     /// The KodiConnector model
-    @Environment(KodiConnector.self) private var kodi
+    @Environment(KodiConnector.self)
+    private var kodi
     /// init: we don't get it for free
     public init(setting: Setting.Details.KodiSetting) {
         self.setting = setting
@@ -66,7 +67,8 @@ extension KodiSettingView {
     /// SwiftUI View for a Bool setting
     struct BoolSetting: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// The setting
         let setting: Setting.Details.KodiSetting
         /// The state of the setting
@@ -97,7 +99,8 @@ extension KodiSettingView {
     /// SwiftUI View for a String setting
     struct StringSetting: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// The setting
         let setting: Setting.Details.KodiSetting
         /// The value of the setting
@@ -146,7 +149,8 @@ extension KodiSettingView {
     /// SwiftUI View for an Int setting
     struct IntSetting: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// The setting
         let setting: Setting.Details.KodiSetting
 
@@ -221,7 +225,8 @@ extension KodiSettingView {
     /// SwiftUI View for an Addon setting
     struct AddonSetting: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// The setting
         let setting: Setting.Details.KodiSetting
 
@@ -264,7 +269,8 @@ extension KodiSettingView {
     /// SwiftUI View for a List setting
     struct ListSetting: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// The setting
         let setting: Setting.Details.KodiSetting
         /// The options
@@ -313,23 +319,14 @@ extension KodiSettingView {
 
 extension KodiSettingView {
 
-//    /// ViewBuilder for a specific setting by its ID
-//    /// - Parameter setting: The ``Setting/ID``
-//    /// - Returns: A SwiftUI View with the setting
-//    @ViewBuilder public func setting(for setting: Setting.Details.KodiSetting.ID) -> some View {
-//        if let result = kodi.settings.first(where: { $0.id == setting }) {
-//            KodiSettingView(setting: result)
-//                .padding(.bottom)
-//        }
-//    }
-
     /// SwiftUI `View` for a specific setting by its ID
     public struct SingleSetting: View {
         public init(setting: Setting.Details.KodiSetting.ID) {
             self.setting = setting
         }
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// The ``Setting/ID``
         private let setting: Setting.Details.KodiSetting.ID
         /// The body of the `View`
@@ -347,7 +344,8 @@ extension KodiSettingView {
     /// SwiftUI View for a Waning
     public struct Warning: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         public init() {}
         public var body: some View {
             Label(
@@ -373,7 +371,8 @@ struct SettingWrapper: ViewModifier {
     /// The Kodi setting
     var setting: Setting.Details.KodiSetting?
     /// The KodiConnector model
-    @Environment(KodiConnector.self) private var kodi
+    @Environment(KodiConnector.self)
+    private var kodi
     /// The modifier
     func body(content: Content) -> some View {
         content

@@ -21,7 +21,7 @@ extension Player {
     }
 
     /// Turn partymode on or off (Kodi API)
-    fileprivate struct SetPartyMode: KodiAPI {
+    private struct SetPartyMode: KodiAPI {
         /// The host
         let host: HostItem
         /// The ID of the player

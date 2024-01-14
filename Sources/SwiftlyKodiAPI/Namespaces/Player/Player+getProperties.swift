@@ -21,7 +21,7 @@ extension Player {
         let request = GetProperties(host: host, playerID: playerID)
         do {
             let result = try await JSON.sendRequest(request: request)
-            Logger.player.info("Fetched player properties")
+            Logger.player.info("Retrieved player properties")
             return result
         } catch {
             Logger.player.error("Fetching player properties failed with error: \(error)")
@@ -30,7 +30,7 @@ extension Player {
     }
 
     /// Retrieves the properties of the player (Kodi API)
-    fileprivate struct GetProperties: KodiAPI {
+    private struct GetProperties: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

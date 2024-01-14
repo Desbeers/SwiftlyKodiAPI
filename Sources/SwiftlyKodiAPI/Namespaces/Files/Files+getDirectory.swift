@@ -28,7 +28,7 @@ extension Files {
     }
 
     /// Get the directories and files in the given directory (Kodi API)
-    fileprivate struct GetDirectory: KodiAPI {
+    private struct GetDirectory: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

@@ -17,7 +17,7 @@ extension Application {
     }
 
     /// Set the current volume (Kodi API)
-    fileprivate struct SetVolume: KodiAPI {
+    private struct SetVolume: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

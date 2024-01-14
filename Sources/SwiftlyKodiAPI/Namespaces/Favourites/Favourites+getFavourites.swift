@@ -28,7 +28,7 @@ extension Favourites {
     }
 
     /// Retrieve all favourites (Kodi API)
-    fileprivate struct GetFavourites: KodiAPI {
+    private struct GetFavourites: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

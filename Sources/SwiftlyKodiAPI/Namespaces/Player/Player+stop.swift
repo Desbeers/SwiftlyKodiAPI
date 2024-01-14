@@ -21,7 +21,7 @@ extension Player {
     }
 
     /// Stops playback (Kodi API)
-    fileprivate struct Stop: KodiAPI {
+    private struct Stop: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

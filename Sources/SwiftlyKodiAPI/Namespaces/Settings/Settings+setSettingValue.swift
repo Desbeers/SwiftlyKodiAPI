@@ -40,7 +40,7 @@ extension Settings {
     }
 
     /// Changes the value of a setting (Kodi API)
-    fileprivate struct SetSettingValue: KodiAPI {
+    private struct SetSettingValue: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

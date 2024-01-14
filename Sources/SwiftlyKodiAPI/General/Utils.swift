@@ -60,14 +60,13 @@ extension String {
     func simplifyString() -> String {
         folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
     }
-
 }
 
 extension Bundle {
 
     /// The name of the client
     public var clientName: String {
-            return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ??
-                object(forInfoDictionaryKey: "CFBundleName") as? String ?? "Kodi Client"
+        return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ??
+        object(forInfoDictionaryKey: "CFBundleName") as? String ?? "Kodi Client"
     }
 }

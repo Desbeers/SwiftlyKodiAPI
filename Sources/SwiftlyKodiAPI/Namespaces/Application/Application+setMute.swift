@@ -16,7 +16,7 @@ extension Application {
     }
 
     /// Toggle mute/unmute (Kodi API)
-    fileprivate struct SetMute: KodiAPI {
+    private struct SetMute: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

@@ -10,18 +10,15 @@ import Network
 import OSLog
 
 /// The Observable Class that provides the connection with a remote host (SwiftlyKodi Type)
-@Observable public final class KodiConnector {
+@Observable
+public final class KodiConnector {
 
     // MARK: Constants and Variables
 
     /// The shared instance of this KodiConnector class
     public static let shared = KodiConnector()
-    /// The URL session
-    let urlSession: URLSession
     /// The WebSocket task
     var webSocketTask: URLSessionWebSocketTask?
-//    /// ID of this Kodi Connector instance; used to send notifications
-//    var kodiConnectorID: String
     /// The host properties
     public var properties = Application.Property.Value()
     /// Bool if the host is scanning content
@@ -67,12 +64,6 @@ import OSLog
 
     /// Private init to make sure we have only one instance
     private init() {
-        /// Network stuff
-        let configuration = URLSessionConfiguration.ephemeral
-        configuration.waitsForConnectivity = true
-        configuration.timeoutIntervalForRequest = 300
-        configuration.timeoutIntervalForResource = 120
-        self.urlSession = URLSession(configuration: configuration)
         /// Get all configured hosts
         self.configuredHosts = HostItem.getConfiguredHosts()
         /// Start Bonjour to find Kodi hosts

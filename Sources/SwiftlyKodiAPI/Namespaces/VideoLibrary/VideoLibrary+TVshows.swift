@@ -26,7 +26,7 @@ extension VideoLibrary {
     }
 
     /// Retrieve all TV shows (Kodi API)
-    fileprivate struct GetTVShows: KodiAPI {
+    private struct GetTVShows: KodiAPI {
         /// The host
         let host: HostItem
         /// The method
@@ -71,7 +71,7 @@ extension VideoLibrary {
     }
 
     /// Retrieve details about a specific tv show (Kodi API)
-    fileprivate struct GetTVShowDetails: KodiAPI {
+    private struct GetTVShowDetails: KodiAPI {
         /// The host
         let host: HostItem
         /// The method
@@ -118,7 +118,7 @@ extension VideoLibrary {
     }
 
     /// Update the given tv show with the given details (Kodi API)
-    fileprivate struct SetTVShowDetails: KodiAPI {
+    private struct SetTVShowDetails: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

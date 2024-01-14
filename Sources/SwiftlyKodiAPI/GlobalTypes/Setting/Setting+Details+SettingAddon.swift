@@ -35,7 +35,7 @@ public extension Setting.Details {
                 case value
             }
         }
-        
+
         /// Init the addon settings
         /// - Note: The options will be filled by the `Settings.getSettings` function
         public init(from decoder: Decoder) throws {

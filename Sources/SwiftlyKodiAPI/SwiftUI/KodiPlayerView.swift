@@ -24,9 +24,11 @@ public struct KodiPlayerView: View {
     /// Observe the player
     @StateObject private var playerModel: KodiPlayerModel
     /// The dismiss action
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss)
+    private var dismiss
 #if os(visionOS)
-    @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
+    @Environment(\.dismissImmersiveSpace)
+    var dismissImmersiveSpace
 #endif
     /// Init the View: we don't get it for free
     /// - Parameters:

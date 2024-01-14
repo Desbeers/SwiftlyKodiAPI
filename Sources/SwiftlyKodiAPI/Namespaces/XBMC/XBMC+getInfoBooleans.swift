@@ -36,7 +36,7 @@ extension XBMC {
     }
 
     /// Retrieve info booleans about Kodi and the system (Kodi API)
-    fileprivate struct GetInfoBooleans: KodiAPI {
+    private struct GetInfoBooleans: KodiAPI {
         /// The host
         let host: HostItem
         /// The method

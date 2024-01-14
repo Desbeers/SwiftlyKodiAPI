@@ -125,7 +125,8 @@ extension KodiArt {
     /// SwiftUI `View` for loading any kind of Kodi art
     struct LoadView: View {
         /// The KodiConnector model
-        @Environment(KodiConnector.self) private var kodi
+        @Environment(KodiConnector.self)
+        private var kodi
         /// The Image Loader model
         @State private var imageLoader = ImageLoader()
         /// The Art Item
@@ -147,8 +148,7 @@ extension KodiArt {
                 case let episode as Video.Details.Episode:
                     if art.ratio == .fanart &&
                         episode.playcount == 0 &&
-                        !kodi.getKodiSetting(id: .videolibraryShowuUwatchedPlots).list.contains(2)
-                    {
+                        !kodi.getKodiSetting(id: .videolibraryShowuUwatchedPlots).list.contains(2) {
                         artItem.error = .hidden
                     }
                 default:
@@ -156,7 +156,6 @@ extension KodiArt {
                 }
                 /// Download the art from the Kodi host
                 try? await imageLoader.getImage(art: artItem)
-
             }
             .id(art.id)
         }
@@ -175,7 +174,7 @@ extension KodiArt {
         /// The NSImage or UIImage
         var image: SWIFTImage?
         /// The current host
-        var host: HostItem? = nil
+        var host: HostItem?
         /// Get art from the Kodi host
         /// - Parameters:
         ///   - item: The Art Item
@@ -222,8 +221,6 @@ extension KodiArt {
             }
         }
     }
-
-
 }
 
 // MARK: Kodi Art create Fallback

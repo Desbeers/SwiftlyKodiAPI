@@ -21,7 +21,7 @@ extension Player {
     }
 
     /// Shuffle/Unshuffle items in the player (Kodi API)
-    fileprivate struct SetShuffle: KodiAPI {
+    private struct SetShuffle: KodiAPI {
         /// The host
         let host: HostItem
         /// The method
