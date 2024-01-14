@@ -24,11 +24,11 @@ extension KodiConnector {
     /// - Parameter host: The configured ``HostItem``
     public func connect(host: HostItem) {
         /// Start with a blank sheet
-        Task {
-            await setStatus(.connecting)
+        Task { @MainActor in
+            setStatus(.connecting)
             self.host = host
             if bonjourHosts.contains(where: { $0.name == host.name }) {
-                await setStatus(.online)
+                setStatus(.online)
             }
         }
     }
