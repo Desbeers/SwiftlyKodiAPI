@@ -175,7 +175,7 @@ public struct KodiHostItemView: View {
             HostItem.saveConfiguredHosts(hosts: kodi.configuredHosts)
             /// If this host is selected, delete it
             if kodi.host.ip == host.ip {
-                kodi.host = HostItem(ip: "", port: 8080, tcpPort: 9090)
+                kodi.setHost(HostItem(ip: "", port: 8080, tcpPort: 9090))
                 kodi.setStatus(.none)
                 do {
                     try Cache.delete(key: "SelectedHost")

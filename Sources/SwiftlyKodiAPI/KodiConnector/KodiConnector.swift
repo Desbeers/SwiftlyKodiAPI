@@ -31,17 +31,17 @@ public final class KodiConnector {
 
     // MARK: Published properties
 
-    /// The status of the KodiConnector class
-    public var status: Status = .none
-
     /// The current host of the ``KodiConnector``
-    public var host = HostItem(ip: "", port: 8080, tcpPort: 9090)
+    public private(set) var host = HostItem(ip: "", port: 8080, tcpPort: 9090)
+
+    /// The status of the KodiConnector connection
+    public private(set) var status: Status = .none
 
     /// The library on the Kodi host
     public var library = Library.Items()
 
     /// The host settings
-    public var settings: [Setting.Details.KodiSetting] = []
+    public var settings: [Setting.Details.Setting] = []
 
     /// The addons
     public var addons: [Addon.Details] = []
@@ -110,5 +110,28 @@ public final class KodiConnector {
                 }
             }
 #endif
+    }
+}
+
+// MARK: Setters
+
+extension KodiConnector {
+    
+    /// Set the current host
+    @MainActor
+    public func setHost(_ host: HostItem) {
+        Logger.connection.log("Set '\(host.name)' as the current host")
+        self.host = host
+    }
+
+    /// Set the status of the KodiConnector and act on it
+    @MainActor
+    public func setStatus(_ current: Status, level: OSLogType = .info) {
+        Logger.connection.log(level: level, "KodiConnector status: \(current.message)")
+        /// Set the current status
+        status = current
+        Task {
+            await statusAction(status: current)
+        }
     }
 }

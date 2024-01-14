@@ -15,7 +15,7 @@ public extension Setting.Details {
         /// # Public init
 
         public init(
-            id: Setting.Section,
+            id: SwiftlyKodiAPI.Setting.Section,
             label: String = "",
             help: String = ""
         ) {
@@ -27,7 +27,7 @@ public extension Setting.Details {
         /// # Setting.Details.Base
 
         /// The ID of the setting
-        public var id: Setting.Section = .unknown
+        public var id: SwiftlyKodiAPI.Setting.Section = .unknown
         public var label: String = ""
         public var help: String = ""
 

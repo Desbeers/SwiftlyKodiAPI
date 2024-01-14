@@ -23,7 +23,7 @@ extension Settings {
         host: HostItem,
         section: Setting.Section? = nil,
         category: Setting.Category? = nil
-    ) async -> [Setting.Details.KodiSetting] {
+    ) async -> [Setting.Details.Setting] {
         let request = Settings.GetSettings(host: host, section: section, category: category)
         do {
             let result = try await JSON.sendRequest(request: request)
@@ -32,10 +32,10 @@ extension Settings {
             let addons = await Addons.getAddons(host: host)
             knownSettings.indices.forEach { index in
                 if knownSettings[index].settingType == .addon {
-                    let options = addons.filter { $0.addonType == knownSettings[index].settingAddon?.addonType } .map { option in
+                    let options = addons.filter { $0.addonType == knownSettings[index].addon.addonType } .map { option in
                         Setting.Details.SettingAddon.Option(label: option.name, value: option.id)
                     }
-                    knownSettings[index].settingAddon?.options.append(contentsOf: options)
+                    knownSettings[index].addon.options.append(contentsOf: options)
                 }
             }
             return knownSettings
@@ -79,7 +79,7 @@ extension Settings {
         }
         /// The response struct
         struct Response: Decodable {
-            let settings: [Setting.Details.KodiSetting]
+            let settings: [Setting.Details.Setting]
         }
     }
 }

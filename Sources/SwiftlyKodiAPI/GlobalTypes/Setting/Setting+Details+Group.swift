@@ -16,7 +16,7 @@ public extension Setting.Details {
         }
         /// The ID of the setting
         public var id: String
-        public var settings: [KodiSetting]
+        public var settings: [SwiftlyKodiAPI.Setting.Details.Setting]
 
         enum CodingKeys: CodingKey {
             case id
@@ -27,7 +27,7 @@ public extension Setting.Details {
             let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
             self.id = try container.decode(String.self, forKey: .id)
-            let settings = try container.decode([Setting.Details.KodiSetting].self, forKey: .settings)
+            let settings = try container.decode([SwiftlyKodiAPI.Setting.Details.Setting].self, forKey: .settings)
             /// Only show 'root' settings we know about
             self.settings = settings.filter { $0.settingType != .unknown && $0.parent == .none }
         }

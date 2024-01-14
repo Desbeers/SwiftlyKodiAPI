@@ -12,18 +12,18 @@ public extension Setting.Value {
     /// Setting values (Global Kodi Type)
     /// - Note: Used as result for `Settings.GetSettingValue`
     struct Extended: Decodable, Sendable {
-        /// Init the struct with empty optionals
+        /// Init the struct with empty values
         init() {}
         /// The optional `Bool` value of the setting
-        public var boolean: Bool?
+        public var boolean: Bool = false
         /// The optional `Int` value of the setting
-        public var integer: Int?
+        public var integer: Int = -1
         /// The optional `Double` value of the setting
-        public var number: Double?
+        public var number: Double = -1
         /// The optional `[Int]` value of the setting
-        public var list: [Int]?
+        public var list: [Int] = []
         /// The optional `String` value of the setting
-        public var string: String?
+        public var string: String = ""
         /// The coding keys
         enum CodingKeys: CodingKey {
             case value

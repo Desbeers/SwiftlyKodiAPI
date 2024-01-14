@@ -15,7 +15,7 @@ public extension Setting.Details {
         /// # Setting.Details.ControlBase
 
         /// Kodi calls this `type` but that is a reserved word
-        public var controlType: Setting.Details.ControlType = .unknown
+        public var controlType: ControlType = .unknown
 
         public var format: ControlFormat = .unknown
 

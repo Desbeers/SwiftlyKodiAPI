@@ -31,7 +31,7 @@ extension Array where Element == Video.Details.Movie {
         if await Settings.getSettingValue(
             host: host,
             setting: .videolibraryGroupMovieSets
-        ).boolean ?? false {
+        ).boolean {
             var movieSets = await VideoLibrary.getMovieSets(host: host)
             let movieSetIDs = Set(self.map(\.setID))
             movieSets = movieSets.filter { movieSetIDs.contains($0.setID) }

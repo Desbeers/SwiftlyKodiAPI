@@ -11,9 +11,10 @@ public extension Setting.Details {
 
     /// Control Format (SwiftlyKodi type)
     enum ControlFormat: String, Decodable, Sendable {
+        /// - Note: Not a Kodi value
         case unknown
-        case bool = "boolean"
-        case int = "integer"
+        case boolean
+        case integer
         case addon
         case action
         case string

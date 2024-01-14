@@ -1,5 +1,5 @@
 //
-//  KodiSetting+Details+Setting.swift
+//  Setting+Details+Setting.swift
 //  SwiftlyKodiAPI
 //
 //  © 2024 Nick Berendsen
@@ -9,22 +9,22 @@ import Foundation
 
 public extension Setting.Details {
 
-    /// Setting details (SwiftlyKodi Type)
-    struct KodiSetting: Identifiable, Equatable, Decodable, Sendable {
+    /// Setting details (Global Kodi Type)
+    struct Setting: Identifiable, Equatable, Decodable, Sendable {
 
         /// # Calculated variables
 
         /// The ID of the setting
-        public var id: Setting.ID {
+        public var id: SwiftlyKodiAPI.Setting.ID {
             base.id
         }
 
         /// # Variables
 
         var enabled: Bool = true
-        public var parent: Setting.ID = .none
+        public var parent: SwiftlyKodiAPI.Setting.ID = .none
         /// Kodi calls this `type` but that is a reserved word
-        public var settingType: Setting.Details.SettingType = .unknown
+        public var settingType: SwiftlyKodiAPI.Setting.SettingType = .unknown
 
         /// # Setting.Details.Base
 
@@ -34,11 +34,11 @@ public extension Setting.Details {
 
         var control = Control()
 
-        var settingBool: SettingBool?
-        var settingInt: SettingInt?
-        var settingList: SettingList?
-        var settingString: SettingString?
-        var settingAddon: SettingAddon?
+        public var boolean = SettingBool()
+        public var integer = SettingInt()
+        public var list = SettingList()
+        public var string = SettingString()
+        public var addon = SettingAddon()
 
         /// # Coding keys
 
@@ -63,7 +63,7 @@ public extension Setting.Details {
 
             /// Only decode settings we know about
 
-            if base.id != .unknown {
+            if base.id != SwiftlyKodiAPI.Setting.ID.unknown {
 
                 control = try Control(from: decoder)
 
@@ -76,19 +76,19 @@ public extension Setting.Details {
                     self.parent = parent
                 }
 
-                self.settingType = try container.decode(Setting.Details.SettingType.self, forKey: .settingType)
+                self.settingType = try container.decode(SwiftlyKodiAPI.Setting.SettingType.self, forKey: .settingType)
 
                 switch settingType {
-                case .bool:
-                    self.settingBool = try SettingBool(from: decoder)
-                case .int:
-                    self.settingInt = try SettingInt(from: decoder)
+                case .boolean:
+                    self.boolean = try SettingBool(from: decoder)
+                case .integer:
+                    self.integer = try SettingInt(from: decoder)
                 case .list:
-                    self.settingList = try SettingList(from: decoder)
+                    self.list = try SettingList(from: decoder)
                 case .string:
-                    self.settingString = try SettingString(from: decoder)
+                    self.string = try SettingString(from: decoder)
                 case .addon:
-                    self.settingAddon = try SettingAddon(from: decoder)
+                    self.addon = try SettingAddon(from: decoder)
                 default:
                     break
                 }

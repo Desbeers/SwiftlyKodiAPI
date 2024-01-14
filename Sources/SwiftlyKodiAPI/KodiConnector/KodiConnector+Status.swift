@@ -12,17 +12,6 @@ import OSLog
 
 extension KodiConnector {
 
-    /// Set the state of the KodiConnector and act on it
-    @MainActor
-    public func setStatus(_ current: Status, level: OSLogType = .info) {
-        Logger.connection.log(level: level, "KodiConnector status: \(current.message)")
-        /// Set the current status
-        status = current
-        Task {
-            statusAction(status: current)
-        }
-    }
-
     /// The status of the KodiConnector
     public enum Status {
         /// Not connected and no host
@@ -78,19 +67,15 @@ extension KodiConnector {
 
     /// The actions when the status of the KodiConnector is changed
     /// - Parameter status: the current ``Status``
-    private func statusAction(status: Status) {
+    func statusAction(status: Status) async {
         switch status {
 
         case .online:
-            Task {
-                await makeConnection()
-            }
+            await makeConnection()
         case .loadedLibrary:
-            Task {
-                await getUserPlaylists()
-                if host.player == .local {
-                    await getCurrentPlaylists()
-                }
+            await getUserPlaylists()
+            if host.player == .local {
+                await getCurrentPlaylists()
             }
         case .sleeping:
             disconnectWebSocket()

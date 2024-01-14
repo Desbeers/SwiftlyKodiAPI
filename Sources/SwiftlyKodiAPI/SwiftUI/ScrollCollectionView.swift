@@ -40,6 +40,8 @@ public enum ScrollCollectionStyle {
 
 // MARK: ScrollCollectionView
 
+
+/// SwiftUI `View` to show Kodi Items in a grouped collection
 public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, CellView: View>: View {
 
     // MARK: Properties
@@ -229,16 +231,3 @@ struct ScrollCollectionIndex: View {
     }
 }
 #endif
-
-// MARK: Sequence extension
-
-public extension Sequence {
-
-    /// Filter a Sequence by an unique keypath
-    /// - Parameter keyPath: The keypath
-    /// - Returns: The unique Sequence
-    func uniqued<Type: Hashable>(by keyPath: KeyPath<Element, Type>) -> [Element] {
-        var set = Set<Type>()
-        return filter { set.insert($0[keyPath: keyPath]).inserted }
-    }
-}

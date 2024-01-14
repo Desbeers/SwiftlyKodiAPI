@@ -22,7 +22,7 @@ public extension Logger {
 /// Debug messages
 public func logger(_ string: String) {
 #if DEBUG
-    print("\(Thread.isMainThread ? "👀 " : "⺓ ")\(string) \(Date())")
+    Logger.client.debug("\(Thread.isMainThread ? "👀 " : "⺓ ")\(string) \(Date())")
 #endif
 }
 

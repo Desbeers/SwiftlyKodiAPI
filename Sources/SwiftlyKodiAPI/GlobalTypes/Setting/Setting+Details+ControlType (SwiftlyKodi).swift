@@ -11,6 +11,7 @@ public extension Setting.Details {
 
     /// Control Type (SwiftlyKodi type)
     enum ControlType: String, Decodable, Sendable {
+        /// - Note: Not a Kodi value
         case unknown
         case list
         case spinner

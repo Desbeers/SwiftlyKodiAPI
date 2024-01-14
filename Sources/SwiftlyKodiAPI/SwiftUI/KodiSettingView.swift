@@ -15,12 +15,12 @@ import SwiftUI
 /// - For tvOS, the View must be in a `NavigationStack`
 public struct KodiSettingView: View {
     /// The Kodi setting
-    let setting: Setting.Details.KodiSetting
+    let setting: Setting.Details.Setting
     /// The KodiConnector model
     @Environment(KodiConnector.self)
     private var kodi
     /// init: we don't get it for free
-    public init(setting: Setting.Details.KodiSetting) {
+    public init(setting: Setting.Details.Setting) {
         self.setting = setting
     }
     /// The body of the View
@@ -34,11 +34,11 @@ public struct KodiSettingView: View {
                 .font(setting.parent == .none ? .headline : .subheadline)
 #endif
             switch setting.settingType {
-            case .bool:
+            case .boolean:
                 BoolSetting(setting: setting)
             case .string:
                 StringSetting(setting: setting)
-            case .int:
+            case .integer:
                 IntSetting(setting: setting)
             case .list:
                 ListSetting(setting: setting)
@@ -70,13 +70,13 @@ extension KodiSettingView {
         @Environment(KodiConnector.self)
         private var kodi
         /// The setting
-        let setting: Setting.Details.KodiSetting
+        let setting: Setting.Details.Setting
         /// The state of the setting
         @State private var state: Bool
         /// init: we don't get it for free
-        init(setting: Setting.Details.KodiSetting) {
+        init(setting: Setting.Details.Setting) {
             self.setting = setting
-            _state = State(initialValue: setting.settingBool?.value ?? false)
+            _state = State(initialValue: setting.boolean.value)
         }
         /// The body of the View
         var body: some View {
@@ -102,13 +102,13 @@ extension KodiSettingView {
         @Environment(KodiConnector.self)
         private var kodi
         /// The setting
-        let setting: Setting.Details.KodiSetting
+        let setting: Setting.Details.Setting
         /// The value of the setting
         @State private var value: String
         /// init: we don't get it for free
-        public init(setting: Setting.Details.KodiSetting) {
+        public init(setting: Setting.Details.Setting) {
             self.setting = setting
-            _value = State(initialValue: setting.settingString?.value ?? "")
+            _value = State(initialValue: setting.string.value)
         }
         /// The body of the View
         var body: some View {
@@ -124,15 +124,13 @@ extension KodiSettingView {
         @ViewBuilder var content: some View {
             switch setting.control.controlType {
             case .list:
-                if let options = setting.settingString?.options {
-                    Picker(setting.base.label, selection: $value) {
-                        ForEach(options, id: \.self) { option in
-                            Text(option.label)
-                                .tag(option.value)
-                        }
+                Picker(setting.base.label, selection: $value) {
+                    ForEach(setting.string.options, id: \.self) { option in
+                        Text(option.label)
+                            .tag(option.value)
                     }
-                    .labelsHidden()
                 }
+                .labelsHidden()
             case .edit:
                 TextField(setting.base.label, text: $value)
             default:
@@ -152,23 +150,23 @@ extension KodiSettingView {
         @Environment(KodiConnector.self)
         private var kodi
         /// The setting
-        let setting: Setting.Details.KodiSetting
+        let setting: Setting.Details.Setting
 
         let minimum: Int
         let maximum: Int
         let step: Int
-        let options: [Setting.Details.Option]
+        let options: [Setting.Details.SettingInt.Option]
 
         @State private var value: Int
 
         /// init: we don't get it for free
-        public init(setting: Setting.Details.KodiSetting) {
+        public init(setting: Setting.Details.Setting) {
             self.setting = setting
-            _value = State(initialValue: setting.settingInt?.value ?? 0)
-            minimum = setting.settingInt?.minimum ?? 0
-            maximum = setting.settingInt?.maximum ?? 0
-            step = setting.settingInt?.step ?? 1
-            options = setting.settingInt?.options ?? []
+            _value = State(initialValue: setting.integer.value)
+            minimum = setting.integer.minimum
+            maximum = setting.integer.maximum
+            step = setting.integer.step
+            options = setting.integer.options
         }
 
         @State private var state: Bool = false
@@ -228,17 +226,17 @@ extension KodiSettingView {
         @Environment(KodiConnector.self)
         private var kodi
         /// The setting
-        let setting: Setting.Details.KodiSetting
+        let setting: Setting.Details.Setting
 
         let options: [Setting.Details.SettingAddon.Option]
 
         @State private var value: String
 
         /// init: we don't get it for free
-        public init(setting: Setting.Details.KodiSetting) {
+        public init(setting: Setting.Details.Setting) {
             self.setting = setting
-            _value = State(initialValue: setting.settingAddon?.value ?? "")
-            options = setting.settingAddon?.options ?? []
+            _value = State(initialValue: setting.addon.value)
+            options = setting.addon.options
         }
 
         @State private var state: Bool = false
@@ -272,14 +270,14 @@ extension KodiSettingView {
         @Environment(KodiConnector.self)
         private var kodi
         /// The setting
-        let setting: Setting.Details.KodiSetting
+        let setting: Setting.Details.Setting
         /// The options
         @State private var options: [Option]
         /// Init: we don't get it for free
-        public init(setting: Setting.Details.KodiSetting) {
+        public init(setting: Setting.Details.Setting) {
             self.setting = setting
-            let value = setting.settingList?.value ?? []
-            let allOptions = setting.settingList?.options ?? []
+            let value = setting.list.value
+            let allOptions = setting.list.options
             var options: [Option] = []
             for option in allOptions {
                 options.append(Option(
@@ -321,14 +319,14 @@ extension KodiSettingView {
 
     /// SwiftUI `View` for a specific setting by its ID
     public struct SingleSetting: View {
-        public init(setting: Setting.Details.KodiSetting.ID) {
+        public init(setting: Setting.Details.Setting.ID) {
             self.setting = setting
         }
         /// The KodiConnector model
         @Environment(KodiConnector.self)
         private var kodi
         /// The ``Setting/ID``
-        private let setting: Setting.Details.KodiSetting.ID
+        private let setting: Setting.Details.Setting.ID
         /// The body of the `View`
         public var body: some View {
             if let result = kodi.settings.first(where: { $0.id == setting }) {
@@ -369,7 +367,7 @@ extension KodiSettingView {
 /// A `ViewModifier` to wrap a setting
 struct SettingWrapper: ViewModifier {
     /// The Kodi setting
-    var setting: Setting.Details.KodiSetting?
+    var setting: Setting.Details.Setting?
     /// The KodiConnector model
     @Environment(KodiConnector.self)
     private var kodi

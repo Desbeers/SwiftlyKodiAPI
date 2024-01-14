@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A equatable struct that can hold any ``KodiItem``
 public struct AnyKodiItem: Identifiable, Equatable {
     public static func == (lhs: AnyKodiItem, rhs: AnyKodiItem) -> Bool {
         lhs.id == rhs.id &&

@@ -38,7 +38,7 @@ extension Array where Element: Hashable {
 
 extension Sequence {
 
-    /// Filter a sequence by a certain tag
+    /// Filter a sequence by a unique tag
     /// - Returns: The filtered sequence
     public func unique<T: Hashable>(by taggingHandler: (_ element: Self.Iterator.Element) -> T) -> [Self.Iterator.Element] {
         var knownTags = Set<T>()
@@ -50,6 +50,17 @@ extension Sequence {
             }
             return false
         }
+    }
+}
+
+public extension Sequence {
+
+    /// Filter a Sequence by an unique keypath
+    /// - Parameter keyPath: The keypath
+    /// - Returns: The unique Sequence
+    func uniqued<Type: Hashable>(by keyPath: KeyPath<Element, Type>) -> [Element] {
+        var set = Set<Type>()
+        return filter { set.insert($0[keyPath: keyPath]).inserted }
     }
 }
 

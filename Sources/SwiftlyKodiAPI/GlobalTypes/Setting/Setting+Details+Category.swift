@@ -18,11 +18,11 @@ public extension Setting.Details {
 
         /// # Setting.Details.Base
 
-        public var id: Setting.Category = .unknown
+        public var id: SwiftlyKodiAPI.Setting.Category = .unknown
         public var label: String = ""
         /// Help is optional
         public var help: String?
-        public var groups: [Setting.Details.Group] = []
+        public var groups: [SwiftlyKodiAPI.Setting.Details.Group] = []
 
         /// # Coding keys
 

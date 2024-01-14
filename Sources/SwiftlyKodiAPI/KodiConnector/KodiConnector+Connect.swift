@@ -24,20 +24,19 @@ extension KodiConnector {
     /// - Parameter host: The configured ``HostItem``
     public func connect(host: HostItem) {
         /// Start with a blank sheet
-        Task { @MainActor in
-            setStatus(.connecting)
-            self.host = host
+        Task {
+            await setStatus(.connecting)
+            await setHost(host)
             if bonjourHosts.contains(where: { $0.name == host.name }) {
-                setStatus(.online)
+                await setStatus(.online)
             }
         }
     }
 
     /// Load the library
     /// - Parameter cache: Bool if it should try to load the library from the cache
-    @MainActor
     public func loadLibrary(cache: Bool = true) async {
-        setStatus(.loadingLibrary)
+        await setStatus(.loadingLibrary)
         if cache, let libraryItems = try? Cache.get(key: "MyLibrary", as: Library.Items.self, folder: host.ip) {
             library = libraryItems
             Logger.library.info("Check for library updates")
@@ -53,11 +52,11 @@ extension KodiConnector {
                 break
             }
             if status != .outdatedLibrary {
-                setStatus(.loadedLibrary)
+                await setStatus(.loadedLibrary)
             }
         } else {
             library = await getLibrary()
-            setStatus(.loadedLibrary)
+            await setStatus(.loadedLibrary)
         }
         favourites = await getFavourites()
         await setLibraryCache()

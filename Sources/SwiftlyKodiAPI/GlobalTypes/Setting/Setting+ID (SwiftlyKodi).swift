@@ -42,7 +42,7 @@ public extension Setting {
 
         case videolibraryGroupMovieSets = "videolibrary.groupmoviesets"
 
-        case videolibraryShowuUwatchedPlots = "videolibrary.showunwatchedplots"
+        case videolibraryShowUwatchedPlots = "videolibrary.showunwatchedplots"
 
         // MARK: player + videoplayer
 

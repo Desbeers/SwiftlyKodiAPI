@@ -148,7 +148,7 @@ extension KodiArt {
                 case let episode as Video.Details.Episode:
                     if art.ratio == .fanart &&
                         episode.playcount == 0 &&
-                        !kodi.getKodiSetting(id: .videolibraryShowuUwatchedPlots).list.contains(2) {
+                        !(kodi.getKodiSetting(id: .videolibraryShowUwatchedPlots).list.value.contains(2)) {
                         artItem.error = .hidden
                     }
                 default:

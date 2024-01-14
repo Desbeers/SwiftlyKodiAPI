@@ -12,8 +12,8 @@ public extension Setting.Details {
     /// Setting Bool (Global Kodi Type)
     struct SettingBool: Decodable, Equatable, Sendable {
 
-        public var value: Bool
-        public var defaultValue: Bool
+        public var value: Bool = false
+        public var defaultValue: Bool = false
 
         enum CodingKeys: String, CodingKey {
             case value
