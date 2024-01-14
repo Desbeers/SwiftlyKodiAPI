@@ -45,7 +45,6 @@ enum JSON {
         } catch let DecodingError.valueNotFound(value, context) {
             Logger.kodiAPI.error("Value '\(value)' not found: \(context.debugDescription)\ncodingPath: \(context.codingPath)")
         } catch let DecodingError.typeMismatch(type, context) {
-            debugJsonResponse(data: data)
             Logger.kodiAPI.error("Type '\(type)' mismatch: \(context.debugDescription)\ncodingPath: \(context.codingPath)")
         } catch {
             Logger.kodiAPI.error("Error: \(error.localizedDescription)")

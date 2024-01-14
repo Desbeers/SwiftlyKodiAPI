@@ -15,8 +15,6 @@ public final class KodiConnector {
 
     // MARK: Constants and Variables
 
-    /// The shared instance of this KodiConnector class
-    public static let shared = KodiConnector()
     /// The WebSocket task
     var webSocketTask: URLSessionWebSocketTask?
     /// The host properties
@@ -62,8 +60,8 @@ public final class KodiConnector {
 
     // MARK: Init
 
-    /// Private init to make sure we have only one instance
-    private init() {
+    /// Init the KodiConnector
+    public init() {
         /// Get all configured hosts
         self.configuredHosts = HostItem.getConfiguredHosts()
         /// Start Bonjour to find Kodi hosts

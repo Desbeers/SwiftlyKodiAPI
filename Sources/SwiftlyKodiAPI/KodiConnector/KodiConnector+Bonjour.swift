@@ -121,7 +121,6 @@ extension KodiConnector {
             Logger.connection.warning("'\(name)' is offline")
             /// Check if the removed Kodi is the active Kodi and act on it
             if self.status != .offline && self.host.name == name {
-                print("SET HOST AS OFFLINE")
                 Task {
                     await self.setStatus(.offline, level: .fault)
                 }

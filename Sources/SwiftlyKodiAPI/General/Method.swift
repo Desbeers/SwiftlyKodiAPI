@@ -82,11 +82,6 @@ enum Method: String {
     /// Provides a way to download a given file
     case filesPrepareDownload = "Files.PrepareDownload"
 
-    // MARK: JSONRPC
-
-    /// Notify all other connected clients
-    case notifyAll = "JSONRPC.NotifyAll"
-
     // MARK: Player
 
     /// Add subtitle to the player
