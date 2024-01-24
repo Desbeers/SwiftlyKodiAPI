@@ -32,10 +32,13 @@ extension Array where Element == Video.Details.Movie {
             host: host,
             setting: .videolibraryGroupMovieSets
         ).boolean {
+            let moviesBySet = Dictionary(grouping: self) { item in
+                item.setID
+            }
             var movieSets = await VideoLibrary.getMovieSets(host: host)
-            let movieSetIDs = Set(self.map(\.setID))
+            let movieSetIDs = moviesBySet.filter { $0.value.count > 1 } .map {$0.key}
             movieSets = movieSets.filter { movieSetIDs.contains($0.setID) }
-            return (self.filter { $0.setID == 0 } + movieSets)
+            return ((moviesBySet[0] ?? []) + movieSets)
         } else {
             return self
         }

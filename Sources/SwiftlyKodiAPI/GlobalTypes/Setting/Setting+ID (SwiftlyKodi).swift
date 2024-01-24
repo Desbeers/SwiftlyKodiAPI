@@ -41,6 +41,7 @@ public extension Setting {
         // MARK: media + video
 
         case videolibraryGroupMovieSets = "videolibrary.groupmoviesets"
+        case videolibraryGroupSingleItemSets = "videolibrary.groupsingleitemsets"
 
         case videolibraryShowUwatchedPlots = "videolibrary.showunwatchedplots"
 
