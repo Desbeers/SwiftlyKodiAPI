@@ -10,6 +10,34 @@ import OSLog
 
 public extension KodiItem {
 
+    func getUpdate(host: HostItem) async -> (any KodiItem)? {
+        switch self {
+        case let movie as Video.Details.Movie:
+            if let update = await VideoLibrary.getMovieDetails(host: host, movieID: self.kodiID), update != movie {
+                return update
+            }
+        case let episode as Video.Details.Episode:
+            if let update = await VideoLibrary.getEpisodeDetails(host: host, episodeID: self.kodiID), update != episode {
+                return update
+            }
+//            if let update = kodiConnector.library.episodes.first(where: { $0.id == episode.id }), update != episode {
+//                appState.focusedKodiItem = AnyKodiItem(update)
+//                return update
+//            }
+        case let musicVideo as Video.Details.MusicVideo:
+            if let update = await VideoLibrary.getMusicVideoDetails(host: host, musicVideoID: self.kodiID), update != musicVideo {
+                return update
+            }
+//            if let update = kodiConnector.library.musicVideos.first(where: { $0.id == musicVideo.id }), update != musicVideo {
+//                appState.focusedKodiItem = AnyKodiItem(update)
+//                return update
+//            }
+        default:
+            return nil
+        }
+        return nil
+    }
+
     /// Mark a ``KodiItem`` as played
     /// - Parameter host: The ``HostItem`` that has the item
     func markAsPlayed(host: HostItem) async {
@@ -67,6 +95,12 @@ public extension KodiItem {
     func setUserRating(host: HostItem, rating: Int) async {
         var newItem = self
         newItem.userRating = rating
+
+        /// This will not trigger a notification so we have to trigger it by changing the last played value
+        var lastPlayed = Utils.swiftDateFromKodiDate(newItem.lastPlayed)
+        lastPlayed.addTimeInterval(60)
+        newItem.lastPlayed = Utils.kodiDateFromSwiftDate(lastPlayed)
+
         await setDetails(host: host, item: newItem)
     }
 }
@@ -105,11 +139,12 @@ extension KodiItem {
         let setDetails = await VideoLibrary.getMovieSetDetails(host: host, setID: set.setID)
         if let movies = setDetails.movies {
             for movie in movies {
-                var update = await VideoLibrary.getMovieDetails(host: host, movieID: movie.movieID)
-                update.playcount = set.playcount
-                update.lastPlayed = set.lastPlayed
-                update.resume = set.resume
-                await VideoLibrary.setMovieDetails(host: host, movie: update)
+                if var update = await VideoLibrary.getMovieDetails(host: host, movieID: movie.movieID) {
+                    update.playcount = set.playcount
+                    update.lastPlayed = set.lastPlayed
+                    update.resume = set.resume
+                    await VideoLibrary.setMovieDetails(host: host, movie: update)
+                }
             }
         }
     }

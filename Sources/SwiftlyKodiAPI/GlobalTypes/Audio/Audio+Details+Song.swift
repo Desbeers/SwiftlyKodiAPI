@@ -37,6 +37,8 @@ public extension Audio.Details {
 
         /// The resume position of the song
         public var resume = Video.Resume()
+        /// The stream details of the item
+        public var streamDetails = Video.Streams()
 
         /// # Audio.Details.Song
 

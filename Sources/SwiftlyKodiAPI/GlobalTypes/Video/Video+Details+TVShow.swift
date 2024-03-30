@@ -110,6 +110,9 @@ public extension Video.Details {
         public var search: String {
             "\(title)"
         }
+        /// The stream details of the item
+        /// - Note: Not in use but needed by protocol
+        public var streamDetails = Video.Streams()
 
         /// # Video.Details.TVShow
 

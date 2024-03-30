@@ -14,6 +14,8 @@ public enum Router: Hashable, Codable {
 
     /// Start View for Kodi client
     case start
+    /// Home View for Kodi client
+    case home
     /// Favourites
     case favourites
     /// The search View
@@ -26,6 +28,9 @@ public enum Router: Hashable, Codable {
     case hostItemSettings(host: HostItem)
     /// Now playing qeue View
     case nowPlayingQueue
+    /// Rating View
+    case rating(item: AnyKodiItem)
+
     /// Fallback
     case fallback
 

@@ -40,6 +40,8 @@ public extension Audio.Details {
         /// # Calculated variables
         /// The location of the album
         public var file: String = ""
+        /// The stream details of the item
+        public var streamDetails = Video.Streams()
 
         /// # Audio.Details.Album
 

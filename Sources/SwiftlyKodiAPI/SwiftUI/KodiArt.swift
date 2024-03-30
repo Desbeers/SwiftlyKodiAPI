@@ -15,7 +15,8 @@ public typealias SWIFTImage = UIImage
 
 /// All Kodi art related items
 public enum KodiArt {
-    // Just a placeholder
+    case poster
+    case fanart
 }
 
 // MARK: Public Kodi Art Views

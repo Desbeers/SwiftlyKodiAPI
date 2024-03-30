@@ -126,6 +126,8 @@ public extension Audio.Details {
         public var lastPlayed: String = ""
         /// The duration of the artist
         public var duration: Int = 0
+        /// The stream details of the item
+        public var streamDetails = Video.Streams()
 
         /// # Audio.Details.Artist
 

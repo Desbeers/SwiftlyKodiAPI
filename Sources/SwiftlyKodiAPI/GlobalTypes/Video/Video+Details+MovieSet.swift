@@ -70,7 +70,7 @@ public extension Video.Details {
         /// The poster of the movie set
         public var poster: String { art.poster }
         /// The subtitle of the movie set
-        public var subtitle: String = ""
+        public var subtitle: String = "Movie Set"
         /// The details of the movie set
         public var details: String = ""
         public var description: String { plot }
@@ -93,6 +93,9 @@ public extension Video.Details {
         /// The date the movieset is added
         /// - Note: Not in use but needed by protocol
         public var dateAdded: String = ""
+        /// The stream details of the item
+        /// - Note: Not in use but needed by protocol
+        public var streamDetails = Video.Streams()
 
         /// # Video.Details.MovieSet
 

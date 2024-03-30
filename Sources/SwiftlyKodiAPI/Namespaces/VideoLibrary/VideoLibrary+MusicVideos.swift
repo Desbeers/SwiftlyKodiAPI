@@ -59,14 +59,14 @@ extension VideoLibrary {
     ///   - host: The ``HostItem`` for the request
     ///   - musicVideoID: The ID of the music video
     /// - Returns: A ``Video/Details/MusicVideo`` Item
-    public static func getMusicVideoDetails(host: HostItem, musicVideoID: Library.ID) async -> Video.Details.MusicVideo {
+    public static func getMusicVideoDetails(host: HostItem, musicVideoID: Library.ID) async -> Video.Details.MusicVideo? {
         let request = GetMusicVideoDetails(host: host, musicVideoID: musicVideoID)
         do {
             let result = try await JSON.sendRequest(request: request)
             return result.musicvideodetails
         } catch {
             Logger.kodiAPI.error("Loading music video details failed with error: \(error)")
-            return Video.Details.MusicVideo()
+            return nil
         }
     }
 

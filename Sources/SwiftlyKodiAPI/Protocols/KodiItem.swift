@@ -51,6 +51,8 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     var duration: Int { get }
     /// The resume position of the item
     var resume: Video.Resume { get set }
+    /// The stream details of the item
+    var streamDetails: Video.Streams { get set }
     /// The search string
     var search: String { get }
 }

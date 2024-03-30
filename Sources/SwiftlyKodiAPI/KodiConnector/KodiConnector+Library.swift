@@ -75,6 +75,7 @@ extension KodiConnector {
                 albums: audio.albums,
                 songs: audio.songs,
                 audioGenres: audio.audioGenres,
+                audioLibraryProperties: audio.audioLibraryProperties,
                 movies: video.movies,
                 movieSets: video.movieSets,
                 tvshows: video.tvshows,

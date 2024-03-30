@@ -43,6 +43,16 @@ public extension Router {
                 description: "Welcome to \(appName)",
                 loading: "Connecting",
                 empty: "Not connected",
+                icon: "house",
+                color: Color("AccentColor")
+            )
+        case .home:
+            let appName = Bundle.main.clientName
+            return Item(
+                title: "\(appName)",
+                description: "Welcome to \(appName)",
+                loading: "Connecting",
+                empty: "Not connected",
                 icon: "sparkles.tv",
                 color: Color("AccentColor")
             )
@@ -99,6 +109,15 @@ public extension Router {
                 loading: "Loading the queue",
                 empty: "There is nothing in your queue at the moment",
                 icon: "list.triangle",
+                color: .purple
+            )
+        case .rating(let item):
+            return Item(
+                title: "Rate \(item.item.title)",
+                description: "Set the rating for \(item.item.title)",
+                loading: "Loading \(item.item.title)",
+                empty: "\(item.item.title) was not found",
+                icon: "star",
                 color: .purple
             )
 

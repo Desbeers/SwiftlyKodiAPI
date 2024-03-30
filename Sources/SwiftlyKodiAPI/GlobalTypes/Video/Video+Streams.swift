@@ -10,7 +10,7 @@ import Foundation
 extension Video {
 
     /// The streaming details of a video item (Global Kodi Type)
-    public struct Streams: Codable, Identifiable, Hashable {
+    public struct Streams: Codable, Identifiable, Hashable, Sendable {
         /// Make it identifiable
         public var id = UUID()
         /// The array of audio details
@@ -24,7 +24,7 @@ extension Video {
             case audio, subtitle, video
         }
         /// The audio details struct
-        public struct Audio: Codable, Identifiable, Hashable {
+        public struct Audio: Codable, Identifiable, Hashable, Sendable {
             /// Make it identifiable
             public var id = UUID()
             public var channels: Int = 0
@@ -35,7 +35,7 @@ extension Video {
             }
         }
         /// The subtitles details struct
-        public struct Subtitle: Codable, Identifiable, Hashable {
+        public struct Subtitle: Codable, Identifiable, Hashable, Sendable {
             /// Make it identifiable
             public var id = UUID()
             public var language: String = ""
@@ -44,7 +44,7 @@ extension Video {
             }
         }
         /// The video details struct
-        public struct Video: Codable, Identifiable, Hashable {
+        public struct Video: Codable, Identifiable, Hashable, Sendable {
             /// Make it identifiable
             public var id = UUID()
             public var aspect: Double = 0
@@ -69,7 +69,7 @@ extension Video.Streams {
             switch stream.width {
             case 1919...:
                 return "Full HD (1080p), \(stream.codec.uppercased() )"
-            case 720...:
+            case 1279...:
                 return "HD (720p), \(stream.codec.uppercased() )"
             default:
                 return "SD, \(stream.codec.uppercased() )"
@@ -90,11 +90,12 @@ extension Video.Streams {
 
     /// A calculated label for the audio details
     public var audioLabel: String {
+        let locale: Locale = .current
         var label: [String] = []
         for stream in audio {
-            label.append("\(stream.channels) channels \(stream.codec.uppercased())")
+            label.append("\(locale.localizedString(forLanguageCode: stream.language) ?? "Unknown language"), \(stream.channels) channels \(stream.codec.uppercased())")
         }
-        return label.joined(separator: " | ")
+        return label.joined(separator: "・")
     }
 
     /// Helper to convert a language code to a full name

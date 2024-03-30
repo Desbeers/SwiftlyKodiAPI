@@ -8,7 +8,7 @@
 import Foundation
 
 /// Debounce a Task for a certain time
-actor Debouncer {
+public actor Debouncer {
     // Debounce duration in seconds
     private let duration: Int
     /// The debounce task
@@ -16,13 +16,13 @@ actor Debouncer {
 
     /// Init the Actor
     /// - Parameter duration: Debounce duration in seconds
-    init(duration: Int) {
+    public init(duration: Int) {
         self.duration = duration
     }
 
     /// Submit a 'debouncable' Task
     /// - Parameter operation: The Task
-    func submit(operation: @escaping () async -> Void) {
+    public func submit(operation: @escaping () async -> Void) {
         task?.cancel()
         task = Task {
             try await sleep()

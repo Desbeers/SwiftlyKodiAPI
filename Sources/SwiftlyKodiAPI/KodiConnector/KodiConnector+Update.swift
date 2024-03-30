@@ -157,49 +157,57 @@ extension KodiConnector {
                     library.songs[index] = update
                 }
             case .movie:
-                let update = await VideoLibrary.getMovieDetails(host: host, movieID: itemID)
-                if let index = library.movies.firstIndex(where: { $0.movieID == itemID }) {
-                    library.movies[index] = update
-                } else {
-                    library.movies.append(update)
-                }
-                /// Update movie sets if this movie is a part of it
-                if update.setID != 0 {
-                    updateKodiItem(itemID: update.setID, media: .movieSet)
+                if let update = await VideoLibrary.getMovieDetails(host: host, movieID: itemID) {
+                    title = update.title
+                    if let index = library.movies.firstIndex(where: { $0.movieID == itemID }) {
+                        library.movies[index] = update
+                    } else {
+                        library.movies.append(update)
+                    }
+                    /// Update movie sets if this movie is a part of it
+                    if update.setID != 0 {
+                        updateKodiItem(itemID: update.setID, media: .movieSet)
+                    }
                 }
             case .movieSet:
                 let update = await VideoLibrary.getMovieSetDetails(host: host, setID: itemID)
+                title = update.title
                 if let index = library.movieSets.firstIndex(where: { $0.setID == itemID }) {
                     library.movieSets[index].playcount = update.playcount
                 }
             case .tvshow:
                 let update = await VideoLibrary.getTVShowDetails(host: host, tvshowID: itemID)
+                title = update.title
                 if let index = library.tvshows.firstIndex(where: { $0.tvshowID == itemID }) {
                     library.tvshows[index] = update
                 } else {
                     library.tvshows.append(update)
                 }
             case .episode:
-                let update = await VideoLibrary.getEpisodeDetails(host: host, episodeID: itemID)
-                if let index = library.episodes.firstIndex(where: { $0.episodeID == itemID }) {
-                    library.episodes[index] = update
-                } else {
-                    library.episodes.append(update)
+                if let update = await VideoLibrary.getEpisodeDetails(host: host, episodeID: itemID) {
+                    title = update.title
+                    if let index = library.episodes.firstIndex(where: { $0.episodeID == itemID }) {
+                        library.episodes[index] = update
+                    } else {
+                        library.episodes.append(update)
+                    }
+                    /// Always check the TV show when an episode is updated
+                    updateKodiItem(itemID: update.tvshowID, media: .tvshow)
                 }
-                /// Always check the TV show when an episode is updated
-                updateKodiItem(itemID: update.tvshowID, media: .tvshow)
             case .musicVideo:
-                let update = await VideoLibrary.getMusicVideoDetails(host: host, musicVideoID: itemID)
-                if let index = library.musicVideos.firstIndex(where: { $0.musicVideoID == itemID }) {
-                    library.musicVideos[index] = update
-                } else {
-                    library.musicVideos.append(update)
+                if let update = await VideoLibrary.getMusicVideoDetails(host: host, musicVideoID: itemID) {
+                    title = update.title
+                    if let index = library.musicVideos.firstIndex(where: { $0.musicVideoID == itemID }) {
+                        library.musicVideos[index] = update
+                    } else {
+                        library.musicVideos.append(update)
+                    }
                 }
             default:
                 Logger.library.warning("Library update for \(media.description) not implemented.")
             }
             /// Log the update
-            Logger.library.info("Updated \(media.description) '\(title )' in the library")
+            Logger.library.info("Updated \(media.description) '\(title)' in the library")
             /// Update the favorites
             favourites = await getFavourites()
             /// Store the library in the cache

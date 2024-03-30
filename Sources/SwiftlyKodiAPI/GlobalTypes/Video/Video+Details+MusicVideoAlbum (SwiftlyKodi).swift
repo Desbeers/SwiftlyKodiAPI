@@ -76,6 +76,9 @@ public extension Video.Details {
         /// The genre of the item
         /// - Note: Not in use but needed by protocol
         public var genre: [String] = []
+        /// The stream details of the item
+        /// - Note: Not in use but needed by protocol
+        public var streamDetails = Video.Streams()
 
 
         /// # Video.Details.MusicVideo

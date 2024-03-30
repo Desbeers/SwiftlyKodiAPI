@@ -85,6 +85,10 @@ public extension Video.Details {
         public var season: Int = -1
         public var episodes: [Video.Details.Episode]
 
+        /// The stream details of the item
+        /// - Note: Not in use but needed by protocol
+        public var streamDetails = Video.Streams()
+
         /// # Video.Details.Base
 
         public var art = Media.Artwork()
