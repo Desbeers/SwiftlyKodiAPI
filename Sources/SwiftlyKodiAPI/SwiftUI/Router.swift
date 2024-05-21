@@ -50,6 +50,10 @@ public enum Router: Hashable, Codable {
     case moviePlaylist(file: SwiftlyKodiAPI.List.Item.File)
     /// Random movies
     case randomMovies
+    /// All countries
+    case countries
+    /// All movies of a specific  country
+    case country(country: String)
 
     // MARK: TV shows
 

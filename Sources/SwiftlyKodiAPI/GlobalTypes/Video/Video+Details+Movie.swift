@@ -40,6 +40,7 @@ public extension Video.Details {
         /// # Video.Details.Movie
 
         public var cast: [Video.Cast] = []
+        /// The country of the movie
         public var country: [String] = []
         public var genre: [String] = []
         public var imdbNumber: String = ""

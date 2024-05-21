@@ -17,7 +17,7 @@ import SwiftUI
 ///
 /// - Note: Volume is part of the Application properties but it makes sense here
 @Observable
-public final class KodiPlayer {
+public final class KodiPlayer: @unchecked Sendable {
 
     // MARK: Constants and Variables
 

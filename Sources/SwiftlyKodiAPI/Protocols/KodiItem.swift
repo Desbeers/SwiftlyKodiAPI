@@ -10,7 +10,7 @@ import Foundation
 /// A ``KodiItem`` is any kind of item from the Kodi library (SwiftlyKodi Type)
 ///
 /// It can be an artist, album, song, movie, movie set, tv show, epiode, music video or a genre
-public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
+public protocol KodiItem: Codable, Identifiable, Equatable, Hashable, Sendable {
     /// The ID of the item
     var id: String { get }
     /// The Kodi ID of the item
@@ -53,6 +53,8 @@ public protocol KodiItem: Codable, Identifiable, Equatable, Hashable {
     var resume: Video.Resume { get set }
     /// The stream details of the item
     var streamDetails: Video.Streams { get set }
+    /// The country of the item
+    var country: [String]{ get }
     /// The search string
     var search: String { get }
 }

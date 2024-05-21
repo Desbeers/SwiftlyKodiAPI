@@ -10,7 +10,7 @@ import Foundation
 public extension Audio.Property {
 
     /// Values for audio properties (Global Kodi Type)
-    struct Value: Codable, Equatable {
+    struct Value: Codable, Equatable, Sendable {
         public var albumsLastAdded: String = ""
         public var albumsModified: String = ""
         public var artistLinksUpdated: String = ""

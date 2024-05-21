@@ -10,7 +10,7 @@ import Foundation
 extension Player.Position {
 
     /// The time details of the player (Global Kodi Type)
-    public struct Time: Decodable, Equatable {
+    public struct Time: Decodable, Equatable, Sendable {
 
         /// # Calculated variables
 

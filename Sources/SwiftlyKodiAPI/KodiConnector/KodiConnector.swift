@@ -11,7 +11,7 @@ import OSLog
 
 /// The Observable Class that provides the connection with a remote host (SwiftlyKodi Type)
 @Observable
-public final class KodiConnector {
+public final class KodiConnector: @unchecked Sendable {
 
     // MARK: Constants and Variables
 

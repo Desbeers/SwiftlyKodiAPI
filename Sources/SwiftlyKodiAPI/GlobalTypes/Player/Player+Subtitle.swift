@@ -10,7 +10,7 @@ import Foundation
 public extension Player {
 
     /// The current subtitle of the player (Global Kodi Type)
-    struct Subtitle: Decodable {
+    struct Subtitle: Decodable, Sendable {
 
         /// # Player.Subtitle
 

@@ -33,6 +33,9 @@ public extension Library.Details {
 
         /// Protocol requirements
 
+        /// The country of the item
+        public var country: [String] = []
+
         /// Calculated sort title
         public var sortByTitle: String { title }
         public var playcount: Int = 0

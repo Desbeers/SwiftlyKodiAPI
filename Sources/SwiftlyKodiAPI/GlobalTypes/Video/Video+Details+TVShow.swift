@@ -113,6 +113,8 @@ public extension Video.Details {
         /// The stream details of the item
         /// - Note: Not in use but needed by protocol
         public var streamDetails = Video.Streams()
+        /// The country of the item
+        public var country: [String] = []
 
         /// # Video.Details.TVShow
 

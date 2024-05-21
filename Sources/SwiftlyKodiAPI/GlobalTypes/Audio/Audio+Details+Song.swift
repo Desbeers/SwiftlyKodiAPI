@@ -39,6 +39,8 @@ public extension Audio.Details {
         public var resume = Video.Resume()
         /// The stream details of the item
         public var streamDetails = Video.Streams()
+        /// The country of the item
+        public var country: [String] = []
 
         /// # Audio.Details.Song
 

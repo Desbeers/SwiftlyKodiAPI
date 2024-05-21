@@ -11,7 +11,7 @@ public extension Video.Details.MovieSet {
 
     /// Movies in a movie set (Global Kodi Type)
     /// - Note: Only used for 'VideoLibrary.GetMovieSetDetails'
-    struct Extended: Codable, Identifiable, Hashable {
+    struct Extended: Codable, Identifiable, Hashable, Sendable {
 
         /// The ID of the movie
         public var id: Library.ID { movieID }

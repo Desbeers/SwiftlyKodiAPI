@@ -10,7 +10,7 @@ import Foundation
 public extension Audio.Details {
 
     /// Stream details (SwiftlyKodi Type)
-    struct Stream: KodiItem {
+    struct Stream: KodiItem, Sendable {
 
         /// # Public Init
 
@@ -68,6 +68,8 @@ public extension Audio.Details {
         /// The stream details of the item
         /// - Note: Not in use but needed by protocol
         public var streamDetails = Video.Streams()
+        /// The country of the item
+        public var country: [String] = []
 
         /// # Audio.Details.Stream
 

@@ -10,7 +10,7 @@ import Foundation
 extension Player.Audio {
 
     /// Audio stream details of the player (Global Kodi Type)
-    public struct Stream: Decodable {
+    public struct Stream: Decodable, Sendable {
 
         /// # Player.Audio.Stream
 

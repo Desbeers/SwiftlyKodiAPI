@@ -10,7 +10,7 @@ import Foundation
 public extension Application.Property {
 
     /// Values of the application properties (Global Kodi Type)
-    struct Value: Codable, Equatable {
+    struct Value: Codable, Equatable, Sendable {
         /// The language of the application
         public var language: String = ""
         /// Bool if the volume of the application is muted or not
@@ -24,7 +24,7 @@ public extension Application.Property {
         /// The volume setting of the application
         public var volume: Double = 0
         /// The version of the application (major and minor number)
-        public struct Version: Codable, Equatable {
+        public struct Version: Codable, Equatable, Sendable {
             /// Major version number
             public var major: Int = 0
             /// Minor version number

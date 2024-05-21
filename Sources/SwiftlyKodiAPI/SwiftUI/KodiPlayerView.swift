@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
-import AVKit
+@preconcurrency import AVKit
 
 // MARK: Kodi Player View
 
 /// SwiftUI View with a player to stream a ``KodiItem`` (SwiftlyKodi Type)
 ///
 /// - It is using the Apple `AVplayer` so it only supports *Apple Approved* formats.
-/// - If your media is on a harddisk and it's sleeping; the media wil sometimes not start because of a timeout. Try again and it will work.
+/// - If your media is on a harddisk and it's sleeping; the media will sometimes not start because of a timeout. Try again and it will work.
 public struct KodiPlayerView: View {
     /// The Video item we want to play
     let video: any KodiItem
@@ -138,8 +138,8 @@ public struct KodiPlayerView: View {
 }
 
 /// The KodiPlayerModel class
-class KodiPlayerModel: ObservableObject {
-    /// Innit the class
+final class KodiPlayerModel: ObservableObject, @unchecked Sendable {
+    /// Init the class
     init(host: HostItem) {
         self.host = host
     }

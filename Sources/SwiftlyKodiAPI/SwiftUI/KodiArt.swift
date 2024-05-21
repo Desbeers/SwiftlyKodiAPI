@@ -169,7 +169,7 @@ extension KodiArt {
 
     /// Observable class for loading Kodi art
     @Observable
-    final class ImageLoader {
+    final class ImageLoader: @unchecked Sendable {
         /// The final Image
         var kodiImage: Image?
         /// The NSImage or UIImage
@@ -311,7 +311,7 @@ extension KodiArt {
 extension KodiArt {
 
     /// The ratio of the art
-    public enum Ratio {
+    public enum Ratio: Sendable {
         /// Poster art with 3:2 ratio
         case poster
         /// Fanart art with 16:9 ratio
@@ -354,7 +354,7 @@ extension KodiArt {
 extension KodiArt {
 
     /// Structure of and Art Item
-    struct ArtItem {
+    struct ArtItem: Sendable {
         /// The ID of the art
         var id: String = UUID().uuidString
         /// The complete ``KodiItem``

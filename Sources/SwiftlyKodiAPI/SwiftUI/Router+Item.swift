@@ -188,6 +188,24 @@ public extension Router {
                 icon: "film",
                 color: .teal
             )
+        case .countries:
+            return Item(
+                title: "All countries",
+                description: "All your movies by country",
+                loading: "Loading your Movies",
+                empty: "There are no Movies in your Library",
+                icon: "flag",
+                color: .teal
+            )
+        case .country(let country):
+            return Item(
+                title: "\(country)",
+                description: "All your movies from \(country)",
+                loading: "Loading your Movies",
+                empty: "There are no Movies from \(country) in your Library",
+                icon: "flag",
+                color: .teal
+            )
 
             // MARK: TV shows
 

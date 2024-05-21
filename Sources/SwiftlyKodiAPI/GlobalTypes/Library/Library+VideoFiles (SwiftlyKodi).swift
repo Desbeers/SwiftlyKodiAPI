@@ -12,7 +12,7 @@ public extension Library {
     /// All video files from the video of the library (SwiftlyKodi Type)
     ///
     /// - Note: Used to check for updates
-    struct VideoFiles: Codable {
+    struct VideoFiles: Codable, Sendable {
         /// The movies in the library
         public var movies: [List.Item.File] = []
         /// The tvshows in the library

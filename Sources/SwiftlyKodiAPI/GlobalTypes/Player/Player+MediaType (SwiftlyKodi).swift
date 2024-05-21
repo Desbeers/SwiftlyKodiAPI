@@ -10,7 +10,7 @@ import Foundation
 public extension Player {
 
     /// The type of player (SwiftlyKodi Type)
-    enum MediaType: String, Decodable {
+    enum MediaType: String, Decodable, Sendable {
         /// No active player
         case none
         /// The audio player

@@ -27,7 +27,7 @@ extension KodiConnector {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         /// The lists of hosts
-        var hostList: some View {
+        @MainActor var hostList: some View {
             SwiftUI.List(selection: $selection) {
                 Section("Your Hosts") {
                     if kodi.configuredHosts.isEmpty {

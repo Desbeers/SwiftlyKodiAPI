@@ -11,7 +11,7 @@ public extension Media {
 
     /// Ratings for a Media item (SwiftlyKodi Type)
     /// - Note: This is a 'custom struct; Kodi defines this as an 'any'
-    struct Ratings: Codable, Equatable, Hashable {
+    struct Ratings: Codable, Equatable, Hashable, Sendable {
         public init(defaults: Media.Ratings.Defaults? = nil) {
             self.defaults = defaults
         }
@@ -22,7 +22,7 @@ public extension Media {
             case defaults = "default"
         }
 
-        public struct Defaults: Codable, Equatable, Hashable {
+        public struct Defaults: Codable, Equatable, Hashable, Sendable {
             public var defaults: Bool = false
             public var rating: Double = 0
             public var votes: Int = 0

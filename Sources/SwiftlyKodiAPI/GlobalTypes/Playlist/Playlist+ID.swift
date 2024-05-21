@@ -11,7 +11,7 @@ public extension Playlist {
 
     // swiftlint:disable type_name
     /// The ID of the playlist (Global Kodi Type)
-    enum ID: Int, Codable {
+    enum ID: Int, Codable, Sendable {
 
         /// # Playlist.Id
 

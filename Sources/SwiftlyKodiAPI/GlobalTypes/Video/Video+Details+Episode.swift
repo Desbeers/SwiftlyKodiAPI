@@ -10,7 +10,7 @@ import Foundation
 public extension Video.Details {
 
     /// Episode details (Global Kodi Type)
-    struct Episode: KodiItem {
+    struct Episode: KodiItem, Sendable {
 
         /// # Calculated variables
 
@@ -46,6 +46,9 @@ public extension Video.Details {
         /// The genre of the item
         /// - Note: Not in use but needed by protocol
         public var genre: [String] = []
+
+        /// The country of the item
+        public var country: [String] = []
 
         /// # Video.Details.Episode
 

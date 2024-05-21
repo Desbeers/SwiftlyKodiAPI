@@ -32,6 +32,9 @@ let package = Package(
             dependencies: ["SwiftlyStructCache"],
             resources: [
                 .process("Resources")
+            ],
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency")
             ]
 //            plugins: [.plugin(name: "SwiftLintPlugin", package: "SwiftLint")]
         ),

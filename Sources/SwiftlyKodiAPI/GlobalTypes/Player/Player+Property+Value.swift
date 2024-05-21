@@ -10,7 +10,7 @@ import Foundation
 extension Player.Property {
 
     /// Values of the player properties (Global Kodi Type)
-    public struct Value: Decodable {
+    public struct Value: Decodable, Sendable {
 
         /// # Player.Property.Value
 

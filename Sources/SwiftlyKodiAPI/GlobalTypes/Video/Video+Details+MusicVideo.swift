@@ -10,7 +10,7 @@ import Foundation
 public extension Video.Details {
 
     /// Music video details (Global Kodi Type)
-    struct MusicVideo: KodiItem {
+    struct MusicVideo: KodiItem, Sendable {
 
         /// # Calculated variables
 
@@ -35,6 +35,9 @@ public extension Video.Details {
         public var search: String {
             "\(title) \(artist.joined(separator: " ")) \(album)"
         }
+
+        /// The country of the item
+        public var country: [String] = []
 
         /// # Video.Details.MusicVideo
 

@@ -208,14 +208,14 @@ struct ScrollCollectionIndex: View {
     // MARK: Methods
 
     // Method to add a GeometryReader for drag gesture tracking.
-    private func dragObserver(title: String, anchor: UnitPoint) -> some View {
+    @MainActor private func dragObserver(title: String, anchor: UnitPoint) -> some View {
         GeometryReader { geometry in
             dragObserver(geometry: geometry, title: title, anchor: anchor)
         }
     }
 
     // Method to handle the drag gesture and scrolling to the selected letter.
-    private func dragObserver(geometry: GeometryProxy, title: String, anchor: UnitPoint) -> some View {
+    @MainActor private func dragObserver(geometry: GeometryProxy, title: String, anchor: UnitPoint) -> some View {
         if geometry.frame(in: .global).contains(dragLocation) {
             Task {
                 /// Scroll to the selected letter in the ScrollViewProxy

@@ -18,52 +18,51 @@ public enum MediaInfo: CaseIterable {
     case subtitleDetails
     case userRating
 
-    @ViewBuilder 
-    public func label(item: any KodiItem) -> some View {
+    @ViewBuilder public func label(item: any KodiItem) -> some View {
         switch self {
         case .genres:
-            Genres(item: item)
+            label(title: item.genre.joined(separator: "・"), icon: "lightbulb")
         case .duration:
-            Duration(item: item)
+            label(title: Utils.secondsToTimeString(seconds: item.duration), icon: "clock")
         case .videoDetails:
             switch item.media {
             case .movie, .episode, .musicVideo:
-                VideoDetails(item: item)
+                label(title: item.streamDetails.videoLabel, icon: "display")
             default:
                 EmptyView()
             }
         case .audioDetails:
             switch item.media {
             case .movie, .episode, .musicVideo:
-                AudioDetails(item: item)
+                label(title: item.streamDetails.audioLabel, icon: "hifispeaker.2")
             default:
                 EmptyView()
             }
         case .subtitleDetails:
             switch item.media {
             case .movie, .episode, .musicVideo:
-                SubtitleDetails(item: item)
+                label(title: item.streamDetails.subtitleLabel, icon: "captions.bubble")
             default:
                 EmptyView()
             }
         case .userRating:
             switch item.media {
             case .movie, .tvshow, .season, .episode, .musicVideo:
-                UserRating(item: item)
+                label(view: MediaInfo.ratingToStars(rating: item.userRating), icon: "star.fill")
             default:
                 EmptyView()
             }
         case .country:
             switch item {
             case let movie as Video.Details.Movie:
-                County(country: movie.country)
+                label(title: movie.country.joined(separator: "・"), icon: "flag")
             default:
                 EmptyView()
             }
         case .year:
             switch item {
             case let movie as Video.Details.Movie:
-                Year(year: movie.year)
+                label(title: movie.year.description, icon: "calendar")
             default:
                 EmptyView()
             }
@@ -71,149 +70,27 @@ public enum MediaInfo: CaseIterable {
     }
 }
 
-
 extension MediaInfo {
-
-    struct Genres: View {
-
-        let item: any KodiItem
-
-        var body: some View {
-            if !item.genre.isEmpty {
-                Label(
-                    title: {
-                        Text("\(item.genre.joined(separator: "・"))")
-                    },
-                    icon: {
-                        Image(systemName: "lightbulb")
-                    }
-                )
-            }
+    
+    @ViewBuilder func label(title: String, icon: String) -> some View {
+        if !title.isEmpty {
+            Label(title, systemImage: icon)
         }
     }
-
-    struct Duration: View {
-
-        let item: any KodiItem
-
-        var body: some View {
-            Label(
-                title: {
-                    Text("\(Utils.secondsToTimeString(seconds: item.duration))")
-                },
-                icon: {
-                    Image(systemName: "clock")
-                }
-            )
-        }
-    }
-
-    struct VideoDetails: View {
-
-        let item: any KodiItem
-
-        var body: some View {
-            Label(
-                title: {
-                    Text("\(item.streamDetails.videoLabel)")
-                },
-                icon: {
-                    Image(systemName: "display")
-                }
-            )
-        }
-    }
-
-    struct AudioDetails: View {
-
-        let item: any KodiItem
-
-        var body: some View {
-            Label(
-                title: {
-                    Text("\(item.streamDetails.audioLabel)")
-                },
-                icon: {
-                    Image(systemName: "hifispeaker.2")
-                }
-            )
-        }
-    }
-
-    struct SubtitleDetails: View {
-
-        let item: any KodiItem
-
-        var body: some View {
-            if !item.streamDetails.subtitle.isEmpty {
-                Label(
-                    title: {
-                        Text("\(item.streamDetails.subtitleLabel)")
-                    },
-                    icon: {
-                        Image(systemName: "captions.bubble")
-                    }
-                )
-            }
-        }
-    }
-
-    struct UserRating: View {
-
-        let item: any KodiItem
-
-        var body: some View {
-            Label(
-                title: {
-                    MediaInfo.ratingToStars(rating: item.userRating)
-                },
-                icon: {
-                    Image(systemName: "star.fill")
-                }
-            )
-        }
-    }
-
-    struct County: View {
-
-        let country: [String]
-
-        var body: some View {
-            Label(
-                title: {
-                    Text("\(country.joined(separator: "・"))")
-                },
-                icon: {
-                    Image(systemName: "flag")
-                }
-            )
-        }
-    }
-
-    struct Year: View {
-
-        let year: Int
-
-        var body: some View {
-            Label(
-                title: {
-                    Text("\(year.description)")
-                },
-                icon: {
-                    Image(systemName: "calendar")
-                }
-            )
-        }
+    
+    @ViewBuilder func label<T: View>(view: T, icon: String) -> some View {
+        Label(
+            title: { view },
+            icon: { Image(systemName: icon) }
+        )
     }
 }
 
 extension MediaInfo {
     static public func labels(item: any KodiItem, labels: [MediaInfo]) -> some View {
-        //HStack {
-            ForEach(labels, id: \.self) { label in
-                label.label(item: item)
-            }
-        //}
+        ForEach(labels, id: \.self) { label in
+            label.label(item: item)
+        }
     }
 }
 

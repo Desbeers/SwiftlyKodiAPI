@@ -42,6 +42,8 @@ public extension Audio.Details {
         public var file: String = ""
         /// The stream details of the item
         public var streamDetails = Video.Streams()
+        /// The country of the item
+        public var country: [String] = []
 
         /// # Audio.Details.Album
 

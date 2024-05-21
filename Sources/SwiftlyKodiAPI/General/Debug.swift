@@ -11,12 +11,24 @@ import OSLog
 /// Messages for the Logger
 public extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier ?? ""
-    static let connection = Logger(subsystem: subsystem, category: "Kodi Connection")
-    static let kodiAPI = Logger(subsystem: subsystem, category: "Kodi API")
-    static let library = Logger(subsystem: subsystem, category: "Kodi Library")
-    static let player = Logger(subsystem: subsystem, category: "Kodi Player")
-    static let notice = Logger(subsystem: subsystem, category: "Kodi Notice")
-    static let client = Logger(subsystem: subsystem, category: "Kodi Client")
+    static var connection: Logger {
+        Logger(subsystem: subsystem, category: "Kodi Connection")
+    }
+    static var kodiAPI: Logger {
+        Logger(subsystem: subsystem, category: "Kodi API")
+    }
+    static var library: Logger {
+        Logger(subsystem: subsystem, category: "Kodi Library")
+    }
+    static var player: Logger {
+        Logger(subsystem: subsystem, category: "Kodi Player")
+    }
+    static var notice: Logger {
+        Logger(subsystem: subsystem, category: "Kodi Notice")
+    }
+    static var client: Logger {
+        Logger(subsystem: subsystem, category: "Kodi Client")
+    }
 }
 
 /// Debug messages

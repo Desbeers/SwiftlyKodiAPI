@@ -13,7 +13,7 @@ import OSLog
 extension KodiConnector {
 
     /// The status of the KodiConnector
-    public enum Status {
+    public enum Status: Sendable {
         /// Not connected and no host
         case none
         /// Connecting to a host
