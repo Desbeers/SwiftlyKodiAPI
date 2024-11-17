@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftlyStructCache
 import OSLog
 
 // MARK: Connecting and loading functions

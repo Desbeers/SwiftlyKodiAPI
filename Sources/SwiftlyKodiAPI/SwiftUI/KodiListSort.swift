@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyStructCache
 import OSLog
 
 /// SwiftUI Views for sorting of Kodi items (SwiftlyKodi Type)

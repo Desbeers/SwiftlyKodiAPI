@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyStructCache
 import OSLog
 
 /// Host information to make a remote connection (SwiftlyKodi Type)

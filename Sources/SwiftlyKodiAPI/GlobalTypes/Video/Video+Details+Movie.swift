@@ -22,7 +22,15 @@ public extension Video.Details {
         public var media: Library.Media = .movie
         /// Calculated sort title
         /// - Note: If `sortTitle` is set for the item it will be used, else the `title`
-        public var sortByTitle: String { sortTitle.isEmpty ? title : sortTitle}
+        public var sortByTitle: String {
+            var sortByTitle = self.set.isEmpty ? "" : "\(set.removePrefixes(["De", "The", "A"])) "
+            sortByTitle += sortTitle.isEmpty ? title : sortTitle
+            return sortByTitle
+        }
+        public var titleWithSet: String {
+            return self.set.isEmpty ? "\(title)" : "\(set): \(title)"
+        }
+
         /// The poster of the movie
         public var poster: String { art.poster }
         /// The subtitle of the movie

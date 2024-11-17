@@ -15,7 +15,7 @@ public extension Video.Details {
         /// # Public Init
 
         public init(
-            /// Media have to be set; this to indentify the init
+            /// Media have to be set; this to identify the init
             media: Library.Media,
             file: String = "",
             lastPlayed: String = "",

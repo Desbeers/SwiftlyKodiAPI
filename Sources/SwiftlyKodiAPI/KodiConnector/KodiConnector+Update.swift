@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftlyStructCache
 import OSLog
 
 extension KodiConnector {
