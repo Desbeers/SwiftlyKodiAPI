@@ -66,6 +66,9 @@ public extension KodiArt {
             case let artist as Audio.Details.Artist:
                 art.file = artist.poster
                 art.ratio = .square
+            case let album as Audio.Details.Album:
+                art.file = album.poster
+                art.ratio = .square
             case let song as Audio.Details.Song:
                 /// Use the thumb of the album
                 art.file = song.art.albumThumb
@@ -169,6 +172,7 @@ extension KodiArt {
 
     /// Observable class for loading Kodi art
     @Observable
+    @MainActor
     final class ImageLoader: @unchecked Sendable {
         /// The final Image
         var kodiImage: Image?
@@ -217,8 +221,8 @@ extension KodiArt {
 #endif
                 }
             } catch {
-                /// Create a allback image
-                kodiImage = await createFallback(item: art.item, ratio: art.ratio, error: error)
+                /// Create a callback image
+                kodiImage = createFallback(item: art.item, ratio: art.ratio, error: error)
             }
         }
     }
@@ -371,5 +375,5 @@ extension KodiArt {
 extension KodiArt {
 
     /// Store art in a memory cache
-    public static let cache = NSCache<NSString, SWIFTImage>()
+    @MainActor public static let cache = NSCache<NSString, SWIFTImage>()
 }

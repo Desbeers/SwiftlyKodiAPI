@@ -138,7 +138,7 @@ public struct KodiPlayerView: View {
 }
 
 /// The KodiPlayerModel class
-final class KodiPlayerModel: ObservableObject, @unchecked Sendable {
+@MainActor final class KodiPlayerModel: ObservableObject, @unchecked Sendable {
     /// Init the class
     init(host: HostItem) {
         self.host = host
@@ -169,7 +169,7 @@ final class KodiPlayerModel: ObservableObject, @unchecked Sendable {
         // swiftlint:disable:next force_unwrapping
         let playerItem = AVPlayerItem(url: URL(string: Files.getFullPath(host: host, file: video.file, type: .file))!)
 #if os(tvOS)
-        /// tvOS can add aditional info to the player
+        /// tvOS can add additional info to the player
         Task {
             playerItem.externalMetadata = await createMetadataItems(video: video)
         }
@@ -194,7 +194,9 @@ final class KodiPlayerModel: ObservableObject, @unchecked Sendable {
                 }
             }
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            self.stateObserver()
+            Task {
+                await self.stateObserver()
+            }
         }
     }
     /// Check if the player is ready to play
